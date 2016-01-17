@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import AppRouter from "./AppRouter";
+import AppRouter from "./Router";
 import * as reducers from './reducers';
 
 const reducer = combineReducers(reducers);

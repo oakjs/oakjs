@@ -2,6 +2,8 @@ import React from 'react';
 import { fetchShouts } from '../actions';
 import { connect } from 'react-redux';
 
+import SUI, { Menu } from "./SUI";
+
 class Application extends React.Component {
   constructor(props) {
     super(props);
