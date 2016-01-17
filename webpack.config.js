@@ -31,10 +31,14 @@ var frontendConfig = {
     })
   ],
 
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: path.join(__dirname, 'src', 'frontend'),
         loaders: ['babel']
       },
