@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
-import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import React, { PropTypes } from "react";
+import { Provider } from "react-redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
 import AppRouter from "./Router";
-import * as reducers from './reducers';
+import * as reducers from "./reducers";
 
 const reducer = combineReducers(reducers);
 const finalCreateStore = applyMiddleware(thunk)(createStore);

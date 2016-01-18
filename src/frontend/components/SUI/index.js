@@ -31,12 +31,10 @@ export { default as Icon } from "./Icon";
 export { default as Menu } from "./Menu";
 export { default as MenuHeader } from "./MenuHeader";
 export { default as MenuItem } from "./MenuItem";
-
-
+export { default as Stub } from "./Stub";
 
 // Attach all of the exports to the SUI namespace
-Object.keys(exports).forEach( key => SUI[key] = exports[key] );
+Object.keys(exports).forEach(key => SUI[key] = exports[key]);
 
 // Export SUI as the default.
 export default SUI;
-
