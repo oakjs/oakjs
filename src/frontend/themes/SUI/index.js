@@ -22,7 +22,7 @@
 import SUI from "./SUI";
 
 // Export all individual components here.
-// NOT: keep this list in alphabetical order!
+// NOTE: keep this list in alphabetical order!
 export { default as Component } from "./Component";
 export { default as Divider } from "./Divider";
 export { default as Dropdown } from "./Dropdown";
@@ -33,7 +33,7 @@ export { default as MenuHeader } from "./MenuHeader";
 export { default as MenuItem } from "./MenuItem";
 export { default as Stub } from "./Stub";
 
-// Attach all of the exports to the SUI namespace
+// Attach all of the components to the SUI namespace
 Object.keys(exports).forEach(key => SUI[key] = exports[key]);
 
 // Export SUI as the default.
