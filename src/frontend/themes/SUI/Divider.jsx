@@ -4,7 +4,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classNames";
+import classNames from "classnames";
 
 export default function Divider({ key, className } = {}) {
   const props = {
