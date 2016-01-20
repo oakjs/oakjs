@@ -60,21 +60,9 @@ class Stack extends OakComponent {
     return `Stack ${className}`;
   }
 
-
-  render() {
-    const { id, project } = this.props;
-
-    const props = {
-      id,
-      className: this.renderClassName(),
-      style: this.renderStyle()
-    }
-
+  renderChildren() {
     const Card = this.getCardConstructor();
-
-    return (
-      <div {...props}><Card project={project} stack={this}/></div>
-    )
+    return <Card project={project} stack={this}/>;
   }
 
 }

@@ -59,20 +59,9 @@ export default class Project extends OakComponent {
   }
 
 
-  render() {
-    const { id } = this.props;
-
-    const props = {
-      id,
-      className: this.renderClassName(),
-      style: this.renderStyle()
-    }
-
+  renderChildren() {
     const Stack = this.getStackConstructor();
-
-    return (
-      <div {...props}><Stack project={this}/></div>
-    )
+    return <Stack project={this}/>;
   }
 
 }

@@ -110,6 +110,10 @@ class OakComponent extends React.Component {
     return style;
   }
 
+  renderChildren() {
+    return this.props.children;
+  }
+
   render() {
     const { id } = this.props;
     const props = {
@@ -118,7 +122,7 @@ class OakComponent extends React.Component {
       style: this.renderStyle()
     }
     return (
-      <div {...props}>{this.props.children}</div>
+      <div {...props}>{this.renderChildren()}</div>
     )
   }
 

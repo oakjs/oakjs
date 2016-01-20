@@ -24,20 +24,5 @@ class Card extends OakComponent {
     return `Card ${className}`;
   }
 
-
-  render() {
-console.warn(this.props.project);
-console.warn(this.props.stack);
-    const { id } = this.props;
-    const props = {
-      id,
-      className: this.renderClassName(),
-      style: this.renderStyle()
-    }
-    return (
-      <div {...props}>{this.renderChildren()}</div>
-    )
-  }
-
 }
 export default Card;
