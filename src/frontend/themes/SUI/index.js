@@ -17,13 +17,17 @@
 //
 //////////////////////////////
 
+// Import Semantic-UI CSS and JS
+console.warn("TODO: figure out how to include semanticUI in themes/SUI/index.js");
+//import "semantic-ui-css/semantic.css";
+//import "semantic-ui-css/semantic.js";
 
 // Export the root of the SUI namespace
 import SUI from "./SUI";
 
 // Export all individual components here.
 // NOTE: keep this list in alphabetical order!
-export { default as Component } from "./Component";
+export { default as SUIComponent } from "./SUIComponent";
 export { default as Divider } from "./Divider";
 export { default as Dropdown } from "./Dropdown";
 export { default as Grid } from "./Grid";

@@ -9,14 +9,14 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import Component from "./Component";
+import SUIComponent from "./SUIComponent";
 import Menu from "./Menu";
 import Stub from "./Stub";
 
-export default class Dropdown extends Component {
+export default class Dropdown extends SUIComponent {
   static propTypes = {
     // Children are OK
-    children: PropTypes.arrayOf(PropTypes.element),
+//    children: PropTypes.arrayOf(PropTypes.element),
 
     //////////////////////////////
     // appearance

@@ -3,9 +3,7 @@ import OakComponent from "./OakComponent";
 
 class Stack extends OakComponent {
   // Stack-specific `propTypes`.
-  static propTypes = Object.assign({}, OakComponent.propTypes, {
-//    project: PropTypes.element.isRequired
-  });
+  static propTypes = Object.assign({}, OakComponent.propTypes, {});
 
   // Stack-specific `defaultProps`.
   static defaultProps = Object.assign({}, OakComponent.defaultProps, {});
@@ -62,7 +60,7 @@ class Stack extends OakComponent {
 
   renderChildren() {
     const Card = this.getCardConstructor();
-    return <Card project={project} stack={this}/>;
+    return <Card/>;
   }
 
 }

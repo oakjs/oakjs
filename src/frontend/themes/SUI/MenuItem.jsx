@@ -52,6 +52,6 @@ MenuItem.propTypes = {
   disabled: PropTypes.bool,
   appearance: PropTypes.string,
   className: PropTypes.string,
-  icon: PropTypes.icon,
-  children: PropTypes.arrayOf(PropTypes.element),
+  icon: PropTypes.string,
+//  children: PropTypes.arrayOf(PropTypes.element),
 };

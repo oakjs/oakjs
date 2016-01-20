@@ -29,7 +29,7 @@ export default function Menu(
   return (
     <div {...props}>
       {header ? <MenuHeader {...{ label: header, icon: headerIcon }}/> : undefined}
-      {Menu.renderItem({ items, itemDelimiter })}
+      {Menu.renderItems({ items, itemDelimiter })}
       {children}
     </div>
   );
@@ -42,7 +42,7 @@ Menu.propTypes = {
   itemDelimiter: PropTypes.string,
   header: PropTypes.string,
   headerIcon: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element),
+//  children: PropTypes.arrayOf(PropTypes.element),
 };
 
 

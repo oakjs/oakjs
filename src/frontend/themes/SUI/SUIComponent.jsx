@@ -9,7 +9,7 @@ import React, { PropTypes } from "react";
 import ReactDOM from "react-dom";
 import { nonenumerable } from "core-decorators";
 
-class Component extends React.Component {
+class SUIComponent extends React.Component {
   static propTypes = {
     id: PropTypes.string
   };
@@ -93,4 +93,4 @@ class Component extends React.Component {
 }
 
 
-export default Component;
+export default SUIComponent;

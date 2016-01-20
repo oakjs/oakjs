@@ -21,6 +21,10 @@ var frontendConfig = {
   devtool: 'sourcemap',
 
   plugins: [
+//    new webpack.ProvidePlugin({
+//      $: "jquery",
+//      jQuery: "jquery"
+//    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
@@ -41,6 +45,10 @@ var frontendConfig = {
         test: /\.jsx?$/,
         include: path.join(__dirname, 'src', 'frontend'),
         loaders: ['babel']
+      },
+      {
+        test: /\.css$/, // Only .css files
+        loader: 'style!css' // Run both loaders
       },
       {
         test: /\.scss$/,

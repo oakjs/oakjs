@@ -5,14 +5,22 @@ import OakComponent from "./OakComponent";
 class Card extends OakComponent {
   static propTypes = Object.assign({}, OakComponent.propTypes, {
     // card-specific props
-//    project: PropTypes.element.isRequired,
-  //  stack: PropTypes.element.isRequired,
     template: PropTypes.string
   });
 
   static defaultProps = Object.assign({}, OakComponent.defaultProps, {
     // card-specific props
   });
+
+  static components = [];
+
+  //////////////////////////////
+  // Syntactic sugar
+  //////////////////////////////
+
+  get components() {
+    return this.constructor.components;
+  }
 
   //////////////////////////////
   // Rendering

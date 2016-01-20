@@ -61,7 +61,7 @@ export default class Project extends OakComponent {
 
   renderChildren() {
     const Stack = this.getStackConstructor();
-    return <Stack project={this}/>;
+    return <Stack/>;
   }
 
 }

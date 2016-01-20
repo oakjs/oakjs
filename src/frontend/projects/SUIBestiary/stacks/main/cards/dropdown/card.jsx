@@ -3,7 +3,7 @@ import React from "react";
 import { default as oak } from "../../../../../../oak";
 
 // just use project components
-import { default as components } from "../../../../../../components";
+import { default as components } from "../../../../components";
 
 export default class Dropdown extends oak.Card {
 	static defaultProps = {
@@ -12,9 +12,18 @@ export default class Dropdown extends oak.Card {
 		title: "<Dropdown> Examples"
 	};
 
+  static components = components;
+
   renderChildren() {
-    return (
-      <div>Show dropdowns!!!</div>
-    );
+    const { Dropdown, Menu, MenuItem } = this.components;
+    return (<div>
+      <h1>Dropdown Tests</h1>
+      <Dropdown title="Foo" showArrow={true}>
+        <Menu>
+          <MenuItem label="Yah"/>
+          <MenuItem label="Hoo"/>
+        </Menu>
+      </Dropdown>
+    </div>);
   }
 }
