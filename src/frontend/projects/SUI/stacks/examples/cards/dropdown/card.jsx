@@ -1,9 +1,9 @@
 "use strict";
 import React from "react";
-import oak, { Card } from "../../../../../../oak";
+import oak, { Card } from "oak";
 
 // just use project components
-import components from "../../../../components";
+import components from "projects/SUI/components";
 
 export default class DropdownCard extends Card {
 	static defaultProps = {

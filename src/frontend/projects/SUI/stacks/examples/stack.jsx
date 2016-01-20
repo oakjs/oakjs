@@ -1,11 +1,11 @@
 "use strict";
 
 import React from "react";
-import oak, { Stack } from "../../../../oak";
+import oak, { Stack } from "oak";
 
 import constructors from "./cards/index.js";
 // just use project components
-import components from "../../../../components";
+import components from "projects/SUI/components";
 
 
 export default class ExamplesStack extends Stack {
