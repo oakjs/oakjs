@@ -18,7 +18,7 @@ export default class Dropdown extends oak.Card {
     const { Dropdown, Menu, MenuItem } = this.components;
     return (<div>
       <h1>Dropdown Tests</h1>
-      <Dropdown title="Foo" showArrow={true}>
+      <Dropdown placeholder="Foo" appearance="button" selectable multiSelect icon="heart" showArrow={true}>
         <Menu>
           <MenuItem label="Yah"/>
           <MenuItem label="Hoo"/>
