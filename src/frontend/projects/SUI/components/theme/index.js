@@ -1,11 +1,11 @@
-const componentMap = {};
+const components = {};
 
 /* Add theme components */
 
 //  { "path": "SUI", "globalize": true }
 // add SUI components globally
 import SUI from "../../../../themes/SUI/index.js";
-Object.assign(componentMap, SUI);
+Object.assign(components, SUI);
 
-/* Export componentMap */
-export default componentMap;
+/* Export components */
+export default components;

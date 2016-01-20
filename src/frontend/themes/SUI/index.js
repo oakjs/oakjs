@@ -28,6 +28,10 @@ import SUI from "./SUI";
 // Export all individual components here.
 // NOTE: keep this list in alphabetical order!
 export { default as SUIComponent } from "./SUIComponent";
+export { default as Button } from "./Button";
+export { default as ButtonGroup } from "./ButtonGroup";
+export { default as Conditional } from "./Conditional";
+export { default as Container } from "./Container";
 export { default as Divider } from "./Divider";
 export { default as Dropdown } from "./Dropdown";
 export { default as Grid } from "./Grid";
@@ -35,6 +39,9 @@ export { default as Icon } from "./Icon";
 export { default as Menu } from "./Menu";
 export { default as MenuHeader } from "./MenuHeader";
 export { default as MenuItem } from "./MenuItem";
+export { default as Message } from "./Message";
+export { default as Segment } from "./Segment";
+export { default as Spacer } from "./Spacer";
 export { default as Stub } from "./Stub";
 
 // Attach all of the components to the SUI namespace
@@ -42,3 +49,5 @@ Object.keys(exports).forEach(key => SUI[key] = exports[key]);
 
 // Export SUI as the default.
 export default SUI;
+
+if (typeof window !== undefined) window.SUI = SUI;

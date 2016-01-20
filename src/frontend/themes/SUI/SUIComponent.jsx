@@ -21,6 +21,14 @@ class SUIComponent extends React.Component {
   // Constructor function.
   constructor() {
     super(...arguments);
+
+		// Auto-bind enumerable methods with keys that begin with "on"
+		// NOTE: this has to be `let key in this` to pick up prototype keys.
+		for (let key in this) {
+			if (key.startsWith("on") && typeof this[key] === "function") {
+				this[key] = this[key].bind(this);
+			}
+		}
   }
 
   //////////////////////////////

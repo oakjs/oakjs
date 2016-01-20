@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react";
 
-import { default as Project } from "../projects/SUIBestiary/project";
+import { default as Project } from "../projects/SUI/project";
 
 class Application extends React.Component {
   constructor(props) {

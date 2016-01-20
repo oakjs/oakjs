@@ -36,7 +36,15 @@ var frontendConfig = {
   ],
 
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    root: path.resolve(__dirname),
+    alias: {
+      frontend: "src/frontend",
+      backend: "src/backend",
+      oak: "src/frontend/oak",
+      projects: "src/frontend/projects",
+      themes: "src/frontend/themes"
+    }
   },
 
   module: {
