@@ -1,0 +1,4 @@
+/* Extension to SUI styles */
+.ui.unpadded.segment {
+  padding: 0;
+}

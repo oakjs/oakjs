@@ -7,6 +7,8 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
+import "./Segment.css";
+
 export default function Segment(props) {
   const { id, className, appearance, clearing, style, children } = props;
 
