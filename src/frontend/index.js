@@ -1,11 +1,10 @@
-import ReactDOM from "react-dom";
-import Root from "./Root";
-
-// Import required so that React is available even
-// though it is not used in this file
 import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(
-  <Root/>,
-  document.getElementById("container")
-);
+import AppRouter from "./Router";
+
+const oakPlayerRoot = document.getElementById("OakPlayer");
+const router = ReactDOM.render(<AppRouter/>, oakPlayerRoot);
+export default router;
+// DEBUG
+window.router = router;

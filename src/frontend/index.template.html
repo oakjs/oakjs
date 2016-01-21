@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<!--   <title>{%=o.htmlWebpackPlugin.options.title || 'Skele' %}</title> -->
+<!--   <title>{%=o.htmlWebpackPlugin.options.title || 'Oak Player' %}</title> -->
     <title>oakjs client prototype</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css"/>
+
+    <!-- load jQuery globally -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"/></script>
+
+    <!-- load Semantic UI globally -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.js"/></script>
   </head>
   <body>
-    <div id="container"></div>
+    <div id="OakPlayer"></div>
+    <!-- load oakJS player environment -->
+    <script src="index.js"></script>
   </body>
 </html>
