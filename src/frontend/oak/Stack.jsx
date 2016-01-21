@@ -1,4 +1,6 @@
 import React, { PropTypes } from "react";
+import classNames from "classnames";
+
 import OakComponent from "./OakComponent";
 
 class Stack extends OakComponent {
@@ -9,28 +11,12 @@ class Stack extends OakComponent {
   static defaultProps = Object.assign({}, OakComponent.defaultProps, {});
 
   // Stack-specific `stateTypes`.
-  static stateTypes = Object.assign({}, OakComponent.stateTypes, {
-    // `name` of the currently displayed card.
-    card: PropTypes.string
-  });
+  static stateTypes = Object.assign({}, OakComponent.stateTypes, {});
 
   // Ordered list of card constructors.
   // NOTE: your subclass MUST assign this when defining your class.
   static cardConstructors = [];
 
-  constructor() {
-    super(...arguments);
-
-    // initialize default card
-    // NOTE: this assumes that we have some cardConstructors!
-    const defaultCard = this.cardConstructors[0];
-    if (!defaultCard) throw TypeError("Stack has no cardConstructors!  Define them in your stack.jsx file.");
-
-    // Initialize with the name of the default card.
-    this.state = {
-      card: defaultCard.name
-    };
-  }
 
   //////////////////////////////
   // Syntactic sugar
@@ -54,13 +40,17 @@ class Stack extends OakComponent {
 
   // Tack `Stack` on the beginning of our css class name.
   renderClassName() {
-    const className = super.renderClassName();
-    return `Stack ${className}`;
+    return classNames("Stack", super.renderClassName());
   }
 
   renderChildren() {
-    const Card = this.getCardConstructor();
-    return <Card/>;
+    const { children } = this.props;
+    if (children) return children;
+
+    const Card = this.cardConstructors[0];
+    if (Card) return <Card/>;
+
+    throw new TypeError("stack.renderChildren(): can't find card to render.");
   }
 
 }

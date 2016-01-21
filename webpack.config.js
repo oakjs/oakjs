@@ -21,14 +21,9 @@ var frontendConfig = {
   devtool: 'sourcemap',
 
   plugins: [
-//    new webpack.ProvidePlugin({
-//      $: "jquery",
-//      jQuery: "jquery"
-//    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Skele',
       filename: 'index.html',
       template: 'src/frontend/index.template.html',
       inject: true

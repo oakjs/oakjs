@@ -1,4 +1,5 @@
 import React, { PropTypes } from "react";
+import classNames from "classnames";
 
 import OakComponent from "./OakComponent";
 
@@ -28,8 +29,7 @@ class Card extends OakComponent {
 
   // Tack `Card` on the beginning of our css class name.
   renderClassName() {
-    const className = super.renderClassName();
-    return `Card ${className}`;
+    return classNames("Card", super.renderClassName());
   }
 
 }
