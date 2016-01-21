@@ -7,7 +7,7 @@ import components from "projects/SUI/components";
 
 export default class ButtonGroupCard extends Card {
 	static defaultProps = {
-		id: "buttonGroup",
+		id: "ButtonGroup",
 		title: "<ButtonGroup> Examples"
 	};
 
@@ -19,6 +19,7 @@ export default class ButtonGroupCard extends Card {
     return (
       <Container>
         <h1>&lt;ButtonGroup&gt; Tests</h1>
+        <div>A &lt;ButtonGroup&gt; encapsulates a set of &lt;Button&gt; elements.</div>
 
         <h3>Normal</h3>
         <ButtonGroup>

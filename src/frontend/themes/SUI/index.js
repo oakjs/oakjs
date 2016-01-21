@@ -34,6 +34,7 @@ export { default as Conditional } from "./Conditional";
 export { default as Container } from "./Container";
 export { default as Divider } from "./Divider";
 export { default as Dropdown } from "./Dropdown";
+export { default as Flag } from "./Flag";
 export { default as Grid } from "./Grid";
 export { default as Icon } from "./Icon";
 export { default as Menu } from "./Menu";
@@ -49,5 +50,3 @@ Object.keys(exports).forEach(key => SUI[key] = exports[key]);
 
 // Export SUI as the default.
 export default SUI;
-
-if (typeof window !== undefined) window.SUI = SUI;

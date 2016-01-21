@@ -7,7 +7,7 @@ import components from "projects/SUI/components";
 
 export default class DropdownCard extends Card {
 	static defaultProps = {
-		id: "dropdown",
+		id: "Dropdown",
 		title: "<Dropdown> Examples"
 	};
 

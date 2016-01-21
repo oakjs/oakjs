@@ -7,7 +7,7 @@ import components from "projects/SUI/components";
 
 export default class ButtonCard extends Card {
 	static defaultProps = {
-		id: "button",
+		id: "Button",
 		title: "<Button> Examples"
 	};
 

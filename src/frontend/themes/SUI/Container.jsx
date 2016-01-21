@@ -10,14 +10,16 @@ import classNames from "classnames";
 
 // `appearance`:  any combination of:
 //    - `fluid`, `text`
-//    - `left aligned`, `center aligned`, `right aligned`, `justified`
 //    - grid stuff, see: http://semantic-ui.com/elements/container.html#/examples
 export default function Container(props) {
-  const { id, className, appearance, style, children } = props;
+  const { id, className, appearance, align, style, children } = props;
 
+  const classMap = {
+    [`${align} aligned`]: align
+  }
   const outputProps = {
     id,
-    className: classNames(className, "ui", appearance, "container"),
+    className: classNames(className, "ui", appearance, classMap, "container"),
     style
   };
 
@@ -27,6 +29,7 @@ export default function Container(props) {
 Container.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  appearance: PropTypes.string,
+  appearance: PropTypes.string, // `fluid`, `text`, grid stuff, see: http://semantic-ui.com/elements/container.html#/examples
+  align: PropTypes.string,      // `left`, `center`, `right`, `justified`
   style: PropTypes.object,
 };

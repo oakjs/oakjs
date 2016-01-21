@@ -16,9 +16,9 @@ import Divider from "./Divider";
 //    - `fitted`, `horizontally fitted`, `vertically fitted`
 //    - `inverted`, `red`, `blue`, etc
 //    -
-export default function MenuItem(
-  { key, label, value = label, active, disabled, appearance, className, icon, children } = {}
-) {
+export default function MenuItem(props) {
+ const { key, label, value = label, active, disabled, appearance, className, icon, children } = props;
+
   // If label starts with "-", return a Header instead
   if (value === undefined && label[0] === "#")
     return <MenuHeader {...{ key, label:label.substr(1), icon, className, children }}/>;
@@ -27,7 +27,7 @@ export default function MenuItem(
   if (value === undefined && /^-+$/.test(label))
     return <Divider {...{ key }}/>;
 
-  const props = {
+  const itemProps = {
     key,
     active,
     "data-value": value,
@@ -36,7 +36,7 @@ export default function MenuItem(
   };
 
   return (
-    <div {...props}>
+    <div {...itemProps}>
       {icon ? <Icon icon={icon}/> : undefined}
       {label}
       {children}

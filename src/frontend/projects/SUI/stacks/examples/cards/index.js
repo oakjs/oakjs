@@ -1,6 +1,6 @@
-import ButtonCard from "./button/card.jsx";
-import ButtonGroupCard from "./buttonGroup/card.jsx";
-import DropdownCard from "./dropdown/card.jsx";
+import ButtonCard from "./Button/card.jsx";
+import ButtonGroupCard from "./ButtonGroup/card.jsx";
+import DropdownCard from "./Dropdown/card.jsx";
 
 export default [
   ButtonGroupCard,

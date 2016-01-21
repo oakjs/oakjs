@@ -23,7 +23,7 @@ export default function Segment(props) {
 Segment.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  appearance: PropTypes.string,
+  appearance: PropTypes.string,   // `container`
   clearing: PropTypes.bool,
   style: PropTypes.object,
 };
