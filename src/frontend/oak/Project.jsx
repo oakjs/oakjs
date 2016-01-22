@@ -1,18 +1,9 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import OakComponent from "./OakComponent";
+import "./Project.css";
 
-export default class Project extends OakComponent {
-  // Project-specific `propTypes`.
-  static propTypes = Object.assign({}, OakComponent.propTypes, {});
-
-  // Project-specific `defaultProps`.
-  static defaultProps = Object.assign({}, OakComponent.defaultProps, {});
-
-  // Project-specific `stateTypes`.
-  static stateTypes = Object.assign({}, OakComponent.stateTypes, {});
-
+class Project extends React.Component {
   // Ordered list of stack constructors.
   // NOTE: your subclass MUST assign this when defining your class.
   static stackConstructors = [];
@@ -38,19 +29,26 @@ export default class Project extends OakComponent {
   // Rendering
   //////////////////////////////
 
-  // Tack `Project` on the beginning of our css class name.
-  renderClassName() {
-    return classNames("Project", super.renderClassName());
-  }
-
-  renderChildren() {
+  renderStack() {
+    // If we were passed a child element by the router, just return that.
     const { children } = this.props;
     if (children) return children;
 
-    const Stack = this.stackConstructors[0];
-    if (Stack) return <Stack/>;
-
-    throw new TypeError("project.renderChildren(): can't find a stack to render.");
+    // Otherwise create an instance of the first of our `stackConstructors`.
+    const StackConstructor = this.stackConstructors[0];
+    if (!StackConstructor) throw new TypeError("stack.renderStack(): no stackConstructors defined.");
+    return <StackConstructor/>;
   }
 
+  render() {
+    const { id, className, style } = this.props;
+    const props = {
+      id,
+      className: classNames("oak Project", className),
+      style
+    }
+    return <div {...props}>{this.renderStack()}</div>;
+  }
 }
+
+export default Project;

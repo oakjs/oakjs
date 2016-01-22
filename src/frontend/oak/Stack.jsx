@@ -1,18 +1,9 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import OakComponent from "./OakComponent";
+import "./Stack.css";
 
-class Stack extends OakComponent {
-  // Stack-specific `propTypes`.
-  static propTypes = Object.assign({}, OakComponent.propTypes, {});
-
-  // Stack-specific `defaultProps`.
-  static defaultProps = Object.assign({}, OakComponent.defaultProps, {});
-
-  // Stack-specific `stateTypes`.
-  static stateTypes = Object.assign({}, OakComponent.stateTypes, {});
-
+class Stack extends React.Component {
   // Ordered list of card constructors.
   // NOTE: your subclass MUST assign this when defining your class.
   static cardConstructors = [];
@@ -38,19 +29,25 @@ class Stack extends OakComponent {
   // Rendering
   //////////////////////////////
 
-  // Tack `Stack` on the beginning of our css class name.
-  renderClassName() {
-    return classNames("Stack", super.renderClassName());
-  }
-
-  renderChildren() {
+  renderCard() {
+    // If we were passed a child element by the router, just return that.
     const { children } = this.props;
     if (children) return children;
 
-    const Card = this.cardConstructors[0];
-    if (Card) return <Card/>;
+    // Otherwise create an instance of the first of our `cardConstructors`.
+    const CardConstructor = this.cardConstructors[0];
+    if (!CardConstructor) throw new TypeError("stack.renderCard(): no cardConstructors defined.");
+    return <CardConstructor/>;
+  }
 
-    throw new TypeError("stack.renderChildren(): can't find card to render.");
+  render() {
+    const { id, className, style } = this.props;
+    const props = {
+      id,
+      className: classNames("oak Stack", className),
+      style
+    }
+    return <div {...props}>{this.renderCard()}</div>;
   }
 
 }

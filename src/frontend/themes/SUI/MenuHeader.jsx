@@ -5,16 +5,18 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import Icon from "./Icon";
+import { renderIcon } from "./Icon";
 
-export default function MenuHeader({ key, className, icon, label, children } = {}) {
-  const props = {
+export default function MenuHeader(props) {
+  const { key, className, icon, label, children } = props;
+
+  const menuProps = {
     key,
-    className : classNames("header", { className })
+    className : classNames(className, "header", "item")
   };
   return (
-    <div {...props}>
-      {icon ? <Icon {...{ icon }}/> : undefined}
+    <div {...menuProps}>
+      {renderIcon(icon)}
       {label}
       {children}
     </div>
@@ -23,7 +25,6 @@ export default function MenuHeader({ key, className, icon, label, children } = {
 MenuHeader.propTypes = {
   key: PropTypes.any,
   className: PropTypes.string,
-  icon: PropTypes.icon,
+  icon: PropTypes.string,
   label: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element),
 };

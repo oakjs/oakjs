@@ -1,8 +1,10 @@
-const components = {};
-
-/* include theme components */
+// include theme components
 import { default as themeComponents } from "./theme.js";
-Object.assign(components, themeComponents);
+Object.assign(exports, themeComponents);
 
-/* Export components */
-export default components;
+// Add oak components
+import { default as oakComponents } from "oak";
+Object.assign(exports, oakComponents);
+
+// Export map as the default
+export default exports;

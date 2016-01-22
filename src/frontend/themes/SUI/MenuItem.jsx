@@ -20,11 +20,11 @@ export default function MenuItem(props) {
  const { key, label, value = label, active, disabled, appearance, className, icon, children } = props;
 
   // If label starts with "-", return a Header instead
-  if (value === undefined && label[0] === "#")
+  if (value === undefined && label && label[0] === "#")
     return <MenuHeader {...{ key, label:label.substr(1), icon, className, children }}/>;
 
   // if it's all dashes, make a separator instead
-  if (value === undefined && /^-+$/.test(label))
+  if (value === undefined && label && /^-+$/.test(label))
     return <Divider {...{ key }}/>;
 
   const itemProps = {
@@ -32,7 +32,7 @@ export default function MenuItem(props) {
     active,
     "data-value": value,
     "data-text": label,
-    className: classNames(appearance, { disabled, className }, "item")
+    className: classNames(className, appearance, { disabled }, "item")
   };
 
   return (

@@ -27,23 +27,28 @@ import SUI from "./SUI";
 
 // Export all individual components here.
 // NOTE: keep this list in alphabetical order!
-export { default as SUIComponent } from "./SUIComponent";
-export { default as Button } from "./Button";
-export { default as ButtonGroup } from "./ButtonGroup";
-export { default as Conditional } from "./Conditional";
-export { default as Container } from "./Container";
-export { default as Divider } from "./Divider";
-export { default as Dropdown } from "./Dropdown";
-export { default as Flag } from "./Flag";
-export { default as Grid } from "./Grid";
-export { default as Icon } from "./Icon";
-export { default as Menu } from "./Menu";
-export { default as MenuHeader } from "./MenuHeader";
-export { default as MenuItem } from "./MenuItem";
-export { default as Message } from "./Message";
-export { default as Segment } from "./Segment";
-export { default as Spacer } from "./Spacer";
-export { default as Stub } from "./Stub";
+export SUIComponent from "./SUIComponent";
+export Button from "./Button";
+export ButtonGroup from "./ButtonGroup";
+export Conditional from "./Conditional";
+export Container from "./Container";
+export Divider from "./Divider";
+export Dropdown from "./Dropdown";
+export Flag from "./Flag";
+export Grid from "./Grid";
+export Header from "./Header";
+export Icon from "./Icon";
+export Menu from "./Menu";
+export MenuHeader from "./MenuHeader";
+export MenuItem from "./MenuItem";
+export Message from "./Message";
+export Popup from "./Popup";
+export Pusher from "./Pusher";
+export Rail from "./Rail";
+export Sidebar from "./Sidebar";
+export Segment from "./Segment";
+export Stub from "./Stub";
+export SubHeader from "./SubHeader";
 
 // Attach all of the components to the SUI namespace
 Object.keys(exports).forEach(key => SUI[key] = exports[key]);

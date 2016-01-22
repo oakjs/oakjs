@@ -1,23 +1,16 @@
 import React from "react";
 import { Route, IndexRoute } from "react-router";
 
-import SUIProject from "./SUI/project.jsx";
-import ExamplesStack from "./SUI/stacks/examples/stack.jsx";
-import ButtonCard from "./SUI/stacks/examples/cards/Button/card.jsx";
-import ButtonGroupCard from "./SUI/stacks/examples/cards/ButtonGroup/card.jsx";
-import DropdownCard from "./SUI/stacks/examples/cards/Dropdown/card.jsx";
+// Import projects and set up project routes
+import { default as SUIRoutes } from "projects/SUI/routes";
 
+// Default route has to be specified here... :-(
+import SUIProject from "projects/SUI/project";
 
 const ProjectsRoutes = (
   <Route path="/">
     <IndexRoute component={SUIProject}/>
-    <Route path="SUI" component={SUIProject}>
-      <Route path="examples" component={ExamplesStack}>
-        <Route path="Button" component={ButtonCard}/>
-        <Route path="ButtonGroup" component={ButtonGroupCard}/>
-        <Route path="Dropdown" component={DropdownCard}/>
-      </Route>
-    </Route>
+    {SUIRoutes}
   </Route>
 );
 export default ProjectsRoutes;

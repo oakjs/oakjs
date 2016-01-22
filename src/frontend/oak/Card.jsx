@@ -1,18 +1,11 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import OakComponent from "./OakComponent";
+import "./Card.css";
 
-class Card extends OakComponent {
-  static propTypes = Object.assign({}, OakComponent.propTypes, {
-    // card-specific props
-    template: PropTypes.string
-  });
-
-  static defaultProps = Object.assign({}, OakComponent.defaultProps, {
-    // card-specific props
-  });
-
+class Card extends React.Component {
+  // Ordered list of card constructors.
+  // NOTE: your subclass MUST assign this when defining your class.
   static components = [];
 
   //////////////////////////////
@@ -27,9 +20,18 @@ class Card extends OakComponent {
   // Rendering
   //////////////////////////////
 
-  // Tack `Card` on the beginning of our css class name.
-  renderClassName() {
-    return classNames("Card", super.renderClassName());
+  renderChildren() {
+    return this.props.children;
+  }
+
+  render() {
+    const { id, className, style, children } = this.props;
+    const props = {
+      id,
+      className: classNames("oak Card", className),
+      style
+    }
+    return <div {...props}>{this.renderChildren()}</div>;
   }
 
 }

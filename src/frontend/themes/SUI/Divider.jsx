@@ -6,8 +6,10 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
+import { renderIcon } from "./Icon";
+
 export default function Divider(props) {
-  const { key, className, appearance, direction, style, header, icon, children } = props;
+  const { key, className, appearance, direction, style, title, icon, children } = props;
 
   const dividerProps = {
     key,
@@ -15,22 +17,16 @@ export default function Divider(props) {
     style
   };
 
-  const iconElment = (icon ? <Icon icon={icon}/> : undefined);
-  if (header) {
-    return <h4 {...dividerProps}>{iconElement}{header}{children}</h4>;
-  }
-  else {
-    return <div {...dividerProps}>{iconElement}{header}{children}</div>;
-  }
+  return <div {...dividerProps}>{renderIcon(icon)}{title}{children}</div>;
 }
 
 Divider.PropTypes = {
   key: PropTypes.any,
   className: PropTypes.string,
-  appearance: PropTypes.string, // "inverted", "fitted", "hidden", "section", "clearing"
-  direction: PropTypes.string,  // "vertical" or "horizontal"
+  appearance: PropTypes.string,  // "inverted", "fitted", "hidden", "section", "clearing"
+  direction: PropTypes.string,   // "vertical" or "horizontal"
   style: PropTypes.object,
-  header: PropTypes.number,     // header text, will convert to an h4 if specified
-  icon: PropTypes.string        // icon INSIDE the divider
+  title: PropTypes.string,       // title text
+  icon: PropTypes.string         // icon INSIDE the divider
 };
 
