@@ -9,7 +9,7 @@ import classNames from "classnames";
 
 import "./Segment.css";
 
-export default function Segment(props) {
+export default function SUISegment(props) {
   const { id, className, appearance, clearing, style, children } = props;
 
   const segmentProps = {
@@ -20,7 +20,7 @@ export default function Segment(props) {
   return <div {...segmentProps}>{children}</div>;
 }
 
-Segment.propTypes = {
+SUISegment.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   appearance: PropTypes.string,   // `container`

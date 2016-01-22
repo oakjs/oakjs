@@ -10,7 +10,7 @@
 import React, { PropTypes } from "react";
 import SUIComponent from "./SUIComponent";
 
-export default class Grid extends SUIComponent {
+export default class SUIGrid extends SUIComponent {
   static propTypes = {
     children: PropTypes.arrayOf(PropTypes.element),
   };

@@ -1,19 +1,39 @@
 import React, { PropTypes } from "react";
+import { Route } from "react-router";
 import classNames from "classnames";
 
 import "./Card.css";
 
-class Card extends React.Component {
-  // Ordered list of card constructors.
-  // NOTE: your subclass MUST assign this when defining your class.
-  static components = [];
+export default class OakCard extends React.Component {
 
-  //////////////////////////////
-  // Syntactic sugar
-  //////////////////////////////
+  // Add a `card` to a `stack` at `index`.
+  // ASSUMES: `card.components` has already been set up if necessary.
+  // ASSUMES: That this is being called from `stack.initializeStack()`
+  static initializeCard({ card, stack, cardIndex }) {
+    card.stack = stack;
+    card.project = stack.project;
 
-  get components() {
-    return this.constructor.components;
+    // reflection
+    card.id = card.defaultProps.id;
+    card.title = card.defaultProps.title;
+    card.path = stack.path + "/" + card.id;
+
+    // Set up card components, allowing preset card.components to override stack's components.
+    card.components = Object.assign({}, stack.components, card.components);
+
+    // Indexing within the stack.
+    card.cardIndex = cardIndex;
+    card.prev = stack.cards[cardIndex-1]
+    card.next = stack.cards[cardIndex+1];
+
+    // Routing
+    card.route = <Route path={card.id} component={card}/>;
+
+console.group("card after indexing:");
+console.dir(card);
+console.groupEnd();
+
+    return card;
   }
 
   //////////////////////////////
@@ -35,4 +55,3 @@ class Card extends React.Component {
   }
 
 }
-export default Card;

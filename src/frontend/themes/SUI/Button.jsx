@@ -13,7 +13,7 @@ import Icon from "./Icon";
 // `appearance`:  any combination of:
 //    - `primary`, `secondary`
 //    - `animated, `vertical animated`, `animated fade`, etc.
-export default function Button(props) {
+export default function SUIButton(props) {
   const { id,
     // appearance
     className, appearance, size, compact, circular, color, float, attached, style,
@@ -50,11 +50,11 @@ export default function Button(props) {
   return buttonElement;
 }
 
-Button.defaultProps = {
+SUIButton.defaultProps = {
   labelAppearance: "basic"
 }
 
-Button.propTypes = {
+SUIButton.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   appearance: PropTypes.string,

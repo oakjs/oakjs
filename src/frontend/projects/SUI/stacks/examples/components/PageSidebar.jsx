@@ -1,7 +1,10 @@
 import React from "react";
 
-// load project components
-import components from "../../../components/";
+// load theme/oak components
+// TODO: pick these up from stack.components via context?
+import * as themeComponents from "themes/SUI/";
+import * as oakComponents from "oak/components";
+const components = Object.assign(themeComponents, oakComponents);
 
 export default function PageSidebar(props) {
   const { CardLink, Menu, MenuHeader, MenuItem, Sidebar } = components;
@@ -11,7 +14,6 @@ export default function PageSidebar(props) {
       <Menu>
         <MenuItem><CardLink to="SUI/examples/Button">Button</CardLink></MenuItem>
         <MenuItem><CardLink to="SUI/examples/ButtonGroup">ButtonGroup</CardLink></MenuItem>
-        <MenuItem><CardLink to="SUI/examples/Dropdown">Dropdown</CardLink></MenuItem>
       </Menu>
     </Sidebar>
   );

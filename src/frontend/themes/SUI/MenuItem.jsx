@@ -16,7 +16,7 @@ import Divider from "./Divider";
 //    - `fitted`, `horizontally fitted`, `vertically fitted`
 //    - `inverted`, `red`, `blue`, etc
 //    -
-export default function MenuItem(props) {
+export default function SUIMenuItem(props) {
  const { key, label, value = label, active, disabled, appearance, className, icon, children } = props;
 
   // If label starts with "-", return a Header instead
@@ -44,7 +44,7 @@ export default function MenuItem(props) {
   );
 }
 
-MenuItem.propTypes = {
+SUIMenuItem.propTypes = {
   key: PropTypes.any,
   value: PropTypes.any,
   label: PropTypes.string,

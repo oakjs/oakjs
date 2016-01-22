@@ -7,7 +7,7 @@ import classNames from "classnames";
 
 import { renderIcon } from "./Icon";
 
-export default function MenuHeader(props) {
+export default function SUIMenuHeader(props) {
   const { key, className, icon, label, children } = props;
 
   const menuProps = {
@@ -22,7 +22,7 @@ export default function MenuHeader(props) {
     </div>
   );
 }
-MenuHeader.propTypes = {
+SUIMenuHeader.propTypes = {
   key: PropTypes.any,
   className: PropTypes.string,
   icon: PropTypes.string,

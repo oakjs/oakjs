@@ -52,6 +52,3 @@ export SubHeader from "./SubHeader";
 
 // Attach all of the components to the SUI namespace
 Object.keys(exports).forEach(key => SUI[key] = exports[key]);
-
-// Export SUI as the default.
-export default SUI;

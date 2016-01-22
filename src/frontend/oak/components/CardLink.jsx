@@ -10,6 +10,6 @@
 import React, { PropTypes } from "react";
 import { Link } from "react-router";
 
-export default function CardLink(props) {
+export default function OakCardLink(props) {
   return <Link {...props}/>;
 }

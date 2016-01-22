@@ -7,7 +7,7 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export default function Message(props) {
+export default function SUIMessage(props) {
   const { id, className, appearance, inline, style={}, children } = props;
 
   const groupProps = {
@@ -20,7 +20,7 @@ export default function Message(props) {
   return <div {...groupProps}>{renderHeader(props)}{renderMessage(props)}{children}</div>;
 }
 
-Message.propTypes = {
+SUIMessage.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   appearance: PropTypes.string,

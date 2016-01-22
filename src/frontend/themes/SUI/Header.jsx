@@ -10,7 +10,7 @@ import classNames from "classnames";
 
 import { renderIcon } from "./Icon";
 
-export default function Header(props) {
+export default function SUIHeader(props) {
   const { id, className, style, appearance, disabled, dividing, align, float, size, color, attached, children } = props;
 
   const classProps = {
@@ -33,7 +33,7 @@ export default function Header(props) {
   return <div {...outerProps}>{children}</div>;
 }
 
-Header.propTypes = {
+SUIHeader.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,

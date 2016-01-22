@@ -7,7 +7,7 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export default function ButtonGroup(props) {
+export default function SUIButtonGroup(props) {
   const { id, className, appearance, size, compact, color, count, float, attached, style, children } = props;
 
   const classMap = {
@@ -24,7 +24,7 @@ export default function ButtonGroup(props) {
   return <div {...groupProps}>{children}</div>;
 }
 
-ButtonGroup.propTypes = {
+SUIButtonGroup.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   appearance: PropTypes.string,

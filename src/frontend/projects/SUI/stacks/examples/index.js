@@ -1,7 +1,18 @@
-import { default as dropdown } from "./cards/dropdown/card.jsx";
+//////////////////////////////
+//
+// Stack index creator.
+// Uses reflection to initialize lots of tasty stuff for this stack.
+//
+// NOTE:  This file is COMPLETELY GENERIC!!!
+//
+//////////////////////////////
 
-const constructors = [
-  dropdown
-];
+// Pull in cards and components and stick them on the stack.
+import stack from "./stack";
+import * as components from "./components";
+import * as cardMap from "./cards";
 
-export default constructors;
+stack.cardMap = cardMap;
+stack.components = components;
+
+export default stack;

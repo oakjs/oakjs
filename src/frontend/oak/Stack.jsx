@@ -1,12 +1,56 @@
 import React, { PropTypes } from "react";
+import { Route, IndexRoute } from "react-router";
 import classNames from "classnames";
+import Card from "./Card";
 
+// Import custom CSS for all stacks.
 import "./Stack.css";
 
-class Stack extends React.Component {
-  // Ordered list of card constructors.
-  // NOTE: your subclass MUST assign this when defining your class.
-  static cardConstructors = [];
+export default class OakStack extends React.Component {
+  // Add this stack to a project.
+  // ASSUMES: `stack.cardMap` has already been set up (in our `index.js` file).
+  // ASSUMES: `stack.components` has already been set up (in our `index.js` file).
+  // ASSUMES: That this is being called from `Project.initializeProject()`
+  static initializeStack({ project, stack, stackIndex }) {
+    stack.project = project;
+
+    // reflection
+    stack.id = stack.defaultProps.id;
+    stack.title = stack.defaultProps.title;
+    stack.path = project.path + "/" + stack.id;
+
+    // Merge project components and stack components.
+    // NOTE: MUST happen BEFORE initializing cards.
+    stack.components = Object.assign({}, project.components, stack.components);
+
+    // Initialize card indexes.
+    const cardMap = stack.cardMap;
+    const cardIds = stack.cardIds = Object.keys(cardMap);
+    const cards = stack.cards = cardIds.map(cardId => cardMap[cardId]);
+
+    // Initialize cards.
+    cards.forEach((card, cardIndex) => Card.initializeCard({ card, stack, cardIndex }));
+
+    // Indexing within the project.
+    stack.stackIndex = stackIndex;
+    stack.prev = project.stacks[stackIndex-1];
+    stack.next = project.stacks[stackIndex+1];
+
+    // Set up stack routing.
+    // NOTE: MUST happen AFTER initializing cards.
+    const cardRoutes = [
+      <IndexRoute component={cards[0]}/>,
+      ...cards.map(card => card.route)
+    ];
+    stack.route = React.createElement(Route, { path: stack.id, component: stack }, ...cardRoutes);
+
+
+console.group("stack after indexing:");
+console.dir(stack);
+console.groupEnd();
+
+    return stack;
+  }
 
 
   //////////////////////////////
@@ -51,5 +95,3 @@ class Stack extends React.Component {
   }
 
 }
-
-export default Stack;

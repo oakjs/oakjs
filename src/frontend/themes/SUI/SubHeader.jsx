@@ -8,7 +8,7 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export default function SubHeader(props) {
+export default function SUISubHeader(props) {
   const { id, className, style, appearance, children } = props;
   const outerProps = {
     id,
@@ -18,7 +18,7 @@ export default function SubHeader(props) {
   return <div {...outerProps}>{children}</div>;
 }
 
-SubHeader.propTypes = {
+SUISubHeader.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,

@@ -8,7 +8,7 @@ import classNames from "classnames";
 
 import { renderIcon } from "./Icon";
 
-export default function Divider(props) {
+export default function SUIDivider(props) {
   const { key, className, appearance, direction, style, title, icon, children } = props;
 
   const dividerProps = {
@@ -20,7 +20,7 @@ export default function Divider(props) {
   return <div {...dividerProps}>{renderIcon(icon)}{title}{children}</div>;
 }
 
-Divider.PropTypes = {
+SUIDivider.PropTypes = {
   key: PropTypes.any,
   className: PropTypes.string,
   appearance: PropTypes.string,  // "inverted", "fitted", "hidden", "section", "clearing"

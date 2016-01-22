@@ -13,7 +13,7 @@ import SUIComponent from "./SUIComponent";
 import Menu from "./Menu";
 import Stub from "./Stub";
 
-export default class Dropdown extends SUIComponent {
+export default class SUIDropdown extends SUIComponent {
   static propTypes = {
     // Children are OK
 //    children: PropTypes.arrayOf(PropTypes.element),

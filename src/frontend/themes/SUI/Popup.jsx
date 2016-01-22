@@ -11,7 +11,7 @@ import classNames from "classnames";
 
 import SUIComponent from "./SUIComponent";
 
-export default class Popup extends SUIComponent {
+export default class SUIPopup extends SUIComponent {
   static propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,

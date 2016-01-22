@@ -7,7 +7,7 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export default function Rail(props) {
+export default function SUIRail(props) {
   const { id, className, appearance, side, dividing, style, children } = props;
 
   const segmentProps = {
@@ -18,11 +18,11 @@ export default function Rail(props) {
   return <div {...segmentProps}>{children}</div>;
 }
 
-Rail.defaultProps = {
+SUIRail.defaultProps = {
   side: "right"
 }
 
-Rail.propTypes = {
+SUIRail.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   appearance: PropTypes.string,   // `internal`, `dividing`, `attached`, `close`, `very close`

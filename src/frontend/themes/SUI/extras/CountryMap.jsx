@@ -258,13 +258,13 @@ export function getCountryName(countryCode) {
   return COUNTRY_NAME_MAP[countryCode];
 }
 
-export function CountryMenuItem(props) {
+export function SUICountryMenu(props) {
   const { countryCode } = props;
   return <MenuItem key={countryCode} value={countryCode} label={getCountryName(countryCode)}/>;
 }
 
-export default function CountryMenu(props) {
-  let { countries, menuProps } = props;
+export default function SUICountryMenu(props) {
+  let { countries, ...menuProps } = props;
   if (!countries) countries = Object.keys(COUNTRY_NAME_MAP);
   const flagItems = countries.map( (countryCode) => CountryMenuItem({countryCode}) );
 

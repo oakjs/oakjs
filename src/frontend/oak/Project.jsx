@@ -1,12 +1,52 @@
 import React, { PropTypes } from "react";
+import { Route, IndexRoute } from "react-router";
 import classNames from "classnames";
 
+import Stack from "./Stack";
+import * as oakComponents from "oak/components";
+
+// Project-specific CSS styling.
 import "./Project.css";
 
-class Project extends React.Component {
+export default class OakProject extends React.Component {
   // Ordered list of stack constructors.
   // NOTE: your subclass MUST assign this when defining your class.
   static stackConstructors = [];
+
+  // Initialize a single Project, including bits we can only get by `import`ing.
+  // NOTE: also sets up stacks and cards!
+  static initializeProject({ project, themeComponents, projectComponents, stackMap }) {
+    // reflection
+    project.id = project.defaultProps.id;
+    project.title = project.defaultProps.title;
+    project.path = project.id;
+
+    // Merge themeComponents, oakComponents and projectComponents
+    // NOTE: MUST happen BEFORE initializing stacks.
+    project.components = Object.assign({}, themeComponents, oakComponents, projectComponents);
+
+    // Initialize stack indexes
+    project.stackMap = stackMap;
+    const stackIds = project.stackIds = Object.keys(stackMap);
+    const stacks = project.stacks = stackIds.map(stackId => stackMap[stackId]);
+
+    // Initialize stacks.
+    stacks.forEach((stack, stackIndex) => Stack.initializeStack({ project, stack, stackIndex }));
+
+    // Set up project routing.
+    // NOTE: MUST happen AFTER initializing stacks.
+    const stackRoutes = [
+      // TODO: indexRoute???
+      ...stacks.map(stack => stack.route)
+    ]
+    project.route = React.createElement(Route, { path: project.id, component: project }, ...stackRoutes);
+
+console.group("project after indexing:");
+console.dir(project);
+console.groupEnd();
+
+    return project;
+  }
 
 
   //////////////////////////////
@@ -50,5 +90,3 @@ class Project extends React.Component {
     return <div {...props}>{this.renderStack()}</div>;
   }
 }
-
-export default Project;

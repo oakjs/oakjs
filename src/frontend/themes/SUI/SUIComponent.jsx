@@ -7,9 +7,8 @@
 
 import React, { PropTypes } from "react";
 import ReactDOM from "react-dom";
-import { nonenumerable } from "core-decorators";
 
-class SUIComponent extends React.Component {
+export default class SUIComponent extends React.Component {
   static propTypes = {
     id: PropTypes.string
   };
@@ -81,7 +80,6 @@ class SUIComponent extends React.Component {
 
 
   // toString at the instance level.
-  @nonenumerable
   toString() {
     const className = this.constructor.name;
     if (this === this.constructor.prototype) return `[${className}() prototype]`;
@@ -101,4 +99,4 @@ class SUIComponent extends React.Component {
 }
 
 
-export default SUIComponent;
+

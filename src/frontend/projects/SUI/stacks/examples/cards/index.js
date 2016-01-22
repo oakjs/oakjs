@@ -1,9 +1,4 @@
-import ButtonCard from "./Button/card.jsx";
-import ButtonGroupCard from "./ButtonGroup/card.jsx";
-import DropdownCard from "./Dropdown/card.jsx";
-
-export default [
-  ButtonGroupCard,
-  ButtonCard,
-  DropdownCard
-];
+// Export individual cards.
+// NOTE: the order they're specified here is the order of the cards in the stack.
+export Button from "./Button";
+export ButtonGroup from "./ButtonGroup";

@@ -11,7 +11,7 @@ import classNames from "classnames";
 
 import "./Spacer.css";
 
-export default function Spacer(props) {
+export default function OakSpacer(props) {
   const { className, appearance, size, inline, width, height } = props;
 
   const spacerProps = {
@@ -27,7 +27,7 @@ export default function Spacer(props) {
   return <div {...spacerProps}/>;
 }
 
-Spacer.propTypes = {
+OakSpacer.propTypes = {
   className: PropTypes.string,
   appearance: PropTypes.string,
   size: PropTypes.string,
@@ -36,6 +36,6 @@ Spacer.propTypes = {
   height: PropTypes.number
 };
 
-Spacer.defaultProps = {
+OakSpacer.defaultProps = {
   size: "medium"
 }

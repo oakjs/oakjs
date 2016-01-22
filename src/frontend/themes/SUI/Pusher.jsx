@@ -8,7 +8,7 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export default function Pusher(props) {
+export default function SUIPusher(props) {
   const { id, className, style, appearance, children } = props;
   const outerProps = {
     id,
@@ -18,7 +18,7 @@ export default function Pusher(props) {
   return <div {...outerProps}>{children}</div>;
 }
 
-Pusher.propTypes = {
+SUIPusher.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,

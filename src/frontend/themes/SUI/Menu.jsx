@@ -19,7 +19,7 @@ import Divider from "./Divider";
 //    - `vertical`, `two item`, `three item`, etc
 //    - `borderless`, `secondary`, `inverted`, `red`, `green`, etc
 //    - `stackable`, `top fixed`, `left fixed`, etc
-export default function Menu(
+export default function SUIMenu(
   { appearance, className, disabled, items, itemDelimiter, header, headerIcon, children } = {}
 ) {
   const props = {
@@ -29,12 +29,12 @@ export default function Menu(
   return (
     <div {...props}>
       {header ? <MenuHeader {...{ label: header, icon: headerIcon }}/> : undefined}
-      {Menu.renderItems({ items, itemDelimiter })}
+      {SUIMenu.renderItems({ items, itemDelimiter })}
       {children}
     </div>
   );
 }
-Menu.propTypes = {
+SUIMenu.propTypes = {
   appearance: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
@@ -47,10 +47,10 @@ Menu.propTypes = {
 
 
 // Static methods for parsing and creating items from JS structures.
-Object.assign(Menu, {
+Object.assign(SUIMenu, {
   // Render a <menu> and list of items.
   renderMenu(props) {
-    const items = Menu.renderItems(props);
+    const items = SUIMenu.renderItems(props);
     if (items) return <div className="menu">{items}</div>;
   },
 

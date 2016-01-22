@@ -7,7 +7,7 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export default function Icon(props) {
+export default function SUIIcon(props) {
   const { id, className, style, appearance, circular, icon } = props;
   const outerProps = {
     id,
@@ -17,7 +17,7 @@ export default function Icon(props) {
   return <i {...outerProps}/>
 }
 
-Icon.propTypes = {
+SUIIcon.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,

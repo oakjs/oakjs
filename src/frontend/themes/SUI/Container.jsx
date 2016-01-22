@@ -11,7 +11,7 @@ import classNames from "classnames";
 // `appearance`:  any combination of:
 //    - `fluid`, `text`
 //    - grid stuff, see: http://semantic-ui.com/elements/container.html#/examples
-export default function Container(props) {
+export default function SUIContainer(props) {
   const { id, className, appearance, align, style, children } = props;
 
   const classMap = {
@@ -26,7 +26,7 @@ export default function Container(props) {
   return <div {...outputProps}>{children}</div>;
 }
 
-Container.propTypes = {
+SUIContainer.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   appearance: PropTypes.string, // `fluid`, `text`, grid stuff, see: http://semantic-ui.com/elements/container.html#/examples
