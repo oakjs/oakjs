@@ -4,7 +4,7 @@ import React from "react";
 // use stack components
 import $ from "../../components";
 
-export default function Dropdown(props) {
+export default function CardWrapper(props) {
   return (
     <$.Card id="Dropdown" title="<Dropdown> Examples">
       <$.PageSidebar/>

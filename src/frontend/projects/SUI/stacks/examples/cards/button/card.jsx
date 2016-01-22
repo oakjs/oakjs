@@ -4,7 +4,7 @@ import React from "react";
 // use stack components
 import $ from "../../components";
 
-export default function Button(props) {
+export default function CardWrapper(props) {
   return (
     <$.Card id="Button" title="<Button> Examples">
       <$.PageSidebar/>

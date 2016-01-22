@@ -7,10 +7,8 @@ import ProjectsRoutes from "projects/routes";
 
 //const history = useQueries(createHistory)();
 const history = createHistory();
-export default function AppRouter() {
-  return (
-    <Router history={ history }>
-      {ProjectsRoutes}
-    </Router>
-  );
-}
+export default (
+  <Router history={ history }>
+    {ProjectsRoutes}
+  </Router>
+);
