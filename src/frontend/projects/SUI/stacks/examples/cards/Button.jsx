@@ -229,4 +229,6 @@ export default class ButtonCard extends Card {
       </$.CardContents>
     );
   }
+  // Necessary so hot reloader will notice this file.
+  render(){ return super.render() }
 }

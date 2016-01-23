@@ -8,4 +8,6 @@ export default class ExamplesStack extends Stack {
 		id: "examples",
 		title: "Examples"
 	};
+  // Necessary so hot reloader will notice this file.
+  render(){ return super.render() }
 }

@@ -8,5 +8,7 @@ export default class SUIProject extends Project {
 		id: "SUI",
 		title: "Semantic UI"
 	};
+  // Necessary so hot reloader will notice this file.
+  render(){ return super.render() }
 }
 
