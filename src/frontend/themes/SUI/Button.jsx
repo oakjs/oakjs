@@ -13,102 +13,102 @@ import { renderIcon } from "./Icon";
 // `appearance`:  any combination of:
 //    - `primary`, `secondary`
 //    - `animated, `vertical animated`, `animated fade`, etc.
-export default class SUIButton extends React.Component {
-  static defaultProps = {
-    labelAppearance: "basic"
+function SUIButton(props) {
+  const { id,
+    // appearance
+    className, appearance, size, compact, circular, color, float, attached, style,
+    // content / label
+    title, icon, label, children,
+    // events & states
+    active, disabled, loading, toggle, onClick,
+  } = props;
+
+  const classMap = {
+    compact,
+    circular,
+    icon: icon && !(title || children),
+    [`${float} floated`]: float,
+    [`${attached} attached`]: attached,
+    active,
+    disabled,
+    loading,
+    toggle
   }
 
-  static propTypes = {
-    id: PropTypes.string,
-    className: PropTypes.string,
-    appearance: PropTypes.string,
-    size: PropTypes.string,     // TODO: appearance?
-    compact: PropTypes.bool,    // TODO: appearance?
-    circular: PropTypes.bool,   // TODO: appearance?
-    color: PropTypes.string,    // TODO: appearance?
-    float: PropTypes.string,    // TODO: appearance?
-    attached: PropTypes.string,
-    style: PropTypes.object,
-
-    title: PropTypes.string,
-    icon: PropTypes.string,
-    label: React.PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.element
-          ]),
-    labelDirection: PropTypes.string,
-    labelAppearance: PropTypes.string,
-
-    active: PropTypes.bool,
-    disabled: PropTypes.bool,
-    loading: PropTypes.bool,
-    toggle: PropTypes.bool,
-    onClick: PropTypes.func
+  const buttonType = (attached ? "div" : "button");
+  const buttonProps = {
+    id,
+    className: classNames(className, "ui", appearance, size, color, classMap, "button"),
+    style,
+    onClick
   };
+  const buttonElements = [renderIcon(icon), title].concat(children);
+  const buttonElement = React.createElement(buttonType, buttonProps, ...buttonElements);
 
-  renderLabel(buttonElement) {
-    const { labelDirection } = this.props;
+  if (label) renderLabel(buttonElement, props);
+  return buttonElement;
+}
 
-    const labelElement = this.renderLabelElement();
-    const labelContainerProps = {
-      className: classNames("ui", labelDirection, "labeled button"),
-      tabIndex: "0"
-    }
+function renderLabel(buttonElement, props, context) {
+  const { label, labelAppearance, labelDirection, color } = props;
 
-    const elements = labelDirection && labelDirection.includes("left")
-                   ? [labelElement, buttonElement]
-                   : [buttonElement, labelElement];
-    return React.createElement("div", labelContainerProps, ...elements);
+  // if we didn't get a string, we assume we got a rendered label
+  let labelElement;
+  if (typeof label !== "string") {
+    labelElement = label;
   }
-
-  renderLabelElement() {
-    const { label, labelAppearance, color } = this.props;
-
-    // if we didn't get a string, we assume we got a rendered label
-    if (typeof label !== "string") return label;
-
+  else {
     const labelProps = {
       className: classNames("ui", labelAppearance, color, "label")
     }
-    return <a {...labelProps}>{label}</a>
+    labelElement = <a {...labelProps}>{label}</a>;
   }
 
-
-  render () {
-    const { id,
-      // appearance
-      className, appearance, size, compact, circular, color, float, attached, style,
-      // content / label
-      title, icon, label, children,
-      // events & states
-      active, disabled, loading, toggle, onClick,
-    } = this.props;
-
-    const classMap = {
-      compact,
-      circular,
-      icon: icon && !(title || children),
-      [`${float} floated`]: float,
-      [`${attached} attached`]: attached,
-      active,
-      disabled,
-      loading,
-      toggle
-    }
-
-    const props = {
-      id,
-      className: classNames(className, "ui", appearance, size, color, classMap, "button"),
-      style,
-      onClick
-    };
-    const buttonTagName = (attached ? "div" : "button");
-    const buttonElements = [renderIcon(icon), title].concat(children);
-    const buttonElement = React.createElement(buttonTagName, props, ...buttonElements);
-
-    if (label) return this.renderLabel(buttonElement);
-    return buttonElement;
+  const labelContainerProps = {
+    className: classNames("ui", labelDirection, "labeled button"),
+    tabIndex: "0"
   }
+
+  // Which goes first, the chicken or the egg?
+  const elements = labelDirection && labelDirection.includes("left")
+                 ? [labelElement, buttonElement]
+                 : [buttonElement, labelElement];
+  return React.createElement("div", labelContainerProps, ...elements);
 }
 
+SUIButton.defaultProps = {
+  labelAppearance: "basic"
+};
 
+SUIButton.propTypes = {
+  id: PropTypes.string,
+  className: PropTypes.string,
+  appearance: PropTypes.string,
+  size: PropTypes.string,     // TODO: appearance?
+  compact: PropTypes.bool,    // TODO: appearance?
+  circular: PropTypes.bool,   // TODO: appearance?
+  color: PropTypes.string,    // TODO: appearance?
+  float: PropTypes.string,    // TODO: appearance?
+  attached: PropTypes.string,
+  style: PropTypes.object,
+
+  title: PropTypes.string,
+  icon: PropTypes.string,
+  label: React.PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.element
+        ]),
+  labelDirection: PropTypes.string,
+  labelAppearance: PropTypes.string,
+
+  active: PropTypes.bool,
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool,
+  toggle: PropTypes.bool,
+  onClick: PropTypes.func
+};
+
+// add render() method so we get hot code reload.
+SUIButton.render = Function.prototype;
+
+export default SUIButton;

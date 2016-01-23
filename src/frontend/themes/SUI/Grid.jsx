@@ -11,10 +11,6 @@ import React, { PropTypes } from "react";
 import SUIComponent from "./SUIComponent";
 
 export default class SUIGrid extends SUIComponent {
-  static propTypes = {
-    children: PropTypes.arrayOf(PropTypes.element),
-  };
-
   static getColumnWidthClass(width) {
     if (width) {
       const name = this.columnNames[width];

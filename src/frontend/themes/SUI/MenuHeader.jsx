@@ -7,26 +7,29 @@ import classNames from "classnames";
 
 import { renderIcon } from "./Icon";
 
-export default class SUIMenuHeader extends React.Component {
-  static propTypes = {
-    key: PropTypes.any,
-    className: PropTypes.string,
-    icon: PropTypes.string,
-    label: PropTypes.string,
+function SUIMenuHeader(props) {
+  const { key, className, icon, label, children } = props;
+  const headerProps = {
+    key,
+    className : classNames(className, "header", "item")
   };
-
-  render() {
-    const { key, className, icon, label, children } = this.props;
-    const props = {
-      key,
-      className : classNames(className, "header", "item")
-    };
-    return (
-      <div {...props}>
-        {renderIcon(icon)}
-        {label}
-        {children}
-      </div>
-    );
-  }
+  return (
+    <div {...headerProps}>
+      {renderIcon(icon)}
+      {label}
+      {children}
+    </div>
+  );
 }
+
+SUIMenuHeader.propTypes = {
+  key: PropTypes.any,
+  className: PropTypes.string,
+  icon: PropTypes.string,
+  label: PropTypes.string,
+};
+
+// add render() method so we get hot code reload.
+SUIMenuHeader.render = Function.prototype;
+
+export default SUIMenuHeader;

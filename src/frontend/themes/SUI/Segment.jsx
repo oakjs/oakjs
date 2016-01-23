@@ -9,23 +9,26 @@ import classNames from "classnames";
 
 import "./Segment.css";
 
-export default class SUISegment extends React.Component {
-  static propTypes = {
-    id: PropTypes.string,
-    className: PropTypes.string,
-    appearance: PropTypes.string,   // `container`
-    clearing: PropTypes.bool,
-    style: PropTypes.object,
-  };
+function SUISegment(props) {
+  const { id, className, appearance, clearing, style, children } = props;
 
-  render() {
-    const { id, className, appearance, clearing, style, children } = this.props;
-
-    const props = {
-      id,
-      className: classNames(className, "ui", appearance, { clearing }, "segment"),
-      style
-    }
-    return <div {...props}>{children}</div>;
+  const segmentProps = {
+    id,
+    className: classNames(className, "ui", appearance, { clearing }, "segment"),
+    style
   }
+  return <div {...segmentProps}>{children}</div>;
 }
+
+SUISegment.propTypes = {
+  id: PropTypes.string,
+  className: PropTypes.string,
+  appearance: PropTypes.string,   // `container`
+  clearing: PropTypes.bool,
+  style: PropTypes.object,
+};
+
+// add render() method so we get hot code reload.
+SUISegment.render = Function.prototype;
+
+export default SUISegment;

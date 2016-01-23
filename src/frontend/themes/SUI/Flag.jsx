@@ -6,13 +6,17 @@
 
 import React, { PropTypes } from "react";
 
-export default class SUIFlag extends React.Component {
-  static propTypes = {
-    country: PropTypes.string
-  };
-
-  render() {
-    const { country } = this.props;
-    if (country) return <i className={`${country} flag`}/>;
-  }
+function SUIFlag(props) {
+  const { country } = props;
+  if (country) return <i className={`${country} flag`}/>;
 }
+
+SUIFlag.propTypes = {
+  country: PropTypes.string
+};
+
+
+// add render() method so we get hot code reload.
+SUIFlag.render = Function.prototype;
+
+export default SUIFlag;

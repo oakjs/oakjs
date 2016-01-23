@@ -14,34 +14,37 @@ export const COUNT_NAMES = [
 ];
 
 
-export default class SUIButtonGroup extends React.Component {
-  static propTypes = {
-    id: PropTypes.string,
-    className: PropTypes.string,
-    appearance: PropTypes.string,
-    size: PropTypes.string,
-    compact: PropTypes.bool,
-    color: PropTypes.string,
-    count: PropTypes.number,
-    float: PropTypes.string,
-    attached: PropTypes.string,
-    style: PropTypes.object
-  };
+function SUIButtonGroup(props) {
+  const { id, className, appearance, size, compact, color, count, float, attached, style, children } = props;
 
-  render() {
-    const { id, className, appearance, size, compact, color, count, float, attached, style, children } = this.props;
-
-    const classMap = {
-      [`${COUNT_NAMES[count]}`]: count,
-      [`${float} floated`]: float,
-      [`${attached} attached`]: attached,
-      compact
-    }
-    const props = {
-      id,
-      className: classNames(className, "ui", appearance, size, color, classMap, "buttons"),
-      style
-    }
-    return <div {...props}>{children}</div>;
+  const classMap = {
+    [`${COUNT_NAMES[count]}`]: count,
+    [`${float} floated`]: float,
+    [`${attached} attached`]: attached,
+    compact
   }
+  const outerProps = {
+    id,
+    className: classNames(className, "ui", appearance, size, color, classMap, "buttons"),
+    style
+  }
+  return <div {...outerProps}>{children}</div>;
 }
+
+SUIButtonGroup.propTypes = {
+  id: PropTypes.string,
+  className: PropTypes.string,
+  appearance: PropTypes.string,
+  size: PropTypes.string,
+  compact: PropTypes.bool,
+  color: PropTypes.string,
+  count: PropTypes.number,
+  float: PropTypes.string,
+  attached: PropTypes.string,
+  style: PropTypes.object
+};
+
+// add render() method so we get hot code reload.
+SUIButtonGroup.render = Function.prototype;
+
+export default SUIButtonGroup;

@@ -8,8 +8,11 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export default class SUIConditional extends React.Component {
-  render() {
-    return <div className="or"/>
-  }
+function SUIConditional(props) {
+  return <div className="or"/>
 }
+
+// add render() method so we get hot code reload.
+SUIConditional.render = Function.prototype;
+
+export default SUIConditional;
