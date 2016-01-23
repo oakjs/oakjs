@@ -15,7 +15,15 @@ export default class OakProject extends React.Component {
     style: PropTypes.object,
   }
 
-  // Initialize this Project constructor, it's stacks and it's cards.
+  static childContextTypes = {
+    project: PropTypes.any
+  };
+
+  getChildContext() {
+    return { project: this };
+  }
+
+  // Initialize a Project constructor, it's stacks and it's cards.
   // NOTE: In theory, you can call this if, eg, the stacks or cards change and things will adjust...
   static initialize({ project, stackMap, themeComponents, projectComponents }) {
     // remember/initialize components
@@ -47,6 +55,21 @@ export default class OakProject extends React.Component {
     const routeProps = { path: this.id, component: this};
     return React.createElement(Route, routeProps, ...stackRoutes);
   }
+
+  //////////////////////////////
+  // Syntactic sugar for treating static things like instance things.
+  //////////////////////////////
+
+  // Return the project / stack CONSTRUCTORS (NOT instances).
+  // (Really only useful for calling static methods).
+  get components() { return this.constructor.components }
+  get stacks() { return this.constructor.stacks }
+
+  // Reflection
+  get id() { return this.constructor.id }
+  get title() { return this.constructor.title }
+  get path() { return this.constructor.path }
+
 
 
   //////////////////////////////

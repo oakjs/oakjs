@@ -13,13 +13,25 @@ export default class OakCard extends React.Component {
     style: PropTypes.object,
   }
 
+  static contextTypes = {
+    project: PropTypes.any,
+    stack: PropTypes.any,
+  }
+
+  static childContextTypes = {
+    card: PropTypes.any
+  };
+
+  getChildContext() {
+    return { card: this };
+  }
+
   // Add a `card` to a `stack` at `index`.
   // ASSUMES: `card.components` has already been set up if necessary.
   // ASSUMES: That this is being called from `stack.initializeStack()`
   static initialize({ card, stack, cardIndex }) {
     card.stack = stack;
     card.cardIndex = cardIndex;
-    card.displayName = card.id;
 //console.info("card after initializing: ", card);
     return card;
   }

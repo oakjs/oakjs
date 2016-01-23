@@ -13,6 +13,19 @@ export default class OakStack extends React.Component {
     style: PropTypes.object,
   }
 
+  static contextTypes = {
+    project: PropTypes.any
+  }
+
+  static childContextTypes = {
+    stack: PropTypes.any
+  };
+
+  getChildContext() {
+    return { stack: this };
+  }
+
+
   // Add this stack to a project.
   // ASSUMES: `stack.cardMap` has already been set up (in our `index.js` file).
   // ASSUMES: `stack.components` has already been set up (in our `index.js` file).
@@ -65,6 +78,7 @@ export default class OakStack extends React.Component {
   // (Really only useful for calling static methods).
   get project() { return this.constructor.project }
   get components() { return this.constructor.components }
+  get cards() { return this.constructor.cards }
 
   // Reflection
   get id() { return this.constructor.id }
