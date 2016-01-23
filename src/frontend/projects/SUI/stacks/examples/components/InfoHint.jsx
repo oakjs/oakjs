@@ -6,12 +6,14 @@ import * as themeComponents from "themes/SUI/";
 import * as oakComponents from "oak/components";
 const components = Object.assign(themeComponents, oakComponents);
 
-export default function InfoHint(props) {
-  const { Icon, Popup } = components;
-  return (
-    <span style={{cursor:"pointer", marginLeft:10}}>
-      <Icon circular icon="info" appearance="tiny blue inverted"/>
-      <Popup {...props}/>
-    </span>
-  );
+export default class InfoHint extends React.Component {
+  render() {
+    const { Icon, Popup } = components;
+    return (
+      <span style={{cursor:"pointer", marginLeft:10}}>
+        <Icon circular icon="info" appearance="tiny blue inverted"/>
+        <Popup {...this.props}/>
+      </span>
+    );
+  }
 }

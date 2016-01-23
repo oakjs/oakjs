@@ -13,7 +13,6 @@ export default class ButtonCard extends Card {
       <$.CardContents>
         <$.PageSidebar/>
         <$.Page title="Button" description="A button indicates a possible user action.">
-          Yah!
           <$.Section title="Content">
             <$.Example title="Inline or Attribute Content">
               <$.Button title="Button with Title Attribute"/>

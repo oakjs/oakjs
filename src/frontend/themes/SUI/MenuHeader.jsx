@@ -7,24 +7,26 @@ import classNames from "classnames";
 
 import { renderIcon } from "./Icon";
 
-export default function SUIMenuHeader(props) {
-  const { key, className, icon, label, children } = props;
-
-  const menuProps = {
-    key,
-    className : classNames(className, "header", "item")
+export default class SUIMenuHeader extends React.Component {
+  static propTypes = {
+    key: PropTypes.any,
+    className: PropTypes.string,
+    icon: PropTypes.string,
+    label: PropTypes.string,
   };
-  return (
-    <div {...menuProps}>
-      {renderIcon(icon)}
-      {label}
-      {children}
-    </div>
-  );
+
+  render() {
+    const { key, className, icon, label, children } = this.props;
+    const props = {
+      key,
+      className : classNames(className, "header", "item")
+    };
+    return (
+      <div {...props}>
+        {renderIcon(icon)}
+        {label}
+        {children}
+      </div>
+    );
+  }
 }
-SUIMenuHeader.propTypes = {
-  key: PropTypes.any,
-  className: PropTypes.string,
-  icon: PropTypes.string,
-  label: PropTypes.string,
-};

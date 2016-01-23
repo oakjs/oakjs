@@ -19,47 +19,29 @@ import Divider from "./Divider";
 //    - `vertical`, `two item`, `three item`, etc
 //    - `borderless`, `secondary`, `inverted`, `red`, `green`, etc
 //    - `stackable`, `top fixed`, `left fixed`, etc
-export default function SUIMenu(
-  { appearance, className, disabled, items, itemDelimiter, header, headerIcon, children } = {}
-) {
-  const props = {
-    className: classNames(appearance, { className, disabled }, "menu")
+export default class SUIMenu extends React.Component {
+  static propTypes = {
+    appearance: PropTypes.string,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    items: PropTypes.any,
+    itemDelimiter: PropTypes.string,
+    header: PropTypes.string,
+    headerIcon: PropTypes.string,
   };
 
-  return (
-    <div {...props}>
-      {header ? <MenuHeader {...{ label: header, icon: headerIcon }}/> : undefined}
-      {SUIMenu.renderItems({ items, itemDelimiter })}
-      {children}
-    </div>
-  );
-}
-SUIMenu.propTypes = {
-  appearance: PropTypes.string,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  items: PropTypes.any,
-  itemDelimiter: PropTypes.string,
-  header: PropTypes.string,
-  headerIcon: PropTypes.string,
-//  children: PropTypes.arrayOf(PropTypes.element),
-};
-
-
-// Static methods for parsing and creating items from JS structures.
-Object.assign(SUIMenu, {
   // Render a <menu> and list of items.
-  renderMenu(props) {
+  static renderMenu(props) {
     const items = SUIMenu.renderItems(props);
     if (items) return <div className="menu">{items}</div>;
-  },
+  }
 
   // Render a set of items as:
   //  - a delimited string list
   //  - an array of `string` or `{value, label}` pairs
   //  - a map of `{value:label}`.
   // Returns an array of MenuItem or MenuHeaders etc.
-  renderItems({ items, itemDelimiter = "," }) {
+  static renderItems({ items, itemDelimiter = "," }) {
     if (!items) return undefined;
 
     if (typeof items === "string")
@@ -69,18 +51,18 @@ Object.assign(SUIMenu, {
       return this.renderItemsArray(items);
 
     return this.renderItemsMap(items);
-  },
+  }
 
-  renderItemsArray(items) {
+  static renderItemsArray(items) {
     return items.map((item, key) => {
       if (!item) return undefined;
       if (typeof item === "string") return <MenuItem {...{ key, label:item }}/>;
       return <MenuItem {...item}/>;
     }).filter(Boolean);
-  },
+  }
 
   // Render an item from a single string value.
-  renderStringItem(label, key) {
+  static renderStringItem(label, key) {
     // if it's all dashes, make a separator
     if (/^-+$/.test(label)) return <Divider {...{ key }}/>;
 
@@ -88,12 +70,27 @@ Object.assign(SUIMenu, {
     if (label[0] === "#") return <MenuHeader {...{ key, label: label.substr(1) }}/>;
 
     return <MenuItem {...{ key, label, value:label }}/>;
-  },
+  }
 
-  renderItemsMap(itemsMap) {
+  static renderItemsMap(itemsMap) {
     return Object.keys(itemsMap).map((value, key) => {
       const label = itemsMap[value];
       return <MenuItem {...{ key, value, label }}/>;
     }).filter(Boolean);
-  },
-});
+  }
+
+  render() {
+    const { appearance, className, disabled, items, itemDelimiter, header, headerIcon, children } = this.props;
+    const props = {
+      className: classNames(appearance, { className, disabled }, "menu")
+    };
+
+    return (
+      <div {...props}>
+        {header ? <MenuHeader {...{ label: header, icon: headerIcon }}/> : undefined}
+        {SUIMenu.renderItems({ items, itemDelimiter })}
+        {children}
+      </div>
+    );
+  }
+}

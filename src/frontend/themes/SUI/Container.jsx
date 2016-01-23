@@ -8,28 +8,27 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-// `appearance`:  any combination of:
-//    - `fluid`, `text`
-//    - grid stuff, see: http://semantic-ui.com/elements/container.html#/examples
-export default function SUIContainer(props) {
-  const { id, className, appearance, align, style, children } = props;
-
-  const classMap = {
-    [`${align} aligned`]: align
-  }
-  const outputProps = {
-    id,
-    className: classNames(className, "ui", appearance, classMap, "container"),
-    style
+export default class SUIContainer extends React.Component {
+  static propTypes = {
+    id: PropTypes.string,
+    className: PropTypes.string,
+    appearance: PropTypes.string, // `fluid`, `text`, grid stuff, see: http://semantic-ui.com/elements/container.html#/examples
+    align: PropTypes.string,      // `left`, `center`, `right`, `justified`
+    style: PropTypes.object,
   };
 
-  return <div {...outputProps}>{children}</div>;
-}
+  render() {
+    const { id, className, appearance, align, style, children } = this.props;
 
-SUIContainer.propTypes = {
-  id: PropTypes.string,
-  className: PropTypes.string,
-  appearance: PropTypes.string, // `fluid`, `text`, grid stuff, see: http://semantic-ui.com/elements/container.html#/examples
-  align: PropTypes.string,      // `left`, `center`, `right`, `justified`
-  style: PropTypes.object,
-};
+    const classMap = {
+      [`${align} aligned`]: align
+    }
+    const props = {
+      id,
+      className: classNames(className, "ui", appearance, classMap, "container"),
+      style
+    };
+
+    return <div {...props}>{children}</div>;
+  }
+}

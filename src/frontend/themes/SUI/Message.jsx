@@ -7,38 +7,46 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export default function SUIMessage(props) {
-  const { id, className, appearance, inline, style={}, children } = props;
+export default class SUIMessage extends React.Component {
+  static propTypes = {
+    id: PropTypes.string,
+    className: PropTypes.string,
+    appearance: PropTypes.string,
+    inline: PropTypes.bool,
+    style: PropTypes.object,
 
-  const groupProps = {
-    id,
-    className: classNames(className, "ui", appearance, "message"),
-    style
+    header: PropTypes.string,
+    message: PropTypes.string
+  };
+
+  renderHeader() {
+    const { header } = this.props;
+    if (header) return <div className="header">{header}</div>;
+    return undefined;
   }
-  if (inline) style.display = "inline-block";
 
-  return <div {...groupProps}>{renderHeader(props)}{renderMessage(props)}{children}</div>;
-}
+  renderMessage() {
+    const { message } = this.props;
+    if (message) return <p>{message}</p>;
+    return undefined;
+  }
 
-SUIMessage.propTypes = {
-  id: PropTypes.string,
-  className: PropTypes.string,
-  appearance: PropTypes.string,
-  inline: PropTypes.bool,
-  style: PropTypes.object,
+  render() {
+    const { id, className, appearance, inline, style={}, children } = this.props;
 
-  header: PropTypes.string,
-  message: PropTypes.string
-};
+    const props = {
+      id,
+      className: classNames(className, "ui", appearance, "message"),
+      style
+    }
+    if (inline) style.display = "inline-block";
 
-function renderHeader(props) {
-  const { header } = props;
-  if (header) return <div className="header">{header}</div>;
-  return undefined;
-}
-
-function renderMessage(props) {
-  const { message } = props;
-  if (message) return <p>{message}</p>;
-  return undefined;
+    return (
+      <div {...props}>
+        {this.renderHeader()}
+        {this.renderMessage()}
+        {children}
+      </div>
+    );
+  }
 }

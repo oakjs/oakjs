@@ -6,10 +6,13 @@
 
 import React, { PropTypes } from "react";
 
-export default function SUIFlag(props) {
-  const { country } = props;
-  if (country) return <i className={`${country} flag`}/>;
+export default class SUIFlag extends React.Component {
+  static propTypes = {
+    country: PropTypes.string
+  };
+
+  render() {
+    const { country } = this.props;
+    if (country) return <i className={`${country} flag`}/>;
+  }
 }
-SUIFlag.propTypes = {
-  country: PropTypes.string
-};
