@@ -9,7 +9,9 @@
 
 import React, { PropTypes } from "react";
 import { Link } from "react-router";
+import Stub from "./Stub";
 
 export default function OakCardLink(props) {
+  if (!props.to) return <Stub/>;
   return <Link {...props}/>;
 }

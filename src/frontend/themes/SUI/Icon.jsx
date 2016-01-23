@@ -33,5 +33,5 @@ export default class SUIIcon extends React.Component {
 // Method to render an icon iff we're passed one, otherwise returns `undefined`.
 export function renderIcon(icon) {
   if (!icon) return undefined;
-  return <Icon icon={icon}/>;
+  return <SUIIcon icon={icon}/>;
 }

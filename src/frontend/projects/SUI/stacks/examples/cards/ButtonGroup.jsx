@@ -7,220 +7,218 @@ export default class ButtonGroupCard extends Card {
     id: "ButtonGroup",
     title: "<ButtonGroup> Examples"
   }
-  renderChildren() {
-    const $ = this.constructor.components;
+  render() {
+    const c = this.components;
     return (
-      <$.CardContents>
-        <$.PageSidebar/>
-        <$.Page title="ButtonGroup" description="A ButtonGroup encapsulates a set of Button elements, generally to provide consistent styling.">
-          <$.Section title="Appearance">
-            <$.Example title="Normal">
-              <$.ButtonGroup>
-                <$.Button title="One"/>
-                <$.Button title="Two"/>
-                <$.Button title="Three"/>
-              </$.ButtonGroup>
-            </$.Example>
+      <div {...this.renderProps}>
+        <c.PageSidebar/>
+        <c.Page title="ButtonGroup" description="A ButtonGroup encapsulates a set of Button elements, generally to provide consistent styling.">
+          <c.Section title="Appearance">
+            <c.Example title="Normal">
+              <c.ButtonGroup>
+                <c.Button title="One"/>
+                <c.Button title="Two"/>
+                <c.Button title="Three"/>
+              </c.ButtonGroup>
+            </c.Example>
 
-            <$.Example title="Compact">
-              <$.ButtonGroup compact>
-                <$.Button>One</$.Button>
-                <$.Button>Two</$.Button>
-              </$.ButtonGroup>
-            </$.Example>
+            <c.Example title="Compact">
+              <c.ButtonGroup compact>
+                <c.Button>One</c.Button>
+                <c.Button>Two</c.Button>
+              </c.ButtonGroup>
+            </c.Example>
 
-            <$.Example title="Icon Buttons">
-              <$.ButtonGroup appearance="icon">
-                <$.Button icon="align left"/>
-                <$.Button icon="align center"/>
-                <$.Button icon="align right"/>
-                <$.Button icon="align justify"/>
-              </$.ButtonGroup>
-              <$.Spacer inline/>
-              <$.ButtonGroup appearance="icon">
-                <$.Button icon="bold"/>
-                <$.Button icon="underline"/>
-                <$.Button icon="text width"/>
-              </$.ButtonGroup>
-            </$.Example>
+            <c.Example title="Icon Buttons">
+              <c.ButtonGroup appearance="icon">
+                <c.Button icon="align left"/>
+                <c.Button icon="align center"/>
+                <c.Button icon="align right"/>
+                <c.Button icon="align justify"/>
+              </c.ButtonGroup>
+              <c.Spacer inline/>
+              <c.ButtonGroup appearance="icon">
+                <c.Button icon="bold"/>
+                <c.Button icon="underline"/>
+                <c.Button icon="text width"/>
+              </c.ButtonGroup>
+            </c.Example>
 
-            <$.Example title="Labeled Icon Buttons">
-              <$.ButtonGroup appearance="vertical labeled icon">
-                <$.Button icon="play" title="Play"/>
-                <$.Button icon="pause" title="Pause"/>
-                <$.Button icon="shuffle" title="Shuffle"/>
-              </$.ButtonGroup>
-            </$.Example>
+            <c.Example title="Labeled Icon Buttons">
+              <c.ButtonGroup appearance="vertical labeled icon">
+                <c.Button icon="play" title="Play"/>
+                <c.Button icon="pause" title="Pause"/>
+                <c.Button icon="shuffle" title="Shuffle"/>
+              </c.ButtonGroup>
+            </c.Example>
 
-            <$.Example title="Mixed Group">
-              <$.ButtonGroup>
-                <$.Button icon="left chevron" appearance="labeled icon" title="Back"/>
-                <$.Button icon="stop" title="Stop"/>
-                <$.Button icon="right chevron" appearance="right labeled icon" title="Forward"/>
-              </$.ButtonGroup>
-            </$.Example>
+            <c.Example title="Mixed Group">
+              <c.ButtonGroup>
+                <c.Button icon="left chevron" appearance="labeled icon" title="Back"/>
+                <c.Button icon="stop" title="Stop"/>
+                <c.Button icon="right chevron" appearance="right labeled icon" title="Forward"/>
+              </c.ButtonGroup>
+            </c.Example>
 
-            <$.Example title="Conditionals">
-              <$.ButtonGroup>
-                <$.Button>Cancel</$.Button>
-                <$.Conditional/>
-                <$.Button color="positive">Save</$.Button>
-              </$.ButtonGroup>
-            </$.Example>
+            <c.Example title="Conditionals">
+              <c.ButtonGroup>
+                <c.Button>Cancel</c.Button>
+                <c.Conditional/>
+                <c.Button color="positive">Save</c.Button>
+              </c.ButtonGroup>
+            </c.Example>
 
-            <$.Example title="Colored Buttons">
-              <$.ButtonGroup color="blue">
-                <$.Button title="One"/>
-                <$.Button title="Two"/>
-                <$.Button title="Three"/>
-              </$.ButtonGroup>
-            </$.Example>
+            <c.Example title="Colored Buttons">
+              <c.ButtonGroup color="blue">
+                <c.Button title="One"/>
+                <c.Button title="Two"/>
+                <c.Button title="Three"/>
+              </c.ButtonGroup>
+            </c.Example>
 
-            <$.Example title="Basic Buttons">
-              <$.ButtonGroup appearance="basic">
-                <$.Button title="One"/>
-                <$.Button title="Two"/>
-                <$.Button title="Three"/>
-              </$.ButtonGroup>
+            <c.Example title="Basic Buttons">
+              <c.ButtonGroup appearance="basic">
+                <c.Button title="One"/>
+                <c.Button title="Two"/>
+                <c.Button title="Three"/>
+              </c.ButtonGroup>
 
-              <$.Spacer/>
-              <$.ButtonGroup>
-                <$.Button title="One" color="red" appearance="basic"/>
-                <$.Button title="Two" color="blue" appearance="basic"/>
-                <$.Button title="Three" color="green" appearance="basic"/>
-              </$.ButtonGroup>
-            </$.Example>
-
-
-            <$.Example title="Vertical">
-              <$.ButtonGroup appearance="vertical">
-                <$.Button title="One"/>
-                <$.Button title="Two"/>
-                <$.Button title="Three"/>
-              </$.ButtonGroup>
-
-              <$.Spacer inline/>
-              <$.ButtonGroup appearance="vertical" color="blue">
-                <$.Button title="One"/>
-                <$.Button title="Two"/>
-                <$.Button title="Three"/>
-              </$.ButtonGroup>
-
-              <$.Spacer inline/>
-              <$.ButtonGroup appearance="vertical">
-                <$.Button title="One" color="red"/>
-                <$.Button title="Two" color="blue"/>
-                <$.Button title="Three" color="green"/>
-              </$.ButtonGroup>
-
-              <$.Spacer inline size="large"/>
-              <$.ButtonGroup appearance="vertical basic">
-                <$.Button title="One"/>
-                <$.Button title="Two"/>
-                <$.Button title="Three"/>
-              </$.ButtonGroup>
-
-              <$.Spacer inline/>
-              <$.ButtonGroup appearance="vertical basic" color="blue">
-                <$.Button title="One"/>
-                <$.Button title="Two"/>
-                <$.Button title="Three"/>
-              </$.ButtonGroup>
-
-              <$.Spacer inline/>
-              <$.ButtonGroup appearance="vertical basic">
-                <$.Button title="One" color="red" appearance="basic"/>
-                <$.Button title="Two" color="blue" appearance="basic"/>
-                <$.Button title="Three" color="green" appearance="basic"/>
-              </$.ButtonGroup>
-            </$.Example>
-          </$.Section>
-
-            <$.Section title="Sizing">
-            <$.Example title="Group Sizes">
-              <$.ButtonGroup size="tiny">
-                <$.Button title="We"/>
-                <$.Button title="Are"/>
-                <$.Button title="Tiny!"/>
-              </$.ButtonGroup>
-
-              <$.Spacer/>
-              <$.ButtonGroup size="large" appearance="basic icon">
-                <$.Button icon="file"/>
-                <$.Button icon="save"/>
-                <$.Button icon="upload"/>
-                <$.Button icon="download"/>
-              </$.ButtonGroup>
-
-              <$.Spacer/>
-              <$.ButtonGroup size="huge">
-                <$.Button title="One"/>
-                <$.Conditional/>
-                <$.Button title="Two"/>
-                <$.Conditional/>
-                <$.Button title="Three"/>
-              </$.ButtonGroup>
-            </$.Example>
-
-            <$.Example title="Fluid">
-              <$.ButtonGroup appearance="fluid">
-                <$.Button title="Overview"/>
-                <$.Button title="Specs"/>
-                <$.Button title="Warranty"/>
-                <$.Button title="Reviews"/>
-                <$.Button title="Support"/>
-              </$.ButtonGroup>
-            </$.Example>
-
-            <$.Example title="Equal Width">
-              <$.ButtonGroup count={5}>
-                <$.Button title="Overview"/>
-                <$.Button title="Specs"/>
-                <$.Button title="Warranty"/>
-                <$.Button title="Reviews"/>
-                <$.Button title="Support"/>
-              </$.ButtonGroup>
-              <$.Spacer/>
-              <$.ButtonGroup count={3}>
-                <$.Button title="Overview"/>
-                <$.Button title="Specs"/>
-                <$.Button title="Support"/>
-              </$.ButtonGroup>
-            </$.Example>
-          </$.Section>
-
-          <$.Section title="Attachment">
-            <$.Example title="Floated">
-              <$.Segment clearing appearance="unpadded basic">
-                <$.ButtonGroup float="left">
-                  <$.Button icon="left arrow"/>
-                  <$.Button icon="right arrow"/>
-                </$.ButtonGroup>
-                <$.ButtonGroup float="right">
-                  <$.Button icon="left arrow"/>
-                  <$.Button icon="right arrow"/>
-                </$.ButtonGroup>
-              </$.Segment>
-            </$.Example>
+              <c.Spacer/>
+              <c.ButtonGroup>
+                <c.Button title="One" color="red" appearance="basic"/>
+                <c.Button title="Two" color="blue" appearance="basic"/>
+                <c.Button title="Three" color="green" appearance="basic"/>
+              </c.ButtonGroup>
+            </c.Example>
 
 
-            <$.Example title="Vertically Attached">
-              <$.ButtonGroup attached="top">
-                <$.Button title="One"/>
-                <$.Button title="Two"/>
-              </$.ButtonGroup>
-              <$.Segment appearance="attached"><p>Segment Content Here</p></$.Segment>
-              <$.ButtonGroup attached="bottom">
-                <$.Button title="One"/>
-                <$.Button title="Two"/>
-              </$.ButtonGroup>
-            </$.Example>
-          </$.Section>
+            <c.Example title="Vertical">
+              <c.ButtonGroup appearance="vertical">
+                <c.Button title="One"/>
+                <c.Button title="Two"/>
+                <c.Button title="Three"/>
+              </c.ButtonGroup>
 
-        </$.Page>
-      </$.CardContents>
+              <c.Spacer inline/>
+              <c.ButtonGroup appearance="vertical" color="blue">
+                <c.Button title="One"/>
+                <c.Button title="Two"/>
+                <c.Button title="Three"/>
+              </c.ButtonGroup>
+
+              <c.Spacer inline/>
+              <c.ButtonGroup appearance="vertical">
+                <c.Button title="One" color="red"/>
+                <c.Button title="Two" color="blue"/>
+                <c.Button title="Three" color="green"/>
+              </c.ButtonGroup>
+
+              <c.Spacer inline size="large"/>
+              <c.ButtonGroup appearance="vertical basic">
+                <c.Button title="One"/>
+                <c.Button title="Two"/>
+                <c.Button title="Three"/>
+              </c.ButtonGroup>
+
+              <c.Spacer inline/>
+              <c.ButtonGroup appearance="vertical basic" color="blue">
+                <c.Button title="One"/>
+                <c.Button title="Two"/>
+                <c.Button title="Three"/>
+              </c.ButtonGroup>
+
+              <c.Spacer inline/>
+              <c.ButtonGroup appearance="vertical basic">
+                <c.Button title="One" color="red" appearance="basic"/>
+                <c.Button title="Two" color="blue" appearance="basic"/>
+                <c.Button title="Three" color="green" appearance="basic"/>
+              </c.ButtonGroup>
+            </c.Example>
+          </c.Section>
+
+            <c.Section title="Sizing">
+            <c.Example title="Group Sizes">
+              <c.ButtonGroup size="tiny">
+                <c.Button title="We"/>
+                <c.Button title="Are"/>
+                <c.Button title="Tiny!"/>
+              </c.ButtonGroup>
+
+              <c.Spacer/>
+              <c.ButtonGroup size="large" appearance="basic icon">
+                <c.Button icon="file"/>
+                <c.Button icon="save"/>
+                <c.Button icon="upload"/>
+                <c.Button icon="download"/>
+              </c.ButtonGroup>
+
+              <c.Spacer/>
+              <c.ButtonGroup size="huge">
+                <c.Button title="One"/>
+                <c.Conditional/>
+                <c.Button title="Two"/>
+                <c.Conditional/>
+                <c.Button title="Three"/>
+              </c.ButtonGroup>
+            </c.Example>
+
+            <c.Example title="Fluid">
+              <c.ButtonGroup appearance="fluid">
+                <c.Button title="Overview"/>
+                <c.Button title="Specs"/>
+                <c.Button title="Warranty"/>
+                <c.Button title="Reviews"/>
+                <c.Button title="Support"/>
+              </c.ButtonGroup>
+            </c.Example>
+
+            <c.Example title="Equal Width">
+              <c.ButtonGroup count={5}>
+                <c.Button title="Overview"/>
+                <c.Button title="Specs"/>
+                <c.Button title="Warranty"/>
+                <c.Button title="Reviews"/>
+                <c.Button title="Support"/>
+              </c.ButtonGroup>
+              <c.Spacer/>
+              <c.ButtonGroup count={3}>
+                <c.Button title="Overview"/>
+                <c.Button title="Specs"/>
+                <c.Button title="Support"/>
+              </c.ButtonGroup>
+            </c.Example>
+          </c.Section>
+
+          <c.Section title="Attachment">
+            <c.Example title="Floated">
+              <c.Segment clearing appearance="unpadded basic">
+                <c.ButtonGroup float="left">
+                  <c.Button icon="left arrow"/>
+                  <c.Button icon="right arrow"/>
+                </c.ButtonGroup>
+                <c.ButtonGroup float="right">
+                  <c.Button icon="left arrow"/>
+                  <c.Button icon="right arrow"/>
+                </c.ButtonGroup>
+              </c.Segment>
+            </c.Example>
+
+
+            <c.Example title="Vertically Attached">
+              <c.ButtonGroup attached="top">
+                <c.Button title="One"/>
+                <c.Button title="Two"/>
+              </c.ButtonGroup>
+              <c.Segment appearance="attached"><p>Segment Content Here</p></c.Segment>
+              <c.ButtonGroup attached="bottom">
+                <c.Button title="One"/>
+                <c.Button title="Two"/>
+              </c.ButtonGroup>
+            </c.Example>
+          </c.Section>
+
+        </c.Page>
+      </div>
     );
   }
-  // Necessary so hot reloader will notice this file.
-  render(){ return super.render() }
 }

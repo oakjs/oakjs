@@ -1,88 +1,90 @@
 import React, { PropTypes } from "react";
 import { Route, IndexRoute } from "react-router";
 import classNames from "classnames";
-import Card from "./Card";
 
 // Import custom CSS for all stacks.
 import "./Stack.css";
 
 export default class OakStack extends React.Component {
+  static propTypes = {
+    id: PropTypes.string,
+    title: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.object,
+  }
+
   // Add this stack to a project.
   // ASSUMES: `stack.cardMap` has already been set up (in our `index.js` file).
   // ASSUMES: `stack.components` has already been set up (in our `index.js` file).
   // ASSUMES: That this is being called from `Project.initializeProject()`
-  static initializeStack({ project, stack, stackIndex }) {
+  static initialize({ stack, project, stackIndex }) {
     stack.project = project;
-
-    // reflection
-    stack.id = stack.defaultProps.id;
-    stack.title = stack.defaultProps.title;
-    stack.path = project.path + "/" + stack.id;
-
-    // Merge project components and stack components.
-    // NOTE: MUST happen BEFORE initializing cards.
-    stack.components = Object.assign({}, project.components, stack.components);
-
-    // Initialize card indexes.
-    const cardMap = stack.cardMap;
-    const cardIds = stack.cardIds = Object.keys(cardMap);
-    const cards = stack.cards = cardIds.map(cardId => cardMap[cardId]);
+    stack.stackIndex = stackIndex;
 
     // Initialize cards.
-    cards.forEach((card, cardIndex) => Card.initializeCard({ card, stack, cardIndex }));
+    const cards = stack.cards;
+    cards.forEach((card, cardIndex) => card.initialize({ card, stack, cardIndex }));
 
-    // Indexing within the project.
-    stack.stackIndex = stackIndex;
-    stack.prev = project.stacks[stackIndex-1];
-    stack.next = project.stacks[stackIndex+1];
-
-    // Set up stack routing.
-    // NOTE: MUST happen AFTER initializing cards.
-    const cardRoutes = [
-      <IndexRoute component={cards[0]}/>,
-      ...cards.map(card => card.route)
-    ];
-    stack.route = React.createElement(Route, { path: stack.id, component: stack }, ...cardRoutes);
-
-
-console.group("stack after indexing:");
-console.dir(stack);
-console.groupEnd();
-
+//console.info("stack after initializing:", stack);
     return stack;
   }
 
 
   //////////////////////////////
-  // Syntactic sugar
+  // Syntactic sugar for deriving stuff
+  //////////////////////////////
+  static get cardIds() { return Object.keys(this.cardMap) }
+  static get cards() { return this.cardIds.map(cardId => this.cardMap[cardId]) }
+  static get id() { return this.defaultProps.id }
+  static get title() { return this.defaultProps.title }
+  static get path() { return this.project.path + "/" + this.id }
+  static get prev() { return this.project.stacks[this.stackIndex - 1] }
+  static get next() { return this.project.stacks[this.stackIndex + 1] }
+  // Router for stack and its current set of cards
+  // NOTE:  depends on `Stack.initialize()` being called (e.g. by `Project.initalize()`).
+  static get route() {
+    const cards = this.cards;
+    const cardRoutes = [<IndexRoute component={cards[0]}/>, ...cards.map(card => card.route)];
+    const routeProps = { path: this.id, component: this};
+    return React.createElement(Route, routeProps, ...cardRoutes);
+  }
+  // All stack-accessible components, including project and theme
+  // NOTE: if your stack has specific components, do the following in your `stack.jsx`:
+  //    import * as components from "./components";
+  //    export default class MyStack extends Stack {
+  //      static _components = components;
+  //      ...
+  //     }
+  static get components() { return Object.assign({}, this.project.components, this._components) }
+
+  //////////////////////////////
+  // Syntactic sugar for treating static things like instance things.
   //////////////////////////////
 
-  // Return the cardConstructors defined on our constructor.
-  get cardConstructors() {
-    return this.constructor.cardConstructors;
-  }
+  // Return the project / stack CONSTRUCTORS (NOT instances).
+  // (Really only useful for calling static methods).
+  get project() { return this.constructor.project }
+  get components() { return this.constructor.components }
 
-  // Return a pointer to a card constructor given an `cardName`.
-  // NOTE: this assumes `class.cardConstructors` is set up when stack
-  getCardConstructor(cardName = this.state.card) {
-    if (!cardName) return undefined;
-    return this.cardConstructors.filter(constructor => constructor.name === cardName)[0];
+  // Reflection
+  get id() { return this.constructor.id }
+  get title() { return this.constructor.title }
+  get path() { return this.constructor.path }
+
+  // Return the PATH for the previous/next cards.
+  // Returns `undefined` if we're at one end or the other.
+  get prevStack() {
+    const prev = this.constructor.prev;
+    return (prev ? prev.path : undefined);
+  }
+  get nextStack() {
+    const next = this.constructor.next;
+    return (next ? next.path : undefined);
   }
 
   //////////////////////////////
   // Rendering
   //////////////////////////////
-
-  renderCard() {
-    // If we were passed a child element by the router, just return that.
-    const { children } = this.props;
-    if (children) return children;
-
-    // Otherwise create an instance of the first of our `cardConstructors`.
-    const CardConstructor = this.cardConstructors[0];
-    if (!CardConstructor) throw new TypeError("stack.renderCard(): no cardConstructors defined.");
-    return <CardConstructor/>;
-  }
 
   render() {
     const { id, className, style } = this.props;
@@ -91,7 +93,7 @@ console.groupEnd();
       className: classNames("oak Stack", className),
       style
     }
-    return <div {...props}>{this.renderCard()}</div>;
+    return <div {...props}>{this.props.children}</div>;
   }
 
 }

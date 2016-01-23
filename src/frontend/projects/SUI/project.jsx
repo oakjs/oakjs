@@ -1,7 +1,11 @@
 "use strict";
 
 import React from "react";
-import oak, { Project } from "oak";
+import { Project } from "oak";
+
+import * as themeComponents from "./theme";
+import * as projectComponents from "./components";
+import * as stackMap from "./stacks";
 
 export default class SUIProject extends Project {
 	static defaultProps = {
@@ -12,3 +16,4 @@ export default class SUIProject extends Project {
   render(){ return super.render() }
 }
 
+Project.initialize({ project:SUIProject, themeComponents, projectComponents, stackMap});

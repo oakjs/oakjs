@@ -1,2 +1,2 @@
 // List projects here.
-export SUI from "./SUI";
+export SUI from "./SUI/project";

@@ -8,7 +8,7 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import Icon from "./Icon";
+import { renderIcon } from "./Icon";
 
 // `appearance`:  any combination of:
 //    - `primary`, `secondary`
@@ -79,7 +79,7 @@ export default class SUIButton extends React.Component {
       // appearance
       className, appearance, size, compact, circular, color, float, attached, style,
       // content / label
-      title, icon, label, children=[],
+      title, icon, label, children,
       // events & states
       active, disabled, loading, toggle, onClick,
     } = this.props;
@@ -102,9 +102,9 @@ export default class SUIButton extends React.Component {
       style,
       onClick
     };
-
-    const iconElement = (icon && <Icon icon={icon}/> : undefined);
-    const buttonElement = React.createElement(attached ? "div" : "button", props, iconElement, title, ...children);
+    const buttonTagName = (attached ? "div" : "button");
+    const buttonElements = [renderIcon(icon), title].concat(children);
+    const buttonElement = React.createElement(buttonTagName, props, ...buttonElements);
 
     if (label) return this.renderLabel(buttonElement);
     return buttonElement;

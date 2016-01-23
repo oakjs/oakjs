@@ -7,228 +7,228 @@ export default class ButtonCard extends Card {
     id: "Button",
     title: "<Button> Examples"
   }
-  renderChildren() {
-    const $ = this.constructor.components;
+  render() {
+    const c = this.components;
     return (
-      <$.CardContents>
-        <$.PageSidebar/>
-        <$.Page title="Button" description="A button indicates a possible user action.">
-          <$.Section title="Content">
-            <$.Example title="Inline or Attribute Content">
-              <$.Button title="Button with Title Attribute"/>
-              <$.Button icon="checkmark" title="Button with Title and Icon Attributes"/>
-              <$.Spacer/>
-              <$.Button>Button With Inline Text</$.Button>
-              <$.Button><$.Icon icon="checkmark"/>Button With Inline Text and Icon</$.Button>
-            </$.Example>
+      <div {...this.renderProps}>
+        <c.PageSidebar/>
+        <c.Page title="Button" description="A button indicates a possible user action.">
+          <c.Section title="Content">
+            <c.Example title="Inline or Attribute Content">
+              <c.Button title="Button with Title Attribute"/>
+              <c.Button icon="checkmark" title="Button with Title and Icon Attributes"/>
+              <c.Spacer/>
+              <c.Button>Button With Inline Text</c.Button>
+              <c.Button><c.Icon icon="checkmark"/>Button With Inline Text and Icon</c.Button>
+            </c.Example>
 
-            <$.Example title="Icon" hint="<Button icon='name'/>">
-              <$.Button icon="cloud"/>
-            </$.Example>
+            <c.Example title="Icon" hint="<Button icon='name'/>">
+              <c.Button icon="cloud"/>
+            </c.Example>
 
-            <$.Example title="Icon + Text">
-              <$.Button icon="cloud" title="Upload to Cloud"/>
-            </$.Example>
+            <c.Example title="Icon + Text">
+              <c.Button icon="cloud" title="Upload to Cloud"/>
+            </c.Example>
 
-            <$.Example title="Labeled Icon">
-              <$.Button icon="pause" title="Pause" appearance="labeled icon"/>
-              <$.Button icon="right arrow" appearance="right labeled icon">Next</$.Button>
-            </$.Example>
+            <c.Example title="Labeled Icon">
+              <c.Button icon="pause" title="Pause" appearance="labeled icon"/>
+              <c.Button icon="right arrow" appearance="right labeled icon">Next</c.Button>
+            </c.Example>
 
-            <$.Example title="Labeled">
-              <$.Button icon="heart" label="1000">Like</$.Button>
-              <$.Button icon="fork" label="1000" labelDirection="left"/>
-              <$.Button title="Like" icon="heart" label="1000" labelDirection="left" labelAppearance="basic right pointing"/>
-              <$.Spacer/>
-              <$.Button icon="heart" label="1000" color="red" labelAppearance="basic left pointing">Like</$.Button>
-              <$.Button icon="fork" label="1000" appearance="basic" color="blue" labelAppearance="basic left pointing">Forks</$.Button>
-            </$.Example>
-          </$.Section>
+            <c.Example title="Labeled">
+              <c.Button icon="heart" label="1000">Like</c.Button>
+              <c.Button icon="fork" label="1000" labelDirection="left"/>
+              <c.Button title="Like" icon="heart" label="1000" labelDirection="left" labelAppearance="basic right pointing"/>
+              <c.Spacer/>
+              <c.Button icon="heart" label="1000" color="red" labelAppearance="basic left pointing">Like</c.Button>
+              <c.Button icon="fork" label="1000" appearance="basic" color="blue" labelAppearance="basic left pointing">Forks</c.Button>
+            </c.Example>
+          </c.Section>
 
-          <$.Section title="Appearance">
+          <c.Section title="Appearance">
 
-            <$.Example title="Emphasis">
-              <$.Button>Normal</$.Button>
-              <$.Button color="primary">Primary</$.Button>
-              <$.Button color="secondary">Secondary</$.Button>
-              <$.Button color="positive">Positive</$.Button>
-              <$.Button color="negative">Negative</$.Button>
-            </$.Example>
+            <c.Example title="Emphasis">
+              <c.Button>Normal</c.Button>
+              <c.Button color="primary">Primary</c.Button>
+              <c.Button color="secondary">Secondary</c.Button>
+              <c.Button color="positive">Positive</c.Button>
+              <c.Button color="negative">Negative</c.Button>
+            </c.Example>
 
-            <$.Example title="Color">
-              <$.Button color="red" title="Red"/>
-              <$.Button color="orange" title="Orange"/>
-              <$.Button color="yellow" title="Yellow"/>
-              <$.Button color="olive" title="Olive"/>
-              <$.Button color="green" title="Green"/>
-              <$.Button color="teal" title="Teal"/>
-              <$.Button color="blue" title="Blue"/>
-              <$.Spacer/>
-              <$.Button color="violet" title="Violet"/>
-              <$.Button color="purple" title="Purple"/>
-              <$.Button color="pink" title="Pink"/>
-              <$.Button color="brown" title="Brown"/>
-              <$.Button color="grey" title="Grey"/>
-              <$.Button color="black" title="Black"/>
-            </$.Example>
+            <c.Example title="Color">
+              <c.Button color="red" title="Red"/>
+              <c.Button color="orange" title="Orange"/>
+              <c.Button color="yellow" title="Yellow"/>
+              <c.Button color="olive" title="Olive"/>
+              <c.Button color="green" title="Green"/>
+              <c.Button color="teal" title="Teal"/>
+              <c.Button color="blue" title="Blue"/>
+              <c.Spacer/>
+              <c.Button color="violet" title="Violet"/>
+              <c.Button color="purple" title="Purple"/>
+              <c.Button color="pink" title="Pink"/>
+              <c.Button color="brown" title="Brown"/>
+              <c.Button color="grey" title="Grey"/>
+              <c.Button color="black" title="Black"/>
+            </c.Example>
 
-            <$.Example title="Basic">
-              <$.Button appearance="basic" icon="user">Add</$.Button>
-              <$.Button appearance="basic" color="red" title="Red"/>
-              <$.Button appearance="basic" color="orange" title="Orange"/>
-              <$.Button appearance="basic" color="yellow" title="Yellow"/>
-              <$.Button appearance="basic" color="olive" title="Olive"/>
-              <$.Button appearance="basic" color="green" title="Green"/>
-              <$.Button appearance="basic" color="teal" title="Teal"/>
-              <$.Spacer/>
-              <$.Button appearance="basic" color="blue" title="Blue"/>
-              <$.Button appearance="basic" color="violet" title="Violet"/>
-              <$.Button appearance="basic" color="purple" title="Purple"/>
-              <$.Button appearance="basic" color="pink" title="Pink"/>
-              <$.Button appearance="basic" color="brown" title="Brown"/>
-              <$.Button appearance="basic" color="grey" title="Grey"/>
-              <$.Button appearance="basic" color="black" title="Black"/>
-            </$.Example>
+            <c.Example title="Basic">
+              <c.Button appearance="basic" icon="user">Add</c.Button>
+              <c.Button appearance="basic" color="red" title="Red"/>
+              <c.Button appearance="basic" color="orange" title="Orange"/>
+              <c.Button appearance="basic" color="yellow" title="Yellow"/>
+              <c.Button appearance="basic" color="olive" title="Olive"/>
+              <c.Button appearance="basic" color="green" title="Green"/>
+              <c.Button appearance="basic" color="teal" title="Teal"/>
+              <c.Spacer/>
+              <c.Button appearance="basic" color="blue" title="Blue"/>
+              <c.Button appearance="basic" color="violet" title="Violet"/>
+              <c.Button appearance="basic" color="purple" title="Purple"/>
+              <c.Button appearance="basic" color="pink" title="Pink"/>
+              <c.Button appearance="basic" color="brown" title="Brown"/>
+              <c.Button appearance="basic" color="grey" title="Grey"/>
+              <c.Button appearance="basic" color="black" title="Black"/>
+            </c.Example>
 
-            <$.Example title="Inverted">
-              <$.Segment appearance="inverted">
-                <$.Button appearance="inverted" icon="user">Add</$.Button>
-                <$.Button appearance="inverted" color="red" title="Red"/>
-                <$.Button appearance="inverted" color="orange" title="Orange"/>
-                <$.Button appearance="inverted" color="yellow" title="Yellow"/>
-                <$.Button appearance="inverted" color="olive" title="Olive"/>
-                <$.Button appearance="inverted" color="green" title="Green"/>
-                <$.Button appearance="inverted" color="teal" title="Teal"/>
-                <$.Spacer/>
-                <$.Button appearance="inverted" color="blue" title="Blue"/>
-                <$.Button appearance="inverted" color="violet" title="Violet"/>
-                <$.Button appearance="inverted" color="purple" title="Purple"/>
-                <$.Button appearance="inverted" color="pink" title="Pink"/>
-                <$.Button appearance="inverted" color="brown" title="Brown"/>
-                <$.Button appearance="inverted" color="grey" title="Grey"/>
-                <$.Button appearance="inverted" color="black" title="Black"/>
-              </$.Segment>
+            <c.Example title="Inverted">
+              <c.Segment appearance="inverted">
+                <c.Button appearance="inverted" icon="user">Add</c.Button>
+                <c.Button appearance="inverted" color="red" title="Red"/>
+                <c.Button appearance="inverted" color="orange" title="Orange"/>
+                <c.Button appearance="inverted" color="yellow" title="Yellow"/>
+                <c.Button appearance="inverted" color="olive" title="Olive"/>
+                <c.Button appearance="inverted" color="green" title="Green"/>
+                <c.Button appearance="inverted" color="teal" title="Teal"/>
+                <c.Spacer/>
+                <c.Button appearance="inverted" color="blue" title="Blue"/>
+                <c.Button appearance="inverted" color="violet" title="Violet"/>
+                <c.Button appearance="inverted" color="purple" title="Purple"/>
+                <c.Button appearance="inverted" color="pink" title="Pink"/>
+                <c.Button appearance="inverted" color="brown" title="Brown"/>
+                <c.Button appearance="inverted" color="grey" title="Grey"/>
+                <c.Button appearance="inverted" color="black" title="Black"/>
+              </c.Segment>
 
-              <$.Segment appearance="inverted">
-                <$.Button appearance="inverted basic" icon="user">Add</$.Button>
-                <$.Button appearance="inverted basic" color="red" title="Basic Red"/>
-                <$.Button appearance="inverted basic" color="orange" title="Basic Orange"/>
-                <$.Button appearance="inverted basic" color="yellow" title="Basic Yellow"/>
-                <$.Button appearance="inverted basic" color="olive" title="Basic Olive"/>
-                <$.Button appearance="inverted basic" color="green" title="Basic Green"/>
-                <$.Button appearance="inverted basic" color="teal" title="Basic Teal"/>
-                <$.Spacer/>
-                <$.Button appearance="inverted basic" color="blue" title="Basic Blue"/>
-                <$.Button appearance="inverted basic" color="violet" title="Basic Violet"/>
-                <$.Button appearance="inverted basic" color="purple" title="Basic Purple"/>
-                <$.Button appearance="inverted basic" color="pink" title="Basic Pink"/>
-                <$.Button appearance="inverted basic" color="brown" title="Basic Brown"/>
-                <$.Button appearance="inverted basic" color="grey" title="Basic Grey"/>
-                <$.Button appearance="inverted basic" color="black" title="Basic Black"/>
-              </$.Segment>
-            </$.Example>
+              <c.Segment appearance="inverted">
+                <c.Button appearance="inverted basic" icon="user">Add</c.Button>
+                <c.Button appearance="inverted basic" color="red" title="Basic Red"/>
+                <c.Button appearance="inverted basic" color="orange" title="Basic Orange"/>
+                <c.Button appearance="inverted basic" color="yellow" title="Basic Yellow"/>
+                <c.Button appearance="inverted basic" color="olive" title="Basic Olive"/>
+                <c.Button appearance="inverted basic" color="green" title="Basic Green"/>
+                <c.Button appearance="inverted basic" color="teal" title="Basic Teal"/>
+                <c.Spacer/>
+                <c.Button appearance="inverted basic" color="blue" title="Basic Blue"/>
+                <c.Button appearance="inverted basic" color="violet" title="Basic Violet"/>
+                <c.Button appearance="inverted basic" color="purple" title="Basic Purple"/>
+                <c.Button appearance="inverted basic" color="pink" title="Basic Pink"/>
+                <c.Button appearance="inverted basic" color="brown" title="Basic Brown"/>
+                <c.Button appearance="inverted basic" color="grey" title="Basic Grey"/>
+                <c.Button appearance="inverted basic" color="black" title="Basic Black"/>
+              </c.Segment>
+            </c.Example>
 
-            <$.Example title="Social">
-              <$.Button appearance="facebook" icon="facebook" title="Facebook"/>
-              <$.Button appearance="twitter" icon="twitter" title="Twitter"/>
-              <$.Button appearance="google plus" icon="google plus" title="Google Plus"/>
-              <$.Button appearance="vk" icon="vk" title="VKk"/>
-              <$.Button appearance="linkedin" icon="linkedin" title="LinkedIn"/>
-              <$.Button appearance="instagram" icon="instagram" title="Instagram"/>
-              <$.Button appearance="youtube" icon="youtube" title="YouTube"/>
-            </$.Example>
+            <c.Example title="Social">
+              <c.Button appearance="facebook" icon="facebook" title="Facebook"/>
+              <c.Button appearance="twitter" icon="twitter" title="Twitter"/>
+              <c.Button appearance="google plus" icon="google plus" title="Google Plus"/>
+              <c.Button appearance="vk" icon="vk" title="VKk"/>
+              <c.Button appearance="linkedin" icon="linkedin" title="LinkedIn"/>
+              <c.Button appearance="instagram" icon="instagram" title="Instagram"/>
+              <c.Button appearance="youtube" icon="youtube" title="YouTube"/>
+            </c.Example>
 
-            <$.Example title="Size">
-              <$.Button size="mini" title="Mini"/>
-              <$.Button size="tiny" title="Tiny"/>
-              <$.Button size="small" title="Small"/>
-              <$.Button size="medium" title="Medium"/>
-              <$.Button size="large" title="Large"/>
-              <$.Button size="big" title="Big"/>
-              <$.Button size="huge" title="Huge"/>
-              <$.Button size="massive" title="Massive"/>
-            </$.Example>
+            <c.Example title="Size">
+              <c.Button size="mini" title="Mini"/>
+              <c.Button size="tiny" title="Tiny"/>
+              <c.Button size="small" title="Small"/>
+              <c.Button size="medium" title="Medium"/>
+              <c.Button size="large" title="Large"/>
+              <c.Button size="big" title="Big"/>
+              <c.Button size="huge" title="Huge"/>
+              <c.Button size="massive" title="Massive"/>
+            </c.Example>
 
-            <$.Example title="Floated">
-              <$.Segment clearing>
-                <$.Button float="left" title="Left Floated"/>
-                <$.Button float="right" title="Right Floated"/>
-              </$.Segment>
-            </$.Example>
+            <c.Example title="Floated">
+              <c.Segment clearing>
+                <c.Button float="left" title="Left Floated"/>
+                <c.Button float="right" title="Right Floated"/>
+              </c.Segment>
+            </c.Example>
 
-            <$.Example title="Compact">
-              <$.Button compact title="Hold"/>
-              <$.Button compact icon="pause"/>
-              <$.Button compact icon="pause" title="Pause" appearance="labeled icon"/>
-            </$.Example>
+            <c.Example title="Compact">
+              <c.Button compact title="Hold"/>
+              <c.Button compact icon="pause"/>
+              <c.Button compact icon="pause" title="Pause" appearance="labeled icon"/>
+            </c.Example>
 
-            <$.Example title="Toggle">
-              <$.Button toggle title="Vote"/>
-              <$.Message appearance="error" message="TODO: `toggle` is not working."/>
-            </$.Example>
+            <c.Example title="Toggle">
+              <c.Button toggle title="Vote"/>
+              <c.Message appearance="error" message="TODO: `toggle` is not working."/>
+            </c.Example>
 
-            <$.Example title="Fluid">
-              <$.Segment>
-                <$.Button appearance="fluid" title="Fits container"/>
-              </$.Segment>
-            </$.Example>
+            <c.Example title="Fluid">
+              <c.Segment>
+                <c.Button appearance="fluid" title="Fits container"/>
+              </c.Segment>
+            </c.Example>
 
-            <$.Example title="Circular">
-              <$.Button circular icon="settings"/>
-              <$.Button circular appearance="facebook" icon="facebook"/>
-              <$.Button circular appearance="twitter" icon="twitter"/>
-              <$.Button circular appearance="linkedin" icon="linkedin"/>
-              <$.Button circular appearance="google plus" icon="google plus"/>
-            </$.Example>
+            <c.Example title="Circular">
+              <c.Button circular icon="settings"/>
+              <c.Button circular appearance="facebook" icon="facebook"/>
+              <c.Button circular appearance="twitter" icon="twitter"/>
+              <c.Button circular appearance="linkedin" icon="linkedin"/>
+              <c.Button circular appearance="google plus" icon="google plus"/>
+            </c.Example>
 
-            <$.Example title="Vertically Attached">
-              <$.Button attached="top" title="Top"/>
-              <$.Segment appearance="attached"><p>Segment Content Here</p></$.Segment>
-              <$.Button attached="bottom" title="Bottom"/>
-            </$.Example>
+            <c.Example title="Vertically Attached">
+              <c.Button attached="top" title="Top"/>
+              <c.Segment appearance="attached"><p>Segment Content Here</p></c.Segment>
+              <c.Button attached="bottom" title="Bottom"/>
+            </c.Example>
 
-            <$.Example title="Horizontally Attached">
-              <$.Button attached="left" title="Left"/>
-              <$.Button attached="right" title="Right"/>
-            </$.Example>
-          </$.Section>
+            <c.Example title="Horizontally Attached">
+              <c.Button attached="left" title="Left"/>
+              <c.Button attached="right" title="Right"/>
+            </c.Example>
+          </c.Section>
 
-          <$.Section title="States">
-            <$.Example title="Active">
-              <$.Button active icon="user" title="Follow"/>
-            </$.Example>
+          <c.Section title="States">
+            <c.Example title="Active">
+              <c.Button active icon="user" title="Follow"/>
+            </c.Example>
 
-            <$.Example title="Disabled">
-              <$.Button disabled icon="user" title="Follow"/>
-            </$.Example>
+            <c.Example title="Disabled">
+              <c.Button disabled icon="user" title="Follow"/>
+            </c.Example>
 
-            <$.Example title="Loading">
-              <$.Button loading title="Loading"/>
-              <$.Button loading appearance="basic" title="Loading"/>
-              <$.Button loading color="primary" title="Loading"/>
-              <$.Button loading color="secondary" title="Loading"/>
-            </$.Example>
+            <c.Example title="Loading">
+              <c.Button loading title="Loading"/>
+              <c.Button loading appearance="basic" title="Loading"/>
+              <c.Button loading color="primary" title="Loading"/>
+              <c.Button loading color="secondary" title="Loading"/>
+            </c.Example>
 
-            <$.Example title="Animated">
-              <$.Button appearance="animated">
+            <c.Example title="Animated">
+              <c.Button appearance="animated">
                 <div className="visible content">Horizontal</div>
-                <div className="hidden content"><$.Icon icon="right arrow"/></div>
-              </$.Button>
-              <$.Button appearance="vertical animated">
+                <div className="hidden content"><c.Icon icon="right arrow"/></div>
+              </c.Button>
+              <c.Button appearance="vertical animated">
                 <div className="visible content">Vertical</div>
-                <div className="hidden content"><$.Icon icon="right arrow"/></div>
-              </$.Button>
-              <$.Button appearance="animated fade">
+                <div className="hidden content"><c.Icon icon="right arrow"/></div>
+              </c.Button>
+              <c.Button appearance="animated fade">
                 <div className="visible content">Fade</div>
-                <div className="hidden content"><$.Icon icon="right arrow"/></div>
-              </$.Button>
-            </$.Example>
-          </$.Section>
+                <div className="hidden content"><c.Icon icon="right arrow"/></div>
+              </c.Button>
+            </c.Example>
+          </c.Section>
 
-        </$.Page>
-      </$.CardContents>
+        </c.Page>
+      </div>
     );
   }
-  // Necessary so hot reloader will notice this file.
-  render(){ return super.render() }
 }
+
+window.ButtonCard = ButtonCard;

@@ -2,91 +2,67 @@ import React, { PropTypes } from "react";
 import { Route, IndexRoute } from "react-router";
 import classNames from "classnames";
 
-import Stack from "./Stack";
 import * as oakComponents from "oak/components";
 
 // Project-specific CSS styling.
 import "./Project.css";
 
 export default class OakProject extends React.Component {
-  // Ordered list of stack constructors.
-  // NOTE: your subclass MUST assign this when defining your class.
-  static stackConstructors = [];
+  static propTypes = {
+    id: PropTypes.string,
+    title: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.object,
+  }
 
-  // Initialize a single Project, including bits we can only get by `import`ing.
-  // NOTE: also sets up stacks and cards!
-  static initializeProject({ project, themeComponents, projectComponents, stackMap }) {
-    // reflection
-    project.id = project.defaultProps.id;
-    project.title = project.defaultProps.title;
-    project.path = project.id;
+  // Initialize this Project constructor, it's stacks and it's cards.
+  // NOTE: In theory, you can call this if, eg, the stacks or cards change and things will adjust...
+  static initialize({ project, stackMap, themeComponents, projectComponents }) {
+    // remember/initialize components
+    if (themeComponents) project.themeComponents = themeComponents;
+    if (projectComponents) project.projectComponents = projectComponents;
+    project.components = Object.assign({}, oakComponents, project.themeComponents, project.projectComponents);
 
-    // Merge themeComponents, oakComponents and projectComponents
-    // NOTE: MUST happen BEFORE initializing stacks.
-    project.components = Object.assign({}, themeComponents, oakComponents, projectComponents);
-
-    // Initialize stack indexes
+    // Initialize stacks, which will initialize their cards.
     project.stackMap = stackMap;
-    const stackIds = project.stackIds = Object.keys(stackMap);
-    const stacks = project.stacks = stackIds.map(stackId => stackMap[stackId]);
+    project.stacks.forEach((stack, stackIndex) => stack.initialize({ stack, project, stackIndex }));
 
-    // Initialize stacks.
-    stacks.forEach((stack, stackIndex) => Stack.initializeStack({ project, stack, stackIndex }));
-
-    // Set up project routing.
-    // NOTE: MUST happen AFTER initializing stacks.
-    const stackRoutes = [
-      // TODO: indexRoute???
-      ...stacks.map(stack => stack.route)
-    ]
-    project.route = React.createElement(Route, { path: project.id, component: project }, ...stackRoutes);
-
-console.group("project after indexing:");
-console.dir(project);
-console.groupEnd();
-
+//console.info("project after initializing:", project);
     return project;
   }
 
-
   //////////////////////////////
-  // Syntactic sugar
+  // Syntactic sugar for deriving stuff
   //////////////////////////////
-
-  // Return the stackConstructors defined on our constructor.
-  get stackConstructors() {
-    return this.constructor.stackConstructors;
+  static get stackIds() { return Object.keys(this.stackMap) }
+  static get stacks() { return this.stackIds.map(stackId => this.stackMap[stackId]) }
+  static get id() { return this.defaultProps.id }
+  static get title() { return this.defaultProps.title }
+  static get path() { return this.id }
+  // Router for project and its current set of stacks.
+  // NOTE: depends on `Project.initialize()` being called.
+  static get route() {
+    const stacks = this.stacks;
+    const stackRoutes = [/*<IndexRoute component={stacks[0]}/>,*/ ...stacks.map(stack => stack.route)];
+    const routeProps = { path: this.id, component: this};
+    return React.createElement(Route, routeProps, ...stackRoutes);
   }
 
-  // Return a pointer to a stack constructor given an `stackName`.
-  // NOTE: this assumes `class.stackConstructors` is set up when project
-  getStackConstructor(stackName = this.state.stack) {
-    if (!stackName) return undefined;
-    return this.stackConstructors.filter(constructor => constructor.name === stackName)[0];
-  }
 
   //////////////////////////////
   // Rendering
   //////////////////////////////
 
-  renderStack() {
-    // If we were passed a child element by the router, just return that.
-    const { children } = this.props;
-    if (children) return children;
-
-    // Otherwise create an instance of the first of our `stackConstructors`.
-    const StackConstructor = this.stackConstructors[0];
-    if (!StackConstructor) throw new TypeError("stack.renderStack(): no stackConstructors defined.");
-    return <StackConstructor/>;
-  }
-
-  render() {
+  get renderProps() {
     const { id, className, style } = this.props;
-    const props = {
+    return {
       id,
       className: classNames("oak Project", className),
       style
     }
-    return <div {...props}>{this.renderStack()}</div>;
+  }
+
+  render() {
+    return <div {...this.renderProps}>{this.props.children}</div>;
   }
 }
