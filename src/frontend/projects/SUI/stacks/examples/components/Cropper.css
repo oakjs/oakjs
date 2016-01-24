@@ -1,0 +1,11 @@
+.Cropper {
+  position: relative;
+  display:inline-block;
+  overflow: hidden;
+}
+
+.Cropper:hover {
+  width: auto !important;
+  height: auto !important;
+  overflow: visible;
+}

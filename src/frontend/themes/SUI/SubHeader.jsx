@@ -12,6 +12,7 @@ function SUISubHeader(props) {
   const { id, className, style, appearance, children } = props;
   const subHeaderProps = {
     id,
+    // NOTE: this does NOT have "ui" in here, or we'll get ALL CAPS
     className: classNames(className, appearance, "sub header"),
     style,
   }

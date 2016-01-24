@@ -19,11 +19,12 @@ export default class OakCard extends React.Component {
   }
 
   static childContextTypes = {
-    card: PropTypes.any
+    card: PropTypes.any,
+    components: PropTypes.any
   };
 
   getChildContext() {
-    return { card: this };
+    return { card: this, components: this.components };
   }
 
   // Add a `card` to a `stack` at `index`.

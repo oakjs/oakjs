@@ -17,7 +17,7 @@ import Divider from "./Divider";
 //    - `inverted`, `red`, `blue`, etc
 //    -
 function SUIMenuItem(props) {
- const { key, label, value = label, active, disabled, appearance, className, icon, children } = props;
+ const { key, label, value = label, active, disabled, className, appearance, align, icon, children } = props;
 
   // If label starts with "-", return a Header instead
   if (value === undefined && label && label[0] === "#")
@@ -32,7 +32,7 @@ function SUIMenuItem(props) {
     active,
     "data-value": value,
     "data-text": label,
-    className: classNames(className, appearance, { disabled }, "item")
+    className: classNames(className, appearance, align, { disabled }, "item")
   };
 
   return (
@@ -52,6 +52,7 @@ SUIMenuItem.propTypes = {
   disabled: PropTypes.bool,
   appearance: PropTypes.string,
   className: PropTypes.string,
+  align: PropTypes.string,
   icon: PropTypes.string,
 };
 

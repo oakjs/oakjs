@@ -1,0 +1,25 @@
+.IconSample {
+  position:relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.IconSample i {
+  display:inline-block;
+  font-size: 2rem;
+  transition:transform 0.25s;
+  cursor:default;
+}
+
+.IconSample .title {
+  display: block;
+  opacity: 0.3;
+  transition:opacity 0.25s;
+}
+
+.IconSample:hover i {
+  transform:scale(1.5);
+}
+.IconSample:hover .title {
+  opacity: 1;
+}

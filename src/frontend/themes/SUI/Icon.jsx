@@ -8,7 +8,7 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 function SUIIcon(props) {
-  const { id, className, style, appearance, circular, icon } = this.props;
+  const { id, className, style, appearance, circular, icon } = props;
   const iconProps = {
     id,
     className: classNames(appearance, { circular }, icon, "icon"),

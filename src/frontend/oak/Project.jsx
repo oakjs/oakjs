@@ -16,23 +16,26 @@ export default class OakProject extends React.Component {
   }
 
   static childContextTypes = {
-    project: PropTypes.any
+    project: PropTypes.any,
+    components: PropTypes.any
   };
 
   getChildContext() {
-    return { project: this };
+    return { project: this, components: this.components };
   }
 
   // Initialize a Project constructor, it's stacks and it's cards.
   // NOTE: In theory, you can call this if, eg, the stacks or cards change and things will adjust...
   static initialize({ project, stackMap, themeComponents, projectComponents }) {
-    // remember/initialize components
+    // remember/initialize anything passed in
     if (themeComponents) project.themeComponents = themeComponents;
     if (projectComponents) project.projectComponents = projectComponents;
-    project.components = Object.assign({}, oakComponents, project.themeComponents, project.projectComponents);
+    if (stackMap) project.stackMap = stackMap;
+
+    // merge oak, theme and project components into one map
+    project.components = Object.assign({}, project.themeComponents, oakComponents, project.projectComponents);
 
     // Initialize stacks, which will initialize their cards.
-    project.stackMap = stackMap;
     project.stacks.forEach((stack, stackIndex) => stack.initialize({ stack, project, stackIndex }));
 
 //console.info("project after initializing:", project);
@@ -60,7 +63,7 @@ export default class OakProject extends React.Component {
   // Syntactic sugar for treating static things like instance things.
   //////////////////////////////
 
-  // Return the project / stack CONSTRUCTORS (NOT instances).
+  // Return the stack / component CONSTRUCTORS (NOT instances).
   // (Really only useful for calling static methods).
   get components() { return this.constructor.components }
   get stacks() { return this.constructor.stacks }

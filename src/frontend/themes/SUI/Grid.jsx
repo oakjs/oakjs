@@ -8,46 +8,38 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import SUIComponent from "./SUIComponent";
+import classNames from "classnames";
 
-export default class SUIGrid extends SUIComponent {
-  static getColumnWidthClass(width) {
-    if (width) {
-      const name = this.columnNames[width];
-      if (name) return `${name} width column`;
-      console.warn(`Don't understand column width ${width}.`);
-    }
-  }
+import "./Grid.css";
+import { getWidthName } from "./Column";
 
-  static columnNames = {
-    "0":   "zero",
-    "1":   "one",
-    "2":   "two",
-    "3":   "three",
-    "4":   "four",
-    "5":   "five",
-    "6":   "six",
-    "7":   "seven",
-    "8":   "eight",
-    "9":   "nine",
-    "10":  "ten",
-    "11":  "eleven",
-    "12":  "twelve",
-    "13":  "thirteen",
-    "14":  "fourteen",
-    "15":  "fifteen",
-    "16":  "sixteen",
-    all:   "sixteen"
+export function getColumnClass(width) {
+  if (!width) return undefined;
+  const widthName = getWidthName(width);
+  if (widthName) return `${widthName} column`;
+  return undefined;
+}
+
+function SUIGrid(props, context) {
+  const { id, className, style, appearance, columns, children } = props;
+  const gridProps = {
+    id,
+    className: classNames(className, "ui", getColumnClass(columns), appearance, "grid"),
+    style
   };
 
-
-  // Use this to render a grid statically from some other class.
-  static renderGrid(children) {
-    return <div className="ui grid">{children}</div>;
-  }
-
-  render() {
-    return Grid.renderGrid(this.props.children);
-  }
-
+  return <div {...gridProps}>{children}</div>;
 }
+
+SUIGrid.propTypes = {
+  id: PropTypes.string,
+  className: PropTypes.string,
+  appearance: PropTypes.string,
+  columns: PropTypes.number,
+  style: PropTypes.object,
+};
+
+// add render() method so we get hot code reload.
+SUIGrid.render = Function.prototype;
+
+export default SUIGrid;

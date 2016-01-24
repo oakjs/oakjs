@@ -1,30 +1,17 @@
 import React, { PropTypes } from "react";
 
 function Page(props, context) {
-  const { Container, Divider, Header, Pusher, Segment, Spacer, SubHeader } = context.stack.components;
+  const c = context.components;
   return (
-    <Pusher className="Page" style={{marginRight: 260}}>
-      <Segment appearance="basic unpadded">
-        <Segment appearance="basic very padded">
-          <Header size="huge">
-            {props.title}
-            <SubHeader>
-              {props.description}
-            </SubHeader>
-          </Header>
-        </Segment>
-        <Divider/>
-      </Segment>
+    <c.Pusher className="Page" style={{marginRight: 260}}>
       {props.children}
-    </Pusher>
+    </c.Pusher>
   );
 }
 
-// Pull context in so we can get components from the stack.
+// Pull context in so we can get components.
 Page.contextTypes = {
-  project: PropTypes.any,
-  stack: PropTypes.any,
-  card: PropTypes.any
+  components: PropTypes.any,
 };
 
 // Add `render` method so we'll get hot reload

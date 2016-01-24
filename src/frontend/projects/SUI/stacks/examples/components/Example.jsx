@@ -1,26 +1,30 @@
 import React, { PropTypes } from "react";
+import classNames from "classnames";
 
 import InfoHint from "./InfoHint";
 
+import "./Example.css";
+
 function Example(props, context) {
-  const { Header, Popup, Spacer } = context.stack.components;
+  const { appearance, title, hint, children, } = props;
+  const c = context.components;
+  const className = classNames("Example", appearance);
   return (
-    <div className="example">
-      <Spacer size="small"/>
-      <Header size="medium">
-        {props.title}
-        {props.hint && <InfoHint text={props.hint}/>}
-      </Header>
-      {props.children}
+    <div className={className}>
+      <c.Spacer size="small"/>
+      <c.Header size="medium" dividing>
+        {title}
+        {hint && <c.InfoHint text={hint}/>}
+      </c.Header>
+      {children}
+      <c.Spacer size="huge"/>
     </div>
   );
 }
 
 // Pull context in so we can get components from the stack.
 Example.contextTypes = {
-  project: PropTypes.any,
-  stack: PropTypes.any,
-  card: PropTypes.any
+  components: PropTypes.any,
 };
 
 // Add `render` method so we'll get hot reload

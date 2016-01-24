@@ -12,6 +12,7 @@ export default class SUIMessage extends React.Component {
     id: PropTypes.string,
     className: PropTypes.string,
     appearance: PropTypes.string,
+    color: PropTypes.string,
     inline: PropTypes.bool,
     style: PropTypes.object,
 
@@ -32,11 +33,11 @@ export default class SUIMessage extends React.Component {
   }
 
   render() {
-    const { id, className, appearance, inline, style={}, children } = this.props;
+    const { id, className, appearance, color, inline, style={}, children } = this.props;
 
     const props = {
       id,
-      className: classNames(className, "ui", appearance, "message"),
+      className: classNames(className, "ui", color, appearance, "message"),
       style
     }
     if (inline) style.display = "inline-block";

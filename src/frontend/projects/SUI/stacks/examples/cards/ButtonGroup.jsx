@@ -5,15 +5,19 @@ import { Card } from "oak";
 export default class ButtonGroupCard extends Card {
   static defaultProps = {
     id: "ButtonGroup",
-    title: "<ButtonGroup> Examples"
+    title: "ButtonGroup"
   }
   render() {
     const c = this.components;
     return (
       <div {...this.renderProps}>
         <c.PageSidebar/>
-        <c.Page title="ButtonGroup" description="A ButtonGroup encapsulates a set of Button elements, generally to provide consistent styling.">
-          <c.Section title="Appearance">
+        <c.Page>
+          <c.PageTitle title="ButtonGroup">
+            A ButtonGroup encapsulates a set of Button elements, generally to provide consistent styling.
+          </c.PageTitle>
+
+          <c.PageSection title="Appearance">
             <c.Example title="Normal">
               <c.ButtonGroup>
                 <c.Button title="One"/>
@@ -134,9 +138,9 @@ export default class ButtonGroupCard extends Card {
                 <c.Button title="Three" color="green" appearance="basic"/>
               </c.ButtonGroup>
             </c.Example>
-          </c.Section>
+          </c.PageSection>
 
-            <c.Section title="Sizing">
+            <c.PageSection title="Sizing">
             <c.Example title="Group Sizes">
               <c.ButtonGroup size="tiny">
                 <c.Button title="We"/>
@@ -187,9 +191,9 @@ export default class ButtonGroupCard extends Card {
                 <c.Button title="Support"/>
               </c.ButtonGroup>
             </c.Example>
-          </c.Section>
+          </c.PageSection>
 
-          <c.Section title="Attachment">
+          <c.PageSection title="Attachment">
             <c.Example title="Floated">
               <c.Segment clearing appearance="unpadded basic">
                 <c.ButtonGroup float="left">
@@ -215,7 +219,7 @@ export default class ButtonGroupCard extends Card {
                 <c.Button title="Two"/>
               </c.ButtonGroup>
             </c.Example>
-          </c.Section>
+          </c.PageSection>
 
         </c.Page>
       </div>

@@ -9,31 +9,33 @@ import classNames from "classnames";
 import { renderIcon } from "./Icon";
 
 function SUIDivider(props) {
-  const { key, className, appearance, direction, style, title, icon, children } = props;
+  const { className, style, appearance, vertical, horizontal, header, size, title, icon, clearing, children } = props;
 
+  const tagName = (header ? "h4" : "div");
   const dividerProps = {
-    key,
-    className: classNames(className, "ui", appearance, direction, "divider"),
+    className: classNames(className, "ui", { vertical, horizontal, clearing, header }, size, appearance, "divider"),
     style
   };
+  const elements = [renderIcon(icon), title].concat(children);
+  return React.createElement(tagName, dividerProps, ...elements);
+}
 
-  return (
-    <div {...dividerProps}>
-      {renderIcon(icon)}
-      {title}
-      {children}
-    </div>
-  );
+SUIDivider.defaultProps = {
+  clearing: true
 }
 
 SUIDivider.PropTypes = {
   key: PropTypes.any,
   className: PropTypes.string,
-  appearance: PropTypes.string,  // "inverted", "fitted", "hidden", "section", "clearing"
-  direction: PropTypes.string,   // "vertical" or "horizontal"
+  appearance: PropTypes.string,
+  vertical: PropTypes.bool,
+  horizontal: PropTypes.bool,
+  header: PropTypes.bool,
+  size: PropTypes.string,         // `tiny`, `small`, `medium`, `large`, `huge`
   style: PropTypes.object,
-  title: PropTypes.string,       // title text
-  icon: PropTypes.string         // icon INSIDE the divider
+  title: PropTypes.string,
+  icon: PropTypes.string,
+  clearing: PropTypes.bool
 };
 
 // add render() method so we get hot code reload.

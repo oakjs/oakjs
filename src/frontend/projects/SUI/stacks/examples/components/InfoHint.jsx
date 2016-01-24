@@ -1,20 +1,18 @@
 import React, { PropTypes } from "react";
 
 function InfoHint(props, context) {
-  const { Icon, Popup } = context.stack.components;
+  const c = context.components;
   return (
     <span style={{cursor:"pointer", marginLeft:10}}>
-      <Icon circular icon="info" appearance="tiny blue inverted"/>
-      <Popup {...props}/>
+      <c.Icon circular icon="info" appearance="tiny blue inverted"/>
+      <c.Popup {...props}/>
     </span>
   );
 }
 
-// Pull context in so we can get components from the stack.
+// Pull context in so we can get components.
 InfoHint.contextTypes = {
-  project: PropTypes.any,
-  stack: PropTypes.any,
-  card: PropTypes.any
+  components: PropTypes.any,
 };
 
 // Add `render` method so we'll get hot reload

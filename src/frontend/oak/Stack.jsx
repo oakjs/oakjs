@@ -18,11 +18,12 @@ export default class OakStack extends React.Component {
   }
 
   static childContextTypes = {
-    stack: PropTypes.any
+    stack: PropTypes.any,
+    components: PropTypes.any
   };
 
   getChildContext() {
-    return { stack: this };
+    return { stack: this, components: this.components };
   }
 
 

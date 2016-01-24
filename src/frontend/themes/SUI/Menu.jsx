@@ -82,7 +82,7 @@ export default class SUIMenu extends React.Component {
   render() {
     const { appearance, className, disabled, items, itemDelimiter, header, headerIcon, children } = this.props;
     const props = {
-      className: classNames(appearance, { className, disabled }, "menu")
+      className: classNames("ui", appearance, { className, disabled }, "menu")
     };
 
     return (

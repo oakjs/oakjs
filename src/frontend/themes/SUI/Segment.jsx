@@ -20,6 +20,9 @@ function SUISegment(props) {
   return <div {...segmentProps}>{children}</div>;
 }
 
+SUISegment.defaultProps = {
+  clearing: true
+}
 SUISegment.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,

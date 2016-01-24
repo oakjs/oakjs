@@ -8,6 +8,10 @@ import * as projectComponents from "./components";
 import * as stackMap from "./stacks";
 
 export default class SUIProject extends Project {
+	static themeComponents = themeComponents;
+	static projectComponents = projectComponents;
+	static stackMap = stackMap;
+
 	static defaultProps = {
 		id: "SUI",
 		title: "Semantic UI"
@@ -16,4 +20,4 @@ export default class SUIProject extends Project {
   render(){ return super.render() }
 }
 
-Project.initialize({ project:SUIProject, themeComponents, projectComponents, stackMap});
+Project.initialize({ project:SUIProject });

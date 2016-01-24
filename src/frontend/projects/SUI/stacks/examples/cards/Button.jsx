@@ -5,15 +5,19 @@ import { Card } from "oak";
 export default class ButtonCard extends Card {
   static defaultProps = {
     id: "Button",
-    title: "<Button> Examples"
+    title: "Button"
   }
   render() {
     const c = this.components;
     return (
       <div {...this.renderProps}>
         <c.PageSidebar/>
-        <c.Page title="Button" description="A button indicates a possible user action.">
-          <c.Section title="Content">
+        <c.Page>
+          <c.PageTitle title="Button">
+            A button indicates a possible user action.
+          </c.PageTitle>
+
+          <c.PageSection title="Content">
             <c.Example title="Inline or Attribute Content">
               <c.Button title="Button with Title Attribute"/>
               <c.Button icon="checkmark" title="Button with Title and Icon Attributes"/>
@@ -43,9 +47,9 @@ export default class ButtonCard extends Card {
               <c.Button icon="heart" label="1000" color="red" labelAppearance="basic left pointing">Like</c.Button>
               <c.Button icon="fork" label="1000" appearance="basic" color="blue" labelAppearance="basic left pointing">Forks</c.Button>
             </c.Example>
-          </c.Section>
+          </c.PageSection>
 
-          <c.Section title="Appearance">
+          <c.PageSection title="Appearance">
 
             <c.Example title="Emphasis">
               <c.Button>Normal</c.Button>
@@ -191,9 +195,9 @@ export default class ButtonCard extends Card {
               <c.Button attached="left" title="Left"/>
               <c.Button attached="right" title="Right"/>
             </c.Example>
-          </c.Section>
+          </c.PageSection>
 
-          <c.Section title="States">
+          <c.PageSection title="States">
             <c.Example title="Active">
               <c.Button active icon="user" title="Follow"/>
             </c.Example>
@@ -223,7 +227,7 @@ export default class ButtonCard extends Card {
                 <div className="hidden content"><c.Icon icon="right arrow"/></div>
               </c.Button>
             </c.Example>
-          </c.Section>
+          </c.PageSection>
 
         </c.Page>
       </div>
