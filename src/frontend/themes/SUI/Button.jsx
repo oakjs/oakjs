@@ -8,15 +8,16 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { renderIcon } from "./Icon";
+import { addElements, addElementsOn } from "./SUI";
+import Icon from "./Icon";
 
 // `appearance`:  any combination of:
 //    - `primary`, `secondary`
 //    - `animated, `vertical animated`, `animated fade`, etc.
 function SUIButton(props) {
-  const { id,
+  const { id, className, style,
     // appearance
-    className, appearance, size, compact, circular, color, float, attached, style,
+    appearance, size, compact, circular, color, floated, attached,
     // content / label
     title, icon, label, children,
     // events & states
@@ -26,13 +27,13 @@ function SUIButton(props) {
   const classMap = {
     compact,
     circular,
-    icon: icon && !(title || children),
-    [`${float} floated`]: float,
-    [`${attached} attached`]: attached,
     active,
     disabled,
     loading,
-    toggle
+    toggle,
+    icon: icon && !(title || children),
+    [`${floated} floated`]: floated,
+    [`${attached} attached`]: attached,
   }
 
   const buttonType = (attached ? "div" : "button");
@@ -42,15 +43,17 @@ function SUIButton(props) {
     style,
     onClick
   };
-  const buttonElements = [renderIcon(icon), title].concat(children);
-  const buttonElement = React.createElement(buttonType, buttonProps, ...buttonElements);
 
-  if (label) renderLabel(buttonElement, props);
+  let buttonChildren = addElements(title, children);
+  if (icon) buttonChildren = addElements(<Icon icon={icon}/>, buttonChildren);
+
+  const buttonElement = React.createElement(buttonType, buttonProps, ...buttonChildren);
+  if (label) return renderLabel(props, buttonElement);
   return buttonElement;
 }
 
-function renderLabel(buttonElement, props, context) {
-  const { label, labelAppearance, labelDirection, color } = props;
+function renderLabel(props, buttonElement) {
+  const { label, labelAppearance, labelOn, color } = props;
 
   // if we didn't get a string, we assume we got a rendered label
   let labelElement;
@@ -65,32 +68,32 @@ function renderLabel(buttonElement, props, context) {
   }
 
   const labelContainerProps = {
-    className: classNames("ui", labelDirection, "labeled button"),
+    className: classNames("ui", labelOn, "labeled button"),
     tabIndex: "0"
   }
 
   // Which goes first, the chicken or the egg?
-  const elements = labelDirection && labelDirection.includes("left")
-                 ? [labelElement, buttonElement]
-                 : [buttonElement, labelElement];
+  let elements = addElementsOn(labelOn, labelElement, buttonElement);
   return React.createElement("div", labelContainerProps, ...elements);
 }
 
 SUIButton.defaultProps = {
+  labelOn: "right",
   labelAppearance: "basic"
 };
 
 SUIButton.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  appearance: PropTypes.string,
-  size: PropTypes.string,     // TODO: appearance?
-  compact: PropTypes.bool,    // TODO: appearance?
-  circular: PropTypes.bool,   // TODO: appearance?
-  color: PropTypes.string,    // TODO: appearance?
-  float: PropTypes.string,    // TODO: appearance?
-  attached: PropTypes.string,
   style: PropTypes.object,
+
+  appearance: PropTypes.string,
+  size: PropTypes.string,
+  compact: PropTypes.bool,
+  circular: PropTypes.bool,
+  color: PropTypes.string,
+  floated: PropTypes.string,
+  attached: PropTypes.string,
 
   title: PropTypes.string,
   icon: PropTypes.string,
@@ -98,7 +101,7 @@ SUIButton.propTypes = {
             PropTypes.string,
             PropTypes.element
         ]),
-  labelDirection: PropTypes.string,
+  labelOn: PropTypes.string,
   labelAppearance: PropTypes.string,
 
   active: PropTypes.bool,

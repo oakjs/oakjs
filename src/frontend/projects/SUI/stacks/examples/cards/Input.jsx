@@ -18,147 +18,140 @@ export default class InputCard extends Card {
           </c.PageTitle>
 
           <c.PageSection grid title="Types">
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
-              <c.Label pointing="down">type not specified</c.Label><br/>
-              <c.Input/>
-            </c.Example>
-
-            <c.Example columns={4}>
-              <c.Spacer/>
-              <c.Label pointing="down">type=text</c.Label><br/>
+              <c.Label pointing="down">type=text or unspecified</c.Label><br/>
               <c.Input type="text"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=button</c.Label><br/>
               <c.Input type="button" value="OK"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=checkbox</c.Label><br/>
               <c.Input type="checkbox" label="Checkbox label"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=date</c.Label><br/>
               <c.Input type="date"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=datetime</c.Label><br/>
               <c.Input type="datetime"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=datetime-local</c.Label><br/>
               <c.Input type="datetime-local"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=email</c.Label><br/>
               <c.Input type="email"/>
             </c.Example>
 
-            <c.Example columns={16}>
+            <c.Example columns={10}>
               <c.Spacer/>
               <c.Label pointing="down">type=file</c.Label><br/>
               <c.Input type="file"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=hidden</c.Label><br/>
               <c.Input type="hidden"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=image</c.Label><br/>
               <c.Input type="image"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=month</c.Label><br/>
               <c.Input type="month"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=password</c.Label><br/>
               <c.Input type="password"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=number</c.Label><br/>
               <c.Input type="number" min={0} max={10}/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=password</c.Label><br/>
               <c.Input type="password"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=radio</c.Label><br/>
               <c.Input type="radio" name="a" value="1" label="Option 1"/><br/>
               <c.Input type="radio" name="a" value="2" label="Option 2"/><br/>
-              <c.Input type="radio" name="a" value="3" label="Option 3"/><br/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=range</c.Label><br/>
               <c.Input type="range" min={0} max={10}/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=reset</c.Label><br/>
               <c.Input type="reset" value="Reset"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=search</c.Label><br/>
               <c.Input type="search"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=submit</c.Label><br/>
               <c.Input type="submit" value="Save"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=tel</c.Label><br/>
               <c.Input type="tel"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=time</c.Label><br/>
               <c.Input type="time"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=url</c.Label><br/>
               <c.Input type="url"/>
             </c.Example>
 
-            <c.Example columns={4}>
+            <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=week</c.Label><br/>
               <c.Input type="week"/>

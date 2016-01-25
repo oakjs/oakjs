@@ -10,6 +10,7 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 import SUIComponent from "./SUIComponent";
+import Icon from "./Icon";
 import Menu from "./Menu";
 import Stub from "./Stub";
 
@@ -195,7 +196,7 @@ export default class SUIDropdown extends SUIComponent {
 
   renderIcon() {
     const { icon } = this.props;
-    if (icon) return <i className={`${icon} icon`}/>;
+    if (icon) return <Icon icon={icon}/>;
   }
 
   renderArrow() {

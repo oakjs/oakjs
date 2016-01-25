@@ -41,8 +41,8 @@ export default class ButtonCard extends Card {
 
             <c.Example title="Labeled">
               <c.Button icon="heart" label="1000">Like</c.Button>
-              <c.Button icon="fork" label="1000" labelDirection="left"/>
-              <c.Button title="Like" icon="heart" label="1000" labelDirection="left" labelAppearance="basic right pointing"/>
+              <c.Button icon="fork" label="1000" labelOn="left"/>
+              <c.Button title="Like" icon="heart" label="1000" labelOn="left" labelAppearance="basic right pointing"/>
               <c.Spacer/>
               <c.Button icon="heart" label="1000" color="red" labelAppearance="basic left pointing">Like</c.Button>
               <c.Button icon="fork" label="1000" appearance="basic" color="blue" labelAppearance="basic left pointing">Forks</c.Button>
@@ -155,8 +155,8 @@ export default class ButtonCard extends Card {
 
             <c.Example title="Floated">
               <c.Segment clearing>
-                <c.Button float="left" title="Left Floated"/>
-                <c.Button float="right" title="Right Floated"/>
+                <c.Button floated="left" title="Left Floated"/>
+                <c.Button floated="right" title="Right Floated"/>
               </c.Segment>
             </c.Example>
 

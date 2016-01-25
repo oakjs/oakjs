@@ -196,11 +196,11 @@ export default class ButtonGroupCard extends Card {
           <c.PageSection title="Attachment">
             <c.Example title="Floated">
               <c.Segment clearing appearance="unpadded basic">
-                <c.ButtonGroup float="left">
+                <c.ButtonGroup floated="left">
                   <c.Button icon="left arrow"/>
                   <c.Button icon="right arrow"/>
                 </c.ButtonGroup>
-                <c.ButtonGroup float="right">
+                <c.ButtonGroup floated="right">
                   <c.Button icon="left arrow"/>
                   <c.Button icon="right arrow"/>
                 </c.ButtonGroup>

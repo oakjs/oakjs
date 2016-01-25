@@ -6,7 +6,8 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { renderIcon } from "./Icon";
+import { addElements } from "./SUI";
+import Icon from "./Icon";
 
 function SUIDivider(props) {
   const { className, style, appearance, vertical, horizontal, header, size, title, icon, clearing, children } = props;
@@ -16,7 +17,10 @@ function SUIDivider(props) {
     className: classNames(className, "ui", { vertical, horizontal, clearing, header }, size, appearance, "divider"),
     style
   };
-  const elements = [renderIcon(icon), title].concat(children);
+
+  let elements = addElements(title, children);
+  if (icon) elements = addElements(<Icon icon={icon}/>, elements);
+
   return React.createElement(tagName, dividerProps, ...elements);
 }
 

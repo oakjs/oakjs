@@ -89,7 +89,7 @@ export default class DividerCard extends Card {
 
             <c.Example title="Clearing" hint="<Divider clearing/>  (Note: 'clearing' is true by default.)">
               <c.Segment>
-                <c.Header float="right">Floating Header</c.Header>
+                <c.Header floated="right">Floating Header</c.Header>
                 <c.Divider/>
                 <c.LoremIpsum short/>
               </c.Segment>

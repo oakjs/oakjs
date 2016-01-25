@@ -11,7 +11,7 @@ function Example(props, context) {
   const columnClass = c.Column.getColumnsClass(columns, "unpadded");
   const className = classNames("Example", appearance, columnClass);
 
-  const infoHint = hint && <c.InfoHint text={hint}/>;
+  const infoHint = hint && <c.InfoHint content={hint}/>;
   const header = (title ? <c.Header size="medium" dividing>{title}{infoHint}</c.Header> : undefined);
 
   return (

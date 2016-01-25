@@ -22,9 +22,6 @@ console.warn("TODO: figure out how to include semanticUI in themes/SUI/index.js"
 //import "semantic-ui-css/semantic.css";
 //import "semantic-ui-css/semantic.js";
 
-// Export the root of the SUI namespace
-import SUI from "./SUI";
-
 // Export all individual components here.
 // NOTE: keep this list in alphabetical order!
 export SUIComponent from "./SUIComponent";
@@ -40,10 +37,12 @@ export Grid from "./Grid";
 export Header from "./Header";
 export Icon from "./Icon";
 export Image from "./Image";
-export ImageGroup from "./ImageGroup";
-export ImageLink from "./ImageLink";
+export Images from "./Images";
 export Input from "./Input";
 export Label from "./Label";
+export Labels from "./Labels";
+export List from "./List";
+export ListItem from "./ListItem";
 export Menu from "./Menu";
 export MenuHeader from "./MenuHeader";
 export MenuItem from "./MenuItem";
@@ -56,5 +55,11 @@ export Segment from "./Segment";
 export Stub from "./Stub";
 export SubHeader from "./SubHeader";
 
+// get all of the components
+const components = Object.keys(exports);
+
+// Export the root of the SUI namespace
+export SUI from "./SUI";
+
 // Attach all of the components to the SUI namespace
-Object.keys(exports).forEach(key => SUI[key] = exports[key]);
+components.forEach(key => exports.SUI[key] = exports[key]);

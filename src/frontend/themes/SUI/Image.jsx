@@ -9,49 +9,75 @@ import classNames from "classnames";
 
 import "./Image.css";
 
-export function getImageClassName(props) {
-  const { className, appearance, size, hidden, disabled, float, valign, spaced } = props;
+export const FLOAT_CLASS_MAP = {
+  left: "left floated",
+  right: "right floated",
+  [true]: "floated"
+}
 
-  const classProps = {
-    hidden,
-    disabled,
-    [`${float} floated`] : float,
-    [`${valign} aligned`] : valign,
-  }
-  if (spaced) {
-    if (spaced === true) classProps.spaced = true;
-    else classProps[`${spaced} spaced`] = true;
-  }
-  return classNames("ui", appearance, size, classProps, "image");
+export const VALIGN_CLASS_MAP = {
+  top: "top aligned",
+  middle: "middle aligned",
+  bottom: "bottom aligned",
+}
+
+export const SPACED_CLASS_MAP = {
+  left: "left spaced",
+  right: "right spaced",
+  [true]: "spaced"
 }
 
 function SUIImage(props) {
-  const { id, style, appearance, src } = props;
-  const imageProps = {
-    id,
-    className: getImageClassName(props),
-    style,
-    src
+  const {
+    // content
+    src, children,
+    // appearance
+    className, appearance, inline, size, floated, valign, spaced,
+    // state & events
+    hidden, disabled,
+    // everything else including id and style
+    ...imageProps
+  } = props;
+
+  const classProps = {
+    inline,
+    hidden,
+    disabled,
   }
-  return <img {...imageProps}/>
+  if (floated) classProps[FLOAT_CLASS_MAP[floated]] = true;
+  if (spaced) classProps[SPACED_CLASS_MAP[spaced]] = true;
+  if (valign) classProps[VALIGN_CLASS_MAP[valign]] = true;
+  imageProps.className = classNames("ui", appearance, size, classProps, "image");
+
+  if (children) {
+    const imageElement = <img src={src}/>;
+    return <div {...imageProps}>{imageElement}{children}</div>;
+  }
+  else {
+    imageProps.src = src;
+    return <img {...imageProps}/>
+  }
 }
 
 SUIImage.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
+
   src: PropTypes.string,
 
   appearance: PropTypes.string,
-  size: PropTypes.string,   // `mini`, `tiny`, `small`, `medium`, `large`, `big`, `huge`, `massive`
-  hidden: PropTypes.bool,
-  disabled: PropTypes.bool,
-  float: PropTypes.string,
+  inline: PropTypes.bool,               // `true` == inline block
+  size: PropTypes.string,               // `mini`, `tiny`, `small`, `medium`, `large`, `big`, `huge`, `massive`
+  floated: PropTypes.string,
   valign: PropTypes.string,
   spaced: React.PropTypes.oneOfType([
     PropTypes.bool,                     // `true` = space
     PropTypes.string,                   // `left`, `right`,
   ]),
+
+  hidden: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 // add render() method so we get hot code reload.

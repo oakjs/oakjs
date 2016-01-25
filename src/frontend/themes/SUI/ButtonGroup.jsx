@@ -15,11 +15,11 @@ export const COUNT_NAMES = [
 
 
 function SUIButtonGroup(props) {
-  const { id, className, appearance, size, compact, color, count, float, attached, style, children } = props;
+  const { id, className, appearance, size, compact, color, count, floated, attached, style, children } = props;
 
   const classMap = {
     [`${COUNT_NAMES[count]}`]: count,
-    [`${float} floated`]: float,
+    [`${floated} floated`]: floated,
     [`${attached} attached`]: attached,
     compact
   }
@@ -39,7 +39,7 @@ SUIButtonGroup.propTypes = {
   compact: PropTypes.bool,
   color: PropTypes.string,
   count: PropTypes.number,
-  float: PropTypes.string,
+  floated: PropTypes.string,
   attached: PropTypes.string,
   style: PropTypes.object
 };

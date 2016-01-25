@@ -155,10 +155,10 @@ export default class HeaderCard extends Card {
               </c.Segment>
             </c.Example>
 
-            <c.Example title="Floating" hint="<Header float='left'>Header Text</Header>">
+            <c.Example title="Floating" hint="<Header floated='left'>Header Text</Header>">
               <c.Segment>
-                <c.Header float="left">Go Back</c.Header>
-                <c.Header float="right">Go Forward</c.Header>
+                <c.Header floated="left">Go Back</c.Header>
+                <c.Header floated="right">Go Forward</c.Header>
               </c.Segment>
             </c.Example>
 

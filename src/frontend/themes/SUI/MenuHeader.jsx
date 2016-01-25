@@ -5,7 +5,7 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { renderIcon } from "./Icon";
+import Icon from "./Icon";
 
 function SUIMenuHeader(props) {
   const { key, className, icon, label, children } = props;
@@ -15,7 +15,7 @@ function SUIMenuHeader(props) {
   };
   return (
     <div {...headerProps}>
-      {renderIcon(icon)}
+      {icon ? <Icon icon={icon}/> : undefined}
       {label}
       {children}
     </div>

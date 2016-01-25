@@ -20,7 +20,7 @@ export default class SUIPopup extends SUIComponent {
     appearance: PropTypes.string,
 
     title: PropTypes.string,
-    text: PropTypes.string
+    content: PropTypes.string
   };
 
   //////////////////////////////
@@ -46,7 +46,7 @@ export default class SUIPopup extends SUIComponent {
   //////////////////////////////
 
   render() {
-    const { id, className, style, appearance, title, text, children } = this.props;
+    const { id, className, style, appearance, title, content, children } = this.props;
     const props = {
       id,
       className: classNames(className, "ui", appearance, "popup"),
@@ -55,7 +55,7 @@ export default class SUIPopup extends SUIComponent {
     return (
       <div {...props}>
         {title && <div className="header">{title}</div>}
-        {text && <div>{text}</div>}
+        {content && <div>{content}</div>}
         {children}
       </div>
     );

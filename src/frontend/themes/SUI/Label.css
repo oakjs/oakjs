@@ -1,5 +1,33 @@
 /* Extension to SUI styles */
+.ui.label.hidden {
+  display: none;
+}
+
 .ui.label.transparent {
   border:none;
   background-color: transparent;
+}
+
+.ui.label[class*="right icon"] i.icon {
+  margin-right:0;
+  margin-left: 0.75em;
+}
+
+.ui.label[class*="right image"] {
+  padding-right:0;
+  padding-left: 0.833em;
+}
+
+.ui.label[class*="right image"] img {
+  margin-right: 0;
+  margin-left: 0.5em;
+  border-radius:0 0.285714rem 0.285714rem 0;
+}
+
+.ui.labels.disabled {
+  cursor: default;
+  opacity: 0.45 !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  pointer-events: none;
 }

@@ -8,7 +8,7 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { renderIcon }from "./Icon";
+import Icon from "./Icon";
 import MenuHeader from "./MenuHeader";
 import Divider from "./Divider";
 
@@ -37,7 +37,7 @@ function SUIMenuItem(props) {
 
   return (
     <div {...itemProps}>
-      {renderIcon(icon)}
+      {icon ? <Icon icon={icon}/> : undefined}
       {label}
       {children}
     </div>

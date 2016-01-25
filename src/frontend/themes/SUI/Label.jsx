@@ -7,59 +7,109 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
+import { addElements, addElementsOn } from "./SUI";
+import Icon from "./Icon";
 import "./Label.css";
 
-export function getLabelClassName(props) {
-  const { className, appearance, size, hidden, disabled, float, valign, pointing, spaced } = props;
-
-  const classProps = {
-    hidden,
-    disabled,
-    [`${float} floated`] : float,
-    [`${valign} aligned`] : valign,
-  }
-  if (spaced) {
-    if (spaced === true) classProps.spaced = true;
-    else classProps[`${spaced} spaced`] = true;
-  }
-  if (pointing) {
-    if (pointing === true) classProps.pointing = true;
-    else if (pointing === "up") classProps["pointing"] = true;
-    else if (pointing === "down") classProps["pointing below"] = true;
-    else classProps[`${pointing} pointing`] = true;
-  }
-  return classNames("ui", appearance, size, classProps, "label");
+export const POINTING_CLASS_MAP = {
+  above: "pointing",
+  below: "pointing below",
+  right: "right pointing",
+  left: "left pointing",
+  up: "pointing",
+  down: "pointing below"
 }
 
 function SUILabel(props) {
-  const { id, style, children } = props;
-  const imageProps = {
-    id,
-    className: getLabelClassName(props),
-    style,
+  const {
+    // allow for different tag names to be used (default is "label")
+    tagName,
+    // content
+    content, detail, icon, iconOn, image, imageOn, children,
+    // appearance
+    className, appearance, color, size, floating, pointing,
+    // state & events
+    hidden, disabled, active, closable, onClose,
+    // everything else including id and style
+    ...labelProps
+  } = props;
+
+  // put content before children ???
+  let elements = addElements(content, children);
+
+  // class name bits
+  const classProps = {
+    hidden,
+    disabled,
+    active,
+    floating,
   }
-  return <span {...imageProps}>{children}</span>
+
+  if (pointing) {
+    const pointingClass = POINTING_CLASS_MAP[pointing] || POINTING_CLASS_MAP.above;
+    classProps[pointingClass] = true;
+  }
+
+  if (icon) {
+    const iconElement = <Icon icon={icon}/>;
+    elements = addElementsOn(iconOn, iconElement, elements);
+    const iconClass = (iconOn === "right" ? "right icon" : "icon");
+    classProps[iconClass] = true;
+  }
+
+  if (image) {
+    const imageElement = <img src={image}/>;
+    elements = addElementsOn(imageOn, imageElement, elements);
+    const imageClass = (imageOn === "right" ? "right image" : "image");
+    classProps[imageClass] = true;
+  }
+
+  if (detail) {
+    const detailElement = <div className="detail">{detail}</div>;
+    elements = addElements(elements, detailElement);
+  }
+
+  if (closable) {
+    const closerElement = <Icon icon="delete" onClick={onClose}/>
+    elements = addElements(elements, closerElement);
+    classProps.closable = true;
+  }
+
+  labelProps.className = classNames(className, "ui", appearance, color, size, classProps, "label");
+  return React.createElement(tagName, labelProps, ...elements);
+}
+
+SUILabel.defaultProps = {
+  tagName: "label"
 }
 
 SUILabel.propTypes = {
+  tagName: PropTypes.string,            // eg: "span" or "label"
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
 
+  content: PropTypes.string,            // specify `content` as alternative or adjunct to providing `children`
+  detail: PropTypes.string,             // nested <detail> element
+  icon: PropTypes.string,
+  iconOn: PropTypes.string,             // "left" (default) or "right"
+  image: PropTypes.string,
+  imageOn: PropTypes.string,             // "left" (default) or "right"
+
   appearance: PropTypes.string,
-  size: PropTypes.string,   // `mini`, `tiny`, `small`, `medium`, `large`, `big`, `huge`, `massive`
-  hidden: PropTypes.bool,
-  disabled: PropTypes.bool,
-  float: PropTypes.string,
-  valign: PropTypes.string,
+  color: PropTypes.string,              // `red`, etc
+  size: PropTypes.string,               // `mini`, `tiny`, `small`, `medium`, `large`, `big`, `huge`, `massive`
+  floating: PropTypes.bool,
   pointing: React.PropTypes.oneOfType([
     PropTypes.bool,                     // `true` = above
     PropTypes.string,                   // `left`, `right`, `above`, `below`, `up`, `down`
   ]),
-  spaced: React.PropTypes.oneOfType([
-    PropTypes.bool,                     // `true` = space
-    PropTypes.string,                   // `left`, `right`,
-  ]),
+
+  hidden: PropTypes.bool,
+  disabled: PropTypes.bool,
+  active: PropTypes.bool,
+  closable: PropTypes.bool,             // if true, we show a `delete` icon (x) on the right
+  onClose: PropTypes.func               // invoked if close icon is clicked
 };
 
 // add render() method so we get hot code reload.

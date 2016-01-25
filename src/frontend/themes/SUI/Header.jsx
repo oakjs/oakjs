@@ -8,7 +8,8 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { renderIcon } from "./Icon";
+import { addElements, addElementsOn } from "./SUI";
+import Icon from "./Icon";
 
 export const HEADER_SIZE_MAP = {
   "huge": "h1",
@@ -19,13 +20,13 @@ export const HEADER_SIZE_MAP = {
 }
 
 export function getHeaderProps(props) {
-  const { id, className, style, appearance, disabled, dividing, sub, align, float, size="medium", color, attached } = props;
+  const { id, className, style, appearance, disabled, dividing, sub, align, floated, size="medium", color, attached } = props;
 
   const classProps = {
     disabled,
     dividing,
     [`${align} aligned`] : align,
-    [`${float} floated`] : float,
+    [`${floated} floated`] : floated,
     sub,
   };
 
@@ -48,7 +49,7 @@ export function getHeaderTagName(props) {
 
 function getImageOrIcon(props) {
   const { icon, image, imageAppearance } = props;
-  if (icon) return renderIcon(icon);
+  if (icon) return <Icon icon={icon}/>;
   if (image) return <img src={image} className={imageAppearance}/>;
   return undefined;
 }
@@ -57,12 +58,17 @@ function SUIHeader(props) {
   const { children } = props;
   const tagName = getHeaderTagName(props);
   const headerProps = getHeaderProps(props);
+
+  let elements = addElements(children);
+  // if we got decorations, wrap content in <div.content>
   const decoration = getImageOrIcon(props);
-  const content = (decoration ? <div className="content">{children}</div> : children);
-  return React.createElement(tagName, headerProps, decoration, content);
+  if (decoration) elements = addElements(decoration, <div className="content">{children}</div>);
+
+  return React.createElement(tagName, headerProps, ...elements);
 }
 
 SUIHeader.defaultProps = {
+  size: "medium",
   imageAppearance: "ui image"
 }
 
@@ -77,7 +83,7 @@ SUIHeader.propTypes = {
   page: PropTypes.bool,                 // true = page header
   sub: PropTypes.bool,                  // true = sub header
   align: PropTypes.string,              // `left`, `centered`, `right`, `justified`
-  float: PropTypes.string,              // `left` or `right`
+  floated: PropTypes.string,              // `left` or `right`
   size: PropTypes.string,               // `tiny`, `small`, `medium`, `large`, `huge`
   color: PropTypes.string,              // `red`, etc
   icon: PropTypes.string,               // `red`, etc

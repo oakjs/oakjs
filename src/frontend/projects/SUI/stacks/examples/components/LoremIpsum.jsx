@@ -26,8 +26,13 @@ Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient monte
 ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
 consequat massa quis enim.`;
 
+export const LOREM_TEXT_TINY = `
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+Aenean massa strong.`;
+
 
 export function getLoremText(props) {
+  if (props.tiny) return LOREM_TEXT_TINY;
   if (props.short) return LOREM_TEXT_SHORT;
   if (props.medium) return LOREM_TEXT_MEDIUM;
   return LOREM_TEXT;

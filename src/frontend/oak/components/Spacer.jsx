@@ -1,8 +1,6 @@
 //////////////////////////////
 //
-//	<Spacer> component for use with SemanticUI
-//
-//  NOTE: this is not part of the standard SUI set!
+//	<Spacer> component for use with oak.
 //
 //////////////////////////////
 
@@ -15,14 +13,12 @@ export default function OakSpacer(props) {
   const { className, appearance, size, inline, width, height } = props;
 
   const spacerProps = {
-    className: classNames(className, "ui", size, appearance, "spacer"),
-    inline,
+    className: classNames(className, "oak", size, appearance, { inline }, "spacer"),
     style: {
       width,
       height,
     }
   }
-  if (inline) spacerProps.style.display = "inline-block";
 
   return <div {...spacerProps}/>;
 }

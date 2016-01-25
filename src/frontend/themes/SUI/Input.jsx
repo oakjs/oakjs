@@ -14,8 +14,9 @@ import { autobind } from "core-decorators";
 import SUIComponent from "./SUIComponent";
 import Label from "./Label";
 import Popup from "./Popup";
-import { renderIcon } from "./Icon";
+import Icon from "./Icon";
 
+import { addElements, addElementsOn } from "./SUI";
 import "./Input.css";
 
 //////////////////////////////
@@ -34,16 +35,19 @@ export function defaultLabelAppearance({ type }) {
   return undefined;
 }
 
+// Return the default labelWraps for a specified input type
+export function defaultLabelWraps({ type }) {
+  return (type === "radio" || type === "checkbox");
+}
+
 // Render label specified by props and the inputElement.
 // Returns an ARRAY of elements in the correct order (with no wrapping element).
 export function renderLabel(props, inputElements) {
   const { label, type } = props;
   if (!label) return inputElements;
+  const labelWraps = defaultLabelWraps(props);
 
-  // Checkbox and radio buttons labels should wrap the element so we can click the label.
-  if (type === "checkbox" || type === "radio") {
-    return renderWrappingLabel(props, inputElements);
-  }
+  if (labelWraps) return renderWrappingLabel(props, inputElements);
   return renderAdjacentLabel(props, inputElements);
 }
 
@@ -91,8 +95,7 @@ export default class SUIInput extends SUIComponent {
     type: "text",
     showError: true,
     iconOn: "right",
-//    labelOn: "left",
-//    labelAppearance: "basic"
+    childrenOn: "right"
   };
 
   static propTypes = {
@@ -106,7 +109,10 @@ export default class SUIInput extends SUIComponent {
     disabled: PropTypes.bool,
     focused: PropTypes.bool,
     loading: PropTypes.bool,
-    error: PropTypes.string,
+    error: React.PropTypes.oneOfType([
+      PropTypes.bool,                     // `true` = above
+      PropTypes.string,                   // `left`, `right`, `above`, `below`, `up`, `down`
+    ]),
     showError: PropTypes.bool,
 
     // appearance
@@ -193,7 +199,7 @@ console.info("onChange to ", value);
     const {
       id, className, style,
       hidden, disabled, focused, loading, error, showError,
-      appearance, size, icon, iconOn, label, labelOn, labelAppearance,
+      appearance, size, icon, iconOn, label, labelOn, labelWraps, labelAppearance,
       type, value, placeholder,
       children, childrenOn,
       onChange, onFocus, onBlur,
@@ -224,41 +230,24 @@ console.info("onChange to ", value);
     const inputElement = <input {...inputProps}/>;
     let elements = [inputElement];
 
-    // render icon
+    // Render icon.
     if (icon) {
-      const iconElement = renderIcon(icon);
-      classMap[`${iconOn} icon`] = true;
-      if (iconOn === "left") {
-        elements = [iconElement, ...elements];
-      } else {
-        elements = [...elements, iconElement];
-      }
+      elements = addElementsOn(iconOn, <Icon icon={icon}/>, elements);
+      classMap[`${iconOn || ""} icon`] = true;
     }
 
+    // Render label.
+    // Note that label may wrap the element, depending on `labelWraps` or `type` props.
     if (label) {
-      elements = this.renderLabel(elements);
-
-      if (labelOn) {
-        classMap[`${labelOn} labeled`] = labelOn;
-      }
-      else {
-        classMap.labeled = true;
-      }
+      elements = this.renderLabel(elements, classMap);
+      classMap[`${labelOn || ""} labeled`] = true;
     }
 
+    // add any children passed in on the appropriate side
+    if (children) elements = addElementsOn(childrenOn, children, elements);
 
-    // render error message
-    if (error) {
-      elements = [...elements, ...this.renderError()];
-    }
-
-    // add any children to the end of the elements
-    if (children) {
-      if (childrenOn === "left")
-        elements = (children.concat ? children : [children]).concat(elements);
-      else
-        elements = elements.concat(children);
-    }
+    // render error message at the very end
+    if (error) elements = addElements(elements, this.renderError());
 
     // render container
     const containerProps = {
