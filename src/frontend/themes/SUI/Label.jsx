@@ -1,16 +1,16 @@
 //////////////////////////////
 //
-//	<Image> component for use with SemanticUI
+//	<Label> component for use with SemanticUI
 //
 //////////////////////////////
 
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import "./Image.css";
+import "./Label.css";
 
-export function getImageClassName(props) {
-  const { className, appearance, size, hidden, disabled, float, valign, spaced } = props;
+export function getLabelClassName(props) {
+  const { className, appearance, size, hidden, disabled, float, valign, pointing, spaced } = props;
 
   const classProps = {
     hidden,
@@ -22,25 +22,29 @@ export function getImageClassName(props) {
     if (spaced === true) classProps.spaced = true;
     else classProps[`${spaced} spaced`] = true;
   }
-  return classNames("ui", appearance, size, classProps, "image");
+  if (pointing) {
+    if (pointing === true) classProps.pointing = true;
+    else if (pointing === "up") classProps["pointing"] = true;
+    else if (pointing === "down") classProps["pointing below"] = true;
+    else classProps[`${pointing} pointing`] = true;
+  }
+  return classNames("ui", appearance, size, classProps, "label");
 }
 
-function SUIImage(props) {
-  const { id, style, appearance, src } = props;
+function SUILabel(props) {
+  const { id, style, children } = props;
   const imageProps = {
     id,
-    className: getImageClassName(props),
+    className: getLabelClassName(props),
     style,
-    src
   }
-  return <img {...imageProps}/>
+  return <span {...imageProps}>{children}</span>
 }
 
-SUIImage.propTypes = {
+SUILabel.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
-  src: PropTypes.string,
 
   appearance: PropTypes.string,
   size: PropTypes.string,   // `mini`, `tiny`, `small`, `medium`, `large`, `big`, `huge`, `massive`
@@ -48,6 +52,10 @@ SUIImage.propTypes = {
   disabled: PropTypes.bool,
   float: PropTypes.string,
   valign: PropTypes.string,
+  pointing: React.PropTypes.oneOfType([
+    PropTypes.bool,                     // `true` = above
+    PropTypes.string,                   // `left`, `right`, `above`, `below`, `up`, `down`
+  ]),
   spaced: React.PropTypes.oneOfType([
     PropTypes.bool,                     // `true` = space
     PropTypes.string,                   // `left`, `right`,
@@ -55,12 +63,12 @@ SUIImage.propTypes = {
 };
 
 // add render() method so we get hot code reload.
-SUIImage.render = Function.prototype;
+SUILabel.render = Function.prototype;
 
-export default SUIImage;
+export default SUILabel;
 
 // Method to render an image iff we're passed one, otherwise returns `undefined`.
-export function renderImage(src, props={}) {
+export function renderLabel(src, props={}) {
   if (!src) return undefined;
-  return <SUIImage src={src} {...props}/>;
+  return <SUILabel src={src} {...props}/>;
 }

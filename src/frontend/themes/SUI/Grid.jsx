@@ -13,7 +13,7 @@ import classNames from "classnames";
 import "./Grid.css";
 import { getWidthName } from "./Column";
 
-export function getColumnClass(width) {
+export function getColumnsClass(width) {
   if (!width) return undefined;
   const widthName = getWidthName(width);
   if (widthName) return `${widthName} column`;
@@ -24,7 +24,7 @@ function SUIGrid(props, context) {
   const { id, className, style, appearance, columns, children } = props;
   const gridProps = {
     id,
-    className: classNames(className, "ui", getColumnClass(columns), appearance, "grid"),
+    className: classNames(className, "ui", getColumnsClass(columns), appearance, "grid"),
     style
   };
 

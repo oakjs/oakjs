@@ -38,11 +38,11 @@ export function getWidthName(width) {
   return undefined;
 }
 
-export function getColumnClass(width) {
+export function getColumnsClass(width, appearance) {
   if (!width) return undefined;
   const widthName = getWidthName(width);
-  if (widthName) return `${widthName} wide column`;
-  return undefined;
+  if (!widthName) return undefined;
+  return classNames(appearance, widthName, "wide column");
 }
 
 function SUIColumn(props, context) {
@@ -53,7 +53,7 @@ function SUIColumn(props, context) {
   }
   const columnProps = {
     id,
-    className: classNames(className, appearance, getColumnClass(width), classMap, "column"),
+    className: classNames(className, appearance, getColumnsClass(width), classMap, "column"),
     style
   };
 
@@ -68,6 +68,10 @@ SUIColumn.propTypes = {
   width: PropTypes.number,
   style: PropTypes.object,
 };
+
+// Add get* methods for others to use w/o importing
+SUIColumn.getWidthName = getWidthName;
+SUIColumn.getColumnsClass = getColumnsClass;
 
 // add render() method so we get hot code reload.
 SUIColumn.render = Function.prototype;

@@ -1,0 +1,9 @@
+/* Extension to SUI styles */
+a.ui.image.centered {
+  display:block;
+}
+
+.ui.images.centered {
+  display:block;
+  text-align:center;
+}

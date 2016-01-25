@@ -53,86 +53,79 @@ export default class ImageCard extends Card {
           </c.PageSection>
 
 
-          <c.PageSection title="Appearance">
-            <c.Grid>
-              <c.Example title="avatar" hint="<Image appearance='avatar'/>" appearance="four wide column">
-                <c.Image appearance="avatar" src="http://semantic-ui.com/images/wireframe/square-image.png"/>
-                Joe Bob User
-              </c.Example>
+          <c.PageSection grid title="Appearance">
+            <c.Example title="avatar" hint="<Image appearance='avatar'/>" columns={4}>
+              <c.Image appearance="avatar" src="http://semantic-ui.com/images/wireframe/square-image.png"/>
+              Joe Bob User
+            </c.Example>
 
-              <c.Example title="circular" hint="<Image appearance='circular'/>" appearance="four wide column">
-                <c.Image appearance="circular" size="small" src="http://semantic-ui.com/images/wireframe/square-image.png"/>
-              </c.Example>
+            <c.Example title="circular" hint="<Image appearance='circular'/>" columns={4}>
+              <c.Image appearance="circular" size="small" src="http://semantic-ui.com/images/wireframe/square-image.png"/>
+            </c.Example>
 
-              <c.Example title="rounded" hint="<Image appearance='rounded'/>" appearance="four wide column">
-                <c.Image appearance="rounded" size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
-              </c.Example>
+            <c.Example title="rounded" hint="<Image appearance='rounded'/>" columns={4}>
+              <c.Image appearance="rounded" size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
+            </c.Example>
 
-              <c.Example title="bordered" hint="<Image appearance='bordered'/>" appearance="four wide column">
-                <c.Image appearance="bordered" size="small" src="http://semantic-ui.com/images/wireframe/white-image.png"/>
-              </c.Example>
+            <c.Example title="bordered" hint="<Image appearance='bordered'/>" columns={4}>
+              <c.Image appearance="bordered" size="small" src="http://semantic-ui.com/images/wireframe/white-image.png"/>
+            </c.Example>
 
-              <c.Example title="spaced" hint="<Image spaced/> or <Image spaced='left'/>" appearance="eight wide column">
-                <c.Image spaced="right" size="mini" src="http://semantic-ui.com/images/wireframe/image.png"/>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                ridiculus mus. <c.Image spaced size="mini" src="http://semantic-ui.com/images/wireframe/image.png"/>
-                Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
-                consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
-                link mollis pretium. Integer tincidunt. <c.Image spaced="left" size="mini" src="http://semantic-ui.com/images/wireframe/image.png"/>
-              </c.Example>
+            <c.Example title="spaced" hint="<Image spaced/> or <Image spaced='left'/>" columns={8}>
+              <c.Image spaced="right" size="mini" src="http://semantic-ui.com/images/wireframe/image.png"/>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+              Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus. <c.Image spaced size="mini" src="http://semantic-ui.com/images/wireframe/image.png"/>
+              Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+              consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+              In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
+              link mollis pretium. Integer tincidunt. <c.Image spaced="left" size="mini" src="http://semantic-ui.com/images/wireframe/image.png"/>
+            </c.Example>
 
-              <c.Example title="floated" hint="<Image spaced/> or <Image spaced='left'/>" appearance="eight wide column">
-                <p>
-                  <c.Image float="left" size="tiny" src="http://semantic-ui.com/images/wireframe/image.png"/>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                  Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                  ridiculus mus.
-                </p><p>
-                  <c.Image float="right" spaced appearance="bordered" size="tiny" src="http://semantic-ui.com/images/wireframe/white-image.png"/>
-                  Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
-                  consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                  In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
-                  link mollis pretium. Integer tincidunt.
-                </p>
-              </c.Example>
-
-              <c.Example title="centered" hint="<Image spaced/> or <Image spaced='left'/>" appearance="sixteen wide column">
-                <c.Image appearance="centered" size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
+            <c.Example title="floated" hint="<Image spaced/> or <Image spaced='left'/>" columns={8}>
+              <p>
+                <c.Image float="left" size="tiny" src="http://semantic-ui.com/images/wireframe/image.png"/>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                 Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
                 ridiculus mus.
-              </c.Example>
+              </p><p>
+                <c.Image float="right" spaced appearance="bordered" size="tiny" src="http://semantic-ui.com/images/wireframe/white-image.png"/>
+                Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+                consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+                In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
+                link mollis pretium. Integer tincidunt.
+              </p>
+            </c.Example>
+
+            <c.Example title="centered" hint="<Image spaced/> or <Image spaced='left'/>" columns={8}>
+              <c.Image appearance="centered" size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+              Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </c.Example>
 
 
-              <c.Example title="Vertical Alignment" hint="<Image valign='middle'/>" appearance="sixteen wide column">
-                <c.Grid columns={3}>
-                  <c.Column>
-                    <c.Image spaced="right" valign='top' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/><span>Text</span>
-                  </c.Column>
-                  <c.Column>
-                    <c.Image spaced="right" valign='middle' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>Text
-                  </c.Column>
-                  <c.Column>
-                    <c.Image spaced="right" valign='bottom' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>Text
-                  </c.Column>
-                </c.Grid>
-              </c.Example>
-
-            </c.Grid>
-
+            <c.Example title="Vertical Alignment" hint="<Image valign='middle'/>" columns={8}>
+              <c.Image spaced="right" valign='top' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/><span>Text</span>
+              <c.Divider/>
+              <c.Image spaced="right" valign='middle' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>Text
+              <c.Divider/>
+              <c.Image spaced="right" valign='bottom' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>Text
+            </c.Example>
 
           </c.PageSection>
 
-          <c.PageSection title="States" appearance="two column grid">
-            <c.Example title="hidden" hint="<Image hidden/>" appearance="one column">
-              <c.Image hidden size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
-            </c.Example>
+          <c.PageSection title="States">
+            <c.Grid>
+              <c.Example title="hidden" hint="<Image hidden/>" columns={8}>
+                <c.Image hidden size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
+              </c.Example>
 
-            <c.Example title="disabled" hint="<Image disabled/>" appearance="one column">
-              <c.Image disabled size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
-            </c.Example>
+              <c.Example title="disabled" hint="<Image disabled/>" columns={8}>
+                <c.Image disabled size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
+              </c.Example>
+
+            </c.Grid>
           </c.PageSection>
 
         </c.Page>

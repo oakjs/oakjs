@@ -21,26 +21,25 @@ export default class ImageLinkCard extends Card {
             <p>You can specify <b>href</b> and <b>target</b> properties for your linking pleasure.</p>
           </c.PageTitle>
 
-          <c.PageSection title="Appearance">
-            <c.Grid>
-              <c.Example title="avatar" hint="<ImageLink appearance='avatar'/>" appearance="four wide column">
+          <c.PageSection grid title="Appearance">
+              <c.Example title="avatar" hint="<ImageLink appearance='avatar'/>" columns={4}>
                 <c.ImageLink href="http://google.com" target="_blank" appearance="avatar" src="http://semantic-ui.com/images/wireframe/square-image.png"/>
                 Joe Bob User
               </c.Example>
 
-              <c.Example title="circular" hint="<ImageLink appearance='circular'/>" appearance="four wide column">
+              <c.Example title="circular" hint="<ImageLink appearance='circular'/>" columns={4}>
                 <c.ImageLink href="http://google.com" target="_blank" appearance="circular" size="small" src="http://semantic-ui.com/images/wireframe/square-image.png"/>
               </c.Example>
 
-              <c.Example title="rounded" hint="<ImageLink appearance='rounded'/>" appearance="four wide column">
+              <c.Example title="rounded" hint="<ImageLink appearance='rounded'/>" columns={4}>
                 <c.ImageLink href="http://google.com" target="_blank" appearance="rounded" size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
               </c.Example>
 
-              <c.Example title="bordered" hint="<ImageLink appearance='bordered'/>" appearance="four wide column">
+              <c.Example title="bordered" hint="<ImageLink appearance='bordered'/>" columns={4}>
                 <c.ImageLink href="http://google.com" target="_blank" appearance="bordered" size="small" src="http://semantic-ui.com/images/wireframe/white-image.png"/>
               </c.Example>
 
-              <c.Example title="spaced" hint="<ImageLink spaced/> or <ImageLink spaced='left'/>" appearance="eight wide column">
+              <c.Example title="spaced" hint="<ImageLink spaced/> or <ImageLink spaced='left'/>" columns={8}>
                 <c.ImageLink href="http://google.com" target="_blank" spaced="right" size="mini" src="http://semantic-ui.com/images/wireframe/image.png"/>
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                 Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
@@ -51,7 +50,7 @@ export default class ImageLinkCard extends Card {
                 link mollis pretium. Integer tincidunt. <c.ImageLink href="http://google.com" target="_blank" spaced="left" size="mini" src="http://semantic-ui.com/images/wireframe/image.png"/>
               </c.Example>
 
-              <c.Example title="floated" hint="<ImageLink spaced/> or <ImageLink spaced='left'/>" appearance="eight wide column">
+              <c.Example title="floated" hint="<ImageLink spaced/> or <ImageLink spaced='left'/>" columns={8}>
                 <p>
                   <c.ImageLink href="http://google.com" target="_blank" float="left" size="tiny" src="http://semantic-ui.com/images/wireframe/image.png"/>
                   Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
@@ -66,41 +65,34 @@ export default class ImageLinkCard extends Card {
                 </p>
               </c.Example>
 
-              <c.Example title="centered" hint="<ImageLink spaced/> or <ImageLink spaced='left'/>" appearance="sixteen wide column">
-                <c.ImageLink href="http://google.com" target="_blank" appearance="centered" size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                ridiculus mus.
-              </c.Example>
+            <c.Example title="centered" hint="<ImageLink spaced/> or <ImageLink spaced='left'/>" columns={8}>
+              <c.ImageLink href="http://google.com" target="_blank" appearance="centered" size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+              Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
+              ridiculus mus.
+            </c.Example>
 
 
-              <c.Example title="Vertical Alignment" hint="<ImageLink valign='middle'/>" appearance="sixteen wide column">
-                <c.Grid columns={3}>
-                  <c.Column>
-                    <c.ImageLink href="http://google.com" target="_blank" spaced="right" valign='top' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/><span>Text</span>
-                  </c.Column>
-                  <c.Column>
-                    <c.ImageLink href="http://google.com" target="_blank" spaced="right" valign='middle' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>Text
-                  </c.Column>
-                  <c.Column>
-                    <c.ImageLink href="http://google.com" target="_blank" spaced="right" valign='bottom' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>Text
-                  </c.Column>
-                </c.Grid>
-              </c.Example>
-
-            </c.Grid>
-
+            <c.Example title="Vertical Alignment" hint="<ImageLink valign='middle'/>" columns={8}>
+              <c.ImageLink href="http://google.com" target="_blank" spaced valign='top' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/><span>Text</span>
+              <c.Divider/>
+              <c.ImageLink href="http://google.com" target="_blank" spaced valign='middle' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>Text
+              <c.Divider/>
+              <c.ImageLink href="http://google.com" target="_blank" spaced valign='bottom' size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>Text
+            </c.Example>
 
           </c.PageSection>
 
-          <c.PageSection title="States" appearance="two column grid">
-            <c.Example title="hidden" hint="<ImageLink hidden/>" appearance="one column">
-              <c.ImageLink href="http://google.com" target="_blank" hidden size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
-            </c.Example>
+          <c.PageSection title="States">
+            <c.Grid>
+              <c.Example title="hidden" hint="<ImageLink hidden/>" columns={8}>
+                <c.ImageLink href="http://google.com" target="_blank" hidden size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
+              </c.Example>
 
-            <c.Example title="disabled" hint="<ImageLink disabled/>  NOTE: disabled ImageLinks are not clickable!" appearance="one column">
-              <c.ImageLink href="http://google.com" target="_blank" disabled size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
-            </c.Example>
+              <c.Example title="disabled" hint="<ImageLink disabled/>  NOTE: disabled ImageLinks are not clickable!" columns={8}>
+                <c.ImageLink href="http://google.com" target="_blank" disabled size="small" src="http://semantic-ui.com/images/wireframe/image.png"/>
+              </c.Example>
+            </c.Grid>
           </c.PageSection>
 
 

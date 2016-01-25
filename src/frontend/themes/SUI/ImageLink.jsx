@@ -24,7 +24,10 @@ function SUIImageLink(props, context) {
   return <a {...anchorProps}><img src={src}/></a>;
 }
 
-SUIImageLink.propTypes = SUIImage.propTypes;
+SUIImageLink.propTypes = Object.assign({}, SUIImage.propTypes, {
+  href: PropTypes.string,
+  target: PropTypes.target
+});
 
 // add render() method so we get hot code reload.
 SUIImageLink.render = Function.prototype;

@@ -10,3 +10,5 @@ export Icon from "./Icon";
 export IconAlphabetical from "./IconAlphabetical";
 export Image from "./Image";
 export ImageLink from "./ImageLink";
+export ImageGroup from "./ImageGroup";
+export Input from "./Input";

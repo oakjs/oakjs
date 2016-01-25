@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 
-.Cropper:hover {
+.Cropper.showOnHover:hover {
   width: auto !important;
   height: auto !important;
   overflow: visible;

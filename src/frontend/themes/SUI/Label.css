@@ -1,0 +1,5 @@
+/* Extension to SUI styles */
+.ui.label.transparent {
+  border:none;
+  background-color: transparent;
+}

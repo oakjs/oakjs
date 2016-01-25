@@ -3,10 +3,10 @@ import classNames from "classnames";
 
 function Section(props, context) {
   const c = context.components;
-  const { title, children, ...segmentProps } = props;
-  segmentProps.appearance = classNames(props.appearance, "basic");
+  const { id, title, children, grid, ...segmentProps } = props;
+  segmentProps.appearance = classNames(props.appearance, "basic", { grid });
   return (
-    <c.Segment appearance="basic very padded">
+    <c.Segment appearance="basic very padded" id={id}>
       <c.Header size="large" dividing>
         {title}
       </c.Header>

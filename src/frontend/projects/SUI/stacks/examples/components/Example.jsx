@@ -6,18 +6,19 @@ import InfoHint from "./InfoHint";
 import "./Example.css";
 
 function Example(props, context) {
-  const { appearance, title, hint, children, } = props;
+  const { appearance, title, hint, compact, columns, children, } = props;
   const c = context.components;
-  const className = classNames("Example", appearance);
+  const columnClass = c.Column.getColumnsClass(columns, "unpadded");
+  const className = classNames("Example", appearance, columnClass);
+
+  const infoHint = hint && <c.InfoHint text={hint}/>;
+  const header = (title ? <c.Header size="medium" dividing>{title}{infoHint}</c.Header> : undefined);
+
   return (
     <div className={className}>
-      <c.Spacer size="small"/>
-      <c.Header size="medium" dividing>
-        {title}
-        {hint && <c.InfoHint text={hint}/>}
-      </c.Header>
+      <c.Spacer/>
+      {header}
       {children}
-      <c.Spacer size="huge"/>
     </div>
   );
 }
