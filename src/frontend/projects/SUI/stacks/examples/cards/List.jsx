@@ -68,7 +68,7 @@ export default class ListCard extends Card {
                   <c.List appearance="bulleted">
                     <c.ListItem>Gaining Access</c.ListItem>
                     <c.ListItem>Inviting Friends</c.ListItem>
-                    <c.ListItem nestedList>Benefits
+                    <c.ListItem nestChildren={false}>Benefits
                       <c.List>
                         <c.ListItem>Use Anywhere</c.ListItem>
                         <c.ListItem>Rebates</c.ListItem>
@@ -85,7 +85,7 @@ export default class ListCard extends Card {
                   <c.List appearance="ordered">
                     <c.ListItem>Gaining Access</c.ListItem>
                     <c.ListItem>Inviting Friends</c.ListItem>
-                    <c.ListItem nestedList>Benefits
+                    <c.ListItem nestChildren={false}>Benefits
                       <c.List>
                         <c.ListItem>Use Anywhere</c.ListItem>
                         <c.ListItem>Rebates</c.ListItem>
@@ -129,6 +129,13 @@ export default class ListCard extends Card {
               </c.List>
 
               <c.Divider/>
+              <c.List appearance="horizontal divided">
+                <c.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+                <c.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+                <c.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+              </c.List>
+
+              <c.Divider/>
               <c.List appearance="horizontal ordered">
                 <c.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="50 points"/>
                 <c.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="44 points"/>
@@ -143,20 +150,10 @@ export default class ListCard extends Card {
               </c.List>
             </c.Example>
 
-            <c.Grid columns={2}>
+            <c.Grid columns={3}>
               <c.Column>
-                <c.Example title="Divided" hint="<List appearance='divided'/>">
-                  <c.List appearance="divided">
-                    <c.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
-                    <c.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
-                    <c.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
-                  </c.List>
-                </c.Example>
-              </c.Column>
-
-              <c.Column>
-                <c.Example title="Celled" hint="<List appearance='celled'/>">
-                  <c.List appearance="celled">
+                <c.Example title="Normal (non-relaxed)">
+                  <c.List>
                     <c.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
                     <c.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
                     <c.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
@@ -185,8 +182,8 @@ export default class ListCard extends Card {
               </c.Column>
 
               <c.Column>
-                <c.Example title="Selection" hint="<List appearance='selection'/>">
-                  <c.List appearance="selection">
+                <c.Example title="Divided" hint="<List appearance='divided'/>">
+                  <c.List appearance="divided">
                     <c.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
                     <c.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
                     <c.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
@@ -195,8 +192,8 @@ export default class ListCard extends Card {
               </c.Column>
 
               <c.Column>
-                <c.Example title="Animated" hint="<List appearance='animated'/>">
-                  <c.List appearance="animated">
+                <c.Example title="Celled" hint="<List appearance='celled'/>">
+                  <c.List appearance="celled">
                     <c.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
                     <c.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
                     <c.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
@@ -216,8 +213,78 @@ export default class ListCard extends Card {
                 </c.Example>
               </c.Column>
 
+              <c.Column>
+                <c.Example title="Selection" hint="<List appearance='selection'/>">
+                  <c.List appearance="selection">
+                    <c.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+                    <c.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+                    <c.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+                  </c.List>
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Animated" hint="<List appearance='animated'/>">
+                  <c.List appearance="animated">
+                    <c.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+                    <c.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+                    <c.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+                  </c.List>
+                </c.Example>
+              </c.Column>
+
             </c.Grid>
 
+            <c.Example title="Floating list" hint="<List floated='right'/>">
+              <c.Segment>
+                <c.List appearance="horizontal">
+                  <c.ListItem>Terms</c.ListItem>
+                  <c.ListItem>Privacy</c.ListItem>
+                  <c.ListItem>Contact</c.ListItem>
+                </c.List>
+                <c.List floated="right" appearance="horizontal">
+                  <c.ListItem>About Us</c.ListItem>
+                  <c.ListItem>Jobs</c.ListItem>
+                </c.List>
+              </c.Segment>
+            </c.Example>
+
+            <c.Example title="Size" hint="<List size='large'/>">
+              <c.List size="horizontal mini">
+                <c.ListItem icon='mail' content="Mail"/> <c.ListItem icon='user' content="Contacts"/> <c.ListItem icon='calendar' content="Calendar"/>
+              </c.List>
+
+              <c.Spacer/>
+              <c.List size="horizontal tiny">
+                <c.ListItem icon='mail' content="Mail"/> <c.ListItem icon='user' content="Contacts"/> <c.ListItem icon='calendar' content="Calendar"/>
+              </c.List>
+
+              <c.Spacer/>
+              <c.List size="horizontal small">
+                <c.ListItem icon='mail' content="Mail"/> <c.ListItem icon='user' content="Contacts"/> <c.ListItem icon='calendar' content="Calendar"/>
+              </c.List>
+
+              <c.Spacer/>
+              <c.List size="horizontal medium">
+                <c.ListItem icon='mail' content="Mail"/> <c.ListItem icon='user' content="Contacts"/> <c.ListItem icon='calendar' content="Calendar"/>
+              </c.List>
+
+              <c.Spacer/>
+              <c.List size="horizontal large">
+                <c.ListItem icon='mail' content="Mail"/> <c.ListItem icon='user' content="Contacts"/> <c.ListItem icon='calendar' content="Calendar"/>
+              </c.List>
+
+              <c.Spacer/>
+              <c.List size="horizontal huge">
+                <c.ListItem icon='mail' content="Mail"/> <c.ListItem icon='user' content="Contacts"/> <c.ListItem icon='calendar' content="Calendar"/>
+              </c.List>
+
+              <c.Spacer/>
+              <c.List size="horizontal massive">
+                <c.ListItem icon='mail' content="Mail"/> <c.ListItem icon='user' content="Contacts"/> <c.ListItem icon='calendar' content="Calendar"/>
+              </c.List>
+
+            </c.Example>
           </c.PageSection>
         </c.Page>
       </div>

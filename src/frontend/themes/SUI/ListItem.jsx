@@ -16,6 +16,11 @@ export const ALIGN_CLASS_MAP = {
   bottom: "bottom aligned",
 }
 
+function defaultTagName(props) {
+  if (props.tagName) return props.tagName;
+  if (props.href) return "a";
+  return "div";
+}
 
 function SUIListItem(props) {
   const {
@@ -26,7 +31,7 @@ function SUIListItem(props) {
     // decorators
     icon, image, imageAppearance,
     // appearance
-    className, appearance, size, align, nestedList,
+    className, appearance, size, align, nestChildren={false},
     // state & events
     hidden, disabled, active,
     // everything else including id, style, href, target
@@ -35,12 +40,18 @@ function SUIListItem(props) {
 
   const headerElement = (header && <div className="header">{header}</div>);
   const descriptionElement = (description && <div className="description">{description}</div>);
-  let elements = addElements(headerElement, descriptionElement, content, children)
+  let elements = addElements(headerElement, descriptionElement, content)
 
-  // don't wrap nested list in a `contents` element
-  if (!nestedList) {
-    const contentClass = classNames(ALIGN_CLASS_MAP[align], "content");
-    elements = [React.createElement("div", { className: contentClass }, ...elements)];
+  const contentProps = {
+    className: classNames(ALIGN_CLASS_MAP[align], "content")
+  };
+
+  if (nestChildren) {
+    elements = [React.createElement("div", contentProps, ...addElements(elements, children))];
+  }
+  else {
+    elements = [React.createElement("div", contentProps, ...elements)];
+    elements = addElements(elements, children);
   }
 
   // add icon BEFORE content
@@ -67,13 +78,11 @@ function SUIListItem(props) {
   }
   itemProps.className = classNames(className, appearance, size, classProps, "item");
 
-  return React.createElement(SUIListItem.defaultTagName(props), itemProps, ...elements);
+  return React.createElement(defaultTagName(props), itemProps, ...elements);
 }
 
-SUIListItem.defaultTagName = function(props) {
-  if (props.tagName) return props.tagName;
-  if (props.href) return "a";
-  return "div";
+SUIListItem.defaultProps = {
+  nestChildren: true
 }
 
 SUIListItem.propTypes = {
@@ -94,7 +103,7 @@ SUIListItem.propTypes = {
   appearance: PropTypes.string,
   size: PropTypes.string,               // `mini`, `tiny`, `small`, `medium`, `large`, `big`, `huge`, `massive`
   align: PropTypes.string,              // `top`, `middle`, `bottom`
-  nestedList: PropTypes.bool,          // necessary if you've got a nested bulleted or ordered list...???
+  nestChildren: PropTypes.bool,          // necessary if you've got a nested bulleted or ordered list...???
 
   hidden: PropTypes.bool,
   disabled: PropTypes.bool,
