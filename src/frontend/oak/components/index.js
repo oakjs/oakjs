@@ -1,5 +1,5 @@
 // Components which can be used in a card.
-export CardContents from "./CardContents";
+export CardContainer from "./CardContainer";
 export CardMenuItem from "./CardMenuItem";
 export Link from "./Link";
 export { OakCardLink as CardLink } from "./Link";
