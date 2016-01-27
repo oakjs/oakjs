@@ -7,10 +7,9 @@ export default class LoaderCard extends Card {
     id: "Loader",
     title: "Loader"
   }
-  render() {
-    const c = this.components;
+  renderChildren({ card, stack, project, c }) {
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Loader">
@@ -26,7 +25,7 @@ export default class LoaderCard extends Card {
           </c.PageSection>
 
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

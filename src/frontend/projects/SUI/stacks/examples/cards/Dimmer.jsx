@@ -7,10 +7,9 @@ export default class DimmerCard extends Card {
     id: "Dimmer",
     title: "Dimmer"
   }
-  render() {
-    const c = this.components;
+  renderChildren({ card, stack, project, c }) {
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Dimmer">
@@ -148,7 +147,7 @@ export default class DimmerCard extends Card {
           </c.PageSection>
 
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

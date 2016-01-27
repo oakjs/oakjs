@@ -7,10 +7,9 @@ export default class IconCard extends Card {
     id: "IconAlphabetical",
     title: "Icon (Alphabetical)"
   }
-  render() {
-    const c = this.components;
+  renderChildren({ card, stack, project, c }) {
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Icons">
@@ -615,7 +614,7 @@ export default class IconCard extends Card {
           </c.PageSection>
 
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

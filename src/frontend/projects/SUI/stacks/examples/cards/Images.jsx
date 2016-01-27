@@ -13,12 +13,10 @@ export default class ImagesCard extends Card {
     squareImage: "http://semantic-ui.com/images/wireframe/square-image.png",
   }
 
-  render() {
-    const c = this.components;
-    // TODO: get this dynamically
+  renderChildren({ card, stack, project, c }) {
     const data = this.constructor.data;
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Images">
@@ -132,7 +130,7 @@ export default class ImagesCard extends Card {
           </c.PageSection>
 
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

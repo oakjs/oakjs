@@ -7,10 +7,9 @@ export default class IconCard extends Card {
     id: "Icon",
     title: "Icon"
   }
-  render() {
-    const c = this.components;
+  renderChildren({ card, stack, project, c }) {
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Icons">
@@ -599,7 +598,7 @@ export default class IconCard extends Card {
             <c.IconSample icon="youtube square"/>
           </c.PageSection>
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

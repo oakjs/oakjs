@@ -16,12 +16,10 @@ export default class LabelCard extends Card {
     onClosed: function(who){ alert(`Closed ${who}.`) }
   }
 
-  render() {
-    const c = this.components;
-    //TODO: this should be dynamic...
+  renderChildren({ card, stack, project, c }) {
     const data = this.constructor.data;
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Label">
@@ -461,7 +459,7 @@ export default class LabelCard extends Card {
           </c.PageSection>
 
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

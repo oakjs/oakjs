@@ -7,10 +7,9 @@ export default class FlagCard extends Card {
     id: "Flag",
     title: "Flag"
   }
-  render() {
-    const c = this.components;
+  renderChildren({ card, stack, project, c }) {
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Flag">
@@ -275,7 +274,7 @@ export default class FlagCard extends Card {
           </c.Segment>
 
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

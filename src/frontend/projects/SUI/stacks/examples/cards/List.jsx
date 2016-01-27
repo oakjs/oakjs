@@ -15,12 +15,10 @@ export default class ListCard extends Card {
     stevieAvatar: "http://semantic-ui.com/images/avatar/large/stevie.jpg",
   };
 
-  render() {
-    const c = this.components;
+  renderChildren({ card, stack, project, c }) {
     const data = this.constructor.data;
-
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="List">
@@ -287,7 +285,7 @@ export default class ListCard extends Card {
             </c.Example>
           </c.PageSection>
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

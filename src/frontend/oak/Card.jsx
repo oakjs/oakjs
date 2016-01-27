@@ -97,12 +97,19 @@ export default class OakCard extends React.Component {
     };
   }
 
+
+
   render() {
-    return (
-      <div {...this.renderProps}>
-        {this.props.children}
-      </div>
-    );
+    const children = this.renderChildren({
+  		props: this.props,
+  		state:this.state,
+  		card: this,
+  		stack: this.context.stack,
+  		project: this.context.project,
+  		c: this.components
+  	});
+
+  	return React.createElement("div", this.renderProps, children);
   }
 
 }

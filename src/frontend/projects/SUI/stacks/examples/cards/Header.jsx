@@ -7,10 +7,9 @@ export default class HeaderCard extends Card {
     id: "Header",
     title: "Header"
   }
-  render() {
-    const c = this.components;
+  renderChildren({ card, stack, project, c }) {
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Header">
@@ -241,7 +240,7 @@ export default class HeaderCard extends Card {
           </c.PageSection>
 
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

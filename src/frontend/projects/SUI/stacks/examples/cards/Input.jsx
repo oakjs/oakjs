@@ -7,10 +7,9 @@ export default class InputCard extends Card {
     id: "Input",
     title: "Input"
   }
-  render() {
-    const c = this.components;
+  renderChildren({ card, stack, project, c }) {
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Input">
@@ -312,7 +311,7 @@ export default class InputCard extends Card {
 
           </c.PageSection>
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }

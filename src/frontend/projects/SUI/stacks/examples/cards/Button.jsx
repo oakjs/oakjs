@@ -7,10 +7,9 @@ export default class ButtonCard extends Card {
     id: "Button",
     title: "Button"
   }
-  render() {
-    const c = this.components;
+  renderChildren({ card, stack, project, c }) {
     return (
-      <div {...this.renderProps}>
+      <c.CardContainer>
         <c.PageSidebar/>
         <c.Page>
           <c.PageTitle title="Button">
@@ -230,7 +229,7 @@ export default class ButtonCard extends Card {
           </c.PageSection>
 
         </c.Page>
-      </div>
+      </c.CardContainer>
     );
   }
 }
