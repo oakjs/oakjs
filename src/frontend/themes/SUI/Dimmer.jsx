@@ -79,6 +79,8 @@ const Dimmer = class SUIDimmer extends OverrideableComponent {
     $dimmer.dimmer("show");
     const onShow = this.get("onShow");
     if (onShow) onShow(this);
+
+//    if (this.get("id")) this.constructor.trigger(this.get("id"), "onShow", this);
   }
 
   // Called when we've just been hidden, but not generally on initial draw.
@@ -90,6 +92,8 @@ const Dimmer = class SUIDimmer extends OverrideableComponent {
     $dimmer.dimmer("hide");
     const onHide = this.get("onHide");
     if (onHide) onHide(this);
+
+//    if (this.get("id")) this.constructor.trigger(this.get("id"), "onHide", this);
   }
 
   //////////////////////////////

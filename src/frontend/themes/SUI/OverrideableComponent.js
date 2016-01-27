@@ -28,14 +28,7 @@ class OverrideableComponent extends SUIComponent {
   // If we have an `id`, register the component when mounting.
   // This allows us to access it without having a direct pointer.
   componentDidMount() {
-    if (this.props.id) this.constructor.register(this.props.id, this);
-  }
-
-  // If we have an `id`, register the component when mounting.
-  // This allows us to access it without having a direct pointer.
-  componentDidUpdate(prevProps, prevState) {
-    const deltas = diffObjects(this.state, prevState, true);
-    if (deltas) this.componentDidChangeState(deltas)
+    this.constructor.register(this);
   }
 
   // When properties are changing,
@@ -48,14 +41,31 @@ class OverrideableComponent extends SUIComponent {
     this.set(changedProperties);
   }
 
+  componentWillUpdate() {
+    // Unmount while we're re-rendering because setState is no longer state, and our `id` might change.
+    this.constructor.unregister(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // re-register after updating
+    this.constructor.register(this);
+
+    // Figure out what bits of our state actually changed
+    // and call our `componentDidChangeState()` routine.
+    const deltas = diffObjects(this.state, prevState, true);
+    if (deltas) this.componentDidChangeState(deltas, prevProps, prevState)
+  }
+
+
   // If we have an `id`, UNregister the component when unmounting.
   componentWillUnMount() {
-    if (this.props.id) this.constructor.unregister(this.props.id);
+    // Unregister the component when unmounting
+    this.constructor.unregister(this);
   }
 
   // Called AFTER we've been updated and our state (or props) have actually changed.
   // `deltas` is only the properties which have changed.
-  componentDidChangeState(deltas) {}
+  componentDidChangeState(deltas, prevProps, prevState) {}
 
   //////////////////////////////
   //  Property access
@@ -64,7 +74,7 @@ class OverrideableComponent extends SUIComponent {
   // If `state.property` is defined, return that, otherwise return `props.property`.
   // Otherwise return `props.property`.
   get(property) {
-    if (this.state && this.state[property] !== undefined) return this.state[property];
+    if (this.state[property] !== undefined) return this.state[property];
     return this.props[property];
   }
 
@@ -73,7 +83,7 @@ class OverrideableComponent extends SUIComponent {
     // Default to all defined `propTypes`.
     if (arguments.length === 0) properties = Object.keys(this.constructor.propTypes);
 
-    const state = this.state || {};
+    const state = this.state;
     const props = this.props;
 
     const values = {};
@@ -110,7 +120,9 @@ class OverrideableComponent extends SUIComponent {
 
   // Register a component so you can get it back later.
   // Called automatically in `componentDidMount` if your instance sets `props.id`.
-  static register(id, component) {
+  static register(component) {
+    const id = component && component.get("id");
+    if (!id) return;
     if (!this.REGISTRY) this.REGISTRY = {};
     // Log an error if there's already a component with that id.
     // This probably means they did a copy and paste and forgot to change the id or something like that.
@@ -121,9 +133,10 @@ class OverrideableComponent extends SUIComponent {
 
   // Unregister a component instance.
   // Called automatically in `componentWillUnmount` if you set `class.autoRegister` to true.
-  static unregister(id) {
+  static unregister(component) {
+    const id = component && component.get("id");
 //  console.info(this, " is unregistering ", component, " as ",id);
-    if (this.REGISTRY) delete this.REGISTRY[id];
+    if (id && this.REGISTRY) delete this.REGISTRY[id];
   }
 
   // Return a overrideable component by id, if there is one.
@@ -132,7 +145,7 @@ class OverrideableComponent extends SUIComponent {
     if (this.REGISTRY && this.REGISTRY[id]) return this.REGISTRY[id];
     if (warnIfNotFound) {
       const method = (typeof warnIfNotFound === "string" ? warnIfNotFound : "get");
-      console.warn(`${this}.${method}(${id}): Component not found.  Did you give it a unique id?`);
+      console.warn(`${this}.${method}('${id}'): Component not found.  Did you give it a unique id?`);
     }
     return undefined;
   }

@@ -87,15 +87,17 @@ export default class DimmerCard extends Card {
             <c.Example title="Normal (hidden)" hint="<Dimmer/>">
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer/>
+                <c.Dimmer id="normalDimmer"/>
               </c.Segment>
+              <c.Enablers id="normalDimmer"/>
             </c.Example>
 
             <c.Example title="Start visible" hint="<Dimmer visible/>">
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer visible/>
+                <c.Dimmer id="visibleDimmer" visible/>
               </c.Segment>
+              <c.Enablers id="visibleDimmer"/>
             </c.Example>
 
             <c.Example title="Disabled" hint="<Dimmer disabled/>">
