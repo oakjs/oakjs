@@ -8,6 +8,8 @@
 import React, { PropTypes } from "react";
 import ReactDOM from "react-dom";
 
+import { unknownProperties } from "./SUI";
+
 export default class SUIComponent extends React.Component {
   static propTypes = {
     id: PropTypes.string
@@ -21,6 +23,16 @@ export default class SUIComponent extends React.Component {
   constructor() {
     super(...arguments);
   }
+
+  //////////////////////////////
+  //   Property manipulation
+  //////////////////////////////
+
+  // Return ONLY the props in props which are NOT in our `propTypes`.
+  getExtraProperties(props = this.props) {
+    return unknownProperties(props, this.constructor.propTypes);
+  }
+
 
   //////////////////////////////
   //   DOM manipulation
@@ -70,6 +82,10 @@ export default class SUIComponent extends React.Component {
     });
   }
 
+
+  //////////////////////////////
+  //   Reflection / debugging
+  //////////////////////////////
 
   // toString at the instance level.
   toString() {

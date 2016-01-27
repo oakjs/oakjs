@@ -1,8 +1,9 @@
 // Export individual cards.
 // NOTE: the order they're specified here is the order of the cards in the stack.
 export Button from "./Button";
-export ButtonGroup from "./ButtonGroup";
+export Buttons from "./Buttons";
 export Container from "./Container";
+export Dimmer from "./Dimmer";
 export Divider from "./Divider";
 export Flag from "./Flag";
 export Header from "./Header";
@@ -15,3 +16,4 @@ export Label from "./Label";
 export Labels from "./Labels";
 export List from "./List";
 export ListItem from "./ListItem";
+export Loader from "./Loader";

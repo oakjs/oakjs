@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<ButtonGroup> component for use with SemanticUI
+//	<Buttons> component for use with SemanticUI
 //
 //////////////////////////////
 
@@ -14,7 +14,7 @@ export const COUNT_NAMES = [
 ];
 
 
-function SUIButtonGroup(props) {
+function SUIButtons(props) {
   const { id, className, appearance, size, compact, color, count, floated, attached, style, children } = props;
 
   const classMap = {
@@ -31,7 +31,7 @@ function SUIButtonGroup(props) {
   return <div {...outerProps}>{children}</div>;
 }
 
-SUIButtonGroup.propTypes = {
+SUIButtons.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   appearance: PropTypes.string,
@@ -45,6 +45,6 @@ SUIButtonGroup.propTypes = {
 };
 
 // add render() method so we get hot code reload.
-SUIButtonGroup.render = Function.prototype;
+SUIButtons.render = Function.prototype;
 
-export default SUIButtonGroup;
+export default SUIButtons;

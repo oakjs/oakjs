@@ -26,10 +26,11 @@ console.warn("TODO: figure out how to include semanticUI in themes/SUI/index.js"
 // NOTE: keep this list in alphabetical order!
 export SUIComponent from "./SUIComponent";
 export Button from "./Button";
-export ButtonGroup from "./ButtonGroup";
+export Buttons from "./Buttons";
 export Column from "./Column";
 export Conditional from "./Conditional";
 export Container from "./Container";
+export Dimmer from "./Dimmer";
 export Divider from "./Divider";
 export Dropdown from "./Dropdown";
 export Flag from "./Flag";
@@ -43,6 +44,7 @@ export Label from "./Label";
 export Labels from "./Labels";
 export List from "./List";
 export ListItem from "./ListItem";
+export Loader from "./Loader";
 export Menu from "./Menu";
 export MenuHeader from "./MenuHeader";
 export MenuItem from "./MenuItem";

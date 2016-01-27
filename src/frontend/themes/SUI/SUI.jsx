@@ -24,6 +24,22 @@ function addElementsOn(addOn="left", elementsToAdd, ...elements) {
   return addElements(...elements, elementsToAdd);
 }
 
+  // Generate an id string for a component wich is guaranteed to be unique within the page.
+const GENERATED_ID_MAP = {};
+function generateId(prefix="ID") {
+  if (!GENERATED_ID_MAP[prefix]) GENERATED_ID_MAP[prefix] = 0;
+  return prefix + (++GENERATED_ID_MAP[prefix]);
+}
+
+// Return all properties in `props` which are not defined in `propTypes`.
+// This is far more efficient than doing a ...spread operator to pull those properties out.
+function unknownProperties(props, propTypes) {
+  const unknown = {};
+  for (let key in props) {
+    if (propTypes[key] === undefined) unknown[key] = props[key];
+  }
+  return unknown;
+}
 
 
 // Static methods.
@@ -40,6 +56,8 @@ Object.assign(SUI, {
 
   addElements: addElements,
   addElementsOn: addElementsOn,
+  generateId: generateId,
+  unknownProperties: unknownProperties,
 
 
 });
