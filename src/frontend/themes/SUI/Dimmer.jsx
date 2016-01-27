@@ -8,26 +8,25 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 import { autobind } from "core-decorators";
 
-import { generateId, addElements, addElementsOn } from "./SUI";
-import SUIComponent from "./SUIComponent";
-import registeredComponent from "./registeredComponent";
-import visibleComponent from "./visibleComponent";
+import ElementBuffer from "./ElementBuffer";
+import OverrideableComponent from "./OverrideableComponent";
 import Icon from "./Icon";
 
-const Super = visibleComponent(SUIComponent);
-const Dimmer = class SUIDimmer extends Super {
+const Dimmer = class SUIDimmer extends OverrideableComponent {
   static defaultProps = {
-    ...Super.defaultProps,
     visible: false
   }
   static propTypes = {
-    ...Super.propTypes,
     className: PropTypes.string,
     style: PropTypes.object,
+
+    visible: PropTypes.bool,
+    disabled: PropTypes.bool,
 
     content: PropTypes.string,
     icon: PropTypes.string,
     iconAppearance: PropTypes.string,
+    children: PropTypes.any,
 
     appearance: PropTypes.string,         // page, blurring, inverted, simple
 
@@ -41,15 +40,27 @@ const Dimmer = class SUIDimmer extends Super {
   // Component lifecycle
   //////////////////////////////
 
-  setUpDimmer() {
-    const { appearance, closable } = this.props;
+  componentDidMount() {
+    super.componentDidMount();
+    this.setUpDimmer();
+    if (this.get("visible")) this.onShow();
+  }
 
+  componentDidChangeState(deltas) {
+    if ("visible" in deltas) {
+      if (deltas.visible) this.onShow();
+      else                this.onHide();
+    }
+  }
+
+  setUpDimmer() {
     // set up closable and events
     const $dimmer = this.$ref();
-    $dimmer.dimmer({ closable });
+    $dimmer.dimmer({ active: this.get("visible"), closable: this.get("closable") });
 
     // if we're blurring, our parent must have the "blurring" class
     // NOTE: this will get undone on a repaint of the parent...  :-(
+    const appearance = this.get("appearance") || "";
     if (appearance && appearance.includes("blurring")) {
       const $parent = $dimmer.parent();
       if (!$parent.hasClass("blurring")) {
@@ -59,25 +70,26 @@ const Dimmer = class SUIDimmer extends Super {
     }
   }
 
-  // When we're
-  onShow(isInitialDraw) {
+  // Called when we've just been shown, but not generally in initial draw.
+  onShow() {
     this.setUpDimmer();
     const $dimmer = this.$ref();
+//    if ($dimmer.dimmer("is active")) return;
 
-    // don't update on the initial draw unless we're blurring
-    if (!isInitialDraw || (this.props.appearance && this.props.appearance.includes("blurring"))) {
-      $dimmer.dimmer("show");
-      if (this.props.onShow) this.props.onShow(this);
-    }
+    $dimmer.dimmer("show");
+    const onShow = this.get("onShow");
+    if (onShow) onShow(this);
   }
 
-  onHide(isInitialDraw) {
-    this.setUpDimmer(isInitialDraw);
+  // Called when we've just been hidden, but not generally on initial draw.
+  onHide() {
+    this.setUpDimmer();
     const $dimmer = this.$ref();
-    if (!isInitialDraw) {
-      $dimmer.dimmer("hide");
-      if (this.props.onHide) this.props.onHide(this);
-    }
+//    if (!$dimmer.dimmer("is active")) return;
+
+    $dimmer.dimmer("hide");
+    const onHide = this.get("onHide");
+    if (onHide) onHide(this);
   }
 
   //////////////////////////////
@@ -87,47 +99,39 @@ const Dimmer = class SUIDimmer extends Super {
   render() {
     const {
       id, style,
-      // content
       content, icon, iconAppearance, children,
-      // appearance
       className, appearance="",
-    } = this.props;
+      visible, disabled
+    } = this.getAll();
 
-    let elements = [];
+    let elements = new ElementBuffer();
     // add contents and text-only children
-    if (content) elements = addElements(elements, content);
-    if (typeof children === "string") elements = addElements(elements, children);
+    if (content) elements.append(content);
+    if (typeof children === "string") elements.append(children);
     // add icon BEFORE the above
-    if (icon) elements = addElements(<Icon icon={icon} appearance={iconAppearance}/>, elements);
+    if (icon) elements.prepend(<Icon icon={icon} appearance={iconAppearance}/>);
 
     // wrap in a header element if any of the above was specified
     if (elements.length) {
-      const contentProps = {
-        className: classNames("ui", { icon:icon, inverted: !appearance.includes("inverted") }, "header")
-      };
-      elements = [ React.createElement("h2", contentProps, ...elements) ];
+      elements.className = ["ui", { icon, inverted: !appearance.includes("inverted") }, "header"];
+      elements.wrap("h2");
     }
-    // add non-text-onlu children here (outside of the header element)
-    if (children && typeof children !== "string") elements = addElements(elements, children);
+    // add non-text-only children here (outside of the header element)
+    if (children && typeof children !== "string") elements.append(children);
 
     // if we have children, wrap them in <div.content><div.center/></div>
     if (elements.length) {
-      elements = [ <div className="content">{ React.createElement("div", { className: "center" }, ...elements) }</div> ]
+      elements.wrap("div", { className: "center" });
+      elements.wrap("div", { className: "content" });
     }
 
-    // class name bits
-    const classProps = {
-      disabled: this.isDisabled,
-      active: this.isVisible && !appearance.contains("blurring"),
-    }
-
-    const dimmerProps = {
+    elements.props = {
       ...this.getExtraProperties(),
       id,
       style,
-      className: classNames("ui", className, appearance, classProps, "dimmer")
+      className: ["ui", className, appearance, { disabled, active: visible }, "dimmer"]
     }
-    return React.createElement("div", dimmerProps, ...elements);
+    return elements.render();
   }
 }
 

@@ -101,17 +101,12 @@ export default class DimmerCard extends Card {
             <c.Example title="Disabled" hint="<Dimmer disabled/>">
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer id="disabledDimmer" disabled/>
+                <c.Dimmer id="disabledDimmer" disabled
+                  onShow={c.Message.set("disabledDimmer-message", {message:"onShow() fired"})}
+                  onHide={c.Message.set("disabledDimmer-message", {message:"onHide() fired"})}
+                />
               </c.Segment>
-              <c.Buttons>
-                <c.Button title="Show" onClick={()=>c.Dimmer.show("disabledDimmer")}/>
-                <c.Button title="Hide" onClick={()=>c.Dimmer.hide("disabledDimmer")}/>
-              </c.Buttons>
-              <c.Spacer inline/>
-              <c.Buttons>
-                <c.Button title="Enable" onClick={()=>c.Dimmer.enable("disabledDimmer")}/>
-                <c.Button title="Disable" onClick={()=>c.Dimmer.disable("disabledDimmer")}/>
-              </c.Buttons>
+              <c.Enablers id="disabledDimmer"/>
             </c.Example>
 
           </c.PageSection>
@@ -123,14 +118,14 @@ export default class DimmerCard extends Card {
               <c.Segment>
                 <c.LoremIpsum/>
                 <c.Dimmer id="showHideDimmer"
-                  onShow={()=> $("#showHideMessage").html("onShow() fired")}
-                  onHide={()=> $("#showHideMessage").html("onHide() fired")}
+                  onShow={c.Message.flash("showHideMessage", "onShow() fired")}
+                  onHide={c.Message.flash("showHideMessage", "onHide() fired")}
                 />
               </c.Segment>
               <c.Message id='showHideMessage' message="No messages fired yet"/>
               <c.Buttons>
-                <c.Button title="Show" onClick={()=>c.Dimmer.show("showHideDimmer")}/>
-                <c.Button title="Hide" onClick={()=>c.Dimmer.hide("showHideDimmer")}/>
+                <c.Button title="Show" onClick={c.Dimmer.set("showHideDimmer", {visible:true})}/>
+                <c.Button title="Hide" onClick={c.Dimmer.set("showHideDimmer", {visible:false})}/>
               </c.Buttons>
             </c.Example>
 
@@ -138,14 +133,14 @@ export default class DimmerCard extends Card {
               <c.Segment>
                 <c.LoremIpsum/>
                 <c.Dimmer id="showHideDimmer2" visible
-                  onShow={()=> $("#showHideMessage2").html("onShow() fired")}
-                  onHide={()=> $("#showHideMessage2").html("onHide() fired")}
+                  onShow={c.Message.flash("showHideMessage2", "onShow() fired")}
+                  onHide={c.Message.flash("showHideMessage2", "onHide() fired")}
                 />
               </c.Segment>
               <c.Message id='showHideMessage2' message="No messages fired yet"/>
               <c.Buttons>
-                <c.Button title="Show" onClick={()=>c.Dimmer.show("showHideDimmer2")}/>
-                <c.Button title="Hide" onClick={()=>c.Dimmer.hide("showHideDimmer2")}/>
+                <c.Button title="Show" onClick={c.Dimmer.set("showHideDimmer2", {visible:true})}/>
+                <c.Button title="Hide" onClick={c.Dimmer.set("showHideDimmer2", {visible:false})}/>
               </c.Buttons>
             </c.Example>
           </c.PageSection>

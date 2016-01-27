@@ -1,0 +1,12 @@
+/* Extension to SUI styles */
+.ui.message.inline {
+  display: inline-block;
+}
+
+.ui.message[class*="right floated"] {
+  float: right;
+}
+
+.ui.message[class*="left floated"] {
+  float: right;
+}

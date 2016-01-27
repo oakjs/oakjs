@@ -54,7 +54,7 @@ export default function visibleComponent(Component) {
 
     // When we're getting new props, if our visible or disabled props have changed, update the state.
     componentWillReceiveProps(nextProps) {
-      if (super.componentDidUpdate) super.componentDidUpdate(nextProps);
+      if (super.componentWillReceiveProps) super.componentWillReceiveProps(nextProps);
 
       const deltas = this.getDeltas(nextProps, this.props, this.state);
       if (deltas) this.setState(deltas);

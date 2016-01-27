@@ -7,47 +7,57 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export default class SUIMessage extends React.Component {
+import ElementBuffer from "./ElementBuffer";
+import OverrideableComponent from "./OverrideableComponent";
+import "./Message.css";
+
+export default class SUIMessage extends OverrideableComponent {
   static propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
-    appearance: PropTypes.string,
-    color: PropTypes.string,
-    inline: PropTypes.bool,
     style: PropTypes.object,
 
     header: PropTypes.string,
-    message: PropTypes.string
+    message: PropTypes.string,
+    children: PropTypes.any,
+
+    appearance: PropTypes.string,
+    color: PropTypes.string,
+    inline: PropTypes.bool,
+    floated: PropTypes.string,
   };
 
-  renderHeader() {
-    const { header } = this.props;
-    if (header) return <div className="header">{header}</div>;
-    return undefined;
+  flash(message, duration=1000) {
+    this.set({ message });
+    setTimeout(this.constructor.set(this.props.id, {message:""}), duration);
   }
-
-  renderMessage() {
-    const { message } = this.props;
-    if (message) return <p>{message}</p>;
-    return undefined;
+  static flash(id, message) {
+    return () => {
+      const component = this.get(id)
+      if (component) component.flash(message);
+    }
   }
 
   render() {
-    const { id, className, appearance, color, inline, style={}, children } = this.props;
+    const {
+      id, style, className,
+      header, message, children,
+      appearance, color, inline, floated
+    } = this.getAll();
 
-    const props = {
+    const elements = new ElementBuffer();
+    if (header) elements.append(<div className="header">{header}</div>);
+    if (message) elements.append(message);
+    if (children) elements.append(children)
+
+    const classProps = { inline };
+    if (floated) classProps[`${floated} floated`] = true;
+
+    elements.props = {
       id,
-      className: classNames(className, "ui", color, appearance, "message"),
+      className: [className, "ui", color, appearance, classProps, "message"],
       style
     }
-    if (inline) style.display = "inline-block";
-
-    return (
-      <div {...props}>
-        {this.renderHeader()}
-        {this.renderMessage()}
-        {children}
-      </div>
-    );
+    return elements.render();
   }
 }

@@ -1,5 +1,6 @@
 // custom stack components
 export Cropper from "./Cropper";
+export Enablers from "./Enablers";
 export Example from "./Example";
 export InfoHint from "./InfoHint";
 export IconSample from "./IconSample";
