@@ -71,18 +71,20 @@ export default function visibleComponent(Component) {
     //  so that we can update the DOM if necessary.
     checkForStateChange(oldState, newState) {
       if (super.checkForStateChange) super.checkForStateChange(prevState, this.state);
-return;
+
       const deltas = this.getDeltas(newState, oldState);
       if (!deltas) return;
 
+      const isInitialDraw = oldState === undefined;
+
       if ("visible" in deltas) {
-        if (deltas.visible) this.onShow();
-        else this.onHide();
+        if (deltas.visible) this.onShow(isInitialDraw);
+        else this.onHide(isInitialDraw);
       }
 
       if ("disabled" in deltas) {
-        if (deltas.disabled) this.onDisable();
-        else this.onEnable();
+        if (deltas.disabled) this.onDisable(isInitialDraw);
+        else this.onEnable(isInitialDraw);
       }
     }
 

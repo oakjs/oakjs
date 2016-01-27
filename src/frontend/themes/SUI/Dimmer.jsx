@@ -59,18 +59,25 @@ const Dimmer = class SUIDimmer extends Super {
     }
   }
 
-  onShow() {
+  // When we're
+  onShow(isInitialDraw) {
     this.setUpDimmer();
     const $dimmer = this.$ref();
-    $dimmer.dimmer("show");
-    if (this.props.onShow) this.props.onShow(this);
+
+    // don't update on the initial draw unless we're blurring
+    if (!isInitialDraw || (this.props.appearance && this.props.appearance.includes("blurring"))) {
+      $dimmer.dimmer("show");
+      if (this.props.onShow) this.props.onShow(this);
+    }
   }
 
-  onHide() {
-    this.setUpDimmer();
+  onHide(isInitialDraw) {
+    this.setUpDimmer(isInitialDraw);
     const $dimmer = this.$ref();
-    $dimmer.dimmer("hide");
-    if (this.props.onHide) this.props.onHide(this);
+    if (!isInitialDraw) {
+      $dimmer.dimmer("hide");
+      if (this.props.onHide) this.props.onHide(this);
+    }
   }
 
   //////////////////////////////
@@ -111,7 +118,7 @@ const Dimmer = class SUIDimmer extends Super {
     // class name bits
     const classProps = {
       disabled: this.isDisabled,
-      active: this.isVisible,
+      active: this.isVisible && !appearance.contains("blurring"),
     }
 
     const dimmerProps = {

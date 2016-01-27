@@ -123,11 +123,11 @@ export default class DimmerCard extends Card {
               <c.Segment>
                 <c.LoremIpsum/>
                 <c.Dimmer id="showHideDimmer"
-                  onShow={()=> $("#showHideMessage").html("Dimmer shown")}
-                  onHide={()=> $("#showHideMessage").html("Dimmer hidden")}
+                  onShow={()=> $("#showHideMessage").html("onShow() fired")}
+                  onHide={()=> $("#showHideMessage").html("onHide() fired")}
                 />
               </c.Segment>
-              <c.Message id='showHideMessage'/>
+              <c.Message id='showHideMessage' message="No messages fired yet"/>
               <c.Buttons>
                 <c.Button title="Show" onClick={()=>c.Dimmer.show("showHideDimmer")}/>
                 <c.Button title="Hide" onClick={()=>c.Dimmer.hide("showHideDimmer")}/>
@@ -138,11 +138,11 @@ export default class DimmerCard extends Card {
               <c.Segment>
                 <c.LoremIpsum/>
                 <c.Dimmer id="showHideDimmer2" visible
-                  onShow={()=> $("#showHideMessage2").html("Dimmer shown")}
-                  onHide={()=> $("#showHideMessage2").html("Dimmer hidden")}
+                  onShow={()=> $("#showHideMessage2").html("onShow() fired")}
+                  onHide={()=> $("#showHideMessage2").html("onHide() fired")}
                 />
               </c.Segment>
-              <c.Message id='showHideMessage2'/>
+              <c.Message id='showHideMessage2' message="No messages fired yet"/>
               <c.Buttons>
                 <c.Button title="Show" onClick={()=>c.Dimmer.show("showHideDimmer2")}/>
                 <c.Button title="Hide" onClick={()=>c.Dimmer.hide("showHideDimmer2")}/>
