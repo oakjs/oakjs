@@ -7,7 +7,7 @@ export default class ButtonsCard extends Card {
     id: "Buttons",
     title: "Buttons"
   }
-  renderChildren({ card, stack, project, c }) {
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>

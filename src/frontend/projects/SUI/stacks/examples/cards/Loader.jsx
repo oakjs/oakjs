@@ -7,7 +7,7 @@ export default class LoaderCard extends Card {
     id: "Loader",
     title: "Loader"
   }
-  renderChildren({ card, stack, project, c }) {
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>

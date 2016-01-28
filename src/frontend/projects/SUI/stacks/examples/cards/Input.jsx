@@ -7,7 +7,7 @@ export default class InputCard extends Card {
     id: "Input",
     title: "Input"
   }
-  renderChildren({ card, stack, project, c }) {
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>

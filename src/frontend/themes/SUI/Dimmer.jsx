@@ -9,13 +9,14 @@ import classNames from "classnames";
 import { autobind } from "core-decorators";
 
 import ElementBuffer from "./ElementBuffer";
-import OverrideableComponent from "./OverrideableComponent";
+import SUIComponent from "./SUIComponent";
 import Icon from "./Icon";
 
-const Dimmer = class SUIDimmer extends OverrideableComponent {
+const Dimmer = class SUIDimmer extends SUIComponent {
   static defaultProps = {
     visible: false
   }
+
   static propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
@@ -41,59 +42,55 @@ const Dimmer = class SUIDimmer extends OverrideableComponent {
   //////////////////////////////
 
   componentDidMount() {
-    super.componentDidMount();
-    this.setUpDimmer();
-    if (this.get("visible")) this.onShow();
+    // if we're blurring and visible, do an onVisibleChange to get the blur effect
+    const { disabled, visible, appearance="" } = this.props;
+    if (!disabled && visible) this.onVisibleChange();
   }
 
-  componentDidChangeState(deltas) {
-    if ("visible" in deltas) {
-      if (deltas.visible) this.onShow();
-      else                this.onHide();
+  componentDidUpdate(prevProps) {
+    const { disabled, visible } = this.props;
+    // if we're not disabled and our `visible` has changed
+    if (!disabled && visible !== prevProps.visible) {
+      this.onVisibleChange();
     }
   }
 
-  setUpDimmer() {
+  //////////////////////////////
+  // Event handling
+  //////////////////////////////
+
+  onVisibleChange() {
+    const { visible, closable, appearance = "", onShow, onHide } = this.props;
     // set up closable and events
-    const $dimmer = this.$ref();
-    $dimmer.dimmer({ active: this.get("visible"), closable: this.get("closable") });
+    const $element = this.$ref();
+    $element.dimmer();
 
     // if we're blurring, our parent must have the "blurring" class
     // NOTE: this will get undone on a repaint of the parent...  :-(
-    const appearance = this.get("appearance") || "";
-    if (appearance && appearance.includes("blurring")) {
-      const $parent = $dimmer.parent();
+    if (appearance.includes("blurring")) {
+      const $parent = $element.parent();
       if (!$parent.hasClass("blurring")) {
         console.warn("Adding .blurring to dimmer parent ", $parent);
         $parent.addClass("blurring");
       }
     }
+
+    if (visible) {
+      $element.dimmer("show");
+      if (onShow) onShow(this);
+    }
+    else {
+      $element.dimmer("hide");
+      if (onHide) onHide(this);
+    }
   }
 
-  // Called when we've just been shown, but not generally in initial draw.
-  onShow() {
-    this.setUpDimmer();
-    const $dimmer = this.$ref();
-//    if ($dimmer.dimmer("is active")) return;
-
-    $dimmer.dimmer("show");
-    const onShow = this.get("onShow");
-    if (onShow) onShow(this);
-
-//    if (this.get("id")) this.constructor.trigger(this.get("id"), "onShow", this);
-  }
-
-  // Called when we've just been hidden, but not generally on initial draw.
-  onHide() {
-    this.setUpDimmer();
-    const $dimmer = this.$ref();
-//    if (!$dimmer.dimmer("is active")) return;
-
-    $dimmer.dimmer("hide");
-    const onHide = this.get("onHide");
-    if (onHide) onHide(this);
-
-//    if (this.get("id")) this.constructor.trigger(this.get("id"), "onHide", this);
+  @autobind
+  onClick(event) {
+    const { disabled, onClick } = this.props;
+    if (!disabled && onClick) {
+      onClick(event, this);
+    }
   }
 
   //////////////////////////////
@@ -106,7 +103,7 @@ const Dimmer = class SUIDimmer extends OverrideableComponent {
       content, icon, iconAppearance, children,
       className, appearance="",
       visible, disabled
-    } = this.getAll();
+    } = this.props;
 
     let elements = new ElementBuffer();
     // add contents and text-only children
@@ -133,7 +130,8 @@ const Dimmer = class SUIDimmer extends OverrideableComponent {
       ...this.getExtraProperties(),
       id,
       style,
-      className: ["ui", className, appearance, { disabled, active: visible }, "dimmer"]
+      className: ["ui", className, appearance, { disabled }, "dimmer"],
+      onClick: this.onClick
     }
     return elements.render();
   }

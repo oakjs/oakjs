@@ -8,14 +8,15 @@ export default class ImageCard extends Card {
     title: "Image"
   }
 
-  static data = {
-    image: "http://semantic-ui.com/images/wireframe/image.png",
-    whiteImage: "http://semantic-ui.com/images/wireframe/white-image.png",
-    squareImage: "http://semantic-ui.com/images/wireframe/square-image.png",
+  getInitialData() {
+    return {
+      image: "http://semantic-ui.com/images/wireframe/image.png",
+      whiteImage: "http://semantic-ui.com/images/wireframe/white-image.png",
+      squareImage: "http://semantic-ui.com/images/wireframe/square-image.png",
+    }
   }
 
-  renderChildren({ card, stack, project, c }) {
-    const data = this.constructor.data;
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>

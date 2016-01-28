@@ -20,4 +20,5 @@ export default class SUIProject extends Project {
   render(){ return super.render() }
 }
 
-Project.initialize({ project:SUIProject });
+SUIProject.initialize();
+

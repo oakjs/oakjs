@@ -9,14 +9,15 @@ export default class ListCard extends Card {
     title: "List"
   }
 
-  static data = {
-    joeAvatar: "http://semantic-ui.com/images/avatar/large/joe.jpg",
-    elliotAvatar: "http://semantic-ui.com/images/avatar/large/elliot.jpg",
-    stevieAvatar: "http://semantic-ui.com/images/avatar/large/stevie.jpg",
+  getInitialData() {
+    return {
+      joeAvatar: "http://semantic-ui.com/images/avatar/large/joe.jpg",
+      elliotAvatar: "http://semantic-ui.com/images/avatar/large/elliot.jpg",
+      stevieAvatar: "http://semantic-ui.com/images/avatar/large/stevie.jpg",
+    }
   };
 
-  renderChildren({ card, stack, project, c }) {
-    const data = this.constructor.data;
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>

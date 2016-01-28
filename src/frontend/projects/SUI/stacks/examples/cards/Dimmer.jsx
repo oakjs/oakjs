@@ -7,7 +7,8 @@ export default class DimmerCard extends Card {
     id: "Dimmer",
     title: "Dimmer"
   }
-  renderChildren({ card, stack, project, c }) {
+
+  renderChildren({ get, set, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>
@@ -88,7 +89,6 @@ export default class DimmerCard extends Card {
                 <c.LoremIpsum/>
                 <c.Dimmer id="normalDimmer"/>
               </c.Segment>
-              <c.Enablers id="normalDimmer"/>
             </c.Example>
 
             <c.Example title="Start visible" hint="<Dimmer visible/>">
@@ -96,18 +96,16 @@ export default class DimmerCard extends Card {
                 <c.LoremIpsum/>
                 <c.Dimmer id="visibleDimmer" visible/>
               </c.Segment>
-              <c.Enablers id="visibleDimmer"/>
             </c.Example>
 
             <c.Example title="Disabled" hint="<Dimmer disabled/>">
               <c.Segment>
                 <c.LoremIpsum/>
                 <c.Dimmer id="disabledDimmer" disabled
-                  onShow={c.Message.set("disabledDimmer-message", {message:"onShow() fired"})}
-                  onHide={c.Message.set("disabledDimmer-message", {message:"onHide() fired"})}
+                  onShow={() => console.warn("onShow() fired")}
+                  onHide={() => console.warn("onHide() fired")}
                 />
               </c.Segment>
-              <c.Enablers id="disabledDimmer"/>
             </c.Example>
 
           </c.PageSection>
@@ -119,32 +117,43 @@ export default class DimmerCard extends Card {
               <c.Segment>
                 <c.LoremIpsum/>
                 <c.Dimmer id="showHideDimmer"
-                  onShow={c.Message.flash("showHideMessage", "onShow() fired")}
-                  onHide={c.Message.flash("showHideMessage", "onHide() fired")}
+                  visible={get("showHideDimmer.visible")}
+                  disabled={get("showHideDimmer.disabled")}
+                  onShow={set("showHideDimmer.message", "onShow() fired")}
+                  onHide={set("showHideDimmer.message", "onHide() fired")}
                 />
               </c.Segment>
-              <c.Message id='showHideMessage' message="No messages fired yet"/>
-              <c.Buttons>
-                <c.Button title="Show" onClick={c.Dimmer.set("showHideDimmer", {visible:true})}/>
-                <c.Button title="Hide" onClick={c.Dimmer.set("showHideDimmer", {visible:false})}/>
-              </c.Buttons>
+              <c.Enablers forId="showHideDimmer"/>
             </c.Example>
 
             <c.Example title="onShow and onHide starting visible" hint="<Dimmer onShow={...func...} onHide={...func...}/>">
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer id="showHideDimmer2" visible
-                  onShow={c.Message.flash("showHideMessage2", "onShow() fired")}
-                  onHide={c.Message.flash("showHideMessage2", "onHide() fired")}
+                <c.Dimmer id="showHideDimmer2"
+                  visible={get("showHideDimmer2.visible", true)}
+                  disabled={get("showHideDimmer2.disabled")}
+                  onShow={set("showHideDimmer2.message", "onShow() fired")}
+                  onHide={set("showHideDimmer2.message", "onHide() fired")}
                 />
               </c.Segment>
-              <c.Message id='showHideMessage2' message="No messages fired yet"/>
-              <c.Buttons>
-                <c.Button title="Show" onClick={c.Dimmer.set("showHideDimmer2", {visible:true})}/>
-                <c.Button title="Hide" onClick={c.Dimmer.set("showHideDimmer2", {visible:false})}/>
-              </c.Buttons>
+              <c.Enablers forId="showHideDimmer2"/>
             </c.Example>
+
+            <c.Example title="Closable" hint="<Dimmer closable/>">
+              <c.Segment>
+                <c.LoremIpsum/>
+                <c.Dimmer id="closableDimmer"
+                  visible={get("closableDimmer.visible", true)}
+                  onClick={set("closableDimmer.visible", false)}
+                  onShow={set("closableDimmer.message", "onShow() fired")}
+                  onHide={set("closableDimmer.message", "onHide() fired")}
+                />
+              </c.Segment>
+              <c.Enablers forId="closableDimmer" visibleOnly/>
+            </c.Example>
+
           </c.PageSection>
+
 
         </c.Page>
       </c.CardContainer>

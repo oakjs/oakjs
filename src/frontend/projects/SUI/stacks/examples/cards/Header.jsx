@@ -7,7 +7,7 @@ export default class HeaderCard extends Card {
     id: "Header",
     title: "Header"
   }
-  renderChildren({ card, stack, project, c }) {
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>

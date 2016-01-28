@@ -24,9 +24,17 @@ export default class OakProject extends React.Component {
     return { project: this, components: this.components };
   }
 
+
+  componentDidUpdate() {
+    console.info("re-initializing project");
+    this.constructor.initialize();
+  }
+
   // Initialize a Project constructor, it's stacks and it's cards.
   // NOTE: In theory, you can call this if, eg, the stacks or cards change and things will adjust...
-  static initialize({ project, stackMap, themeComponents, projectComponents }) {
+  static initialize({ stackMap, themeComponents, projectComponents }={}) {
+    const project = this;
+
     // remember/initialize anything passed in
     if (themeComponents) project.themeComponents = themeComponents;
     if (projectComponents) project.projectComponents = projectComponents;
@@ -36,7 +44,7 @@ export default class OakProject extends React.Component {
     project.components = Object.assign({}, project.themeComponents, oakComponents, project.projectComponents);
 
     // Initialize stacks, which will initialize their cards.
-    project.stacks.forEach((stack, stackIndex) => stack.initialize({ stack, project, stackIndex }));
+    project.stacks.forEach((stack, stackIndex) => stack.initialize({ project, stackIndex }));
 
 //console.info("project after initializing:", project);
     return project;

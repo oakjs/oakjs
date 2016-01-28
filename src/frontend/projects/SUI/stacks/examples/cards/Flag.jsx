@@ -7,7 +7,7 @@ export default class FlagCard extends Card {
     id: "Flag",
     title: "Flag"
   }
-  renderChildren({ card, stack, project, c }) {
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>

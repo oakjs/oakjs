@@ -3,36 +3,54 @@ import classNames from "classnames";
 
 function Enablers(props, context) {
   const c = context.components;
+  const card = context.card;
 
   // id of the thing we're enabling/disabling
-  const { id } = props;
+  const { forId, visibleOnly, enabledOnly } = props;
 
-  const messageId = `${id}-message`;
-  function set(property, state) {
+  function get(property) {
+    return card.getData(forId+"."+property);
+  }
+
+  function set(property, value) {
     return () => {
-      c.Message.set(messageId, {message:" "})();
-      c.Dimmer.set(id, {[property]: state})();
+      card.setData(forId+".message", "");
+      card.setData(forId+"."+property, value)
     }
+  }
+
+  function renderVisibles() {
+    if (!enabledOnly) return (
+      <c.Buttons>
+        <c.Button title="Show" onClick={set("visible", true)} active={get("visible")}/>
+        <c.Button title="Hide" onClick={set("visible", false)} active={!get("visible")}/>
+      </c.Buttons>
+    );
+  }
+
+  function renderEnablers() {
+    if (!visibleOnly) return (
+      <c.Buttons>
+        <c.Button title="Enable" onClick={set("disabled", false)} active={!get("disabled")}/>
+        <c.Button title="Disable" onClick={set("disabled", true)} active={get("disabled")}/>
+      </c.Buttons>
+    );
   }
 
   return (
     <c.Segment appearance="basic">
-      <c.Buttons>
-        <c.Button title="Show" onClick={set("visible", true)}/>
-        <c.Button title="Hide" onClick={set("visible", false)}/>
-      </c.Buttons>
+      {renderVisibles()}
       <c.Spacer inline/>
-      <c.Buttons>
-        <c.Button title="Enable" onClick={set("disabled", false)}/>
-        <c.Button title="Disable" onClick={set("disabled", true)}/>
-      </c.Buttons>
-      <c.Message id={`${id}-message`} message=" " floated="right"/>
+      {renderEnablers()}
+      <c.Spacer inline/>
+      <c.Label content={get("message", "")} appearance="transparent"/>
     </c.Segment>
   )
 }
 
 // Pull context in so we can get components.
 Enablers.contextTypes = {
+  card: PropTypes.any,
   components: PropTypes.any,
 };
 

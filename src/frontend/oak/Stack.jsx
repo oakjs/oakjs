@@ -26,20 +26,24 @@ export default class OakStack extends React.Component {
     return { stack: this, components: this.components };
   }
 
+  componentDidUpdate() {
+    console.info("re-initializing stack");
+    this.constructor.initialize();
+  }
 
   // Add this stack to a project.
   // ASSUMES: `stack.cardMap` has already been set up (in our `index.js` file).
   // ASSUMES: `stack.components` has already been set up (in our `index.js` file).
   // ASSUMES: That this is being called from `Project.initializeProject()`
-  static initialize({ stack, project, stackIndex }) {
-    stack.project = project;
-    stack.stackIndex = stackIndex;
+  static initialize({ project, stackIndex } = {}) {
+    const stack = this;
+    if (project !== undefined) stack.project = project;
+    if (stackIndex !== undefined) stack.stackIndex = stackIndex;
 
     // Initialize cards.
-    const cards = stack.cards;
-    cards.forEach((card, cardIndex) => card.initialize({ card, stack, cardIndex }));
+    stack.cards.forEach((card, cardIndex) => card.initialize({ card, stack, cardIndex }));
 
-//console.info("stack after initializing:", stack);
+console.info("stack after initializing:", stack);
     return stack;
   }
 

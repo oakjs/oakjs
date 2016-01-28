@@ -8,16 +8,17 @@ export default class LabelsCard extends Card {
     title: "Labels"
   }
 
-  static data = {
-    joeAvatar: "http://semantic-ui.com/images/avatar/large/joe.jpg",
-    elliotAvatar: "http://semantic-ui.com/images/avatar/large/elliot.jpg",
-    stevieAvatar: "http://semantic-ui.com/images/avatar/large/stevie.jpg",
-    placeholderImage: "http://semantic-ui.com/images/wireframe/image.png",
-    onClosed: function(who){ alert(`Closed ${who}.`) }
+  getInitialData() {
+    return {
+      joeAvatar: "http://semantic-ui.com/images/avatar/large/joe.jpg",
+      elliotAvatar: "http://semantic-ui.com/images/avatar/large/elliot.jpg",
+      stevieAvatar: "http://semantic-ui.com/images/avatar/large/stevie.jpg",
+      placeholderImage: "http://semantic-ui.com/images/wireframe/image.png",
+      onClosed: function(who){ alert(`Closed ${who}.`) }
+    }
   }
 
-  renderChildren({ card, stack, project, c }) {
-    const data = this.constructor.data;
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>

@@ -7,7 +7,7 @@ export default class IconCard extends Card {
     id: "Icon",
     title: "Icon"
   }
-  renderChildren({ card, stack, project, c }) {
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>
