@@ -1,0 +1,4 @@
+/* Extension to SUI styles */
+.ui.dimmer.closable {
+  cursor: pointer;
+}

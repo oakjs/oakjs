@@ -33,6 +33,7 @@ export Container from "./Container";
 export Dimmer from "./Dimmer";
 export Divider from "./Divider";
 export Dropdown from "./Dropdown";
+export ElementBuffer from "./ElementBuffer";
 export Flag from "./Flag";
 export Grid from "./Grid";
 export Header from "./Header";

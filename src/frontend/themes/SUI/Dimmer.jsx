@@ -12,22 +12,20 @@ import ElementBuffer from "./ElementBuffer";
 import SUIComponent from "./SUIComponent";
 import Icon from "./Icon";
 
+import "./Dimmer.css";
+
 const Dimmer = class SUIDimmer extends SUIComponent {
   static defaultProps = {
+    ...SUIComponent.defaultProps,
     visible: false
   }
 
   static propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-
-    visible: PropTypes.bool,
-    disabled: PropTypes.bool,
+    ...SUIComponent.propTypes,
 
     content: PropTypes.string,
     icon: PropTypes.string,
     iconAppearance: PropTypes.string,
-    children: PropTypes.any,
 
     appearance: PropTypes.string,         // page, blurring, inverted, simple
 
@@ -37,30 +35,27 @@ const Dimmer = class SUIDimmer extends SUIComponent {
     onHide: PropTypes.func                // Fired when dimmer is hidden
   };
 
+
   //////////////////////////////
   // Component lifecycle
   //////////////////////////////
 
   componentDidMount() {
-    // if we're blurring and visible, do an onVisibleChange to get the blur effect
-    const { disabled, visible, appearance="" } = this.props;
-    if (!disabled && visible) this.onVisibleChange();
+    if (!this.disabled && this.visible) this.onVisibleChange();
   }
 
-  componentDidUpdate(prevProps) {
-    const { disabled, visible } = this.props;
-    // if we're not disabled and our `visible` has changed
-    if (!disabled && visible !== prevProps.visible) {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.disabled) return;
+
+    const { prevVisible, prevDisabled } = this.get(["visible", "disabled"], prevProps, prevState);
+    if (this.visible !== prevVisible || this.disabled !== prevDisabled) {
       this.onVisibleChange();
     }
   }
 
-  //////////////////////////////
-  // Event handling
-  //////////////////////////////
-
+  // Invoke dimmer routies when visiblity changes
   onVisibleChange() {
-    const { visible, closable, appearance = "", onShow, onHide } = this.props;
+    const { appearance = "", onShow, onHide } = this.props;
     // set up closable and events
     const $element = this.$ref();
     $element.dimmer();
@@ -75,7 +70,7 @@ const Dimmer = class SUIDimmer extends SUIComponent {
       }
     }
 
-    if (visible) {
+    if (this.visible) {
       $element.dimmer("show");
       if (onShow) onShow(this);
     }
@@ -85,12 +80,23 @@ const Dimmer = class SUIDimmer extends SUIComponent {
     }
   }
 
+  //////////////////////////////
+  // Event handling
+  //////////////////////////////
+
   @autobind
   onClick(event) {
-    const { disabled, onClick } = this.props;
-    if (!disabled && onClick) {
-      onClick(event, this);
-    }
+    if (this.disabled) return;
+
+    // if we have an onClick, fire that first
+    const { onClick, closable } = this.props;
+    if (onClick) onClick(event, this);
+
+    // if the default got prevented, stop here
+    if (event.defaultPrevented) return;
+
+    // if we are closable and we're visible, hide!
+    if (closable && this.visible) this.visible = false;
   }
 
   //////////////////////////////
@@ -98,14 +104,28 @@ const Dimmer = class SUIDimmer extends SUIComponent {
   //////////////////////////////
 
   render() {
+    // Non-overridable properties
     const {
       id, style,
       content, icon, iconAppearance, children,
-      className, appearance="",
-      visible, disabled
+      className, appearance="", closable
     } = this.props;
 
-    let elements = new ElementBuffer();
+    // State-overridable properties
+    const { disabled, onClick } = this;
+
+    // derived properties
+    const inverted = appearance.includes("inverted");
+
+    let elements = new ElementBuffer({
+      props: {
+        ...this.getUnknownProperties(),
+        id,
+        style,
+        className: ["ui", className, appearance, { disabled, closable }],
+        onClick: this.onClick
+      }
+    });
     // add contents and text-only children
     if (content) elements.append(content);
     if (typeof children === "string") elements.append(children);
@@ -113,9 +133,9 @@ const Dimmer = class SUIDimmer extends SUIComponent {
     if (icon) elements.prepend(<Icon icon={icon} appearance={iconAppearance}/>);
 
     // wrap in a header element if any of the above was specified
-    if (elements.length) {
-      elements.className = ["ui", { icon, inverted: !appearance.includes("inverted") }, "header"];
-      elements.wrap("h2");
+    if (!elements.isEmpty) {
+      const headerClasses = ["ui", { icon, inverted: !inverted }, "header"];
+      elements.wrap("h2", { className: headerClasses });
     }
     // add non-text-only children here (outside of the header element)
     if (children && typeof children !== "string") elements.append(children);
@@ -126,13 +146,8 @@ const Dimmer = class SUIDimmer extends SUIComponent {
       elements.wrap("div", { className: "content" });
     }
 
-    elements.props = {
-      ...this.getExtraProperties(),
-      id,
-      style,
-      className: ["ui", className, appearance, { disabled }, "dimmer"],
-      onClick: this.onClick
-    }
+    // add "dimmer" at the end of the className
+    elements.addClass("dimmer");
     return elements.render();
   }
 }

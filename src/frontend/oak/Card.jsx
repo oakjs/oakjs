@@ -79,7 +79,7 @@ export default class OakCard extends React.Component {
     const card = this;
     if (stack !== undefined) card.stack = stack;
     if (cardIndex !== undefined) card.cardIndex = cardIndex;
-console.info("card after initializing: ", card);
+//console.info("card after initializing: ", card);
     return card;
   }
 

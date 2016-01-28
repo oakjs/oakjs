@@ -2,50 +2,39 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 function Enablers(props, context) {
-  const c = context.components;
-  const card = context.card;
+  const { components:c, card } = context;
 
   // id of the thing we're enabling/disabling
-  const { forId, visibleOnly, enabledOnly } = props;
+  const { "for":ref, floated, visibleOnly, enabledOnly } = props;
 
-  function get(property) {
-    return card.getData(forId+"."+property);
-  }
-
-  function set(property, value) {
-    return () => {
-      card.setData(forId+".message", "");
-      card.setData(forId+"."+property, value)
+  const elements = new c.ElementBuffer({
+    type: "div",
+    props: {
+      style: {}
     }
-  }
+  });
+  if (floated) elements.setStyle("float", floated);
 
-  function renderVisibles() {
-    if (!enabledOnly) return (
+  if (!enabledOnly) {
+    elements.append(
       <c.Buttons>
-        <c.Button title="Show" onClick={set("visible", true)} active={get("visible")}/>
-        <c.Button title="Hide" onClick={set("visible", false)} active={!get("visible")}/>
-      </c.Buttons>
+        <c.Button title="Show" onClick={() => card.refs[ref].visible = true}/>
+        <c.Button title="Hide" onClick={() => card.refs[ref].visible = false}/>
+      </c.Buttons>,
+      <c.Spacer inline/>
     );
   }
 
-  function renderEnablers() {
-    if (!visibleOnly) return (
+  if (!visibleOnly) {
+    elements.append(
       <c.Buttons>
-        <c.Button title="Enable" onClick={set("disabled", false)} active={!get("disabled")}/>
-        <c.Button title="Disable" onClick={set("disabled", true)} active={get("disabled")}/>
-      </c.Buttons>
+        <c.Button title="Enable" onClick={() => card.refs[ref].disabled = false}/>
+        <c.Button title="Disable" onClick={() => card.refs[ref].disabled = true}/>
+      </c.Buttons>,
+      <c.Spacer inline/>
     );
   }
-
-  return (
-    <c.Segment appearance="basic">
-      {renderVisibles()}
-      <c.Spacer inline/>
-      {renderEnablers()}
-      <c.Spacer inline/>
-      <c.Label content={get("message", "")} appearance="transparent"/>
-    </c.Segment>
-  )
+  return elements.render();
 }
 
 // Pull context in so we can get components.

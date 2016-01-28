@@ -18,7 +18,7 @@ export default class ImagesCard extends Card {
 
   // add render method so we get hot reload
   render() { return super.render() }
-  
+
   // actual card render
   renderChildren({ data, card, stack, project, c }) {
     return (
@@ -62,7 +62,7 @@ export default class ImagesCard extends Card {
 
           <c.PageSection grid title="Appearance">
 
-            <c.Message columns={16}>
+            <c.Message>
               Appearance is the same as for <c.Link card="SUI/examples/images">Images</c.Link> and
               applies to all the nested images.
             </c.Message>

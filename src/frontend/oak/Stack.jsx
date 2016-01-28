@@ -43,7 +43,7 @@ export default class OakStack extends React.Component {
     // Initialize cards.
     stack.cards.forEach((card, cardIndex) => card.initialize({ card, stack, cardIndex }));
 
-console.info("stack after initializing:", stack);
+//console.info("stack after initializing:", stack);
     return stack;
   }
 

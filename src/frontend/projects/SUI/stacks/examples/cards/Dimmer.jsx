@@ -47,10 +47,8 @@ export default class DimmerCard extends Card {
             </c.Example>
 
             <c.Example title="Page Dimmer" hint="<Dimmer appearance='page'/>">
-              <c.Dimmer id="pageDimmer" appearance="page" content="Hello!" closable>
-                <c.Button icon="delete" title="Hide" appearance="primary" onClick={()=>$("#pageDimmer").dimmer("hide")}/>
-              </c.Dimmer>
-              <c.Button icon="plus" title="Show" onClick={()=>$("#pageDimmer").dimmer("show")}/>
+              <c.Dimmer ref="pageDimmer" appearance="page" content="I am the page dimmer!" closable/>
+              <c.Button icon="plus" title="Show" onClick={()=>card.refs.pageDimmer.show()}/>
             </c.Example>
           </c.PageSection>
 
@@ -91,21 +89,21 @@ export default class DimmerCard extends Card {
             <c.Example title="Normal (hidden)" hint="<Dimmer/>">
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer id="normalDimmer"/>
+                <c.Dimmer ref="normalDimmer"/>
               </c.Segment>
             </c.Example>
 
             <c.Example title="Start visible" hint="<Dimmer visible/>">
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer id="visibleDimmer" visible/>
+                <c.Dimmer ref="visibleDimmer" visible/>
               </c.Segment>
             </c.Example>
 
             <c.Example title="Disabled" hint="<Dimmer disabled/>">
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer id="disabledDimmer" disabled
+                <c.Dimmer ref="disabledDimmer" disabled
                   onShow={() => console.warn("onShow() fired")}
                   onHide={() => console.warn("onHide() fired")}
                 />
@@ -117,44 +115,64 @@ export default class DimmerCard extends Card {
 
           <c.PageSection title="Events">
 
-            <c.Example title="onShow and onHide" hint="<Dimmer onShow={...func...} onHide={...func...}/>">
+            <c.Example title="onClick" hint="<Dimmer onClick={...func...}/>">
+              <c.Segment appearance="basic unpadded">
+                <c.Label ref="clickDimmerMessage" appearance="transparent"/>
+                <c.Enablers for="clickDimmer" floated="right"/>
+              </c.Segment>
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer id="showHideDimmer"
-                  visible={get("showHideDimmer.visible")}
-                  disabled={get("showHideDimmer.disabled")}
-                  onShow={set("showHideDimmer.message", "onShow() fired")}
-                  onHide={set("showHideDimmer.message", "onHide() fired")}
+                <c.Dimmer ref="clickDimmer"
+                  onClick={()=> card.refs.clickDimmerMessage.content = "onClick() called"}
+                  onHide={()=> card.refs.clickDimmerMessage.content = ""}
                 />
               </c.Segment>
-              <c.Enablers forId="showHideDimmer"/>
             </c.Example>
 
-            <c.Example title="onShow and onHide starting visible" hint="<Dimmer onShow={...func...} onHide={...func...}/>">
+            <c.Example title="onShow and onHide" hint="<Dimmer onShow={...func...} onHide={...func...}/>">
+              <c.Segment appearance="basic unpadded">
+                <c.Label ref="showHideDimmerMessage" appearance="transparent"/>
+                <c.Enablers for="showHideDimmer" floated="right"/>
+              </c.Segment>
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer id="showHideDimmer2"
-                  visible={get("showHideDimmer2.visible", true)}
-                  disabled={get("showHideDimmer2.disabled")}
-                  onShow={set("showHideDimmer2.message", "onShow() fired")}
-                  onHide={set("showHideDimmer2.message", "onHide() fired")}
+                <c.Dimmer ref="showHideDimmer"
+                  onClick={()=> card.refs.showHideDimmerMessage.content = "onClick() called"}
+                  onShow={()=> card.refs.showHideDimmerMessage.content = "onShow() called"}
+                  onHide={()=> card.refs.showHideDimmerMessage.content = "onHide() called"}
                 />
               </c.Segment>
-              <c.Enablers forId="showHideDimmer2"/>
+            </c.Example>
+
+            <c.Example title="onShow and onHide starting visible" hint="<Dimmer visible onShow={...func...} onHide={...func...}/>">
+              <c.Segment appearance="basic unpadded">
+                <c.Label ref="hideShowDimmerMessage" appearance="transparent"/>
+                <c.Enablers for="hideShowDimmer" floated="right"/>
+              </c.Segment>
+              <c.Segment>
+                <c.LoremIpsum/>
+                <c.Dimmer ref="hideShowDimmer" visible
+                  onClick={()=> card.refs.hideShowDimmerMessage.content = "onClick() called"}
+                  onShow={()=> card.refs.hideShowDimmerMessage.content = "onShow() called"}
+                  onHide={()=> card.refs.hideShowDimmerMessage.content = "onHide() called"}
+                />
+              </c.Segment>
             </c.Example>
 
             <c.Example title="Closable" hint="<Dimmer closable/>">
+              <c.Segment appearance="basic unpadded">
+                <c.Label ref="closableDimmerMessage" appearance="transparent"/>
+                <c.Enablers for="closableDimmer" floated="right"/>
+              </c.Segment>
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer id="closableDimmer"
-                  visible={get("closableDimmer.visible", true)}
-                  onClick={set("closableDimmer.visible", false)}
-                  onShow={set("closableDimmer.message", "onShow() fired")}
-                  onHide={set("closableDimmer.message", "onHide() fired")}
+                <c.Dimmer ref="closableDimmer" closable visible content="Click to close me"
+                  onClick={()=> card.refs.closableDimmerMessage.content = "onClick() called"}
+                  onShow={()=> card.refs.closableDimmerMessage.content = ""}
                 />
               </c.Segment>
-              <c.Enablers forId="closableDimmer" visibleOnly/>
             </c.Example>
+
 
           </c.PageSection>
 
