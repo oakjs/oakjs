@@ -8,7 +8,11 @@ export default class DimmerCard extends Card {
     title: "Dimmer"
   }
 
-  renderChildren({ get, set, card, stack, project, c }) {
+  // add render method so we get hot reload
+  render() { return super.render() }
+
+  // actual card render
+  renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
         <c.PageSidebar/>

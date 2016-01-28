@@ -17,6 +17,10 @@ export default class ListCard extends Card {
     }
   };
 
+  // add render method so we get hot reload
+  render() { return super.render() }
+  
+  // actual card render
   renderChildren({ data, card, stack, project, c }) {
     return (
       <c.CardContainer>
