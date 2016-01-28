@@ -10,3 +10,8 @@
 .ui.message[class*="left floated"] {
   float: right;
 }
+
+/* Smaller icon */
+.ui.icon.message > .small.icon {
+  font-size: 2em;
+}

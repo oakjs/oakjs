@@ -18,7 +18,7 @@ const Message = class SUIMessage extends SUIComponent {
   static propTypes = {
     ...SUIComponent.propTypes,
     header: PropTypes.string,
-    message: PropTypes.string,
+    content: PropTypes.string,
 
     appearance: PropTypes.string,   // "compact", "attached", "bottom attached"
                                     // "warning", "info", "positive", "success", "negative", "error"
@@ -31,13 +31,13 @@ const Message = class SUIMessage extends SUIComponent {
   };
 
   //////////////////////////////
-  // Header and message are dynamically overrideable in state
+  // Header and content are dynamically overrideable in state
   //////////////////////////////
   get header() { return this.get("header") }
   set header(newValue) { return this.set("header", newValue) }
 
-  get message() { return this.get("message") }
-  set message(newValue) { return this.set("message", newValue) }
+  get content() { return this.get("content") }
+  set content(newValue) { return this.set("content", newValue) }
 
 
   //////////////////////////////
@@ -71,20 +71,20 @@ const Message = class SUIMessage extends SUIComponent {
     } = this.props;
 
     // get overrideable props
-    const { visible, header, message } = this;
+    const { visible, header, content } = this;
 
     const elements = new ElementBuffer({
       props: {
         ...this.getUnknownProperties(),
         id,
         style,
-        className: [className, "ui", color, size, appearance, { visible, hidden: !visible, inline }, "message"],
+        className: [className, "ui", color, size, appearance, { hidden: !visible, inline, icon }],
       }
     });
     if (floated) elements.addClass(`${floated} floated`);
 
     if (header) elements.append(<div className="header">{header}</div>);
-    if (message) elements.append(message);
+    if (content) elements.append(content);
     if (children) elements.append(children)
     // wrap the above in a "content" div
     if (!elements.isEmpty) elements.wrap("div", { className: "content" })
@@ -95,7 +95,7 @@ const Message = class SUIMessage extends SUIComponent {
     // if closeable, add close icon before everything else
     if (closable) elements.prepend(<Icon icon="close" onClick={this.onCloserClick}/>);
 
-    // add "message" at the end of the class name
+    // add "content" at the end of the class name
     elements.addClass("message");
     return elements.render();
   }

@@ -1,4 +1,11 @@
 /* Extension to SUI styles */
-.ui.dimmer.closable {
+
+/* Show that they can click on a closable dimmer. */
+.ui.closable.dimmer {
   cursor: pointer;
+}
+
+/* Place page dimmers above other dimmers on the page */
+.ui.page.dimmer {
+  z-index: 1001;
 }

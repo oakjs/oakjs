@@ -137,8 +137,7 @@ export default class OakCard extends React.Component {
     const components = this.components;
     const params = {
   		card: this,
-  		get: this.getData,
-  		set: this.deferredSetData,
+  		data: this.data,
   		stack: this.context.stack,
   		project: this.context.project,
   		components,

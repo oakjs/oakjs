@@ -18,7 +18,7 @@ export default class ImageCard extends Card {
 
   // add render method so we get hot reload
   render() { return super.render() }
-  
+
   // actual card render
   renderChildren({ data, card, stack, project, c }) {
     return (
@@ -52,10 +52,10 @@ export default class ImageCard extends Card {
 
           <c.PageSection title="Sizes">
 
-            <c.Message>
+            <c.Info>
               Unless a size is specified, images will use the original dimensions
               of the image up to the size of their container.
-            </c.Message>
+            </c.Info>
 
             <table className="ui compact celled striped definition table">
               <thead>

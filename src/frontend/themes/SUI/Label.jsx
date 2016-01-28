@@ -24,7 +24,9 @@ export const POINTING_CLASS_MAP = {
 const Label = class SUILabel extends SUIComponent {
   static defaultProps = {
     ...SUIComponent.defaultProps,
-    tagName: "label"
+    tagName: "label",
+    iconOn: "left",
+    imageOn: "left"
   }
 
   static propTypes = {

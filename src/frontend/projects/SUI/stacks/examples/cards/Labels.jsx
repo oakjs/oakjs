@@ -20,7 +20,7 @@ export default class LabelsCard extends Card {
 
   // add render method so we get hot reload
   render() { return super.render() }
-  
+
   // actual card render
   renderChildren({ data, card, stack, project, c }) {
     return (
@@ -139,7 +139,7 @@ export default class LabelsCard extends Card {
           <c.PageSection title="Not Working but should work... ?">
 
             <c.Example title="Basic" hint="<Labels appearance='basic'/>">
-              <c.Message color="red">TODO: This appears to be broken in Semantic UI.</c.Message>
+              <c.Bug>This appears to be broken in Semantic UI.</c.Bug>
               <c.Labels appearance="basic">
                 <c.Label>Text label</c.Label>
                 <c.Label icon="mail" content="Messages" detail="30"/>
@@ -149,7 +149,7 @@ export default class LabelsCard extends Card {
             </c.Example>
 
             <c.Example title="Transparent" hint="<Labels appearance='transparent'/>">
-              <c.Message color="red">TODO: This appears to be broken in Semantic UI.</c.Message>
+              <c.Bug>This appears to be broken in Semantic UI.</c.Bug>
               <c.Labels appearance="transparent">
                 <c.Label>Text label</c.Label>
                 <c.Label icon="mail" content="Messages" detail="30"/>
@@ -159,7 +159,7 @@ export default class LabelsCard extends Card {
             </c.Example>
 
             <c.Example title="Inverted" hint="<Labels appearance='inverted'/>">
-              <c.Message color="red">TODO: This appears to be broken in Semantic UI.</c.Message>
+              <c.Bug>This appears to be broken in Semantic UI.</c.Bug>
               <c.Segment appearance="inverted">
                 <c.Labels appearance="inverted">
                   <c.Label>Text label</c.Label>
@@ -171,7 +171,7 @@ export default class LabelsCard extends Card {
             </c.Example>
 
             <c.Example title="active" hint="<Labels active/>">
-              <c.Message color="red">TODO: This appears to be broken in Semantic UI.</c.Message>
+              <c.Bug>This appears to be broken in Semantic UI.</c.Bug>
               <c.Labels active>
                 <c.Label>Text label</c.Label>
                 <c.Label icon="mail" content="Messages" detail="30"/>
@@ -181,7 +181,7 @@ export default class LabelsCard extends Card {
             </c.Example>
 
             <c.Example title="Closable" hint="<Labels closable/>">
-              <c.Message color="red">TODO: Unclear how to do this in react... :-(</c.Message>
+              <c.Bug>Unclear how to do this in react... :-(</c.Bug>
               <c.Labels closable>
                 <c.Label>Text label</c.Label>
                 <c.Label icon="mail" content="Messages" detail="30"/>

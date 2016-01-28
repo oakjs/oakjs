@@ -9,7 +9,7 @@ export default class IconCard extends Card {
   }
   // add render method so we get hot reload
   render() { return super.render() }
-  
+
   // actual card render
   renderChildren({ data, card, stack, project, c }) {
     return (
@@ -19,11 +19,11 @@ export default class IconCard extends Card {
           <c.PageTitle title="Icons">
             An icon is a glyph used to represent something else.
 
-            <c.Message appearance="info">
-              Semantic includes a complete port
+            <c.Info>
+              Semantic UI includes a complete port
               of <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome 4.3</a> designed
               by <a href="https://twitter.com/davegandy" target="_blank">Dave Gandy</a> for its standard icon set.
-            </c.Message>
+            </c.Info>
 
           </c.PageTitle>
 

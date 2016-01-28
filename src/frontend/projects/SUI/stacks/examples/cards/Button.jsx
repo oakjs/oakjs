@@ -171,7 +171,7 @@ export default class ButtonCard extends Card {
 
             <c.Example title="Toggle">
               <c.Button toggle title="Vote"/>
-              <c.Message appearance="error" message="TODO: `toggle` is not working."/>
+              <c.Bug content="`toggle` is not working."/>
             </c.Example>
 
             <c.Example title="Fluid">

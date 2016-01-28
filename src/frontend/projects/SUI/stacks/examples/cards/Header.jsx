@@ -9,7 +9,7 @@ export default class HeaderCard extends Card {
   }
   // add render method so we get hot reload
   render() { return super.render() }
-  
+
   // actual card render
   renderChildren({ data, card, stack, project, c }) {
     return (
@@ -29,7 +29,7 @@ export default class HeaderCard extends Card {
           <c.PageSection title="Types">
 
             <c.Example title="Normal Headers" hint="<Header size='huge'/>">
-              <c.Message appearance="info">NOTE: Normal headers <b>are</b> affected by surrounding content size.</c.Message>
+              <c.Info appearance="info">Normal headers <b>are</b> affected by surrounding content size.</c.Info>
               <c.Segment>
                 <c.Header size="huge">First Header</c.Header>
                 <c.LoremIpsum short/>
@@ -45,7 +45,7 @@ export default class HeaderCard extends Card {
             </c.Example>
 
             <c.Example title="Page Headers" hint="<Header page size='huge'/>">
-              <c.Message appearance="info">NOTE: Page headers <b>are not</b> affected by surrounding content size.</c.Message>
+              <c.Info appearance="info">Page headers <b>are not</b> affected by surrounding content size.</c.Info>
               <c.Segment>
                 <c.Header page size="huge">First Page Header</c.Header>
                 <c.Header page size="large">Second Page Header</c.Header>

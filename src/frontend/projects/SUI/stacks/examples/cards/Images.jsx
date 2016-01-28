@@ -31,10 +31,10 @@ export default class ImagesCard extends Card {
 
           <c.PageSection title="Sizes">
 
-            <c.Message>
+            <c.Info>
               Sizing is the same as for <c.Link card="SUI/examples/images">Images</c.Link> and
               applies to all the nested images.
-            </c.Message>
+            </c.Info>
 
             <c.Example title="mini, tiny, small, etc">
               <c.Images size="mini">
@@ -62,10 +62,10 @@ export default class ImagesCard extends Card {
 
           <c.PageSection grid title="Appearance">
 
-            <c.Message>
+            <c.Info>
               Appearance is the same as for <c.Link card="SUI/examples/images">Images</c.Link> and
               applies to all the nested images.
-            </c.Message>
+            </c.Info>
 
             <c.Example title="avatar" columns={8}>
               <c.Images size="mini" appearance="avatar">

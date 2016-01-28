@@ -17,3 +17,4 @@ export Labels from "./Labels";
 export List from "./List";
 export ListItem from "./ListItem";
 export Loader from "./Loader";
+export Message from "./Message";

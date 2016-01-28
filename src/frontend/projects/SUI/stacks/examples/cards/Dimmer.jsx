@@ -63,14 +63,6 @@ export default class DimmerCard extends Card {
             </c.Example>
 
             <c.Example title="Blurring" hint="<SomeContainer appearance='blurring'><Dimmer/>...container content...</SomeContainer>">
-              <c.Message appearance="warning">
-                <ul>
-                  <li>If a dimmer starts our blurred and visible, it won't blur properly the first time.</li>
-                  <li>Blurring doesn't work unless the dimmer is the FIRST ELEMENT in its container.</li>
-                  <li>Blurring layers appear above page dimmers, which seems like a bug.</li>
-                </ul>
-              </c.Message>
-
               <c.Segment>
                 <c.Dimmer visible appearance="blurring"/>
                 <c.LoremIpsum/>
@@ -80,6 +72,8 @@ export default class DimmerCard extends Card {
                 <c.Dimmer visible appearance="inverted blurring" icon="heart" content="I love it when a plan comes together"/>
                 <c.LoremIpsum/>
               </c.Segment>
+
+              <c.Warning>Blurring doesn't work unless the dimmer is the FIRST ELEMENT in its container.</c.Warning>
             </c.Example>
 
           </c.PageSection>
