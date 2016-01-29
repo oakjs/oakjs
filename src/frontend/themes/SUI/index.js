@@ -27,6 +27,7 @@ console.warn("TODO: figure out how to include semanticUI in themes/SUI/index.js"
 export SUIComponent from "./SUIComponent";
 export Button from "./Button";
 export Buttons from "./Buttons";
+export Breadcrumb from "./Breadcrumb";
 export Column from "./Column";
 export Conditional from "./Conditional";
 export Container from "./Container";
