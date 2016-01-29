@@ -149,7 +149,7 @@ export default class HeaderCard extends Card {
           <c.PageSection title="Variations">
 
 
-            <c.Example title="Text alignment" hint="<Header align='left'>Header Text</Header>">
+            <c.Example title="Text alignment" hint="<Header align='left'/>">
               <c.Segment>
                 <c.Header align="left">Left</c.Header>
                 <c.Header align="center">Center</c.Header>
@@ -158,14 +158,14 @@ export default class HeaderCard extends Card {
               </c.Segment>
             </c.Example>
 
-            <c.Example title="Floating" hint="<Header floated='left'>Header Text</Header>">
-              <c.Segment>
+            <c.Example title="Floating" hint="<Header floated='left'/>">
+              <c.Segment clearing>
                 <c.Header floated="left">Go Back</c.Header>
                 <c.Header floated="right">Go Forward</c.Header>
               </c.Segment>
             </c.Example>
 
-            <c.Example title="Dividing" hint="<Header dividing>Header Text</Header>">
+            <c.Example title="Dividing" hint="<Header dividing/>">
               <c.Segment>
                 <c.LoremIpsum short/>
                 <c.Header dividing>Dividing Header</c.Header>
@@ -174,7 +174,7 @@ export default class HeaderCard extends Card {
             </c.Example>
 
 
-            <c.Example title="Block" hint="<Header appearance='block'>Header Text</Header>">
+            <c.Example title="Block" hint="<Header appearance='block'/>">
               <c.Spacer/>
               <c.Segment appearance="basic unpadded">
                 <c.Header appearance="block">Block Header</c.Header>
@@ -183,19 +183,19 @@ export default class HeaderCard extends Card {
             </c.Example>
 
 
-            <c.Example title="Attached" hint="<Header attached='top|bottom'>Header Text</Header>">
-              <c.Header attached="top">Top Attached</c.Header>
+            <c.Example title="Attached" hint="<Header appearance='top attached'/>">
+              <c.Header appearance="top attached">Top Attached</c.Header>
               <c.Segment appearance="attached">
                 <c.LoremIpsum short/>
               </c.Segment>
-              <c.Header attached>Attached</c.Header>
+              <c.Header appearance="attached">Attached</c.Header>
               <c.Segment appearance="attached">
                 <c.LoremIpsum short/>
               </c.Segment>
-              <c.Header attached="bottom">Bottom Attached</c.Header>
+              <c.Header appearance="bottom attached">Bottom Attached</c.Header>
             </c.Example>
 
-            <c.Example title="Disabled" hint="<Header disabled>Header Text</Header>">
+            <c.Example title="Disabled" hint="<Header disabled/>">
               <c.Segment>
                 <c.Header disabled>
                   Disabled Header
@@ -205,7 +205,7 @@ export default class HeaderCard extends Card {
               </c.Segment>
             </c.Example>
 
-            <c.Example title="Colored" hint="<Header color='red'>Header Text</Header>">
+            <c.Example title="Colored" hint="<Header color='red'/>">
               <c.Segment>
                 <c.Header size="tiny" color="red" dividing>Red</c.Header>
                 <c.Header size="tiny" color="orange" dividing>Orange</c.Header>
@@ -222,7 +222,7 @@ export default class HeaderCard extends Card {
               </c.Segment>
             </c.Example>
 
-            <c.Example title="Inverted" hint="<Header appearance='inverted'>Header Text</Header>">
+            <c.Example title="Inverted" hint="<Header appearance='inverted'/>">
               <c.Segment appearance="inverted">
                 <c.Header appearance="inverted" size="tiny">Normal</c.Header>
                 <c.Header appearance="inverted" size="tiny" color="red">Red</c.Header>

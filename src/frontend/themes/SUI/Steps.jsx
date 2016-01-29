@@ -8,25 +8,19 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export const QUANTITY_CLASSES = [
-  "zero", "one", "two", "three", "four", "five", "six", "seven", "eight"
-];
+import { getNameForNumber } from "./constants";
 
 function SUISteps(props) {
   const {
-    id, className, style,
     children,
     appearance, size, ordered, vertical, quantity,
-    ...otherProps
+    ...elementProps
   } = props;
 
-  const stepsProps = {
-    ...otherProps,
-    id,
-    className: classNames(className, "ui", appearance, size, QUANTITY_CLASSES[quantity], { ordered, vertical }, "steps"),
-    style
-  }
-  return <div {...stepsProps}>{children}</div>;
+  elementProps.className = classNames(elementProps.className, "ui", appearance, size,
+                                      getNameForNumber(quantity), { ordered, vertical },
+                                      "steps");
+  return <div {...elementProps}>{children}</div>;
 }
 
 SUISteps.defaultProps = {}

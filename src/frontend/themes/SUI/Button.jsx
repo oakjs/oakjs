@@ -8,73 +8,57 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { addElements, addElementsOn } from "./SUI";
+import { getFloatedClass } from "./constants";
+import ElementBuffer from "./ElementBuffer";
 import Icon from "./Icon";
 
 // `appearance`:  any combination of:
 //    - `primary`, `secondary`
 //    - `animated, `vertical animated`, `animated fade`, etc.
 function SUIButton(props) {
-  const { id, className, style,
+  const {
     // appearance
-    appearance, size, compact, circular, color, floated, attached,
+    appearance="", size, circular, color, floated,
     // content / label
-    title, icon, label, children,
+    title, icon, children,
     // events & states
-    active, disabled, loading, toggle, onClick,
+    active, disabled, loading, toggle,
+    // label stuff
+    label, labelAppearance, labelOn,
+
+    // everything else, including id, className, style, onClick
+    ...elementProps
   } = props;
 
-  const classMap = {
-    compact,
-    circular,
-    active,
-    disabled,
-    loading,
-    toggle,
-    icon: icon && !(title || children),
-    [`${floated} floated`]: floated,
-    [`${attached} attached`]: attached,
-  }
+  const buttonElements = new ElementBuffer({
+    type: (appearance.includes("attached") ? "div" : "button"),
+    props: elementProps,
+  });
+  buttonElements.addClass("ui", appearance, size, color, getFloatedClass(floated));
+  buttonElements.addClass({ circular, active, disabled, loading, toggle, icon: icon && !(title || children) });
+  buttonElements.addClass("button");
 
-  const buttonType = (attached ? "div" : "button");
-  const buttonProps = {
-    id,
-    className: classNames(className, "ui", appearance, size, color, classMap, "button"),
-    style,
-    onClick
-  };
+  if (icon) buttonElements.append(<Icon icon={icon}/>);
+  buttonElements.append(title, children);
 
-  let buttonChildren = addElements(title, children);
-  if (icon) buttonChildren = addElements(<Icon icon={icon}/>, buttonChildren);
+  // If we didn't get a label, just return the button
+  if (!label) return buttonElements.render();
 
-  const buttonElement = React.createElement(buttonType, buttonProps, ...buttonChildren);
-  if (label) return renderLabel(props, buttonElement);
-  return buttonElement;
-}
-
-function renderLabel(props, buttonElement) {
-  const { label, labelAppearance, labelOn, color } = props;
+  // Otherwise we need to create the wrapper and add label + button to it
+  const labelWrapper = new ElementBuffer({
+    props: {
+      className: classNames("ui", labelOn, "labeled button"),
+      tabIndex: "0"
+    },
+    elements: buttonElements.render()
+  });
 
   // if we didn't get a string, we assume we got a rendered label
-  let labelElement;
-  if (typeof label !== "string") {
-    labelElement = label;
-  }
-  else {
-    const labelProps = {
-      className: classNames("ui", labelAppearance, color, "label")
-    }
-    labelElement = <a {...labelProps}>{label}</a>;
-  }
-
-  const labelContainerProps = {
-    className: classNames("ui", labelOn, "labeled button"),
-    tabIndex: "0"
-  }
-
-  // Which goes first, the chicken or the egg?
-  let elements = addElementsOn(labelOn, labelElement, buttonElement);
-  return React.createElement("div", labelContainerProps, ...elements);
+  const labelElement = typeof label !== "string"
+                     ? label
+                     : <a className={classNames("ui", labelAppearance, color, "label")}>{label}</a>;
+  labelWrapper.addOn(labelOn, labelElement);
+  return labelWrapper.render();
 }
 
 SUIButton.defaultProps = {
@@ -89,20 +73,20 @@ SUIButton.propTypes = {
 
   appearance: PropTypes.string,
   size: PropTypes.string,
-  compact: PropTypes.bool,
   circular: PropTypes.bool,
   color: PropTypes.string,
   floated: PropTypes.string,
-  attached: PropTypes.string,
 
   title: PropTypes.string,
   icon: PropTypes.string,
+  childen: PropTypes.any,
+
   label: React.PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.element
         ]),
-  labelOn: PropTypes.string,
   labelAppearance: PropTypes.string,
+  labelOn: PropTypes.string,
 
   active: PropTypes.bool,
   disabled: PropTypes.bool,

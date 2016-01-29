@@ -2,13 +2,12 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 import InfoHint from "./InfoHint";
-
 import "./Example.css";
 
 function Example(props, context) {
   const { appearance, title, hint, compact, columns, children, } = props;
   const c = context.components;
-  const columnClass = c.Column.getColumnsClass(columns, "unpadded");
+  const columnClass = c.SUI.getColumnsClass(columns, "unpadded");
   const className = classNames("Example", appearance, columnClass);
 
   const infoHint = hint && <c.InfoHint content={hint}/>;

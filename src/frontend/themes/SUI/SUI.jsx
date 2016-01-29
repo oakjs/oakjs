@@ -88,28 +88,18 @@ export function diffObjects(newProps, oldProps, checkOldProps=false) {
   return (deltaFound ? deltas : undefined);
 }
 
-
-// Static methods.
-Object.assign(SUI, {
-
-	//	Return `true` if the `thing` passed in appears to be a rendered React element.
-	//  Must also match the `type`, if specified.
-	isElement(thing, type) {
-		if (!thing) return false;
-		if (!thing.$$typeof) return false;
-		if (type !== undefined) return thing.type === type;
-		return true;
-	},
-
-  flatten,
-  addElements,
-  addElementsOn,
-  generateId,
-  unknownProperties,
-  diffObjects
+//	Return `true` if the `thing` passed in appears to be a rendered React element.
+//  Must also match the `type`, if specified.
+export function isElement(thing, type) {
+  if (!thing) return false;
+  if (!thing.$$typeof) return false;
+  if (type !== undefined) return thing.type === type;
+  return true;
+}
 
 
-});
+// Assign all exports to the SUI object
+Object.assign(SUI, exports);
 
 // Make default export.
 export default SUI;

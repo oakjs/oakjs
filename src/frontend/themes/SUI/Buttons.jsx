@@ -7,41 +7,36 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export const COUNT_NAMES = [
- undefined, "one", "two", "three",
- "four", "five", "six", "seven",
- "eight", "nine", "ten", "eleven", "twelve"
-];
-
+import { getNameForNumber, getFloatedClass, getAttachedClass } from "./constants";
 
 function SUIButtons(props) {
-  const { id, className, appearance, size, compact, color, count, floated, attached, style, children } = props;
+  const {
+    appearance, size, color, count, floated, style,
+    children,
+    ...elementProps
+  } = props;
 
-  const classMap = {
-    [`${COUNT_NAMES[count]}`]: count,
-    [`${floated} floated`]: floated,
-    [`${attached} attached`]: attached,
-    compact
-  }
-  const outerProps = {
-    id,
-    className: classNames(className, "ui", appearance, size, color, classMap, "buttons"),
-    style
-  }
-  return <div {...outerProps}>{children}</div>;
+  elementProps.className = classNames(
+    elementProps.className,
+    "ui", appearance, size, color,
+    getNameForNumber(count), getFloatedClass(floated),
+    "buttons"
+  );
+
+  return <div {...elementProps}>{children}</div>;
 }
 
 SUIButtons.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
+  style: PropTypes.object,
+  children: PropTypes.any,
+
   appearance: PropTypes.string,
   size: PropTypes.string,
-  compact: PropTypes.bool,
   color: PropTypes.string,
   count: PropTypes.number,
   floated: PropTypes.string,
-  attached: PropTypes.string,
-  style: PropTypes.object
 };
 
 // add render() method so we get hot code reload.

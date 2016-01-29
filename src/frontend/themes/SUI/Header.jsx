@@ -8,63 +8,42 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { addElements, addElementsOn } from "./SUI";
+import ElementBuffer from "./ElementBuffer";
+import { getAlignClass, getFloatedClass, getHeaderClass } from "./constants";
 import Icon from "./Icon";
 
-export const HEADER_SIZE_MAP = {
-  "huge": "h1",
-  "large": "h2",
-  "medium": "h3",
-  "small": "h4",
-  "tiny": "h5",
-}
-
-export function getHeaderProps(props) {
-  const { id, className, style, appearance, disabled, dividing, sub, align, floated, size="medium", color, attached } = props;
-
-  const classProps = {
-    disabled,
-    dividing,
-    [`${align} aligned`] : align,
-    [`${floated} floated`] : floated,
-    sub,
-  };
-
-  if (attached) {
-    if (attached === true) classProps.attached = true;
-    else classProps[`${attached} attached`] = true;
-  }
-
-  return {
-    id,
-    className: classNames(className, "ui", size, color, appearance, classProps, "header"),
-    style,
-  }
-}
-
-export function getHeaderTagName(props) {
-  if (props.page) return HEADER_SIZE_MAP[props.size] || HEADER_SIZE_MAP.medium;
-  return "div";
-}
-
-function getImageOrIcon(props) {
-  const { icon, image, imageAppearance } = props;
-  if (icon) return <Icon icon={icon}/>;
-  if (image) return <img src={image} className={imageAppearance}/>;
-  return undefined;
-}
-
 function SUIHeader(props) {
-  const { children } = props;
-  const tagName = getHeaderTagName(props);
-  const headerProps = getHeaderProps(props);
+  const {
+    // content
+    content, children, icon, image, imageAppearance,
+    // appearance
+    appearance, page, align, floated, size, color, dividing, sub,
+    // state
+    disabled,
+    // everything else including id, className, style
+    ...elementProps
+  } = props;
 
-  let elements = addElements(children);
-  // if we got decorations, wrap content in <div.content>
-  const decoration = getImageOrIcon(props);
-  if (decoration) elements = addElements(decoration, <div className="content">{children}</div>);
+  const elements = new ElementBuffer({
+    type: (page ? getHeaderClass(size) : "div"),
+    props: elementProps
+  });
+  elements.addClass("ui", appearance, size, color, getAlignClass(align), getFloatedClass(floated));
+  elements.addClass({ disabled, dividing, sub });
+  elements.addClass("header");
 
-  return React.createElement(tagName, headerProps, ...elements);
+  elements.append(content, children);
+
+  let decoration;
+  if (icon) decoration = <Icon icon={icon}/>;
+  else if (image) decoration = <img src={image} className={imageAppearance}/>;
+
+  if (decoration) {
+    elements.wrap("div", { className: "content" });
+    elements.prepend(decoration);
+  }
+
+  return elements.render();
 }
 
 SUIHeader.defaultProps = {
@@ -77,8 +56,13 @@ SUIHeader.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
 
+  content: PropTypes.any,
+  children: PropTypes.any,
+  icon: PropTypes.string,               // `red`, etc
+  image: PropTypes.string,              // image src
+  imageAppearance: PropTypes.string,    // eg: "ui image" or "ui circular image"
+
   appearance: PropTypes.string,         // `block`, `inverted`,
-  disabled: PropTypes.bool,
   dividing: PropTypes.bool,
   page: PropTypes.bool,                 // true = page header
   sub: PropTypes.bool,                  // true = sub header
@@ -86,13 +70,8 @@ SUIHeader.propTypes = {
   floated: PropTypes.string,              // `left` or `right`
   size: PropTypes.string,               // `tiny`, `small`, `medium`, `large`, `huge`
   color: PropTypes.string,              // `red`, etc
-  icon: PropTypes.string,               // `red`, etc
-  image: PropTypes.string,              // image src
-  imageAppearance: PropTypes.string,    // eg: "ui image" or "ui circular image"
-  attached: React.PropTypes.oneOfType([
-    PropTypes.bool,                     // `true` = center attached
-    PropTypes.string,                   // `top`, `bottom`,
-  ]),
+
+  disabled: PropTypes.bool,
 };
 
 // add render() method so we get hot code reload.

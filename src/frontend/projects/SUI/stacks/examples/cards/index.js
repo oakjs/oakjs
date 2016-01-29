@@ -7,6 +7,7 @@ export Container from "./Container";
 export Dimmer from "./Dimmer";
 export Divider from "./Divider";
 export Flag from "./Flag";
+export Grid from "./Grid";
 export Header from "./Header";
 export Icon from "./Icon";
 export IconAlphabetical from "./IconAlphabetical";

@@ -9,7 +9,7 @@ export default class ButtonsCard extends Card {
   }
   // add render method so we get hot reload
   render() { return super.render() }
-  
+
   // actual card render
   renderChildren({ data, card, stack, project, c }) {
     return (
@@ -29,8 +29,8 @@ export default class ButtonsCard extends Card {
               </c.Buttons>
             </c.Example>
 
-            <c.Example title="Compact">
-              <c.Buttons compact>
+            <c.Example title="Compact" hint="<Buttons appearance='compact'/>">
+              <c.Buttons appearance="compact">
                 <c.Button>One</c.Button>
                 <c.Button>Two</c.Button>
               </c.Buttons>
@@ -212,12 +212,12 @@ export default class ButtonsCard extends Card {
 
 
             <c.Example title="Vertically Attached">
-              <c.Buttons attached="top">
+              <c.Buttons appearance="top attached">
                 <c.Button title="One"/>
                 <c.Button title="Two"/>
               </c.Buttons>
               <c.Segment appearance="attached"><p>Segment Content Here</p></c.Segment>
-              <c.Buttons attached="bottom">
+              <c.Buttons appearance="bottom attached">
                 <c.Button title="One"/>
                 <c.Button title="Two"/>
               </c.Buttons>
