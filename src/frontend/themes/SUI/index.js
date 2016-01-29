@@ -54,6 +54,7 @@ export Message from "./Message";
 export Popup from "./Popup";
 export Pusher from "./Pusher";
 export Rail from "./Rail";
+export Row from "./Row";
 export Reveal from "./Reveal";
 export Sidebar from "./Sidebar";
 export Segment from "./Segment";

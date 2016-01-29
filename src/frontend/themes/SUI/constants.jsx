@@ -38,11 +38,20 @@ export function getNameForNumber(number) {
   return NAMES_FOR_NUMBERS[number];
 }
 
-export function getColumnsClass(columns, appearance) {
+// Used by Grid to specify the number of columns in the grid.
+export function getColumnCountClass(columns) {
+  if (!columns) return undefined;
+  const name = getNameForNumber(columns);
+  if (name) return classNames(name, "column");
+}
+
+// Used by Columns etc to specify # of grid columns this element should take up
+export function getColumnWidthClass(columns, appearance) {
   if (!columns) return undefined;
   const name = getNameForNumber(columns);
   if (name) return classNames(appearance, name, "wide column");
 }
+
 
 //////////////////////////////
 //  Floated (left|right)
@@ -64,11 +73,19 @@ export const ALIGN_CLASSES = {
   right: "right aligned",
   center: "center aligned",
   left: "left aligned",
-  justified: "justified"
+  justified: "justified",
+  top: "top aligned",
+  middle: "middle aligned",
+  bottom: "bottom aligned",
 }
 export function getAlignClass(align) {
-  return ALIGN_CLASSES[align];
+  if (!align) return undefined;
+  return align.trim().split(/\s+/)
+    .map( align => ALIGN_CLASSES[align] )
+    .filter(Boolean)
+    .join(" ");
 }
+
 
 
 //////////////////////////////

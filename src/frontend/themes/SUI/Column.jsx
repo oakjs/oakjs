@@ -10,24 +10,26 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { getColumnsClass, getAlignClass } from "./constants";
+import { getColumnWidthClass, getAlignClass } from "./constants";
 
 function SUIColumn(props, context) {
-  const { id, className, style, appearance, align, width, children } = props;
+  const {
+    children,
+    className, appearance, color, align, width,
+    // everything else, including id and style
+    ...elementProps
+  } = props;
 
-  const columnProps = {
-    id,
-    className: classNames(className, appearance, getAlignClass(align), getColumnsClass(width), "column"),
-    style
-  };
+  elementProps.className = classNames(className, appearance, color, getAlignClass(align), getColumnWidthClass(width), "column");
 
-  return <div {...columnProps}>{children}</div>;
+  return <div {...elementProps}>{children}</div>;
 }
 
 SUIColumn.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   appearance: PropTypes.string,
+  color: PropTypes.string,
   align: PropTypes.string,      // `left`, `center`, `right`, `justified`
   width: PropTypes.number,
   style: PropTypes.object,

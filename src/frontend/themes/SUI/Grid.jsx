@@ -11,7 +11,7 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 import "./Grid.css";
-import { getWidthName } from "./Column";
+import { getAlignClass, getColumnCountClass } from "./constants";
 
 export function getColumnsClass(width) {
   if (!width) return undefined;
@@ -21,22 +21,27 @@ export function getColumnsClass(width) {
 }
 
 function SUIGrid(props, context) {
-  const { id, className, style, appearance, columns, children } = props;
-  const gridProps = {
-    id,
-    className: classNames(className, "ui", getColumnsClass(columns), appearance, "grid"),
-    style
-  };
+  const {
+    children,
+    className, appearance, columns, align,
+    // everything else including id and style
+    ...elementProps
+  } = props;
 
-  return <div {...gridProps}>{children}</div>;
+  elementProps.className = classNames(className, "ui", getAlignClass(align), getColumnCountClass(columns), appearance, "grid");
+  return <div {...elementProps}>{children}</div>;
 }
 
 SUIGrid.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  appearance: PropTypes.string,
-  columns: PropTypes.number,
   style: PropTypes.object,
+
+  children: PropTypes.any,
+
+  appearance: PropTypes.string,   // "divided"
+  columns: PropTypes.number,
+  align: PropTypes.string
 };
 
 // add render() method so we get hot code reload.

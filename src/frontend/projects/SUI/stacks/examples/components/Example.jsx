@@ -7,7 +7,7 @@ import "./Example.css";
 function Example(props, context) {
   const { appearance, title, hint, compact, columns, children, } = props;
   const c = context.components;
-  const columnClass = c.SUI.getColumnsClass(columns, "unpadded");
+  const columnClass = c.SUI.getColumnWidthClass(columns, "unpadded");
   const className = classNames("Example", appearance, columnClass);
 
   const infoHint = hint && <c.InfoHint content={hint}/>;

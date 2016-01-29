@@ -10,28 +10,29 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
+import { getAlignClass, getColumnCountClass } from "./constants";
+
 function SUIRow(props, context) {
-  const { id, className, style, appearance, align, width, children } = props;
+  const {
+    children,
+    className, appearance, color, align, columns,
+    // everything else including id, style
+    ...elementProps
+  } = props;
 
-  const classMap = {
-    [`${align} aligned`]: align
-  }
-  const columnProps = {
-    id,
-    className: classNames(className, appearance, getRowsClass(width), classMap, "column"),
-    style
-  };
-
-  return <div {...columnProps}>{children}</div>;
+  elementProps.className = classNames(className, appearance, color, getAlignClass(align), getColumnCountClass(columns), "row");
+  return <div {...elementProps}>{children}</div>;
 }
 
 SUIRow.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  appearance: PropTypes.string,
-  align: PropTypes.string,      // `left`, `center`, `right`, `justified`
-  width: PropTypes.number,
   style: PropTypes.object,
+
+  appearance: PropTypes.string,
+  color: PropTypes.string,
+  align: PropTypes.string,      // `left`, `center`, `right`, `justified`
+  columns: PropTypes.number,
 };
 
 // add render() method so we get hot code reload.
