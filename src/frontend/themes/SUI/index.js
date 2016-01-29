@@ -25,6 +25,7 @@ console.warn("TODO: figure out how to include semanticUI in themes/SUI/index.js"
 // Export all individual components here.
 // NOTE: keep this list in alphabetical order!
 export SUIComponent from "./SUIComponent";
+export Ad from "./Ad";
 export Button from "./Button";
 export Buttons from "./Buttons";
 export Breadcrumb from "./Breadcrumb";
