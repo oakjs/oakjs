@@ -1,4 +1,9 @@
 /* Extension to SUI styles */
+
+.ui.hidden.segment {
+  display: none;
+}
+
 .ui.unpadded.segment {
   padding: 0;
 }

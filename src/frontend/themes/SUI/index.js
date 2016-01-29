@@ -53,8 +53,12 @@ export Message from "./Message";
 export Popup from "./Popup";
 export Pusher from "./Pusher";
 export Rail from "./Rail";
+export Reveal from "./Reveal";
 export Sidebar from "./Sidebar";
 export Segment from "./Segment";
+export Segments from "./Segments";
+export Step from "./Step";
+export Steps from "./Steps";
 export Stub from "./Stub";
 export SubHeader from "./SubHeader";
 

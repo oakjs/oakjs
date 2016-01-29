@@ -9,7 +9,7 @@ export default class InputCard extends Card {
   }
   // add render method so we get hot reload
   render() { return super.render() }
-  
+
   // actual card render
   renderChildren({ data, card, stack, project, c }) {
     return (
@@ -218,7 +218,7 @@ export default class InputCard extends Card {
                   </c.Column>
 
                   <c.Column>
-                    <c.Input maxlength={5} icon="tags" iconOn="left" appearance="fluid" label="Tags" labelAppearance="tag" labelOn="right"/>
+                    <c.Input maxLength={5} icon="tags" iconOn="left" appearance="fluid" label="Tags" labelAppearance="tag" labelOn="right"/>
                   </c.Column>
                   <c.Column>
                     <c.Input appearance="left corner labeled">

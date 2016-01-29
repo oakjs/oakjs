@@ -71,11 +71,11 @@ const Dimmer = class SUIDimmer extends SUIComponent {
     }
 
     if (this.visible) {
-      $element.dimmer("show");
+      $element.dimmer("show").addClass("active");
       if (onShow) onShow(this);
     }
     else {
-      $element.dimmer("hide");
+      $element.removeClass("active").dimmer("hide");
       if (onHide) onHide(this);
     }
   }

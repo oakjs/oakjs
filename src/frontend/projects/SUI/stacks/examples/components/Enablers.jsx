@@ -1,49 +1,85 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-function Enablers(props, context) {
-  const { components:c, card } = context;
 
-  // id of the thing we're enabling/disabling
-  const { "for":ref, floated, visibleOnly, enabledOnly } = props;
+class Enablers extends React.Component {
 
-  const elements = new c.ElementBuffer({
-    type: "div",
-    props: {
-      style: {}
+  // Pull context in so we can get components.
+  static contextTypes = {
+    card: PropTypes.any,
+    components: PropTypes.any,
+  };
+
+  get result() { return this.state && "result" in this.state ? this.state.result : this.props.result }
+  set result(value) { this.setState({ result: value }) }
+
+  get setting() { return this.state && "setting" in this.state ? this.state.setting : this.props.setting }
+  set setting(value) { this.setState({ setting: value }) }
+
+  render() {
+    const { components:c, card } = this.context;
+
+    // id of the thing we're enabling/disabling
+    const { "for":ref, visibleOnly, enabledOnly } = this.props;
+    const { result, setting } = this;
+
+    function getDefaultMessage(newState) {
+      const properties = []
+      for (let property in newState) {
+        properties.push(property + " to " + JSON.stringify(newState[property]));
+      }
+      return "Set " + properties.join(" and ");
     }
-  });
-  if (floated) elements.setStyle("float", floated);
 
-  if (!enabledOnly) {
-    elements.append(
-      <c.Buttons>
-        <c.Button title="Show" onClick={() => card.refs[ref].visible = true}/>
-        <c.Button title="Hide" onClick={() => card.refs[ref].visible = false}/>
-      </c.Buttons>,
-      <c.Spacer inline/>
-    );
-  }
+    // return a function which sets a value and shows some message
+    const setComponent = (newState) => {
+      return () => {
+        this.result = "";
+        this.setting = getDefaultMessage(newState);
 
-  if (!visibleOnly) {
+        const component = card.refs[ref];
+        // use `set` if it's defined
+        if (component.set)  component.set(newState);
+        else                component.setState(newState);
+      }
+    }
+
+    const elements = new c.ElementBuffer({
+      type: c.Segment,
+      props: {
+        appearance: "basic unpadded"
+      }
+    });
+
     elements.append(
-      <c.Buttons>
-        <c.Button title="Enable" onClick={() => card.refs[ref].disabled = false}/>
-        <c.Button title="Disable" onClick={() => card.refs[ref].disabled = true}/>
-      </c.Buttons>,
-      <c.Spacer inline/>
+      <div style={{float:"right", textAlign:"right"}}>
+        <div style={{lineHeight:"1em", fontWeight:"bold"}}>{result || <br/>}</div>
+        <div style={{textStyle:"italic", fontSize:"0.8em"}}>{setting}</div>
+      </div>
     );
+
+    if (!enabledOnly) {
+      elements.append(
+        <c.Buttons>
+          <c.Button title="Show" onClick={setComponent({ visible: true })}/>
+          <c.Button title="Hide" onClick={setComponent({ visible: false })}/>
+        </c.Buttons>,
+        <c.Spacer inline/>
+      );
+    }
+
+    if (!visibleOnly) {
+      elements.append(
+        <c.Buttons>
+          <c.Button title="Enable" onClick={setComponent({ disabled: false })}/>
+          <c.Button title="Disable" onClick={setComponent({ disabled: true })}/>
+        </c.Buttons>,
+        <c.Spacer inline/>
+      );
+    }
+
+    return elements.render();
   }
-  return elements.render();
 }
-
-// Pull context in so we can get components.
-Enablers.contextTypes = {
-  card: PropTypes.any,
-  components: PropTypes.any,
-};
-
-// Add `render` method so we'll get hot reload
-Enablers.render = Function.prototype;
 
 export default Enablers;

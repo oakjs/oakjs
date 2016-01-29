@@ -103,7 +103,7 @@ export default class LabelCard extends Card {
             </c.Example>
 
             <c.Example title="Transparent" hint="<Label appearance='transparent'/>">
-              <c.Todo>TODO: Transparent colors would be cool...</c.Todo>
+              <c.Todo>Transparent colors would be cool...</c.Todo>
                 <c.Label appearance="transparent">transparent</c.Label>
                 <c.Label appearance="transparent baisc">transparent basic</c.Label>
                 <c.Label appearance="transparent" image={data.elliotAvatar} size="small">Elliot</c.Label>
@@ -113,7 +113,7 @@ export default class LabelCard extends Card {
             </c.Example>
 
             <c.Example title="Inverted" hint="<Label appearance='inverted'/>">
-              <c.Todo>TODO: SUI doesn't support inverted unless you specify a color...</c.Todo>
+              <c.Todo>SUI doesn't support inverted unless you specify a color...</c.Todo>
               <c.Segment appearance="inverted">
                 <c.Label appearance="inverted">inverted</c.Label>
                 <c.Label appearance="inverted baisc">inverted basic</c.Label>
@@ -281,7 +281,7 @@ export default class LabelCard extends Card {
             </c.Example>
 
             <c.Example title="Horizontal" hint="<Label appearance='horizontal'/>">
-              <c.Todo>TODO: refactor this to a &lt;List&gt;</c.Todo>
+              <c.Todo>refactor this to a &lt;List&gt;</c.Todo>
               <div className="ui divided section list">
                 <div className="item">
                   <c.Label appearance="horizontal" color="red">Fruit</c.Label>

@@ -19,6 +19,7 @@ export default class MessageCard extends Card {
         <c.Page>
           <c.PageTitle title="Message">
             A dimmer hides distractions to focus attention on particular content.
+            <c.Todo>Visual effects when showing and hiding!</c.Todo>
           </c.PageTitle>
 
           <c.PageSection title="Types">
@@ -41,11 +42,8 @@ export default class MessageCard extends Card {
             </c.Example>
 
             <c.Example title="Closable" hint="<Dimmer closable onClose='...'/>">
-              <c.Segment appearance="basic unpadded">
-                <c.Label ref="closableMessage" appearance="transparent"/>
-                <c.Enablers for="closable" floated="right" visibleOnly/>
-              </c.Segment>
-              <c.Message closable onClose={()=>card.refs.closableMessage.content = "onClose() called"}
+              <c.Enablers for="closable" ref="closableEnablers" visibleOnly/>
+              <c.Message closable onClose={()=>card.refs.closableEnablers.result = "onClose() called"}
                          ref="closable"
                          header="Welcome back!" content="Things have changed, have a look around"/>
             </c.Example>
@@ -95,12 +93,12 @@ export default class MessageCard extends Card {
 
             <c.Example title="Positive / Success" hint="<Message appearance='positive'/> or <Message appearance='success'/>">
               <c.Message appearance="positive" header="You've earned a reward" content="Log in to claim it!"/>
-              <c.Message appearance="success" closable content="The money was transferred into your account."/>
+              <c.Message appearance="success" closable icon="small dollar" content="The money was transferred into your account."/>
             </c.Example>
 
             <c.Example title="Negative / Error" hint="<Message appearance='negative'/> or <Message appearance='error'/>">
               <c.Message appearance="negative" header="We're sorry..." content="That just won't work."/>
-              <c.Message appearance="error" closable content="Please enter a password that's at least 20 characters long."/>
+              <c.Message appearance="error" closable icon="small warning sign" content="Please enter a password that's at least 20 characters long."/>
             </c.Example>
 
             <c.Example title="Colors" hint="<Message color='red'/>">

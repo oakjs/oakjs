@@ -143,7 +143,7 @@ export default class SUIInput extends SUIComponent {
 
   constructor(props) {
     super(...arguments);
-console.info("constructed with value ",props.value);
+
     // Push `value` passed in into state
     this.state = {
       value: props.value
@@ -176,7 +176,7 @@ console.info("constructed with value ",props.value);
   @autobind
   onChange(event) {
     const value = event.target.value;
-console.info("onChange to ", value);
+//console.info("onChange to ", value);
     this.setState({ value });
     if (this.props.onChange) this.props.onChange(event, value, this);
   }

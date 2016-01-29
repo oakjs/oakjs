@@ -5,30 +5,54 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classnames";
 
+import ElementBuffer from "./ElementBuffer";
 import "./Segment.css";
 
 function SUISegment(props) {
-  const { id, className, appearance, clearing, style, children } = props;
+  const {
+    id, className, style,
+    children,
+    appearance, color, clearing, floated, align,
+    visible, disabled, loading,
+    ...otherProps
+  } = props;
 
-  const segmentProps = {
-    id,
-    className: classNames(className, "ui", appearance, { clearing }, "segment"),
-    style
-  }
-  return <div {...segmentProps}>{children}</div>;
+  const elements = new ElementBuffer({
+    props : {
+      ...otherProps,
+      id,
+      style,
+      className: [className, "ui", color, appearance, { disabled, loading, clearing }, "segment"]
+    }
+  });
+  if (!visible) elements.addClass("hidden");
+  if (floated) elements.addClass(`${floated} floated`);
+  if (align) elements.addClass(`${align} aligned`);
+
+  elements.append(children);
+
+  return elements.render();
 }
 
 SUISegment.defaultProps = {
-  clearing: true
+  visible: true
 }
+
 SUISegment.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  appearance: PropTypes.string,   // `container`
-  clearing: PropTypes.bool,
   style: PropTypes.object,
+
+  appearance: PropTypes.string,   // "raised", "stacked", "tall stacked", "piled", "vertical", "container"
+                                  // "unpadded", "padded", "very padded"
+  color: PropTypes.string,        // "red", etc.
+  align: PropTypes.string,        // "left", "center", "right"
+  clearing: PropTypes.bool,
+
+  visible: PropTypes.bool,
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 // add render() method so we get hot code reload.

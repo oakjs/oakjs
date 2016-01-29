@@ -1,0 +1,6 @@
+/* Extension to SUI styles */
+.ui.reveal {
+  display: inline-block;
+  vertical-align:baseline;
+  overflow: hidden;
+}

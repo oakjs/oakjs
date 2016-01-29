@@ -5,29 +5,35 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classnames";
+
+import ElementBuffer from "./ElementBuffer";
 
 function SUILoader(props) {
   const {
     // content
-    text, children,
+    content, children,
     // appearance
     className, appearance, size,
     // state & events
-    hidden, disabled, active,
+    visible, disabled, active, indeterminate,
     // everything else including id, style, href, target
     ...loaderProps
   } = props;
 
-  // class name bits
-  const classProps = {
-    hidden,
-    disabled,
-    active,
+  const elements = new ElementBuffer({
+    props: {
+      className: [className, "ui", appearance, size, { disabled, active, indeterminate }, "loader"]
+    }
+  });
+  if (content || children) {
+    elements.append(content, children);
+    elements.addClass("text");
   }
-  loaderProps.className = classNames(className, appearance, size, classProps, "loader");
+  return elements.render();
+}
 
-  return React.createElement("div", loaderProps, text, children);
+SUILoader.defaultProps = {
+  visible: true
 }
 
 SUILoader.propTypes = {
@@ -35,14 +41,15 @@ SUILoader.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
 
-  text: PropTypes.string,               //
+  content: PropTypes.string,      // alternative to children
 
-  appearance: PropTypes.string,
-  size: PropTypes.string,               // `mini`, `small`, `medium`, `large`
+  appearance: PropTypes.string,   // inline
+  size: PropTypes.string,         // `mini`, `small`, `medium`, `large`
 
-  hidden: PropTypes.bool,
+  visible: PropTypes.bool,
   disabled: PropTypes.bool,
   active: PropTypes.bool,
+  indeterminate: PropTypes.bool,
 };
 
 // add render() method so we get hot code reload.
