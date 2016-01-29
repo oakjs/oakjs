@@ -29,5 +29,7 @@ export Rail from "./Rail";
 export Reveal from "./Reveal";
 export Segment from "./Segment";
 export Segments from "./Segments";
+export Statistic from "./Statistic";
+export Statistics from "./Statistics";
 export Step from "./Step";
 export Steps from "./Steps";

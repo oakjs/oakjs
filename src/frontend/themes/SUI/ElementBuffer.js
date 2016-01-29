@@ -4,6 +4,7 @@ import classNames from "classnames";
 window.classNames = classNames;
 
 import { flatten } from "./SUI";
+import Icon from "./Icon";
 
 class ElementBuffer {
 
@@ -114,6 +115,27 @@ class ElementBuffer {
     if (!this._props.style) this._props.style = {};
     this._props.style[property] = value;
   }
+
+
+  //////////////////////////////
+  // icon / image utilities
+  //////////////////////////////
+  createIcon(icon, appearance) {
+    if (!icon) return undefined;
+    if (typeof icon !== "string") return icon;
+    return <Icon icon={icon} appearance={appearance}/>;
+  }
+
+  createImage(image, appearance) {
+    if (!image) return undefined;
+    if (typeof image !== "string") return image;
+    return <img src={image} className={appearance}/>
+  }
+
+
+  //////////////////////////////
+  // rendering and wrapping
+  //////////////////////////////
 
   // Wrap the current set of elements in a container.
   // You can then keep using append() and prepend() as before.
