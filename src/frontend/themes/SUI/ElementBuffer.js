@@ -13,6 +13,10 @@ class ElementBuffer {
     this.elements = elements;
   }
 
+  //////////////////////////////
+  // adding elements
+  //////////////////////////////
+
   get isEmpty() { return this.elements.length === 0 }
   get length() { return this.elements.length; }
 
@@ -39,6 +43,40 @@ class ElementBuffer {
   appendList(elements) {
     this.elements.push(elements)
   }
+
+  //////////////////////////////
+  // creating/adding nested elements
+  //////////////////////////////
+
+  // Wrap content in an enclosing div.
+  createWrapped(type, props, content) {
+    if (typeof props === "string") props = { className: props };
+    let wrapper;
+    if (Array.isArray(content)) return React.createElement(type, props, ...content);
+    return React.createElement(type, props, content);
+  }
+
+  // Wrap content and append to the end of the list
+  // You can pass a string, an element or an array it'll just work.
+  // If you pass a string for `props`, we'll assume you just want that as a className
+  prependWrapped(type, props, content) {
+    const wrapped = this.createWrapped(type, props, content);
+    this.prepend(wrapped);
+  }
+
+  // Wrap content and append to the end of the list
+  // You can pass a string, an element or an array it'll just work.
+  // If you pass a string for `props`, we'll assume you just want that as a className
+  appendWrapped(type, props, content) {
+    const wrapped = this.createWrapped(type, props, content);
+    this.append(wrapped);
+  }
+
+
+
+  //////////////////////////////
+  // props and class manipulation
+  //////////////////////////////
 
   get props() { return this._props }
   set props(props) {

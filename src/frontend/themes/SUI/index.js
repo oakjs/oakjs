@@ -30,6 +30,8 @@ export Button from "./Button";
 export Buttons from "./Buttons";
 export Breadcrumb from "./Breadcrumb";
 export Column from "./Column";
+export Comment from "./Comment";
+export Comments from "./Comments";
 export Conditional from "./Conditional";
 export Container from "./Container";
 export Dimmer from "./Dimmer";
