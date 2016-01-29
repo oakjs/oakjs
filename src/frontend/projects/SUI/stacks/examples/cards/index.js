@@ -9,6 +9,8 @@ export Comments from "./Comments";
 export Container from "./Container";
 export Dimmer from "./Dimmer";
 export Divider from "./Divider";
+export Feed from "./Feed";
+export FeedEvent from "./FeedEvent";
 export Flag from "./Flag";
 export Grid from "./Grid";
 export Header from "./Header";

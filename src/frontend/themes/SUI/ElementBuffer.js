@@ -119,8 +119,12 @@ class ElementBuffer {
   // You can then keep using append() and prepend() as before.
   // NOTE: You can pass in a set of props for the wrapper,
   //       but this does not affect `this.props` in any way!
-  wrap(type = this.type, props = {}) {
-    this.elements = [ React.createElement(type, this.normalizeProps(props), ...this.elements) ];
+  wrap(type = this.type, props) {
+    if (props) {
+      if (typeof props === "string") props = { className: props };
+      else props = this.normalizeProps(props);
+    }
+    this.elements = [ React.createElement(type, props, ...this.elements) ];
   }
 
   // Render!

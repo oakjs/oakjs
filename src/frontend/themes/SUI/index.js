@@ -38,6 +38,8 @@ export Dimmer from "./Dimmer";
 export Divider from "./Divider";
 export Dropdown from "./Dropdown";
 export ElementBuffer from "./ElementBuffer";
+export Feed from "./Feed";
+export FeedEvent from "./FeedEvent";
 export Flag from "./Flag";
 export Grid from "./Grid";
 export Header from "./Header";
