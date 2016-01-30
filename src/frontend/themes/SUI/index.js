@@ -70,6 +70,7 @@ export Step from "./Step";
 export Steps from "./Steps";
 export Stub from "./Stub";
 export SubHeader from "./SubHeader";
+export Table from "./Table";
 
 // get all of the components
 const components = Object.keys(exports);

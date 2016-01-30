@@ -33,3 +33,4 @@ export Statistic from "./Statistic";
 export Statistics from "./Statistics";
 export Step from "./Step";
 export Steps from "./Steps";
+export Table from "./Table";
