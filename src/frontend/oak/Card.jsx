@@ -37,6 +37,7 @@ export default class OakCard extends React.Component {
   constructor() {
     super(...arguments);
 
+    this.state = {};
     this.data = this.getInitialData();
   }
 
@@ -47,27 +48,36 @@ export default class OakCard extends React.Component {
     return {};
   }
 
+  // Get a `possibly.dotted.path` value from `card.data`.
+  // Returns `defaultValue` if resulting value is `undefined`.
+  // NOTE: If you're looking for a top-level value (eg: `path` === `"a"`),
+  //        you can safely access data directly, (eg: just do `card.data.a`).
   @autobind
-  getData(path, defaultValue) {
+  get(path, defaultValue) {
     const value = getPath(this.data, path);
-    if (value === undefined && defaultValue !== undefined) setPath(this.data, path, defaultValue);
-    return (value !== undefined ? value : defaultValue);
+    if (value === undefined) return defaultValue;
+    return value;
   }
 
   @autobind
-  setData(path, value) {
+  // Set a `possibly.dotted.path` value on `card.data`.
+  // Will create objects along the path as necessary.
+  // Returns the modified data object.
+  set(path, value) {
     // Don't update if value hasn't actually change
-    const currentValue = this.getData(path);
+    const currentValue = this.get(path);
     if (value === currentValue) return;
 
     setPath(this.data, path, value);
     this.forceUpdate();
+    return this.data;
   }
 
   @autobind
-  deferredSetData(path, value) {
+  // Return a function which will set some `possibly.dotted.path` data on this card.
+  deferredSet(path, value) {
     return () => {
-      this.setData(path, value);
+      this.set(path, value);
     }
   }
 

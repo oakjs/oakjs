@@ -42,33 +42,6 @@ export default class SUIComponent extends React.Component {
     this.state = this.constructor.initialState(this.props);
   }
 
-  //////////////////////////////
-  //   Property manipulation
-  //////////////////////////////
-
-  // Get a property: check our state first, if that's not set, return the value in props.
-  // If you're in `componentDidUpdate` or something, you can pass in `prevProps` and `prevState` to check those.
-  get(property, props = this.props || {}, state = this.state || {}) {
-    // if we were passed a string, just return a single value
-    if (typeof property === "string") {
-      return (state[property] !== undefined ? state[property] : props[property]);
-    }
-
-    // return a map of properties
-    let keys;
-    if (Array.isArray(property)) keys = property;
-    // if no property passed, return all keys defined in our propTypes
-    else if (property === undefined) keys = Object.keys(this.constructor.propTypes);
-    // otherwise assume we got a map of property keys
-    else keys = Object.keys(property);
-
-    const properties = {};
-    for (let key of keys) {
-      properties[key] = state[key] !== undefined ? state[key] : props[key]
-    }
-    return properties;
-  }
-
   // Set state values to value IFF it's not already set that way (avoid uneccessary repaints).
   set(property, newValue) {
     // if property is a string, set a single property
@@ -96,26 +69,6 @@ export default class SUIComponent extends React.Component {
   getUnknownProperties(props = this.props) {
     return unknownProperties(props, this.constructor.propTypes);
   }
-
-  //////////////////////////////
-  // Visibility, which is dynamically overrideable in state
-  //////////////////////////////
-
-  get visible() { return this.get("visible") }
-  set visible(newState) { this.set("visible", !!newState) }
-  show() { this.visible = true }
-  hide() { this.visible = false }
-
-
-  //////////////////////////////
-  // Disabled, which is dynamically overrideable in state
-  //////////////////////////////
-
-  get disabled() { return this.get("disabled") }
-  set disabled(newState) { this.set("disabled", !!newState) }
-  enable() { this.disabled = false }
-  disable() { this.disabled = true }
-
 
   //////////////////////////////
   //   DOM manipulation

@@ -104,7 +104,7 @@ export default class DimmerCard extends Card {
               <c.Enablers ref="disabledEnabler" for="disabled" result="Initially disabled"/>
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer ref="disabled" disabled visible/>
+                <c.Dimmer ref="disabled" disabled visible {...data.disabled}/>
               </c.Segment>
             </c.Example>
 
@@ -114,45 +114,49 @@ export default class DimmerCard extends Card {
           <c.PageSection title="Events">
 
             <c.Example title="onClick" hint="<Dimmer onClick={...func...}/>">
-              <c.Enablers ref="clickEnabler" for="click"/>
+              <c.Enablers for="click"/>
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer ref="click" visible
-                  onClick={()=> card.refs.clickEnabler.result = "onClick() called"}
+                <c.Dimmer ref="click" visible id="click"
+                  onClick={card.deferredSet("click.result", "onClick() called")}
+                  {...data.click}
                 />
               </c.Segment>
             </c.Example>
 
             <c.Example title="onShow and onHide" hint="<Dimmer onShow={...func...} onHide={...func...}/>">
-              <c.Enablers ref="showHideEnabler" for="showHide"/>
+              <c.Enablers for="showHide"/>
               <c.Segment>
                 <c.LoremIpsum/>
                 <c.Dimmer ref="showHide"
-                  onClick={()=> card.refs.showHideEnabler.result = "onClick() called"}
-                  onShow={()=> card.refs.showHideEnabler.result = "onShow() called"}
-                  onHide={()=> card.refs.showHideEnabler.result = "onHide() called"}
+                  onClick={card.deferredSet("showHide.result", "onClick() called")}
+                  onShow={card.deferredSet("showHide.result", "onShow() called")}
+                  onHide={card.deferredSet("showHide.result", "onHide() called")}
+                  {...data.showHide}
                 />
               </c.Segment>
             </c.Example>
 
             <c.Example title="onShow and onHide starting visible" hint="<Dimmer visible onShow={...func...} onHide={...func...}/>">
-              <c.Enablers ref="hideShowEnabler" for="hideShow"/>
+              <c.Enablers for="hideShow"/>
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer ref="hideShow" visible
-                  onClick={()=> card.refs.hideShowEnabler.result = "onClick() called"}
-                  onShow={()=> card.refs.hideShowEnabler.result = "onShow() called"}
-                  onHide={()=> card.refs.hideShowEnabler.result = "onHide() called"}
+                <c.Dimmer ref="hideShow" visible {...data.hideShow}
+                  onClick={card.deferredSet("hideShow.result", "onClick() called")}
+                  onShow={card.deferredSet("hideShow.result", "onShow() called")}
+                  onHide={card.deferredSet("hideShow.result", "onHide() called")}
+                  {...data.hideShow}
                 />
               </c.Segment>
             </c.Example>
 
             <c.Example title="Closable" hint="<Dimmer closable/>">
-              <c.Enablers ref="closableEnabler" for="closable"/>
+              <c.Enablers for="closable"/>
               <c.Segment>
                 <c.LoremIpsum/>
-                <c.Dimmer ref="closable" closable visible result="Click to close me"
-                  onClick={()=> card.refs.closableEnabler.result = "onClick() called"}
+                <c.Dimmer id="closable" ref="closable" closable visible content="Click to close me"
+                  onClick={card.deferredSet("closable.result", "onClick() called")}
+                  {...data.closable}
                 />
               </c.Segment>
             </c.Example>

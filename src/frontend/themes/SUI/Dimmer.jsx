@@ -41,24 +41,43 @@ const Dimmer = class SUIDimmer extends SUIComponent {
   //////////////////////////////
 
   componentDidMount() {
-    if (!this.disabled && this.visible) this.onVisibleChange();
+    const { visible } = this.props;
+
+    this.$setDisabled();
+    if (visible) this.$showDimmer()
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.disabled) return;
+  componentDidUpdate(prevProps) {
+    const { disabled, visible } = this.props;
 
-    const { prevVisible, prevDisabled } = this.get(["visible", "disabled"], prevProps, prevState);
-    if (this.visible !== prevVisible || this.disabled !== prevDisabled) {
-      this.onVisibleChange();
+    // update disabled on the component
+    this.$setDisabled();
+
+    // if visibility actually changed, or doesn't agree with SemanticUI's interpretation,
+    // show/hide the dimmer
+    if (visible !== prevProps.visible || visible !== this.$isActive()) {
+      if (visible)  this.$showDimmer();
+      else          this.$hideDimmer();
     }
   }
 
-  // Invoke dimmer routies when visiblity changes
-  onVisibleChange() {
-    const { appearance = "", onShow, onHide } = this.props;
-    // set up closable and events
+  // Does Semantic UI think the dimmer is showing?
+  $isActive() {
+    return this.$ref().dimmer("is active");
+  }
+
+  // Update disabled on the element to match our props.
+  $setDisabled() {
+    const { disabled } = this.props;
+    this.$ref().toggleClass("disabled", !!disabled);
+  }
+
+  // Tell semanticUI to show the dimmer with the visual effect.
+  // Also fires our `onShow` and/or `onChange` events.
+  $showDimmer() {
+    const { onShow, onChange, appearance="" } = this.props;
+
     const $element = this.$ref();
-    $element.dimmer();
 
     // if we're blurring, our parent must have the "blurring" class
     // NOTE: this will get undone on a repaint of the parent...  :-(
@@ -70,14 +89,23 @@ const Dimmer = class SUIDimmer extends SUIComponent {
       }
     }
 
-    if (this.visible) {
-      $element.dimmer("show").addClass("active");
-      if (onShow) onShow(this);
-    }
-    else {
-      $element.removeClass("active").dimmer("hide");
-      if (onHide) onHide(this);
-    }
+    // "set active" is necessary if dimmer has been enabled/disabled
+    $element
+      .dimmer("set active")
+      .dimmer("show");
+
+    if (onShow) onShow(this);
+    if (onChange) onChange(this);
+  }
+
+  // Tell semanticUI to hide the dimmer with the visual effect.
+  // Also fires our `onHide` and/or `onChange` events.
+  $hideDimmer() {
+    const { onHide, onChange } = this.props;
+
+    this.$ref().dimmer("hide");
+    if (onHide) onHide(this);
+    if (onChange) onChange(this);
   }
 
   //////////////////////////////
@@ -86,17 +114,19 @@ const Dimmer = class SUIDimmer extends SUIComponent {
 
   @autobind
   onClick(event) {
-    if (this.disabled) return;
+    const { disabled, visible, onClick, closable } = this.props;
+    if (disabled) return;
 
     // if we have an onClick, fire that first
-    const { onClick, closable } = this.props;
     if (onClick) onClick(event, this);
 
     // if the default got prevented, stop here
     if (event.defaultPrevented) return;
 
     // if we are closable and we're visible, hide!
-    if (closable && this.visible) this.visible = false;
+    if (closable && visible) {
+      this.$hideDimmer();
+    }
   }
 
   //////////////////////////////
@@ -108,11 +138,9 @@ const Dimmer = class SUIDimmer extends SUIComponent {
     const {
       id, style,
       content, icon, iconAppearance, children,
-      className, appearance="", closable
+      className, appearance="", closable,
+      disabled, visible
     } = this.props;
-
-    // State-overridable properties
-    const { disabled, onClick } = this;
 
     // derived properties
     const inverted = appearance.includes("inverted");
@@ -122,7 +150,7 @@ const Dimmer = class SUIDimmer extends SUIComponent {
         ...this.getUnknownProperties(),
         id,
         style,
-        className: ["ui", className, appearance, { disabled, closable }],
+        className: ["ui", className, appearance, /*{ closable } */],
         onClick: this.onClick
       }
     });

@@ -31,16 +31,6 @@ const Message = class SUIMessage extends SUIComponent {
   };
 
   //////////////////////////////
-  // Header and content are dynamically overrideable in state
-  //////////////////////////////
-  get header() { return this.get("header") }
-  set header(newValue) { return this.set("header", newValue) }
-
-  get content() { return this.get("content") }
-  set content(newValue) { return this.set("content", newValue) }
-
-
-  //////////////////////////////
   // Event handling
   //////////////////////////////
 
@@ -65,13 +55,10 @@ const Message = class SUIMessage extends SUIComponent {
     // get non-overrideable props
     const {
       id, style, className,
-      children,
+      header, content, children,
       appearance, size, icon, color, inline, floated,
-      closable
+      visible, closable
     } = this.props;
-
-    // get overrideable props
-    const { visible, header, content } = this;
 
     const elements = new ElementBuffer({
       props: {
