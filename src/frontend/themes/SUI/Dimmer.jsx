@@ -10,7 +10,6 @@ import { autobind } from "core-decorators";
 
 import ElementBuffer from "./ElementBuffer";
 import SUIComponent from "./SUIComponent";
-import Icon from "./Icon";
 
 import "./Dimmer.css";
 
@@ -157,8 +156,9 @@ const Dimmer = class SUIDimmer extends SUIComponent {
     // add contents and text-only children
     if (content) elements.append(content);
     if (typeof children === "string") elements.append(children);
+
     // add icon BEFORE the above
-    if (icon) elements.prepend(<Icon icon={icon} appearance={iconAppearance}/>);
+    if (icon) elements.prependIcon(icon, iconAppearance);
 
     // wrap in a header element if any of the above was specified
     if (!elements.isEmpty) {

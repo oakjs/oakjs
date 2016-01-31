@@ -15,12 +15,12 @@ function SUISegment(props) {
     children,
     appearance, color, clearing, floated, align,
     visible, disabled, loading,
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
     props : {
-      ...otherProps,
+      ...extraProps,
       id,
       style,
       className: [className, "ui", color, appearance, { disabled, loading, clearing }, "segment"]

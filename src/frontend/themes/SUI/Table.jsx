@@ -57,12 +57,12 @@ function SUITable(props) {
     header, headerAppearance, footer, footerAppearance,
     appearance, size, color, sorting, columns,
     // includes id, className, style,
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
     type: "table",
-    props: otherProps
+    props: extraProps
   })
   elements.addClass("ui", appearance, size, color, getColumnCountClass(columns), { sorting }, "table");
 

@@ -16,11 +16,11 @@ function SUIStatistics(props) {
     children,
     appearance, size, columns,
     // includes id, className, style,
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
-    props: otherProps
+    props: extraProps
   })
   elements.addClass("ui", getNameForNumber(columns), appearance, size, "statistics");
   elements.append(children);

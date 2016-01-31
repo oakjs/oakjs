@@ -6,22 +6,32 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { addElements } from "./SUI";
-import Icon from "./Icon";
+import ElementBuffer from "./ElementBuffer";
 
 function SUIDivider(props) {
-  const { className, style, appearance, vertical, horizontal, header, size, title, icon, clearing, children } = props;
+  const {
+    id, className, style,
+    title, icon, children,
+    appearance, vertical, horizontal, header, size, clearing,
+    ...extraProps
+  } = props;
 
-  const tagName = (header ? "h4" : "div");
-  const dividerProps = {
-    className: classNames(className, "ui", { vertical, horizontal, clearing, header }, size, appearance, "divider"),
-    style
-  };
 
-  let elements = addElements(title, children);
-  if (icon) elements = addElements(<Icon icon={icon}/>, elements);
+  const elements = new ElementBuffer({
+    type: (header ? "h4" : "div"),
+    props: {
+      ...extraProps,
+      id,
+      style,
+      className: [className, "ui", { vertical, horizontal, clearing, header }, size, appearance, "divider"]
+    }
+  });
 
-  return React.createElement(tagName, dividerProps, ...elements);
+  if (title) elements.append(title);
+  if (children) elements.append(children);
+  if (icon) elements.appendIcon(icon);
+
+  return elements.render();
 }
 
 SUIDivider.defaultProps = {
@@ -29,14 +39,15 @@ SUIDivider.defaultProps = {
 }
 
 SUIDivider.PropTypes = {
-  key: PropTypes.any,
+  id: PropTypes.string,
   className: PropTypes.string,
+  style: PropTypes.object,
+
   appearance: PropTypes.string,
   vertical: PropTypes.bool,
   horizontal: PropTypes.bool,
   header: PropTypes.bool,
   size: PropTypes.string,         // `tiny`, `small`, `medium`, `large`, `huge`
-  style: PropTypes.object,
   title: PropTypes.string,
   icon: PropTypes.string,
   clearing: PropTypes.bool

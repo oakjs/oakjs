@@ -8,7 +8,8 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import Icon from "./Icon";
+import ElementBuffer from "./ElementBuffer";
+
 import MenuHeader from "./MenuHeader";
 import Divider from "./Divider";
 
@@ -17,43 +18,64 @@ import Divider from "./Divider";
 //    - `inverted`, `red`, `blue`, etc
 //    -
 function SUIMenuItem(props) {
- const { key, label, value = label, active, disabled, className, appearance, align, icon, children } = props;
+ const {
+    id, className, style,
+    label, value = label, children,
+    appearance, align, icon,
+    active, disabled,
+    ...extraProps
+  } = props;
 
   // If label starts with "-", return a Header instead
-  if (value === undefined && label && label[0] === "#")
-    return <MenuHeader {...{ key, label:label.substr(1), icon, className, children }}/>;
+  if (value === undefined && label && label[0] === "#") {
+    const headerProps = {
+      id,
+      className,
+      style,
+      label: label.substr(1),
+      icon,
+      children
+    }
+    return <MenuHeader {...headerProps}/>;
+  }
 
   // if it's all dashes, make a separator instead
-  if (value === undefined && label && /^-+$/.test(label))
-    return <Divider {...{ key }}/>;
+  if (value === undefined && label && /^-+$/.test(label)) {
+    return <Divider/>;
+  }
 
-  const itemProps = {
-    key,
-    active,
-    "data-value": value,
-    "data-text": label,
-    className: classNames(className, appearance, align, { disabled }, "item")
-  };
+  const elements = new ElementBuffer({
+    props: {
+      ...extraProps,
+      id,
+      style,
+      className: [className, appearance, align, { active, disabled }, "item"],
+      "data-value": value,
+      "data-text": label,
+    }
+  });
 
-  return (
-    <div {...itemProps}>
-      {icon ? <Icon icon={icon}/> : undefined}
-      {label}
-      {children}
-    </div>
-  );
+  if (icon) elments.appendIcon(icon);
+  if (label) elements.append(label);
+  if (children) elements.append(children);
+
+  return elements.render();
 }
 
 SUIMenuItem.propTypes = {
-  key: PropTypes.any,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
+
   value: PropTypes.any,
   label: PropTypes.string,
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
+
   appearance: PropTypes.string,
-  className: PropTypes.string,
   align: PropTypes.string,
   icon: PropTypes.string,
+
+  active: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 // add render() method so we get hot code reload.

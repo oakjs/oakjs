@@ -9,10 +9,10 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 function SUISegments(props) {
-  const { id, className, style, appearance, horizontal, children, ...otherProps } = props;
+  const { id, className, style, appearance, horizontal, children, ...extraProps } = props;
 
   const segmentsProps = {
-    ...otherProps,
+    ...extraProps,
     id,
     className: classNames(className, "ui", appearance, { horizontal }, "segments"),
     style

@@ -15,11 +15,11 @@ function SUIAd(props) {
     hidden,
     appearance, size, test,
     // including id, className, style
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
-    props : otherProps
+    props : extraProps
   });
   elements.addClass("ui", appearance, size, { hidden, test }, "ad");
 

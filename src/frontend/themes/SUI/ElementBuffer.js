@@ -118,19 +118,55 @@ class ElementBuffer {
 
 
   //////////////////////////////
-  // icon / image utilities
+  // icon utilities
   //////////////////////////////
+
   createIcon(icon, appearance) {
     if (!icon) return undefined;
     if (typeof icon !== "string") return icon;
     return <Icon icon={icon} appearance={appearance}/>;
   }
 
+  prependIcon(...iconArgs) {
+    const element = this.createIcon(...iconArgs);
+    if (element) this.prepend(element);
+  }
+
+  appendIcon(...iconArgs) {
+    const element = this.createIcon(...iconArgs);
+    if (element) this.append(element);
+  }
+
+  addIconOn(side, ...iconArgs) {
+    const element = this.createIcon(...iconArgs);
+    if (element) this.addOn(side, element);
+  }
+
+  //////////////////////////////
+  // image utilities
+  //////////////////////////////
+
   createImage(image, appearance) {
     if (!image) return undefined;
     if (typeof image !== "string") return image;
     return <img src={image} className={appearance}/>
   }
+
+  prependImage(...imageArgs) {
+    const element = this.createImage(...imageArgs);
+    if (element) this.prepend(element);
+  }
+
+  appendImage(...imageArgs) {
+    const element = this.createImage(...imageArgs);
+    if (element) this.append(element);
+  }
+
+  addImageOn(side, ...imageArgs) {
+    const element = this.createImage(...imageArgs);
+    if (element) this.addOn(side, element);
+  }
+
 
 
   //////////////////////////////

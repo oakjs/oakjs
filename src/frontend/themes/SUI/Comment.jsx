@@ -15,11 +15,11 @@ function SUIComment(props) {
     text, author, authorLink, metadata, avatar, actions, children,
     appearance,
     // everything else including id, className, style,
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
-    props : otherProps
+    props : extraProps
   });
   elements.addClass(appearance, "comment");
 

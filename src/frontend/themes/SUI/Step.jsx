@@ -17,14 +17,14 @@ function SUIStep(props) {
     title, description, icon, link, target, children,
     appearance,
     active, disabled, completed,
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
     // use an anchor if we have a link
     type: (link ? "a" : "div"),
     props : {
-      ...otherProps,
+      ...extraProps,
       id,
       style,
       className: [className, appearance, { link, active, disabled, completed }, "step"],
@@ -43,7 +43,7 @@ function SUIStep(props) {
   if (children) elements.append(children);
 
   // add icon at the front
-  if (icon) elements.prepend(<Icon icon={icon}/>);
+  if (icon) elements.prependIcon(icon);
 
   return elements.render();
 }

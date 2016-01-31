@@ -15,11 +15,11 @@ function SUIFeed(props) {
     header, headerAppearance, children,
     appearance, size,
     // includes id, className, style,
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
-    props: otherProps
+    props: extraProps
   })
   elements.addClass("ui", appearance, size, "feed");
 

@@ -17,11 +17,11 @@ function SUIFeedEvent(props) {
     summary, date, dateOn, meta, icon, avatar, children,
     appearance,
     // everything else including id, className, style,
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
-    props : otherProps
+    props : extraProps
   });
   elements.addClass(appearance, "event");
 

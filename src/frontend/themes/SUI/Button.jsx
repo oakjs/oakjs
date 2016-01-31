@@ -10,7 +10,6 @@ import classNames from "classnames";
 
 import { getFloatedClass } from "./constants";
 import ElementBuffer from "./ElementBuffer";
-import Icon from "./Icon";
 
 // `appearance`:  any combination of:
 //    - `primary`, `secondary`
@@ -38,7 +37,7 @@ function SUIButton(props) {
   buttonElements.addClass({ circular, active, disabled, loading, toggle, icon: icon && !(title || children) });
   buttonElements.addClass("button");
 
-  if (icon) buttonElements.append(<Icon icon={icon}/>);
+  if (icon) buttonElements.appendIcon(icon);
   buttonElements.append(title, children);
 
   // If we didn't get a label, just return the button

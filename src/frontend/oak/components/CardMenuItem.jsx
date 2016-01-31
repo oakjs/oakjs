@@ -16,15 +16,15 @@ function OakCardMenuItem(props, context) {
   if (!props.card || !context.components) return <Stub/>;
 
   const c = context.components;
-  const { card, label, children, ...otherProps } = props;
+  const { card, label, children, ...extraProps } = props;
 
   const active = (context.card ? context.card.path === card.path : undefined);
-  if (active) otherProps.className = classNames("active", otherProps.className);
+  if (active) extraProps.className = classNames("active", extraProps.className);
 
   let linkText = (children || label || card.title);
 
   return (
-    <c.MenuItem {...otherProps}>
+    <c.MenuItem {...extraProps}>
       <c.Link card={card}>
         {linkText}
       </c.Link>

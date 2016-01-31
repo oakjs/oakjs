@@ -5,26 +5,36 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import Icon from "./Icon";
+import ElementBuffer from "./ElementBuffer";
 
 function SUIMenuHeader(props) {
-  const { key, className, icon, label, children } = props;
-  const headerProps = {
-    key,
-    className : classNames(className, "header", "item")
-  };
-  return (
-    <div {...headerProps}>
-      {icon ? <Icon icon={icon}/> : undefined}
-      {label}
-      {children}
-    </div>
-  );
+  const {
+    id, className, style,
+    icon, label, children,
+    ...extraProps
+  } = props;
+
+  const elements = new ElementBuffer({
+    props: {
+      ...extraProps,
+      id,
+      style,
+      className: [className, "header item"]
+    }
+  });
+
+  if (icon) elements.appendIcon(icon);
+  if (label) elements.append(label);
+  if (children) elements.append(children);
+
+  return elements.render();
 }
 
 SUIMenuHeader.propTypes = {
-  key: PropTypes.any,
+  id: PropTypes.string,
   className: PropTypes.string,
+  style: PropTypes.object,
+
   icon: PropTypes.string,
   label: PropTypes.string,
 };

@@ -16,11 +16,11 @@ function SUIStatistic(props) {
     icon, image, imageAppearance,
     appearance, color, size, floated, decorationOn,
     // everything else including id, className, style,
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
-    props : otherProps
+    props : extraProps
   });
   elements.addClass("ui", appearance, size, color, getFloatedClass(floated), "statistic");
 

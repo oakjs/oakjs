@@ -103,7 +103,7 @@ const Label = class SUILabel extends SUIComponent {
     }
 
     if (icon) {
-      elements.addOn(iconOn, <Icon icon={icon}/>);
+      elements.addIconOn(iconOn, icon);
       elements.addClass(iconOn === "right" ? "right icon" : "icon");
     }
 

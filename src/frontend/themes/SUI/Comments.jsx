@@ -15,11 +15,11 @@ function SUIComments(props) {
     header, headerAppearance, children,
     appearance,
     // includes id, className, style,
-    ...otherProps
+    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
-    props: otherProps
+    props: extraProps
   })
   elements.addClass("ui", appearance, "comments");
 

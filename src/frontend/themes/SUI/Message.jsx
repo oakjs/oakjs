@@ -77,7 +77,7 @@ const Message = class SUIMessage extends SUIComponent {
     if (!elements.isEmpty) elements.wrap("div", { className: "content" })
 
     // add icon before the content
-    if (icon) elements.prepend(<Icon icon={icon}/>);
+    if (icon) elements.prependIcon(icon);
 
     // if closeable, add close icon before everything else
     if (closable) elements.prepend(<Icon icon="close" onClick={this.onCloserClick}/>);
