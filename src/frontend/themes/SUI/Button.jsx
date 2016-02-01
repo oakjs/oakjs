@@ -49,7 +49,7 @@ function SUIButton(props) {
       className: classNames("ui", labelOn, "labeled button"),
       tabIndex: "0"
     },
-    elements: buttonElements.render()
+    elements: [ buttonElements.render() ]
   });
 
   // if we didn't get a string, we assume we got a rendered label

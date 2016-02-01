@@ -8,7 +8,7 @@
 import React, { PropTypes } from "react";
 import { autobind } from "core-decorators";
 
-import { isElement, hasClass } from "./SUI";
+import { isElement, hasClass, unknownProperties } from "./SUI";
 import ElementBuffer from "./ElementBuffer";
 import SUIModuleComponent from "./SUIModuleComponent";
 import Icon from "./Icon";
@@ -50,21 +50,21 @@ export function renderItemsMap(itemsMap) {
 
 // Render an accordion item given `title` and `context` strings.
 // NOTE: returns an ARRAY of elements!
-function renderAccordionItem(title, content) {
+export function renderAccordionItem(title, content) {
   return [
     renderAccordionTitle(title),
     renderAccordionContent(content)
   ];
 }
 
-function renderAccordionTitle(title) {
+export function renderAccordionTitle(title) {
   // if we got a ".title" element, just return that
   if (isElement(title) && hasClass(title, "title")) return title;
   // otherwise return title wrapped appropriately
   return <div className="title"><Icon icon="dropdown"/>{title}</div>;
 }
 
-function renderAccordionContent(content) {
+export function renderAccordionContent(content) {
   // if we got a "content" element, just return that
   if (isElement(content) && hasClass(content, "content")) return content;
 
@@ -78,13 +78,23 @@ function renderAccordionContent(content) {
 }
 
 
-// `appearance`:  Any space-delimited combination of:
-//    - `fluid`, `compact`, `large`, `small`
-//    - `text`, `icon`, `labeled icon`
-//    - `tabular`, `pointing`, `attached` `top attached`, `bottom attached`
-//    - `vertical`, `two item`, `three item`, etc
-//    - `borderless`, `secondary`, `inverted`
-//    - `stackable`, `top fixed`, `left fixed`, etc
+const moduleProps = {
+  exclusive: PropTypes.bool,          // "Only allow one section open at a time."
+  on: PropTypes.string,               // "Event on title that will cause accordion to open"
+  animateChildren: PropTypes.bool,    // "Whether child content opacity should be animated
+                                      //  (may cause performance issues with many child elements)"
+  closeNested: PropTypes.bool,        // "Close open nested accordion content when an element closes"
+  collapsible: PropTypes.bool,        // "Allow active sections to collapse"
+  duration: PropTypes.number,         // "Duration in ms of opening animation"
+  easing: PropTypes.any,              // "Easing of opening animation."
+
+  onOpening: PropTypes.func,          // "Callback before element opens"
+  onOpen: PropTypes.func,             // "Callback after element is open"
+  onClosing: PropTypes.func,          // "Callback before element closes"
+  onClose: PropTypes.func,            // "Callback after element is closed"
+  onChange: PropTypes.func,           // "Callback on element open or close"
+}
+
 class SUIAccordion extends SUIModuleComponent {
 
   static propTypes = {
@@ -92,21 +102,19 @@ class SUIAccordion extends SUIModuleComponent {
     className: PropTypes.string,
     style: PropTypes.object,
 
+    // {title:content} map, array of <Title>,<Content> elements, or string array of ["Title", "Content", "Title"...]
     items: PropTypes.any,
     children: PropTypes.any,
 
     appearance: PropTypes.string,
 
-    exclusive: PropTypes.bool,
-    on: PropTypes.string,
-    animateChildren: PropTypes.bool,
-    closeNested: PropTypes.bool,
-    collapsible: PropTypes.bool,
-
+    // Indexes of items to open
     open: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.arrayOf(PropTypes.number)
-    ])
+    ]),
+
+    ...moduleProps
   };
 
   //////////////////////////////
@@ -138,21 +146,10 @@ class SUIAccordion extends SUIModuleComponent {
   // SUI Accordion Module Properties
   //////////////////////////////
 
-  static moduleProps = {
-    exclusive: true,
-    on: true,
-    animateChildren: true,
-    closeNested: true,
-    collapsible: true,
-    onOpening: true,
-    onOpen: true,
-    onClosing: true,
-    onClose: true,
-    onChange: true,
-  }
+  static moduleProps = moduleProps;
 
   tellModule(...args) {
-    this.$ref().accordion(...args);
+    return this.$ref().accordion(...args);
   }
 
   normalizeOpen(open = this.props.open) {
@@ -178,11 +175,11 @@ class SUIAccordion extends SUIModuleComponent {
   }
 
   closeOthers() {
-    this.tellModule("close others")
+    return this.tellModule("close others")
   }
 
   refresh() {
-    this.tellModule("refresh")
+    return this.tellModule("refresh")
   }
 
 
@@ -192,23 +189,20 @@ class SUIAccordion extends SUIModuleComponent {
 
   render() {
     const {
+      id, className, style,
       // content
       items, children,
       // appearance
-      className, appearance,
-      // functionality
-      exclusive, on, animateChildren, closeNested, collapsible,
-      // event handling
-      onOpening, onOpen, onClosing, onClose, onChange,
-      // visible
-      selectedIndex,
-      // everything else including id, style
-      ...extraProps
+      appearance,
     } = this.props;
+
+    const extraProps = unknownProperties(this.props, this.constructor.propTypes);
 
     const elements = new ElementBuffer({
       props : {
         ...extraProps,
+        id,
+        style,
         className: [className, "ui", appearance, "accordion"]
       }
     });

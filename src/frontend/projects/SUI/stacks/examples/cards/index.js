@@ -12,6 +12,7 @@ export Comments from "./Comments";
 export Container from "./Container";
 export Dimmer from "./Dimmer";
 export Divider from "./Divider";
+export Embed from "./Embed";
 export Feed from "./Feed";
 export FeedEvent from "./FeedEvent";
 export Flag from "./Flag";

@@ -23,7 +23,6 @@ export default class SUIModuleComponent extends SUIComponent {
 
   componentDidMount() {
     const props = this.getModuleProps();
-console.warn(props);
     this.initModule(props);
   }
 
