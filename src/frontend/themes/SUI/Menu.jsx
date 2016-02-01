@@ -16,7 +16,7 @@ import MenuItem from "./MenuItem";
 import MenuHeader from "./MenuHeader";
 import Divider from "./Divider";
 
-
+import "./Menu.css";
 
 // Render a set of items as:
 //  - a delimited string list

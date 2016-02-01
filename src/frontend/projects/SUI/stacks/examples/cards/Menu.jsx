@@ -2,7 +2,7 @@
 import React from "react";
 import { Card } from "oak";
 
-import { Button, Input, MenuItem, MenuHeader } from "themes/SUI";
+import { Button, Input, Menu, MenuItem, MenuHeader } from "themes/SUI";
 
 export default class MenuCard extends Card {
   static defaultProps = {
@@ -23,12 +23,12 @@ export default class MenuCard extends Card {
         <MenuItem active href="#">Home</MenuItem>,
         <MenuItem href="#">Messages</MenuItem>,
         <MenuItem href="#">Friends</MenuItem>,
-        <div className="right menu">
+        <Menu appearance="right">
           <MenuItem>
             <Input icon="search" iconOn="right" placeholder="Search"/>
           </MenuItem>
           <MenuItem href="#">Logout</MenuItem>
-        </div>,
+        </Menu>,
       ],
 
       topTabItems: [
@@ -43,9 +43,9 @@ export default class MenuCard extends Card {
         <MenuItem active href="#">Active Project</MenuItem>,
         <MenuItem href="#">Project #2</MenuItem>,
         <MenuItem href="#">Project #3</MenuItem>,
-        <div className="right menu">
+        <Menu appearance="right">
           <MenuItem icon="plus">New Tab</MenuItem>
-        </div>
+        </Menu>
       ],
 
       textItems: [
@@ -107,6 +107,7 @@ export default class MenuCard extends Card {
 
             <c.Example title="Normal">
               <c.Menu items={data.simpleItems}/>
+              <c.Menu items={data.homeToLogoutItems}/>
             </c.Example>
 
             <c.Example title="Secondary" hint="<Menu appearance='secondary'/>">
@@ -289,7 +290,7 @@ export default class MenuCard extends Card {
 
               <c.Column>
                 <c.Label color="teal" pointing="down">inverted vertical tabular (inside segment)</c.Label>
-                <c.Segment appearance="inverted">
+                <c.Segment appearance="inverted compact">
                   <c.Menu appearance="inverted vertical tabular" items={data.verticalItems}/>
                 </c.Segment>
                 <c.Bug>SUI rendering bug???</c.Bug>
@@ -297,21 +298,21 @@ export default class MenuCard extends Card {
 
               <c.Column>
                 <c.Label color="teal" pointing="down">inverted secondary vertical (inside segment)</c.Label>
-                <c.Segment appearance="inverted">
+                <c.Segment appearance="inverted compact">
                   <c.Menu appearance="inverted secondary vertical" items={data.verticalItems}/>
                 </c.Segment>
               </c.Column>
 
               <c.Column>
                 <c.Label color="teal" pointing="down">inverted secondary vertical pointing (in segment)</c.Label>
-                <c.Segment appearance="inverted">
+                <c.Segment appearance="inverted compact">
                   <c.Menu appearance="inverted secondary vertical pointing" items={data.verticalItems}/>
                 </c.Segment>
               </c.Column>
 
               <c.Column>
                 <c.Label color="teal" pointing="down">inverted vertical text (inside segment)</c.Label>
-                <c.Segment appearance="inverted">
+                <c.Segment appearance="inverted compact">
                   <c.Menu appearance="inverted vertical text" items={data.verticalItems}/>
                 </c.Segment>
                 <c.Bug>Active item is not well highlighted</c.Bug>
