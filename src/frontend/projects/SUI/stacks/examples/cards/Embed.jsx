@@ -71,7 +71,7 @@ export default class EmbedCard extends Card {
               </c.Column>
 
               <c.Column>
-                <c.Example title="Color" hint="<Embed icon='...'/>">
+                <c.Example title="Color" hint="<Embed color='...'/>">
                   <c.Embed source="youtube" embedId="pfdu_gTry8E" autoplay={false} color="#cc00cc"/>
                   <c.Bug>Not sure how this is supposed to work...</c.Bug>
                 </c.Example>
