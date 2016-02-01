@@ -125,19 +125,20 @@ export default class MenuCard extends Card {
               <c.Menu appearance="tabular" items={data.topTabItems}/>
 
               <c.Spacer/>
-              <c.Label color="teal" pointing="down">tabular attached</c.Label>
-              <c.Spacer/>
-              <c.Menu appearance="tabular attached" items={data.topTabItems}/>
-              <c.Segment appearance="bottom attached">
-                <c.LoremIpsum/>
-              </c.Segment>
+              <c.Label color="teal" pointing="down">bottom tabular</c.Label>
+              <c.Menu appearance="bottom tabular" items={data.topTabItems}/>
 
-              <c.Spacer/>
-              <c.Label color="teal" pointing="down">tabular bottom attached</c.Label>
-              <c.Segment appearance="top attached">
-                <c.LoremIpsum/>
-              </c.Segment>
-              <c.Menu appearance="tabular bottom attached" items={data.bottomTabItems}/>
+              <c.Grid columns={2}>
+                <c.Column>
+                  <c.Label color="teal" pointing="down">vertical left tabular</c.Label>
+                  <c.Menu appearance="vertical left tabular" items={data.topTabItems}/>
+                </c.Column>
+
+                <c.Column>
+                  <c.Label color="teal" pointing="down">vertical right tabular</c.Label>
+                  <c.Menu appearance="vertical right tabular" items={data.topTabItems}/>
+                </c.Column>
+              </c.Grid>
             </c.Example>
 
             <c.Example title="Pagination" hint="<Menu appearance='pagination'/>">
@@ -208,6 +209,10 @@ export default class MenuCard extends Card {
 
             <c.Example title="Pointing" hint="<Menu appearance='pointing'/>">
               <c.Menu appearance='pointing vertical' items={data.labeledIconItems}/>
+              <c.Bug>
+                <a href="http://semantic-ui.com/collections/menu.html#evenly-divided" target="_blank">SUI example</a> for
+                this works, why doesn't ours?
+              </c.Bug>
             </c.Example>
 
             <c.Example title="Attached" hint="<Menu appearance='top attached'/>">
