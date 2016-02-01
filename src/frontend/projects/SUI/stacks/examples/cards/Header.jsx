@@ -87,11 +87,11 @@ export default class HeaderCard extends Card {
 
           <c.PageSection title="Content">
 
-            <c.Example title="Subheader" hint="<Header>Header Text<SubHeader>Sub header text</SubHeader></Header>">
+            <c.Example title="Subheader" hint="<Header>Header Text<Subheader>Sub header text</Subheader></Header>">
               <c.Segment>
                 <c.Header size="huge">
                   Account Settings
-                  <c.SubHeader>Manage your settings and e-mail preferences.</c.SubHeader>
+                  <c.Subheader>Manage your settings and e-mail preferences.</c.Subheader>
                 </c.Header>
                 <c.LoremIpsum short/>
               </c.Segment>
@@ -99,23 +99,23 @@ export default class HeaderCard extends Card {
               <c.Segment>
                 <c.Header size="huge" dividing>
                   H1
-                  <c.SubHeader>Sub Header</c.SubHeader>
+                  <c.Subheader>Sub Header</c.Subheader>
                 </c.Header>
                 <c.Header size="large" dividing>
                   H2
-                  <c.SubHeader>Sub Header</c.SubHeader>
+                  <c.Subheader>Sub Header</c.Subheader>
                 </c.Header>
                 <c.Header size="medium" dividing>
                   H3
-                  <c.SubHeader>Sub Header</c.SubHeader>
+                  <c.Subheader>Sub Header</c.Subheader>
                 </c.Header>
                 <c.Header size="small" dividing>
                   H4
-                  <c.SubHeader>Sub Header</c.SubHeader>
+                  <c.Subheader>Sub Header</c.Subheader>
                 </c.Header>
                 <c.Header size="tiny">
                   H5
-                  <c.SubHeader>Sub Header</c.SubHeader>
+                  <c.Subheader>Sub Header</c.Subheader>
                 </c.Header>
               </c.Segment>
 
@@ -137,7 +137,7 @@ export default class HeaderCard extends Card {
               <c.Segment>
                 <c.Header size="huge" image="http://semantic-ui.com/images/avatar2/large/patrick.png" imageAppearance="ui circular image">
                   Patrick
-                  <c.SubHeader>A really spiffy guy</c.SubHeader>
+                  <c.Subheader>A really spiffy guy</c.Subheader>
                 </c.Header>
                 <c.LoremIpsum short/>
               </c.Segment>
@@ -199,7 +199,7 @@ export default class HeaderCard extends Card {
               <c.Segment>
                 <c.Header disabled>
                   Disabled Header
-                  <c.SubHeader>Manage your settings and e-mail preferences.</c.SubHeader>
+                  <c.Subheader>Manage your settings and e-mail preferences.</c.Subheader>
                 </c.Header>
                 <c.LoremIpsum short/>
               </c.Segment>

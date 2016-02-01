@@ -8,9 +8,9 @@ function PageTitle(props, context) {
       <c.Segment appearance="basic very padded">
         <c.Header size="huge">
           {title}
-          <c.SubHeader>
+          <c.Subheader>
             {children}
-          </c.SubHeader>
+          </c.Subheader>
         </c.Header>
       </c.Segment>
       <c.Divider/>

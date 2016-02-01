@@ -7,14 +7,8 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { addElements, addElementsOn } from "./SUI";
-import Icon from "./Icon";
-
-export const ALIGN_CLASS_MAP = {
-  top: "top aligned",
-  middle: "middle aligned",
-  bottom: "bottom aligned",
-}
+import ElementBuffer from "./ElementBuffer";
+import { getAlignClass } from "./constants";
 
 function defaultTagName(props) {
   if (props.tagName) return props.tagName;
@@ -35,50 +29,41 @@ function SUIListItem(props) {
     // state & events
     hidden, disabled, active,
     // everything else including id, style, href, target
-    ...itemProps
+    ...extraProps
   } = props;
 
-  const headerElement = (header && <div className="header">{header}</div>);
-  const descriptionElement = (description && <div className="description">{description}</div>);
-  let elements = addElements(headerElement, descriptionElement, content)
+  const elements = new ElementBuffer({
+    type: defaultTagName(props),
+    props: {
+      ...extraProps,
+      className: [ className, appearance, size, { hidden, disabled, active }, "item" ]
+    }
+  });
+
+  if (header) elements.appendWrapped("div", "header", header);
+  if (description) elements.appendWrapped("div", "description", description);
+  if (content) elements.append(content);
 
   const contentProps = {
-    className: classNames(ALIGN_CLASS_MAP[align], "content")
+    className: classNames(getAlignClass(align), "content")
   };
 
   if (nestChildren) {
-    elements = [React.createElement("div", contentProps, ...addElements(elements, children))];
+    elements.append(children);
+    elements.wrap("div", contentProps);
   }
   else {
-    elements = [React.createElement("div", contentProps, ...elements)];
-    elements = addElements(elements, children);
+    elements.wrap("div", contentProps);
+    elements.append(children);
   }
 
   // add icon BEFORE content
-  if (icon) {
-    const iconElement = <Icon icon={icon}/>;
-    elements = addElements(iconElement, elements);
-  }
+  if (icon) elements.prependIcon(icon);
 
   // add image BEFORE content
-  if (image) {
-    const imageProps = {
-      src: image,
-      className: classNames("ui", imageAppearance, "image")
-    }
-    const imageElement = <img {...imageProps}/>;
-    elements = addElements(imageElement, elements);
-  }
+  if (image) elements.prependImage(image, classNames("ui", imageAppearance, "image"));
 
-  // class name bits
-  const classProps = {
-    hidden,
-    disabled,
-    active,
-  }
-  itemProps.className = classNames(className, appearance, size, classProps, "item");
-
-  return React.createElement(defaultTagName(props), itemProps, ...elements);
+  return elements.render();
 }
 
 SUIListItem.defaultProps = {
@@ -87,6 +72,7 @@ SUIListItem.defaultProps = {
 
 SUIListItem.propTypes = {
   tagName: PropTypes.string,            // eg: "div" or "li"
+
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
@@ -108,8 +94,6 @@ SUIListItem.propTypes = {
   hidden: PropTypes.bool,
   disabled: PropTypes.bool,
   active: PropTypes.bool,
-  closable: PropTypes.bool,             // if true, we show a `delete` icon (x) on the right
-  onClose: PropTypes.func               // invoked if close icon is clicked
 };
 
 // add render() method so we get hot code reload.

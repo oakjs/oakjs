@@ -1,0 +1,5 @@
+/* Extension to SUI styles */
+
+.ui.card .ui.header {
+  margin-bottom: 0;
+}

@@ -41,12 +41,8 @@ export default class RevealCard extends Card {
 
             <c.Example title="Fade" hint="<Reveal effect='fade'/>">
               <c.Reveal>
-                <div className="visible content">
-                  <c.Image src={data.squareImage} size="small"/>
-                </div>
-                <div className="hidden content">
-                  <c.Image src={data.joeAvatar} size="small"/>
-                </div>
+                <c.Image src={data.squareImage} size="small"/>
+                <c.Image src={data.joeAvatar} size="small"/>
               </c.Reveal>
 
               <c.Spacer inline/>
@@ -59,14 +55,14 @@ export default class RevealCard extends Card {
 
             <c.Example title="Move" hint="<Reveal effect='move right'/>">
               <c.Reveal appearance="small image" effect="move">
-                <img className="visible content" src={data.squareImage}/>
-                <img className="hidden content" src={data.joeAvatar}/>
+                <c.Image src={data.squareImage} size="small"/>
+                <c.Image src={data.joeAvatar} size="small"/>
               </c.Reveal>
 
               <c.Spacer inline/>
               <c.Reveal appearance="small image" effect="move right">
-                <img className="visible content" src={data.squareImage}/>
-                <img className="hidden content" src={data.joeAvatar}/>
+                <c.Image src={data.squareImage} size="small"/>
+                <c.Image src={data.joeAvatar} size="small"/>
               </c.Reveal>
 
               <c.Spacer inline/>
@@ -78,21 +74,33 @@ export default class RevealCard extends Card {
               <c.Spacer inline/>
               <c.Reveal appearance="circular small image" effect="move down">
                 <img className="visible content" src={data.squareImage}/>
-                <img className="hidden content" src={data.joeAvatar}/>
+                <img className="visible content" src={data.joeAvatar}/>
               </c.Reveal>
 
             </c.Example>
 
             <c.Example title="Rotate" hint="<Reveal effect='rotate left'/>">
               <c.Reveal appearance="small image" effect="rotate left">
+                <c.Image src={data.squareImage} size="small"/>
+                <c.Image src={data.joeAvatar} size="small"/>
+              </c.Reveal>
+
+              <c.Spacer inline/>
+              <c.Reveal appearance="small image" effect="rotate">
+                <c.Image src={data.squareImage} size="small"/>
+                <c.Image src={data.joeAvatar} size="small"/>
+              </c.Reveal>
+
+              <c.Spacer inline/>
+              <c.Reveal appearance="circular small image" effect="rotate left">
                 <img className="visible content" src={data.squareImage}/>
                 <img className="hidden content" src={data.joeAvatar}/>
               </c.Reveal>
 
               <c.Spacer inline/>
-              <c.Reveal appearance="small image" effect="rotate">
+              <c.Reveal appearance="circular small image" effect="rotate">
                 <img className="visible content" src={data.squareImage}/>
-                <img className="hidden content" src={data.joeAvatar}/>
+                <img className="visible content" src={data.joeAvatar}/>
               </c.Reveal>
             </c.Example>
 
@@ -103,8 +111,8 @@ export default class RevealCard extends Card {
               <c.Column>
                 <c.Example title="Active" hint="<Reveal active/>">
                   <c.Reveal appearance="small image" active>
-                    <img className="visible content" src={data.squareImage}/>
-                    <img className="hidden content" src={data.joeAvatar}/>
+                    <img src={data.squareImage}/>
+                    <img src={data.joeAvatar}/>
                   </c.Reveal>
                   <c.Info><b>active</b> reveals always show their content</c.Info>
                 </c.Example>
@@ -113,8 +121,8 @@ export default class RevealCard extends Card {
               <c.Column>
                 <c.Example title="Disabled" hint="<Reveal disabled/>">
                   <c.Reveal appearance="small image" disabled>
-                    <img className="visible content" src={data.squareImage}/>
-                    <img className="hidden content" src={data.joeAvatar}/>
+                    <img src={data.squareImage}/>
+                    <img src={data.joeAvatar}/>
                   </c.Reveal>
                   <c.Info><b>disabled</b> reveals don't have a visual effect when hovered.</c.Info>
                 </c.Example>
@@ -128,8 +136,8 @@ export default class RevealCard extends Card {
               <c.Column>
                 <c.Example title="Instant" hint="<Reveal effect='instant fade'/>">
                   <c.Reveal effect='instant fade' appearance="small image">
-                    <img className="visible content" src={data.squareImage}/>
-                    <img className="hidden content" src={data.joeAvatar}/>
+                    <img src={data.squareImage}/>
+                    <img src={data.joeAvatar}/>
                   </c.Reveal>
                 </c.Example>
               </c.Column>
@@ -137,8 +145,8 @@ export default class RevealCard extends Card {
               <c.Column>
                 <c.Example title="Normal (for contrast)">
                   <c.Reveal effect='fade' appearance="small image">
-                    <img className="visible content" src={data.squareImage}/>
-                    <img className="hidden content" src={data.joeAvatar}/>
+                    <img src={data.squareImage}/>
+                    <img src={data.joeAvatar}/>
                   </c.Reveal>
                 </c.Example>
               </c.Column>

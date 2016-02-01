@@ -34,8 +34,12 @@ class ElementBuffer {
 
   // Add one or more elements on either the `left` or the `right`
   addOn(side, ...elements) {
-    if (side === "left")  this.prepend(elements);
-    else                  this.append(elements);
+    if (side === "left" || side === "top") {
+      this.prepend(elements);
+    }
+    else {
+      this.append(elements);
+    }
   }
 
   // If you want to add an actual list, use this one!

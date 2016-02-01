@@ -4,6 +4,7 @@ export Ad from "./Ad";
 export Breadcrumb from "./Breadcrumb";
 export Button from "./Button";
 export Buttons from "./Buttons";
+export Card from "./Card";
 export Comment from "./Comment";
 export Comments from "./Comments";
 export Container from "./Container";

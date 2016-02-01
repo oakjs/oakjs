@@ -1,14 +1,14 @@
 "use strict"
 //////////////////////////////
 //
-//  <SubHeader> component for use with SemanticUI
+//  <Subheader> component for use with SemanticUI
 //
 //////////////////////////////
 
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-function SUISubHeader(props) {
+function SUISubheader(props) {
   const { id, className, style, appearance, children } = props;
   const subHeaderProps = {
     id,
@@ -19,7 +19,7 @@ function SUISubHeader(props) {
   return <div {...subHeaderProps}>{children}</div>;
 }
 
-SUISubHeader.propTypes = {
+SUISubheader.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
@@ -27,6 +27,6 @@ SUISubHeader.propTypes = {
 };
 
 // add render() method so we get hot code reload.
-SUISubHeader.render = Function.prototype;
+SUISubheader.render = Function.prototype;
 
-export default SUISubHeader;
+export default SUISubheader;

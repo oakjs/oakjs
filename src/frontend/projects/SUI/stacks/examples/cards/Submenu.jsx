@@ -69,25 +69,6 @@ export default class MenuHeaderCard extends Card {
 
           </c.PageSection>
 
-          <c.PageSection title="Appearance">
-
-            <c.Example title="Inverted Color" hint="<Menu appearance='inverted'><MenuItem color='red'/></Menu>">
-              <c.Menu appearance="inverted" color='red' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='orange' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='yellow' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='olive' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='green' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='teal' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='blue' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='violet' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='purple' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='pink' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='brown' items={data.simpleItems} itemCount={4}/>
-              <c.Menu appearance="inverted" color='grey' items={data.simpleItems} itemCount={4}/>
-            </c.Example>
-
-          </c.PageSection>
-
         </c.Page>
       </c.CardContainer>
     );

@@ -122,7 +122,7 @@ export default class GridCard extends Card {
             </c.Example>
 
             <c.Example title="Padding" hint="<Grid appearance='padded'/>">
-              <c.SubHeader>No Padding</c.SubHeader>
+              <c.Subheader>No Padding</c.Subheader>
               <div style={{border: "1px solid #eee"}}>
                 <c.Grid columns={2}>
                   <c.Column><c.Segment/></c.Column>
@@ -131,7 +131,7 @@ export default class GridCard extends Card {
               </div>
 
               <c.Spacer/>
-              <c.SubHeader>Padded</c.SubHeader>
+              <c.Subheader>Padded</c.Subheader>
               <div style={{border: "1px solid #eee"}}>
                 <c.Grid columns={2} appearance="padded">
                   <c.Column><c.Segment/></c.Column>
@@ -140,7 +140,7 @@ export default class GridCard extends Card {
               </div>
 
               <c.Spacer/>
-              <c.SubHeader>Horizontally Padded</c.SubHeader>
+              <c.Subheader>Horizontally Padded</c.Subheader>
               <div style={{border: "1px solid #eee"}}>
                 <c.Grid columns={2} appearance="horizontally padded">
                   <c.Column><c.Segment/></c.Column>
@@ -149,7 +149,7 @@ export default class GridCard extends Card {
               </div>
 
               <c.Spacer/>
-              <c.SubHeader>Vertically Padded</c.SubHeader>
+              <c.Subheader>Vertically Padded</c.Subheader>
               <div style={{border: "1px solid #eee"}}>
                 <c.Grid columns={2} appearance="vertically padded">
                   <c.Column><c.Segment/></c.Column>
@@ -159,7 +159,7 @@ export default class GridCard extends Card {
             </c.Example>
 
             <c.Example title="Relaxed" hint="<Grid appearance='relaxed'/>">
-              <c.SubHeader>Normal</c.SubHeader>
+              <c.Subheader>Normal</c.Subheader>
               <c.Grid columns={4}>
                 <c.Column><c.Segment/></c.Column>
                 <c.Column><c.Segment/></c.Column>
@@ -168,7 +168,7 @@ export default class GridCard extends Card {
               </c.Grid>
 
               <c.Spacer/>
-              <c.SubHeader>Relaxed</c.SubHeader>
+              <c.Subheader>Relaxed</c.Subheader>
               <c.Grid columns={4} appearance="relaxed">
                 <c.Column><c.Segment/></c.Column>
                 <c.Column><c.Segment/></c.Column>
@@ -177,7 +177,7 @@ export default class GridCard extends Card {
               </c.Grid>
 
               <c.Spacer/>
-              <c.SubHeader>Very Relaxed</c.SubHeader>
+              <c.Subheader>Very Relaxed</c.Subheader>
               <c.Grid columns={4} appearance="very relaxed">
                 <c.Column><c.Segment/></c.Column>
                 <c.Column><c.Segment/></c.Column>
@@ -315,7 +315,7 @@ export default class GridCard extends Card {
             </c.Example>
 
             <c.Example title="Vertical Alignment" hint="<Grid align='middle'/>">
-              <c.SubHeader>align = top</c.SubHeader>
+              <c.Subheader>align = top</c.Subheader>
               <c.Grid columns={4} align='top' appearance="centered">
                 <c.Column><c.Segment/></c.Column>
                 <c.Column><c.Segment/><c.Segment/></c.Column>
@@ -323,7 +323,7 @@ export default class GridCard extends Card {
               </c.Grid>
 
               <c.Divider/>
-              <c.SubHeader>align = middle</c.SubHeader>
+              <c.Subheader>align = middle</c.Subheader>
               <c.Grid columns={4} align='middle' appearance="centered">
                 <c.Column><c.Segment/></c.Column>
                 <c.Column><c.Segment/><c.Segment/></c.Column>
@@ -331,7 +331,7 @@ export default class GridCard extends Card {
               </c.Grid>
 
               <c.Divider/>
-              <c.SubHeader>align = bottom</c.SubHeader>
+              <c.Subheader>align = bottom</c.Subheader>
               <c.Grid columns={4} align='bottom' appearance="centered">
                 <c.Column><c.Segment/></c.Column>
                 <c.Column><c.Segment/><c.Segment/></c.Column>
@@ -363,7 +363,7 @@ export default class GridCard extends Card {
             </c.Example>
 
             <c.Example title="Reversed" hint="<Grid appearance='tablet reversed'/>">
-              <c.SubHeader>computer reversed</c.SubHeader>
+              <c.Subheader>computer reversed</c.Subheader>
               <c.Grid columns={4} appearance="equal width computer reversed">
                 <c.Row>
                   <c.Column>1st</c.Column>
@@ -374,7 +374,7 @@ export default class GridCard extends Card {
               </c.Grid>
 
               <c.Divider/>
-              <c.SubHeader>tablet reversed</c.SubHeader>
+              <c.Subheader>tablet reversed</c.Subheader>
               <c.Grid columns={4} appearance="equal width tablet reversed">
                 <c.Row>
                   <c.Column>1st</c.Column>
@@ -385,7 +385,7 @@ export default class GridCard extends Card {
               </c.Grid>
 
               <c.Divider/>
-              <c.SubHeader>mobile reversed</c.SubHeader>
+              <c.Subheader>mobile reversed</c.Subheader>
               <c.Grid columns={4} appearance="equal width mobile reversed">
                 <c.Row>
                   <c.Column>1st</c.Column>

@@ -105,6 +105,12 @@ export function isElement(thing, type) {
   return true;
 }
 
+// Return `true` if the thing is an element and has the specified `className`.
+export function hasClass(thing, className) {
+  if (!isElement(thing)) return false;
+  return thing.props.className && thing.props.className.includes(className);
+}
+
 
 // Assign all exports to the SUI object
 Object.assign(SUI, exports);

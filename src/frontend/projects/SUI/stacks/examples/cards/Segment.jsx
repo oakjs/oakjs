@@ -255,17 +255,17 @@ export default class SegmentCard extends Card {
               <c.Info>If you want to guarantee a perfect circle, manually match width and height of your content</c.Info>
               <c.Segment appearance='compact circular' style={{width:180, height:180}}>
                 <c.Header size="large">Buy Now</c.Header>
-                <c.SubHeader>$10.99</c.SubHeader>
+                <c.Subheader>$10.99</c.Subheader>
               </c.Segment>
 
               <c.Segment appearance='compact circular inverted' style={{width:180, height:180}}>
                 <c.Header size="large">Buy Now</c.Header>
-                <c.SubHeader>$10.99</c.SubHeader>
+                <c.Subheader>$10.99</c.Subheader>
               </c.Segment>
 
               <c.Segment appearance='compact circular inverted blue' style={{width:180, height:180}}>
                 <c.Header size="large">Buy Now</c.Header>
-                <c.SubHeader>$10.99</c.SubHeader>
+                <c.Subheader>$10.99</c.Subheader>
               </c.Segment>
             </c.Example>
 
