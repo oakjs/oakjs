@@ -9,6 +9,8 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 import ElementBuffer from "./ElementBuffer";
+import { isElement } from "./SUI";
+import { getItemCountClass } from "./constants";
 
 import MenuItem from "./MenuItem";
 import MenuHeader from "./MenuHeader";
@@ -36,7 +38,14 @@ export function renderItems({ items, itemDelimiter = "," }) {
 export function renderItemsArray(items) {
   return items.map(item => {
     if (!item) return undefined;
-    if (typeof item === "string") return <MenuItem label={item}/>;
+
+    // if we got a react element, just return it
+    if (isElement(item)) return item;
+
+    // If we got a string, return a simple menuItem
+    if (typeof item === "string") return <MenuItem value={item}/>;
+
+    // otherwise pass it on down
     return <MenuItem {...item}/>;
   }).filter(Boolean);
 }
@@ -59,7 +68,7 @@ export function renderItemsMap(itemsMap) {
   });
 }
 
-export function renderMenuHeader({ header, headerIcon }={}) {
+function renderHeader({ header, headerIcon }={}) {
   if (!header) return undefined;
   return <MenuHeader label={header} icon={headerIcon}/>;
 }
@@ -70,13 +79,13 @@ export function renderMenuHeader({ header, headerIcon }={}) {
 //    - `text`, `icon`, `labeled icon`
 //    - `tabular`, `pointing`, `attached` `top attached`, `bottom attached`
 //    - `vertical`, `two item`, `three item`, etc
-//    - `borderless`, `secondary`, `inverted`, `red`, `green`, etc
+//    - `borderless`, `secondary`, `inverted`
 //    - `stackable`, `top fixed`, `left fixed`, etc
 function SUIMenu(props, context) {
   const {
     id, className, style,
     items, itemDelimiter, header, headerIcon, children,
-    appearance,
+    appearance, color, size, itemCount,
     disabled,
     ...extraProps
   } = props;
@@ -86,7 +95,7 @@ function SUIMenu(props, context) {
       ...extraProps,
       id,
       style,
-      className: classNames(className, "ui", appearance, { disabled }, "menu")
+      className: [className, "ui", appearance, color, size, getItemCountClass(itemCount), { disabled }, "menu"]
     }
   });
 
@@ -109,6 +118,9 @@ SUIMenu.propTypes = {
   children: PropTypes.any,
 
   appearance: PropTypes.string,
+  color: PropTypes.string,
+  size: PropTypes.string,
+  itemCount: PropTypes.number,
 
   disabled: PropTypes.bool,
 };

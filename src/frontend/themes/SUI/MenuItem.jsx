@@ -20,31 +20,15 @@ import Divider from "./Divider";
 function SUIMenuItem(props) {
  const {
     id, className, style,
-    label, value = label, children,
+    value, label = value, children,
     appearance, align, icon,
     active, disabled,
+    href, onClick,
     ...extraProps
   } = props;
 
-  // If label starts with "-", return a Header instead
-  if (value === undefined && label && label[0] === "#") {
-    const headerProps = {
-      id,
-      className,
-      style,
-      label: label.substr(1),
-      icon,
-      children
-    }
-    return <MenuHeader {...headerProps}/>;
-  }
-
-  // if it's all dashes, make a separator instead
-  if (value === undefined && label && /^-+$/.test(label)) {
-    return <Divider/>;
-  }
-
   const elements = new ElementBuffer({
+    type: (href ? "a" : "div"),
     props: {
       ...extraProps,
       id,
@@ -52,10 +36,12 @@ function SUIMenuItem(props) {
       className: [className, appearance, align, { active, disabled }, "item"],
       "data-value": value,
       "data-text": label,
+      href,
+      onClick,
     }
   });
 
-  if (icon) elments.appendIcon(icon);
+  if (icon) elements.appendIcon(icon);
   if (label) elements.append(label);
   if (children) elements.append(children);
 
@@ -76,6 +62,10 @@ SUIMenuItem.propTypes = {
 
   active: PropTypes.bool,
   disabled: PropTypes.bool,
+
+  href: PropTypes.string,       // action to take when menu item is clicked
+  onClick: PropTypes.func       // onClick action
+
 };
 
 // add render() method so we get hot code reload.

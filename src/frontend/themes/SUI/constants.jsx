@@ -52,6 +52,13 @@ export function getColumnWidthClass(columns, appearance) {
   if (name) return classNames(appearance, name, "wide column");
 }
 
+// Used by Menus etc to specify # of items in a menu (for fixed width)
+export function getItemCountClass(items, appearance) {
+  if (!items) return undefined;
+  const name = getNameForNumber(items);
+  if (name) return classNames(appearance, name, "item");
+}
+
 
 //////////////////////////////
 //  Floated (left|right)

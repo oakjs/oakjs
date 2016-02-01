@@ -55,16 +55,6 @@ const Label = class SUILabel extends SUIComponent {
   };
 
   //////////////////////////////
-  // `content` and `detail` are dynamically overrideable in state
-  //////////////////////////////
-  get content() { return this.get("content") }
-  set content(newValue) { return this.set("content", newValue) }
-
-  get detail() { return this.get("detail") }
-  set detail(newValue) { return this.set("detail", newValue) }
-
-
-  //////////////////////////////
   // Rendering
   //////////////////////////////
 
@@ -75,15 +65,12 @@ const Label = class SUILabel extends SUIComponent {
       // standard element stuff
       tagName, id, style, className,
       // content
-      icon, iconOn, image, imageOn, children,
+      content, detail, icon, iconOn, image, imageOn, children,
       // appearance
       appearance, color, size, floating, pointing,
       // state & events
-      active, closable, onClose
+      visible, disabled, active, closable, onClose
     } = this.props;
-
-    // State-overriddeable properties
-    const { visible, disabled, content, detail } = this;
 
     const elements = new ElementBuffer({
       type: tagName,
