@@ -31,11 +31,17 @@ function SUISubmenu(props, context) {
     }
   });
 
-  if (label) elements.append(label);
+  if (label) {
+    elements.append(label);
+  }
+  // if first item in children is a string, use that as the label
+  else if (children && children.length && typeof children[0] === "string") {
+    const childLabel = children.shift();
+    elements.append(childLabel);
+  }
+
   elements.appendIcon("dropdown");
 
-console.warn(items);
-console.warn(renderItems(items));
   const menuItems = children || renderItems(items);
   if (!menuItems) console.warn("SubMenu.render(): neither children nor items returned anything", children, items);
   elements.appendWrapped("div", "menu", menuItems);
