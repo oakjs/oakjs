@@ -23,11 +23,8 @@ import "./Menu.css";
 //  - an array of `string` or `{value, label}` pairs
 //  - a map of `{value:label}`.
 // Returns an array of MenuItem or MenuHeaders etc.
-export function renderItems({ items, itemDelimiter = "," }) {
+export function renderItems(items) {
   if (!items) return undefined;
-
-  if (typeof items === "string")
-    return renderItemsArray(items.split(itemDelimiter));
 
   if (Array.isArray(items))
     return renderItemsArray(items);
@@ -43,7 +40,7 @@ export function renderItemsArray(items) {
     if (isElement(item)) return item;
 
     // If we got a string, return a simple menuItem
-    if (typeof item === "string") return <MenuItem value={item}/>;
+    if (typeof item === "string") return renderStringItem(item);
 
     // otherwise pass it on down
     return <MenuItem {...item}/>;
@@ -68,11 +65,6 @@ export function renderItemsMap(itemsMap) {
   });
 }
 
-function renderHeader({ header, headerIcon }={}) {
-  if (!header) return undefined;
-  return <MenuHeader label={header} icon={headerIcon}/>;
-}
-
 
 // `appearance`:  Any space-delimited combination of:
 //    - `fluid`, `compact`, `large`, `small`
@@ -83,24 +75,26 @@ function renderHeader({ header, headerIcon }={}) {
 //    - `stackable`, `top fixed`, `left fixed`, etc
 function SUIMenu(props, context) {
   const {
-    id, className, style,
-    items, itemDelimiter, header, headerIcon, children,
+    className,
+    items, header, headerIcon, children,
     appearance, color, size, itemCount,
     disabled,
+    // including id, style
     ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
     props : {
       ...extraProps,
-      id,
-      style,
       className: [className, "ui", appearance, color, size, getItemCountClass(itemCount), { disabled }, "menu"]
     }
   });
 
-  if (header) elements.append(renderHeader(props));
-  if (items) elements.append(renderItems(props));
+  if (header) {
+    const headerElement = <MenuHeader label={header} icon={headerIcon}/>;
+    elements.append(headerElement);
+  }
+  if (items) elements.append(renderItems(items));
   if (children) elements.append(children);
 
   return elements.render();
@@ -112,7 +106,6 @@ SUIMenu.propTypes = {
   style: PropTypes.object,
 
   items: PropTypes.any,
-  itemDelimiter: PropTypes.string,
   header: PropTypes.string,
   headerIcon: PropTypes.string,
   children: PropTypes.any,

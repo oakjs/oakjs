@@ -26,6 +26,7 @@ export ListItem from "./ListItem";
 export Loader from "./Loader";
 export Menu from "./Menu";
 export MenuItem from "./MenuItem";
+export MenuHeader from "./MenuHeader";
 export Message from "./Message";
 export Rail from "./Rail";
 export Reveal from "./Reveal";

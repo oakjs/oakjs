@@ -9,16 +9,15 @@ import ElementBuffer from "./ElementBuffer";
 
 function SUIMenuHeader(props) {
   const {
-    id, className, style,
+    className,
     icon, label, children,
+    // including id, style
     ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
     props: {
       ...extraProps,
-      id,
-      style,
       className: [className, "header item"]
     }
   });

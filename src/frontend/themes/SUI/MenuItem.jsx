@@ -19,21 +19,22 @@ import Divider from "./Divider";
 //    -
 function SUIMenuItem(props) {
  const {
-    id, className, style,
+    className,
     value, label = value, children,
-    appearance, align, icon,
-    active, disabled,
+    appearance, color, icon,
+    active, disabled, down,
     href, onClick,
+    // including id, style
     ...extraProps
   } = props;
+
+  const isLinkish = (href || onClick);
 
   const elements = new ElementBuffer({
     type: (href ? "a" : "div"),
     props: {
       ...extraProps,
-      id,
-      style,
-      className: [className, appearance, align, { active, disabled }, "item"],
+      className: [ className, appearance, color, { link: isLinkish, active, disabled, down }, "item"],
       "data-value": value,
       "data-text": label,
       href,
@@ -57,11 +58,12 @@ SUIMenuItem.propTypes = {
   label: PropTypes.string,
 
   appearance: PropTypes.string,
-  align: PropTypes.string,
+  color: PropTypes.string,
   icon: PropTypes.string,
 
   active: PropTypes.bool,
   disabled: PropTypes.bool,
+  down: PropTypes.bool,
 
   href: PropTypes.string,       // action to take when menu item is clicked
   onClick: PropTypes.func       // onClick action

@@ -14,35 +14,36 @@ export default class MenuCard extends Card {
     return {
 
       simpleItems: [
-        <MenuItem active href="#">Editorials</MenuItem>,
-        <MenuItem href="#">Reviews</MenuItem>,
-        <MenuItem href="#">Upcoming Events</MenuItem>
+        <MenuHeader>News</MenuHeader>,
+        <MenuItem active>Editorials</MenuItem>,
+        <MenuItem>Reviews</MenuItem>,
+        <MenuItem>Events</MenuItem>
       ],
 
       homeToLogoutItems: [
-        <MenuItem active href="#">Home</MenuItem>,
-        <MenuItem href="#">Messages</MenuItem>,
-        <MenuItem href="#">Friends</MenuItem>,
+        <MenuItem active>Home</MenuItem>,
+        <MenuItem>Messages</MenuItem>,
+        <MenuItem>Friends</MenuItem>,
         <Menu appearance="right">
           <MenuItem>
             <Input icon="search" iconOn="right" placeholder="Search"/>
           </MenuItem>
-          <MenuItem href="#">Logout</MenuItem>
+          <MenuItem>Logout</MenuItem>
         </Menu>,
       ],
 
       topTabItems: [
-        <MenuItem active href="#">Bio</MenuItem>,
-        <MenuItem href="#">Photos</MenuItem>,
+        <MenuItem active>Bio</MenuItem>,
+        <MenuItem>Photos</MenuItem>,
         <MenuItem appearance="right">
           <Input appearance="transparent" icon="search" iconOn="right" placeholder="Search users..."/>
         </MenuItem>
       ],
 
       bottomTabItems: [
-        <MenuItem active href="#">Active Project</MenuItem>,
-        <MenuItem href="#">Project #2</MenuItem>,
-        <MenuItem href="#">Project #3</MenuItem>,
+        <MenuItem active>Active Project</MenuItem>,
+        <MenuItem>Project #2</MenuItem>,
+        <MenuItem>Project #3</MenuItem>,
         <Menu appearance="right">
           <MenuItem icon="plus">New Tab</MenuItem>
         </Menu>
@@ -50,41 +51,41 @@ export default class MenuCard extends Card {
 
       textItems: [
         <MenuHeader>Sort by</MenuHeader>,
-        <MenuItem active href="#">Closest</MenuItem>,
-        <MenuItem href="#">Most Comments</MenuItem>,
-        <MenuItem href="#">Most Popular</MenuItem>,
+        <MenuItem active>Closest</MenuItem>,
+        <MenuItem>Most Comments</MenuItem>,
+        <MenuItem>Most Popular</MenuItem>,
       ],
 
       verticalItems: [
-        <MenuItem active href="#">Account</MenuItem>,
-        <MenuItem href="#">Settings</MenuItem>,
-        <MenuItem href="#">Options...</MenuItem>,
+        <MenuItem active>Account</MenuItem>,
+        <MenuItem>Settings</MenuItem>,
+        <MenuItem>Options...</MenuItem>,
       ],
 
       paginationItems: [
-        <MenuItem href="#" disabled icon="left chevron"/>,
-        <MenuItem active href="#">1</MenuItem>,
-        <MenuItem href="#">2</MenuItem>,
-        <MenuItem href="#">3</MenuItem>,
-        <MenuItem href="#">...</MenuItem>,
-        <MenuItem href="#">10</MenuItem>,
-        <MenuItem href="#">11</MenuItem>,
-        <MenuItem href="#">12</MenuItem>,
-        <MenuItem href="#" icon="right chevron"/>
+        <MenuItem disabled icon="left chevron"/>,
+        <MenuItem active>1</MenuItem>,
+        <MenuItem>2</MenuItem>,
+        <MenuItem>3</MenuItem>,
+        <MenuItem>...</MenuItem>,
+        <MenuItem>10</MenuItem>,
+        <MenuItem>11</MenuItem>,
+        <MenuItem>12</MenuItem>,
+        <MenuItem icon="right chevron"/>
       ],
 
       iconItems: [
-        <MenuItem href="#" icon="gamepad"/>,
-        <MenuItem href="#" icon="camera"/>,
-        <MenuItem href="#" icon="video camera"/>,
-        <MenuItem href="#" icon="video play"/>,
+        <MenuItem icon="gamepad"/>,
+        <MenuItem icon="camera"/>,
+        <MenuItem icon="video camera"/>,
+        <MenuItem icon="video play"/>,
       ],
 
       labeledIconItems: [
-        <MenuItem href="#" icon="gamepad">Games</MenuItem>,
-        <MenuItem href="#" icon="camera">Photos</MenuItem>,
-        <MenuItem href="#" icon="video camera">Channels</MenuItem>,
-        <MenuItem href="#" icon="video play">Videos</MenuItem>,
+        <MenuItem icon="gamepad">Games</MenuItem>,
+        <MenuItem icon="camera">Photos</MenuItem>,
+        <MenuItem icon="video camera">Channels</MenuItem>,
+        <MenuItem icon="video play">Videos</MenuItem>,
       ]
 
     }
@@ -102,6 +103,27 @@ export default class MenuCard extends Card {
           <c.PageTitle title="Menu">
             A menu displays grouped navigation actions
           </c.PageTitle>
+
+          <c.PageSection title="Content">
+
+            <c.Example title="Inline menu items">
+              <c.Menu>
+                <c.MenuHeader>News</c.MenuHeader>
+                <c.MenuItem active>Editorials</c.MenuItem>
+                <c.MenuItem>Reviews</c.MenuItem>
+                <c.MenuItem>Events</c.MenuItem>
+              </c.Menu>
+            </c.Example>
+
+            <c.Example title="Items attribute with MenuItems">
+              <c.Menu items={data.simpleItems}/>
+            </c.Example>
+
+            <c.Example title="Items attribute with array strings">
+              <c.Menu items={["#News", "Editorials", "Reviews", "Events"]}/>
+            </c.Example>
+
+          </c.PageSection>
 
           <c.PageSection title="Types">
 
@@ -204,14 +226,14 @@ export default class MenuCard extends Card {
               <c.Menu appearance="compact" items={data.simpleItems}/>
             </c.Example>
 
-            <c.Example title="Evenly divided" hint="<Menu itemCount={3}/>">
-              <c.Menu itemCount={3} items={data.simpleItems}/>
+            <c.Example title="Evenly divided" hint="<Menu itemCount={4}/>">
+              <c.Menu itemCount={4} items={data.simpleItems}/>
             </c.Example>
 
             <c.Example title="Pointing" hint="<Menu appearance='pointing'/>">
               <c.Menu appearance='pointing vertical' items={data.labeledIconItems}/>
               <c.Bug>
-                <a href="http://semantic-ui.com/collections/menu.html#evenly-divided" target="_blank">SUI example</a> for
+                <a Xhref="http://semantic-ui.com/collections/menu.html#evenly-divided" target="_blank">SUI example</a> for
                 this works, why doesn't ours?
               </c.Bug>
             </c.Example>
@@ -322,32 +344,32 @@ export default class MenuCard extends Card {
             <c.Example title="Colored" hint="<Menu color='red'/>">
               <c.Grid columns={2}>
                 <c.Column>
-                  <c.Menu color="red" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="orange" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="yellow" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="olive" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="green" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="teal" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="blue" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="violet" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="purple" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="pink" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="brown" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="grey" itemCount={3} items={data.simpleItems}/>
+                  <c.Menu color="red" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="orange" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="yellow" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="olive" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="green" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="teal" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="blue" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="violet" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="purple" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="pink" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="brown" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="grey" itemCount={4} items={data.simpleItems}/>
                 </c.Column>
                 <c.Column>
-                  <c.Menu color="inverted red" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted orange" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted yellow" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted olive" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted green" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted teal" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted blue" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted violet" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted purple" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted pink" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted brown" itemCount={3} items={data.simpleItems}/>
-                  <c.Menu color="inverted grey" itemCount={3} items={data.simpleItems}/>
+                  <c.Menu color="inverted red" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted orange" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted yellow" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted olive" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted green" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted teal" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted blue" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted violet" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted purple" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted pink" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted brown" itemCount={4} items={data.simpleItems}/>
+                  <c.Menu color="inverted grey" itemCount={4} items={data.simpleItems}/>
                 </c.Column>
               </c.Grid>
             </c.Example>
