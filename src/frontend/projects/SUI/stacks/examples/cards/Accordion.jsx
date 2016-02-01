@@ -67,6 +67,7 @@ export default class AccordionCard extends Card {
         <c.Page>
           <c.PageTitle title="Accordion">
             An accordion allows users to toggle the display of sections of content
+            <c.Todo>How to auto-add dropdown icon?</c.Todo>
           </c.PageTitle>
 
           <c.PageSection title="Content">
@@ -183,9 +184,6 @@ export default class AccordionCard extends Card {
               <c.Accordion animateChildren={false} appearance="styled" items={data.dogStringArray}/>
               <c.Bug>This doesn't seem to work.  Are we doing it right?</c.Bug>
             </c.Example>
-
-
-
           </c.PageSection>
 
           <c.PageSection title="Appearance">
@@ -199,7 +197,7 @@ export default class AccordionCard extends Card {
               </c.Segment>
             </c.Example>
 
-            <c.Example title="Inverted" hint="<Accordion appearance='inverted'/>">
+            <c.Example title="Inverted (inside inverted segment)" hint="<Accordion appearance='inverted'/>">
               <c.Segment appearance="inverted">
                 <c.Accordion appearance="inverted" items={data.dogStringArray}/>
               </c.Segment>
@@ -212,6 +210,17 @@ export default class AccordionCard extends Card {
             </c.Example>
           </c.PageSection>
 
+          <c.PageSection title="Events">
+            <c.Example title="All events (logged to console)" hint="<Accordion onChange={...} etc/>">
+              <c.Accordion appearance="styled" items={data.dogStringArray}
+                onOpening={()=> console.log("opening")}
+                onOpen={()=> console.log("open")}
+                onClosing={()=> console.log("closing")}
+                onClose={()=> console.log("close")}
+                onChange={()=> console.log("changed")}
+              />
+            </c.Example>
+          </c.PageSection>
         </c.Page>
       </c.CardContainer>
     );

@@ -187,26 +187,6 @@ class SUIAccordion extends SUIModuleComponent {
 
 
   //////////////////////////////
-  // Event Handlers
-  //////////////////////////////
-
-  @autobind
-  onOpening(event) {}
-
-  @autobind
-  onOpen(event) {}
-
-  @autobind
-  onClosing(event) {}
-
-  @autobind
-  onClose(event) {}
-
-  @autobind
-  onChange(event) {}
-
-
-  //////////////////////////////
   // Rendering
   //////////////////////////////
 
