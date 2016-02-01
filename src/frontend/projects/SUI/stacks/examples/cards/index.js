@@ -1,6 +1,7 @@
 // Export individual cards.
 // NOTE: the order they're specified here is the order of the cards in the stack.
 export Ad from "./Ad";
+export Accordion from "./Accordion";
 export Breadcrumb from "./Breadcrumb";
 export Button from "./Button";
 export Buttons from "./Buttons";

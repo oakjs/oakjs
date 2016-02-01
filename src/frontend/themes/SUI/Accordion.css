@@ -1,0 +1,22 @@
+/* inverted + styled */
+.ui.inverted.styled.accordion {
+  background: transparent !important;
+
+}
+
+/* inverted styled */
+.ui.inverted.styled.accordion .title,
+.ui.inverted.styled.accordion .accordion .title {
+  color: rgba(255, 255, 255, 0.5);
+  border-top-color: rgba(217, 217, 217, 0.35);
+}
+
+.ui.inverted.styled.accordion .title:hover,
+.ui.inverted.styled.accordion .accordion .title:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ui.inverted.styled.accordion .title.active,
+.ui.inverted.styled.accordion .accordion .title.active {
+  color: rgba(255, 255, 255, 0.9);
+}

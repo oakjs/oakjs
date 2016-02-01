@@ -25,6 +25,7 @@ console.warn("TODO: figure out how to include semanticUI in themes/SUI/index.js"
 // Export all individual components here.
 // NOTE: keep this list in alphabetical order!
 export SUIComponent from "./SUIComponent";
+export Accordion from "./Accordion";
 export Ad from "./Ad";
 export Button from "./Button";
 export Buttons from "./Buttons";
@@ -77,6 +78,7 @@ export Stub from "./Stub";
 export Subheader from "./Subheader";
 export Submenu from "./Submenu";
 export Table from "./Table";
+export Title from "./Title";
 
 // get all of the components
 const components = Object.keys(exports);

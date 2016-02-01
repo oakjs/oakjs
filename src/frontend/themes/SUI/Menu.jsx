@@ -1,12 +1,11 @@
 "use strict";
 //////////////////////////////
 //
-//  <MenuItems> component for use with SemanticUI
+//  <Menu> component for use with SemanticUI
 //
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classnames";
 
 import ElementBuffer from "./ElementBuffer";
 import { isElement } from "./SUI";

@@ -64,6 +64,19 @@ export function unknownProperties(props, propTypes) {
 }
 
 //TODO: RENAME
+// Return all properties in `props` ARE define in `propTypes` AND ARE NOT `undefined`.
+// This is far more efficient than doing a ...spread operator to pull those properties out.
+export function knownProperties(props, propTypes) {
+  const known = {};
+  for (let key in propTypes) {
+    if (props[key] !== undefined) known[key] = props[key];
+  }
+  return known;
+}
+window.knownProperties = knownProperties;
+
+
+//TODO: RENAME
 // Return a map of values in `newProps` which are not the same as values in `oldProps`.
 // If a property is in `oldProps` but is not in `newProps`, will return value `undefined`.
 // NOTE: does not exhaustively make sure we've gone through everything in `oldProps`.
