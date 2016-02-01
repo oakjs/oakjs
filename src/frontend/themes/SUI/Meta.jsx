@@ -8,17 +8,17 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { getFloatedClass } from "./constants";
+import { getAlignClass, getFloatedClass } from "./constants";
 
 function SUIMeta(props) {
   const {
     children,
-    appearance, floated,
+    appearance, align, floated,
     // includes id, className, style
     ...contentProps
   } = props;
 
-  contentProps.className = classNames(contentProps.className, getFloatedClass(floated), appearance, "meta");
+  contentProps.className = classNames(contentProps.className, getAlignClass(align), getFloatedClass(floated), appearance, "meta");
 
   return React.createElement("div", contentProps, children);
 }
@@ -29,6 +29,7 @@ SUIMeta.propTypes = {
   className: PropTypes.string,
 
   appearance: PropTypes.string,
+  align: PropTypes.string,
   floated: PropTypes.string,
 };
 

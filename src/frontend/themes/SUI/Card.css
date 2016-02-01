@@ -1,5 +1,15 @@
 /* Extension to SUI styles */
 
-.ui.card .ui.header {
+.ui.card > .ui.header {
+  margin: .68575em 1em;
+}
+
+.ui.card .content .ui.header {
+  display:inline-block;
   margin-bottom: 0;
+}
+
+.ui.cards > .card [class*="right aligned"],
+.ui.card [class*="right aligned"] {
+  text-align: right !important;
 }

@@ -8,15 +8,17 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
+import { getAlignClass } from "./constants";
+
 function SUIContent(props) {
   const {
     children,
-    appearance,
+    appearance, align,
     // includes id, className, style
     ...contentProps
   } = props;
 
-  contentProps.className = classNames(contentProps.className, appearance, "content");
+  contentProps.className = classNames(contentProps.className, appearance, getAlignClass(align), "content");
 
   return React.createElement("div", contentProps, children);
 }
@@ -27,6 +29,7 @@ SUIContent.propTypes = {
   className: PropTypes.string,
 
   appearance: PropTypes.string,
+  align: PropTypes.string,
 };
 
 // add render() method so we get hot code reload.

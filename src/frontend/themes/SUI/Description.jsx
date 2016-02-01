@@ -8,17 +8,17 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { getFloatedClass } from "./constants";
+import { getAlignClass, getFloatedClass } from "./constants";
 
 function SUIDescription(props) {
   const {
     children,
-    appearance,
+    appearance, align,
     // includes id, className, style
     ...contentProps
   } = props;
 
-  contentProps.className = classNames(contentProps.className, appearance, "description");
+  contentProps.className = classNames(contentProps.className, appearance, getAlignClass(align), "description");
 
   return React.createElement("div", contentProps, children);
 }
@@ -29,6 +29,7 @@ SUIDescription.propTypes = {
   className: PropTypes.string,
 
   appearance: PropTypes.string,
+  align: PropTypes.string,
   floated: PropTypes.string,
 };
 

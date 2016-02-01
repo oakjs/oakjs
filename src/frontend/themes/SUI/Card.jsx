@@ -18,19 +18,18 @@ function SUICard(props) {
     // children
     image, children, childrenOn,
     // appearance
-    className, appearance, size, align,
+    className, appearance, color, align,
     // link functionality
     href,
-    // state & events
-    hidden, disabled, active,
     // everything else including id, style, target
     ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
+    type: (href ? "a" : "div"),
     props: {
       ...extraProps,
-      className: [ className, "ui", appearance, size, { hidden, disabled, active }, "card" ],
+      className: [ className, "ui", appearance, color, "card" ],
       href
     }
   });
@@ -79,13 +78,7 @@ SUICard.propTypes = {
   target: PropTypes.string,             // target for href
 
   appearance: PropTypes.string,
-  size: PropTypes.string,                // `mini`, `tiny`, `small`, `medium`, `large`, `big`, `huge`, `massive`
-  align: PropTypes.string,               // `top`, `middle`, `bottom`
-  nestChildren: PropTypes.bool,          // necessary if you've got a nested bulleted or ordered list...???
-
-  hidden: PropTypes.bool,
-  disabled: PropTypes.bool,
-  active: PropTypes.bool,
+  color: PropTypes.string,
 };
 
 // add render() method so we get hot code reload.

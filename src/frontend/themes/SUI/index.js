@@ -30,6 +30,7 @@ export Button from "./Button";
 export Buttons from "./Buttons";
 export Breadcrumb from "./Breadcrumb";
 export Card from "./Card";
+export Cards from "./Cards";
 export Column from "./Column";
 export Comment from "./Comment";
 export Comments from "./Comments";

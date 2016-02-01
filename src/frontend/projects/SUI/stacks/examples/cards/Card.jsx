@@ -11,6 +11,8 @@ export default class CardCard extends Card {
   getInitialData() {
     return {
       image: "http://semantic-ui.com/images/wireframe/image.png",
+      whiteImage: "http://semantic-ui.com/images/wireframe/white-image.png",
+
       joeAvatar: "http://semantic-ui.com/images/avatar/large/joe.jpg",
       kristyAvatar: "http://semantic-ui.com/images/avatar2/large/kristy.png",
       elliotAvatar: "http://semantic-ui.com/images/avatar/large/elliot.jpg",
@@ -63,7 +65,51 @@ export default class CardCard extends Card {
               </c.Column>
 
               <c.Column>
-                <c.Example title="Another example">
+                <c.Example title="Link">
+                  <c.Card header="Alphabet Inc" meta="NASDAQ: GOOG"
+                    description="Alphabet Inc. is an American multinational conglomerate created in 2015 as the parent company of Google and several other companies previously owned by or tied to Google."
+                    href="https://abc.xyz/" target="_blank"
+                  />
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Extra content">
+                  <c.Card header="Elliot" meta="Friend of Veronika"
+                    description="Elliot requested permisson to view your contact details"
+                    headerImage={<c.Image src={data.elliotAvatar} floated="right" size="mini"/>}
+                  >
+                    <c.Content appearance="extra">
+                      <c.Buttons count={2}>
+                        <c.Button appearance="basic" color="green">Approve</c.Button>
+                        <c.Button appearance="basic" color="red">Decline</c.Button>
+                      </c.Buttons>
+                    </c.Content>
+                  </c.Card>
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Buttons">
+                  <c.Card header="Kristy" meta="Joined in 2013"
+                    description="Kristy is an art director living in New York."
+                  >
+                    <c.Button appearance="bottom attached" icon="plus" title="Add friend"/>
+                  </c.Card>
+
+                  <c.Card header="Elliot" meta="Joined in 2015"
+                    description="Elliot is a software manager."
+                  >
+                    <c.Buttons appearance="bottom attached">
+                      <c.Button icon="plus" title="Add friend"/>
+                      <c.Button icon="email" title="Send Message"/>
+                    </c.Buttons>
+                  </c.Card>
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Mulitple Content Regions">
                   <c.Card>
                     <c.Content>
                       <c.Image src={data.elliotAvatar} appearance="avatar"/>
@@ -81,20 +127,6 @@ export default class CardCard extends Card {
                   </c.Card>
                 </c.Example>
               </c.Column>
-
-              <c.Column>
-                <c.Example title="Yet Another Example">
-                  <c.Card header="Elliot" meta="Friend of Veronika"
-                    description="Elliot requested permisson to view your contact details"
-                    headerImage={<c.Image src={data.elliotAvatar} floated="right" size="mini"/>}
-                    extra={<c.Buttons count={2}>
-                            <c.Button appearance="basic" color="green">Approve</c.Button>
-                            <c.Button appearance="basic" color="red">Decline</c.Button>
-                          </c.Buttons>}
-                  />
-                </c.Example>
-              </c.Column>
-
 
 
               <c.Column>
@@ -122,6 +154,73 @@ export default class CardCard extends Card {
               </c.Column>
 
             </c.Grid>
+          </c.PageSection>
+
+          <c.PageSection title="Appearance">
+            <c.Grid columns={2}>
+
+              <c.Column>
+                <c.Example title="Centered">
+                  <c.Card appearance="centered" header="Elliot Fu"
+                    image={data.elliotAvatar}
+                  />
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Fluid">
+                  <c.Card appearance="fluid" header="Elliot Fu"
+                    image={data.elliotAvatar}
+                  />
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Alignment">
+                  <c.Card>
+                    <c.Header align="center">Kristy York</c.Header>
+                    <c.Content align="left">Liberal</c.Content>
+                  </c.Card>
+                  <c.Card>
+                    <c.Header align="center">Joe Jones</c.Header>
+                    <c.Content align="center">Independent</c.Content>
+                  </c.Card>
+                  <c.Card>
+                    <c.Header align="center">Joe Jones</c.Header>
+                    <c.Content align="right">Conservative</c.Content>
+                  </c.Card>
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Floated Content">
+                  <c.Card>
+                    <c.Content>
+                      <c.Header>Kristy York</c.Header>
+                      <c.Meta floated="right">24 Friends</c.Meta>
+                    </c.Content>
+                  </c.Card>
+                </c.Example>
+              </c.Column>
+            </c.Grid>
+
+            <c.Example title="Colors">
+              <c.Cards count={5}>
+                <c.Card color="red" header="Red" image={data.whiteImage}/>
+                <c.Card color="orange" header="Orange" image={data.whiteImage}/>
+                <c.Card color="yellow" header="Yellow" image={data.whiteImage}/>
+                <c.Card color="olive" header="Olive" image={data.whiteImage}/>
+                <c.Card color="green" header="Green" image={data.whiteImage}/>
+                <c.Card color="teal" header="Teal" image={data.whiteImage}/>
+                <c.Card color="blue" header="Blue" image={data.whiteImage}/>
+                <c.Card color="violet" header="Violet" image={data.whiteImage}/>
+                <c.Card color="purple" header="Purple" image={data.whiteImage}/>
+                <c.Card color="pink" header="Pink" image={data.whiteImage}/>
+                <c.Card color="brown" header="Brown" image={data.whiteImage}/>
+                <c.Card color="grey" header="Grey" image={data.whiteImage}/>
+                <c.Card color="black" header="Black" image={data.whiteImage}/>
+              </c.Cards>
+            </c.Example>
 
           </c.PageSection>
 
