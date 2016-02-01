@@ -5,6 +5,7 @@ export Breadcrumb from "./Breadcrumb";
 export Button from "./Button";
 export Buttons from "./Buttons";
 export Card from "./Card";
+export Cards from "./Cards";
 export Comment from "./Comment";
 export Comments from "./Comments";
 export Container from "./Container";

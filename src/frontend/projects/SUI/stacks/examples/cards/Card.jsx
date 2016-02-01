@@ -205,7 +205,7 @@ export default class CardCard extends Card {
             </c.Grid>
 
             <c.Example title="Colors">
-              <c.Cards count={5}>
+              <c.Cards columns={5}>
                 <c.Card color="red" header="Red" image={data.whiteImage}/>
                 <c.Card color="orange" header="Orange" image={data.whiteImage}/>
                 <c.Card color="yellow" header="Yellow" image={data.whiteImage}/>

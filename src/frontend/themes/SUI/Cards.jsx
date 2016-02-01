@@ -13,13 +13,13 @@ import { getNameForNumber } from "./constants";
 function SUICards(props) {
   const {
     children,
-    appearance, count,
+    appearance, columns,
     ...elementProps
   } = props;
 
   elementProps.className = classNames(
                               elementProps.className, "ui", appearance,
-                              getNameForNumber(count), "cards");
+                              getNameForNumber(columns), "cards");
   return <div {...elementProps}>{children}</div>;
 }
 
@@ -31,7 +31,7 @@ SUICards.propTypes = {
   style: PropTypes.object,
 
   appearance: PropTypes.string,   // "stackable", "tablet stackable"
-  count: PropTypes.number,
+  columns: PropTypes.number,
 };
 
 // add render() method so we get hot code reload.
