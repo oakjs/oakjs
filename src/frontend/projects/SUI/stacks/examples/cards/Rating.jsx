@@ -21,30 +21,39 @@ export default class RatingCard extends Card {
           </c.PageTitle>
 
           <c.PageSection title="Types">
-            <c.Grid columns={3}>
+            <c.Grid columns={2}>
               <c.Column>
-                <c.Example title="Single Rating">
+                <c.Example title="Normal" hint="<Rating/>">
+                  <c.Rating/>
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Single Rating" hint="<Rating max={1}/>">
                   <c.Rating max={1}/>
                 </c.Example>
               </c.Column>
-
-              <c.Column>
-                <c.Example title="Star" hint="<Rating icon='star'/>">
-                  <c.Rating icon="star" rating={2} max={5}/>
-                </c.Example>
-              </c.Column>
-
-              <c.Column>
-                <c.Example title="Heart" hint="<Rating icon='heart'/>">
-                  <c.Rating icon="heart" rating={2} max={5}/>
-                </c.Example>
-              </c.Column>
-
             </c.Grid>
           </c.PageSection>
 
-          <c.PageSection title="States">
-            <c.Grid columns={3}>
+          <c.PageSection title="Content">
+            <c.Grid columns={2}>
+              <c.Column>
+                <c.Example title="Initial Value" hint="<Rating rating={4}/>">
+                  <c.Rating rating={2}/>
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Max Value" hint="<Rating max={10}/>">
+                  <c.Rating max={10}/>
+                </c.Example>
+              </c.Column>
+            </c.Grid>
+          </c.PageSection>
+
+          <c.PageSection title="States, Events & Behaviors">
+            <c.Grid columns={2}>
               <c.Column>
                 <c.Example title="Disabled" hint="<Rating disabled/>">
                   <c.Rating disabled rating={2} max={5}/>
@@ -57,15 +66,13 @@ export default class RatingCard extends Card {
                 </c.Example>
               </c.Column>
             </c.Grid>
-          </c.PageSection>
 
-          <c.PageSection title="Events & Behaviors">
-            <c.Example title="All events (look at console)" hint="<Rating onRate='...'/>">
+            <c.Example title="Events" hint="<Rating onRate='...'/>">
               <c.Rating ref="events" icon="star" rating={card.get("events.value")} max={5}
                 onRate={(value)=> {card.set("events.value", value)}}
               />
               <c.Spacer inline width={100}/>
-              <c.Label content={card.get("events.value")}/>
+              <c.Label content={"value = "+card.get("events.value")}/>
 
               <c.Spacer/>
               <c.Buttons>
@@ -82,34 +89,89 @@ export default class RatingCard extends Card {
                 <c.Button onClick={()=>card.refs.events.enable()} title="Enable"/>
                 <c.Button onClick={()=>card.refs.events.disable()} title="Disable"/>
                 <c.Button onClick={()=>card.refs.events.clear()} title="Clear"/>
-                <c.Button onClick={()=>card.set("events.content", card.refs.events.getRating())} title="getRating"/>
               </c.Buttons>
             </c.Example>
+
           </c.PageSection>
 
 
           <c.PageSection title="Appearance">
+            <c.Grid columns={2}>
+              <c.Column>
+                <c.Example title="Star" hint="<Rating icon='star'/>">
+                  <c.Rating icon="star" rating={2} max={5}/>
+                </c.Example>
+              </c.Column>
+
+              <c.Column>
+                <c.Example title="Heart" hint="<Rating icon='heart'/>">
+                  <c.Rating icon="heart" rating={2} max={5}/>
+                </c.Example>
+              </c.Column>
+            </c.Grid>
+
             <c.Example title="Sizes" hint="<Rating size='small'/>">
-              <c.Label pointing="right" color="teal" style={{width:100}}>mini</c.Label><c.Rating size="mini"/>
+              <c.Grid columns={3} style={{width:500}}>
+                <c.Column>
+                  <c.Label pointing="right" color="teal" style={{width:80}}>mini</c.Label>
+                </c.Column>
+                <c.Column>
+                  <c.Rating size="mini"/>
+                </c.Column>
+                <c.Column>
+                  <c.Rating size="mini" icon="heart"/>
+                </c.Column>
 
-              <c.Spacer/>
-              <c.Label pointing="right" color="teal" style={{width:100}}>tiny</c.Label><c.Rating size="tiny"/>
+                <c.Column>
+                  <c.Label pointing="right" color="teal" style={{width:80}}>tiny</c.Label>
+                </c.Column><c.Column>
+                  <c.Rating size="tiny"/>
+                </c.Column><c.Column>
+                  <c.Rating size="tiny" icon="heart"/>
+                </c.Column>
 
-              <c.Spacer/>
-              <c.Label pointing="right" color="teal" style={{width:100}}>small</c.Label><c.Rating size="small"/>
+                <c.Column>
+                  <c.Label pointing="right" color="teal" style={{width:80}}>small</c.Label>
+                </c.Column><c.Column>
+                  <c.Rating size="small"/>
+                </c.Column><c.Column>
+                  <c.Rating size="small" icon="heart"/>
+                </c.Column>
 
-              <c.Spacer/>
-              <c.Label pointing="right" color="teal" style={{width:100}}>medium</c.Label><c.Rating size="medium"/>
+                <c.Column>
+                  <c.Label pointing="right" color="teal" style={{width:80}}>medium</c.Label>
+                </c.Column><c.Column>
+                  <c.Rating size="medium"/>
+                </c.Column><c.Column>
+                  <c.Rating size="medium" icon="heart"/>
+                </c.Column>
 
-              <c.Spacer/>
-              <c.Label pointing="right" color="teal" style={{width:100}}>large</c.Label><c.Rating size="large"/>
+                <c.Column>
+                  <c.Label pointing="right" color="teal" style={{width:80}}>large</c.Label>
+                </c.Column><c.Column>
+                  <c.Rating size="large"/>
+                </c.Column><c.Column>
+                  <c.Rating size="large" icon="heart"/>
+                </c.Column>
 
-              <c.Spacer/>
-              <c.Label pointing="right" color="teal" style={{width:100}}>huge</c.Label><c.Rating size="huge"/>
+                <c.Column>
+                  <c.Label pointing="right" color="teal" style={{width:80}}>huge</c.Label>
+                </c.Column><c.Column>
+                  <c.Rating size="huge"/>
+                </c.Column><c.Column>
+                  <c.Rating size="huge" icon="heart"/>
+                </c.Column>
 
-              <c.Spacer/>
-              <c.Label pointing="right" color="teal" style={{width:100}}>massive</c.Label><c.Rating size="massive"/>
+                <c.Column>
+                  <c.Label pointing="right" color="teal" style={{width:80}}>massive</c.Label>
+                </c.Column><c.Column>
+                  <c.Rating size="massive"/>
+                </c.Column><c.Column>
+                  <c.Rating size="massive" icon="heart"/>
+                </c.Column>
+              </c.Grid>
             </c.Example>
+
           </c.PageSection>
 
         </c.Page>
