@@ -34,6 +34,7 @@ export MenuHeader from "./MenuHeader";
 export Message from "./Message";
 export Progress from "./Progress";
 export Rail from "./Rail";
+export Rating from "./Rating";
 export Reveal from "./Reveal";
 export Segment from "./Segment";
 export Segments from "./Segments";

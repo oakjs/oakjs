@@ -67,6 +67,7 @@ export Popup from "./Popup";
 export Pusher from "./Pusher";
 export Progress from "./Progress";
 export Rail from "./Rail";
+export Rating from "./Rating";
 export Row from "./Row";
 export Reveal from "./Reveal";
 export Sidebar from "./Sidebar";

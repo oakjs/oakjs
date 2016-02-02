@@ -33,11 +33,11 @@ const Label = class SUILabel extends SUIComponent {
     ...SUIComponent.propTypes,
     tagName: PropTypes.string,            // eg: "label" or "span", etc
 
-    content: PropTypes.string,            // specify `content` as alternative or adjunct to providing `children`
-    detail: PropTypes.string,             // nested <detail> element
-    icon: PropTypes.string,
+    content: PropTypes.any,            // specify `content` as alternative or adjunct to providing `children`
+    detail: PropTypes.any,             // nested <detail> element
+    icon: PropTypes.any,
     iconOn: PropTypes.string,             // "left" (default) or "right"
-    image: PropTypes.string,
+    image: PropTypes.any,
     imageOn: PropTypes.string,             // "left" (default) or "right"
 
     appearance: PropTypes.string,
