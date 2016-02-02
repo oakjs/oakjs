@@ -29,7 +29,6 @@ class ElementBuffer {
 
   // Append one or more elements to the end of this list.
   append(...elements) {
-if (!this.elements.concat) console.warn(this.elements);
     this.elements = this.elements.concat(flatten(elements));
   }
 

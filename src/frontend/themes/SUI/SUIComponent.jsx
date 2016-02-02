@@ -16,9 +16,6 @@ export default class SUIComponent extends React.Component {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    visible: PropTypes.bool,
-    enabled: PropTypes.bool,
-
     children: PropTypes.any,
   };
 

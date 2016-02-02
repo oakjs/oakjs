@@ -23,12 +23,12 @@ export default class SUIModuleComponent extends SUIComponent {
 
   componentDidMount() {
     const props = this.getModuleProps();
-    this.initModule(props);
+    this.setModuleProps(props);
   }
 
   componentDidUpdate(prevProps) {
     const deltas = this.getModuleDeltas(prevProps);
-    this.updateModule(deltas);
+    if (deltas) this.setModuleProps(deltas);
   }
 
   //////////////////////////////
@@ -49,18 +49,12 @@ export default class SUIModuleComponent extends SUIComponent {
     return diffObjects(current, prev);
   }
 
-  // Initialize your  module with some props.
+  // Set proprties on your module.
   // The default is just to pass the `ModuleProps` to the module function.
-  // NOTE: you may want to override this to do some custom stuff.
-  initModule(moduleProps = this.getModuleProps()) {
+  // NOTE: if you map logical prop names, this is the place to do it.
+  // NOTE: it's safe for you to modify moduleProps passed in with impunity.
+  setModuleProps(moduleProps) {
     this.tellModule(moduleProps);
-  }
-
-  // Update your  module with `deltas` passed in.
-  // The default is just to pass the `deltas` to the module function.
-  // NOTE: you may want to override this to do some custom stuff.
-  updateModule(modulePropDeltas) {
-    if (modulePropDeltas) this.tellModule(modulePropDeltas);
   }
 
   // Send parameters or instructions to the  module.
