@@ -111,6 +111,28 @@ export function getHeaderClass(size) {
 }
 
 
+//////////////////////////////
+//  HEADER_SIZE
+//////////////////////////////
+
+export const ATTACHED_CLASSES = {
+  "top": "top attached",
+  "bottom": "bottom attached",
+  "left": "left attached",
+  "right": "right attached",
+}
+export function getAttachedClass(attached) {
+  return ATTACHED_CLASSES[attached];
+}
+
+export function getOppositeAttachedClass(attached) {
+  if (attached === "top") return ATTACHED_CLASSES.bottom;
+  if (attached === "bottom") return ATTACHED_CLASSES.top;
+  if (attached === "left") return ATTACHED_CLASSES.right;
+  if (attached === "right") return ATTACHED_CLASSES.left;
+}
+
+
 
 // Assign all constants to SUI
 Object.assign(SUI, exports);

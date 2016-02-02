@@ -82,7 +82,10 @@ export Steps from "./Steps";
 export Stub from "./Stub";
 export Subheader from "./Subheader";
 export Submenu from "./Submenu";
+export Tab from "./Tab";
+export Tabbar from "./Tabbar";
 export Table from "./Table";
+export Tabs from "./Tabs";
 export Title from "./Title";
 
 // get all of the components

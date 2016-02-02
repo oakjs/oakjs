@@ -44,4 +44,5 @@ export Statistics from "./Statistics";
 export Step from "./Step";
 export Steps from "./Steps";
 export Submenu from "./Submenu";
+export Tabs from "./Tabs";
 export Table from "./Table";
