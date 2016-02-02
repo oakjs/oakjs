@@ -8,7 +8,6 @@
 import React, { PropTypes } from "react";
 import { autobind } from "core-decorators";
 
-import { unknownProperties } from "./SUI";
 import ElementBuffer from "./ElementBuffer";
 import SUIModuleComponent from "./SUIModuleComponent";
 
@@ -113,7 +112,7 @@ class SUIRating extends SUIModuleComponent {
 
     const elements = new ElementBuffer({
       props : {
-        ...unknownProperties(this.props, this.constructor.propTypes),
+        ...this.getUnknownProperties(),
         id,
         style,
         className: [className, "ui", appearance, icon, size, "rating"]

@@ -1,0 +1,10 @@
+/* Extension to SUI styles */
+.ui.cube.shape .side {
+  height: auto !important;
+}
+
+.ui.unpadded.cube.shape .side {
+  padding: 0 !important;
+  overflow:hidden;
+  border-radius: 0.285714rem;
+}

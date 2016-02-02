@@ -3,6 +3,7 @@ export Bug from "./Bug";
 export Cropper from "./Cropper";
 export Enablers from "./Enablers";
 export Example from "./Example";
+export Flippers from "./Flippers";
 export InfoHint from "./InfoHint";
 export IconSample from "./IconSample";
 export Info from "./Info";

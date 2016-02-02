@@ -8,7 +8,6 @@
 import React, { PropTypes } from "react";
 import { autobind } from "core-decorators";
 
-import { unknownProperties } from "./SUI";
 import SUIModuleComponent from "./SUIModuleComponent";
 
 
@@ -146,7 +145,7 @@ class SUIEmbed extends SUIModuleComponent {
     if (children) throw new TypeError("SUI.Embed.render():  child elements are not supported!");
 
     const props = {
-      ...unknownProperties(this.props, this.constructor.propTypes),
+      ...this.getUnknownProperties(),
       id,
       style,
       className: classNames(className, "ui", appearance, aspectRatio, "embed")

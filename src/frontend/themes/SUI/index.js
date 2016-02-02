@@ -70,6 +70,8 @@ export Rail from "./Rail";
 export Rating from "./Rating";
 export Row from "./Row";
 export Reveal from "./Reveal";
+export Shape from "./Shape";
+export Side from "./Side";
 export Sidebar from "./Sidebar";
 export Segment from "./Segment";
 export Segments from "./Segments";

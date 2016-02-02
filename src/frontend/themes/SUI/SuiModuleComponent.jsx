@@ -8,7 +8,7 @@
 import React, { PropTypes } from "react";
 import ReactDOM from "react-dom";
 
-import { diffObjects, knownProperties, unknownProperties } from "./SUI";
+import { diffObjects, knownProperties } from "./SUI";
 import SUIComponent from "./SUIComponent";
 
 export default class SUIModuleComponent extends SUIComponent {
@@ -28,15 +28,15 @@ export default class SUIModuleComponent extends SUIComponent {
 
   componentDidUpdate(prevProps) {
     const deltas = this.getModuleDeltas(prevProps);
-    if (deltas) this.setModuleProps(deltas);
+    this.setModuleProps(deltas || {});
   }
 
   //////////////////////////////
   //   Module property manipulation
   //////////////////////////////
 
-    // Given an object of props, return a map with non-undefined props
-  //  which we pass to the `.accordion()` method.
+  // Given an object of props, return a map with non-undefined props
+  //  which we pass to the `.tellModule()` method to initialize / update the module.
   getModuleProps(props = this.props) {
     return knownProperties(props, this.constructor.moduleProps);
   }
@@ -52,7 +52,7 @@ export default class SUIModuleComponent extends SUIComponent {
   // Set proprties on your module.
   // The default is just to pass the `ModuleProps` to the module function.
   // NOTE: if you map logical prop names, this is the place to do it.
-  // NOTE: it's safe for you to modify moduleProps passed in with impunity.
+  // NOTE: you may modify `moduleProps` passed in to this function with impunity (they're a copy).
   setModuleProps(moduleProps) {
     this.tellModule(moduleProps);
   }
