@@ -32,6 +32,7 @@ export Menu from "./Menu";
 export MenuItem from "./MenuItem";
 export MenuHeader from "./MenuHeader";
 export Message from "./Message";
+export Popup from "./Popup";
 export Progress from "./Progress";
 export Rail from "./Rail";
 export Rating from "./Rating";

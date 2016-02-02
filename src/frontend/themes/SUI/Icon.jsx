@@ -9,14 +9,15 @@ import classNames from "classnames";
 
 function SUIIcon(props) {
   const {
+    icon,
     // appearance
-    className, appearance, circular, icon,
+    className, appearance, circular, color,
     // everything else including id and style
     ...extraProps
   } = props;
 
   const iconProps = {
-    className: classNames(appearance, { circular }, icon, "icon"),
+    className: classNames(appearance, { circular }, color, icon, "icon"),
     ...extraProps
   }
   return <i {...iconProps}/>
@@ -29,6 +30,7 @@ SUIIcon.propTypes = {
 
   appearance: PropTypes.string,
   icon: PropTypes.string,
+  color: PropTypes.string,
   circular: PropTypes.bool
 };
 

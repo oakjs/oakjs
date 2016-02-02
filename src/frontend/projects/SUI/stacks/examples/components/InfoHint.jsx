@@ -5,7 +5,7 @@ function InfoHint(props, context) {
   return (
     <span style={{cursor:"pointer", marginLeft:10}}>
       <c.Icon circular icon="info" appearance="tiny blue inverted"/>
-      <c.Popup {...props}/>
+      <c.Popup appearance="very wide" {...props}/>
     </span>
   );
 }
