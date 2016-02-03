@@ -160,6 +160,11 @@ export default class InputCard extends Card {
               <c.Input type="week"/>
             </c.Example>
 
+            <c.Example columns={8}>
+              <c.Label pointing="down">type=textarea</c.Label><br/>
+              <c.Input type="textarea"/>
+              <c.Todo>Add styling for textarea to semantic ui?</c.Todo>
+            </c.Example>
           </c.PageSection>
 
           <c.PageSection grid title="States">

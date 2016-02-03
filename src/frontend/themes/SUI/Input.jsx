@@ -11,12 +11,12 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 import { autobind } from "core-decorators";
 
+import ElementBuffer from "./ElementBuffer";
 import SUIComponent from "./SUIComponent";
 import Label from "./Label";
 import Popup from "./Popup";
 import Icon from "./Icon";
 
-import { addElements, addElementsOn } from "./SUI";
 import "./Input.css";
 
 //////////////////////////////
@@ -40,53 +40,54 @@ export function defaultLabelWraps({ type }) {
   return (type === "radio" || type === "checkbox");
 }
 
-// Render label specified by props and the inputElement.
-// Returns an ARRAY of elements in the correct order (with no wrapping element).
-export function renderLabel(props, inputElements) {
+// Render label specified by props and adds to the `elements` passed in.
+// Returns `true` if a label was added.
+export function renderLabel(props, elements) {
   const { label, type } = props;
-  if (!label) return inputElements;
+  if (!label) return false;
   const labelWraps = defaultLabelWraps(props);
 
-  if (labelWraps) return renderWrappingLabel(props, inputElements);
-  return renderAdjacentLabel(props, inputElements);
+  if (labelWraps) return renderWrappingLabel(props, elements);
+  return renderAdjacentLabel(props, elements);
 }
 
-export function renderAdjacentLabel(props, inputElements) {
+export function renderAdjacentLabel(props, elements) {
   const { label, type, labelOn = defaultLabelOn(props), labelAppearance = defaultLabelAppearance(props)} = props;
+  if (!label) return false;
+
   const labelProps = {
     className: classNames("ui", labelAppearance, "label")
   }
   const labelElement = <label {...labelProps}>{label}</label>;
-  if (labelOn === "right") {
-    return [...inputElements, labelElement];
-  }
-  return [labelElement, ...inputElements];
+  elements.addOn(labelOn, labelElement);
+  return true;
 }
 
-export function renderWrappingLabel(props, inputElements) {
+export function renderWrappingLabel(props, elements) {
   const { label, type, labelOn = defaultLabelOn(props), labelAppearance = defaultLabelAppearance(props)} = props;
-  if (!label) return inputElements;
+  if (!label) return false;
+
   const labelProps = {
     className: classNames("ui", labelAppearance, "label")
   }
 
-  let elementsWithLabel;
   if (labelOn === "right") {
-    elementsWithLabel = [...inputElements, typeof label === "string" ? " " + label : label];
+    // add an explicit space or React will jam things together
+    elements.append(typeof label === "string" ? " " + label : label);
   }
   else {
-    elementsWithLabel = [typeof label === "string" ? label + " " : label, ...inputElements];
+    elements.prepend(typeof label === "string" ? label + " " : label);
   }
-  return [
-    React.createElement("label", labelProps, ...elementsWithLabel)
-  ]
+  elements.wrap("label", labelProps);
+  return true;
 }
 
-export function renderError(props) {
+export function renderError(props, elements) {
   const { error, showError } = props;
-  if (!error || error === true) return [];
-  return [<Popup appearance="red">{error}</Popup>];
-  return [<br/>, <div className="ui red pointing above label">{error}</div>];
+  if (error && typeof error !== true && showError) {
+    elements.append(<Popup appearance="red">{error}</Popup>);
+    return true;
+  }
 }
 
 
@@ -129,6 +130,8 @@ export default class SUIInput extends SUIComponent {
     type: PropTypes.string,         // text, password, hidden, etc
     value: PropTypes.any,
     placeholder: PropTypes.string,
+
+    children: PropTypes.any,
     childrenOn: PropTypes.string,       // left, right
 
     // event handlers
@@ -145,19 +148,17 @@ export default class SUIInput extends SUIComponent {
     super(...arguments);
 
     // Push `value` passed in into state
-    this.state = {
-      value: props.value
-    };
+    // We'll continue to manage it in state until it changes in props (see `componentWillUpdate()`).
+    if (!this.state) this.state = {};
+    this.state.value = this.props.value;
   }
 
-  //////////////////////////////
-  //  Get/set current value
-  //////////////////////////////
-  get value() {
-    return this.state.value;
-  }
-  set value(newValue) {
-    this.setState({value: newValue});
+  // On update, if the `value` PROPERTY changed on update, change our `state.value` to match it.
+  // This will account for, eg, a form changing the object that it's looking at.
+  componentWillUpdate(nextProps) {
+    if (this.props.value !== nextProps.value) {
+      this.setState(newValue);
+    }
   }
 
   //////////////////////////////
@@ -181,16 +182,6 @@ export default class SUIInput extends SUIComponent {
     if (this.props.onChange) this.props.onChange(event, value, this);
   }
 
-
-  //////////////////////////////
-  //  Rendering helpers you can call on the instance
-  //////////////////////////////
-  defaultLabelOn() { return defaultLabelOn(this.props) }
-  defaultLabelAppearance() { return defaultLabelAppearance(this.props) }
-  renderLabel(inputElements) { return renderLabel(this.props, inputElements) }
-  renderError() { return renderError(this.props) }
-
-
   //////////////////////////////
   //  Rendering
   //////////////////////////////
@@ -198,64 +189,62 @@ export default class SUIInput extends SUIComponent {
   render() {
     const {
       id, className, style,
-      hidden, disabled, focused, loading, error, showError,
-      appearance, size, icon, iconOn, label, labelOn, labelWraps, labelAppearance,
-      type, value, placeholder,
+      appearance, size, icon, iconOn,
+      label, labelOn,
+      type, placeholder,
       children, childrenOn,
-      onChange, onFocus, onBlur,
-      // everything else goes directly on the input
-      ...extraInputProps
+      hidden, disabled, focused, loading, error, showError,
     } = this.props;
+    const { value } = this.state;
 
-    // TODO: detect if there's a label or icon child?
-
-    const classMap = {
-      disabled,
-      hidden,
-      focus: focused,
-      loading,
-      error,
-    };
+    const elements = new ElementBuffer({
+      props: {
+        id,
+        style,
+        className: [ className, "ui", appearance, size, { disabled, hidden, focus:focused, loading, error } ]
+      }
+    });
 
     const inputProps = {
-      ...extraInputProps,
-      type,
-      value: this.value,
+      // send all unknown props to the input, not the wrapper
+      ...this.getUnknownProps(),
       placeholder,
       disabled,
       onChange: this.onChange,
       onFocus: this.onFocus,
       onBlur: this.onBlur,
     };
-    const inputElement = <input {...inputProps}/>;
-    let elements = [inputElement];
+
+    if (type === "textarea") {
+      elements.append(<textarea {...inputProps}>{value}</textarea>);
+    }
+    else {
+      inputProps.type = type;
+      inputProps.value = value;
+      elements.append(<input {...inputProps}/>);
+    }
 
     // Render icon.
     if (icon) {
-      elements = addElementsOn(iconOn, <Icon icon={icon}/>, elements);
-      classMap[`${iconOn || ""} icon`] = true;
+      elements.addIconOn(iconOn, icon);
+      elements.addClass(`${iconOn || ""} icon`);
     }
 
     // Render label.
     // Note that label may wrap the element, depending on `labelWraps` or `type` props.
     if (label) {
-      elements = this.renderLabel(elements, classMap);
-      classMap[`${labelOn || ""} labeled`] = true;
+      const labelAdded = renderLabel(this.props, elements);
+      if (labelAdded) elements.addClass(`${labelOn || ""} labeled`);
     }
 
     // add any children passed in on the appropriate side
-    if (children) elements = addElementsOn(childrenOn, children, elements);
+    if (children) elements.addOn(childrenOn, children);
 
     // render error message at the very end
-    if (error) elements = addElements(elements, this.renderError());
+    if (error) renderError(this.props, elements);
 
-    // render container
-    const containerProps = {
-      id,
-      className: classNames(className, "ui", size, appearance, classMap, "input"),
-      style,
-    };
-
-    return React.createElement("div", containerProps, ...elements);
+    // add "input" class at the very end to be all semantical
+    elements.addClass("input");
+    return elements.render();
   }
 }

@@ -146,7 +146,7 @@ const Dimmer = class SUIDimmer extends SUIComponent {
 
     let elements = new ElementBuffer({
       props: {
-        ...this.getUnknownProperties(),
+        ...this.getUnknownProps(),
         id,
         style,
         className: ["ui", className, appearance, /*{ closable } */],

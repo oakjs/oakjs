@@ -42,21 +42,21 @@ export function getNameForNumber(number) {
 export function getColumnCountClass(columns) {
   if (!columns) return undefined;
   const name = getNameForNumber(columns);
-  if (name) return classNames(name, "column");
+  if (name) return name + " column";
 }
 
 // Used by Columns etc to specify # of grid columns this element should take up
-export function getColumnWidthClass(columns, appearance) {
+export function getColumnWidthClass(columns) {
   if (!columns) return undefined;
   const name = getNameForNumber(columns);
-  if (name) return classNames(appearance, name, "wide column");
+  if (name) return name + " wide";
 }
 
 // Used by Menus etc to specify # of items in a menu (for fixed width)
-export function getItemCountClass(items, appearance) {
+export function getItemCountClass(items) {
   if (!items) return undefined;
   const name = getNameForNumber(items);
-  if (name) return classNames(appearance, name, "item");
+  if (name) return name + " item";
 }
 
 

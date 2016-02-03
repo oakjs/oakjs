@@ -141,7 +141,7 @@ class SUIProgress extends SUIModuleComponent {
 
     const elements = new ElementBuffer({
       props : {
-        ...this.getUnknownProperties(),
+        ...this.getUnknownProps(),
         id,
         style,
         className: [className, "ui", appearance, color, size, state, { progress: showProgress, disabled}, "progress"]

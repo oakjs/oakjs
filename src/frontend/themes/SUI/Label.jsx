@@ -75,7 +75,7 @@ const Label = class SUILabel extends SUIComponent {
     const elements = new ElementBuffer({
       type: tagName,
       props: {
-        ...this.getUnknownProperties(),
+        ...this.getUnknownProps(),
         id,
         style,
         className: [className, "ui", appearance, color, size, { hidden: !visible, disabled, active, floating }]

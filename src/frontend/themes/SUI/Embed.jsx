@@ -145,7 +145,7 @@ class SUIEmbed extends SUIModuleComponent {
     if (children) throw new TypeError("SUI.Embed.render():  child elements are not supported!");
 
     const props = {
-      ...this.getUnknownProperties(),
+      ...this.getUnknownProps(),
       id,
       style,
       className: classNames(className, "ui", appearance, aspectRatio, "embed")

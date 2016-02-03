@@ -184,7 +184,7 @@ class SUIPopup extends SUIModuleComponent {
 
     const elements = new ElementBuffer({
       props : {
-        ...this.getUnknownProperties(),
+        ...this.getUnknownProps(),
         id,
         style,
         className: [className, "ui", appearance, variation, size, "popup"]

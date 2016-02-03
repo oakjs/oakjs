@@ -164,7 +164,7 @@ class SUIShape extends SUIModuleComponent {
 
     const elements = new ElementBuffer({
       props : {
-        ...this.getUnknownProperties(),
+        ...this.getUnknownProps(),
         id,
         style,
         className: [className, "ui", appearance, "shape"]

@@ -62,7 +62,7 @@ const Message = class SUIMessage extends SUIComponent {
 
     const elements = new ElementBuffer({
       props: {
-        ...this.getUnknownProperties(),
+        ...this.getUnknownProps(),
         id,
         style,
         className: [className, "ui", color, size, appearance, { hidden: !visible, inline, icon }],

@@ -63,7 +63,7 @@ export default class SUIComponent extends React.Component {
   }
 
   // Return ONLY the props in props which are NOT in our `propTypes`.
-  getUnknownProperties(props = this.props) {
+  getUnknownProps(props = this.props) {
     return unknownProperties(props, this.constructor.propTypes);
   }
 

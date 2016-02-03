@@ -10,7 +10,6 @@ import classNames from "classnames";
 
 import ElementBuffer from "./ElementBuffer";
 import { isElement } from "./SUI";
-import { getItemCountClass } from "./constants";
 
 import { renderItems } from "./Menu";
 
