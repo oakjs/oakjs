@@ -4,7 +4,7 @@ function InfoHint(props, context) {
   const c = context.components;
   return (
     <span style={{cursor:"pointer", marginLeft:10}}>
-      <c.Icon circular icon="info" appearance="tiny blue inverted"/>
+      <c.Icon circular icon="info" appearance="tiny grey inverted"/>
       <c.Popup appearance="very wide" {...props}/>
     </span>
   );

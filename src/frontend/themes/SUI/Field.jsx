@@ -6,81 +6,94 @@
 
 import React, { PropTypes } from "react";
 
-import { getColumnsWidthClass } from "./constants";
+import { getColumnWidthClass } from "./constants";
 import { unkownProperties } from "./SUI";
 
+import SUIComponent from "./SUIComponent";
 import ElementBuffer from "./ElementBuffer";
 import Input from "./Input";
 
 
 // Constructor strings we'll take over with special classes.
 // Use `registerFieldType` to add to this list.
-const SPECIAL_FIELD_TYPES = {}
+const SPECIAL_FIELD_TYPES = {
+  "default": Input
+}
 
-export function getConstructorForType(type) {
+// Register a type name to return a constructor when a Field is created
+//  with that `type`.  e.g.:
+//
+//    import { registerFieldType } from "./Field";
+//    registerFieldType("checkbox", MySpecialCheckboxConstructor);
+//
+export function registerFieldType(type, constructor) {
+  SPECIAL_FIELD_TYPES[type] = constructor;
+}
+
+export function getInputConstructorForType(type) {
+  // If a class or a function, just return that
   if (typeof type === "function") return type;
 
   // if we got a string, the default is to create an Input
   // check our SPECIAL_FIELD_TYPES map in case some other class
   // has registered that it should take over for that type.
   if (typeof type === "string") {
-    const specialType = SPECIAL_FIELD_TYPES[type];
-    return specialType || Input;
+    return SPECIAL_FIELD_TYPES[type] || SPECIAL_FIELD_TYPES["default"];
   }
   console.warn("SUIField getConstructorForType(",type,"): couldn't find valid constructor for specified type.");
   return undefined;
 }
 
-export default function SUIField(props) {
-  const {
-    label,
-    fieldAppearance, columns, inline,
-    type,
-    hidden, disabled, readonly, required, error
-  } = props;
+const Field = class SUIField extends SUIComponent {
+  // The following properties are intercepted and used by the field.
+  // Everything else is passed on to input, created if `type` is set.
+  static propTypes = {
+    label: PropTypes.any,               // label text or element
+    fieldAppearance: PropTypes.string,
+    columns: PropTypes.number,
+    inline: PropTypes.bool,
+  };
 
-  const elements = new ElementBuffer({
-    props : {
-      className: [ fieldAppearance, { inline, hidden, disabled, readonly, required, error },
-                   getColumnsWidthClass(columns), "field"],
-    }
-  });
+  render() {
+    const {
+      label, children,
+      fieldAppearance, columns, inline,
+      type,
+      hidden, disabled, readonly, required, error
+    } = this.props;
 
-  if (label) elements.appendWrapped("div", "label", label);
+    const elements = new ElementBuffer({
+      props : {
+        className: [ fieldAppearance, { inline, hidden, disabled, readonly, required, error },
+                     getColumnWidthClass(columns), "field"],
+      }
+    });
 
-  // if they specified a `type`, create an `input` (if type is a string)
-  //  or whatever type they specified (assuming they specified a constructor)
-//
-//TODO: intercept type = "checkbox", etc to use our smarter elements?
-//
-  if (type) {
-    const constructor = (typeof type === "string" ? Input : type);
-    if (typeof constructor === function) {
-      const inputProperties = unkownProperties(props, SUIField.propTypes);
-      const inputElement = React.createElement(constructor, inputProperties);
-      elements.append(inputElement);
+    if (label) elements.appendWrapped("label", "label", label);
+
+    // if they specified a `type`, create an `input` (if type is a string)
+    //  or whatever type they specified (assuming they specified a constructor)
+  //
+  //TODO: intercept type = "checkbox", etc to use our smarter elements?
+  //
+    if (type) {
+      const constructor = getInputConstructorForType(type);
+      if (typeof constructor === "function") {
+        // Pass all unknown properties on to the input element
+        const inputProperties = this.getUnknownProps();
+        const inputElement = React.createElement(constructor, inputProperties);
+        elements.append(inputElement);
+      }
+      else {
+        console.warn(this,"render(): couldn't find valid constructor for type: ", type);
+      }
     }
-    else {
-      console.warn("SUIField(",props,"): couldn't find valid constructor for type: ", type);
-    }
+
+    // Add children in case they inlined an input
+    if (children) elements.append(children);
+
+    return elements.render();
   }
 
-  // Add children in case they inlined elements
-  if (children) elements.append(children);
-
-  return elements.render();
 }
-
-// The following properties are intercepted and used by the field.
-// Everything else is passed on to input, created if `type` is set.
-SUIField.propTypes = {
-  label: PropTypes.any,               // label text or element
-  fieldAppearance: PropTypes.string,
-  columns: PropTypes.number,
-  inline: PropTypes.bool,
-};
-
-// add render() method so we get hot code reload.
-SUIField.render = Function.prototype;
-
-export default SUIField;
+export default Field;

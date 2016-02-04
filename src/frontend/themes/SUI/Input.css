@@ -2,3 +2,17 @@
 .ui.input.hidden {
   display: none;
 }
+
+.ui.input label.right.wrapped input[type=checkbox],
+.ui.input label.right.wrapped input[type=radio]
+{
+  margin-right: 0.5em;
+  vertical-align: baseline;
+}
+
+.ui.input label.left.wrapped input[type=checkbox],
+.ui.input label.left.wrapped input[type=radio]
+{
+  margin-left: 0.5em;
+  vertical-align: baseline;
+}

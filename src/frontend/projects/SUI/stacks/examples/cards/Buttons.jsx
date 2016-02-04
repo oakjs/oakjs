@@ -120,7 +120,7 @@ export default class ButtonsCard extends Card {
                 <c.Button title="Three" color="green"/>
               </c.Buttons>
 
-              <c.Spacer inline size="large"/>
+              <c.Spacer inline large/>
               <c.Buttons appearance="vertical basic">
                 <c.Button title="One"/>
                 <c.Button title="Two"/>

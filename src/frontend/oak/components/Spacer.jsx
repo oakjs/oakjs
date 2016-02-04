@@ -10,10 +10,16 @@ import classNames from "classnames";
 import "./Spacer.css";
 
 export default function OakSpacer(props) {
-  const { className, appearance, size, inline, width, height } = props;
+  const {
+    className,
+    appearance, size, width, height,
+    inline, tiny, small, medium, large, huge, massive
+  } = props;
 
   const spacerProps = {
-    className: classNames(className, "oak", size, appearance, { inline }, "spacer"),
+    className: classNames(className, "oak", size, appearance,
+                          { inline, tiny, small, medium, large, huge, massive },
+                          "spacer"),
     style: {
       width,
       height,

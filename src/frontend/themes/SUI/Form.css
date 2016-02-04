@@ -1,0 +1,36 @@
+/* Extension to SUI styles */
+
+/* Add label directly to a fields element */
+
+.ui.form .labeled.fields:not(.inline) {
+  flex-wrap: wrap;
+}
+
+.ui.form .labeled.fields:not(.inline) > label {
+  display: block;
+  min-width: 100%;
+}
+
+.ui.form .labeled.fields:not(.inline) > label + .field {
+  padding-left: 0 !important;
+}
+
+
+/*
+.ui.form .one.wide.fields       {  width:  6.25% !important;  }
+.ui.form .two.wide.fields       {  width: 12.50% !important;  }
+.ui.form .three.wide.fields     {  width: 18.65% !important;  }
+.ui.form .four.wide.fields      {  width: 25.00% !important;  }
+.ui.form .five.wide.fields      {  width: 31.25% !important;  }
+.ui.form .six.wide.fields       {  width: 37.50% !important;  }
+.ui.form .seven.wide.fields     {  width: 43.75% !important;  }
+.ui.form .eight.wide.fields     {  width: 50.00% !important;  }
+.ui.form .nine.wide.fields      {  width: 56.25% !important;  }
+.ui.form .ten.wide.fields       {  width: 62.50% !important;  }
+.ui.form .eleven.wide.fields    {  width: 68.75% !important;  }
+.ui.form .twelve.wide.fields    {  width: 75.00% !important;  }
+.ui.form .thirteen.wide.fields  {  width: 81.25% !important;  }
+.ui.form .fourteen.wide.fields  {  width: 87.50% !important;  }
+.ui.form .fiteen.wide.fields    {  width: 93.75% !important;  }
+.ui.form .sixteen.wide.fields   {  width: 100% !important;  }
+*/

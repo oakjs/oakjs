@@ -15,9 +15,10 @@ function Example(props, context) {
 
   return (
     <div className={className}>
-      <c.Spacer/>
       {header}
+      <c.Spacer/>
       {children}
+      <c.Spacer massive/>
     </div>
   );
 }

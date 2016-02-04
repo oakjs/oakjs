@@ -23,80 +23,14 @@ import "./Input.css";
 //  Rendering helpers you can call statically
 //////////////////////////////
 
-// Return the default label location for a specified input type
-export function defaultLabelOn({ type }) {
-  if (type === "radio" || type === "checkbox") return "right";
-  return undefined;
-}
-
-// Return the default label location for a specified input type
-export function defaultLabelAppearance({ type }) {
-  if (type === "radio" || type === "checkbox") return "transparent";
-  return undefined;
-}
-
-// Return the default labelWraps for a specified input type
-export function defaultLabelWraps({ type }) {
-  return (type === "radio" || type === "checkbox");
-}
-
-// Render label specified by props and adds to the `elements` passed in.
-// Returns `true` if a label was added.
-export function renderLabel(props, elements) {
-  const { label, type } = props;
-  if (!label) return false;
-  const labelWraps = defaultLabelWraps(props);
-
-  if (labelWraps) return renderWrappingLabel(props, elements);
-  return renderAdjacentLabel(props, elements);
-}
-
-export function renderAdjacentLabel(props, elements) {
-  const { label, type, labelOn = defaultLabelOn(props), labelAppearance = defaultLabelAppearance(props)} = props;
-  if (!label) return false;
-
-  const labelProps = {
-    className: classNames("ui", labelAppearance, "label")
-  }
-  const labelElement = <label {...labelProps}>{label}</label>;
-  elements.addOn(labelOn, labelElement);
-  return true;
-}
-
-export function renderWrappingLabel(props, elements) {
-  const { label, type, labelOn = defaultLabelOn(props), labelAppearance = defaultLabelAppearance(props)} = props;
-  if (!label) return false;
-
-  const labelProps = {
-    className: classNames("ui", labelAppearance, "label")
-  }
-
-  if (labelOn === "right") {
-    // add an explicit space or React will jam things together
-    elements.append(typeof label === "string" ? " " + label : label);
-  }
-  else {
-    elements.prepend(typeof label === "string" ? label + " " : label);
-  }
-  elements.wrap("label", labelProps);
-  return true;
-}
-
-export function renderError(props, elements) {
-  const { error, showError } = props;
-  if (error && typeof error !== true && showError) {
-    elements.append(<Popup appearance="red">{error}</Popup>);
-    return true;
-  }
-}
-
 
 export default class SUIInput extends SUIComponent {
   static defaultProps = {
     type: "text",
     showError: true,
     iconOn: "right",
-    childrenOn: "right"
+    childrenOn: "right",
+    labelWraps: "auto"
   };
 
   static propTypes = {
@@ -107,6 +41,7 @@ export default class SUIInput extends SUIComponent {
 
     // states
     hidden: PropTypes.bool,
+    readonly: PropTypes.bool,
     disabled: PropTypes.bool,
     focused: PropTypes.bool,
     loading: PropTypes.bool,
@@ -122,9 +57,10 @@ export default class SUIInput extends SUIComponent {
     icon: PropTypes.string,
     iconOn: PropTypes.string,           // left, right
 
-    label: PropTypes.string,
-    labelOn: PropTypes.string,          // left, right
-    labelAppearance: PropTypes.string,  // basic, tag, etc
+    leftLabel: PropTypes.any,           // label to show on left of element
+    rightLabel: PropTypes.any,          // label to show on right of element
+    labelAppearance: PropTypes.string,
+    labelWraps: PropTypes.any,          // "auto" = if checkbox or radio
 
     // input attributes
     type: PropTypes.string,         // text, password, hidden, etc
@@ -186,14 +122,67 @@ export default class SUIInput extends SUIComponent {
   //  Rendering
   //////////////////////////////
 
+  // Should a label of a particular type wrap the element?
+  labelShouldWrapElement(side) {
+    const { labelWraps, type } = this.props;
+    if (typeof labelWraps === "boolean") return labelWraps;
+    if (labelWraps === "auto") return (type === "radio" || type === "checkbox");
+    if (labelWraps === "left" && side === "left") return true;
+    if (labelWraps === "right" && side === "right") return true;
+    return false;
+  }
+
+  // Render label specified by props and adds to the `elements` passed in.
+  // Returns `true` if a label was added.
+  renderLabel(elements, label, side) {
+    if (!label) return false;
+
+    const { labelAppearance } = this.props;
+
+    if (this.labelShouldWrapElement(side)) {
+      elements.addOn(side, label);
+      const labelClass = classNames(labelAppearance, `${side} wrapped`);
+      // wrap in a <label> to get click behavior
+      elements.wrap("label", labelClass);
+      // wrap in a span to avoid SUI rendering problem
+      elements.wrap("span");
+    }
+    else {
+      const labelClass = classNames("ui", labelAppearance, "label");
+      const labelElement = elements.createWrapped("label", labelClass, label);
+      elements.addOn(side, labelElement);
+    }
+    return true;
+  }
+
+
+  renderLeftLabel(elements) {
+    const { leftLabel } = this.props;
+    const labelAdded = this.renderLabel(elements, leftLabel, "left");
+    if (labelAdded) elements.addClass("left labeled");
+  }
+
+  renderRightLabel(elements) {
+    const { rightLabel } = this.props;
+    const labelAdded = this.renderLabel(elements, rightLabel, "right");
+    if (labelAdded) elements.addClass("right labeled");
+  }
+
+  renderError(elements) {
+    const { error } = this.props;
+    if (error && typeof error !== "boolean") {
+      elements.append(<Popup appearance="red">{error}</Popup>);
+      return true;
+    }
+  }
+
   render() {
     const {
       id, className, style,
       appearance, size, icon, iconOn,
-      label, labelOn,
       type, placeholder,
       children, childrenOn,
-      hidden, disabled, focused, loading, error, showError,
+      hidden, readonly, disabled, focused, loading, error, showError,
     } = this.props;
     const { value } = this.state;
 
@@ -201,7 +190,7 @@ export default class SUIInput extends SUIComponent {
       props: {
         id,
         style,
-        className: [ className, "ui", appearance, size, { disabled, hidden, focus:focused, loading, error } ]
+        className: [ className, "ui", { disabled, readonly, hidden, focus:focused, loading, error }, appearance, size ]
       }
     });
 
@@ -215,6 +204,16 @@ export default class SUIInput extends SUIComponent {
       onBlur: this.onBlur,
     };
 
+    if (disabled) inputProps.disabled = true;
+    // grrrr... react calls this "readOnly"
+    if (readonly) {
+      inputProps.readOnly = true;
+      // Browsers allow the user to change readonly checkboxen and radio buttons
+      if (type === "checkbox" || type === "radio") {
+        inputProps.disabled = true;
+      }
+    }
+
     if (type === "textarea") {
       elements.append(<textarea {...inputProps}>{value}</textarea>);
     }
@@ -224,24 +223,21 @@ export default class SUIInput extends SUIComponent {
       elements.append(<input {...inputProps}/>);
     }
 
-    // Render icon.
+    // Render icon, which must go INSIDE the label if label wraps
     if (icon) {
       elements.addIconOn(iconOn, icon);
       elements.addClass(`${iconOn || ""} icon`);
     }
 
-    // Render label.
-    // Note that label may wrap the element, depending on `labelWraps` or `type` props.
-    if (label) {
-      const labelAdded = renderLabel(this.props, elements);
-      if (labelAdded) elements.addClass(`${labelOn || ""} labeled`);
-    }
+    // render labels, which might wrap the element
+    this.renderLeftLabel(elements);
+    this.renderRightLabel(elements);
 
     // add any children passed in on the appropriate side
     if (children) elements.addOn(childrenOn, children);
 
     // render error message at the very end
-    if (error) renderError(this.props, elements);
+    if (error) this.renderError(elements);
 
     // add "input" class at the very end to be all semantical
     elements.addClass("input");

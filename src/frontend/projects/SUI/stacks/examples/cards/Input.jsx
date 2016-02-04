@@ -18,6 +18,12 @@ export default class InputCard extends Card {
         <c.Page>
           <c.PageTitle title="Input">
             An input is a field used to elicit a response from a user.
+            <c.Todo>
+              <ul>
+                <li>Styling for textarea?</li>
+                <li>Validation?</li>
+              </ul>
+            </c.Todo>
           </c.PageTitle>
 
           <c.PageSection grid title="Types">
@@ -36,7 +42,7 @@ export default class InputCard extends Card {
             <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=checkbox</c.Label><br/>
-              <c.Input type="checkbox" label="Checkbox label"/>
+              <c.Input type="checkbox" rightLabel="Checkbox label"/>
             </c.Example>
 
             <c.Example columns={5}>
@@ -108,8 +114,8 @@ export default class InputCard extends Card {
             <c.Example columns={5}>
               <c.Spacer/>
               <c.Label pointing="down">type=radio</c.Label><br/>
-              <c.Input type="radio" name="a" value="1" label="Option 1"/><br/>
-              <c.Input type="radio" name="a" value="2" label="Option 2"/><br/>
+              <c.Input type="radio" name="a" value="1" rightLabel="Option 1"/><br/>
+              <c.Input type="radio" name="a" value="2" rightLabel="Option 2"/><br/>
             </c.Example>
 
             <c.Example columns={5}>
@@ -210,20 +216,20 @@ export default class InputCard extends Card {
                 </c.Grid>
               </c.Example>
 
-              <c.Example title="Labelled" hint="<Input label='Search' labelOn='right'/>">
+              <c.Example title="Labelled" hint="<Input leftLabel='...' rightLabel='...'/>">
                 <c.Grid columns={3}>
                   <c.Column>
-                    <c.Input label="http://"/>
+                    <c.Input leftLabel="http://"/>
                   </c.Column>
                   <c.Column>
-                    <c.Input label=".com" labelOn="right"/>
+                    <c.Input rightLabel=".com"/>
                   </c.Column>
                   <c.Column>
-                    <c.Input label="kg" labelOn="right" labelAppearance="basic"/>
+                    <c.Input leftLabel="$" rightLabel="kg" labelAppearance="basic"/>
                   </c.Column>
 
                   <c.Column>
-                    <c.Input maxLength={5} icon="tags" iconOn="left" appearance="fluid" label="Tags" labelAppearance="tag" labelOn="right"/>
+                    <c.Input maxLength={5} icon="tags" iconOn="left" appearance="fluid" rightLabel="Tags" labelAppearance="tag"/>
                   </c.Column>
                   <c.Column>
                     <c.Input appearance="left corner labeled">
@@ -243,7 +249,7 @@ export default class InputCard extends Card {
               </c.Example>
 
               <c.Example title="Action" hint="<Input><Button></Input>">
-                <c.Grid columns={3}>
+                <c.Grid columns={2}>
                   <c.Column>
                     <c.Input placeholder="Search..." appearance="action">
                       <c.Button title="Search"/>
