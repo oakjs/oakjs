@@ -37,6 +37,7 @@ export Menu from "./Menu";
 export MenuItem from "./MenuItem";
 export MenuHeader from "./MenuHeader";
 export Message from "./Message";
+export Modal from "./Modal";
 export Popup from "./Popup";
 export Progress from "./Progress";
 export RadioButton from "./RadioButton";

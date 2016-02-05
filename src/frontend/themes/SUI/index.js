@@ -67,6 +67,7 @@ export MenuHeader from "./MenuHeader";
 export MenuItem from "./MenuItem";
 export Message from "./Message";
 export Meta from "./Meta";
+export Modal from "./Modal";
 export Popup from "./Popup";
 export Pusher from "./Pusher";
 export Progress from "./Progress";

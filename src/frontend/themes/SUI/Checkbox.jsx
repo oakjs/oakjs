@@ -72,7 +72,7 @@ class SUICheckbox extends SUIModuleComponent {
     disabled: PropTypes.bool,
     hidden: PropTypes.bool,
     readonly: PropTypes.bool,
-    error: PropTypes.bool,
+    error: PropTypes.any,
     intederminate: PropTypes.bool,      // default: false         Shows as indeterminate [-]
 
     ...moduleProps
