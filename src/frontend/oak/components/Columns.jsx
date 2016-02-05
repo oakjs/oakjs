@@ -10,20 +10,21 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
+import { getNameForNumber } from "./constants";
 import "./Columns.css";
 
 export default function OakColumns(props) {
   const {
     id, className, style,
-    appearance,
-    children
+    children,
+    appearance, count,
   } = props;
 
 
   const elementProps = {
     id,
     style,
-    className: classNames(className, "oak", appearance, "Columns"),
+    className: classNames(className, "oak", appearance, getNameForNumber(count), "columns"),
   }
 
   return <div {...elementProps}>{children}</div>;
@@ -35,6 +36,7 @@ OakColumns.propTypes = {
   style: PropTypes.object,
 
   appearance: PropTypes.string,
+  count: PropTypes.number,
 };
 
 OakColumns.defaultProps = {}

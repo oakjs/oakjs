@@ -31,6 +31,8 @@ export function registerFieldType(type, constructor) {
 }
 
 export function getInputConstructorForType(type) {
+  if (!type) return undefined;
+
   // If a class or a function, just return that
   if (typeof type === "function") return type;
 
@@ -69,18 +71,22 @@ const Field = class SUIField extends SUIComponent {
       }
     });
 
-    if (label) elements.appendWrapped("label", "label", label);
+    // are we constructing an input automatically?
+    const constructor = getInputConstructorForType(type);
+
+    if (label) {
+      if (!constructor || !constructor.wantsLabel) {
+        elements.appendWrapped("label", "label", label);
+      }
+    }
 
     // if they specified a `type`, create an `input` (if type is a string)
     //  or whatever type they specified (assuming they specified a constructor)
-  //
-  //TODO: intercept type = "checkbox", etc to use our smarter elements?
-  //
     if (type) {
-      const constructor = getInputConstructorForType(type);
       if (typeof constructor === "function") {
         // Pass all unknown properties on to the input element
         const inputProperties = this.getUnknownProps();
+        if (constructor.wantsLabel) inputProperties.label = label;
         const inputElement = React.createElement(constructor, inputProperties);
         elements.append(inputElement);
       }

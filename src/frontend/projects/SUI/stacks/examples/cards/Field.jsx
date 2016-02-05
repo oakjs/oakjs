@@ -45,51 +45,99 @@ export default class FieldCard extends Card {
 
             <c.Example title="Fields Specified with `type`, `label`, etc Attributes" hint="<Field type='text' label='...'/>">
               <c.Form appearance="equal width">
+                <c.Fields appearance="compact">
+                  <c.Field label="type=text"/>
+                  <c.Field label="type=button"/>
+                  <c.Field label="type=checkbox"/>
+                </c.Fields>
                 <c.Fields>
-                  <c.Field type="text" label="type=text"/>
-                  <c.Field type="button" label="type=button" value="OK" error="SUI styling messes this up"/>
-                  <c.Field type="checkbox" label="type=checkbox" rightLabel="Checkbox label"/>
+                  <c.Field type="text"/>
+                  <c.Field type="button" value="OK" error="SUI styling messes this up"/>
+                  <c.Field type="checkbox" label="Checkbox label"/>
                 </c.Fields>
 
+                <c.Spacer large/>
+                <c.Fields appearance="compact">
+                  <c.Field label="type=date"/>
+                  <c.Field label="type=datetime"/>
+                  <c.Field label="type=datetime-local"/>
+                </c.Fields>
                 <c.Fields>
-                  <c.Field type="date" label="type=date"/>
-                  <c.Field type="datetime" label="type=datetime"/>
-                  <c.Field type="datetime-local" label="type=datetime-local"/>
+                  <c.Field type="date"/>
+                  <c.Field type="datetime"/>
+                  <c.Field type="datetime-local"/>
                 </c.Fields>
 
+                <c.Spacer large/>
+                <c.Fields appearance="compact">
+                  <c.Field label="type=email"/>
+                  <c.Field label="type=file"/>
+                  <c.Field label="type=hidden"/>
+                </c.Fields>
                 <c.Fields>
-                  <c.Field type="email" label="type=email"/>
-                  <c.Field type="file" label="type=file"/>
-                  <c.Field type="hidden" label="type=hidden"/>
+                  <c.Field type="email"/>
+                  <c.Field type="file"/>
+                  <c.Field type="hidden"/>
                 </c.Fields>
 
+                <c.Spacer large/>
+                <c.Fields appearance="compact">
+                  <c.Field label="type=image"/>
+                  <c.Field label="type=month"/>
+                  <c.Field label="type=number"/>
+                </c.Fields>
                 <c.Fields>
-                  <c.Field type="image" label="type=image" error="SUI styling messes this up"/>
-                  <c.Field type="month" label="type=month"/>
-                  <c.Field type="number" min={0} max={10} label="type=number"/>
+                  <c.Field type="image" error="SUI styling messes this up"/>
+                  <c.Field type="month"/>
+                  <c.Field type="number" min={0} max={10}/>
                 </c.Fields>
 
+                <c.Spacer large/>
+                <c.Fields appearance="compact">
+                  <c.Field label="type=password"/>
+                  <c.Field label="type=radio"/>
+                  <c.Field label="type=range"/>
+                </c.Fields>
                 <c.Fields>
-                  <c.Field type="password" label="type=password"/>
-                  <c.Field type="radio" name="a" value="1" rightLabel="Option 1" label="type=radio"/>
-                  <c.Field type="range" min={0} max={10} label="type=range"/>
+                  <c.Field type="password"/>
+                  <c.Field type="radio" name="a" value="1" label="Radio label"/>
+                  <c.Field type="range" min={0} max={10}/>
                 </c.Fields>
 
+                <c.Spacer large/>
+                <c.Fields appearance="compact">
+                  <c.Field label="type=reset"/>
+                  <c.Field label="type=search"/>
+                  <c.Field label="type=submit"/>
+                </c.Fields>
                 <c.Fields>
-                  <c.Field type="reset" value="Reset" label="type=reset" error="SUI styling messes this up"/>
-                  <c.Field type="search" label="type=search"/>
-                  <c.Field type="submit" value="Save" label="type=submit" error="SUI styling messes this up"/>
+                  <c.Field type="reset" value="Reset" error="SUI styling messes this up"/>
+                  <c.Field type="search"/>
+                  <c.Field type="submit" value="Submit" error="SUI styling messes this up"/>
                 </c.Fields>
 
+                <c.Spacer large/>
+                <c.Fields appearance="compact">
+                  <c.Field label="type=tel"/>
+                  <c.Field label="type=time"/>
+                  <c.Field label="type=toggle"/>
+                </c.Fields>
                 <c.Fields>
-                  <c.Field type="tel" label="type=tel"/>
-                  <c.Field type="time" label="type=time"/>
-                  <c.Field type="url" label="type=url"/>
+                  <c.Field type="tel"/>
+                  <c.Field type="time"/>
+                  <c.Field type="toggle"/>
                 </c.Fields>
 
+                <c.Spacer large/>
+                <c.Fields appearance="compact">
+                  <c.Field label="type=url"/>
+                  <c.Field label="type=week"/>
+                  <c.Field label="type=textarea"/>
+                </c.Fields>
                 <c.Fields>
-                  <c.Field type="week" label="type=week"/>
-                  <c.Field type="textarea" label="type=textarea"/>
+                  <c.Field type="url"/>
+                  <c.Field type="week"/>
+                  <c.Field type="textarea"/>
                 </c.Fields>
 
               </c.Form>

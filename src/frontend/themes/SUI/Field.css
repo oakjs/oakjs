@@ -21,21 +21,3 @@
   opacity: 0.45;
   pointer-events: none;
 }
-
-/* read-only fields */
-.ui.form .read-only.fields * {
-  pointer-events: none;
-}
-
-/* error fields */
-.ui.form .error.fields > label {
-  color: #9f3a38;
-}
-
-
-/* compact field / fields */
-
-.ui.form .compact.fields > .field,
-.ui.form .compact.field {
-  margin-bottom: 0;
-}

@@ -21,7 +21,7 @@ function SUIMenuItem(props) {
  const {
     className,
     value, label = value, children,
-    appearance, color, icon,
+    appearance, color, icon, image,
     active, disabled, down,
     href, onClick,
     // including id, style
@@ -43,6 +43,7 @@ function SUIMenuItem(props) {
   });
 
   if (icon) elements.appendIcon(icon);
+  if (image) elements.appendIcon(image);
   if (label) elements.append(label);
   if (children) elements.append(children);
 
@@ -59,7 +60,8 @@ SUIMenuItem.propTypes = {
 
   appearance: PropTypes.string,
   color: PropTypes.string,
-  icon: PropTypes.string,
+  icon: PropTypes.any,
+  image: PropTypes.any,
 
   active: PropTypes.bool,
   disabled: PropTypes.bool,

@@ -112,7 +112,7 @@ export function getHeaderClass(size) {
 
 
 //////////////////////////////
-//  HEADER_SIZE
+//  ATTACHMENT
 //////////////////////////////
 
 export const ATTACHED_CLASSES = {
@@ -132,6 +132,16 @@ export function getOppositeAttachedClass(attached) {
   if (attached === "right") return ATTACHED_CLASSES.left;
 }
 
+
+//////////////////////////////
+//  POINTING
+//////////////////////////////
+
+export function getPointingClass(pointing) {
+  if (pointing === true) return "pointing";
+  if (typeof pointing === "string") return `${pointing} pointing`;
+  return undefined;
+}
 
 
 // Assign all constants to SUI

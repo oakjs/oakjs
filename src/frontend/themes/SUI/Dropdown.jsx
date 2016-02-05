@@ -1,5 +1,4 @@
 "use strict";
-
 //////////////////////////////
 //
 //  <Dropdown> component for use with SemanticUI
@@ -7,241 +6,259 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classnames";
+import { autobind } from "core-decorators";
 
-import SUIComponent from "./SUIComponent";
-import Icon from "./Icon";
+import { getPointingClass } from "./constants";
+
+import ElementBuffer from "./ElementBuffer";
+import SUIModuleComponent from "./SUIModuleComponent";
 import Menu from "./Menu";
-import Stub from "./Stub";
 
-export default class SUIDropdown extends SUIComponent {
-  static propTypes = {
-    // Children are OK
-//    children: PropTypes.arrayOf(PropTypes.element),
+import "./Dropdown.css";
 
-    //////////////////////////////
-    // appearance
-    //----------------------------
-    // Is this item currently visible?
-    visible: PropTypes.bool,
+const moduleProps = {
+  on: PropTypes.string,                   // default: "click"       Event used to trigger dropdown (Hover, Click, Custom Event).
+  allowAdditions: PropTypes.bool,         // default: false         Whether search selection should allow users to add their own selections, works for single or multiselect.
+  action: PropTypes.string,               // default: "auto"        "activate", "select", "combo", "nothing", "hide", function(text, value)
+  match: PropTypes.string,                // default: "both"        When using search selection specifies how to match values.  "both", "value", "text"
+  forceSelection: PropTypes.bool,         // default: true          Whether search selection will force currently selected choice when element is blurred.
+  allowCategorySelection: PropTypes.bool, // default: false         Whether menu items with sub-menus (categories) should be selectable
 
-    // Is this item currently enabled?
-    enabled: PropTypes.bool,
+  // multiple select settings
+  useLabels: PropTypes.bool,              // default: true          Whether multiselect should use labels. Must be set to true when allowAdditions is true
+  maxSelections: PropTypes.any,           // default: false         When set to a number, sets the maximum number of selections
+  glyphWidth: PropTypes.number,           // default: 1.0714        Maximum glyph width, used to calculate search size. This is usually size of a "W" in your font in em
+  label: PropTypes.any,                   // default: (object)      Allows customization of multi-select labels
 
-    // HTML element id
-    id: PropTypes.string,
-
-    // Arbitrary space-separated CSS class name(s)
-    className: PropTypes.string,
-
-    // Any space-delimited combination of:
-    //    - `fluid`, `compact`, `large`, `small`
-    appearance: PropTypes.string,
-
-    // Show dropdown icon to the right?
-    showArrow: PropTypes.bool,
-
-
-    //////////////////////////////
-    // button characteristics
-    //----------------------------
-    // Fixed title (doesn't work if we `selectable`?)
-    title: PropTypes.string,
-
-    // Placeholder text
-    placeholder: PropTypes.string,
-
-    // Icon for the dropdown itself.
-    // See: http://semantic-ui.com/elements/icon.html
-    icon: PropTypes.string,
+  // "other" settings
+  direction: PropTypes.string,            // default: "auto"        When set to auto determines direction based on whether dropdown can fit on screen. Set to upward or downward to always force a direction
+  keepOnScreen: PropTypes.bool,           // default: true          Whether dropdown should try to keep itself on screen by checking whether menus display position in its context (Default context is page).
+  context: PropTypes.any,                 // default: window        Element context to use when checking whether can show when keepOnScreen: true
+  fullTextSearch: PropTypes.bool,         // default: false         Whether search selections should look for string match anywhere in string
+  preserveHTML: PropTypes.bool,           // default: true          Whether HTML included in dropdown values should be preserved. (Allows icons to show up in selected value)
+  sortSelect: PropTypes.bool,             // default: false         Whether to sort values when creating a dropdown automatically from a select element.
+  showOnFocus: PropTypes.bool,            // default: true          Whether to show dropdown menu automatically on element focus
+  allowTab: PropTypes.bool,               // default: true          Whether to allow the element to be navigable by keyboard, by automatically creating a tabindex
+  transition: PropTypes.string,           // default: "auto"        Named transition to use when animating menu in and out. Defaults to slide down or slide up depending on dropdown direction
+  duration: PropTypes.number,             // default: 200           Duration of animation events
+  keys: PropTypes.object,                 // default: (object)      The keycode used to represent keyboard shortcuts.
+  delay: PropTypes.object,                // default: (object)      ime in milliseconds to debounce show or hide behavior when on: hover is used, or when touch is used.
 
 
-    //////////////////////////////
-    // header characteristics
-    //----------------------------
-    // header text
-    header: PropTypes.string,
+  // events
+  onChange: PropTypes.func,               // Args: value, text, $choice   Is called after a dropdown value changes.
+  onAdd: PropTypes.func,                  // Args: value, text, $choice   Is called after a dropdown selection is added using a multiple select dropdown, only receives the added value
+  onRemove: PropTypes.func,               // Args: value, text, $choice   Is called after a dropdown selection is removed using a multiple select dropdown, only receives the removed value
+  onLabelCreate: PropTypes.func,          // Args: $label                 Allows you to modify a label before it is added. Expects $label to be returned.
+  onLabelRemove: PropTypes.func,          // Args: $label                 Called when a label is remove, return false; will prevent the label from being removed.
+  onLabelSelect: PropTypes.func,          // Args: $selectedLabels        Is called after a label is selected by a user
+  onNoResults: PropTypes.func,            // Args: searchValue	          Is called after a dropdown is searched with no matching values
+  onShow: PropTypes.func,                 // Args:                        Is called before a dropdown is shown. If false is returned, dropdown will not be shown.
+  onHide: PropTypes.func,                 // Args:                        Is called before a dropdown is hidden. If false is returned, dropdown will not be hidden.
 
-    // header icon
-    headerIcon: PropTypes.string,
+  // Remote settings, not currently tested
+  apiSettings: PropTypes.any,
+  fields: PropTypes.object,
+  saveRemoteData: PropTypes.bool,
 
-
-    //////////////////////////////
-    // selection
-    //----------------------------
-    // If `true`, we show selection in the button
-    selectable: PropTypes.bool,
-
-    // If `true`, the item is multi-selectable.
-    // NOTE: automatically turns `selectable` on if set.
-    multiSelect: PropTypes.bool,
+}
 
 
-    //////////////////////////////
-    // form integration
-    //----------------------------
-    // If set, we'll include a <input@hidden[name]> for a form.
-    name: PropTypes.string,
-
-
-    //////////////////////////////
-    // searchability
-    //----------------------------
-    // If set, they can type to search in the field.
-    searchable: PropTypes.bool,
-
-
-    //////////////////////////////
-    // programmatic menu items
-    //----------------------------
-    // Map of names of MenuItems to display.
-    // Alternative to having nested `<Menu/>`.
-    // Can be:  - delimited string (see `propTypes.itemDelimiter`)
-    //          - array of string or { value, label } maps
-    //          - map of { value: label }
-    items: React.PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string),
-      PropTypes.object
-    ]),
-
-    // Delimiter for a list of string items.
-    itemDelimiter: PropTypes.string,
-
-
-    //////////////////////////////
-    // event handlers
-    //----------------------------
-
-    // Bound handler to fire when a menu item is selected.
-    onChange: PropTypes.func,
-
-    // Bound handler to fire when a value is added to a multi-select dropdown.
-    onAdded: PropTypes.func,
-
-    // Bound handler to fire when a value is removed from a multi-select dropdown.
-    onRemoved: PropTypes.func,
-  };
-
-
+class SUIDropdown extends SUIModuleComponent {
   static defaultProps = {
-    visible: true,
-    enabled: true,
-    showArrow: false,
-    selectable: false,
-    multiSelect: false,
-    searchable: false,
-    itemDelimiter: ",",
+    showArrow: true
+  }
+
+  static propTypes = {
+    id: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    value: PropTypes.any,
+    text: PropTypes.string,
+    placeholder: PropTypes.string,
+    icon: PropTypes.any,
+    children: PropTypes.any,
+
+    selection: PropTypes.bool,
+    multiple: PropTypes.bool,
+    search: PropTypes.bool,
+
+    type: PropTypes.string,             // "button", "link", "combo"
+    appearance: PropTypes.string,       //
+    showArrow: PropTypes.bool,
+    pointing: PropTypes.string,
+    inline: PropTypes.bool,
+
+    disabled: PropTypes.bool,
+    hidden: PropTypes.bool,
+    readonly: PropTypes.bool,
+    loading: PropTypes.bool,
+    error: PropTypes.any,
+
+    // proxied down to menu
+    menuClassName: PropTypes.string,
+    menuAppearance: PropTypes.string,
+
+    ...moduleProps
   };
 
+  //////////////////////////////
+  // Component lifecycle
+  //////////////////////////////
 
-  //////////////////////////////
-  //  Lifecycle
-  //////////////////////////////
+  constructor() {
+    super(...arguments);
+
+    // tuck value away in state
+    if (!this.state) this.state = {};
+    const { value } = this.props;
+    if (value !== undefined) this.state.value = value;
+  }
 
   componentDidMount() {
-    this.$ref().dropdown({
-      onChange: this.onChange
-    });
+    super.componentDidMount();
   }
 
-  //////////////////////////////
-  //  Event handlers
-  //////////////////////////////
-
-  // Dropdown value changed.
-  onChange(value, textDelta/* , $textDelta */) {
-    const { onChange } = this.props;
-    if (onChange) onChange(value, textDelta);
-  }
-
-  // Item added to multiple select.
-  onAdded(value, textDelta/* , $textDelta*/) {
-    const { onAdded } = this.props;
-    if (onAdded) onAdded(value, textDelta);
-  }
-
-  // Item added to multiple select.
-  onRemove(value, textDelta/* , $textDelta*/) {
-    const { onRemoved } = this.props;
-    if (onRemoved) onRemoved(value, textDelta);
-  }
-
-  //////////////////////////////
-  //  Rendering
-  //////////////////////////////
-
-
-  // Render className for our item element.
-  renderClass() {
-    const { enabled, multiSelect, selectable, searchable, className, appearance } = this.props;
-    return classNames(
-      "ui",
-      {
-        disabled: !enabled,
-        multiple: multiSelect,
-        selection: selectable || multiSelect,
-        search: searchable,
-        className
-      },
-      appearance,
-      "dropdown"
-    );
-  }
-
-  renderHiddenField() {
-    const { name } = this.props;
-    if (name) return <input type="hidden" name={name}/>;
-  }
-
-  renderIcon() {
-    const { icon } = this.props;
-    if (icon) return <Icon icon={icon}/>;
-  }
-
-  renderArrow() {
-    const { showArrow } = this.props;
-    if (showArrow) return <i className="dropdown icon"/>;
-  }
-
-  renderTextDisplay() {
-    const { title, placeholder, selectable } = this.props;
-    if (!title && !placeholder && !selectable) return undefined;
-
-    let className = "text";
-    let displayText = title;
-    if (!title && placeholder) {
-      className = "default text";
-      displayText = placeholder;
+  componentWillUpdate(nextProps) {
+    if (this.state.value !== nextProps.value) {
+      this.setState( { value: nextProps.value });
     }
-    return <div className={className}>{displayText}</div>;
   }
 
-  renderItemsAndHeader() {
-    const { items, itemDelimiter, header, headerIcon } = this.props;
-    if (!items && !header) return undefined;
-    const props = { items, itemDelimiter, header, headerIcon };
-    return <Menu {...props}/>;
+  componentDidUpdate(prevProps) {
+    super.componentDidUpdate(...arguments);
   }
+
+
+  //////////////////////////////
+  // Syntactic sugar
+  //////////////////////////////
+
+
+  //////////////////////////////
+  // SUI Dropdown Module Properties
+  //////////////////////////////
+
+  static moduleProps = moduleProps;
+
+  tellModule(...args) {
+    this.$ref().dropdown(...args);
+  }
+
+  setModuleProps(props) {
+    super.setModuleProps(props);
+
+    const { value } = this.state;
+    if (value !== undefined) {
+      this.setSelected(value);
+    }
+  }
+
+  //////////////////////////////
+  // SUI Dropdown Module Behaviors
+  //////////////////////////////
+
+  setupMenu() { return this.tellModule("setup menu") }
+  refresh() { return this.tellModule("refresh") }
+  toggle() { return this.tellModule("toggle") }
+  show() { return this.tellModule("show") }
+  hide() { return this.tellModule("hide") }
+  clear() { return this.tellModule("hide") }
+  hideOthers() { return this.tellModule("hide others") }
+
+  setSelected(value) { return this.tellModule("set selected", value) }
+  removeSelected(value) { return this.tellModule("remove selected", value) }
+  setExactly(value) { return this.tellModule("set exactly", value) }
+  setText(value) { return this.tellModule("set text", value) }
+  setValue(value) { return this.tellModule("set value", value) }
+
+  getText() { return this.tellModule("get text") }
+  getValue() { return this.tellModule("get value") }
+  getItem(value) { return this.tellModule("get item", value) }
+
+  restoreDefaults() { return this.tellModule("restore defaults") }
+  restoreDefaultText() { return this.tellModule("restore default text") }
+  restoreDefaultValue() { return this.tellModule("restore default value") }
+  saveDefaults() { return this.tellModule("save defaults") }
+
+
+  bindTouchEvents() { return this.tellModule("bind touch events") }
+  bindMouseEvents() { return this.tellModule("bind mouse events") }
+  bindIntent() { return this.tellModule("bind intent") }
+  unbindIntent() { return this.tellModule("unbind intent") }
+  determineIntent() { return this.tellModule("determine intent") }
+  determineSelectAction(text, value) { return this.tellModule("determine select action", text, value) }
+
+  setActive() { return this.tellModule("set active") }
+  setVisible() { return this.tellModule("set visible") }
+  removeActive() { return this.tellModule("remove active") }
+  removeVisible() { return this.tellModule("remove visible") }
+
+  isSelection() { return this.tellModule("is selection") }
+  isAnimated() { return this.tellModule("is animated") }
+  isVisible() { return this.tellModule("is visible") }
+  isHidden() { return this.tellModule("is hidden") }
+
+  getDefaultText() { return this.tellModule("get default text") }
+  getPlaceholderText() { return this.tellModule("get placeholder text") }
+
+  //////////////////////////////
+  // Our additions to SUI Module Behaviors
+  //////////////////////////////
+
+  //////////////////////////////
+  // Rendering
+  //////////////////////////////
 
   render() {
-    const { visible } = this.props;
-    if (!visible) return <Stub/>;
+    const {
+      id, className, style,
+      type, selection, multiple, search,
+      text, placeholder, icon, children,
+      items, menuClassName, menuAppearance,
+      appearance, showArrow, pointing, inline,
+      hidden, disabled, readonly, error, loading
+    } = this.props;
 
-    const { id } = this.props;
-    const props = {
-      id,
-      className: this.renderClass()
-    };
-    return (
-      <div {...props}>
-        {this.renderHiddenField()}
-        {this.renderIcon()}
-        {this.renderArrow()}
-        {this.renderTextDisplay()}
-        {this.renderItemsAndHeader()}
-        {this.props.children}
-      </div>
-    );
+    const { value } = this.state;
+
+    const elements = new ElementBuffer({
+      props : {
+        id,
+        style,
+        className: [className, "ui", appearance, getPointingClass(pointing),
+                    { inline, selection, multiple, search, hidden, disabled,
+                      "read-only": readonly, error, loading },
+                    "dropdown", type
+                   ]
+      }
+    });
+
+    if (icon) elements.appendIcon(icon);
+    if (text != null) elements.appendWrapped("div", "text", text);
+    if (showArrow) elements.appendIcon("dropdown");
+    if (placeholder) elements.appendWrapped("div", "default text", placeholder);
+
+    if (items) {
+      // pass all unknown properties on to Menu
+      const menuProps = {
+        ...this.getUnknownProps(),   // includes "items"
+        className: menuClassName,
+        appearance: menuAppearance,
+      }
+      const menuElement = React.createElement(Menu, menuProps);
+      elements.append(menuElement);
+    }
+    if (children) elements.append(children);
+
+    return elements.render();
   }
 }
+
+// Install us to be created whenever a "Field" specifies `type=checkbox`
+import { registerFieldType } from "./Field";
+registerFieldType("checkbox", SUIDropdown);
+
+
+export default SUIDropdown;

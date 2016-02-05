@@ -32,6 +32,7 @@ export Buttons from "./Buttons";
 export Breadcrumb from "./Breadcrumb";
 export Card from "./Card";
 export Cards from "./Cards";
+export Checkbox from "./Checkbox";
 export Column from "./Column";
 export Comment from "./Comment";
 export Comments from "./Comments";
@@ -69,6 +70,8 @@ export Meta from "./Meta";
 export Popup from "./Popup";
 export Pusher from "./Pusher";
 export Progress from "./Progress";
+export RadioButton from "./RadioButton";
+export RadioGroup from "./RadioGroup";
 export Rail from "./Rail";
 export Rating from "./Rating";
 export Row from "./Row";
@@ -90,6 +93,7 @@ export Tabbar from "./Tabbar";
 export Table from "./Table";
 export Tabs from "./Tabs";
 export Title from "./Title";
+export Toggle from "./Toggle";
 
 // get all of the components
 const components = Object.keys(exports);

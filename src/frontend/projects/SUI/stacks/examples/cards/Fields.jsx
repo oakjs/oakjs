@@ -45,6 +45,50 @@ export default class FieldsCard extends Card {
 
           </c.PageSection>
 
+          <c.PageSection title="States">
+
+            <c.Example title="Hidden" hint="<Fields hidden/>">
+              <c.Form>
+                <c.Fields hidden label="Enter your name:">
+                  <c.Field type="text" label="First Name"/>
+                  <c.Field type="text" label="Middle Name"/>
+                  <c.Field type="text" label="Last Name"/>
+                </c.Fields>
+              </c.Form>
+            </c.Example>
+
+            <c.Example title="Disabled" hint="<Fields disabled/>">
+              <c.Form>
+                <c.Fields disabled label="Enter your name:">
+                  <c.Field type="text" label="First Name"/>
+                  <c.Field type="text" label="Middle Name"/>
+                  <c.Field type="text" label="Last Name"/>
+                </c.Fields>
+              </c.Form>
+            </c.Example>
+
+            <c.Example title="Read-only" hint="<Fields readony/>">
+              <c.Form>
+                <c.Fields readonly label="Enter your name:">
+                  <c.Field type="text" label="First Name"/>
+                  <c.Field type="text" label="Middle Name"/>
+                  <c.Field type="text" label="Last Name"/>
+                </c.Fields>
+              </c.Form>
+            </c.Example>
+
+            <c.Example title="Error" hint="<Fields error/>">
+              <c.Form>
+                <c.Fields error label="Enter your name:">
+                  <c.Field type="text" label="First Name"/>
+                  <c.Field type="text" label="Middle Name"/>
+                  <c.Field type="text" label="Last Name"/>
+                </c.Fields>
+              </c.Form>
+            </c.Example>
+          </c.PageSection>
+
+
           <c.PageSection title="Appearance">
 
             <c.Example title="Evenly Divided" hint="<Fields count={3}/>">

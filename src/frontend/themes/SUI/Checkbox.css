@@ -1,0 +1,33 @@
+/* Extension to SUI styles */
+
+.ui.hidden.checkbox {
+  display: none;
+}
+
+.ui.error.checkbox,
+.ui.error.checkbox label,
+.ui.error.checked.checkbox input:checked ~ label
+{
+  color: #9f3a38 !important;
+}
+
+.ui.error.checkbox:not(.toggle) label:before,
+.ui.error.checkbox:not(.slider) label:before {
+  background-color: #fff6f6  !important;
+  border-color:#e0b4b4  !important;
+}
+
+
+.ui.error.toggle.checkbox label:after,
+.ui.error.slider.checkbox label:after {
+  background: #fff6f6 linear-gradient(transparent, rgba(0, 0, 0, 0.05)) !important;
+}
+
+.ui.error.toggle.checked.checkbox label:before,
+.ui.error.slider.checked.checkbox label:before,
+.ui.error.slider.checkbox input:checked ~ label:before,
+.ui.error.toggle.checkbox input:checked ~ label:before
+{
+  background-color: #9f3a38 !important;
+}
+

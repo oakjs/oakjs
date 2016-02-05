@@ -23,11 +23,16 @@ import "./Input.css";
 //  Rendering helpers you can call statically
 //////////////////////////////
 
+export function renderError(elements, error) {
+  if (error && typeof error !== "boolean") {
+    elements.append(<Popup appearance="red">{error}</Popup>);
+    return true;
+  }
+}
 
 export default class SUIInput extends SUIComponent {
   static defaultProps = {
     type: "text",
-    showError: true,
     iconOn: "right",
     childrenOn: "right",
     labelWraps: "auto"
@@ -49,7 +54,6 @@ export default class SUIInput extends SUIComponent {
       PropTypes.bool,                     // `true` = above
       PropTypes.string,                   // `left`, `right`, `above`, `below`, `up`, `down`
     ]),
-    showError: PropTypes.bool,
 
     // appearance
     appearance: PropTypes.string,       // transparent, inverted, fluid
@@ -93,7 +97,7 @@ export default class SUIInput extends SUIComponent {
   // This will account for, eg, a form changing the object that it's looking at.
   componentWillUpdate(nextProps) {
     if (this.props.value !== nextProps.value) {
-      this.setState(newValue);
+      this.setState({ value: this.props.value });
     }
   }
 
@@ -170,10 +174,7 @@ export default class SUIInput extends SUIComponent {
 
   renderError(elements) {
     const { error } = this.props;
-    if (error && typeof error !== "boolean") {
-      elements.append(<Popup appearance="red">{error}</Popup>);
-      return true;
-    }
+    return renderError(elements, error);
   }
 
   render() {
@@ -182,7 +183,7 @@ export default class SUIInput extends SUIComponent {
       appearance, size, icon, iconOn,
       type, placeholder,
       children, childrenOn,
-      hidden, readonly, disabled, focused, loading, error, showError,
+      hidden, readonly, disabled, focused, loading, error,
     } = this.props;
     const { value } = this.state;
 
