@@ -55,6 +55,7 @@ export default class SUIModuleComponent extends SUIComponent {
   // NOTE: you may modify `moduleProps` passed in to this function with impunity (they're a copy).
   setModuleProps(moduleProps) {
     this.tellModule(moduleProps);
+    return this;
   }
 
   // Send parameters or instructions to the  module.

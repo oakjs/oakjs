@@ -12,7 +12,7 @@ import { autobind } from "core-decorators";
 import Button from "./Button";
 import ElementBuffer from "./ElementBuffer";
 import Header from "./Header";
-import SUIModuleComponent from "./SUIModuleComponent";
+import SUIComponent from "./SUIComponent";
 import Stub from "./Stub";
 
 import { isElement, hasClass } from "./SUI";
@@ -31,6 +31,7 @@ const moduleProps = {
   duration: PropTypes.number,             // default: 400         Duration of animation
   queue: PropTypes.bool,                  // default: false       Whether additional animations should queue
 
+  // dimmer settings
   inverted: PropTypes.bool,               // default: false       Invert the dimmer?
   blurring: PropTypes.bool,               // default: false       Blur the dimmer?
 
@@ -46,7 +47,9 @@ const moduleProps = {
 }
 
 
-class SUIModal extends SUIModuleComponent {
+// NOTE: We do NOT extend from SUIComponent because
+//       we only initialize the modal when showing.
+class SUIModal extends SUIComponent {
   static propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
@@ -59,7 +62,12 @@ class SUIModal extends SUIModuleComponent {
 
     appearance: PropTypes.string,       //  "basic"
     size: PropTypes.string,
-    fullscreen: PropTypes.bool,
+
+    // pull inverted and blurring out of moduleProps
+    //  - we have to set them manually right before showing
+    inverted: PropTypes.bool,               // default: false       Invert the dimmer?
+    blurring: PropTypes.bool,               // default: false       Blur the dimmer?
+
 
     ...moduleProps
   };
@@ -82,28 +90,18 @@ class SUIModal extends SUIModuleComponent {
 
     // create a $modalContainer inside that specifically for our modal
     // otherwise react will replace one overlay with another
-    this.$modalContainer = $("<div/>");
+    this.$modalContainer = $("<div class='modalContainer'/>");
     $SUIModalsContainer.append(this.$modalContainer);
-
-    // now render the modal inside our $modalContainer
-    this.renderModal();
-
-    // and THEN do the standard mount stuff
-    super.componentDidMount();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.renderModal(nextProps);
-  }
-
-  componentWillUpdate(nextProps) {}
-
-  componentDidUpdate(prevProps) {
-    super.componentDidUpdate(...arguments);
+  componentDidUpdate() {
+    if (this.isActive()) this.renderModal();
   }
 
   componentWillUnmount() {
+    // TODO: is there anything else to do to tear down the modal?
     if (this.$modal) this.$modal.remove();
+    if (this.$modalContainer) this.$modalContainer.remove();
   }
 
 
@@ -118,32 +116,46 @@ class SUIModal extends SUIModuleComponent {
 
   static moduleProps = moduleProps;
 
-  tellModule(...args) {
-    this.$modal.modal(...args);
+  // Given an object of props, return a map with non-undefined props
+  //  which we pass to the `.tellModule()` method to initialize / update the module.
+  getModuleProps(props = this.props) {
+    return knownProperties(props, this.constructor.moduleProps);
   }
 
-  setModuleProps(props) {
-    super.setModuleProps(props);
+  setModuleProps(props = this.getModuleProps()) {
+    // force detachable off or our rendering will mess up
+    props.detachable = false;
+    this.tellModule(props);
+    return this;
+  }
+
+  tellModule(...args) {
+    // draw the modal first if it hasn't been done already
+    if (!this.$modal) {
+      this.renderModal();
+      this.setModuleProps();
+    }
+    return this.$modal.modal(...args);
   }
 
   //////////////////////////////
   // SUI Modal Module Behaviors
   //////////////////////////////
 
-  toggle() { return this.tellModule("toggle") }
-  show() { return this.tellModule("show") }
-  hide() { return this.tellModule("hide") }
-  hideAll() { return this.tellModule("hide all") }
-  hideOthers() { return this.tellModule("hide others") }
+  show() { this.tellModule("show"); return this;}
+  toggle() { this.tellModule("toggle"); return this; }
+  hide() { this.tellModule("hide"); return this; }
+  hideAll() { this.tellModule("hide all"); return this; }
+  hideOthers() { this.tellModule("hide others"); return this; }
 
   isActive() { return this.tellModule("is active") }
   setActive() { return this.tellModule("set active") }
 
-  showDimmer() { return this.tellModule("show dimmer") }
-  hideDimmer() { return this.tellModule("hide dimmer") }
+  showDimmer() { this.tellModule("show dimmer"); return this; }
+  hideDimmer() { this.tellModule("hide dimmer"); return this; }
 
-  refresh() { return this.tellModule("refresh") }
-  cacheSizes() { return this.tellModule("cache sizes") }
+  refresh() { this.tellModule("refresh"); return this; }
+  cacheSizes() { this.tellModule("cache sizes"); return this; }
   canFit() { return this.tellModule("can fit") }
 
   //////////////////////////////
@@ -198,10 +210,12 @@ class SUIModal extends SUIModuleComponent {
     cancel: "cancel"
   }
 
-  renderStringAction(title) {
-    // special case class
-    const className = this.constructor.ACTION_NAME_TO_CLASS_MAP[title.toLowerCase()];
-    return <Button title={title} className={className}/>;
+  renderStringAction(title, className) {
+    const buttonProps = {
+      title,
+      className: className || this.constructor.ACTION_NAME_TO_CLASS_MAP[title.toLowerCase()],
+    }
+    return <Button {...buttonProps}/>;
   }
 
   // Render the actual contents of the modal
@@ -210,14 +224,14 @@ class SUIModal extends SUIModuleComponent {
     const {
       id, className, style,
       header, content, actions, children,
-      appearance, size, fullscreen
+      appearance, size,
     } = props;
 
     const elements = new ElementBuffer({
       props : {
         id,
         style,
-        className: [className, "ui", appearance, size, { fullscreen }, "modal"]
+        className: [className, "ui", appearance, size, "modal"]
       }
     });
 
