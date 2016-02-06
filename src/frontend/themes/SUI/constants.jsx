@@ -137,10 +137,43 @@ export function getOppositeAttachedClass(attached) {
 //  POINTING
 //////////////////////////////
 
+export const POINTING_CLASSES = {
+  [true]: "pointing",
+  above: "pointing",
+  below: "pointing below",
+  right: "right pointing",
+  left: "left pointing",
+  up: "pointing",
+  down: "pointing below"
+}
+
 export function getPointingClass(pointing) {
-  if (pointing === true) return "pointing";
-  if (typeof pointing === "string") return `${pointing} pointing`;
+  return POINTING_CLASSES[pointing]
+}
+
+//////////////////////////////
+//  Spaced (Images)
+//////////////////////////////
+
+export function getSpacedClass(spaced) {
+  if (spaced === true) return "spaced";
+  if (typeof spaced === "string") return `${spaced} spaced`;
   return undefined;
+}
+
+
+//////////////////////////////
+//  Special action button names mapped to action classes (Modal)
+//////////////////////////////
+
+export const ACTION_CLASSES = {
+  ok: "approve",
+  save: "approve",
+  cancel: "cancel"
+}
+
+export function getActionClass(actionTitle) {
+  if (typeof actionTitle === "string") return ACTION_CLASSES[actionTitle.toLowerCase()];
 }
 
 

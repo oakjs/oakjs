@@ -1,0 +1,9 @@
+/* Extension to SUI styles */
+
+.ui.items > .item.clickable {
+  cursor: pointer;
+}
+
+.ui.items > a.item {
+  display: block;
+}

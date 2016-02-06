@@ -8,29 +8,25 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 import { addElements } from "./SUI";
-import { FLOAT_CLASS_MAP, VALIGN_CLASS_MAP, SPACED_CLASS_MAP } from "./Image";
+import { getFloatedClass, getAlignClass, getSpacedClass } from "./constants";
 
 function SUIImages(props, context) {
   const {
     // content
     children,
     // appearance
-    className, appearance, size, floated, valign, spaced,
+    className, appearance, size, floated, align, spaced,
     // state & events
     hidden, disabled,
     // everything else including id and style
     ...ImagesProps
   } = props;
 
-  // class name
-  const classProps = {
-    hidden,
-    disabled,
-  }
-  if (floated) classProps[FLOAT_CLASS_MAP[floated]] = true;
-  if (spaced) classProps[SPACED_CLASS_MAP[spaced]] = true;
-  if (valign) classProps[VALIGN_CLASS_MAP[valign]] = true;
-  ImagesProps.className = classNames("ui", appearance, size, classProps, "images");
+  ImagesProps.className = classNames(
+    "ui", appearance, size,
+    getFloatedClass(floated), getSpacedClass(spaced), getAlignClass(align),
+    { hidden, disabled },
+    "images");
 
   return <span {...ImagesProps}>{children}</span>;
 }
@@ -43,7 +39,7 @@ SUIImages.propTypes = {
   appearance: PropTypes.string,
   size: PropTypes.string,   // `mini`, `tiny`, `small`, `medium`, `large`, `big`, `huge`, `massive`
   floated: PropTypes.string,
-  valign: PropTypes.string,
+  align: PropTypes.string,
   spaced: React.PropTypes.oneOfType([
     PropTypes.bool,                     // `true` = space
     PropTypes.string,                   // `left`, `right`,

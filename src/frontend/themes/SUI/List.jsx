@@ -7,14 +7,11 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-export const FLOAT_CLASS_MAP = {
-  left: "left floated",
-  right: "right floated",
-}
+import { getFloatedClass } from "./constants";
 
 function SUIList(props) {
   const {
-    // allow for different tag names to be used (default is "List")
+    // allow for different tag names to be used (default is "div")
     tagName,
     // content
     children,
@@ -26,14 +23,13 @@ function SUIList(props) {
     ...ListProps
   } = props;
 
-  // class name bits
-  const classProps = {
-    hidden,
-    disabled,
-  }
-  if (floated) classProps[FLOAT_CLASS_MAP[floated]] = true;
+  ListProps.className = classNames(
+      className, "ui", appearance, size,
+      getFloatedClass(floated),
+      { hidden, disabled },
+      "list"
+    );
 
-  ListProps.className = classNames(className, "ui", appearance, size, classProps, "list");
   return React.createElement(tagName, ListProps, children);
 }
 

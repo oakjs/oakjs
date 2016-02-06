@@ -138,12 +138,12 @@ export default class ImageCard extends Card {
             </c.Example>
 
 
-            <c.Example title="Vertical Alignment" hint="<Image valign='middle'/>" columns={8}>
-              <c.Image spaced="right" valign='top' size="small" src={data.image}/><span>Text</span>
+            <c.Example title="Vertical Alignment" hint="<Image align='middle'/>" columns={8}>
+              <c.Image spaced="right" align='top' size="small" src={data.image}/><span>Text</span>
               <c.Divider/>
-              <c.Image spaced="right" valign='middle' size="small" src={data.image}/>Text
+              <c.Image spaced="right" align='middle' size="small" src={data.image}/>Text
               <c.Divider/>
-              <c.Image spaced="right" valign='bottom' size="small" src={data.image}/>Text
+              <c.Image spaced="right" align='bottom' size="small" src={data.image}/>Text
             </c.Example>
 
           </c.PageSection>

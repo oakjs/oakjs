@@ -57,6 +57,8 @@ export Icon from "./Icon";
 export Image from "./Image";
 export Images from "./Images";
 export Input from "./Input";
+export Item from "./Item";
+export Items from "./Items";
 export Label from "./Label";
 export Labels from "./Labels";
 export List from "./List";

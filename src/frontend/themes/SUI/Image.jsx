@@ -7,47 +7,26 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
+import { getFloatedClass, getAlignClass, getSpacedClass } from "./constants";
 import "./Image.css";
-
-export const FLOAT_CLASS_MAP = {
-  left: "left floated",
-  right: "right floated",
-  [true]: "floated"
-}
-
-export const VALIGN_CLASS_MAP = {
-  top: "top aligned",
-  middle: "middle aligned",
-  bottom: "bottom aligned",
-}
-
-export const SPACED_CLASS_MAP = {
-  left: "left spaced",
-  right: "right spaced",
-  [true]: "spaced"
-}
 
 function SUIImage(props) {
   const {
     // content
     src, children,
     // appearance
-    className, appearance, inline, size, floated, valign, spaced,
+    className, appearance, inline, size, floated, align, spaced,
     // state & events
     hidden, disabled,
     // everything else including id and style
     ...imageProps
   } = props;
 
-  const classProps = {
-    inline,
-    hidden,
-    disabled,
-  }
-  if (floated) classProps[FLOAT_CLASS_MAP[floated]] = true;
-  if (spaced) classProps[SPACED_CLASS_MAP[spaced]] = true;
-  if (valign) classProps[VALIGN_CLASS_MAP[valign]] = true;
-  imageProps.className = classNames("ui", appearance, size, classProps, "image");
+  imageProps.className = classNames(
+          className, "ui", appearance, size,
+          getFloatedClass(floated), getSpacedClass(spaced), getAlignClass(align),
+          { inline, hidden, disabled },
+          "image");
 
   if (children) {
     const imageElement = <img src={src}/>;
@@ -70,7 +49,7 @@ SUIImage.propTypes = {
   inline: PropTypes.bool,               // `true` == inline block
   size: PropTypes.string,               // `mini`, `tiny`, `small`, `medium`, `large`, `big`, `huge`, `massive`
   floated: PropTypes.string,
-  valign: PropTypes.string,
+  align: PropTypes.string,
   spaced: React.PropTypes.oneOfType([
     PropTypes.bool,                     // `true` = space
     PropTypes.string,                   // `left`, `right`,

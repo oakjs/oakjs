@@ -16,6 +16,7 @@ import SUIComponent from "./SUIComponent";
 import Stub from "./Stub";
 
 import { isElement, hasClass } from "./SUI";
+import { getActionClass } from "./constants";
 
 const moduleProps = {
 // We NEED detachable to be false for this scheme to work
@@ -204,16 +205,11 @@ class SUIModal extends SUIComponent {
     return <Button {...action}/>
   }
 
-  static ACTION_NAME_TO_CLASS_MAP = {
-    ok: "approve",
-    save: "approve",
-    cancel: "cancel"
-  }
 
   renderStringAction(title, className) {
     const buttonProps = {
       title,
-      className: className || this.constructor.ACTION_NAME_TO_CLASS_MAP[title.toLowerCase()],
+      className: className || getActionClass(title),
     }
     return <Button {...buttonProps}/>;
   }

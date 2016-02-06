@@ -10,16 +10,11 @@ import classNames from "classnames";
 import SUIComponent from "./SUIComponent";
 import ElementBuffer from "./ElementBuffer";
 import Icon from "./Icon";
+
+import { getFloatedClass } from "./constants";
+
 import "./Label.css";
 
-export const POINTING_CLASS_MAP = {
-  above: "pointing",
-  below: "pointing below",
-  right: "right pointing",
-  left: "left pointing",
-  up: "pointing",
-  down: "pointing below"
-}
 
 const Label = class SUILabel extends SUIComponent {
   static defaultProps = {
@@ -89,7 +84,7 @@ const Label = class SUILabel extends SUIComponent {
     elements.append(content, children);
 
     if (pointing) {
-      elements.addClass(POINTING_CLASS_MAP[pointing] || POINTING_CLASS_MAP.above);
+      elements.addClass(getPointingClass(pointing) || getPointingClass("above"));
     }
 
     if (icon) {
