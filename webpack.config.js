@@ -34,7 +34,13 @@ var frontendConfig = {
 
   historyApiFallback: true,
 
+  // SOURCE MAP OPTIONS
+  // slow but you get line numbers in chrome
+  // devtool: "sourcemap",
+  // faster: gets you to the file / method
   devtool: 'eval-cheap-module-source-map',
+  // fastest: really imprecise, doesn't work with .jsx
+  //  devtool: 'eval',
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -64,7 +70,7 @@ var frontendConfig = {
       {
         test: /\.jsx?$/,
         include: path.join(__dirname, 'src', 'frontend'),
-        loaders: ['babel']
+        loaders: ['babel?cacheDirectory']
       },
       {
         test: /\.css$/, // Only .css files
