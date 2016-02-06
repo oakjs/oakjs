@@ -47,6 +47,7 @@ export RadioGroup from "./RadioGroup";
 export Rail from "./Rail";
 export Rating from "./Rating";
 export Reveal from "./Reveal";
+export Search from "./Search";
 export Segment from "./Segment";
 export Segments from "./Segments";
 export Shape from "./Shape";

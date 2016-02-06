@@ -136,7 +136,7 @@ class SUIProgress extends SUIModuleComponent {
       disabled, state,
     } = this.props;
 
-    // NOTE: we ignore children!!!
+    // NOTE: we don't support children!!!
     if (children) throw new TypeError("SUI.Progress.render():  child elements are not supported!");
 
     const elements = new ElementBuffer({

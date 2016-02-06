@@ -82,6 +82,7 @@ export Reveal from "./Reveal";
 export Shape from "./Shape";
 export Side from "./Side";
 export Sidebar from "./Sidebar";
+export Search from "./Search";
 export Segment from "./Segment";
 export Segments from "./Segments";
 export Statistic from "./Statistic";

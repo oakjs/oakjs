@@ -70,6 +70,7 @@ export default class SUIInput extends SUIComponent {
     type: PropTypes.string,         // text, password, hidden, etc
     value: PropTypes.any,
     placeholder: PropTypes.string,
+    inputAppearance: PropTypes.string,
 
     children: PropTypes.any,
     childrenOn: PropTypes.string,       // left, right
@@ -181,7 +182,7 @@ export default class SUIInput extends SUIComponent {
     const {
       id, className, style,
       appearance, size, icon, iconOn,
-      type, placeholder,
+      type, placeholder, inputAppearance,
       children, childrenOn,
       hidden, readonly, disabled, focused, loading, error,
     } = this.props;
@@ -200,6 +201,7 @@ export default class SUIInput extends SUIComponent {
       ...this.getUnknownProps(),
       placeholder,
       disabled,
+      className: inputAppearance,
       onChange: this.onChange,
       onFocus: this.onFocus,
       onBlur: this.onBlur,

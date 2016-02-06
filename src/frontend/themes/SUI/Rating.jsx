@@ -107,7 +107,7 @@ class SUIRating extends SUIModuleComponent {
       appearance, icon, size,
     } = this.props;
 
-    // NOTE: we ignore children!!!
+    // NOTE: we don't support children!!!
     if (children) throw new TypeError("SUI.Rating.render():  child elements are not supported!");
 
     const elements = new ElementBuffer({
