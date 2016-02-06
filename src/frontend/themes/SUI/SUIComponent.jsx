@@ -19,10 +19,6 @@ export default class SUIComponent extends React.Component {
     children: PropTypes.any,
   };
 
-  static defaultProps = {
-    visible: true
-  }
-
   // Return initial state given a set of props.
   // Called to set state initially on construction.
   static initialState(props) {

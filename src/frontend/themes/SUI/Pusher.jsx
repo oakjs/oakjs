@@ -9,10 +9,10 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 function SUIPusher(props) {
-  const { id, className, style, appearance, children } = props;
+  const { id, className, style, appearance, dimmed, children } = props;
   const pusherProps = {
     id,
-    className: classNames(className, appearance, "pusher"),
+    className: classNames(className, appearance, dimmed, "pusher"),
     style,
   }
   return <div {...pusherProps}>{children}</div>;
@@ -23,6 +23,7 @@ SUIPusher.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   appearance: PropTypes.string,
+  dimmed: PropTypes.string,
 };
 
 // add render() method so we get hot code reload.

@@ -40,15 +40,22 @@ const moduleProps = {
 
 
 class SUISidebar extends SUIModuleComponent {
+  static defaultProps = {
+    direction: "left"
+  }
+
   static propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
 
+    content: PropTypes.any,
+    children: PropTypes.any,
+
     visible: PropTypes.bool,
 
     appearance: PropTypes.string,       // e.g. "inverted vertical menu", "labeled icon menu"
-    side: PropTypes.string,             // "top", "left", "bottom", "right"
+    direction: PropTypes.string,             // "top", "left", "bottom", "right"
     width: PropTypes.string,            // "thin", "very thin", "wide", "very wide"
     ...moduleProps
   };
@@ -77,7 +84,7 @@ class SUISidebar extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    this.$ref().sidebar(...args);
+    return this.$ref().sidebar(...args);
   }
 
   setModuleProps(props) {
@@ -109,24 +116,31 @@ class SUISidebar extends SUIModuleComponent {
 
 
   //////////////////////////////
+  // Our additions to SUI Module Behaviors
+  //////////////////////////////
+
+  setTransition(transition) { this.tellModule("setting", "transition", transition); return this; }
+
+  //////////////////////////////
   // Rendering
   //////////////////////////////
 
   render() {
     const {
       id, className, style,
-      appearance, side, width,
-      children,
+      content, children,
+      appearance, direction, width,
     } = this.props;
 
     const elements = new ElementBuffer({
       props : {
         id,
         style,
-        className: [ className, "ui", side, width, appearance, "sidebar" ]
+        className: [ className, "ui", direction, width, appearance, "sidebar" ]
       }
     });
-    elements.append(children);
+    if (content) elements.append(content);
+    if (children) elements.append(children);
     return elements.render();
   }
 }

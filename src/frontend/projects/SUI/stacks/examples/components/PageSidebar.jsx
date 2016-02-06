@@ -3,7 +3,7 @@ import React, { PropTypes } from "react";
 function PageSidebar(props, context) {
   const c = context.components;
   return (
-    <c.Sidebar visible side="left" dimPage={false} appearance="inverted vertical sticky menu">
+    <c.Sidebar id="PageSidebar" visible direction="left" dimPage={false} appearance="inverted vertical sticky menu">
       <c.MenuHeader>Components</c.MenuHeader>
       <c.StackMenu appearance="inverted vertical"/>
     </c.Sidebar>

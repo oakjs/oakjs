@@ -38,7 +38,7 @@ export default class OakCard extends React.Component {
     super(...arguments);
 
     this.state = {};
-    this.data = this.getInitialData();
+    this.data = this.getInitialData(this.getChildContext());
   }
 
   // Return `data` for your card, which will be stored in `card.state.data`.
