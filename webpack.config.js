@@ -3,6 +3,8 @@
     * add a production flag that disables debug/sourcemaps and minifies
  */
 
+require('es6-promise').polyfill()
+
 var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -32,7 +34,7 @@ var frontendConfig = {
 
   historyApiFallback: true,
 
-  devtool: 'sourcemap',
+  devtool: 'eval-source-map',
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
