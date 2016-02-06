@@ -7,16 +7,30 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
+
 var frontendConfig = {
-  entry: [
-    'webpack-hot-middleware/client',
-    './src/frontend/index.js'
-  ],
+  entry: {
+    vendors: [
+      "webpack-hot-middleware/client",
+      "react",
+      "react-dom",
+      "react-router",
+      "react-transform-hmr",
+      "react-transform-catch-errors",
+      "redbox-react",
+      "classnames",
+      "core-decorators",
+    ],
+    oak: [ './src/frontend/index.js' ],
+  },
 
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.join(__dirname, 'build', 'public')
   },
+
+  historyApiFallback: true,
 
   devtool: 'sourcemap',
 
@@ -27,7 +41,8 @@ var frontendConfig = {
       filename: 'index.html',
       template: 'src/frontend/index.template.html',
       inject: true
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin('common.js'),
   ],
 
   resolve: {
