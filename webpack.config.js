@@ -34,7 +34,7 @@ var frontendConfig = {
 
   historyApiFallback: true,
 
-  devtool: 'eval-source-map',
+  devtool: 'eval-cheap-module-source-map',
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
