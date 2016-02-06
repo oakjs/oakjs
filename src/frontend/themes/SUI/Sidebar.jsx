@@ -41,7 +41,8 @@ const moduleProps = {
 
 class SUISidebar extends SUIModuleComponent {
   static defaultProps = {
-    direction: "left"
+    direction: "left",
+    visible: false
   }
 
   static propTypes = {

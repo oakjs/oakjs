@@ -15,6 +15,10 @@ import "./Message.css";
 
 
 const Message = class SUIMessage extends SUIComponent {
+  static defaultProps = {
+    visible: true
+  };
+
   static propTypes = {
     ...SUIComponent.propTypes,
     header: PropTypes.string,
@@ -26,6 +30,8 @@ const Message = class SUIMessage extends SUIComponent {
     color: PropTypes.string,        // "red", etc...
     size: PropTypes.string,
 
+    visible: PropTypes.bool,
+    disabled: PropTypes.bool,
     closable: PropTypes.bool,
     onClose: PropTypes.func
   };

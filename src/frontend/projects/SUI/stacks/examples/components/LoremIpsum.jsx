@@ -39,5 +39,7 @@ export function getLoremText(props) {
 }
 
 export default function LoremIpsum(props, context) {
-  return <div>{getLoremText(props)}</div>;
+  const { id, style, className } = props;
+
+  return <div id={id} style={style} className={className}>{getLoremText(props)}</div>;
 }

@@ -18,13 +18,95 @@ export default class RailCard extends Card {
         <c.Page>
           <c.PageTitle title="Rail">
             A rail is used to show accompanying content outside the boundaries of the main view of a site.
-
-            <c.Todo>Come up with some rail examples!</c.Todo>
           </c.PageTitle>
 
-          <c.PageSection title="Types">
+          <c.PageSection title="Appearance">
 
-            <c.Example title=""></c.Example>
+            <c.Example title="Left or Right" hint="<Rail left/>">
+              <c.Segment style={{marginLeft:350}}>
+                <c.Rail left>
+                  <c.Segment>
+                    Left rail content
+                  </c.Segment>
+                </c.Rail>
+                <c.LoremIpsum short/>
+              </c.Segment>
+
+              <c.Segment style={{marginRight:350}}>
+                <c.Rail right>
+                  <c.Segment>
+                    Right rail content
+                  </c.Segment>
+                </c.Rail>
+                <c.LoremIpsum short/>
+              </c.Segment>
+            </c.Example>
+
+            <c.Example title="Internal" hint="<Rail left internal/>">
+              <c.Segment>
+                <c.Rail left internal>
+                  <c.Segment>
+                    Left rail content
+                  </c.Segment>
+                </c.Rail>
+                <c.LoremIpsum style={{marginLeft:350}} short/>
+              </c.Segment>
+
+              <c.Segment>
+                <c.Rail right internal>
+                  <c.Segment>
+                    Right rail content
+                  </c.Segment>
+                </c.Rail>
+                <c.LoremIpsum style={{marginRight:350}} short/>
+              </c.Segment>
+            </c.Example>
+          </c.PageSection>
+
+          <c.PageSection title="Appearance">
+
+            <c.Example title="Dividing" hint="<Rail dividing/>">
+              <c.Segment style={{marginLeft:350}}>
+                <c.Rail dividing left>
+                  Left rail content
+                </c.Rail>
+                <c.LoremIpsum short/>
+              </c.Segment>
+            </c.Example>
+
+            <c.Example title="Close" hint="<Rail appearance='close'/> or <Rail appearance='very close'/>">
+              <c.Segment style={{marginLeft:350}}>
+                <c.Rail left appearance="close">
+                  <c.Segment>
+                    Left rail content
+                  </c.Segment>
+                </c.Rail>
+                <c.LoremIpsum short/>
+              </c.Segment>
+            </c.Example>
+
+            <c.Example title="Very Close" hint="<Rail appearance='very close'/>">
+              <c.Segment style={{marginLeft:350}}>
+                <c.Rail left appearance="very close">
+                  <c.Segment>
+                    Left rail content
+                  </c.Segment>
+                </c.Rail>
+                <c.LoremIpsum short/>
+              </c.Segment>
+            </c.Example>
+
+            <c.Example title="Attached" hint="<Rail appearance='attached'/>">
+              <c.Segment style={{marginLeft:350}}>
+                <c.Rail left appearance="attached">
+                  <c.Segment>
+                    Left rail content
+                  </c.Segment>
+                </c.Rail>
+                <c.LoremIpsum short/>
+              </c.Segment>
+            </c.Example>
+
 
           </c.PageSection>
 
@@ -33,3 +115,4 @@ export default class RailCard extends Card {
     );
   }
 }
+

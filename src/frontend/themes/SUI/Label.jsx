@@ -24,6 +24,7 @@ export const POINTING_CLASS_MAP = {
 const Label = class SUILabel extends SUIComponent {
   static defaultProps = {
     ...SUIComponent.defaultProps,
+    visible: true,
     tagName: "label",
     iconOn: "left",
     imageOn: "left"
@@ -49,6 +50,8 @@ const Label = class SUILabel extends SUIComponent {
       PropTypes.string,                   // `left`, `right`, `above`, `below`, `up`, `down`
     ]),
 
+    visible: PropTypes.bool,
+    disabled: PropTypes.bool,
     active: PropTypes.bool,
     closable: PropTypes.bool,             // if true, we show a `delete` icon (x) on the right
     onClose: PropTypes.func               // invoked if close icon is clicked

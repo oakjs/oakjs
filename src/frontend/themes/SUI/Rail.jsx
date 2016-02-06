@@ -8,28 +8,28 @@ import React, { PropTypes } from "react";
 import classNames from "classnames";
 
 function SUIRail(props) {
-  const { id, className, appearance, side, dividing, style, children } = props;
+  const {
+    children,
+    left, right,
+    className, appearance, internal, dividing,
+    // including id, style
+    ...elementProps
+  } = props;
 
-  const railProps = {
-    id,
-    className: classNames(className, "ui", appearance, side, classMap, "rail"),
-    style
-  }
-  return <div {...railProps}>{children}</div>;
+  elementProps.className = classNames(className, "ui", appearance, { left, right, internal, dividing }, "rail");
+  return <div {...elementProps}>{children}</div>;
 }
-
-SUIRail.defaultProps = {
-  side: "right"
-};
 
 SUIRail.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
+  style: PropTypes.object,
+
   appearance: PropTypes.string,   // `internal`, `dividing`, `attached`, `close`, `very close`
-  side: PropTypes.string,         // `left` or `right`
   internal: PropTypes.bool,
   dividing: PropTypes.bool,
-  style: PropTypes.object,
+  left: PropTypes.bool,
+  right: PropTypes.bool
 };
 
 // add render() method so we get hot code reload.
