@@ -48,6 +48,7 @@ export Reveal from "./Reveal";
 export Segment from "./Segment";
 export Segments from "./Segments";
 export Shape from "./Shape";
+export Sidebar from "./Sidebar";
 export Statistic from "./Statistic";
 export Statistics from "./Statistics";
 export Step from "./Step";
