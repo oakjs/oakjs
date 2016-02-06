@@ -3,7 +3,7 @@ import React, { PropTypes } from "react";
 function Page(props, context) {
   const c = context.components;
   return (
-    <c.Pusher className="Page" style={{marginRight: 260}}>
+    <c.Pusher className="Page">
       {props.children}
     </c.Pusher>
   );

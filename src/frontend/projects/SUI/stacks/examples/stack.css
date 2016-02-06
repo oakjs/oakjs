@@ -1,0 +1,8 @@
+#SUI #examples .ui.sidebar {
+  width: 150px;
+}
+
+#SUI #examples .Page {
+  margin-right: 150px;
+  transform: translate3d(150px, 0px, 0px);
+}
