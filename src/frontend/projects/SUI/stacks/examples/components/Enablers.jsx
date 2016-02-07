@@ -18,7 +18,6 @@ class Enablers extends React.Component {
 
     // get result and setting from the card data
     const result = card.get(ref+".result");
-    const setting = card.get(ref+".setting");
 
     function getDefaultMessage(newState) {
       const properties = []
@@ -36,9 +35,9 @@ class Enablers extends React.Component {
     });
 
     elements.append(
-      <div style={{float:"right", textAlign:"right"}}>
-        <div style={{lineHeight:"1em", fontWeight:"bold"}}>{result || <br/>}</div>
-        <div style={{textStyle:"italic", fontSize:"0.8em"}}>{setting}</div>
+      <div style={{float:"right", textAlign:"right", fontWeight:"bold"}}>
+        {result}
+        {result && <c.Button appearance="transparent" icon="close" onClick={card.deferredSet(ref+".result", "")}/>}
       </div>
     );
 

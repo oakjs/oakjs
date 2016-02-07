@@ -150,6 +150,17 @@ export default class DimmerCard extends Card {
               </c.Segment>
             </c.Example>
 
+            <c.Example title="onChange" hint="<Dimmer visible onChange={...func...}/>">
+              <c.Enablers for="onChange"/>
+              <c.Segment>
+                <c.LoremIpsum/>
+                <c.Dimmer ref="onChange" visible {...data.onChange}
+                  onChange={card.deferredSet("onChange.result", "onChange() called")}
+                  {...data.onChange}
+                />
+              </c.Segment>
+            </c.Example>
+
             <c.Example title="Closable" hint="<Dimmer closable/>">
               <c.Enablers for="closable"/>
               <c.Segment>
