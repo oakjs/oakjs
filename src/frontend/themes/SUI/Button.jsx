@@ -11,6 +11,9 @@ import classNames from "classnames";
 import { getFloatedClass } from "./constants";
 import ElementBuffer from "./ElementBuffer";
 
+import "./Button.css";
+
+
 // `appearance`:  any combination of:
 //    - `primary`, `secondary`
 //    - `animated, `vertical animated`, `animated fade`, etc.
