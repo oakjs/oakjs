@@ -55,7 +55,7 @@ module.exports = {
       template: 'src/index.template.html',
       inject: true
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
+//    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin('common.js'),
