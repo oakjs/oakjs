@@ -9,9 +9,22 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const SRC = path.join(__dirname, "/src/");
+const DIST = path.join(__dirname, "/dist/");
 
 
-var frontendConfig = {
+module.exports = {
+  // Unknown URLs go to "/index.html" -- this makes routing work
+  historyApiFallback: true,
+
+  // SOURCE MAP OPTIONS
+  // slow but you get line numbers in chrome
+  // devtool: "sourcemap",
+  // faster: gets you to the file / method
+  devtool: 'eval-cheap-module-source-map',
+  // fastest: really imprecise, doesn't work with .jsx
+  // devtool: 'eval',
+
   entry: {
     vendors: [
       "webpack-hot-middleware/client",
@@ -24,44 +37,40 @@ var frontendConfig = {
       "classnames",
       "core-decorators",
     ],
-    oak: [ './src/frontend/index.js' ],
+    oak: [
+      './src/index.js'
+    ],
   },
 
   output: {
     filename: '[name].js',
-    path: path.join(__dirname, 'build', 'public')
+    path: DIST,
+    publicPath: "/"
   },
 
-  historyApiFallback: true,
-
-  // SOURCE MAP OPTIONS
-  // slow but you get line numbers in chrome
-  // devtool: "sourcemap",
-  // faster: gets you to the file / method
-  devtool: 'eval-cheap-module-source-map',
-  // fastest: really imprecise, doesn't work with .jsx
-  //  devtool: 'eval',
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/frontend/index.template.html',
+      template: 'src/index.template.html',
       inject: true
     }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin('common.js'),
   ],
 
   resolve: {
+    // You can leave the following extensions off your imports and it"ll figure it out.
     extensions: ['', '.js', '.jsx'],
+    // Assume relative paths are rooted at the same directory as this file.
     root: path.resolve(__dirname),
+    // Add common aliases for imports to this map
     alias: {
-      frontend: "src/frontend",
-      backend: "src/backend",
-      oak: "src/frontend/oak",
-      projects: "src/frontend/projects",
-      themes: "src/frontend/themes"
+      oak: "src/oak",
+      projects: "src/projects",
+      themes: "src/themes"
     }
   },
 
@@ -69,7 +78,7 @@ var frontendConfig = {
     loaders: [
       {
         test: /\.jsx?$/,
-        include: path.join(__dirname, 'src', 'frontend'),
+        include: SRC,
         loaders: ['babel?cacheDirectory']
       },
       {
@@ -77,54 +86,10 @@ var frontendConfig = {
         loader: 'style!css' // Run both loaders
       },
       {
-        test: /\.scss$/,
-        include: path.join(__dirname, 'src', 'frontend', 'scss'),
-        loaders: ['style', 'css', 'sass']
+        test: /\.less$/,
+        include: SRC,
+        loaders: ['style', 'css', 'less']
       }
     ]
   }
 };
-
-var serverConfig = {
-  entry: './src/server/index.js',
-  output: {
-    path: path.join(__dirname, 'build'),
-    filename: 'server.js',
-    libraryTarget: 'commonjs2'
-  },
-
-  devtool: 'sourcemap',
-
-  target: 'node',
-  // do not include polyfills or mocks for node stuff
-  node: {
-    console: false,
-    global: false,
-    process: false,
-    Buffer: false,
-    __filename: false,
-    __dirname: false
-  },
-  // all non-relative modules are external
-  // abc -> require('abc')
-  externals: /^[a-z\-0-9]+$/,
-
-  plugins: [
-    // enable source-map-support by installing at the head of every chunk
-    new webpack.BannerPlugin('require("source-map-support").install();',
-      {raw: true, entryOnly: false})
-  ],
-
-  module: {
-    loaders: [
-      {
-        // transpile all .js files using babel
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel'
-      }
-    ]
-  }
-};
-
-module.exports = [frontendConfig, serverConfig];

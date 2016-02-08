@@ -57,13 +57,13 @@ export default class OakProject extends React.Component {
   static get stacks() { return this.stackIds.map(stackId => this.stackMap[stackId]) }
   static get id() { return this.defaultProps.id }
   static get title() { return this.defaultProps.title }
-  static get path() { return this.id }
+  static get path() { return "/project/" + this.id }
   // Router for project and its current set of stacks.
   // NOTE: depends on `Project.initialize()` being called.
   static get route() {
     const stacks = this.stacks;
     const stackRoutes = [/*<IndexRoute component={stacks[0]}/>,*/ ...stacks.map(stack => stack.route)];
-    const routeProps = { path: this.id, component: this};
+    const routeProps = { path: "project/" + this.id, component: this};
     return React.createElement(Route, routeProps, ...stackRoutes);
   }
 
