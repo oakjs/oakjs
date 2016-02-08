@@ -4,7 +4,7 @@
 
 Prototype / testing ground for oakjs client app.
 
-Based on [React-Fullstack-Skeleton](https://github.com/fortruce/react-fullstack-skeleton).
+Based on [webpack-express-boilerplate](https://github.com/christianalfoni/webpack-express-boilerplate).
 
 ---
 ###Getting Started
@@ -12,6 +12,6 @@ Based on [React-Fullstack-Skeleton](https://github.com/fortruce/react-fullstack-
 ---
 1. Clone package, cd into the directory.
 2. `npm install`
-3. `gulp`
+3. `npm start`
 
 The application will be served on [http://localhost:3000](http://localhost:3000).
