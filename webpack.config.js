@@ -1,9 +1,4 @@
-/*
-  TODO:
-    * add a production flag that disables debug/sourcemaps and minifies
- */
-
-require('es6-promise').polyfill()
+'use strict';
 
 var webpack = require('webpack');
 var path = require('path');
