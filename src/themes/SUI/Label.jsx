@@ -11,7 +11,7 @@ import SUIComponent from "./SUIComponent";
 import ElementBuffer from "./ElementBuffer";
 import Icon from "./Icon";
 
-import { getFloatedClass } from "./constants";
+import { getFloatedClass, getPointingClass } from "./constants";
 
 import "./Label.css";
 
