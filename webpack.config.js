@@ -32,6 +32,9 @@ module.exports = {
       "classnames",
       "core-decorators",
     ],
+    acorn: [
+      "./lib/acorn.js"
+    ],
     oak: [
       './src/index.js'
     ],

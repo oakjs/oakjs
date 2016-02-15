@@ -1,0 +1,9 @@
+<Card foo={a.b.c("d",e)} bar={{a:1}}>
+  <Page>
+    <PageTitle title="Label">
+      A label displays content classification
+    </PageTitle>
+    <Second/>
+    <Third/>
+  </Page>
+</Card>
