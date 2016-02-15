@@ -9,7 +9,6 @@ import React from "react";
 import { Router, Route } from "react-router";
 
 // Set up History.
-console.warn("TODO: get express/webpack working properly so we can use non-hash history.");
 import { useQueries, createHistory } from "history";
 const history = useQueries(createHistory)();
 //import createHistory from "history/lib/createHashHistory"
