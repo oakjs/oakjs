@@ -66,9 +66,9 @@ module.exports = {
     root: path.resolve(__dirname),
     // Add common aliases for imports to this map
     alias: {
-      oak: "src/oak",
-      projects: "src/projects",
-      themes: "src/themes"
+      oak: __dirname + "/src/oak",
+      projects: __dirname + "/src/projects",
+      themes: __dirname + "/src/themes"
     }
   },
 
