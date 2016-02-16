@@ -30,7 +30,7 @@ oak.parse = function(code) {
 }
 
 
-oak.rountrip = function(code) {
+oak.roundtrip = function(code) {
 	const element = oak.parse(code);
 	console.dir(element);
 	const message = "Stringifying element";
@@ -38,4 +38,25 @@ oak.rountrip = function(code) {
 	const string = element.toString();
 	console.timeEnd(message)
 	return string;
+}
+
+oak.clone = function(code) {
+	const element = oak.parse(code);
+	console.dir(element);
+	const message = "Cloning element";
+	console.time(message)
+	const clone = element.clone();
+	console.timeEnd(message)
+	return clone;
+}
+
+oak.toSource = function(code) {
+	const element = oak.parse(code);
+	console.dir(element);
+	const message = "Element.toSource";
+	console.time(message)
+	const source = element.toSource({card:undefined, stack:undefined});
+	console.timeEnd(message)
+	console.info(source);
+	return element;
 }

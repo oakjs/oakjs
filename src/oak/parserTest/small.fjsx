@@ -1,9 +1,24 @@
-<Card foo={a.b.c("d",e)} bar={{a:1}}>
+<Card>
+  <PageSidebar/>
   <Page>
     <PageTitle title="Label">
       A label displays content classification
     </PageTitle>
-    <Second/>
-    <Third/>
+
+    <PageSection title="Content">
+
+      <Example title="Text">
+        <Label content="Label with content attribute"/>
+        <Label>Label with inline content</Label>
+      </Example>
+
+      <Example title="Icon">
+        <Label icon="mail" content="Label with content and icon attributes"/>
+        <Label icon="mail" iconOn="right" content="Label with content and icon attributes"/>
+        <Spacer/>
+        <Label><Icon icon="mail"/>Label with inline content and icon</Label>
+        <Label appearance="right icon">Label with inline content and icon<Icon icon="mail"/></Label>
+      </Example>
+    </PageSection>
   </Page>
 </Card>
