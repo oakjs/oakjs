@@ -81,7 +81,7 @@ SUIButton.propTypes = {
 
   title: PropTypes.string,
   icon: PropTypes.string,
-  childen: PropTypes.any,
+  children: PropTypes.any,
 
   label: React.PropTypes.oneOfType([
             PropTypes.string,

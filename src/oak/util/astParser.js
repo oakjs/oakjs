@@ -89,8 +89,8 @@ export function parseChild(parent, astChild, code, options) {
   }
   // NOTE: we do NOT go through `parent.addChild()` here!
   if (child !== undefined) {
-    if (!parent.children) parent.childen = [];
-    parent.childen.push(child);
+    if (!parent.children) parent.children = [];
+    parent.children.push(child);
   }
 }
 
