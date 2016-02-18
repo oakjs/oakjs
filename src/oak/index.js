@@ -7,9 +7,11 @@ export Eventful from "./Eventful";
 export JSXElement from "./JSXElement";
 export Loadable from "./Loadable";
 export Mutable from "./Mutable";
+export OakController from "./OakController";
 export Project from "./Project";
 export Savable from "./Savable";
 export Stack from "./Stack";
+export StackController from "./StackController";
 
 export astParser from "./util/astParser";
 export browser from "./util/browser";

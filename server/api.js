@@ -65,10 +65,10 @@ router.post("/card/:action/:project/:stack/:card", bodyTextParser, (request, res
 router.get("/stack/:action/:project/:stack",  (request, response) => {
   const { action, project, stack } = request.params;
   switch (action) {
-    case "jsxe":    return sendTextFile(response, paths.stackPath(project, stack, "stack.jsxe"));
-    case "css":     return sendTextFile(response, paths.stackPath(project, stack, "stack.css"));
-    case "script":  return sendTextFile(response, paths.stackPath(project, stack, "stack.js"));
-    case "cards":   return sendTextFile(response, paths.stackPath(project, stack, "cards.json"));
+    case "jsxe":        return sendTextFile(response, paths.stackPath(project, stack, "stack.jsxe"));
+    case "css":         return sendTextFile(response, paths.stackPath(project, stack, "stack.css"));
+    case "script":      return sendTextFile(response, paths.stackPath(project, stack, "stack.js"));
+    case "childIndex":  return sendTextFile(response, paths.stackPath(project, stack, "cards.json"));
   }
   throw new TypeError(`Stack API action ${action} not defined.`);
 });
