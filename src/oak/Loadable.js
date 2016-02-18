@@ -15,6 +15,20 @@
 
 export default function Loadable(Constructor = Object) {
 
+  // Internal routine to update the `__loadState` of a loadable.
+  function _setLoadState(loadable, state) {
+    // Remember when this changed
+    if (state) state.timeStamp = Date.now();
+
+    // add the `__loadState` property if not defined directly on this object.
+    if (!loadable.hasOwnProperty("__loadState")) {
+      Object.defineProperty(loadable, "__loadState", { value: {}, writable: true });
+    }
+
+    if (loadable.mutate) loadable.mutate({ __loadState: state });
+    else loadable.__loadState = state;
+  }
+
   return class Loadable extends Constructor {
 
     // OVERRIDE THIS and return a promise that resolves with your NORMALIZED data
@@ -41,20 +55,20 @@ export default function Loadable(Constructor = Object) {
 
     // Callback AFTER our data has been loaded.
     // `data` is the normalized results of the `loadData()` promise.
-    // If you want to save the data somehow, do it here.
-    // If you don't, you can just call `this.load()` again to get a new promise with the same data.
+    // If you want to perform some action after loading completes, do it here.
     onLoaded(data) {}
 
 
     // Callback when there's a load error.
-    // `error` is the error that resulted from our `loadData()` promise being rejected,
-    // or from `onLoaded()` causing an error.
-    //
-    // If you want to raise the error, return it (or some other appropriate error object).
-    // If you want to swallow the error, `return undefined`.
-    onLoadError(error) {
-      return error;
-    }
+    // `error` is the error that resulted from our `loadData()` promise being rejected or throwing an error.
+    // If you want to perform some action when loading fails, override this method.
+    onLoadError(error) {}
+
+
+  //////////////////////////////
+  // NOTE: The code below is completely generic and complete.
+  //       You can call these routines, but do NOT override it unless you know what you're doing!
+  //////////////////////////////
 
     // Syntactic sugar for detecting load states.
     get isUnloaded() { return !this.__loadState || this.__loadState.state === undefined }
@@ -76,68 +90,73 @@ export default function Loadable(Constructor = Object) {
     // NOTE: do NOT override this -- override `loadData()` instead!
     //
     load() {
-      // If we have loaded or are loading, return our loading promise
-      if (this.isLoaded || this.isLoading) return this.__loadState.promise;
-
-      let loadPromise;
-      try {
-        loadPromise = this.loadData()
-          .then(data => {
-            this.loaded(data);
-            return data;
-          })
-          // final catch in case something goes wrong either in the load or during normalization
-          .catch(error => {
-            this._loadError(error);
-            // throw the error so observers of the loadPromise can `catch` it
-            throw error;
-          });
-
-        this._setLoadState({ state: "loading", promise: loadPromise });
-        if (this.trigger) this.trigger("loading");
-      }
-      catch (e) {
-        this._loadError(e);
-        loadPromise = Promise.reject(e);
-      }
-
-      return loadPromise;
+//TODO: build in cache time ???
+      // If we're already loaded, return the data returned by the last load
+      if (this.isLoaded) return Promise.resolve(this.__loadState.data);
+      return this._load();
     }
 
     // Force a reload, no matter whether we were previously loaded or not.
     reload() {
       if (this.trigger) this.trigger("reloading");
-      this.unload();
-      this.load();
+      this._load();
     }
 
     // Unload us, removing all of our loaded data.
     unload() {
-      this._setLoadState(undefined);
-      this.trigger("unloaded");
+      _setLoadState(this, undefined);
+      if (this.trigger) this.trigger("unloaded");
     }
 
     // Simulate a server load of some data.
-    // NOTE: don't override this, override `onLoaded()` instead
+    // NOTE: don't override this to detect when data is loaded, override `onLoaded()` instead
     loaded(data) {
-      this._setLoadState({ state: "loaded", data: data, promise: Promise.resolve(data) });
+      _setLoadState(this, { state: "loaded", data });
       this.onLoaded(data);
       if (this.trigger) this.trigger("loaded", data);
       return data;
     }
 
-    // A loadError happened, handle it.
-    // NOTE: you shouldn't use this, override `loadError()` instead.
-    _loadError(error) {
-      this._setLoadState({ state: "error", error: error})
-      this.onLoadError(error);
-      this.trigger("loadError", error);
+
+    // Actual load routine.
+    // NOTE: DO NOT OVERRIDE THIS!
+    _load() {
+      // If we're loading, return our loading promise
+      if (this.isLoading) return this.__loadState.promise;
+
+      const loadPromise = new Promise( (resolve, reject) => {
+        // loadError handler
+        const _loadError = (error) => {
+          _setLoadState(this, { state: "error", error })
+          this.onLoadError(error);
+          this.trigger("loadError", error);
+          reject(error);
+        };
+
+        try {
+          // mark us as loading
+          _setLoadState(this, { state: "loading", promise: loadPromise });
+          if (this.trigger) this.trigger("loading");
+
+          this.loadData()
+            // handle successful load
+            .then(data => {
+              this.loaded(data);
+              resolve(data);
+            })
+            // handle load failure
+            .catch(error => {
+              _loadError(error);
+            });
+        }
+        // if loadData fails, fail the load immediately
+        catch (error) {
+          _loadError(error);
+        }
+      });
+
+      return loadPromise;
     }
 
-    // Update our `__loadState` property.
-    _setLoadState(loaded) {
-      if (this.mutate) this.mutate({ __loadState: loaded });
-      else this.__loadState = loaded;
-    }
   }
 }
