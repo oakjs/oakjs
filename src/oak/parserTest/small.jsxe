@@ -1,4 +1,4 @@
-<Card>
+<Card id="small">
   <PageSidebar/>
   <Page>
     <PageTitle title="Label">

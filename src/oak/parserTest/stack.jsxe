@@ -1,0 +1,85 @@
+<Stack id="examples" title="SUI Examples">
+  <components>
+    <StackComponent id="Bug"/>
+    <StackComponent id="Cropper"/>
+    <StackComponent id="Enablers"/>
+    <StackComponent id="Example"/>
+    <StackComponent id="Flippers"/>
+    <StackComponent id="InfoHint"/>
+    <StackComponent id="IconSample"/>
+    <StackComponent id="Info"/>
+    <StackComponent id="LoremIpsum"/>
+    <StackComponent id="Page"/>
+    <StackComponent id="PageTitle"/>
+    <StackComponent id="PageSidebar"/>
+    <StackComponent id="PageSection"/>
+    <StackComponent id="Todo"/>
+    <StackComponent id="Warning"/>
+  </components>
+
+  <cards>
+    <CardRef id="Ad" title="Ad"/>
+    <CardRef id="Accordion" title="Accordion"/>
+    <CardRef id="Breadcrumb" title="Breadcrumb"/>
+    <CardRef id="Button" title="Button"/>
+    <CardRef id="Buttons" title="Buttons"/>
+    <CardRef id="Card" title="Card"/>
+    <CardRef id="Cards" title="Cards"/>
+    <CardRef id="Checkbox" title="Checkbox"/>
+    <CardRef id="Comment" title="Comment"/>
+    <CardRef id="Comments" title="Comments"/>
+    <CardRef id="Container" title="Container"/>
+    <CardRef id="Dimmer" title="Dimmer"/>
+    <CardRef id="Divider" title="Divider"/>
+    <CardRef id="Dropdown" title="Dropdown"/>
+    <CardRef id="Embed" title="Embed"/>
+    <CardRef id="Feed" title="Feed"/>
+    <CardRef id="FeedEvent" title="FeedEvent"/>
+    <CardRef id="Field" title="Field"/>
+    <CardRef id="Fields" title="Fields"/>
+    <CardRef id="Flag" title="Flag"/>
+    <CardRef id="Form" title="Form"/>
+    <CardRef id="Grid" title="Grid"/>
+    <CardRef id="Header" title="Header"/>
+    <CardRef id="Icon" title="Icon"/>
+    <CardRef id="IconAlphabetical" title="Icons (Alphabetical)"/>
+    <CardRef id="Image" title="Image"/>
+    <CardRef id="Images" title="Images"/>
+    <CardRef id="Input" title="Input"/>
+    <CardRef id="Item" title="Item"/>
+    <CardRef id="Items" title="Items"/>
+    <CardRef id="Label" title="Label"/>
+    <CardRef id="Labels" title="Labels"/>
+    <CardRef id="List" title="List"/>
+    <CardRef id="ListItem" title="ListItem"/>
+    <CardRef id="Loader" title="Loader"/>
+    <CardRef id="Menu" title="Menu"/>
+    <CardRef id="MenuItem" title="MenuItem"/>
+    <CardRef id="MenuHeader" title="MenuHeader"/>
+    <CardRef id="Message" title="Message"/>
+    <CardRef id="Modal" title="Modal"/>
+    <CardRef id="Nag" title="Nag"/>
+    <CardRef id="Popup" title="Popup"/>
+    <CardRef id="Progress" title="Progress"/>
+    <CardRef id="RadioButton" title="RadioButton"/>
+    <CardRef id="RadioGroup" title="RadioGroup"/>
+    <CardRef id="Rail" title="Rail"/>
+    <CardRef id="Rating" title="Rating"/>
+    <CardRef id="Reveal" title="Reveal"/>
+    <CardRef id="Search" title="Search"/>
+    <CardRef id="Segment" title="Segment"/>
+    <CardRef id="Segments" title="Segments"/>
+    <CardRef id="Shape" title="Shape"/>
+    <CardRef id="Sidebar" title="Sidebar"/>
+    <CardRef id="Statistic" title="Statistic"/>
+    <CardRef id="Statistics" title="Statistics"/>
+    <CardRef id="Step" title="Step"/>
+    <CardRef id="Steps" title="Steps"/>
+    <CardRef id="Sticky" title="Sticky"/>
+    <CardRef id="Submenu" title="Submenu"/>
+    <CardRef id="Toggle" title="Toggle"/>
+    <CardRef id="Tabs" title="Tabs"/>
+    <CardRef id="Table" title="Table"/>
+  </cards>
+
+</Stack>
