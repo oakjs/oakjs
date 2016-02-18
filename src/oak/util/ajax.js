@@ -46,25 +46,35 @@ export function fetchJSON(input, init = {}) {
 }
 
 
-// Fetch an optional text resource, returning an empty string if the file was not found.
-export function fetchOptionalText(input, init = {}) {
-  if (!init.headers) init.headers = new Headers({
-		'Content-Type': 'text/plain'
-	});
-
-	return nativeFetch(input, init)
-    .then(response => {
-      if (response.ok) return response.text();
-      if (response.status === 404) return undefined;
-
-      const error = new Error(response.statusText);
-      // add the response to the error so callers can examine it
-      error.response = response;
-      // note the error status specially
-      error.status = response.status;
-      throw error;
-    });
+// Fetch a text resource and return a promise which yields response.
+export function saveText(text, input, init = {}) {
+  if (!init.method) init.method = "POST";
+  init.body = text;
+  return fetch(input, init);
 }
+
+
+// Save a json resource and return a promise which yields response.
+export function saveJSON(json, input, init = {}) {
+  if (!init.method) init.method = "POST";
+  if (typeof json === "string") {
+    init.body = json;
+  }
+  else {
+    try {
+      init.body = JSON.stringify(json);
+    } catch (error) {
+      console.group(`ajax.saveJSON(${input}): error converting json to string`);
+      console.error(error);
+      conosle.log("json: ", json);
+      console.groupEnd();
+      return Promise.reject(error);
+    }
+  }
+  return fetch(input, init);
+}
+
+
 
 // Export all as a map.
 export default exports;

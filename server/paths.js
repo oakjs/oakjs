@@ -25,9 +25,9 @@ export const PROJECT_ROOT = config.resolve.alias.projects + "/";
 // Default is to return the `project.jsx` file, pass a different `fileName` for something else.
 // If you want the path to the project's directory, pass `fileName=""`.
 export function projectPath(project, filename="project.jsx", errorMessage = "Invalid path") {
-  const path = PROJECT_ROOT + project + "/" + filename;
+  const path = project + "/" + filename;
   if (!isValidPath(path)) throw new TypeError(`${errorMessage}: '${path}'`);
-  return path;
+  return PROJECT_ROOT + path;
 }
 
 // Return the path for a stack file.

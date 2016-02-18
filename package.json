@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "acorn-jsx": "^2.0.1",
+    "body-parser": "^1.15.0",
     "fs-extra": "^0.26.5",
     "fs-promise": "^0.4.1",
     "history": "^1.12.3",

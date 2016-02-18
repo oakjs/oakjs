@@ -37,16 +37,16 @@ class CardController extends Savable(Loadable(Mutable)) {
 
   get cardPath() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
 
-  get cardId() { return this.attributes.card }
-  get stackId() { return this.attributes.stack }
-  get projectId() { return this.attributes.project }
+  get cardId() { return this.attributes && this.attributes.card }
+  get stackId() { return this.attributes && this.attributes.stack }
+  get projectId() { return this.attributes && this.attributes.project }
 
-  dieIfNotIdentified() {
+  dieIfNotIdentified(message = "Error in CardController") {
     const missing = [];
     if (!this.cardId) missing.push("cardId");
     if (!this.stackId) missing.push("stackId");
     if (!this.projectId) missing.push("projectId");
-    if (missing.length) throw new TypeError("CardController has no " + missing.join(", "));
+    if (missing.length) throw new TypeError(message + ": missing " + missing.join(", "));
   }
 
 
@@ -70,7 +70,7 @@ class CardController extends Savable(Loadable(Mutable)) {
 
   onStyleChanged(newStyle, oldStyle) {
     if (oldStyle) this.isDirty = true;
-    console.log("Updating card style");
+    console.info("Updating card style");
     console.warn("TODO: use less to convert to scoped styles");
     browser.createStylesheet(newStyle || "", this.stylesheetId)
   }
@@ -85,7 +85,7 @@ class CardController extends Savable(Loadable(Mutable)) {
   get CardConstructor() {
     if (!this.component) return Stub;
     if (!this.cache.CardConstructor) {
-      console.log("Creating CardConstructor");
+      console.info("Creating CardConstructor");
       console.warn("TODO: use babel to allow us to use ES2015 scripts");
       // TODO: if we have a script, use Babel to create the class
       const Constructor = class CardConstructor extends Card {};
@@ -103,11 +103,7 @@ class CardController extends Savable(Loadable(Mutable)) {
   //////////////////////////////
 
   loadData() {
-    try {
-      this.dieIfNotIdentified();
-    } catch (e) {
-      return Promise.reject(e);
-    }
+    this.dieIfNotIdentified('Error loading CardController');
     return Promise.all([this.loadComponent(), this.loadStyle(), this.loadScript()])
       .then(([component, style, script]) => {
         return { component, style, script }
@@ -115,7 +111,6 @@ class CardController extends Savable(Loadable(Mutable)) {
   }
 
   onLoaded(data) {
-console.warn("onLoaded:", data);
     this.mutate(data);
   }
 
@@ -130,7 +125,7 @@ console.warn("onLoaded:", data);
 
   // Component file
   get componentUrl() {
-    return `/api/jsxe/${this.projectId}/${this.stackId}/${this.cardId}`;
+    return `/api/card/jsxe/${this.projectId}/${this.stackId}/${this.cardId}`;
   }
   loadComponent() {
     return ajax.fetchText(this.componentUrl)
@@ -161,7 +156,7 @@ console.warn("onLoaded:", data);
 
   // CSS file
   get styleUrl() {
-    return `/api/css/${this.projectId}/${this.stackId}/${this.cardId}`
+    return `/api/card/css/${this.projectId}/${this.stackId}/${this.cardId}`
   }
   loadStyle() {
     return ajax.fetchText(this.styleUrl)
@@ -175,7 +170,7 @@ console.warn("onLoaded:", data);
 
   // Script file
   get scriptUrl() {
-    return `/api/script/${this.projectId}/${this.stackId}/${this.cardId}`
+    return `/api/card/script/${this.projectId}/${this.stackId}/${this.cardId}`
   }
   loadScript() {
     return ajax.fetchText(this.scriptUrl)

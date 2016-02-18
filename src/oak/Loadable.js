@@ -79,23 +79,27 @@ export default function Loadable(Constructor = Object) {
       // If we have loaded or are loading, return our loading promise
       if (this.isLoaded || this.isLoading) return this.__loadState.promise;
 
-      const loadPromise = this.loadData()
-        // allow `onLoaded` to normalize the data.
-        .then(data => {
-          this.loaded(data);
-          return data;
-        })
-        // final catch in case something goes wrong either in the load or during normalization
-        .catch(error => {
-          this._setLoadState({ state: "error", error: error})
-          this.onLoadError(error);
-          this.trigger("loadError", error);
-          // throw the error so observers see it
-          throw error;
-        });
+      let loadPromise;
+      try {
+        loadPromise = this.loadData()
+          .then(data => {
+            this.loaded(data);
+            return data;
+          })
+          // final catch in case something goes wrong either in the load or during normalization
+          .catch(error => {
+            this._loadError(error);
+            // throw the error so observers of the loadPromise can `catch` it
+            throw error;
+          });
 
-      this._setLoadState({ state: "loading", promise: loadPromise });
-      if (this.trigger) this.trigger("loading");
+        this._setLoadState({ state: "loading", promise: loadPromise });
+        if (this.trigger) this.trigger("loading");
+      }
+      catch (e) {
+        this._loadError(e);
+        loadPromise = Promise.reject(e);
+      }
 
       return loadPromise;
     }
@@ -120,6 +124,14 @@ export default function Loadable(Constructor = Object) {
       this.onLoaded(data);
       if (this.trigger) this.trigger("loaded", data);
       return data;
+    }
+
+    // A loadError happened, handle it.
+    // NOTE: you shouldn't use this, override `loadError()` instead.
+    _loadError(error) {
+      this._setLoadState({ state: "error", error: error})
+      this.onLoadError(error);
+      this.trigger("loadError", error);
     }
 
     // Update our `__loadState` property.
