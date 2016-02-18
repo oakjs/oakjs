@@ -13,4 +13,4 @@ import SUI from "../SUI";
 export CountryMap from "./CountryMap";
 
 // Attach all of the components to the SUI namespace
-Object.keys(exports).forEach(key => SUI[key] = exports[key]);
+Object.assign(SUI, exports);
