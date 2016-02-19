@@ -2,14 +2,10 @@
 // ProjectController class
 //////////////////////////////
 
-import React from "react";
-
-import Project from "./Project";
-import JSXElement from "./JSXElement";
 import OakController from "./OakController";
-import Stub from "./components/Stub";
+import Project from "./Project";
 
-class ProjectController extends OakController {
+export default class ProjectController extends OakController {
 
   //////////////////////////////
   //  Identity
@@ -32,11 +28,6 @@ class ProjectController extends OakController {
 
 
   //////////////////////////////
-  //  Mutation
-  //////////////////////////////
-
-
-  //////////////////////////////
   //  Loading / Saving
   //////////////////////////////
 
@@ -56,3 +47,22 @@ class ProjectController extends OakController {
 }
 
 export default ProjectController;
+
+
+//////////////////////////////
+// ProjectElement class
+//////////////////////////////
+import JSXElement from "./JSXElement";
+
+// Create a specialized `ProjectElement` and export it
+export class ProjectElement extends JSXElement {
+  static renderVars = {
+    ...JSXElement.renderVars,
+    project: "context.project",
+    components: "context.components",
+    data: "project.data"
+  }
+}
+
+// Register it so `<Project>` elements in a jsxe will use `ProjectElement`.
+JSXElement.registerType("Project", ProjectElement);

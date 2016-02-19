@@ -26,31 +26,36 @@ class JSXElement extends Mutable {
   //  Render method
   //////////////////////////////
 
-  // Your subclass should override to add variables which will be available
-  //  on the context object during `render()` that you want to expose
-  //  to the render() method.
-  static renderContextVars = [];
+  // Your subclass should override to add variables that you want to expose to the render() method.
+  static renderVars = {
+    props: "this.props",
+    state: "this.state",
+    context: "this.context"
+  };
 
   // Return a function to draw this element and its children.
   // ASSUMES: that the end class this will be added to has a `createElement()` method
   //  with the same signature as `React.createElement()`, but that is aware of the
   //  `components` which are in scope.
-  getRenderMethod(contextVars, indent) {
+  getRenderMethod(indent) {
     if (!this.cache.renderMethod) {
-      const source = this._getRenderMethodSource(contextVars, indent);
+      const source = this._getRenderMethodSource(indent);
       this.cache.renderMethod = new Function(source);
     }
     return this.cache.renderMethod;
   }
 
-  _getRenderMethodSource(contextVars = this.constructor.renderContextVars, indent = "  ") {
+  _getRenderMethodSource(indent = "  ") {
     const output = [];
     const options = {
       oakIds: (this.cache.oakIds = {}),
     }
 
-    // add context variables to the function
-    contextVars.forEach(key => output.push(`${indent}var ${key} = this.context.${key};`));
+    // add ``renderVars` to the function
+    const renderVars = this.constructor.renderVars;
+    Object.keys(renderVars).forEach(
+      key => output.push(`${indent}var ${key} = ${renderVars[key]};`)
+    );
 
     // figure out the soure for the elements
     const renderExpression = this._elementsToSource(options, indent);

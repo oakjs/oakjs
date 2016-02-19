@@ -2,14 +2,10 @@
 // CardController class
 //////////////////////////////
 
-import React from "react";
-
 import Card from "./Card";
-import JSXElement from "./JSXElement";
 import OakController from "./OakController";
-import Stub from "./components/Stub";
 
-class CardController extends OakController {
+export default class CardController extends OakController {
 
   //////////////////////////////
   //  Identify
@@ -52,4 +48,23 @@ class CardController extends OakController {
 
 }
 
-export default CardController;
+//////////////////////////////
+// CardElement class
+//////////////////////////////
+
+import JSXElement from "./JSXElement";
+
+// Create a specialized `CardElement` and export it
+export class CardElement extends JSXElement {
+  static renderVars = {
+    ...JSXElement.renderVars,
+    card: "context.card",
+    stack: "context.stack",
+    project: "context.project",
+    components: "context.components",
+    data: "card.data"
+  }
+}
+
+// Register it so `<Card>` elements in a jsxe will use `CardElement`.
+JSXElement.registerType("Card", CardElement);

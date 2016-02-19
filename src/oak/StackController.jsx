@@ -2,14 +2,10 @@
 // StackController class
 //////////////////////////////
 
-import React from "react";
-
-import Stack from "./Stack";
-import JSXElement from "./JSXElement";
 import OakController from "./OakController";
-import Stub from "./components/Stub";
+import Stack from "./Stack";
 
-class StackController extends OakController {
+export default class StackController extends OakController {
 
   //////////////////////////////
   //  Identity
@@ -33,11 +29,6 @@ class StackController extends OakController {
 
 
   //////////////////////////////
-  //  Mutation
-  //////////////////////////////
-
-
-  //////////////////////////////
   //  Loading / Saving
   //////////////////////////////
 
@@ -56,4 +47,24 @@ class StackController extends OakController {
 
 }
 
-export default StackController;
+
+
+//////////////////////////////
+// StackElement class
+//////////////////////////////
+
+import JSXElement from "./JSXElement";
+
+// Create a specialized `StackElement` and export it
+export class StackElement extends JSXElement {
+  static renderVars = {
+    ...JSXElement.renderVars,
+    stack: "context.stack",
+    project: "context.project",
+    components: "context.components",
+    data: "stack.data"
+  }
+}
+
+// Register it so `<Stack>` elements in a jsxe will use `StackElement`.
+JSXElement.registerType("Stack", StackElement);
