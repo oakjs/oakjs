@@ -1,7 +1,6 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import InfoHint from "./InfoHint";
 import "./Example.css";
 
 function Example(props, { components: c }) {
