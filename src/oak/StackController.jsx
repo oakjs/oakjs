@@ -2,7 +2,6 @@
 // StackController class
 //////////////////////////////
 
-import decorators from "oak-roots/util/decorators";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
@@ -19,18 +18,15 @@ export default class StackController extends ComponentController {
   //  Identity
   //////////////////////////////
 
-  @decorators.proto
   static type = "stack";
-
-  @decorators.proto
   static baseComponentConstructor = Stack;
 
   get id() { return `${this.projectId}-${this.stackId}` }
   get path() { return `${this.projectId}/${this.stackId}` }
   get selector() { return `.oak.Stack#${this.stackId}` }
 
-  get stackId() { return this.attributes && this.attributes.stack }
-  get projectId() { return this.attributes && this.attributes.project }
+  get stackId() { return this.props && this.props.stack }
+  get projectId() { return this.props && this.props.project }
 
 
   //////////////////////////////

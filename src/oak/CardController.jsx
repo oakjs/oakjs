@@ -2,7 +2,6 @@
 // CardController class
 //////////////////////////////
 
-import decorators from "oak-roots/util/decorators";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
@@ -19,19 +18,16 @@ export default class CardController extends ComponentController {
   //  Identify
   //////////////////////////////
 
-  @decorators.proto
   static type = "card";
-
-  @decorators.proto
   static baseComponentConstructor = Card;
 
   get id() { return `${this.projectId}-${this.stackId}-${this.cardId}` }
   get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
   get selector() { return `.oak.Card#${this.cardId}` }
 
-  get cardId() { return this.attributes && this.attributes.card }
-  get stackId() { return this.attributes && this.attributes.stack }
-  get projectId() { return this.attributes && this.attributes.project }
+  get cardId() { return this.props && this.props.card }
+  get stackId() { return this.props && this.props.stack }
+  get projectId() { return this.props && this.props.project }
 
   //////////////////////////////
   //  Loading / Saving

@@ -1,5 +1,5 @@
 //////////////////////////////
-// Mutable base class with `attributes` and `children` support.
+// Mutable base class with `props` and `children` support.
 // The idea is that this is a mutatable object, but mutation is controlled.
 //////////////////////////////
 
@@ -63,28 +63,28 @@ class Mutable extends Eventful() {
   }
 
   //////////////////////////////
-  //  Manipulating attributes
+  //  Manipulating props
   //////////////////////////////
 
-  // Set one of our attributes to the specified `value`.
+  // Set one of our props to the specified `value`.
   // If `value` is `undefined`, we'll delete the property.
   // If `value` is the same as the current attribute value, has no effect.
   // Returns `true` if we actually changed the value.
 //TODO: dotted names?
   setAttribute(name, value) {
     // bail if no change
-    const currentValue = (this.attributes && this.attributes[name]);
+    const currentValue = (this.props && this.props[name]);
     if (currentValue === value) return false;
 
-    const attributes = Object.assign({}, this.attributes);
+    const props = Object.assign({}, this.props);
     if (value === undefined) {
-      delete attributes[name];
+      delete props[name];
     }
     else {
-      attributes[name] = value;
+      props[name] = value;
     }
 
-    this.mutate({ attributes: attributes });
+    this.mutate({ props: props });
     return true;
   }
 
@@ -144,7 +144,7 @@ class Mutable extends Eventful() {
   clone() {
     const Constructor = this.constructor;
     const clone = new Constructor(this);
-    if (clone.attributes) clone.attributes = Object.assign({}, clone.attributes);
+    if (clone.props) clone.props = Object.assign({}, clone.props);
     if (clone.children) clone.children = clone.children.map(this.cloneChild, this);
     return clone;
   }

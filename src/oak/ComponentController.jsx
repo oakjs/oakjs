@@ -12,7 +12,7 @@ import Loadable from "oak-roots/Loadable";
 import Mutable from "oak-roots/Mutable";
 import Savable from "oak-roots/Savable";
 
-import { browser, decorators, objectUtil } from "oak-roots";
+import { browser, objectUtil } from "oak-roots";
 
 import JSXElement from "./JSXElement";
 import Stub from "./components/Stub";
@@ -39,11 +39,10 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   //////////////////////////////
 
   // Note: you SHOULD override this with the `type` of your component, eg: "card" or "stack"
-  @decorators.proto
   static type = "component";
+  get type() { return this.constructor.type }
 
   // Note: you MUST override this with your component constructor.
-  @decorators.proto
   static baseComponentConstructor = React.Component;
 
   get id() { throw "You must override `get id()`" }
@@ -120,8 +119,8 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     if (!this.cache.Constructor) {
       console.info("Creating Constructor");
       console.warn("TODO: use babel to allow us to use ES2015 scripts");
-      // TODO: if we have a script, use Babel to create the class
-      const Constructor = class ComponentConstructor extends this.baseComponentConstructor {};
+      const BaseComponent = this.constructobaseComponentConstructor;
+      const Constructor = class ComponentConstructor extends BaseComponent {};
       console.info(Constructor.prototype.render);
       Constructor.prototype.render = this.component.getRenderMethod();
       console.log(Constructor.prototype.render);

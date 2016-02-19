@@ -2,7 +2,6 @@
 // ProjectController class
 //////////////////////////////
 
-import decorators from "oak-roots/util/decorators";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
@@ -20,17 +19,14 @@ export default class ProjectController extends ComponentController {
   //  Identity
   //////////////////////////////
 
-  @decorators.proto
   static type = "project";
-
-  @decorators.proto
   static baseComponentConstructor = Project;
 
   get id() { return `${this.projectId}` }
   get path() { return `${this.projectId}` }
 
   get selector() { return `.oak.Project#${this.projectId}` }
-  get projectId() { return this.attributes && this.attributes.project }
+  get projectId() { return this.props && this.props.project }
 
   //////////////////////////////
   //  Loading / Saving
@@ -46,8 +42,12 @@ export default class ProjectController extends ComponentController {
   }
 
   saveData() {
-    super.saveData();
-    return Promise.all([this.saveChildIndex(), this.saveComponent(), this.saveStyle(), this.saveScript()]);
+    return api.map({
+      childIndex: api.saveControllerChildIndex(this),
+      component: api.saveControllerJSXE(this),
+      styles: api.saveControllerStyles(this),
+      script: api.saveControllerScript(this)
+    });
   }
 
 }
