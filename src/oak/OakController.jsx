@@ -132,7 +132,7 @@ console.warn(`${this.type} loaded.  Data: `, data);
   // Loading / Saving our Component file
   //////////////////////////////
   get componentUrl() {
-    return `/api/${this.type}/jsxe/${this.path}`;
+    return `/api/${this.type}/${this.path}/jsxe`;
   }
   loadComponent() {
     return ajax.fetchText(this.componentUrl)
@@ -168,7 +168,7 @@ console.warn(`${this.type} loaded.  Data: `, data);
   //////////////////////////////
 
   get styleUrl() {
-    return `/api/${this.type}/css/${this.path}`;
+    return `/api/${this.type}/${this.path}/css`;
   }
   loadStyle() {
     return ajax.fetchText(this.styleUrl)
@@ -186,7 +186,7 @@ console.warn(`${this.type} loaded.  Data: `, data);
   //////////////////////////////
 
   get scriptUrl() {
-    return `/api/${this.type}/script/${this.path}`;
+    return `/api/${this.type}/${this.path}/script`;
   }
   loadScript() {
     return ajax.fetchText(this.scriptUrl)
@@ -204,7 +204,7 @@ console.warn(`${this.type} loaded.  Data: `, data);
   //////////////////////////////
 
   get childIndexUrl() {
-    return `/api/${this.type}/childIndex/${this.path}`;
+    return `/api/${this.type}/${this.path}/index`;
   }
   loadChildIndex() {
     return ajax.fetchJSON(this.childIndexUrl)

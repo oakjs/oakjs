@@ -9,6 +9,7 @@ export Loadable from "./Loadable";
 export Mutable from "./Mutable";
 export OakController from "./OakController";
 export Project from "./Project";
+export ProjectController from "./ProjectController";
 export Savable from "./Savable";
 export Stack from "./Stack";
 export StackController from "./StackController";
