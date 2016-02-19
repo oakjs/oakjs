@@ -2,19 +2,44 @@
 //  Object Utility functions
 //////////////////////////////
 
+// Return values for all properties of object as an array.
+export function values(object) {
+  if (object == null) return [];
+  return Object.keys(object).map( key => object[key]);
+}
 
-// Map a `method` over all the keys/values of some `object`.
+// Map a `method` over all the keys/values of some `object`,
+//  returning a new object with `{ key: method(value) }`.
+//
+// If input is `null` or `undefined`, output will be `undefined`.
+//
 // Signature of method is:  `method(value, key, object)`
 export function map(object, method, thisArg) {
+  if (object == null) return undefined;
+  const output = {};
+  Object.keys(object).forEach(key => output[key] = method.apply(thisArg, object[key], key, object));
+  return output;
+}
+
+// Apply a `method` against an accumulator for all the keys/values of some `object`.
+// Signature of method is:  `method(previousValue, value, key, object)`
+export function reduce(object, method, initialValue) {
   if (object == null) return [];
-  return Object.keys(object)
-    .map( key => method.apply(thisArg, object[key], key, object));
+  const reducer = (prev, key, index, keys) => method(prev, object[key], key, object);
+  return Object.keys(object).reduce(reducer, initialValue);
 }
 
 // Return true if an object is `empty`, eg does not have any of its own properties.
 export function isEmpty(object) {
   if (object == null) return true;
   return Object.keys(object).length === 0;
+}
+
+
+// Throw an error if `thing` is missing any required fields.
+export function dieIfMissing(thing, fields, errorMessage = `Error in ${thing.constructor.name}`) {
+  const missing = fields.filter(field => thing[field] == null);
+  if (missing.length) throw new TypeError(errorMessage + ": missing " + missing.join("\n"));
 }
 
 

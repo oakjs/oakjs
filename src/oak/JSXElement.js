@@ -2,11 +2,12 @@
 // JSXElement class
 //////////////////////////////
 
-import oak from "./oak";
-import Mutable from "oak-roots/Mutable";
 import astParser from "oak-roots/util/astParser";
 import ids from "oak-roots/util/ids";
-import ajax from "oak-roots/util/ajax";
+import Mutable from "oak-roots/Mutable";
+
+import oak from "./oak";
+import api from "./api";
 
 class JSXElement extends Mutable {
 
@@ -210,7 +211,7 @@ class JSXElement extends Mutable {
   // Returns a `Promise` which resolves with the root element
   // or rejects with an error message.
   static load(path) {
-    return ajax.fetchText(path)
+    return api.getText(path)
       .then(code => {
         return this.parse(code);
       });

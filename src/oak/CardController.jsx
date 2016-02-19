@@ -2,12 +2,18 @@
 // CardController class
 //////////////////////////////
 
+import decorators from "oak-roots/util/decorators";
+import objectUtil from "oak-roots/util/object";
+
+import api from "./api";
 import Card from "./Card";
 import ComponentController from "./ComponentController";
 
-import decorators from "oak-roots/util/decorators";
-
 export default class CardController extends ComponentController {
+  constructor(...args) {
+    super(...args);
+    objectUtil.dieIfMissing(this, ["cardId", "stackId", "projectId"]);
+  }
 
   //////////////////////////////
   //  Identify
@@ -27,25 +33,24 @@ export default class CardController extends ComponentController {
   get stackId() { return this.attributes && this.attributes.stack }
   get projectId() { return this.attributes && this.attributes.project }
 
-  dieIfNotIdentified(errorMessage) {
-    this.dieIfMissing(["cardId", "stackId", "projectId"], errorMessage);
-  }
-
   //////////////////////////////
   //  Loading / Saving
   //////////////////////////////
 
   loadData() {
-    super.loadData();
-    return Promise.all([this.loadComponent(), this.loadStyle(), this.loadScript()])
-      .then(([component, style, script]) => {
-        return { component, style, script }
-      });
+    return api.map({
+      component: api.loadControllerJSXE(this),
+      styles: api.loadControllerStyles(this),
+      script: api.loadControllerScript(this)
+    });
   }
 
   saveData() {
-    super.saveData();
-    return Promise.all([this.saveComponent(), this.saveStyle(), this.saveScript()]);
+    return api.map({
+      component: api.saveControllerJSXE(this),
+      styles: api.saveControllerStyles(this),
+      script: api.saveControllerScript(this)
+    });
   }
 
 }

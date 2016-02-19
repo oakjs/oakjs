@@ -31,16 +31,22 @@
 //
 //////////////////////////////
 
+
+import objectUtil from "./util/object";
+
+// Ensure that global `fetch` routine is present.
 import global from "./util/global";
 if (typeof global.fetch !== "function") {
   const message = "Expected global HTML 'fetch' method to be defined.  You must install a polyfill, see: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch";
   console.error(message);
   throw new ReferenceError(message);
 }
-
 const nativeFetch = global.fetch;
 
 export default class API {
+  constructor(props) {
+    Object.assign(this, props);
+  }
 
   //////////////////////////////
   // Fetch
@@ -138,6 +144,21 @@ export default class API {
   //////////////////////////////
   //  Utilities
   //////////////////////////////
+
+
+  // Given a map of `{ key: loadingPromise }`,
+  //  return a Promise which resolves to `{ key: result }`
+  map(map) {
+    const keys = Object.keys(map);
+    const promises = objectUtil.values(map);
+    return Promise.all(promises)
+      .then(results => {
+        const map = {};
+        results.forEach((result, index) => map[keys[index]] = result);
+        return map;
+      });
+  }
+
 
   // Return the content type specified in a `response`, `request` or `fetchParams` object.
   static getContentType(response) {

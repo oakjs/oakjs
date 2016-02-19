@@ -2,12 +2,19 @@
 // StackController class
 //////////////////////////////
 
+import decorators from "oak-roots/util/decorators";
+import objectUtil from "oak-roots/util/object";
+
+import api from "./api";
 import ComponentController from "./ComponentController";
 import Stack from "./Stack";
 
-import decorators from "oak-roots/util/decorators";
-
 export default class StackController extends ComponentController {
+  constructor(...args) {
+    super(...args);
+    objectUtil.dieIfMissing(this, ["stackId", "projectId"]);
+  }
+
   //////////////////////////////
   //  Identity
   //////////////////////////////
@@ -25,26 +32,27 @@ export default class StackController extends ComponentController {
   get stackId() { return this.attributes && this.attributes.stack }
   get projectId() { return this.attributes && this.attributes.project }
 
-  dieIfNotIdentified(errorMessage) {
-    this.dieIfMissing(["stackId", "projectId"], errorMessage);
-  }
-
 
   //////////////////////////////
   //  Loading / Saving
   //////////////////////////////
 
   loadData() {
-    super.loadData();
-    return Promise.all([this.loadChildIndex(), this.loadComponent(), this.loadStyle(), this.loadScript()])
-      .then(([childIndex, component, style, script]) => {
-        return { childIndex, component, style, script }
-      });
+    return api.map({
+      childIndex: api.loadControllerChildIndex(this),
+      component: api.loadControllerJSXE(this),
+      styles: api.loadControllerStyles(this),
+      script: api.loadControllerScript(this)
+    });
   }
 
   saveData() {
-    super.saveData();
-    return Promise.all([this.saveChildIndex(), this.saveComponent(), this.saveStyle(), this.saveScript()]);
+    return api.map({
+      childIndex: api.saveControllerChildIndex(this),
+      component: api.saveControllerJSXE(this),
+      styles: api.saveControllerStyles(this),
+      script: api.saveControllerScript(this)
+    });
   }
 
 }

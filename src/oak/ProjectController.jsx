@@ -2,12 +2,19 @@
 // ProjectController class
 //////////////////////////////
 
+import decorators from "oak-roots/util/decorators";
+import objectUtil from "oak-roots/util/object";
+
+import api from "./api";
 import ComponentController from "./ComponentController";
 import Project from "./Project";
 
-import decorators from "oak-roots/util/decorators";
 
 export default class ProjectController extends ComponentController {
+  constructor(...args) {
+    super(...args);
+    objectUtil.dieIfMissing(this, ["projectId"]);
+  }
 
   //////////////////////////////
   //  Identity
@@ -25,21 +32,17 @@ export default class ProjectController extends ComponentController {
   get selector() { return `.oak.Project#${this.projectId}` }
   get projectId() { return this.attributes && this.attributes.project }
 
-  dieIfNotIdentified(errorMessage) {
-    this.dieIfMissing(["projectId"], errorMessage);
-  }
-
-
   //////////////////////////////
   //  Loading / Saving
   //////////////////////////////
 
   loadData() {
-    super.loadData();
-    return Promise.all([this.loadChildIndex(), this.loadComponent(), this.loadStyle(), this.loadScript()])
-      .then(([childIndex, component, style, script]) => {
-        return { childIndex, component, style, script }
-      });
+    return api.map({
+      childIndex: api.loadControllerChildIndex(this),
+      component: api.loadControllerJSXE(this),
+      styles: api.loadControllerStyles(this),
+      script: api.loadControllerScript(this)
+    });
   }
 
   saveData() {

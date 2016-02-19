@@ -1,4 +1,3 @@
-export ajax from "./ajax";
 export astParser from "./astParser";
 export browser from "./browser";
 export decorators from "./decorators";
