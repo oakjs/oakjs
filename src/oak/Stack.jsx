@@ -26,9 +26,14 @@ export default class OakStack extends React.Component {
     return { stack: this, components: this.components };
   }
 
+  componentDidMount() {
+    window.stack = this;
+  }
+
   componentDidUpdate() {
     console.info("re-initializing stack");
     this.constructor.initialize();
+    window.stack = this;
   }
 
   // Add this stack to a project.
