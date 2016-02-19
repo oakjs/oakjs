@@ -11,5 +11,6 @@ export function generateRandomId(length = 6, radix = ALPHA_NUMERIC.length) {
   return letters.join('');
 }
 
-// Export all methods as one object as well
-export default exports;
+
+// Export all as one map
+export default Object.assign({}, exports);

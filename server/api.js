@@ -22,6 +22,11 @@ function sendTextFile(response, path) {
   return response.sendFile(path);
 }
 
+function sendJSONFile(response, path) {
+  response.set("Content-Type", "application/json");
+  return response.sendFile(path);
+}
+
 function saveTextFile(response, path, body) {
   console.warn("Saving to ",path);
   console.warn(body);
@@ -68,7 +73,7 @@ router.get("/stack/:project/:stack/:action",  (request, response) => {
     case "jsxe":    return sendTextFile(response, paths.stackPath(project, stack, "stack.jsxe"));
     case "css":     return sendTextFile(response, paths.stackPath(project, stack, "stack.css"));
     case "script":  return sendTextFile(response, paths.stackPath(project, stack, "stack.js"));
-    case "index":   return sendTextFile(response, paths.stackPath(project, stack, "cards.json"));
+    case "index":   return sendJSONFile(response, paths.stackPath(project, stack, "cards.json"));
   }
   throw new TypeError(`Stack API action ${action} not defined.`);
 });
@@ -81,7 +86,7 @@ router.get("/project/:project/:action",  (request, response) => {
     case "jsxe":    return sendTextFile(response, paths.projectPath(project, "project.jsxe"));
     case "css":     return sendTextFile(response, paths.projectPath(project, "project.css"));
     case "script":  return sendTextFile(response, paths.projectPath(project, "project.js"));
-    case "index":   return sendTextFile(response, paths.projectPath(project, "stacks.json"));
+    case "index":   return sendJSONFile(response, paths.projectPath(project, "stacks.json"));
   }
   throw new TypeError(`Project API action ${action} not defined.`);
 });

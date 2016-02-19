@@ -1,23 +1,26 @@
 //////////////////////////////
 //
-//  OakController class
+//  ComponentController class
 //
 //  Base class for ProjectController, StackController, CardController, ProjectController.
 //
 //////////////////////////////
 
+import React from "react";
+
+import Loadable from "oak-roots/Loadable";
+import Mutable from "oak-roots/Mutable";
+import Savable from "oak-roots/Savable";
+
+import { ajax, browser, decorators, objectUtil } from "oak-roots";
+console.warn(decorators);
+
 import JSXElement from "./JSXElement";
-import Loadable from "./Loadable";
-import Mutable from "./Mutable";
-import Savable from "./Savable";
 import Stub from "./components/Stub";
 
-import ajax from "./util/ajax";
-import browser from "./util/browser";
-import objectUtil from "./util/objectUtil";
 
 
-class OakController extends Savable(Loadable(Mutable)) {
+export default class ComponentController extends Savable(Loadable(Mutable)) {
 
   //////////////////////////////
   //  Creation / destruction
@@ -36,14 +39,19 @@ class OakController extends Savable(Loadable(Mutable)) {
   //  Identify syntactic sugar
   //////////////////////////////
 
-  get type() { throw "You must override `get type()`" }
-  get baseComponentConstructor() { throw "You must override `get baseComponentConstructor()`" }
+  // Note: you SHOULD override this with the `type` of your component, eg: "card" or "stack"
+  @decorators.proto
+  static type = "component";
+
+  // Note: you MUST override this with your component constructor.
+  @decorators.proto
+  static baseComponentConstructor = React.Component;
 
   get id() { throw "You must override `get id()`" }
   get path() { throw "You must override `get path()`" }
 
-  get rootSelector() { throw "You must override `get rootSelector()`" }
-  get stylesheetId() { return "STYLE-" + this.id }
+  get selector() { throw "You must override `get selector()`" }
+  get rootSelector() { return (this.parent ? this.parent.rootSelector : "") + this.selector }
 
 
   // Die if your component is not fully identified.
@@ -64,11 +72,19 @@ class OakController extends Savable(Loadable(Mutable)) {
     if (style) this.onStyleChanged(style, old.style);
   }
 
+  //////////////////////////////
+  //  Child index
+  //////////////////////////////
+
   onChildIndexChanged(newChildIndex, oldChildIndex) {
     if (oldChildIndex) this.dirty();
     console.info("TODO: Instantiate childIndex ", newChildIndex);
     this.trigger("childIndexChanged", newChildIndex);
   }
+
+  //////////////////////////////
+  //  Component (from JSXE)
+  //////////////////////////////
 
   onComponentChanged(newComponent, oldComponent) {
     if (oldComponent) this.dirty();
@@ -76,6 +92,12 @@ class OakController extends Savable(Loadable(Mutable)) {
     this.trigger("componentChanged", newComponent);
   }
 
+
+  //////////////////////////////
+  //  Stylesheet
+  //////////////////////////////
+
+  get stylesheetId() { return "STYLE-" + this.id }
   onStyleChanged(newStyle, oldStyle) {
     if (oldStyle) this.dirty();
     console.info(`Updating ${this.type} style`);
@@ -239,5 +261,3 @@ console.warn(`${this.type} loaded.  Data: `, data);
   }
 
 }
-
-export default OakController;

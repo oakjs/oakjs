@@ -3,23 +3,25 @@
 //////////////////////////////
 
 import Card from "./Card";
-import OakController from "./OakController";
+import ComponentController from "./ComponentController";
 
-export default class CardController extends OakController {
+import decorators from "oak-roots/util/decorators";
+
+export default class CardController extends ComponentController {
 
   //////////////////////////////
   //  Identify
   //////////////////////////////
 
-  // TODO: these are really prototype defaults...
-  get type() { return "card" }
-  get baseComponentConstructor() { return Card }
+  @decorators.proto
+  static type = "card";
+
+  @decorators.proto
+  static baseComponentConstructor = Card;
 
   get id() { return `${this.projectId}-${this.stackId}-${this.cardId}` }
   get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
-
-// TODO: this.parent.rootSelector + ...
-  get rootSelector() { return `.oak.Project#${this.projectId} .oak.Stack#${this.stackId} .oak.Card#${this.cardId}` }
+  get selector() { return `.oak.Card#${this.cardId}` }
 
   get cardId() { return this.attributes && this.attributes.card }
   get stackId() { return this.attributes && this.attributes.stack }

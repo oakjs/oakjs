@@ -27,6 +27,5 @@ export function removeStylesheet(id) {
   $(`style#${id}`).remove();
 }
 
-
-// Export all as a single object.
-export default exports;
+// Export all as one map
+export default Object.assign({}, exports);

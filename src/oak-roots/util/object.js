@@ -52,5 +52,34 @@ export function clone(value) {
   throw new TypeError(`clone(${value}): dont know how to clone this type.`);
 }
 
-// Export all exports as one object as well
-export default exports;
+
+
+//////////////////////////////
+//  Class utilties
+//////////////////////////////
+
+//  Return superclass constructors of a class, INCLUDING the class itself.
+//  The class is first, then it's immediate super, etc all the way to `Object`.
+//
+//  Add it to a class when defining it to use it for the class + subclasses
+//      import roots from "oak-roots"
+//      class SomeClass extends SomeOtherClass {
+//        static supers = roots.supers;
+//      }
+//      const supers = SomeClass.supers();  // << [SomeClass, SomeOtherClass, ..., Object]
+//
+//  or you can call it directly, passing a constructor:
+//      const supers = roots.supers(SomeClass); // << same as above
+export function supers(target = this) {
+  const supers = [];
+  while (target) {
+    supers.push(target);
+    if (target === Object) break;
+    target = Object.getPrototypeOf(target.prototype).constructor;
+  }
+  return supers;
+}
+
+
+// Export all as one map
+export default Object.assign({}, exports);

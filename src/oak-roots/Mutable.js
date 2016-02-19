@@ -4,7 +4,7 @@
 //////////////////////////////
 
 import Eventful from "./Eventful";
-import objectUtil from "./util/objectUtil";
+import objectUtil from "./util/object";
 
 class Mutable extends Eventful() {
 
@@ -145,7 +145,7 @@ class Mutable extends Eventful() {
     const Constructor = this.constructor;
     const clone = new Constructor(this);
     if (clone.attributes) clone.attributes = Object.assign({}, clone.attributes);
-    if (clone.children) clone.children = clone.children.map(objectUtil.clone);
+    if (clone.children) clone.children = clone.children.map(this.cloneChild, this);
     return clone;
   }
 

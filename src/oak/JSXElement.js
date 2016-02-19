@@ -3,10 +3,10 @@
 //////////////////////////////
 
 import oak from "./oak";
-import Mutable from "./Mutable";
-import astParser from "./util/astParser";
-import ids from "./util/ids";
-import ajax from "./util/ajax";
+import Mutable from "oak-roots/Mutable";
+import astParser from "oak-roots/util/astParser";
+import ids from "oak-roots/util/ids";
+import ajax from "oak-roots/util/ajax";
 
 class JSXElement extends Mutable {
 

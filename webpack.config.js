@@ -68,7 +68,8 @@ module.exports = {
     alias: {
       oak: __dirname + "/src/oak",
       projects: __dirname + "/src/projects",
-      themes: __dirname + "/src/themes"
+      themes: __dirname + "/src/themes",
+      "oak-roots": __dirname + "/src/oak-roots",
     }
   },
 

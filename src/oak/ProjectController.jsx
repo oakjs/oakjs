@@ -2,24 +2,27 @@
 // ProjectController class
 //////////////////////////////
 
-import OakController from "./OakController";
+import ComponentController from "./ComponentController";
 import Project from "./Project";
 
-export default class ProjectController extends OakController {
+import decorators from "oak-roots/util/decorators";
+
+export default class ProjectController extends ComponentController {
 
   //////////////////////////////
   //  Identity
   //////////////////////////////
 
-  get type() { return "project" }
-  get baseComponentConstructor() { return Project }
+  @decorators.proto
+  static type = "project";
+
+  @decorators.proto
+  static baseComponentConstructor = Project;
 
   get id() { return `${this.projectId}` }
   get path() { return `${this.projectId}` }
 
-// TODO: this.parent.rootSelector + ...
-  get rootSelector() { return `.oak.Project#${this.projectId}` }
-
+  get selector() { return `.oak.Project#${this.projectId}` }
   get projectId() { return this.attributes && this.attributes.project }
 
   dieIfNotIdentified(errorMessage) {

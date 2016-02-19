@@ -76,6 +76,5 @@ export function saveJSON(json, input, init = {}) {
 
 
 
-// Export all as a map.
-export default exports;
-
+// Export all as one map
+export default Object.assign({}, exports);

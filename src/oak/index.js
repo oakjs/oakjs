@@ -3,22 +3,14 @@ import oak from "./oak";
 // Project/Stack/Card
 export Card from "./Card";
 export CardController from "./CardController";
-export Eventful from "./Eventful";
 export JSXElement from "./JSXElement";
-export Loadable from "./Loadable";
-export Mutable from "./Mutable";
-export OakController from "./OakController";
+export ComponentController from "./ComponentController";
 export Project from "./Project";
 export ProjectController from "./ProjectController";
-export Savable from "./Savable";
 export Stack from "./Stack";
 export StackController from "./StackController";
 
-export astParser from "./util/astParser";
-export browser from "./util/browser";
-export ajax from "./util/ajax";
-export ids from "./util/ids";
-export object from "./util/objectUtil";
+export roots from "oak-roots";
 
 export parserTest from "./parserTest";
 

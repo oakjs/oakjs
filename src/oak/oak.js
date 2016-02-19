@@ -11,9 +11,6 @@ const oak = new (function oak() {})();
 
 export default oak;
 
-// GLOBAL EXPORT OF OAK SINGLETON
-if (typeof window !== "undefined") window.oak = oak;
-if (typeof global !== "undefined") global.oak = oak;
-
-
-
+// Global export for debugging / reflection
+import global from "oak-roots/util/global";
+global.oak = oak;

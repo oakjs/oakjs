@@ -1,0 +1,36 @@
+//////////////////////////////
+//  Decorators
+//////////////////////////////
+
+// Pull core-decorators into scope
+export * from "core-decorators";
+
+//////////////////////////////
+// @proto decorator
+//
+//  Use this to create a SHARED field on the `class.prototype`.
+//
+//  e.g.  class SomeClass {
+//          @proto
+//          static someVar = 42
+//        }
+//        ....
+//        SomeClass.prototype.someVar === 42;  // << true
+//
+//  NOTE: Doing this with an object or array is potentially very confusing,
+//        use for scalars only.
+//
+//////////////////////////////
+export function proto(target, key, descriptor) {
+  // figure out the value of the descriptor
+  let value = undefined;
+  if ("value" in descriptor) value = descriptor.value;
+  if ("initializer" in descriptor) value = descriptor.initializer();
+  // assign the value to the prototype non-enumerable, non-writable, non-configurable
+  Object.defineProperty(target.prototype, key, { value });
+  // return an empty descriptor to cancel assigning to the class
+  return {}
+}
+
+// Export all as one map
+export default Object.assign({}, exports);

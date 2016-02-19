@@ -136,6 +136,5 @@ export function getElementChildrenCode(astElement, code, options) {
   return code.substring(start, end);
 }
 
-
-// Export all methods as a map
-export default exports;
+// Export all as one map
+export default Object.assign({}, exports);
