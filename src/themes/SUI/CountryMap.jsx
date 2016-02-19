@@ -7,9 +7,11 @@
 import React, { PropTypes } from "react";
 import classNames from "classnames";
 
-import { Flag, Menu, MenuItem } from "../"
+import Flag from "./Flag";
+import Menu from "./Menu";
+import MenuItem from "./MenuItem";
 
-export const COUNTRY_NAME_MAP = {
+const COUNTRY_NAME_MAP = {
   "af": "Afghanistan",
   "ax": "Aland Islands",
   "al": "Albania",
@@ -263,7 +265,7 @@ export function SUICountryMenu(props) {
   return <MenuItem key={countryCode} value={countryCode} label={getCountryName(countryCode)}/>;
 }
 
-export default function SUICountryMenu(props) {
+function SUICountryMenu(props) {
   let { countries, ...menuProps } = props;
   if (!countries) countries = Object.keys(COUNTRY_NAME_MAP);
   const flagItems = countries.map( (countryCode) => CountryMenuItem({countryCode}) );
@@ -273,4 +275,8 @@ export default function SUICountryMenu(props) {
   return <Menu {...menuProps}>{flagItems}</Menu>
 }
 
+// Add all exports to SUICountryMenu class
+Object.assign(SUICountryMenu, exports);
 
+// Export the class as the default
+export default SUICountryMenu;

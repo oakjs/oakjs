@@ -2,7 +2,7 @@ import React, { PropTypes } from "react";
 import { Route, IndexRoute } from "react-router";
 import classNames from "classnames";
 
-import * as oakComponents from "oak/components";
+import oakComponents from "oak/components";
 
 // Project-specific CSS styling.
 import "./Project.css";

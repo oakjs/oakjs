@@ -1,5 +1,4 @@
 // add SUI components and extras globally
-import * as SUI from "themes/SUI";
-import * as extras from "themes/SUI/extras";
+import SUI from "themes/SUI/components";
 
 Object.assign(exports, SUI);

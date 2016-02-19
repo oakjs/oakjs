@@ -57,4 +57,5 @@ export function getRenderMethod(code) {
 }
 
 
-export default exports;
+// Export all as a map
+export default Object.assign({}, exports);

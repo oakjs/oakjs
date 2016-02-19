@@ -10,14 +10,12 @@ export ProjectController from "./ProjectController";
 export Stack from "./Stack";
 export StackController from "./StackController";
 
-export roots from "oak-roots";
+// Random react components
+export components from "./components";
 
+// Test stuff
 export parserTest from "./parserTest";
 
-// Card components.
-// NOTE: in a separate file so we don't get a circular dependency.
-import * as components from "./components";
-Object.assign(exports, components);
 
 // assign everything we've loaded to the oak singleton
 Object.assign(oak, exports);

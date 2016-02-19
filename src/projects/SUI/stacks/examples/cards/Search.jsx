@@ -2,7 +2,7 @@
 import React from "react";
 import { Card } from "oak";
 
-import { COUNTRY_NAME_MAP } from "themes/SUI/extras/CountryMap";
+import { COUNTRY_NAME_MAP } from "themes/SUI/CountryMap";
 
 export default class SearchCard extends Card {
   static defaultProps = {

@@ -5,9 +5,6 @@
 //
 //////////////////////////////
 
-import oak from "../oak";
-
-
 //////////////////////////////
 //  Columns / etc which use names for numbers
 //////////////////////////////
@@ -44,7 +41,5 @@ export function getColumnCountClass(columns) {
 }
 
 
-// Assign all constants to oak
-Object.assign(oak, exports);
-
-export default oak;
+// Export all as a map.
+export default Object.assign({}, exports);

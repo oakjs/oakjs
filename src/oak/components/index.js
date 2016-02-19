@@ -11,3 +11,9 @@ export { OakAnchorLink as AnchorLink } from "./Link";
 export Spacer from "./Spacer";
 export StackMenu from "./StackMenu";
 export Stub from "./Stub";
+
+export constants from "./constants";
+
+
+// Export all as a map
+export default Object.assign({}, exports);
