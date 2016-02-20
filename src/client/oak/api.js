@@ -92,19 +92,19 @@ oak.api = new API({
 
 
   //////////////////////////////
-  // Component ChildIndex files
+  // Component Index files
   //////////////////////////////
 
-  loadControllerChildIndex(controller) {
+  loadControllerIndex(controller) {
     const url = `/api/${controller.type}/${controller.path}/index`;
     return this.getJSON(url, null, `Error loading ${controller.type} index`);
   },
 
-  saveControllerChildIndex(controller) {
+  saveControllerIndex(controller) {
     const url = `/api/${controller.type}/${controller.path}/index`;
-    if (controller.childIndex === undefined) return;
-    console.info(`Saving ${controller.type} childIndex`);
-    return this.post(url, controller.childIndex);
+    if (controller.index === undefined) return;
+    console.info(`Saving ${controller.type} index`);
+    return this.post(url, controller.index);
   },
 
 

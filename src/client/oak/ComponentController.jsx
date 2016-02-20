@@ -48,7 +48,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   get path() { throw "You must override `get path()`" }
 
   get selector() { throw "You must override `get selector()`" }
-  get rootSelector() { return (this.parent ? this.parent.rootSelector : "") + this.selector }
+  get rootSelector() { return (this.parent ? this.parent.rootSelector + " " : "") + this.selector }
 
 
   // Die if your component is not fully identified.
@@ -65,7 +65,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     super.onChanged(changes, old);
     // If any of our special bits changes, notify.
     // NOTE: we don't notify on the initial load!  (???)
-    if (changes.childIndex && old.childIndex) this.onChildIndexChanged(changes.childIndex, old.childIndex);
+    if (changes.index && old.index) this.onIndexChanged(changes.index, old.index);
     if (changes.component || changes.script && (old.component || old.script)) this.onComponentChanged(changes.component, old.component);
     if (changes.styles && old.styles) this.onStylesChanged(changes.styles, old.styles);
   }
@@ -74,10 +74,10 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   //  Child index
   //////////////////////////////
 
-  onChildIndexChanged(newChildIndex, oldChildIndex) {
+  onIndexChanged(newIndex, oldIndex) {
     this.dirty();
-    console.info("TODO: Instantiate childIndex ", newChildIndex);
-    this.trigger("childIndexChanged", newChildIndex, oldChildIndex);
+    console.info("TODO: Instantiate index ", newIndex);
+    this.trigger("indexChanged", newIndex, oldIndex);
   }
 
   //////////////////////////////

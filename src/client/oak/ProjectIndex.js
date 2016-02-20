@@ -68,11 +68,11 @@ window._project = registry.projects[projectId];
         const projectId = project.projectId;
         // handle stack specified as number or id
         const stackId = typeof stack === "number"
-                        ? Object.keys(project.childIndex)[stack]
+                        ? Object.keys(project.index)[stack]
                         : stack;
 
         // Bail if we can't find the stack in the index
-        if (!project.childIndex[stackId]) {
+        if (!project.index[stackId]) {
           throw new ReferenceError(`Project '${stack}' not found`);
         }
 
@@ -94,11 +94,11 @@ window._stack = registry.stacks[stackPath];
         const stackId = stack.stackId;
         // handle card specified as number or id
         const cardId = typeof card === "number"
-                        ? Object.keys(stack.childIndex)[card]
+                        ? Object.keys(stack.index)[card]
                         : card;
 
         // Bail if we can't find the card in the index
-        if (!stack.childIndex[cardId]) {
+        if (!stack.index[cardId]) {
           throw new ReferenceError(`stack '${card}' not found`);
         }
 

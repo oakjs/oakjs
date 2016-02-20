@@ -34,7 +34,7 @@ export default class ProjectController extends ComponentController {
 
   loadData() {
     return api.map({
-      childIndex: api.loadControllerChildIndex(this),
+      index: api.loadControllerIndex(this),
       component: api.loadControllerJSXE(this),
       styles: api.loadControllerStyles(this),
       script: api.loadControllerScript(this)
@@ -43,7 +43,7 @@ export default class ProjectController extends ComponentController {
 
   saveData() {
     return api.map({
-      childIndex: api.saveControllerChildIndex(this),
+      index: api.saveControllerIndex(this),
       component: api.saveControllerJSXE(this),
       styles: api.saveControllerStyles(this),
       script: api.saveControllerScript(this)
