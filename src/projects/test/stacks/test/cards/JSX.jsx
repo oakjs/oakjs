@@ -14,7 +14,9 @@ export default class Card extends oak.Card {
   // actual card render
   renderChildren({ data, card, stack, project, c }) {
     return (
-		<span>JSX Test Card!</span>
+      <c.Segment>
+    		<span>JSX Test Card!</span>
+    	</c.Segment>
     );
   }
 }

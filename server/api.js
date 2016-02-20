@@ -17,17 +17,17 @@ const bodyTextParser = bodyParser.text();
 // Utility functions to load / save / etc
 //////////////////////////////
 
-function sendTextFile(response, path) {
+function sendTextFile(request, response, path) {
   response.set("Content-Type", "text/plain");
   return response.sendFile(path);
 }
 
-function sendJSONFile(response, path) {
+function sendJSONFile(request, response, path) {
   response.set("Content-Type", "application/json");
   return response.sendFile(path);
 }
 
-function saveTextFile(response, path, body) {
+function saveTextFile(request, response, path, body) {
   console.warn("Saving to ",path);
   console.warn(body);
   return fs.outputFile(path, body)
@@ -45,9 +45,9 @@ function saveTextFile(response, path, body) {
 router.get("/card/:project/:stack/:card/:action",  (request, response) => {
   const { action, project, stack, card } = request.params;
   switch (action) {
-    case "jsxe":    return sendTextFile(response, paths.cardPath(project, stack, card, ".jsxe"));
-    case "css":     return sendTextFile(response, paths.cardPath(project, stack, card, ".css"));
-    case "script":  return sendTextFile(response, paths.cardPath(project, stack, card, ".js"));
+    case "jsxe":    return sendTextFile(request, response, paths.cardPath(project, stack, card, ".jsxe"));
+    case "css":     return sendTextFile(request, response, paths.cardPath(project, stack, card, ".css"));
+    case "script":  return sendTextFile(request, response, paths.cardPath(project, stack, card, ".js"));
   }
   throw new TypeError(`Card API action ${action} not defined.`);
 });
@@ -58,9 +58,9 @@ router.post("/card/:project/:stack/:card/:action", bodyTextParser, (request, res
   const { action, project, stack, card } = request.params;
   const { body } = request;
   switch (action) {
-    case "jsxe":    return saveTextFile(response, paths.cardPath(project, stack, card, ".jsxe"), body);
-    case "css":     return saveTextFile(response, paths.cardPath(project, stack, card, ".css"), body);
-    case "script":  return saveTextFile(response, paths.cardPath(project, stack, card, ".js"), body);
+    case "jsxe":    return saveTextFile(request, response, paths.cardPath(project, stack, card, ".jsxe"), body);
+    case "css":     return saveTextFile(request, response, paths.cardPath(project, stack, card, ".css"), body);
+    case "script":  return saveTextFile(request, response, paths.cardPath(project, stack, card, ".js"), body);
   }
   throw new TypeError(`Card API action ${action} not defined.`);
 });
@@ -70,10 +70,10 @@ router.post("/card/:project/:stack/:card/:action", bodyTextParser, (request, res
 router.get("/stack/:project/:stack/:action",  (request, response) => {
   const { action, project, stack } = request.params;
   switch (action) {
-    case "jsxe":    return sendTextFile(response, paths.stackPath(project, stack, "stack.jsxe"));
-    case "css":     return sendTextFile(response, paths.stackPath(project, stack, "stack.css"));
-    case "script":  return sendTextFile(response, paths.stackPath(project, stack, "stack.js"));
-    case "index":   return sendJSONFile(response, paths.stackPath(project, stack, "cards.json"));
+    case "jsxe":    return sendTextFile(request, response, paths.stackPath(project, stack, "stack.jsxe"));
+    case "css":     return sendTextFile(request, response, paths.stackPath(project, stack, "stack.css"));
+    case "script":  return sendTextFile(request, response, paths.stackPath(project, stack, "stack.js"));
+    case "index":   return sendJSONFile(request, response, paths.stackPath(project, stack, "cards/index.json"));
   }
   throw new TypeError(`Stack API action ${action} not defined.`);
 });
@@ -83,10 +83,10 @@ router.get("/stack/:project/:stack/:action",  (request, response) => {
 router.get("/project/:project/:action",  (request, response) => {
   const { action, project } = request.params;
   switch (action) {
-    case "jsxe":    return sendTextFile(response, paths.projectPath(project, "project.jsxe"));
-    case "css":     return sendTextFile(response, paths.projectPath(project, "project.css"));
-    case "script":  return sendTextFile(response, paths.projectPath(project, "project.js"));
-    case "index":   return sendJSONFile(response, paths.projectPath(project, "stacks.json"));
+    case "jsxe":    return sendTextFile(request, response, paths.projectPath(project, "project.jsxe"));
+    case "css":     return sendTextFile(request, response, paths.projectPath(project, "project.css"));
+    case "script":  return sendTextFile(request, response, paths.projectPath(project, "project.js"));
+    case "index":   return sendJSONFile(request, response, paths.projectPath(project, "stacks/index.json"));
   }
   throw new TypeError(`Project API action ${action} not defined.`);
 });

@@ -88,7 +88,13 @@ oak.api = new API({
 
   loadControllerChildIndex(controller) {
     const url = `/api/${controller.type}/${controller.path}/index`;
-    return this.getJSON(url);
+    return this.getJSON(url)
+            .catch(e => {
+              console.group("Error loading child index JSON from "+path);
+              console.error(e);
+              console.groupEnd();
+              throw e;
+            });
   },
 
   saveControllerChildIndex(controller) {

@@ -1,0 +1,5 @@
+<Card id="JSX" title="JSX Test Card">
+  <Segment>
+    <span>JSX Test Card!</span>
+  </Segment>
+</Card>
