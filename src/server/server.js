@@ -1,28 +1,26 @@
 /* eslint no-console: 0 */
 
-import path from "path";
 import express from "express";
+import path from "path";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
-
-import config from "../webpack.config.js";
-
-console.dir(config);
 
 const isDeveloping = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
+import config from "./config";
+
 //////////////////////////////
 // Hot Module Reload setup
 //////////////////////////////
 
 if (isDeveloping) {
-  var compiler = webpack(config);
+  var compiler = webpack(config.dev);
   var middleware = webpackMiddleware(compiler, {
-    publicPath: config.output.publicPath,
+    publicPath: config.dev.output.publicPath,
     contentBase: config.paths.client,
     stats: {
       colors: true,
@@ -56,13 +54,13 @@ app.use("/api", apiRouter);
 //////////////////////////////
 if (isDeveloping) {
   app.get("*", function response(request, response) {
-    response.write(middleware.fileSystem.readFileSync(config.paths.oakDistHTMLFile));
+    response.write(middleware.fileSystem.readFileSync(config.paths.oakBuildHTMLFile));
     response.end();
   });
 } else {
-  app.use(express.static(config.paths.dist));
+  app.use(express.static(config.paths.build));
   app.get("*", function response(request, response) {
-    response.sendFile(config.paths.oakDistHTMLFile);
+    response.sendFile(config.paths.oakBuildHTMLFile);
   });
 }
 

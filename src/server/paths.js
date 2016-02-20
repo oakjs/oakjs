@@ -4,7 +4,7 @@
 //       so you can do so dynamically when servicing requests.
 //////////////////////////////
 
-import config from '../webpack.common.js';
+import config from './config';
 
 //////////////////////////////
 //  Path utilities
@@ -16,7 +16,7 @@ export function isValidPath(path) {
 }
 
 // Root of all of our project files.
-export const PROJECT_ROOT = config.resolve.alias.projects + "/";
+export const PROJECT_ROOT = config.paths.projects + "/";
 
 // Return the path for a project file.
 // Default is to return the `project.jsx` file, pass a different `fileName` for something else.

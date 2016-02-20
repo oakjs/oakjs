@@ -11,16 +11,25 @@ var path = require("path");
 
 const paths = {
   root:         __dirname,
-  public:       path.join(__dirname, "public"),
-  dist:         path.join(__dirname, "dist"),
-  server:       path.join(__dirname, "server"),
-  client:       path.join(__dirname, "src")
-}
+  src:          path.join(__dirname, "src"),
+  build:        path.join(__dirname, "build")
+};
 
-paths.oak =           path.join(paths.client, "oak");
-paths["oak-roots"] =  path.join(paths.client, "oak-roots");
-paths.projects =      path.join(paths.client, "projects");
-paths.themes =        path.join(paths.client, "themes");
+// Add paths based on the above
+Object.assign(paths, {
+  server:       path.join(paths.src, "server"),
+  client:       path.join(paths.src, "client"),
+  projects:     path.join(paths.src, "projects"),
+});
+
+// Add paths based on the above
+Object.assign(paths, {
+  oak:          path.join(paths.client, "oak"),
+  "oak-roots":  path.join(paths.client, "oak-roots"),
+  public:       path.join(paths.client, "public"),
+  themes:       path.join(paths.client, "themes"),
+})
+
 
 module.exports = {
   // NOTE: not part of the webpack standard!
@@ -29,11 +38,11 @@ module.exports = {
     oakWebpackEntryRoot: path.join(paths.client, "index.js"),
     oakWebackHTMLTemplate: path.join(paths.client, "index.template.html"),
     // webpack output files
-    oakDistHTMLFile: path.join(paths.dist, "index.html"),
+    oakBuildHTMLFile: path.join(paths.build, "index.html"),
   }),
 
   output: {
-    path: paths.dist,
+    path: paths.build,
     filename: "[name].js",
     publicPath: "/"
   },
@@ -61,7 +70,7 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        include: paths.client+"/",
+        include: paths.src,
         loaders: ["babel?cacheDirectory"]
       },
       {
@@ -70,7 +79,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        include: paths.client+"/",
+        include: paths.src,
         loaders: ["style", "css", "less"]
       }
     ]

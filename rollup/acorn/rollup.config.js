@@ -8,7 +8,7 @@ import uglify from 'rollup-plugin-uglify';
 export default {
   entry: 'acorn.js',
   format: 'iife',
-  dest: '../../public/lib/acorn.js',
+  dest: '../../src/public/3rdParty/acorn.js',
   moduleName: 'acorn',
   plugins: [
     json(),
