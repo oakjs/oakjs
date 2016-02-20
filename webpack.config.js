@@ -22,18 +22,14 @@ module.exports = {
 
   entry: {
     vendors: [
-      "webpack-hot-middleware/client",
       "react",
       "react-dom",
+      "webpack-hot-middleware/client",
       "react-router",
       "react-transform-hmr",
       "react-transform-catch-errors",
       "redbox-react",
       "classnames",
-      "core-decorators",
-    ],
-    acorn: [
-      "./lib/acorn.js"
     ],
     oak: [
       './src/index.js'
@@ -71,6 +67,13 @@ module.exports = {
       themes: __dirname + "/src/themes",
       "oak-roots": __dirname + "/src/oak-roots",
     }
+  },
+
+  // Global variables required and not bundled
+  externals: {
+    "jquery": "jQuery",
+    "react": "React",
+    "react-dom": "ReactDOM",
   },
 
   module: {
