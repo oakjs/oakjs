@@ -33,6 +33,8 @@ module.exports = {
 
   // Global variables required and not bundled
   externals: {
+    "acorn-jsx": "acorn",
+    "acorn": "acorn",
     "jquery": "jQuery",
     "react": "React",
     "react-dom": "ReactDOM",

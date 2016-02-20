@@ -5,9 +5,7 @@ import express from "express";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
-import config from "./webpack.config.js";
-
-import paths from "./server/paths";
+import config from "../webpack.config.js";
 
 const isDeveloping = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
@@ -47,7 +45,7 @@ if (isDeveloping) {
 app.use(express.static(__dirname + "/public"));
 
 // API routines split into their own file
-import apiRouter from "./server/api";
+import apiRouter from "./api";
 app.use("/api", apiRouter);
 
 
