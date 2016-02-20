@@ -14,7 +14,6 @@ import Savable from "oak-roots/Savable";
 
 import { browser, objectUtil } from "oak-roots";
 
-import JSXElement from "./JSXElement";
 import Stub from "./components/Stub";
 
 
@@ -64,10 +63,11 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   // Notify observers if certain things have changed.
   onChanged(changes, old) {
     super.onChanged(changes, old);
-    const { childIndex, component, styles, script } = changes;
-    if (childIndex) this.onChildIndexChanged(childIndex, old.childIndex);
-    if (component || script) this.onComponentChanged(component, old.component);
-    if (styles) this.onStylesChanged(styles, old.styles);
+    // If any of our special bits changes, notify.
+    // NOTE: we don't notify on the initial load!  (???)
+    if (changes.childIndex && old.childIndex) this.onChildIndexChanged(changes.childIndex, old.childIndex);
+    if (changes.component || changes.script && (old.component || old.script)) this.onComponentChanged(changes.component, old.component);
+    if (changes.styles && old.styles) this.onStylesChanged(changes.styles, old.styles);
   }
 
   //////////////////////////////
@@ -75,9 +75,9 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   //////////////////////////////
 
   onChildIndexChanged(newChildIndex, oldChildIndex) {
-    if (oldChildIndex) this.dirty();
+    this.dirty();
     console.info("TODO: Instantiate childIndex ", newChildIndex);
-    this.trigger("childIndexChanged", newChildIndex);
+    this.trigger("childIndexChanged", newChildIndex, oldChildIndex);
   }
 
   //////////////////////////////
@@ -85,9 +85,9 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   //////////////////////////////
 
   onComponentChanged(newComponent, oldComponent) {
-    if (oldComponent) this.dirty();
+    this.dirty();
     console.info("TODO: Instantiate component ", newComponent);
-    this.trigger("componentChanged", newComponent);
+    this.trigger("componentChanged", newComponent, oldComponent);
   }
 
 
@@ -106,7 +106,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     else {
       browser.removeStylesheet(this.stylesheetId)
     }
-    this.trigger("stylesChanged", newStyles);
+    this.trigger("stylesChanged", newStyles, oldStyles);
   }
 
 

@@ -18,6 +18,7 @@ const bodyTextParser = bodyParser.text();
 //////////////////////////////
 
 function sendTextFile(request, response, path) {
+console.warn(path);
   response.set("Content-Type", "text/plain");
   return response.sendFile(path);
 }
@@ -34,6 +35,21 @@ function saveTextFile(request, response, path, body) {
     // echo the saved file back
     .then(result => sendTextFile(response, path));
 }
+
+
+//////////////////////////////
+// Projects index
+//////////////////////////////
+
+
+// Router for card read actions.
+router.get("/projects/:action",  (request, response) => {
+  const { action } = request.params;
+  switch (action) {
+    case "index":   return sendJSONFile(request, response, paths.projectsPath("index.json"));
+  }
+  throw new TypeError(`Projects API action ${action} not defined.`);
+});
 
 
 //////////////////////////////

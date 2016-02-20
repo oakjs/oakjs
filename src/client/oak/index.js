@@ -7,6 +7,7 @@ export JSXElement from "./JSXElement";
 export ComponentController from "./ComponentController";
 export Project from "./Project";
 export ProjectController from "./ProjectController";
+export ProjectIndex from "./ProjectIndex";
 export Stack from "./Stack";
 export StackController from "./StackController";
 

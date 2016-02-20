@@ -8,6 +8,15 @@ import JSXElement from "./JSXElement";
 
 oak.api = new API({
 
+  //////////////////////////////
+  // Projects index
+  //////////////////////////////
+  loadProjectIndex(controller, fetchParams={}) {
+    const url = `/api/projects/index`;
+    return this.getJSON(url, fetchParams, "Error loading projects index");
+  },
+
+
 
   //////////////////////////////
   // Component JSXE files
@@ -15,11 +24,8 @@ oak.api = new API({
 
   loadControllerJSXE(controller) {
     const url = `/api/${controller.type}/${controller.path}/jsxe`;
+    const errorMessage = `Error loading ${controller.type} component`;
     return this.getText(url)
-      .catch(error => {
-        console.error(`Error (${error.status}) returned when loading ${controller.type} controller from '${controller.componentUrl}'`);
-        throw new ReferenceError(`Could not load ${controller.type}.`)
-      })
       // Go from JSX to a JSXElement
       // If the JSX didn't actually change, keep the same element!
       .then(jsxe => {
@@ -31,8 +37,11 @@ oak.api = new API({
           console.group(`Error parsing JSXE from ${controller.componentUrl}`);
           console.error(e);
           console.groupEnd();
-          throw new ReferenceError(`Could not load ${controller.type}.`);
+          throw e;
         }
+      })
+      .catch(e => {
+        throw new ReferenceError(errorMessage);
       });
   },
 
@@ -88,13 +97,7 @@ oak.api = new API({
 
   loadControllerChildIndex(controller) {
     const url = `/api/${controller.type}/${controller.path}/index`;
-    return this.getJSON(url)
-            .catch(e => {
-              console.group("Error loading child index JSON from "+path);
-              console.error(e);
-              console.groupEnd();
-              throw e;
-            });
+    return this.getJSON(url, null, `Error loading ${controller.type} index`);
   },
 
   saveControllerChildIndex(controller) {
