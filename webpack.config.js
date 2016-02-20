@@ -1,13 +1,17 @@
-'use strict';
+//////////////////////////////
+//
+//  Dev webpack config
+//
+//  NOTE: You can't use `import` or ES2015 in this file!
+//        Old-school `require()` for you!
+//
+//////////////////////////////
 
-var webpack = require('webpack');
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var express = require("express");
+var webpack = require("webpack");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const SRC = path.join(__dirname, "/src/");
-const DIST = path.join(__dirname, "/dist/");
-
-const common = require("./webpack.common.js");
+var common = require("./webpack.common.js");
 
 module.exports = Object.assign({},
   // add all common stuff between dev and production
@@ -22,9 +26,9 @@ module.exports = Object.assign({},
     // slow but you get line numbers in chrome
     // devtool: "sourcemap",
     // faster: gets you to the file / method
-    devtool: 'eval-cheap-module-source-map',
-    // fastest: really imprecise, doesn't work with .jsx
-    // devtool: 'eval',
+    devtool: "eval-cheap-module-source-map",
+    // fastest: really imprecise, doesn"t work with .jsx
+    // devtool: "eval",
 
     entry: {
       vendors: [
@@ -38,20 +42,20 @@ module.exports = Object.assign({},
         "classnames",
       ],
       oak: [
-        './src/index.js'
+        common.paths.oakWebpackEntryRoot
       ],
     },
 
     plugins: [
       new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: 'src/index.template.html',
+        filename: "index.html",
+        template: common.paths.oakWebackHTMLTemplate,
         inject: true
       }),
   //    new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
-      new webpack.optimize.CommonsChunkPlugin('common.js'),
+      new webpack.optimize.CommonsChunkPlugin("common.js"),
     ],
 
   }

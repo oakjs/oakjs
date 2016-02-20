@@ -5,13 +5,15 @@ import express from "express";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
+
 import config from "../webpack.config.js";
+
+console.dir(config);
 
 const isDeveloping = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
-
 
 //////////////////////////////
 // Hot Module Reload setup
@@ -21,7 +23,7 @@ if (isDeveloping) {
   var compiler = webpack(config);
   var middleware = webpackMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    contentBase: "src",
+    contentBase: config.paths.client,
     stats: {
       colors: true,
       hash: false,
@@ -42,7 +44,7 @@ if (isDeveloping) {
 //////////////////////////////
 
 // anything in `public` gets served directly
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(config.paths.public));
 
 // API routines split into their own file
 import apiRouter from "./api";
@@ -54,13 +56,13 @@ app.use("/api", apiRouter);
 //////////////////////////////
 if (isDeveloping) {
   app.get("*", function response(request, response) {
-    response.write(middleware.fileSystem.readFileSync(path.join(__dirname, "dist/index.html")));
+    response.write(middleware.fileSystem.readFileSync(config.paths.oakDistHTMLFile));
     response.end();
   });
 } else {
-  app.use(express.static(__dirname + "/dist"));
+  app.use(express.static(config.paths.dist));
   app.get("*", function response(request, response) {
-    response.sendFile(path.join(__dirname, "dist/index.html"));
+    response.sendFile(config.paths.oakDistHTMLFile);
   });
 }
 

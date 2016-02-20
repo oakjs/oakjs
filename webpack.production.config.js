@@ -1,13 +1,18 @@
-'use strict';
+//////////////////////////////
+//
+//  Production webpack config
+//
+//  NOTE: You can't use `import` or ES2015 in this file!
+//        Old-school `require()` for you!
+//
+//////////////////////////////
 
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var autoprefixer = require("autoprefixer");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
+var path = require("path");
+var webpack = require("webpack");
 
-const SRC = path.join(__dirname, "/src/");
-const DIST = path.join(__dirname, "/dist/");
-
-const common = require("./webpack.common.js");
+var common = require("./webpack.common.js");
 
 module.exports = Object.assign({},
   // add all common stuff between dev and production
@@ -16,15 +21,15 @@ module.exports = Object.assign({},
   // production-specific
   {
     entry: [
-      path.join(SRC, 'index.js')
+      common.paths.oakWebpackEntryRoot
     ],
 
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
       new HtmlWebpackPlugin({
-        template: 'src/index.template.html',
-        inject: 'body',
-        filename: 'index.html'
+        filename: "index.html",
+        template: common.paths.oakWebackHTMLTemplate,
+        inject: "body",
       }),
       new webpack.optimize.UglifyJsPlugin({
         compressor: {
@@ -33,12 +38,12 @@ module.exports = Object.assign({},
         }
       }),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
       })
     ],
 
     postcss: [
-      require('autoprefixer')
+      autoprefixer
     ]
 
   }
