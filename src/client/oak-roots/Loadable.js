@@ -18,7 +18,7 @@ export default function Loadable(Constructor = Object) {
   // Internal routine to update the `__loadState` of a loadable.
   function _setLoadState(loadable, state) {
     // Remember when this changed
-    if (state) state.timeStamp = Date.now();
+    if (state) state.timestamp = Date.now();
 
     // add the `__loadState` property if not defined directly on this object.
     if (!loadable.hasOwnProperty("__loadState")) {
@@ -76,6 +76,11 @@ export default function Loadable(Constructor = Object) {
     get isLoaded() { return this.__loadState && this.__loadState.state === "loaded" }
     get loadError() { return this.__loadState && this.__loadState.error }
 
+    // Time that we were last loaded
+    get lastLoaded() {
+      return (this.isLoaded && this.__loadState && this.__loadState.timestamp) || undefined;
+    }
+
     // Load this resource.
     //
     // Returns a promise which will `resolve()` with the loaded data,
@@ -89,38 +94,13 @@ export default function Loadable(Constructor = Object) {
     //
     // NOTE: do NOT override this -- override `loadData()` instead!
     //
-    load() {
+    load(force) {
 //TODO: build in cache time ???
+//TODO: hand not-modified when reloading
+//TODO: if we have data and we're realoading and data is invalid... ???
       // If we're already loaded, return the data returned by the last load
-      if (this.isLoaded) return Promise.resolve(this.__loadState.data);
-      return this._load();
-    }
+      if (this.isLoaded && !force) return Promise.resolve(this.__loadState.data);
 
-    // Force a reload, no matter whether we were previously loaded or not.
-    reload() {
-      if (this.trigger) this.trigger("reloading");
-      this._load();
-    }
-
-    // Unload us, removing all of our loaded data.
-    unload() {
-      _setLoadState(this, undefined);
-      if (this.trigger) this.trigger("unloaded");
-    }
-
-    // Simulate a server load of some data.
-    // NOTE: don't override this to detect when data is loaded, override `onLoaded()` instead
-    loaded(data) {
-      _setLoadState(this, { state: "loaded", data });
-      this.onLoaded(data);
-      if (this.trigger) this.trigger("loaded", data);
-      return data;
-    }
-
-
-    // Actual load routine.
-    // NOTE: DO NOT OVERRIDE THIS!
-    _load() {
       // If we're loading, return our loading promise
       if (this.isLoading) return this.__loadState.promise;
 
@@ -156,6 +136,27 @@ export default function Loadable(Constructor = Object) {
       });
 
       return loadPromise;
+    }
+
+    // Force a reload, no matter whether we were previously loaded or not.
+    reload() {
+      if (this.trigger) this.trigger("reloading");
+      this.load("FORCE");
+    }
+
+    // Unload us, removing all of our loaded data.
+    unload() {
+      _setLoadState(this, undefined);
+      if (this.trigger) this.trigger("unloaded");
+    }
+
+    // Simulate a server load of some data.
+    // NOTE: don't override this to detect when data is loaded, override `onLoaded()` instead
+    loaded(data) {
+      _setLoadState(this, { state: "loaded", data });
+      this.onLoaded(data);
+      if (this.trigger) this.trigger("loaded", data);
+      return data;
     }
 
   }
