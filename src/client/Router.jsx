@@ -8,24 +8,24 @@
 import React from "react";
 import { Router, Route } from "react-router";
 
+import oldProjectsRoute from "./projectRoutes";
+
 // Set up History.
 import { useQueries, createHistory } from "history";
 const history = useQueries(createHistory)();
 //import createHistory from "history/lib/createHashHistory"
 //const history = createHistory();
 
-// Import projects.
-// NOTE: this is what pulls ALL of the projects/etc into scope!!!
-import * as projectMap from "../projects";
-const projects = Object.keys(projectMap).map(projectId => projectMap[projectId]);
-const projectRoutes = projects.map(project => project.route);
+const routes = (
+  <Route path="/">
+    {oldProjectsRoute}
+  </Route>
+);
+
 
 // Set up the router
-const topLevelRoute = React.createElement(Route, { path: "/" }, ...projectRoutes);
-const router = React.createElement(Router, { history }, topLevelRoute);
+const router = React.createElement(Router, { history }, routes);
 export default router;
 
 // DEBUG
 window.router = router;
-window.projects = projects;
-window.project = projects[0];

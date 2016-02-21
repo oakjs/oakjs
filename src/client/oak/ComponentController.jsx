@@ -51,11 +51,6 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   get rootSelector() { return (this.parent ? this.parent.rootSelector + " " : "") + this.selector }
 
 
-  // Die if your component is not fully identified.
-  // See `CardComponent` for an example.
-  dieIfNotIdentified(errorMessage) {}
-
-
   //////////////////////////////
   //  Mutation
   //////////////////////////////
