@@ -5,7 +5,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "oak-roots/util/react";
+import { classNames } from "oak-roots/util/react";
 
 function SUIRail(props) {
   const {

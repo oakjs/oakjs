@@ -6,7 +6,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "oak-roots/util/react";
+import { classNames } from "oak-roots/util/react";
 
 function SUISegments(props) {
   const { id, className, style, appearance, horizontal, children, ...extraProps } = props;

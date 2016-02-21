@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react";
 import { Route, IndexRoute } from "react-router";
-import classNames from "oak-roots/util/react";
+import { classNames } from "oak-roots/util/react";
 
 // Import custom CSS for all stacks.
 import "./Stack.css";

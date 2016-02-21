@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "oak-roots/util/react";
+import { classNames } from "oak-roots/util/react";
 
 window.classNames = classNames;
 

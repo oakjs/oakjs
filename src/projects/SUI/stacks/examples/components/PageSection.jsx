@@ -1,5 +1,5 @@
 import React, { PropTypes } from "react";
-import classNames from "oak-roots/util/react";
+import { classNames } from "oak-roots/util/react";
 
 function Section(props, context) {
   const c = context.components;

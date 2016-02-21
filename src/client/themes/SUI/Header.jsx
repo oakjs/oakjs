@@ -6,7 +6,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "oak-roots/util/react";
+import { classNames } from "oak-roots/util/react";
 
 import ElementBuffer from "./ElementBuffer";
 import { getAlignClass, getFloatedClass, getHeaderClass } from "./constants";

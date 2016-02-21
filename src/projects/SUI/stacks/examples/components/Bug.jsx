@@ -1,5 +1,5 @@
 import React, { PropTypes } from "react";
-import classNames from "oak-roots/util/react";
+import { classNames } from "oak-roots/util/react";
 
 function Bug(props, context) {
   const { components:c } = context;
