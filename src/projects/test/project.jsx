@@ -7,7 +7,7 @@ import * as themeComponents from "./theme";
 import * as projectComponents from "./components";
 import * as stackMap from "./stacks";
 
-export default class Project extends Project {
+export default class TestProject extends Project {
 	static themeComponents = themeComponents;
 	static projectComponents = projectComponents;
 	static stackMap = stackMap;
@@ -20,5 +20,5 @@ export default class Project extends Project {
   render(){ return super.render() }
 }
 
-Project.initialize();
+TestProject.initialize();
 

@@ -7,7 +7,7 @@ import * as cardMap from "./cards";
 
 import "./stack.css";
 
-export default class Stack extends Stack {
+export default class TestStack extends Stack {
   // Pull imports into scope
 	static _components = components;
 	static cardMap = cardMap;

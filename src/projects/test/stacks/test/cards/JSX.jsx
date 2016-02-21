@@ -2,7 +2,7 @@
 import React from "react";
 import Card from "oak/Card";
 
-export default class Card extends Card {
+export default class JSXCard extends Card {
   static defaultProps = {
     id: "JSX",
     title: "JSX Test"
