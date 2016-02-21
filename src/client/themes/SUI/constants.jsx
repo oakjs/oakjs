@@ -5,7 +5,7 @@
 //
 //////////////////////////////
 
-import classNames from "classnames";
+import classNames from "oak-roots/util/react";
 
 import SUI from "./SUI";
 

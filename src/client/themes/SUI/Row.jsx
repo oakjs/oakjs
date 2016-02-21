@@ -8,7 +8,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classnames";
+import classNames from "oak-roots/util/react";
 
 import { getAlignClass, getColumnCountClass } from "./constants";
 

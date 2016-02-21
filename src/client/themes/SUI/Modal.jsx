@@ -7,7 +7,7 @@
 
 import React, { PropTypes } from "react";
 import ReactDOM from "react-dom";
-import { autobind } from "core-decorators";
+import { autobind } from "oak-roots/util/decorators";
 
 import Button from "./Button";
 import ElementBuffer from "./ElementBuffer";

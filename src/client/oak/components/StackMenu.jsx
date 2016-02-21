@@ -1,6 +1,6 @@
 // Menu of cards in the current stack.
 import React, { PropTypes } from "react";
-import classNames from "classnames";
+import classNames from "oak-roots/util/react";
 
 function StackMenu(props, context) {
   const c = context.components;

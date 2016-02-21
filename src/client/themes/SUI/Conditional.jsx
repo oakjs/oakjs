@@ -6,7 +6,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classnames";
+import classNames from "oak-roots/util/react";
 
 function SUIConditional(props) {
   return <div className="or"/>

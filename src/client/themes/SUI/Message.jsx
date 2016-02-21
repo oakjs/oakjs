@@ -5,8 +5,8 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classnames";
-import { autobind } from "core-decorators";
+import classNames from "oak-roots/util/react";
+import { autobind } from "oak-roots/util/decorators";
 
 import SUIComponent from "./SUIComponent";
 import ElementBuffer from "./ElementBuffer";

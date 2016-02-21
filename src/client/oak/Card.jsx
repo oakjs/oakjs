@@ -1,7 +1,8 @@
 import React, { PropTypes } from "react";
 import { Route } from "react-router";
-import classNames from "classnames";
-import { autobind } from "core-decorators";
+
+import { autobind } from "oak-roots/util/decorators";
+import { classNames } from "oak-roots/util/react";
 
 import { getPath, setPath } from "./path";
 

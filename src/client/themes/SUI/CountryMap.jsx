@@ -5,7 +5,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classnames";
+import classNames from "oak-roots/util/react";
 
 import Flag from "./Flag";
 import Menu from "./Menu";

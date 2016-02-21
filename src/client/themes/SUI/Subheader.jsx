@@ -6,7 +6,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import classNames from "classnames";
+import classNames from "oak-roots/util/react";
 
 function SUISubheader(props) {
   const { id, className, style, appearance, children } = props;
