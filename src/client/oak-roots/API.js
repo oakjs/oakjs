@@ -35,6 +35,8 @@
 // TODO: use the fact that we know loading time to avoid reloading?
 //  - can check controller.lastLoadTime and set If-Modified-Since header
 //  - will have to process a 304 specially...
+//  - maybe convert all resources to their own class (JSONFile, JSXEFile, etc)
+//    which keeps the raw response and hands it back on a 304?
 
 import objectUtil from "./util/object";
 

@@ -33,7 +33,7 @@ if (isDeveloping) {
   });
 
   app.use(middleware);
-  app.use(webpackHotMiddleware(compiler));
+  if (config.useHMR) app.use(webpackHotMiddleware(compiler));
 }
 
 

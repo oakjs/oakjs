@@ -13,12 +13,51 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 var common = require("./webpack.common.js");
 
+
+// MASTER FLAG for whether we're using Hot Module Reload or not
+// NOTE: also requires flags in `.babelrc`  :(
+var useHMR = false;
+
+var vendors = [
+  "classnames",
+  "react",
+  "react-dom",
+  "react-router",
+];
+
+var plugins = [
+  new HtmlWebpackPlugin({
+    filename: "index.html",
+    template: common.paths.oakWebackHTMLTemplate,
+    inject: true
+  }),
+  new webpack.optimize.CommonsChunkPlugin("common.js"),
+];
+
+if (useHMR) {
+  vendors.push(
+    "webpack-hot-middleware/client",
+    "react-transform-hmr",
+    "react-transform-catch-errors",
+    "redbox-react"
+  );
+  plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  );
+}
+
+
 module.exports = Object.assign({},
   // add all common stuff between dev and production
   common,
 
   // dev-specific
   {
+    // pass useHMR flag down for the server
+    // NOTE: non-standard!
+    useHMR : useHMR,
+
     // Unknown URLs go to "/index.html" -- this makes routing work
     historyApiFallback: true,
 
@@ -31,32 +70,13 @@ module.exports = Object.assign({},
     // devtool: "eval",
 
     entry: {
-      vendors: [
-        "react",
-        "react-dom",
-        "webpack-hot-middleware/client",
-        "react-router",
-        "react-transform-hmr",
-        "react-transform-catch-errors",
-        "redbox-react",
-        "classnames",
-      ],
+      vendors: vendors,
       oak: [
         common.paths.oakWebpackEntryRoot
       ],
     },
 
-    plugins: [
-      new HtmlWebpackPlugin({
-        filename: "index.html",
-        template: common.paths.oakWebackHTMLTemplate,
-        inject: true
-      }),
-  //    new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
-      new webpack.optimize.CommonsChunkPlugin("common.js"),
-    ],
+    plugins: plugins,
 
   }
 );
