@@ -57,13 +57,13 @@ export default class ProjectIndex extends Savable(Loadable(Mutable)) {
           registry.projects[projectId] = new ProjectController({ props: { project: projectId } });
         }
 window._project = registry.projects[projectId];
-        return registry.projects[projectId];
+        return { project: registry.projects[projectId] };
       });
   }
 
   getStack(project, stack) {
     return this.getProject(project)
-      .then( project => project.load().then( () => project ) )
+      .then( { project } => project.load() )
       .then( project => {
         const projectId = project.projectId;
         // handle stack specified as number or id
@@ -82,14 +82,14 @@ window._project = registry.projects[projectId];
           registry.stacks[stackPath] = new StackController({ props: { project: projectId, stack: stackId } });
         }
 window._stack = registry.stacks[stackPath];
-        return registry.stacks[stackPath];
+        return { project, stack: registry.stacks[stackPath] };
       });
   }
 
   getCard(project, stack, card) {
     return this.getStack(project, stack)
-      .then( stack => stack.load().then( () => Promise.all([this.getProject(project), stack]) ) )
-      .then( ([project, stack]) => {
+      .then( { project, stack } => stack.load().then( () => { project, stack } )
+      .then( { project, stack } => {
         const projectId = project.projectId;
         const stackId = stack.stackId;
         // handle card specified as number or id
@@ -108,7 +108,7 @@ window._stack = registry.stacks[stackPath];
           registry.cards[cardPath] = new CardController({ props: { project: projectId, stack: stackId, card: cardId } });
         }
 window._card = registry.cards[cardPath];
-        return registry.cards[cardPath];
+        return { project, stack, card: registry.cards[cardPath] };
       });
   }
 
