@@ -1,6 +1,6 @@
 "use strict";
 import React from "react";
-import { Card } from "oak";
+import Card from "oak/Card";
 
 
 const WHAT_IS_A_DOG = `A dog is a type of domesticated animal. Known for its loyalty and faithfulness,

@@ -1,8 +1,8 @@
 "use strict";
 import React from "react";
-import oak from "oak";
+import Card from "oak/Card";
 
-export default class Card extends oak.Card {
+export default class Card extends Card {
   static defaultProps = {
     id: "JSX",
     title: "JSX Test"

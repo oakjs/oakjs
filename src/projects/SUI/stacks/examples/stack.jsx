@@ -1,6 +1,6 @@
 "use strict";
 import React from "react";
-import { Stack } from "oak";
+import Stack from "oak/Stack";
 
 import * as components from "./components";
 import * as cardMap from "./cards";

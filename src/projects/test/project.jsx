@@ -1,13 +1,13 @@
 "use strict";
 
 import React from "react";
-import oak from "oak";
+import Project from "oak/Project";
 
 import * as themeComponents from "./theme";
 import * as projectComponents from "./components";
 import * as stackMap from "./stacks";
 
-export default class Project extends oak.Project {
+export default class Project extends Project {
 	static themeComponents = themeComponents;
 	static projectComponents = projectComponents;
 	static stackMap = stackMap;

@@ -1,6 +1,6 @@
 "use strict";
 import React from "react";
-import { Card } from "oak";
+import Card from "oak/Card";
 
 export default class StatisticsCard extends Card {
   static defaultProps = {

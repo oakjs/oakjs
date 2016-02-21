@@ -1,6 +1,6 @@
 "use strict";
 import React from "react";
-import { Card } from "oak";
+import Card from "oak/Card";
 
 import { Button, Input, Menu, MenuItem, MenuHeader } from "themes/SUI";
 

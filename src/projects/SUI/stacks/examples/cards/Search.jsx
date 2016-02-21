@@ -1,6 +1,6 @@
 "use strict";
 import React from "react";
-import { Card } from "oak";
+import Card from "oak/Card";
 
 import { COUNTRY_NAME_MAP } from "themes/SUI/CountryMap";
 

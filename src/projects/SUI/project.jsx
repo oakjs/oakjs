@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import { Project } from "oak";
+import Project from "oak/Project";
 
 import * as themeComponents from "./theme";
 import * as projectComponents from "./components";
