@@ -51,7 +51,7 @@ export default class ProjectIndex extends Savable(Loadable(Mutable)) {
   //  Get projects!
   //////////////////////////////
 
-  // Given a project id or index, return the `project.projectId`
+  // Given a project id or index, return the `project.id`
   //  but only if the project is known to us!
   // NOTE: always returns `undefined` if we haven't loaded yet.
   getProjectId(projectIdentifier) {
@@ -130,7 +130,7 @@ export default class ProjectIndex extends Savable(Loadable(Mutable)) {
 
     return this.loadProject(projectIdentifier)
       .then( project => {
-        const projectId = project.projectId;
+        const projectId = project.id;
         const stackId = project.getStackId(stackIdentifier);
 
         // Bail if we can't find the stack in the index
@@ -181,8 +181,8 @@ export default class ProjectIndex extends Savable(Loadable(Mutable)) {
     return this.loadStack(projectIdentifier, stackIdentifier)
       .then( stack => {
         const project = stack.project;
-        const projectId = project.projectId;
-        const stackId = stack.stackId;
+        const projectId = project.id;
+        const stackId = stack.id;
         const cardId = stack.getCardId(cardIdentifier);
         // Bail if we can't find the card in the index
         if (!cardId) {

@@ -90,7 +90,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   //  Stylesheet
   //////////////////////////////
 
-  get stylesheetId() { return "STYLE-" + this.id }
+  get stylesheetId() { return "STYLE-" + this.path.replace(/\//g, "-") }
   onStylesChanged(newStyles, oldStyles) {
     if (oldStyles) this.dirty();
     console.info(`Updating ${this.type} styles`);
@@ -129,7 +129,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   //  Debug
   //////////////////////////////
   toString() {
-    return `[${this.constructor.name} ${this.id}]`;
+    return `[${this.constructor.name} ${this.path}]`;
   }
 
 }

@@ -22,7 +22,7 @@ export default class ProjectController extends ComponentController {
   static type = "project";
   static baseComponentConstructor = Project;
 
-  get id() { return `${this.projectId}` }
+  get id() { return this.projectId }
   get path() { return `${this.projectId}` }
 
   get selector() { return `.oak.Project#${this.projectId}` }

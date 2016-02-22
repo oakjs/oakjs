@@ -21,7 +21,7 @@ export default class StackController extends ComponentController {
   static type = "stack";
   static baseComponentConstructor = Stack;
 
-  get id() { return `${this.projectId}-${this.stackId}` }
+  get id() { return this.stackId }
   get path() { return `${this.projectId}/${this.stackId}` }
   get selector() { return `.oak.Stack#${this.stackId}` }
 

@@ -21,7 +21,7 @@ export default class CardController extends ComponentController {
   static type = "card";
   static baseComponentConstructor = Card;
 
-  get id() { return `${this.projectId}-${this.stackId}-${this.cardId}` }
+  get id() { return this.cardId }
   get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
   get selector() { return `.oak.Card#${this.cardId}` }
 
