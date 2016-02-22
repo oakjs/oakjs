@@ -57,15 +57,7 @@ export default function Loadable(Constructor = Object) {
 
     // Callback AFTER our data has been loaded.
     // `data` is the results of the `loadData()` promise.
-    //
-    // You can normalize the data here and return something else,
-    //  which will be the results of the `load()` promise.
-    //
-    // If you don't want callers to have access to the actual data that was loaded,
-    //  `return this` to return the loadable itself.
-    onLoaded(data) {
-      return data;
-    }
+    onLoaded(data) {}
 
 
     // Callback when there's a load error.
@@ -130,8 +122,8 @@ export default function Loadable(Constructor = Object) {
           this.loadData()
             // handle successful load
             .then(data => {
-              const normalizedData = this.loaded(data);
-              resolve(normalizedData);
+              this.loaded(data);
+              resolve(data);
             })
             // handle load failure
             .catch(error => {
@@ -162,19 +154,10 @@ export default function Loadable(Constructor = Object) {
     // Simulate a server load of some data.
     // NOTE: don't override this to detect when data is loaded, override `onLoaded()` instead
     loaded(data) {
-      const state = _setLoadState(this, { state: "loaded" });
-
-      // Call `onLoaded(data)` to give the class a chance to process the data.
-      // This can return a different object, which will be the result of the loading promise.
-      let normalizedData = this.onLoaded(data);
-
-      // remember the data returned for next time
-      state.data = normalizedData;
-
+      _setLoadState(this, { state: "loaded", data: data });
+      this.onLoaded(data);
       // trigger the `loaded` event
-      if (this.trigger) this.trigger("loaded", normalizedData);
-
-      return normalizedData;
+      if (this.trigger) this.trigger("loaded", data);
     }
 
   }

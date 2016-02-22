@@ -6,7 +6,7 @@ import CustomEvent from "./CustomEvent";
 
 export default function Eventful(Constructor = Object) {
 
-  return class EventfulComponent extends Constructor {
+  return class Eventful extends Constructor {
     // Register to receive a notification for an event.
     //
     // Your handler will be called as:
