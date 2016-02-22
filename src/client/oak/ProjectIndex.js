@@ -30,85 +30,174 @@ export default class ProjectIndex extends Savable(Loadable(Mutable)) {
   // Registry of instantiated controllers
   get _registry() {
     if (!this.hasOwnProperty("__REGISTRY__")) {
-      this.__REGISTRY__ = {
-        projects: {},
-        stacks: {},
-        cards: {}
-      }
+      this.__REGISTRY__ = {}
     }
     return this.__REGISTRY__;
   }
+  _getFromRegistry(...path) {
+    return this._registry[path.join("/")];
+  }
+  _addToRegistry(thing, ...path) {
+    if (!thing || typeof thing !== "object") {
+      throw new TypeError("projectIndex._addToRegistry("+thing+",",path,"): thing to add must be an object");
+    }
+    if (!path.length || !path.every(step => typeof step === "string")) {
+      throw new TypeError("projectIndex._addToRegistry("+thing+",",path,"): path must be strings!");
+    }
+    return (this._registry[path.join("/")] = thing);
+  }
 
-  getProject(project) {
+  //////////////////////////////
+  //  Get projects!
+  //////////////////////////////
+
+  // Given a project id or index, return the `project.projectId`
+  //  but only if the project is known to us!
+  // NOTE: always returns `undefined` if we haven't loaded yet.
+  getProjectId(projectIdentifier) {
+    if (this.projects) {
+      switch (typeof projectIdentifier) {
+        case "string":
+          return (this.projects[projectIdentifier] ? projectIdentifier : undefined);
+        case "number":
+          return Object.keys(this.projects)[projectIdentifier];
+        default:
+          console.error(`projectIndex.getProjectId(${projectIdentifier}): project identifier type not understood`);
+      }
+    }
+    return undefined;
+  }
+
+  // Return a project directly, but only if it's alerady been loaded.
+  // You can pass a string id or a numeric index.
+  getProject(projectIdentifier) {
+    const projectId = this.getProjectId(projectIdentifier);
+    return this._getFromRegistry("PROJECT", projectId);
+  }
+
+  // Load a project specified by id or index.
+  // Returns a promise which resolves with the loaded project.
+  loadProject(projectIdentifier) {
+    const project = this.getProject(projectIdentifier);
+    if (project) return Promise.resolve(project);
+
     return this.load()
       .then( () => {
-        // handle project specified as number or id
-        const projectId = typeof project === "number"
-                        ? Object.keys(this.index)[project]
-                        : project;
+        const projectId = this.getProjectId(projectIdentifier);
 
         // Bail if we can't find the project in the index
-        if (!this.index[projectId]) {
-          throw new ReferenceError(`Project '${project}' not found`);
+        if (!projectId) {
+          throw new ReferenceError(`Project '${projectIdentifier}' not found`);
         }
 
-        const registry = this._registry;
-        if (!registry.projects[projectId]) {
-          registry.projects[projectId] = new ProjectController({ props: { project: projectId } });
+        let project = this._getFromRegistry("PROJECT", projectId);
+        if (!project) {
+          project = new ProjectController({ props: { project: projectId } });
+          this._addToRegistry(project, "PROJECT", projectId);
         }
-window._project = registry.projects[projectId];
-        return { project: registry.projects[projectId] };
+        return project.load();
       });
   }
 
-  getStack(project, stack) {
-    return this.getProject(project)
-      .then( { project } => project.load() )
+
+  //////////////////////////////
+  //  Get stacks!
+  //////////////////////////////
+
+  // Given a project + stack (id or index), return the stackId
+  //  but only if the project and stack are known to us!
+  //
+  // NOTE: always returns `undefined` if we haven't loaded yet.
+  getStackId(projectIdentifier, stackIdentifier) {
+    const project = this.getProject(projectIdentifier);
+    if (project) return project.getStackId(stackIdentifier);
+    return undefined;
+  }
+
+  // Return a stack directly, but only if it's alerady been loaded.
+  // You can pass a string ids or numeric indexes.
+  getStack(projectIdentifier, stackIdentifier) {
+    const projectId = this.getProjectId(projectIdentifier);
+    const stackId = this.getStackId(projectId, stackIdentifier);
+    return this._getFromRegistry("STACK", projectId, stackId);
+  }
+
+  // Load a stack specified by ids and/or indexes.
+  // Returns a promise which resolves with the loaded stack.
+  loadStack(projectIdentifier, stackIdentifier) {
+    const stack = this.getStack(projectIdentifier, stackIdentifier);
+    if (stack) return Promise.resolve(stack);
+
+    return this.loadProject(projectIdentifier)
       .then( project => {
         const projectId = project.projectId;
-        // handle stack specified as number or id
-        const stackId = typeof stack === "number"
-                        ? Object.keys(project.index)[stack]
-                        : stack;
+        const stackId = project.getStackId(stackIdentifier);
 
         // Bail if we can't find the stack in the index
-        if (!project.index[stackId]) {
-          throw new ReferenceError(`Project '${stack}' not found`);
+        if (!stackId) {
+          throw new ReferenceError(`Stack '${stackIdentifier}' not found`);
         }
 
-        const stackPath = project.projectId + "-" + stackId;
-        const registry = this._registry;
-        if (!registry.stacks[stackPath]) {
-          registry.stacks[stackPath] = new StackController({ props: { project: projectId, stack: stackId } });
+        let stack = this._getFromRegistry("STACK", projectId, stackId);
+        if (!stack) {
+          stack = new StackController({ props: { project: projectId, stack: stackId } });
+          this._addToRegistry(stack, "STACK", projectId, stackId);
         }
-window._stack = registry.stacks[stackPath];
-        return { project, stack: registry.stacks[stackPath] };
+
+        stack.project = project;
+
+        return stack.load();
       });
   }
 
-  getCard(project, stack, card) {
-    return this.getStack(project, stack)
-      .then( { project, stack } => stack.load().then( () => { project, stack } )
-      .then( { project, stack } => {
+  //////////////////////////////
+  //  Get cards!
+  //////////////////////////////
+
+  // Given a project + stack + card (id or index), return the cardId
+  //  but only if the project and stack are known to us!
+  //
+  // NOTE: always returns `undefined` if we haven't loaded yet.
+  getCardId(projectIdentifier, stackIdentifier, cardIdentifier) {
+    const stack = this.getStack(projectIdentifier, stackIdentifier);
+    if (stack) return stack.getCardId(cardIdentifier);
+    return undefined;
+  }
+
+  // Return a card directly, but only if it's already been loaded.
+  getCard(projectIdentifier, stackIdentifier, cardIdentifier) {
+    const projectId = this.getProjectId(projectIdentifier);
+    const stackId = this.getStackId(projectId, stackIdentifier);
+    const cardId = this.getCardId(projectId, stackId, cardIdentifier);
+    return this._getFromRegistry("CARD", projectId, stackId, cardId);
+  }
+
+  // Load a card specified by ids and/or indexes.
+  // Returns a promise which resolves with the loaded card.
+  loadCard(projectIdentifier, stackIdentifier, cardIdentifier) {
+    const card = this.getCard(projectIdentifier, stackIdentifier, cardIdentifier);
+    if (card) return Promise.resolve(card);
+
+    return this.loadStack(projectIdentifier, stackIdentifier)
+      .then( stack => {
+        const project = stack.project;
         const projectId = project.projectId;
         const stackId = stack.stackId;
-        // handle card specified as number or id
-        const cardId = typeof card === "number"
-                        ? Object.keys(stack.index)[card]
-                        : card;
-
+        const cardId = stack.getCardId(cardIdentifier);
         // Bail if we can't find the card in the index
-        if (!stack.index[cardId]) {
-          throw new ReferenceError(`stack '${card}' not found`);
+        if (!cardId) {
+          throw new ReferenceError(`Card '${projectId}/${stackId}/${cardIdentifier}' not found`);
         }
 
-        const cardPath = project.projectId + "-" + stack.stackId + "-" + cardId;
-        const registry = this._registry;
-        if (!registry.cards[cardPath]) {
-          registry.cards[cardPath] = new CardController({ props: { project: projectId, stack: stackId, card: cardId } });
+        let card = this._getFromRegistry("CARD", projectId, stackId, cardId);
+        if (!card) {
+          card = new CardController({ props: { project: projectId, stack: stackId, card: cardId } });
+          this._addToRegistry(card, "CARD", projectId, stackId, cardId);
         }
-window._card = registry.cards[cardPath];
-        return { project, stack, card: registry.cards[cardPath] };
+
+        card.project = project;
+        card.stack = stack;
+        return card.load();
       });
   }
 
@@ -120,12 +209,12 @@ window._card = registry.cards[cardPath];
     super.onChanged(changes, old);
     // If any of our special bits changes, notify.
     // NOTE: we don't notify on the initial load!  (???)
-    if (changes.index && old.index) this.onIndexChanged(changes.index, old.index);
+    if (changes.projects && old.projects) this.onProjectsChanged(changes.projects, old.projects);
   }
 
-  onIndexChanged(newIndex, oldIndex) {
+  onProjectsChanged(newProjects, oldProjects) {
     console.info("ProjectIndex changed");
-    this.trigger("indexChanged", newIndex, oldIndex);
+    this.trigger("projectsChanged", newProjects, oldProjects);
   }
 
 
@@ -135,18 +224,17 @@ window._card = registry.cards[cardPath];
 
   loadData() {
     return api.map({
-      index: api.loadProjectIndex(this)
+      projects: api.loadProjectIndex(this)
+    })
+    .then(data => {
+      this.mutate(data);
+      return this;
     });
   }
 
   unload() {
-    this.mutate({ index: undefined });
+    this.mutate({ projects: undefined });
     super.unload();
-  }
-
-  // Save our data when we change.
-  onLoaded(data) {
-    this.mutate(data);
   }
 
   saveData() {

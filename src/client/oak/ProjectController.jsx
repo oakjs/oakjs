@@ -28,6 +28,23 @@ export default class ProjectController extends ComponentController {
   get selector() { return `.oak.Project#${this.projectId}` }
   get projectId() { return this.props && this.props.project }
 
+  // IFF we've loaded, return the stack id for a stack specified by index or id.
+  // If we haven't loaded or we don't know about the stack, returns `undefined`.
+  getStackId(stackIdentifier) {
+    if (this.index) {
+      if (typeof stackIdentifier === "string") {
+        return this.index[stackIdentifier] && stackIdentifier;
+      }
+      else if (typeof stackIdentifier === "number") {
+        return Object.keys(this.index)[stackIdentifier];
+      }
+      else {
+        console.error(`${this}.getStackId(${stackIdentifier}): don't understand identifier`);
+      }
+    }
+    return undefined;
+  }
+
   //////////////////////////////
   //  Loading / Saving
   //////////////////////////////
@@ -38,6 +55,10 @@ export default class ProjectController extends ComponentController {
       component: api.loadControllerJSXE(this),
       styles: api.loadControllerStyles(this),
       script: api.loadControllerScript(this)
+    })
+    .then(results => {
+      this.mutate(results);
+      return this;
     });
   }
 

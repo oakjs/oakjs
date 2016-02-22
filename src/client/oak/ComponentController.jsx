@@ -125,28 +125,6 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     return this.cache.Constructor
   }
 
-
-
-  //////////////////////////////
-  //  Loading / Saving
-  //////////////////////////////
-
-  // OVERRIDE THIS TO ACTUALLY LOAD WHATEVER YOU NEED TO!
-  loadData() {}
-
-  // When data is loaded:
-  //  - `mutate` ourselves with the new data, this might fire special `onXChanged()` events.
-  //  - return the Controller as the results of the loading promise
-  onLoaded(data) {
-console.warn(`${this.type} loaded.  Data: `, data);
-    this.mutate(data);
-    return this;
-  }
-
-  // OVERRIDE THIS TO ACTUALLY SAVE WHATEVER YOU NEED TO!
-  saveData() {}
-
-
   //////////////////////////////
   //  Debug
   //////////////////////////////

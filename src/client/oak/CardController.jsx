@@ -38,6 +38,10 @@ export default class CardController extends ComponentController {
       component: api.loadControllerJSXE(this),
       styles: api.loadControllerStyles(this),
       script: api.loadControllerScript(this)
+    })
+    .then(results => {
+      this.mutate(results);
+      return this;
     });
   }
 

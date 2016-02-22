@@ -29,6 +29,23 @@ export default class StackController extends ComponentController {
   get projectId() { return this.props && this.props.project }
 
 
+  // IFF we've loaded, return the card id for a card specified by index or id.
+  // If we haven't loaded or we don't know about the card, returns `undefined`.
+  getCardId(cardIdentifier) {
+    if (this.index) {
+      if (typeof cardIdentifier === "string") {
+        return this.index[cardIdentifier] && cardIdentifier;
+      }
+      else if (typeof cardIdentifier === "number") {
+        return Object.keys(this.index)[cardIdentifier];
+      }
+      else {
+        console.error(`${this}.getCardId(${cardIdentifier}): don't understand identifier`);
+      }
+    }
+    return undefined;
+  }
+
   //////////////////////////////
   //  Loading / Saving
   //////////////////////////////
@@ -39,6 +56,10 @@ export default class StackController extends ComponentController {
       component: api.loadControllerJSXE(this),
       styles: api.loadControllerStyles(this),
       script: api.loadControllerScript(this)
+    })
+    .then(results => {
+      this.mutate(results);
+      return this;
     });
   }
 
