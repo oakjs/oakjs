@@ -34,17 +34,13 @@ export default class StackController extends ComponentController {
   get selector() { return `.oak.Stack#${this.id}` }
 
   _createComponentConstructor(renderMethod) {
-    return class _StackComponent extends StackComponent {
-      static id = this.id;
-      static controller = this;
-      static app = this.app;
-      static project = this.project;
+    const Constructor = super._createComponentConstructor(StackComponent);
+    Constructor.id = this.id;
+    Constructor.controller = this;
+    Constructor.app = this.app;
+    Constructor.project = this.project;
 
-      static renderMethod = renderMethod;
-      render() {
-        return this.constructor.renderMethod.apply(this);
-      }
-    };
+    return Constructor;
   }
 
   _makeChildComponent(index, cardId, props) {

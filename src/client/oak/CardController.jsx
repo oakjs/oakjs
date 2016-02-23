@@ -29,19 +29,15 @@ export default class CardController extends ComponentController {
   get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
   get selector() { return `.oak.Card#${this.id}` }
 
-  _createComponentConstructor(renderMethod) {
-    return class _CardComponent extends CardComponent {
-      static id = this.id;
-      static controller = this;
-      static app = this.app;
-      static project = this.project;
-      static stack = this.stack;
+  _createComponentConstructor() {
+    const Constructor = super._createComponentConstructor(CardComponent);
+    Constructor.id = this.id;
+    Constructor.controller = this;
+    Constructor.app = this.app;
+    Constructor.project = this.project;
+    Constructor.stack = this.stack;
 
-      static renderMethod = renderMethod;
-      render() {
-        return this.constructor.renderMethod.apply(this);
-      }
-    };
+    return Constructor;
   }
 
   // TODO: dynamic components

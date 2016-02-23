@@ -60,6 +60,7 @@ module.exports = {
   externals: {
     "acorn-jsx": "acorn",
     "acorn": "acorn",
+    "babel-core": "Babel",
     "jquery": "jQuery",
     "react": "React",
     "react-dom": "ReactDOM",

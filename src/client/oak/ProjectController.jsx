@@ -33,17 +33,13 @@ export default class ProjectController extends ComponentController {
   get path() { return this.projectId }
   get selector() { return `.oak.Project#${this.id}` }
 
-  _createComponentConstructor(renderMethod) {
-    return class _ProjectComponent extends ProjectComponent {
-      static id = this.id;
-      static controller = this;
-      static app = this.app;
+  _createComponentConstructor() {
+    const Constructor = super._createComponentConstructor(ProjectComponent);
+    Constructor.id = this.id;
+    Constructor.controller = this;
+    Constructor.app = this.app;
 
-      static renderMethod = renderMethod;
-      render() {
-        return this.constructor.renderMethod.apply(this);
-      }
-    };
+    return Constructor;
   }
 
   // TODO: dynamic components

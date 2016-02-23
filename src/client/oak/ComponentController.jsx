@@ -12,7 +12,9 @@ import Loadable from "oak-roots/Loadable";
 import Mutable from "oak-roots/Mutable";
 import Savable from "oak-roots/Savable";
 
-import { browser, objectUtil } from "oak-roots";
+import babel from "oak-roots/util/babel";
+import browser from "oak-roots/util/browser";
+import objectUtil from "oak-roots/util/object";
 
 import Stub from "./components/Stub";
 
@@ -93,7 +95,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
 
   onIndexChanged(newIndex, oldIndex) {
     this.dirty();
-    console.info("TODO: Instantiate index ", newIndex);
+//    console.info("TODO: Instantiate index ", newIndex);
     this.trigger("indexChanged", newIndex, oldIndex);
   }
 
@@ -103,7 +105,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
 
   onComponentChanged(newComponent, oldComponent) {
     this.dirty();
-    console.info("TODO: Instantiate component ", newComponent);
+//    console.info("TODO: Instantiate component ", newComponent);
     this.trigger("componentChanged", newComponent, oldComponent);
   }
 
@@ -116,7 +118,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   onStylesChanged(newStyles, oldStyles) {
     if (oldStyles) this.dirty();
     console.info(`Updating ${this.type} styles`);
-    console.warn("TODO: use less to convert to scoped styles");
+//    console.warn("TODO: use less to convert to scoped styles");
     if (newStyles) {
       browser.createStylesheet(newStyles || "", this.stylesheetId)
     }
@@ -134,24 +136,23 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   get ComponentConstructor() {
     if (!this.component) return Stub;
     if (!this.cache.Constructor) {
-      console.info("Creating Constructor");
-      console.warn("TODO: use babel to allow us to use ES2015 scripts");
+      console.info("Creating Constructor for ", this);
 
-      const renderMethod = this.component.getRenderMethod();
-      const Constructor = this._createComponentConstructor(renderMethod);
+      const Constructor = this._createComponentConstructor();
 
       this.cache.Constructor = Constructor;
     }
     return this.cache.Constructor
   }
 
-  _createComponentConstructor(renderMethod) {
-    return class ComponentConstructor extends React.Component {
-      static renderMethod = renderMethod;
+  _createComponentConstructor(Super = React.Component) {
+    const Constructor = class SomeClass extends Super {
+      static renderMethod = this.component.getRenderMethod();
       render() {
         return this.constructor.renderMethod.apply(this);
       }
-    };
+    }
+    return Constructor;
   }
 
 
