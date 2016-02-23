@@ -17,25 +17,20 @@ import StackController from "./StackController";
 import CardController from "./CardController";
 
 export default class ProjectIndex extends Savable(Loadable(Mutable)) {
+  constructor() {
+    super(...args);
+    this.__REGISTRY__ = {};
+  }
 
   //////////////////////////////
   //
-  //  Get ProjectControllers, StackControllers and CardControllers as singletons
-  //
-  //  These routines return a PROMISE which yields a controller for the above.
-  //  The same set of inputs will always return the same set of outputs.
+  //  Registry
   //
   //////////////////////////////
 
   // Registry of instantiated controllers
-  get _registry() {
-    if (!this.hasOwnProperty("__REGISTRY__")) {
-      this.__REGISTRY__ = {}
-    }
-    return this.__REGISTRY__;
-  }
   _getFromRegistry(...path) {
-    return this._registry[path.join("/")];
+    return this.__REGISTRY__[path.join("/")];
   }
   _addToRegistry(thing, ...path) {
     if (!thing || typeof thing !== "object") {
@@ -44,7 +39,7 @@ export default class ProjectIndex extends Savable(Loadable(Mutable)) {
     if (!path.length || !path.every(step => typeof step === "string")) {
       throw new TypeError("projectIndex._addToRegistry("+thing+",",path,"): path must be strings!");
     }
-    return (this._registry[path.join("/")] = thing);
+    return (this.__REGISTRY__[path.join("/")] = thing);
   }
 
   //////////////////////////////
