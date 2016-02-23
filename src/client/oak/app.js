@@ -7,11 +7,13 @@
 import Registry from "oak-roots/Registry";
 import global from "oak-roots/util/global";
 
-import SUIComponents from "themes/SUI/components";
 
 import ComponentIndex from "./ComponentIndex";
-import oakComponents from "./components";
 import ProjectController from "./ProjectController";
+
+import SUIComponents from "themes/SUI/components";
+import oakComponents from "./components";
+import * as exampleComponents from "projects/SUI/stacks/examples/components";
 
 let app;
 
@@ -35,7 +37,7 @@ class App {
 
   // All app components
   // TODO: this should really be dynamic...
-  static components = Object.assign({}, SUIComponents, oakComponents)
+  static components = Object.assign({}, SUIComponents, oakComponents, exampleComponents)
   get components() { return this.constructor.components }
 
   getComponent(controller, type, errorMessage) {
@@ -143,6 +145,9 @@ class App {
       });
   }
 
+  getCardRoute(projectId, stackId = 0, cardId = 0) {
+    return `/project/${projectId}/${stackId}/${cardId}`;
+  }
 
 }
 

@@ -32,6 +32,8 @@ export default class CardComponent extends React.Component {
     return { card: this, components: this.components };
   }
 
+  static get route() { return this.app.getCardRoute(this.project.id, this.stack.id, this.id) }
+
   //////////////////////////////
   // Instance property sugar
   //////////////////////////////

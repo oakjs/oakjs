@@ -28,7 +28,7 @@ export default class StackComponent extends React.Component {
 
 
   static get cardIds() { return this.controller && this.controller.cardIds }
-  static get route() { return this.project.route + "/" + this.id }
+  static get route() { return this.app.getCardRoute(this.project.id, this.id) }
 
   //////////////////////////////
   // Instance property sugar
@@ -38,6 +38,8 @@ export default class StackComponent extends React.Component {
   get controller() { return this.constructor.controller }
   get app() { return this.constructor.app }
   get project() { return this.constructor.project }
+
+  get cardMap() { return this.controller.cardMap }
 
   //////////////////////////////
   // Components

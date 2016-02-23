@@ -16,19 +16,19 @@ import Stub from "./Stub";
 
 
 export function OakCardLink({ card, label, children, ...linkProps }={}, context) {
-  linkProps.to = (typeof card === "string" ? card : card.path);
+  linkProps.to = (typeof card === "string" ? card : card.route);
   const contents = (children || label || card.title);
   return <Link {...linkProps}>{contents}</Link>;
 }
 
 export function OakStackLink({ stack, label, children, ...linkProps }={}, context) {
-  linkProps.to = (typeof stack === "string" ? stack : stack.path);
+  linkProps.to = (typeof stack === "string" ? stack : stack.route);
   const contents = (children || label || stack.title);
   return <Link {...linkProps}>{contents}</Link>;
 }
 
 export function OakProjectLink({ project, label, children, ...linkProps }={}, context) {
-  linkProps.to = (typeof project === "string" ? project : project.path);
+  linkProps.to = (typeof project === "string" ? project : project.route);
   const contents = (children || label || project.title);
   return <Link {...linkProps}>{contents}</Link>;
 }

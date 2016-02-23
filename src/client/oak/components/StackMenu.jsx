@@ -11,7 +11,8 @@ function StackMenu(props, context) {
   const menuProps = Object.assign({}, props);
   menuProps.className = classNames("StackMenu", props.className);
 
-  const menuItems = stack.cards.map(card => <c.CardMenuItem card={card}/>);
+  const cardMap = stack.cardMap;
+  const menuItems = Object.keys(cardMap).map(cardId => <c.CardMenuItem card={cardMap[cardId]}/>);
   return React.createElement(c.Menu, menuProps, ...menuItems);
 }
 

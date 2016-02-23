@@ -47,23 +47,6 @@ export default class StackController extends ComponentController {
     };
   }
 
-  // TODO: dynamic components
-  get components() { return this.project.components }
-
-  //////////////////////////////
-  //  Cards
-  //////////////////////////////
-
-  get cardIds() { return this.cards.ids }
-
-  getCard(cardIdentifier) {
-    return this.cards.get(cardIdentifier);
-  }
-
-  loadCard(cardIdentifier) {
-    return this.cards.loadComponent(cardIdentifier);
-  }
-
   _makeChildComponent(index, cardId, props) {
     return new CardController({
       app: this.app,
@@ -76,6 +59,46 @@ export default class StackController extends ComponentController {
         ...props
       }
     });
+  }
+
+  // TODO: dynamic components
+  get components() { return this.project.components }
+
+  //////////////////////////////
+  //  Cards
+  //////////////////////////////
+
+  getCard(cardIdentifier) {
+    return this.cards.get(cardIdentifier);
+  }
+
+  loadCard(cardIdentifier) {
+    return this.cards.loadComponent(cardIdentifier);
+  }
+
+  get cardIds() { return this.cards.ids }
+
+  // return a map of { cardId => { card, stack, project, title, route } }
+  get cardMap() {
+    if (this.cache.cardMap) return this.cache.cardMap;
+
+    if (!this.cards.index) return {};
+
+    const cardMap = this.cache.cardMap = {};
+    const { stackId: stack, projectId: project } = this;
+
+    Object.keys(this.cards.index).map(card => {
+      const info = this.cards.index[card];
+      cardMap[card] = {
+        card,
+        stack,
+        project,
+        ...info,
+        route: app.getCardRoute(project, stack, card)
+      }
+    });
+
+    return cardMap;
   }
 
   //////////////////////////////

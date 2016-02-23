@@ -29,7 +29,7 @@ export default class ProjectComponent extends React.Component {
 
 
   static get stackIds() { return this.controller && this.controller.stackIds }
-  static get route() { return "/projects/" + this.id }
+  static get route() { return this.app.getCardRoute(this.id) }
 
   //////////////////////////////
   // Instance property sugar
