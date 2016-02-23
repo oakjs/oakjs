@@ -1,9 +1,10 @@
 import React, { PropTypes } from "react";
 
 import { autobind } from "oak-roots/util/decorators";
+import { getPath, setPath } from "oak-roots/util/path";
 import { classNames } from "oak-roots/util/react";
 
-import { getPath, setPath } from "./path";
+import Stub from "./components/Stub";
 
 // Import custom CSS for all cards.
 import "./Card.css";
