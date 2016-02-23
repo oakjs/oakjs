@@ -105,36 +105,40 @@ export default function Loadable(Constructor = Object) {
       // If we're loading, return our loading promise
       if (this.isLoading) return this.__loadState.promise;
 
+      let _resolve, _reject;
       const loadPromise = new Promise( (resolve, reject) => {
-        // loadError handler
-        const _loadError = (error) => {
-          _setLoadState(this, { state: "error", error })
-          this.onLoadError(error);
-          this.trigger("loadError", error);
-          reject(error);
-        };
-
-        try {
-          // mark us as loading
-          _setLoadState(this, { state: "loading", promise: loadPromise });
-          if (this.trigger) this.trigger("loading");
-
-          this.loadData()
-            // handle successful load
-            .then(data => {
-              this.loaded(data);
-              resolve(data);
-            })
-            // handle load failure
-            .catch(error => {
-              _loadError(error);
-            });
-        }
-        // if loadData fails, fail the load immediately
-        catch (error) {
-          _loadError(error);
-        }
+        _resolve = resolve;
+        _reject = reject;
       });
+
+      // loadError handler
+      const _loadError = (error) => {
+        _setLoadState(this, { state: "error", error })
+        this.onLoadError(error);
+        this.trigger("loadError", error);
+        _reject(error);
+      };
+
+      try {
+        // mark us as loading
+        _setLoadState(this, { state: "loading", promise: loadPromise });
+        if (this.trigger) this.trigger("loading");
+
+        this.loadData()
+          // handle successful load
+          .then(data => {
+            this.loaded(data);
+            _resolve(data);
+          })
+          // handle load failure
+          .catch(error => {
+            _loadError(error);
+          });
+      }
+      // if loadData fails, fail the load immediately
+      catch (error) {
+        _loadError(error);
+      }
 
       return loadPromise;
     }
