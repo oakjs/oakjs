@@ -35,7 +35,8 @@ class App {
 
   // All app components
   // TODO: this should really be dynamic...
-  static components = Object.assign({}, SUIComponents, oakComponents);
+  static components = Object.assign({}, SUIComponents, oakComponents)
+  get components() { return this.constructor.components }
 
   getComponent(controller, type, errorMessage) {
     // return non-string component immediately

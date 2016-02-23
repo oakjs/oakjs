@@ -41,11 +41,11 @@ console.groupEnd();
 
     app.card = card;
     app.stack = card.stack;
-    app.project = card.stack.project;
+    app.project = card.project;
 
     // ugh...
     card.app = app.stack.app = app.project.app = app;
 
-    return React.createElement(card.ComponentConstructor);
+    return React.createElement(card.project.ComponentConstructor);
   }
 }

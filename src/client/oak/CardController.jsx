@@ -29,13 +29,18 @@ export default class CardController extends ComponentController {
   get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
   get selector() { return `.oak.Card#${this.id}` }
 
-  _createComponentConstructor() {
+  _createComponentConstructor(renderMethod) {
     return class _CardComponent extends CardComponent {
       static id = this.id;
       static controller = this;
       static app = this.app;
       static project = this.project;
       static stack = this.stack;
+
+      static renderMethod = renderMethod;
+      render() {
+        return this.constructor.renderMethod.apply(this);
+      }
     };
   }
 
@@ -84,7 +89,7 @@ export class CardElement extends JSXElement {
     stack: "context.stack",
     project: "context.project",
     components: "context.components",
-    data: "card.data"
+//    data: "card.data"
   }
   // Render out outer element as a div with only a few properties
   renderType = "div";

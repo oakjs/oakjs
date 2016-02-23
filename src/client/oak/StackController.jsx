@@ -33,12 +33,17 @@ export default class StackController extends ComponentController {
   get path() { return `${this.projectId}/${this.stackId}` }
   get selector() { return `.oak.Stack#${this.id}` }
 
-  _createComponentConstructor() {
+  _createComponentConstructor(renderMethod) {
     return class _StackComponent extends StackComponent {
       static id = this.id;
       static controller = this;
       static app = this.app;
       static project = this.project;
+
+      static renderMethod = renderMethod;
+      render() {
+        return this.constructor.renderMethod.apply(this);
+      }
     };
   }
 
@@ -119,7 +124,7 @@ export class StackElement extends JSXElement {
     stack: "context.stack",
     project: "context.project",
     components: "context.components",
-    data: "stack.data"
+//    data: "stack.data"
   }
   // Render out outer element as a div with only a few properties
   renderType = "div";

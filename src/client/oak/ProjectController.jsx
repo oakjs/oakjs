@@ -33,11 +33,16 @@ export default class ProjectController extends ComponentController {
   get path() { return this.projectId }
   get selector() { return `.oak.Project#${this.id}` }
 
-  _createComponentConstructor() {
+  _createComponentConstructor(renderMethod) {
     return class _ProjectComponent extends ProjectComponent {
       static id = this.id;
       static controller = this;
       static app = this.app;
+
+      static renderMethod = renderMethod;
+      render() {
+        return this.constructor.renderMethod.apply(this);
+      }
     };
   }
 
@@ -116,7 +121,7 @@ export class ProjectElement extends JSXElement {
     app: "context.app",
     project: "context.project",
     components: "context.components",
-    data: "project.data"
+//    data: "project.data"
   }
 
   // Render out outer element as a div with only a few properties

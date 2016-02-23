@@ -137,16 +137,21 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
       console.info("Creating Constructor");
       console.warn("TODO: use babel to allow us to use ES2015 scripts");
 
-      const Constructor = this._createComponentConstructor();
-      Constructor.prototype.render = this.component.getRenderMethod();
+      const renderMethod = this.component.getRenderMethod();
+      const Constructor = this._createComponentConstructor(renderMethod);
 
       this.cache.Constructor = Constructor;
     }
     return this.cache.Constructor
   }
 
-  _createComponentConstructor() {
-    return class ComponentConstructor extends React.Component {};
+  _createComponentConstructor(renderMethod) {
+    return class ComponentConstructor extends React.Component {
+      static renderMethod = renderMethod;
+      render() {
+        return this.constructor.renderMethod.apply(this);
+      }
+    };
   }
 
 
