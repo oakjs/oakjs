@@ -56,7 +56,6 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   //  Components
   //////////////////////////////
 
-  static components = {};
   getComponent(type, errorMessage) {
     // return non-string component immediately
     if (type && typeof type !== "string") return type;
@@ -71,8 +70,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     // log an error if they gave us an errorMessage
     if (errorMessage) console.error(`${errorMessage}: type = '${type}'`);
 
-    // return a Stub
-    return oakComponents.Stub;
+    return undefined;
   }
 
   //////////////////////////////
@@ -140,7 +138,6 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
       console.warn("TODO: use babel to allow us to use ES2015 scripts");
 
       const Constructor = this._createComponentConstructor();
-      Constructor.controller = Constructor.prototype.controller = this;
       Constructor.prototype.render = this.component.getRenderMethod();
 
       this.cache.Constructor = Constructor;

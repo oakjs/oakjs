@@ -6,10 +6,10 @@ import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 import ComponentController from "./ComponentController";
+import ComponentIndex from "./ComponentIndex";
 import OakProject from "./Project";
-import StackIndex from "./StackIndex";
+import StackController from "./StackController";
 
-import { classNames } from "oak-roots/util/react";
 
 
 export default class ProjectController extends ComponentController {
@@ -18,7 +18,7 @@ export default class ProjectController extends ComponentController {
     objectUtil.dieIfMissing(this, ["app", "projectId"]);
 
     // create our stack index
-    this.stacks = new StackIndex({ app: this.app, project: this, path: this.path });
+    this.stacks = new ComponentIndex({ controller: this, type: "project" });
   }
 
   //////////////////////////////
@@ -34,8 +34,15 @@ export default class ProjectController extends ComponentController {
   get selector() { return `.oak.Project#${this.id}` }
 
   _createComponentConstructor() {
-    return class Project extends OakProject {};
+    return class Project extends OakProject {
+      static id = this.id;
+      static controller = this;
+      static app = this.app;
+    };
   }
+
+  // TODO: dynamic components
+  get components() { return this.app.components }
 
   //////////////////////////////
   //  Stacks
@@ -51,6 +58,17 @@ export default class ProjectController extends ComponentController {
     return this.stacks.loadComponent(stackIdentifier);
   }
 
+  _makeComponent(index, stackId, props) {
+    return new StackController({
+      app: this.app,
+      project: this,
+      props: {
+        project: this.id,
+        stack: stackId,
+        ...props
+      }
+    });
+  }
 
   //////////////////////////////
   //  Loading / Saving
@@ -87,7 +105,9 @@ export default ProjectController;
 //////////////////////////////
 // ProjectElement class
 //////////////////////////////
+
 import JSXElement from "./JSXElement";
+import { classNames } from "oak-roots/util/react";
 
 // Create a specialized `ProjectElement` and export it
 export class ProjectElement extends JSXElement {

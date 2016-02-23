@@ -86,39 +86,24 @@ oak.api = new API({
   // Component Index files
   //////////////////////////////
 
-  loadProjectIndex(controller, fetchParams={}) {
-    const url = `/api/projects/index`;
-    return this.getJSON(url, fetchParams, "Error loading projects index");
+  _getComponentIndexUrl(type, controller) {
+    switch (type) {
+      case "app":       return `/api/projects/index`;
+      case "project":   return `/api/project/${controller.path}/index`;
+      case "stack":     return `/api/stack/${controller.path}/index`;
+    }
+    throw new TypeError(`api.getComponentIndexUrl(${controller}): cant get url for this type`);
   },
 
-  saveProjectIndex(controller) {
-    const url = `/api/projects/index`;
-    if (controller.index === undefined) return;
-    console.info(`Saving project index`);
-    return this.post(url, controller.index);
+  loadComponentIndex(type, controller, fetchParams={}) {
+    const url = this._getComponentIndexUrl(type, controller);
+    return this.getJSON(url, fetchParams, `Error loading ${type} index`);
   },
 
-  loadStackIndex(controller) {
-    const url = `/api/project/${controller.path}/index`;
-    return this.getJSON(url, null, `Error loading stack index`);
-  },
-
-  saveStackIndex(controller) {
-    const url = `/api/project/${controller.path}/index`;
-    if (controller.index === undefined) return;
-    console.info(`Saving project index`);
-    return this.post(url, controller.index);
-  },
-
-  loadCardIndex(controller) {
-    const url = `/api/stack/${controller.path}/index`;
-    return this.getJSON(url, null, `Error loading stack index`);
-  },
-
-  saveCardIndex(controller) {
-    const url = `/api/stack/${controller.path}/index`;
-    if (controller.index === undefined) return;
-    console.info(`Saving stack index`);
+  saveComponentIndex(type, controller, index) {
+    if (index === undefined) return Promise.resolve();
+    const url = this._getComponentIndexUrl(type, controller);
+    console.info(`Saving ${controller.type} index`);
     return this.post(url, controller.index);
   },
 

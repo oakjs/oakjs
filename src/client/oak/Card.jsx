@@ -32,6 +32,29 @@ export default class OakCard extends React.Component {
   }
 
   //////////////////////////////
+  // Instance property sugar
+  //////////////////////////////
+
+  get id() { return this.constructor.id }
+  get controller() { return this.constructor.controller }
+  get app() { return this.constructor.app }
+  get project() { return this.constructor.project }
+  get stack() { return this.constructor.stack }
+
+  //////////////////////////////
+  // Components
+  //////////////////////////////
+
+  get components() { return this.controller.components }
+
+  // Create an element, using our `components` if necessary.
+  createElement(type, props, ...children) {
+    const component = this.controller.getComponent(type, "Can't find card component") || Stub;
+    return React.createElement(component, props, ...children);
+  }
+
+
+  //////////////////////////////
   // Constructor / initial state stuff
   //////////////////////////////
 
@@ -82,92 +105,18 @@ export default class OakCard extends React.Component {
     }
   }
 
-
-  // Add a `card` to a `stack` at `index`.
-  // ASSUMES: `card.components` has already been set up if necessary.
-  // ASSUMES: That this is being called from `stack.initializeStack()`
-  static initialize({ stack, cardIndex } = {}) {
-    const card = this;
-    if (stack !== undefined) card.stack = stack;
-    if (cardIndex !== undefined) card.cardIndex = cardIndex;
-//console.info("card after initializing: ", card);
-    return card;
-  }
-
-  //////////////////////////////
-  // Syntactic sugar for deriving stuff
-  //////////////////////////////
-  static get project() { return this.stack.project }
-  static get id() { return this.defaultProps.id }
-  static get title() { return this.defaultProps.title }
-  static get path() { return this.stack.path + "/" + this.id }
-  static get prev() { return this.stack.cards[this.cardIndex - 1] }
-  static get next() { return this.stack.cards[this.cardIndex + 1] }
-  static get route() { return <Route path={this.id} component={this}/> }
-  // All card-accessible components, including card, stack, project and theme
-  // NOTE: if your card has specific components, do the following in your `card.jsx`:
-  //    import * as components from "./components";
-  //    export default class MyCard extends Card {
-  //      static _components = components;
-  //      ...
-  //     }
-  static get components() { return Object.assign({}, this.stack.components, this._components) }
-
-  //////////////////////////////
-  // Syntactic sugar for treating static things like instance things.
-  //////////////////////////////
-
-  // Return the project / stack CONSTRUCTORS (NOT instances).
-  // (Really only useful for calling static methods).
-  get stack() { return this.constructor.stack }
-  get project() { return this.stack.project }
-  get components() { return this.constructor.components }
-
-  // Reflection
-  get id() { return this.constructor.id }
-  get title() { return this.constructor.title }
-  get path() { return this.constructor.path }
-
-  // Return the PATH for the previous/next cards.
-  // Returns `undefined` if we're at one end or the other.
-  get prevCard() {
-    const prev = this.constructor.prev;
-    return (prev ? prev.path : undefined);
-  }
-  get nextCard() {
-    const next = this.constructor.next;
-    return (next ? next.path : undefined);
-  }
-
-
   //////////////////////////////
   // Rendering
   //////////////////////////////
 
   render() {
-    const components = this.components;
-    const params = {
-  		card: this,
-  		data: this.data,
-  		stack: this.context.stack,
-  		project: this.context.project,
-  		components,
-  		c: components
-  	};
-
-window.card = this;
-window.params = params;
-//console.dir(params);
-
-    const children = this.renderChildren(params);
-
     const { id, className, style } = this.props;
-    const cardProps = {
+    const props = {
       id,
       className: classNames("oak Card", className),
       style
-    };
-  	return React.createElement("div", cardProps, children);
+    }
+    return <div {...props}>{this.props.children}</div>;
   }
 
 }

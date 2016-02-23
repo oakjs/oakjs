@@ -4,14 +4,19 @@
 //
 //////////////////////////////
 
+import objectUtil from "oak-roots/util/object";
+
 import Loadable from "oak-roots/Loadable";
 import Mutable from "oak-roots/Mutable";
 import Registry from "oak-roots/Registry";
 import Savable from "oak-roots/Savable";
 
+import api from "./api";
+
 export default class ComponentIndex extends Savable(Loadable(Mutable)) {
   constructor(...args) {
     super(...args);
+    objectUtil.dieIfMissing(this, ["type", "controller"]);
     this.registry = new Registry();
   }
 
@@ -61,17 +66,11 @@ export default class ComponentIndex extends Savable(Loadable(Mutable)) {
 
         let component = this.registry.get(componentId);
         if (!component) {
-          component = this._makeComponent(componentId, this.index[componentId]);
+          component = this.controller._makeComponent(this, componentId, this.index[componentId]);
           this.registry.add(component, componentId);
         }
         return component.load();
       });
-  }
-
-  // Actually make a component.
-  // NOTE: you should NOT call this, use `get()` or `loadComponent()` instead!
-  _makeComponent(componentId, props) {
-    throw "You must override _makeComponent"
   }
 
   //////////////////////////////
@@ -79,7 +78,7 @@ export default class ComponentIndex extends Savable(Loadable(Mutable)) {
   //////////////////////////////
 
   loadData() {
-    return api.loadComponentIndex(this)
+    return api.loadComponentIndex(this.type, this.controller)
     .then(index => {
       this.mutate({ index });
       return this;
@@ -92,7 +91,7 @@ export default class ComponentIndex extends Savable(Loadable(Mutable)) {
   }
 
   saveData() {
-    return api.saveComponentIndex(this)
+    return api.saveComponentIndex(this.type, this.controller)
   }
 
   //////////////////////////////

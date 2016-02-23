@@ -5,17 +5,19 @@
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
-import CardIndex from "./CardIndex";
+import CardController from "./CardController";
+import ComponentIndex from "./ComponentIndex";
 import ComponentController from "./ComponentController";
 import OakStack from "./Stack";
+
 
 export default class StackController extends ComponentController {
   constructor(...args) {
     super(...args);
-    objectUtil.dieIfMissing(this, ["app", "stackId", "projectId"]);
+    objectUtil.dieIfMissing(this, ["app", "project", "stackId", "projectId"]);
 
     // create our card index
-    this.cards = new CardIndex({ app: this.app, stack: this, path: this.path });
+    this.cards = new ComponentIndex({ controller: this, type: "stack" });
   }
 
   //////////////////////////////
@@ -32,9 +34,16 @@ export default class StackController extends ComponentController {
   get selector() { return `.oak.Stack#${this.id}` }
 
   _createComponentConstructor() {
-    return class Stack extends OakStack {};
+    return class Stack extends OakStack {
+      static id = this.id;
+      static controller = this;
+      static app = this.app;
+      static project = this.project;
+    };
   }
 
+  // TODO: dynamic components
+  get components() { return this.project.components }
 
   //////////////////////////////
   //  Cards
@@ -47,7 +56,21 @@ export default class StackController extends ComponentController {
   }
 
   loadCard(cardIdentifier) {
-    return this.cards.loadCard(cardIdentifier);
+    return this.cards.loadComponent(cardIdentifier);
+  }
+
+  _makeComponent(index, cardId, props) {
+    return new CardController({
+      app: this.app,
+      project: this.project,
+      stack: this,
+      props: {
+        project: this.projectId,
+        stack: this.stackId,
+        card: cardId,
+        ...props
+      }
+    });
   }
 
   //////////////////////////////
@@ -86,6 +109,7 @@ export default class StackController extends ComponentController {
 //////////////////////////////
 
 import JSXElement from "./JSXElement";
+import { classNames } from "oak-roots/util/react";
 
 // Create a specialized `StackElement` and export it
 export class StackElement extends JSXElement {

@@ -9,8 +9,9 @@ import global from "oak-roots/util/global";
 
 import SUIComponents from "themes/SUI/components";
 
-import ProjectIndex from "./ProjectIndex";
+import ComponentIndex from "./ComponentIndex";
 import oakComponents from "./components";
+import ProjectController from "./ProjectController";
 
 let app;
 
@@ -23,11 +24,10 @@ class App {
       throw new ReferenceError(message);
     }
 
-    this.projects = new ProjectIndex({ app: this });
+    this.projects = new ComponentIndex({ controller: this, type: "app" });
     // go ahead and load the project index..
     this.projects.load();
   }
-
 
   //////////////////////////////
   //  Components
@@ -71,7 +71,7 @@ class App {
   // If project is not found, the promise will reject.
   // You can specify string id or numeric index.
   loadProject(projectIdentifier) {
-    return this.projects.loadProject(projectIdentifier)
+    return this.projects.loadComponent(projectIdentifier)
       .catch(error => {
         console.group(`Error loading project ${projectIdentifier}:`);
         console.error(error);
@@ -80,6 +80,16 @@ class App {
       });
   }
 
+  // Create a project with the given specs.
+  _makeComponent(index, projectId, props) {
+    return new ProjectController({
+      app: this,
+      props: {
+        project: projectId,
+        ...props
+      }
+    });
+  }
 
   //////////////////////////////
   //  Stacks!

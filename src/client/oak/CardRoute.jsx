@@ -4,6 +4,15 @@ import app from "./app";
 import Stub from "./components/Stub";
 
 export default class CardRoute extends React.Component {
+
+  static childContextTypes = {
+    app: PropTypes.any
+  };
+
+  getChildContext() {
+    return { app };
+  }
+
   render() {
     let { project: projectId, stack: stackId, card: cardId } = this.props.params;
 

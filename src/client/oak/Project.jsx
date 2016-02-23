@@ -1,6 +1,7 @@
 import React, { PropTypes } from "react";
-import { Route, IndexRoute } from "react-router";
 import { classNames } from "oak-roots/util/react";
+
+import objectUtil from "oak-roots/util/object";
 
 // Project-specific CSS styling.
 import "./Project.css";
@@ -24,53 +25,41 @@ export default class OakProject extends React.Component {
     return { project: this, components: this.components };
   }
 
+
+  static get stackIds() { return this.controller && this.controller.stackIds }
+  static get route() { return "/projects/" + this.id }
+
+  //////////////////////////////
+  // Instance property sugar
+  //////////////////////////////
+
+  get id() { return this.constructor.id }
+  get controller() { return this.constructor.controller }
+  get app() { return this.constructor.app }
+
   //////////////////////////////
   // Components
   //////////////////////////////
 
-  // TODO: dynamic project components
+  get components() { return this.controller.components }
+
+  // Create an element, using our `components` if necessary.
   createElement(type, props, ...children) {
-    const component = this.app.getComponent(this.controller, type, "Can't find project component");
+    const component = this.controller.getComponent(type, "Can't find project component") || Stub;
     return React.createElement(component, props, ...children);
   }
-
-  //////////////////////////////
-  // Syntactic sugar for deriving stuff
-  //////////////////////////////
-  static get stackIds() { return this.controller && this.controller.stackIds }
-  static get id() { return this.controller && this.controller.id }
-  static get title() { return this.controller && this.controller.title }
-  static get path() { return "/projects/" + this.id }
-
-  //////////////////////////////
-  // Syntactic sugar for treating static things like instance things.
-  //////////////////////////////
-
-  // Return the stack / component CONSTRUCTORS (NOT instances).
-  // (Really only useful for calling static methods).
-  get components() { return this.constructor.components }
-
-  // Reflection
-  get id() { return this.constructor.id }
-  get title() { return this.constructor.title }
-  get path() { return this.constructor.path }
-
-
 
   //////////////////////////////
   // Rendering
   //////////////////////////////
 
-  get renderProps() {
+  get render() {
     const { id, className, style } = this.props;
-    return {
+    const props = {
       id,
-      className: classNames("oak Project", className),
+      className: classNames("oak Stack", className),
       style
     }
-  }
-
-  render() {
-    return <div {...this.renderProps}>{this.props.children}</div>;
+    return <div {...props}>{this.props.children}</div>;
   }
 }
