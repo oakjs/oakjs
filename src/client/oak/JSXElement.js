@@ -101,8 +101,8 @@ class JSXElement extends Mutable {
   _attributesToSource(options, indent, attributes = this.attributes) {
     const attrExpressions = [];
     if (attributes) {
-      Object.keys(this.attributes).forEach( key => {
-        const value = this._attributeValueToSource(key, this.attributes[key]);
+      Object.keys(attributes).forEach( key => {
+        const value = this._attributeValueToSource(key, attributes[key]);
         if (value !== undefined) attrExpressions.push(`"${key}": ${value}`);
       });
     }
@@ -141,8 +141,7 @@ class JSXElement extends Mutable {
 	}
 
   // Convert our attributes to a JSX string.
-  _attributesToString(indent) {
-    const attributes = this.attributes;
+  _attributesToString(indent, attributes = this.attributes) {
     if (!attributes) return "";
     const results = [];
     for (let key in attributes) {
