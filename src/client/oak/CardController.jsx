@@ -84,12 +84,12 @@ import { classNames } from "oak-roots/util/react";
 export class CardElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
-    app: "context.app",
-    card: "context.card",
-    stack: "context.stack",
-    project: "context.project",
-    components: "context.components",
-//    data: "card.data"
+    card: "this",
+    app: "card.app",
+    stack: "card.stack",
+    project: "card.project",
+    components: "card.components",
+    data: "card.data"
   }
   // Render out outer element as a div with only a few properties
   renderType = "div";

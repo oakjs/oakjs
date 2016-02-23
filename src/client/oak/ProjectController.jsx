@@ -63,7 +63,7 @@ export default class ProjectController extends ComponentController {
     return this.stacks.loadComponent(stackIdentifier);
   }
 
-  _makeComponent(index, stackId, props) {
+  _makeChildComponent(index, stackId, props) {
     return new StackController({
       app: this.app,
       project: this,
@@ -118,10 +118,10 @@ import { classNames } from "oak-roots/util/react";
 export class ProjectElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
-    app: "context.app",
-    project: "context.project",
-    components: "context.components",
-//    data: "project.data"
+    project: "this",
+    app: "project.app",
+    components: "project.components",
+    data: "project.data"
   }
 
   // Render out outer element as a div with only a few properties

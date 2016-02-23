@@ -14,6 +14,10 @@ export default class ProjectComponent extends React.Component {
     style: PropTypes.object,
   }
 
+  static contextTypes = {
+    app: PropTypes.any
+  };
+
   static childContextTypes = {
     project: PropTypes.any,
     components: PropTypes.any

@@ -64,7 +64,7 @@ export default class StackController extends ComponentController {
     return this.cards.loadComponent(cardIdentifier);
   }
 
-  _makeComponent(index, cardId, props) {
+  _makeChildComponent(index, cardId, props) {
     return new CardController({
       app: this.app,
       project: this.project,
@@ -120,11 +120,11 @@ import { classNames } from "oak-roots/util/react";
 export class StackElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
-    app: "context.app",
-    stack: "context.stack",
-    project: "context.project",
-    components: "context.components",
-//    data: "stack.data"
+    stack: "this",
+    app: "stack.app",
+    project: "stack.project",
+    components: "stack.components",
+    data: "stack.data"
   }
   // Render out outer element as a div with only a few properties
   renderType = "div";

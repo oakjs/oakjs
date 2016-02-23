@@ -82,7 +82,7 @@ class App {
   }
 
   // Create a project with the given specs.
-  _makeComponent(index, projectId, props) {
+  _makeChildComponent(index, projectId, props) {
     return new ProjectController({
       app: this,
       props: {

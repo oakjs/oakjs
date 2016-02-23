@@ -13,6 +13,7 @@ export default class StackComponent extends React.Component {
   }
 
   static contextTypes = {
+    app: PropTypes.any,
     project: PropTypes.any
   }
 

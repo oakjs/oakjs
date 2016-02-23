@@ -66,7 +66,7 @@ export default class ComponentIndex extends Savable(Loadable(Mutable)) {
 
         let component = this.registry.get(componentId);
         if (!component) {
-          component = this.controller._makeComponent(this, componentId, this.index[componentId]);
+          component = this.controller._makeChildComponent(this, componentId, this.index[componentId]);
           this.registry.add(component, componentId);
         }
         return component.load();

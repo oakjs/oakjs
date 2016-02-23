@@ -53,7 +53,6 @@ class JSXElement extends Mutable {
     }
 
     output.push("console.group('Rendering: ',this);");
-    output.push("console.dir(this);");
     output.push("console.dir(this.context);");
     output.push("console.groupEnd();");
 

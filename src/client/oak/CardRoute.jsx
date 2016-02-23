@@ -43,9 +43,6 @@ console.groupEnd();
     app.stack = card.stack;
     app.project = card.project;
 
-    // ugh...
-    card.app = app.stack.app = app.project.app = app;
-
     return React.createElement(card.project.ComponentConstructor);
   }
 }

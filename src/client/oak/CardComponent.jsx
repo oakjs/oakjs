@@ -17,6 +17,7 @@ export default class CardComponent extends React.Component {
   }
 
   static contextTypes = {
+    app: PropTypes.any,
     project: PropTypes.any,
     stack: PropTypes.any,
   }
