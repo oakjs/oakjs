@@ -48,7 +48,6 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   get path() { throw "You must override `get path()`" }
 
   get selector() { throw "You must override `get selector()`" }
-  get rootSelector() { return (this.parent ? this.parent.rootSelector + " " : "") + this.selector }
 
 
   //////////////////////////////
@@ -114,16 +113,20 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     if (!this.cache.Constructor) {
       console.info("Creating Constructor");
       console.warn("TODO: use babel to allow us to use ES2015 scripts");
-      const BaseComponent = this.constructobaseComponentConstructor;
-      const Constructor = class ComponentConstructor extends BaseComponent {};
-      console.info(Constructor.prototype.render);
+
+      const Constructor = this._createComponentConstructor();
+      Constructor.controller = Constructor.prototype.controller = this;
       Constructor.prototype.render = this.component.getRenderMethod();
-      console.log(Constructor.prototype.render);
+
       this.cache.Constructor = Constructor;
-      Constructor.controller = this;
     }
     return this.cache.Constructor
   }
+
+  _createComponentConstructor() {
+    return class ComponentConstructor extends React.Component {};
+  }
+
 
   //////////////////////////////
   //  Debug

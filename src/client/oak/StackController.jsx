@@ -6,7 +6,7 @@ import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 import ComponentController from "./ComponentController";
-import Stack from "./Stack";
+import OakStack from "./Stack";
 
 export default class StackController extends ComponentController {
   constructor(...args) {
@@ -19,15 +19,13 @@ export default class StackController extends ComponentController {
   //////////////////////////////
 
   static type = "stack";
-  static baseComponentConstructor = Stack;
 
   get id() { return this.stackId }
-  get path() { return `${this.projectId}/${this.stackId}` }
-  get selector() { return `.oak.Stack#${this.stackId}` }
-
   get stackId() { return this.props && this.props.stack }
   get projectId() { return this.props && this.props.project }
 
+  get path() { return `${this.projectId}/${this.stackId}` }
+  get selector() { return `.oak.Stack#${this.stackId}` }
 
   // IFF we've loaded, return the card id for a card specified by index or id.
   // If we haven't loaded or we don't know about the card, returns `undefined`.
@@ -44,6 +42,10 @@ export default class StackController extends ComponentController {
       }
     }
     return undefined;
+  }
+
+  _createComponentConstructor() {
+    return class Stack extends OakStack {};
   }
 
   //////////////////////////////

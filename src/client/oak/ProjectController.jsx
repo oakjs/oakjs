@@ -6,7 +6,7 @@ import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 import ComponentController from "./ComponentController";
-import Project from "./Project";
+import OakProject from "./Project";
 
 
 export default class ProjectController extends ComponentController {
@@ -20,13 +20,12 @@ export default class ProjectController extends ComponentController {
   //////////////////////////////
 
   static type = "project";
-  static baseComponentConstructor = Project;
 
   get id() { return this.projectId }
-  get path() { return `${this.projectId}` }
-
-  get selector() { return `.oak.Project#${this.projectId}` }
   get projectId() { return this.props && this.props.project }
+
+  get path() { return `${this.projectId}` }
+  get selector() { return `.oak.Project#${this.projectId}` }
 
   // IFF we've loaded, return the stack id for a stack specified by index or id.
   // If we haven't loaded or we don't know about the stack, returns `undefined`.
@@ -43,6 +42,10 @@ export default class ProjectController extends ComponentController {
       }
     }
     return undefined;
+  }
+
+  _createComponentConstructor() {
+    return class Project extends OakProject {};
   }
 
   //////////////////////////////

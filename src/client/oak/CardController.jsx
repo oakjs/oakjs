@@ -5,7 +5,7 @@
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
-import Card from "./Card";
+import OakCard from "./Card";
 import ComponentController from "./ComponentController";
 
 export default class CardController extends ComponentController {
@@ -19,7 +19,6 @@ export default class CardController extends ComponentController {
   //////////////////////////////
 
   static type = "card";
-  static baseComponentConstructor = Card;
 
   get id() { return this.cardId }
   get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
@@ -28,6 +27,11 @@ export default class CardController extends ComponentController {
   get cardId() { return this.props && this.props.card }
   get stackId() { return this.props && this.props.stack }
   get projectId() { return this.props && this.props.project }
+
+
+  _createComponentConstructor() {
+    return class Card extends OakCard {};
+  }
 
   //////////////////////////////
   //  Loading / Saving
