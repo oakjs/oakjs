@@ -8,7 +8,7 @@ import api from "./api";
 import CardController from "./CardController";
 import ComponentIndex from "./ComponentIndex";
 import ComponentController from "./ComponentController";
-import OakStack from "./Stack";
+import StackComponent from "./StackComponent";
 
 
 export default class StackController extends ComponentController {
@@ -34,7 +34,7 @@ export default class StackController extends ComponentController {
   get selector() { return `.oak.Stack#${this.id}` }
 
   _createComponentConstructor() {
-    return class Stack extends OakStack {
+    return class _StackComponent extends StackComponent {
       static id = this.id;
       static controller = this;
       static app = this.app;

@@ -1,12 +1,10 @@
 import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
-import objectUtil from "oak-roots/util/object";
-
 // Project-specific CSS styling.
 import "./Project.css";
 
-export default class OakProject extends React.Component {
+export default class ProjectComponent extends React.Component {
   static defaultProps = {}
 
   static propTypes = {

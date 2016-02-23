@@ -1,13 +1,13 @@
 "use strict";
 
 import React from "react";
-import Project from "oak/Project";
+import ProjectComponent from "oak/ProjectComponent";
 
 import * as themeComponents from "./theme";
 import * as projectComponents from "./components";
 import * as stackMap from "./stacks";
 
-export default class SUIProject extends Project {
+export default class SUIProject extends ProjectComponent {
 	static themeComponents = themeComponents;
 	static projectComponents = projectComponents;
 	static stackMap = stackMap;

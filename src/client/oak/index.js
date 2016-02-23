@@ -1,16 +1,15 @@
 import oak from "./oak";
 
-// Project/Stack/Card
 export api from "./api";
 export app from "./app";
-export Card from "./Card";
+export CardComponent from "./CardComponent";
 export CardController from "./CardController";
 export JSXElement from "./JSXElement";
 export ComponentController from "./ComponentController";
 export ComponentIndex from "./ComponentIndex";
-export Project from "./Project";
+export ProjectComponent from "./ProjectComponent";
 export ProjectController from "./ProjectController";
-export Stack from "./Stack";
+export StackComponent from "./StackComponent";
 export StackController from "./StackController";
 
 // Random react components

@@ -1,11 +1,10 @@
 import React, { PropTypes } from "react";
-import { Route, IndexRoute } from "react-router";
 import { classNames } from "oak-roots/util/react";
 
 // Import custom CSS for all stacks.
 import "./Stack.css";
 
-export default class OakStack extends React.Component {
+export default class StackComponent extends React.Component {
   static propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,

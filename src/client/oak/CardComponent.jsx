@@ -1,5 +1,4 @@
 import React, { PropTypes } from "react";
-import { Route } from "react-router";
 
 import { autobind } from "oak-roots/util/decorators";
 import { classNames } from "oak-roots/util/react";
@@ -9,7 +8,7 @@ import { getPath, setPath } from "./path";
 // Import custom CSS for all cards.
 import "./Card.css";
 
-export default class OakCard extends React.Component {
+export default class CardComponent extends React.Component {
   static propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,

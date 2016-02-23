@@ -7,7 +7,7 @@ import objectUtil from "oak-roots/util/object";
 import api from "./api";
 import ComponentController from "./ComponentController";
 import ComponentIndex from "./ComponentIndex";
-import OakProject from "./Project";
+import ProjectComponent from "./ProjectComponent";
 import StackController from "./StackController";
 
 
@@ -34,7 +34,7 @@ export default class ProjectController extends ComponentController {
   get selector() { return `.oak.Project#${this.id}` }
 
   _createComponentConstructor() {
-    return class Project extends OakProject {
+    return class _ProjectComponent extends ProjectComponent {
       static id = this.id;
       static controller = this;
       static app = this.app;
