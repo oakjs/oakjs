@@ -2,15 +2,10 @@ import React, { PropTypes } from "react";
 import { Route, IndexRoute } from "react-router";
 import { classNames } from "oak-roots/util/react";
 
-import oakComponents from "oak/components";
-import SUIComponents from "themes/SUI/components";
-
 // Project-specific CSS styling.
 import "./Project.css";
 
 export default class OakProject extends React.Component {
-  static components = Object.assign({}, SUIComponents, oakComponents);
-
   static defaultProps = {}
 
   static propTypes = {
@@ -29,48 +24,23 @@ export default class OakProject extends React.Component {
     return { project: this, components: this.components };
   }
 
+  //////////////////////////////
+  // Components
+  //////////////////////////////
 
-  componentDidUpdate() {
-    console.info("re-initializing project");
-    this.constructor.initialize();
-  }
-
-  // Initialize a Project constructor, it's stacks and it's cards.
-  // NOTE: In theory, you can call this if, eg, the stacks or cards change and things will adjust...
-  static initialize({ stackMap, themeComponents, projectComponents }={}) {
-    const project = this;
-
-    // remember/initialize anything passed in
-    if (themeComponents) project.themeComponents = themeComponents;
-    if (projectComponents) project.projectComponents = projectComponents;
-    if (stackMap) project.stackMap = stackMap;
-
-    // merge oak, theme and project components into one map
-//    project.components = Object.assign({}, project.themeComponents, oakComponents, project.projectComponents);
-
-    // Initialize stacks, which will initialize their cards.
-    project.stacks.forEach((stack, stackIndex) => stack.initialize({ project, stackIndex }));
-
-//console.info("project after initializing:", project);
-    return project;
+  // TODO: dynamic project components
+  createElement(type, props, ...children) {
+    const component = this.app.getComponent(this.controller, type, "Can't find project component");
+    return React.createElement(component, props, ...children);
   }
 
   //////////////////////////////
   // Syntactic sugar for deriving stuff
   //////////////////////////////
-  static get stackIds() { return Object.keys(this.stackMap) }
-  static get stacks() { return this.stackIds.map(stackId => this.stackMap[stackId]) }
-  static get id() { return this.defaultProps.id }
-  static get title() { return this.defaultProps.title }
+  static get stackIds() { return this.controller && this.controller.stackIds }
+  static get id() { return this.controller && this.controller.id }
+  static get title() { return this.controller && this.controller.title }
   static get path() { return "/projects/" + this.id }
-  // Router for project and its current set of stacks.
-  // NOTE: depends on `Project.initialize()` being called.
-  static get route() {
-    const stacks = this.stacks;
-    const stackRoutes = [/*<IndexRoute component={stacks[0]}/>,*/ ...stacks.map(stack => stack.route)];
-    const routeProps = { path: this.id, component: this};
-    return React.createElement(Route, routeProps, ...stackRoutes);
-  }
 
   //////////////////////////////
   // Syntactic sugar for treating static things like instance things.
@@ -79,7 +49,6 @@ export default class OakProject extends React.Component {
   // Return the stack / component CONSTRUCTORS (NOT instances).
   // (Really only useful for calling static methods).
   get components() { return this.constructor.components }
-  get stacks() { return this.constructor.stacks }
 
   // Reflection
   get id() { return this.constructor.id }

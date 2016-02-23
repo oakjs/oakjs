@@ -8,15 +8,6 @@ import JSXElement from "./JSXElement";
 
 oak.api = new API({
 
-  //////////////////////////////
-  // Projects index
-  //////////////////////////////
-  loadProjectIndex(controller, fetchParams={}) {
-    const url = `/api/projects/index`;
-    return this.getJSON(url, fetchParams, "Error loading projects index");
-  },
-
-
 
   //////////////////////////////
   // Component JSXE files
@@ -95,15 +86,39 @@ oak.api = new API({
   // Component Index files
   //////////////////////////////
 
-  loadControllerIndex(controller) {
-    const url = `/api/${controller.type}/${controller.path}/index`;
-    return this.getJSON(url, null, `Error loading ${controller.type} index`);
+  loadProjectIndex(controller, fetchParams={}) {
+    const url = `/api/projects/index`;
+    return this.getJSON(url, fetchParams, "Error loading projects index");
   },
 
-  saveControllerIndex(controller) {
-    const url = `/api/${controller.type}/${controller.path}/index`;
+  saveProjectIndex(controller) {
+    const url = `/api/projects/index`;
     if (controller.index === undefined) return;
-    console.info(`Saving ${controller.type} index`);
+    console.info(`Saving project index`);
+    return this.post(url, controller.index);
+  },
+
+  loadStackIndex(controller) {
+    const url = `/api/project/${controller.path}/index`;
+    return this.getJSON(url, null, `Error loading stack index`);
+  },
+
+  saveStackIndex(controller) {
+    const url = `/api/project/${controller.path}/index`;
+    if (controller.index === undefined) return;
+    console.info(`Saving project index`);
+    return this.post(url, controller.index);
+  },
+
+  loadCardIndex(controller) {
+    const url = `/api/stack/${controller.path}/index`;
+    return this.getJSON(url, null, `Error loading stack index`);
+  },
+
+  saveCardIndex(controller) {
+    const url = `/api/stack/${controller.path}/index`;
+    if (controller.index === undefined) return;
+    console.info(`Saving stack index`);
     return this.post(url, controller.index);
   },
 

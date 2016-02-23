@@ -1,34 +1,33 @@
 //////////////////////////////
 //
-//  ProjectIndex class
-//
-//  Index of all known projects.
+//  StackIndex:  Index of stacks in a project.
 //
 //////////////////////////////
 
-import { proto } from "oak-roots/util/decorators";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 import ComponentIndex from "./ComponentIndex";
-import ProjectController from "./ProjectController";
+import StackController from "./StackController";
 
-export default class ProjectIndex extends ComponentIndex {
+export default class StackIndex extends ComponentIndex {
   constructor(...args) {
     super(...args);
-    objectUtil.dieIfMissing(this, ["app"]);
+    objectUtil.dieIfMissing(this, ["app", "project", "path"]);
   }
 
   // Syntactic sugar for `loadComponent`
-  loadProject(...args) {
+  loadStack(...args) {
     return this.loadComponent(...args);
   }
 
-  _makeComponent(projectId, props) {
-    return new ProjectController({
+  _makeComponent(stackId, props) {
+    return new StackController({
       app: this.app,
+      project: this.project,
       props: {
-        project: projectId,
+        project: this.project.id,
+        stack: stackId,
         ...props
       }
     });
@@ -39,7 +38,7 @@ export default class ProjectIndex extends ComponentIndex {
   //////////////////////////////
 
   loadData() {
-    return api.loadProjectIndex(this)
+    return api.loadStackIndex(this)
     .then(index => {
       this.mutate({ index });
       return this;
@@ -47,8 +46,7 @@ export default class ProjectIndex extends ComponentIndex {
   }
 
   saveData() {
-    return api.saveProjectIndex(this)
+    return api.saveStackIndex(this)
   }
-
 
 }

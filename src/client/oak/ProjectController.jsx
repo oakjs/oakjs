@@ -7,6 +7,7 @@ import objectUtil from "oak-roots/util/object";
 import api from "./api";
 import ComponentController from "./ComponentController";
 import OakProject from "./Project";
+import StackIndex from "./StackIndex";
 
 import { classNames } from "oak-roots/util/react";
 
@@ -14,7 +15,10 @@ import { classNames } from "oak-roots/util/react";
 export default class ProjectController extends ComponentController {
   constructor(...args) {
     super(...args);
-    objectUtil.dieIfMissing(this, ["projectId"]);
+    objectUtil.dieIfMissing(this, ["app", "projectId"]);
+
+    // create our stack index
+    this.stacks = new StackIndex({ app: this.app, project: this, path: this.path });
   }
 
   //////////////////////////////
@@ -26,54 +30,53 @@ export default class ProjectController extends ComponentController {
   get id() { return this.projectId }
   get projectId() { return this.props && this.props.project }
 
-  get path() { return `${this.projectId}` }
+  get path() { return this.projectId }
   get selector() { return `.oak.Project#${this.id}` }
-
-  // IFF we've loaded, return the stack id for a stack specified by index or id.
-  // If we haven't loaded or we don't know about the stack, returns `undefined`.
-  getStackId(stackIdentifier) {
-    if (this.index) {
-      if (typeof stackIdentifier === "string") {
-        return this.index[stackIdentifier] && stackIdentifier;
-      }
-      else if (typeof stackIdentifier === "number") {
-        return Object.keys(this.index)[stackIdentifier];
-      }
-      else {
-        console.error(`${this}.getStackId(${stackIdentifier}): don't understand identifier`);
-      }
-    }
-    return undefined;
-  }
 
   _createComponentConstructor() {
     return class Project extends OakProject {};
   }
 
   //////////////////////////////
+  //  Stacks
+  //////////////////////////////
+
+  get stackIds() { return this.stacks.ids }
+
+  getStack(stackIdentifier) {
+    return this.stacks.get(stackIdentifier);
+  }
+
+  loadStack(stackIdentifier) {
+    return this.stacks.loadComponent(stackIdentifier);
+  }
+
+
+  //////////////////////////////
   //  Loading / Saving
   //////////////////////////////
 
   loadData() {
-    return api.map({
-      index: api.loadControllerIndex(this),
-      component: api.loadControllerJSXE(this),
-      styles: api.loadControllerStyles(this),
-      script: api.loadControllerScript(this)
-    })
-    .then(results => {
-      this.mutate(results);
-      return this;
-    });
+    return Promise.all([
+        this.stacks.load(),
+        api.loadControllerJSXE(this),
+        api.loadControllerStyles(this),
+        api.loadControllerScript(this)
+      ])
+      .then(([ stacks, component, styles, script ]) => {
+        this.mutate({ component, styles, script });
+        return this;
+      });
   }
 
   saveData() {
-    return api.map({
-      index: api.saveControllerIndex(this),
-      component: api.saveControllerJSXE(this),
-      styles: api.saveControllerStyles(this),
-      script: api.saveControllerScript(this)
-    });
+    return Promise.all([
+        this.stacks.save(),
+        api.saveControllerJSXE(this),
+        api.saveControllerStyles(this),
+        api.saveControllerScript(this)
+      ])
+      .then( () => { this } );
   }
 
 }

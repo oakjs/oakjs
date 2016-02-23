@@ -5,13 +5,17 @@
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
+import CardIndex from "./CardIndex";
 import ComponentController from "./ComponentController";
 import OakStack from "./Stack";
 
 export default class StackController extends ComponentController {
   constructor(...args) {
     super(...args);
-    objectUtil.dieIfMissing(this, ["stackId", "projectId"]);
+    objectUtil.dieIfMissing(this, ["app", "stackId", "projectId"]);
+
+    // create our card index
+    this.cards = new CardIndex({ app: this.app, stack: this, path: this.path });
   }
 
   //////////////////////////////
@@ -27,25 +31,23 @@ export default class StackController extends ComponentController {
   get path() { return `${this.projectId}/${this.stackId}` }
   get selector() { return `.oak.Stack#${this.id}` }
 
-  // IFF we've loaded, return the card id for a card specified by index or id.
-  // If we haven't loaded or we don't know about the card, returns `undefined`.
-  getCardId(cardIdentifier) {
-    if (this.index) {
-      if (typeof cardIdentifier === "string") {
-        return this.index[cardIdentifier] && cardIdentifier;
-      }
-      else if (typeof cardIdentifier === "number") {
-        return Object.keys(this.index)[cardIdentifier];
-      }
-      else {
-        console.error(`${this}.getCardId(${cardIdentifier}): don't understand identifier`);
-      }
-    }
-    return undefined;
-  }
-
   _createComponentConstructor() {
     return class Stack extends OakStack {};
+  }
+
+
+  //////////////////////////////
+  //  Cards
+  //////////////////////////////
+
+  get cardIds() { return this.cards.ids }
+
+  getCard(cardIdentifier) {
+    return this.cards.get(cardIdentifier);
+  }
+
+  loadCard(cardIdentifier) {
+    return this.cards.loadCard(cardIdentifier);
   }
 
   //////////////////////////////
@@ -53,25 +55,26 @@ export default class StackController extends ComponentController {
   //////////////////////////////
 
   loadData() {
-    return api.map({
-      index: api.loadControllerIndex(this),
-      component: api.loadControllerJSXE(this),
-      styles: api.loadControllerStyles(this),
-      script: api.loadControllerScript(this)
-    })
-    .then(results => {
-      this.mutate(results);
-      return this;
-    });
+    return Promise.all([
+        this.cards.load(),
+        api.loadControllerJSXE(this),
+        api.loadControllerStyles(this),
+        api.loadControllerScript(this)
+      ])
+      .then( ([ cards, component, styles, script ]) => {
+        this.mutate({ component, styles, script });
+        return this;
+      });
   }
 
   saveData() {
-    return api.map({
-      index: api.saveControllerIndex(this),
-      component: api.saveControllerJSXE(this),
-      styles: api.saveControllerStyles(this),
-      script: api.saveControllerScript(this)
-    });
+    return Promise.all([
+        this.stacks.save(),
+        api.saveControllerJSXE(this),
+        api.saveControllerStyles(this),
+        api.saveControllerScript(this)
+      ])
+      .then( () => { this } );
   }
 
 }

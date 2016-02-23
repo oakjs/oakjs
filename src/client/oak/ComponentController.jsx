@@ -24,8 +24,8 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   //  Creation / destruction
   //////////////////////////////
 
-  constructor(props) {
-    super(props);
+  constructor(...args) {
+    super(...args);
   }
 
   destroy() {
@@ -49,6 +49,31 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
 
   get selector() { throw "You must override `get selector()`" }
 
+  get title() { return ( this.props && this.props.title ) || this.id }
+
+
+  //////////////////////////////
+  //  Components
+  //////////////////////////////
+
+  static components = {};
+  getComponent(type, errorMessage) {
+    // return non-string component immediately
+    if (type && typeof type !== "string") return type;
+
+    if (typeof type === "string") {
+      // if all lower case, it's an HTML element -- just return it
+      if (type.toLowerCase() === type) return type;
+
+      // return it if we can find it in our `components`
+      if (this.components[type]) return this.components[type];
+    }
+    // log an error if they gave us an errorMessage
+    if (errorMessage) console.error(`${errorMessage}: type = '${type}'`);
+
+    // return a Stub
+    return oakComponents.Stub;
+  }
 
   //////////////////////////////
   //  Mutation

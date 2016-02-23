@@ -4,10 +4,13 @@
 //
 //  TODO: instantiation pattern?
 //////////////////////////////
+import Registry from "oak-roots/Registry";
+import global from "oak-roots/util/global";
+
+import SUIComponents from "themes/SUI/components";
 
 import ProjectIndex from "./ProjectIndex";
-
-import global from "oak-roots/util/global";
+import oakComponents from "./components";
 
 let app;
 
@@ -20,9 +23,37 @@ class App {
       throw new ReferenceError(message);
     }
 
-    this.projects = new ProjectIndex();
+    this.projects = new ProjectIndex({ app: this });
     // go ahead and load the project index..
     this.projects.load();
+  }
+
+
+  //////////////////////////////
+  //  Components
+  //////////////////////////////
+
+  // All app components
+  // TODO: this should really be dynamic...
+  static components = Object.assign({}, SUIComponents, oakComponents);
+
+  getComponent(controller, type, errorMessage) {
+    // return non-string component immediately
+    if (type && typeof type !== "string") return type;
+
+    if (typeof type === "string") {
+      // if all lower case, it's an HTML element -- just return it
+      if (type.toLowerCase() === type) return type;
+
+      // look in controller components
+      if (controller && controller.components && controller.components[type]) {
+        return controller.components[type];
+      }
+      // look in our components
+      if (this.components[type]) return this.components[type];
+    }
+    // log an error if they gave us an errorMessage
+    if (errorMessage) console.error(`${errorMessage}: type = '${type}'`);
   }
 
   //////////////////////////////
@@ -32,17 +63,17 @@ class App {
   // Return a project, but only if it has already been loaded.
   // Returns `undefined` if the project is not found or it hasn't been loaded yet.
   // Use `app.loadProject()` if you want to ensure that a project is loaded.
-  getProject(projectId) {
-    return app.projects.getProject(projectId);
+  getProject(projectIdentifier) {
+    return this.projects.get(projectIdentifier);
   }
 
   // Return a promise which resolves with a loaded project.
   // If project is not found, the promise will reject.
-  // You can specify string ids or numeric ids.
-  loadProject(projectId) {
-    return app.projects.loadProject(projectId)
+  // You can specify string id or numeric index.
+  loadProject(projectIdentifier) {
+    return this.projects.loadProject(projectIdentifier)
       .catch(error => {
-        console.group(`Error loading ${projectId}:`);
+        console.group(`Error loading project ${projectIdentifier}:`);
         console.error(error);
         console.groupEnd();
         throw new ReferenceError("Couldn't load project");
@@ -54,44 +85,47 @@ class App {
   //  Stacks!
   //////////////////////////////
 
-  // Return a stack, but only if it has already been loaded.
-  // Returns `undefined` if the stack is not found or it hasn't been loaded yet.
-  // Use `app.loadStack()` if you want to ensure that a stack is loaded.
-  getStack(projectId, stackId) {
-    return app.projects.getStack(projectId, stackId);
+  getStack(projectIdentifier, stackIdentifier) {
+    const project = this.getProject(projectIdentifier);
+    if (project) return project.getStack(stackIdentifier);
   }
 
-  // Return a promise which resolves with a loaded stack.
-  // If stack is not found, the promise will reject.
-  // You can specify string ids or numeric ids.
-  loadStack(projectId, stackId) {
-    return app.projects.loadStack(projectId, stackId)
+  loadStack(projectIdentifier, stackIdentifier) {
+    const stack = this.getStack(projectIdentifier, stackIdentifier);
+    if (stack) return Promise.resolve(stack);
+
+    return this.loadProject(projectIdentifier)
+      .then( project => {
+        return project.loadStack(stackIdentifier);
+      })
       .catch(error => {
-        console.group(`Error loading ${projectId}/${stackId}:`);
+        console.group(`Error loading stack ${projectIdentifier}/${stackIdentifier}:`);
         console.error(error);
         console.groupEnd();
         throw new ReferenceError("Couldn't load stack");
       });
   }
 
+
   //////////////////////////////
   //  Cards!
   //////////////////////////////
 
-  // Return a card, but only if it has already been loaded.
-  // Returns `undefined` if the card is not found or it hasn't been loaded yet.
-  // Use `app.loadCard()` if you want to ensure that a card is loaded.
-  getCard(projectId, stackId, cardId) {
-    return app.projects.getCard(projectId, stackId, cardId);
+  getCard(projectIdentifier, stackIdentifier, cardIdentifier) {
+    const stack = this.getStack(projectIdentifier, stackIdentifier);
+    if (stack) return stack.getCard(cardIdentifier);
   }
 
-  // Return a promise which resolves with a loaded card.
-  // If card is not found, the promise will reject.
-  // You can specify string ids or numeric ids.
-  loadCard(projectId, stackId, cardId) {
-    return app.projects.loadCard(projectId, stackId, cardId)
+  loadCard(projectIdentifier, stackIdentifier, cardIdentifier) {
+    const card = this.getCard(projectIdentifier, stackIdentifier, cardIdentifier);
+    if (card) return Promise.resolve(card);
+
+    return this.loadStack(projectIdentifier, stackIdentifier)
+      .then( stack => {
+        return stack.loadCard(cardIdentifier);
+      })
       .catch(error => {
-        console.group(`Error loading ${projectId}/${stackId}/${cardId}:`);
+        console.group(`Error loading card ${projectIdentifier}/${stackIdentifier}/${cardIdentifier}:`);
         console.error(error);
         console.groupEnd();
         throw new ReferenceError("Couldn't load card");

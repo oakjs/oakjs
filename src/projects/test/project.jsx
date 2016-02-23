@@ -20,5 +20,5 @@ export default class TestProject extends Project {
   render(){ return super.render() }
 }
 
-TestProject.initialize();
+//TestProject.initialize();
 

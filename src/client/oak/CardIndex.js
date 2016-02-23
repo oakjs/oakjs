@@ -1,34 +1,34 @@
 //////////////////////////////
 //
-//  ProjectIndex class
-//
-//  Index of all known projects.
+//  CardIndex class
 //
 //////////////////////////////
 
-import { proto } from "oak-roots/util/decorators";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 import ComponentIndex from "./ComponentIndex";
-import ProjectController from "./ProjectController";
+import CardController from "./CardController";
 
-export default class ProjectIndex extends ComponentIndex {
+export default class CardIndex extends ComponentIndex {
   constructor(...args) {
     super(...args);
-    objectUtil.dieIfMissing(this, ["app"]);
+    objectUtil.dieIfMissing(this, ["app", "stack", "path"]);
   }
 
   // Syntactic sugar for `loadComponent`
-  loadProject(...args) {
+  loadCard(...args) {
     return this.loadComponent(...args);
   }
 
-  _makeComponent(projectId, props) {
-    return new ProjectController({
+  _makeComponent(cardId, props) {
+    return new CardController({
       app: this.app,
+      stack: this.stack,
       props: {
-        project: projectId,
+        project: this.stack.projectId,
+        stack: this.stack.id,
+        card: cardId,
         ...props
       }
     });
@@ -39,7 +39,7 @@ export default class ProjectIndex extends ComponentIndex {
   //////////////////////////////
 
   loadData() {
-    return api.loadProjectIndex(this)
+    return api.loadCardIndex(this)
     .then(index => {
       this.mutate({ index });
       return this;
@@ -47,8 +47,7 @@ export default class ProjectIndex extends ComponentIndex {
   }
 
   saveData() {
-    return api.saveProjectIndex(this)
+    return api.saveCardIndex(this)
   }
-
 
 }

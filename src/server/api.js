@@ -18,7 +18,6 @@ const bodyTextParser = bodyParser.text();
 //////////////////////////////
 
 function sendTextFile(request, response, path) {
-console.warn(path);
   response.set("Content-Type", "text/plain");
   return response.sendFile(path);
 }
