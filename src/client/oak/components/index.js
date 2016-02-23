@@ -12,7 +12,7 @@ export Spacer from "./Spacer";
 export StackMenu from "./StackMenu";
 export Stub from "./Stub";
 
-export constants from "./constants";
+//export constants from "./constants";
 
 
 // Export all as a map

@@ -13,8 +13,8 @@ export default class CustomEvent {
     Object.freeze(this);
   }
 
-  get currentTarget() { return this.state.currentTarget }
-  _setCurrentTarget(target) { this.state.currentTarget = target }
+  get currentTarget() { return this._state.currentTarget }
+  _setCurrentTarget(target) { this._state.currentTarget = target }
 
   preventDefault() { this._state.defaultPrevented = true }
   isDefaultPrevented() { return !!_state.defaultPrevented }

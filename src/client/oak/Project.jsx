@@ -8,6 +8,8 @@ import oakComponents from "oak/components";
 import "./Project.css";
 
 export default class OakProject extends React.Component {
+  static defaultProps = {}
+
   static propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,
