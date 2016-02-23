@@ -58,7 +58,7 @@ class JSXElement extends Mutable {
       key => output.push(`${indent}var ${key} = ${renderVars[key]};`)
     );
 
-    // figure out the soure for the elements
+    // figure out the source for the elements
     const renderExpression = this._elementsToSource(options, indent);
 
     // add return + renders at the end
@@ -69,7 +69,8 @@ class JSXElement extends Mutable {
 
   // Output an expression which will render this element and its children.
   _elementsToSource(options, indent = "") {
-    const typeExpression = `"${this.type}"`;
+    const type = this.renderType || this.type;
+    const typeExpression = JSON.stringify(type);
     const attrExpression = this._attributesToSource(options, indent);
 
     // output on one line if no children
@@ -93,9 +94,9 @@ class JSXElement extends Mutable {
   }
 
   // Convert our attributes for use in our render method.
-  _attributesToSource(options, indent) {
+  _attributesToSource(options, indent, attributes = this.attributes) {
     const attrExpressions = [];
-    if (this.attributes) {
+    if (attributes) {
       Object.keys(this.attributes).forEach( key => {
         const value = this._attributeValueToSource(key, this.attributes[key]);
         if (value !== undefined) attrExpressions.push(`"${key}": ${value}`);

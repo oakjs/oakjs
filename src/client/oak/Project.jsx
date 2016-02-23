@@ -3,11 +3,14 @@ import { Route, IndexRoute } from "react-router";
 import { classNames } from "oak-roots/util/react";
 
 import oakComponents from "oak/components";
+import SUIComponents from "themes/SUI/components";
 
 // Project-specific CSS styling.
 import "./Project.css";
 
 export default class OakProject extends React.Component {
+  static components = Object.assign({}, SUIComponents, oakComponents);
+
   static defaultProps = {}
 
   static propTypes = {
@@ -43,7 +46,7 @@ export default class OakProject extends React.Component {
     if (stackMap) project.stackMap = stackMap;
 
     // merge oak, theme and project components into one map
-    project.components = Object.assign({}, project.themeComponents, oakComponents, project.projectComponents);
+//    project.components = Object.assign({}, project.themeComponents, oakComponents, project.projectComponents);
 
     // Initialize stacks, which will initialize their cards.
     project.stacks.forEach((stack, stackIndex) => stack.initialize({ project, stackIndex }));

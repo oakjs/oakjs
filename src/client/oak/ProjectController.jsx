@@ -8,6 +8,8 @@ import api from "./api";
 import ComponentController from "./ComponentController";
 import OakProject from "./Project";
 
+import { classNames } from "oak-roots/util/react";
+
 
 export default class ProjectController extends ComponentController {
   constructor(...args) {
@@ -25,7 +27,7 @@ export default class ProjectController extends ComponentController {
   get projectId() { return this.props && this.props.project }
 
   get path() { return `${this.projectId}` }
-  get selector() { return `.oak.Project#${this.projectId}` }
+  get selector() { return `.oak.Project#${this.id}` }
 
   // IFF we've loaded, return the stack id for a stack specified by index or id.
   // If we haven't loaded or we don't know about the stack, returns `undefined`.
@@ -88,9 +90,21 @@ import JSXElement from "./JSXElement";
 export class ProjectElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
+    app: "context.app",
     project: "context.project",
     components: "context.components",
     data: "project.data"
+  }
+
+  // Render out outer element as a div with only a few properties
+  renderType = "div";
+  _attributesToSource(options, indent) {
+    const { id, className, style } = this.attributes;
+    return super._attributesToSource(options, indent, {
+      id,
+      className: classNames("oak Project", className),
+      style
+    });
   }
 }
 

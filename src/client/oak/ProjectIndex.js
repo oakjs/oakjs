@@ -17,7 +17,7 @@ import StackController from "./StackController";
 import CardController from "./CardController";
 
 export default class ProjectIndex extends Savable(Loadable(Mutable)) {
-  constructor() {
+  constructor(...args) {
     super(...args);
     this.__REGISTRY__ = {};
   }

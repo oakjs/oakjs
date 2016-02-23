@@ -21,13 +21,12 @@ export default class CardController extends ComponentController {
   static type = "card";
 
   get id() { return this.cardId }
-  get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
-  get selector() { return `.oak.Card#${this.cardId}` }
-
   get cardId() { return this.props && this.props.card }
   get stackId() { return this.props && this.props.stack }
   get projectId() { return this.props && this.props.project }
 
+  get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
+  get selector() { return `.oak.Card#${this.id}` }
 
   _createComponentConstructor() {
     return class Card extends OakCard {};
@@ -69,11 +68,22 @@ import JSXElement from "./JSXElement";
 export class CardElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
+    app: "context.app",
     card: "context.card",
     stack: "context.stack",
     project: "context.project",
     components: "context.components",
     data: "card.data"
+  }
+  // Render out outer element as a div with only a few properties
+  renderType = "div";
+  _attributesToSource(options, indent) {
+    const { id, className, style } = this.attributes;
+    return super._attributesToSource(options, indent, {
+      id,
+      className: classNames("oak Card", className),
+      style
+    });
   }
 }
 

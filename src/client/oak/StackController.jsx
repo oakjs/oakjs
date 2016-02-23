@@ -25,7 +25,7 @@ export default class StackController extends ComponentController {
   get projectId() { return this.props && this.props.project }
 
   get path() { return `${this.projectId}/${this.stackId}` }
-  get selector() { return `.oak.Stack#${this.stackId}` }
+  get selector() { return `.oak.Stack#${this.id}` }
 
   // IFF we've loaded, return the card id for a card specified by index or id.
   // If we haven't loaded or we don't know about the card, returns `undefined`.
@@ -88,10 +88,21 @@ import JSXElement from "./JSXElement";
 export class StackElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
+    app: "context.app",
     stack: "context.stack",
     project: "context.project",
     components: "context.components",
     data: "stack.data"
+  }
+  // Render out outer element as a div with only a few properties
+  renderType = "div";
+  _attributesToSource(options, indent) {
+    const { id, className, style } = this.attributes;
+    return super._attributesToSource(options, indent, {
+      id,
+      className: classNames("oak Stack", className),
+      style
+    });
   }
 }
 
