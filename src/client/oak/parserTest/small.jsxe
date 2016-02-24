@@ -1,4 +1,8 @@
-<Card id="small" a={<div/>} data-foo="bar">
+<Card id="small" obj={{a:1, b:2}} bool a={<div/>} data-foo="bar" func={()=>{return true}} {...bunk} {...bunk.foo.bar()}>
+  <div {...spread} />
+  <div {...spread} a {...spread} />
+  <div a {...spread} b />
+  <div {...spread} {...spread} />
   <PageSidebar/>
   <Page>
     <PageTitle title="Label">
@@ -10,14 +14,6 @@
       <Example title="Text">
         <Label content="Label with content attribute"/>
         <Label>Label with inline content</Label>
-      </Example>
-
-      <Example title="Icon">
-        <Label icon="mail" content="Label with content and icon attributes"/>
-        <Label icon="mail" iconOn="right" content="Label with content and icon attributes"/>
-        <Spacer/>
-        <Label><Icon icon="mail"/>Label with inline content and icon</Label>
-        <Label appearance="right icon">Label with inline content and icon<Icon icon="mail"/></Label>
       </Example>
     </PageSection>
   </Page>

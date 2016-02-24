@@ -46,12 +46,18 @@ export function parseAttributes(astElement, code, options) {
   if (!astAttributes || !astAttributes.length) return undefined;
 
   const attributes = {};
+  let spreadIndex = 0;
   astAttributes.forEach(astAttribute => {
+    if (astAttribute.type === "JSXSpreadAttribute") {
+      attributes[`...${spreadIndex++}`] = parseAttributeValue(astAttribute.argument, code, options);
+      return;
+    }
     if (astAttribute.type !== "JSXAttribute") {
       throw new TypeError(`parseAttribute({type:'${astAttribute.type}'}): we can only parse {type:'JSXAttribute'}.`)
     }
     const name = parseAttributeName(astAttribute.name, code, options);
     const value = parseAttributeValue(astAttribute.value, code, options);
+//if (name === "func") console.warn(astAttribute, value);
     attributes[name] = value;
   });
   return attributes;
@@ -62,15 +68,21 @@ export function parseAttributeName(astName, code, options) {
 }
 
 export function parseAttributeValue(astValue, code, options) {
-  if (astValue == null) return null;
-  const type = astValue.type;
-  if (type === "Literal") return astValue.value;
-  if (type === "JSXExpressionContainer") return parseAttributeValue(astValue.expression, code, options);
-  if (type === "JSXElement") return parseElement(astValue, code, options);
+  // <div attr />  <== attr value is `true`
+  if (astValue == null) return true;
+
+  switch (astValue.type) {
+    case "Literal":                 return astValue.value;
+    case "JSXExpressionContainer":  return parseAttributeValue(astValue.expression, code, options);
+    case "JSXElement":              return parseElement(astValue, code, options);
+// NOTE: arrow functions work in FF, Chrome and Edge, but not in Safari, see:  http://caniuse.com/#feat=arrow-functions
+//    case "ArrowFunctionExpression": return parseArrowFunction(astValue, code, options);
+  }
   // pull out the code and add it to the astValue node
   astValue._code = code.substring(astValue.start, astValue.end);
   return astValue;
 }
+
 
 
 export function parseChild(parent, astChild, code, options) {

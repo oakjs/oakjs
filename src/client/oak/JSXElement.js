@@ -18,9 +18,9 @@ class JSXElement extends Mutable {
   // Generate and remember a unique id for this element on demand.
   // NOTE: this id will be copied into clones, but not saved.
   // This is NOT considered a mutation (???)
-  get oakId() {
-    if (this.hasOwnProperty("__oakId")) return this.__oakId;
-    return (this.__oakId = ids.generateRandomId())
+  get oakid() {
+    if (this.hasOwnProperty("__oakid")) return this.__oakid;
+    return (this.__oakid = ids.generateRandomId())
   }
 
   //////////////////////////////
@@ -49,7 +49,7 @@ class JSXElement extends Mutable {
   _getRenderMethodSource(indent = "  ") {
     const output = [];
     const options = {
-      oakIds: (this.cache.oakIds = {}),
+      oakids: (this.cache.oakids = {}),
     }
 
     output.push("console.log('Rendering: ',this);");
@@ -99,20 +99,59 @@ class JSXElement extends Mutable {
 
   // Convert our attributes for use in our render method.
   _attributesToSource(options, indent, attributes = this.attributes) {
-    const attrExpressions = [];
-    if (attributes) {
-      Object.keys(attributes).forEach( key => {
-        const value = this._attributeValueToSource(key, attributes[key], options, indent);
+    if (!attributes) return null;
+
+    let keys = Object.keys(attributes);
+    if (options && options.oakIds) keys.push("data-oakid");
+    const groups = this._splitAttributeKeys(keys);
+
+    const attributeSets = groups.map(group => {
+      // if we got just a string, it's an object spread expression
+      if (typeof group === "string") {
+        return this._attributeValueToSource("...", attributes[group], options, indent);
+      }
+
+      const attrExpressions = [];
+      group.forEach(key => {
+        let value = attributes[key];
+        if (key === "data-oakid") {
+          const oakid = this.oakid;
+          value = `"${oakId}"`;
+          options.oakids[oakid] = this;
+        }
+        else {
+          value = this._attributeValueToSource(key, value, options, indent);
+        }
         if (value !== undefined) attrExpressions.push(`"${key}": ${value}`);
       });
+      return "{" + attrExpressions.join(", ") + "}"
+    });
+
+    if (attributeSets.length === 1) {
+      return attributeSets[0];
     }
-    if (options && options.oakIds) {
-      const oakId = this.oakId;
-      attrExpressions.push(`"data-oakId": "${oakId}"`);
-      options.oakIds[oakId] = this;
-    }
-    if (attrExpressions.length) return "{" + attrExpressions.join(", ") + "}";
-    return "null";
+    return "Object.assign(" + attributeSets.join(", ") + ")";
+  }
+
+  // Given a set of attribute keys, split into an array of arrays separating `...` entries from normal ones
+  _splitAttributeKeys(keys) {
+    const groups = [];
+    keys.forEach(key => {
+      // if we got a spread
+      if (key.startsWith("...")) {
+        // add the ... key directly (as a string)
+        groups.push(key);
+      }
+      else {
+        // add a normal key to an array
+        if (!Array.isArray(groups[groups.length-1])) groups.push([]);
+        groups[groups.length-1].push(key);
+      }
+    });
+    // if the first item is a spread and there's more than one group, add an empty group at the beginning
+    if (groups.length > 1 && typeof groups[0] === "string") groups.splice(0, 0, []);
+
+    return groups;
   }
 
   _attributeValueToSource(key, value, options, indent) {
@@ -148,12 +187,17 @@ class JSXElement extends Mutable {
     if (!attributes) return "";
     const results = [];
     for (let key in attributes) {
-      const value = attributes[key];
+      let value = attributes[key];
       // skip undefined (but not null ???)
       if (value === undefined) continue;
 
+      // spread expression
+      if (key.startsWith("...")) {
+        if (value instanceof acorn.Node) value = value._code;
+        results.push(`{...${value}}`);
+      }
       // strings render as string
-      if (typeof value === "string") {
+      else if (typeof value === "string") {
         results.push(`${key}="${value}"`);
       }
       // `true` renders as just the attribute name
