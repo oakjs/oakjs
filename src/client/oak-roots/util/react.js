@@ -19,3 +19,5 @@ export function classNames (...args) {
   }).filter(Boolean)
     .join(" ");
 }
+
+export default Object.assign({}, exports);
