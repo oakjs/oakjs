@@ -34,7 +34,7 @@ export default class ProjectController extends ComponentController {
   get selector() { return `.oak.Project#${this.id}` }
 
   _createComponentConstructor() {
-    const Constructor = super._createComponentConstructor(ProjectComponent);
+    const Constructor = super._createComponentConstructor(ProjectComponent, "Project");
     Constructor.id = this.id;
     Constructor.controller = this;
     Constructor.app = this.app;

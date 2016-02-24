@@ -35,9 +35,9 @@ export default class CardRoute extends React.Component {
       return <Stub/>
     }
 
-console.group("Got card ", card);
-console.dir(card);
-console.groupEnd();
+console.log("Got card ", card);
+//console.dir(card);
+//console.groupEnd();
 
     app.card = card;
     app.stack = card.stack;

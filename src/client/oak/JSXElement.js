@@ -52,9 +52,9 @@ class JSXElement extends Mutable {
       oakIds: (this.cache.oakIds = {}),
     }
 
-    output.push("console.group('Rendering: ',this);");
-    output.push("console.dir(this.context);");
-    output.push("console.groupEnd();");
+    output.push("console.log('Rendering: ',this);");
+//    output.push("console.dir(this.context);");
+//    output.push("console.groupEnd();");
 
     // add ``renderVars` to the function
     const renderVars = this.constructor.renderVars;

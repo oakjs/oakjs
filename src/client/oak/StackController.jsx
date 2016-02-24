@@ -34,7 +34,7 @@ export default class StackController extends ComponentController {
   get selector() { return `.oak.Stack#${this.id}` }
 
   _createComponentConstructor(renderMethod) {
-    const Constructor = super._createComponentConstructor(StackComponent);
+    const Constructor = super._createComponentConstructor(StackComponent, "Stack");
     Constructor.id = this.id;
     Constructor.controller = this;
     Constructor.app = this.app;

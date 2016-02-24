@@ -138,7 +138,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   get ComponentConstructor() {
     if (!this.component) return Stub;
     if (!this.cache.Constructor) {
-      console.info("Creating Constructor for ", this);
+//      console.info("Creating Constructor for ", this);
 
       const Constructor = this._createComponentConstructor();
 

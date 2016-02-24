@@ -30,7 +30,7 @@ export default class CardController extends ComponentController {
   get selector() { return `.oak.Card#${this.id}` }
 
   _createComponentConstructor() {
-    const Constructor = super._createComponentConstructor(CardComponent);
+    const Constructor = super._createComponentConstructor(CardComponent, "Card");
     Constructor.id = this.id;
     Constructor.controller = this;
     Constructor.app = this.app;
