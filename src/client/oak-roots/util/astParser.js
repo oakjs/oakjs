@@ -66,6 +66,7 @@ export function parseAttributeValue(astValue, code, options) {
   const type = astValue.type;
   if (type === "Literal") return astValue.value;
   if (type === "JSXExpressionContainer") return parseAttributeValue(astValue.expression, code, options);
+  if (type === "JSXElement") return parseElement(astValue, code, options);
   // pull out the code and add it to the astValue node
   astValue._code = code.substring(astValue.start, astValue.end);
   return astValue;

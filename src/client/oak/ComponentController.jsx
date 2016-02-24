@@ -86,7 +86,9 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     // NOTE: we don't notify on the initial load!  (???)
     if (changes.index && old.index) this.onIndexChanged(changes.index, old.index);
     if (changes.component || changes.script && (old.component || old.script)) this.onComponentChanged(changes.component, old.component);
-    if (changes.styles && old.styles) this.onStylesChanged(changes.styles, old.styles);
+
+    // NOTE: we DO notify about style changes on the initial load
+    if (changes.styles) this.onStylesChanged(changes.styles, old.styles);
   }
 
   //////////////////////////////
@@ -145,7 +147,25 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     return this.cache.Constructor
   }
 
-  _createComponentConstructor(Super = React.Component) {
+  _createComponentConstructor(Super = React.Component, ComponentName = "Component") {
+    const code =
+`class ${ComponentName}_${this.id} extends Super {
+  // custom script
+  ${this.script || ""}
+
+  render() {
+    return this.renderChildren();
+  }
+}`
+    console.info(code);
+    const transformed = babel.transformExpression(code);
+    console.info(transformed);
+
+    const Constructor = eval(transformed);
+    Constructor.prototype.renderChildren = this.component.getRenderMethod();
+    console.info(Constructor);
+    return Constructor;
+/*
     const Constructor = class SomeClass extends Super {
       static renderMethod = this.component.getRenderMethod();
       render() {
@@ -153,6 +173,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
       }
     }
     return Constructor;
+*/
   }
 
 

@@ -1,4 +1,4 @@
-<Card id="small">
+<Card id="small" a={<div/>}>
   <PageSidebar/>
   <Page>
     <PageTitle title="Label">

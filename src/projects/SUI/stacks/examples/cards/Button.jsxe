@@ -1,4 +1,4 @@
-<Card id="Button" title="Button">
+<OakCard id="Button" title="Button">
   <PageSidebar/>
   <Page>
     <PageTitle title="Button">
@@ -218,4 +218,4 @@
     </PageSection>
 
   </Page>
-</Card>
+</OakCard>

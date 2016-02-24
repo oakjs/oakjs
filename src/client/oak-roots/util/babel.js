@@ -7,11 +7,12 @@
 //import Babel from "babel-core";
 
 export function transform(code) {
-  return Babel.transform(code, { presets: ["es2015"] }).code;
+  return Babel.transform(code, { presets: ["es2015"], plugins: ["external-helpers-2"] }).code;
 }
 
 export function transformExpression(expression) {
   const code = `(function(){ return (${expression}) })()`;
+  return transform(code);
 }
 
 export function evaluate(code) {

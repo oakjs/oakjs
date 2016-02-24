@@ -102,7 +102,7 @@ class JSXElement extends Mutable {
     const attrExpressions = [];
     if (attributes) {
       Object.keys(attributes).forEach( key => {
-        const value = this._attributeValueToSource(key, attributes[key]);
+        const value = this._attributeValueToSource(key, attributes[key], options, indent);
         if (value !== undefined) attrExpressions.push(`"${key}": ${value}`);
       });
     }
@@ -115,10 +115,13 @@ class JSXElement extends Mutable {
     return "null";
   }
 
-  _attributeValueToSource(key, value) {
+  _attributeValueToSource(key, value, options, indent) {
     if (value === undefined) return undefined;
     if (value instanceof acorn.Node) {
       return value._code;
+    }
+    if (value instanceof JSXElement) {
+      return value._elementsToSource(options, indent);
     }
     return JSON.stringify(value);
   }

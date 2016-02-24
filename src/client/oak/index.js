@@ -12,6 +12,9 @@ export ProjectController from "./ProjectController";
 export StackComponent from "./StackComponent";
 export StackController from "./StackController";
 
+// utilities
+export roots from "oak-roots";
+
 // Random react components
 export components from "./components";
 

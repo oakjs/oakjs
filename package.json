@@ -30,6 +30,7 @@
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",
     "babel-loader": "^5.3.2",
+    "babel-plugin-external-helpers-2": "^6.3.13",
     "babel-plugin-react-transform": "^1.1.1",
     "babel-preset-es2015-rollup": "^1.1.1",
     "classnames": "^2.2.3",
@@ -68,52 +69,54 @@
     "webpack-dev-server": "^1.12.0",
     "webpack-hot-middleware": "^2.4.1"
   },
-
   "NOTES-babel": [
     "There are two babel configs below:  'babel' and 'babel-hmr'.",
     "To enable HMR, rename 'babel' to 'babel-no-hmr' and rename 'babel-hmr' to 'babel'."
   ],
-
   "babel": {
     "stage": 1
   },
-
   "babel-hmr": {
     "stage": 1,
     "env": {
       "development": {
         "plugins": [
-  				"react-transform"
+          "react-transform"
         ],
         "extra": {
-  				"react-transform": {
-            "transforms": [{
-              "transform": "react-transform-hmr",
-              "imports": ["react"],
-              "locals": ["module"]
-            }, {
-              "transform": "react-transform-catch-errors",
-              "imports": ["react", "redbox-react"]
-            }]
+          "react-transform": {
+            "transforms": [
+              {
+                "transform": "react-transform-hmr",
+                "imports": [
+                  "react"
+                ],
+                "locals": [
+                  "module"
+                ]
+              },
+              {
+                "transform": "react-transform-catch-errors",
+                "imports": [
+                  "react",
+                  "redbox-react"
+                ]
+              }
+            ]
           }
         }
       }
     }
   },
-
   "keywords": [
     "oak",
     "oakjs",
     "react"
   ],
-
   "author": "owenoak",
-
   "license": "MIT",
-
   "bugs": {
     "url": "https://github.com/oakjs/client/issues"
   },
-
   "homepage": "https://github.com/oakjs/client"
 }
