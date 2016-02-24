@@ -1,15 +1,4 @@
-import React, { PropTypes } from "react";
-import { classNames } from "oak-roots/util/react";
-
-
-class Flippers extends React.Component {
-
-  // Pull context in so we can get components.
-  static contextTypes = {
-    card: PropTypes.any,
-    components: PropTypes.any,
-  };
-
+export default class Flippers extends oak.CustomComponent {
   render() {
     const { components:c, card } = this.context;
 
@@ -39,5 +28,3 @@ class Flippers extends React.Component {
     );
   }
 }
-
-export default Flippers;

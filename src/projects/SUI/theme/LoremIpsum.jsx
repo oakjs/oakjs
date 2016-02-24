@@ -1,5 +1,3 @@
-import React, { PropTypes } from "react";
-
 export const LOREM_TEXT = `
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
 Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
@@ -38,8 +36,9 @@ export function getLoremText(props) {
   return LOREM_TEXT;
 }
 
-export default function LoremIpsum(props, context) {
-  const { id, style, className } = props;
-
-  return <div id={id} style={style} className={className}>{getLoremText(props)}</div>;
+export default class LoremIpsum extends oak.CustomComponent {
+  render() {
+    const { id, style, className } = this.props;
+    return <div id={id} style={style} className={className}>{getLoremText(props)}</div>;
+  }
 }

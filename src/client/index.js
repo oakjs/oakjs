@@ -12,6 +12,9 @@ import ReactDOM from "react-dom";
 // load oak
 import oak from "./oak";
 
+// load theme
+import themeComponents from "projects/SUI/theme";
+
 //import SUI from "themes/SUI";
 import Router from "./Router";
 ReactDOM.render(Router, document.getElementById("OakPlayer"));

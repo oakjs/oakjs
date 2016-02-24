@@ -43,7 +43,7 @@ export default class ProjectController extends ComponentController {
   }
 
   // TODO: dynamic components
-  get components() { return this.app.components }
+  get components() { return this.app.getProjectTheme(this.id) }
 
   //////////////////////////////
   //  Stacks

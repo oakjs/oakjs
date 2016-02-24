@@ -13,7 +13,6 @@ import ProjectController from "./ProjectController";
 
 import SUIComponents from "themes/SUI/components";
 import oakComponents from "./components";
-import * as exampleComponents from "projects/SUI/components";
 
 let app;
 
@@ -37,26 +36,15 @@ class App {
 
   // All app components
   // TODO: this should really be dynamic...
-  static components = Object.assign({}, SUIComponents, oakComponents, exampleComponents)
-  get components() { return this.constructor.components }
+  components = Object.assign({}, SUIComponents, oakComponents)
 
-  getComponent(controller, type, errorMessage) {
-    // return non-string component immediately
-    if (type && typeof type !== "string") return type;
+  __PROJECT_THEMES__ = {};
+  setProjectTheme(projectId, components) {
+    this.__PROJECT_THEMES__[projectId] = components;
+  }
 
-    if (typeof type === "string") {
-      // if all lower case, it's an HTML element -- just return it
-      if (type.toLowerCase() === type) return type;
-
-      // look in controller components
-      if (controller && controller.components && controller.components[type]) {
-        return controller.components[type];
-      }
-      // look in our components
-      if (this.components[type]) return this.components[type];
-    }
-    // log an error if they gave us an errorMessage
-    if (errorMessage) console.error(`${errorMessage}: type = '${type}'`);
+  getProjectTheme(projectId) {
+    return this.__PROJECT_THEMES__[projectId] || this.components;
   }
 
   //////////////////////////////
