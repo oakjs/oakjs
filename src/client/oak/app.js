@@ -13,7 +13,7 @@ import ProjectController from "./ProjectController";
 
 import SUIComponents from "themes/SUI/components";
 import oakComponents from "./components";
-import * as exampleComponents from "projects/SUI/stacks/examples/components";
+import * as exampleComponents from "projects/SUI/components";
 
 let app;
 
