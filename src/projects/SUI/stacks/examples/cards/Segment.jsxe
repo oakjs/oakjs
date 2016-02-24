@@ -1,0 +1,263 @@
+<OakCard id="Segment" title="Segment">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Segment">
+      A segment is used to create a grouping of related content
+    </PageTitle>
+
+    <PageSection title="Types">
+
+      <Example title="Normal">
+        <Segment>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Raised" hint="<Segment appearance='raised'/>">
+        <Segment appearance="raised">
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Stacked" hint="<Segment appearance='stacked'/>">
+        <Segment appearance="stacked">
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Tall Stacked" hint="<Segment appearance='tall stacked'/>">
+        <Segment appearance="tall stacked">
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Piled" hint="<Segment appearance='piled'/>">
+        <Segment appearance="piled">
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Basic" hint="<Segment appearance='basic'/>">
+        <Segment appearance='basic'>
+          <LoremIpsum/>
+        </Segment>
+      </Example>
+
+      <Example title="Vertical" hint="<Segment appearance='vertical'/>">
+        <Segment appearance="vertical">
+          <LoremIpsum short/>
+        </Segment>
+        <Segment appearance="vertical">
+          <LoremIpsum short/>
+        </Segment>
+        <Segment appearance="vertical">
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+    </PageSection>
+
+    <PageSection title="States">
+
+      <Example title="Disabled" hint="<Segment disabled/>">
+        <Segment disabled>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Loading" hint="<Segment loading/>">
+        <Segment loading>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Hidden" hint="<Segment visible={false}/>">
+        <Label pointing="right">Hidden segment here</Label>
+        <Segment visible={false}>
+          <LoremIpsum short/>
+        </Segment>
+        <Label pointing="left">Hidden segment here</Label>
+      </Example>
+
+    </PageSection>
+
+    <PageSection title="Appearance">
+
+      <Example title="Text Alignment" hint="<Segment/>">
+        <Segment align="left">Left aligned</Segment>
+        <Segment align="center">Center aligned</Segment>
+        <Segment align="right">Right aligned</Segment>
+      </Example>
+
+      <Example title="Clearing" hint="<Segment clearing/>">
+        <Segment clearing>
+          <Button floated="right">I'm a floated button</Button>
+        </Segment>
+      </Example>
+
+      <Example title="Floated" hint="<Segment floated='right'/>">
+        <Segment floated="left">This segment appears to the left</Segment>
+        <Segment floated="right">This segment appears to the right</Segment>
+      </Example>
+
+      <Example title="Inverted" hint="<Segment appearance='inverted'/>">
+        <Segment appearance='inverted'>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Attached" hint="<Segment appearance='attached'/>">
+        <Segment appearance='top attached'>
+          <LoremIpsum tiny/>
+        </Segment>
+        <Segment appearance='attached'>
+          <LoremIpsum tiny/>
+        </Segment>
+        <Segment appearance='bottom attached'>
+          <LoremIpsum tiny/>
+        </Segment>
+
+        <Spacer/>
+        <Header appearance='top attached'>
+          Top attached header
+        </Header>
+        <Segment appearance='attached'>
+          <LoremIpsum/>
+        </Segment>
+        <Message appearance='bottom attached'>
+          Bottom attached message
+        </Message>
+
+      </Example>
+
+      <Example title="Unpadded" hint="<Segment appearance='unpadded'/>">
+        <Segment appearance='unpadded'>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Padded" hint="<Segment appearance='padded'/>">
+        <Segment appearance='padded'>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Very Padded" hint="<Segment appearance='very padded'/>">
+        <Segment appearance='very padded'>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Compact" hint="<Segment appearance='compact'/>">
+        <Segment appearance='compact'>
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+        </Segment>
+      </Example>
+
+      <Grid columns={2}>
+        <Column>
+          <Example title="Colors" hint="<Segment color='red'/>">
+            <Segment color='red'>Red</Segment>
+            <Segment color='orange'>Orange</Segment>
+            <Segment color='yellow'>Yellow</Segment>
+            <Segment color='olive'>Olive</Segment>
+            <Segment color='green'>Green</Segment>
+            <Segment color='teal'>Teal</Segment>
+            <Segment color='blue'>Blue</Segment>
+            <Segment color='violet'>Violet</Segment>
+            <Segment color='purple'>Purple</Segment>
+            <Segment color='pink'>Pink</Segment>
+            <Segment color='brown'>Brown</Segment>
+            <Segment color='grey'>Grey</Segment>
+            <Segment color='black'>Black</Segment>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Inverted Colors" hint="<Segment color='red' appearance='inverted'/>">
+            <Segment appearance="inverted" color='red'>Red</Segment>
+            <Segment appearance="inverted" color='orange'>Orange</Segment>
+            <Segment appearance="inverted" color='yellow'>Yellow</Segment>
+            <Segment appearance="inverted" color='olive'>Olive</Segment>
+            <Segment appearance="inverted" color='green'>Green</Segment>
+            <Segment appearance="inverted" color='teal'>Teal</Segment>
+            <Segment appearance="inverted" color='blue'>Blue</Segment>
+            <Segment appearance="inverted" color='violet'>Violet</Segment>
+            <Segment appearance="inverted" color='purple'>Purple</Segment>
+            <Segment appearance="inverted" color='pink'>Pink</Segment>
+            <Segment appearance="inverted" color='brown'>Brown</Segment>
+            <Segment appearance="inverted" color='grey'>Grey</Segment>
+            <Segment appearance="inverted" color='black'>Black</Segment>
+          </Example>
+        </Column>
+      </Grid>
+
+      <Example title="Emphasis" hint="<Segment appearance='secondary'/> or <Segment appearance='tertiary'/>">
+        <Grid columns={3}>
+          <Column>
+            <Segment>
+              <LoremIpsum tiny/>
+            </Segment>
+
+            <Segment appearance="secondary">
+              <LoremIpsum tiny/>
+            </Segment>
+
+            <Segment appearance="tertiary">
+              <LoremIpsum tiny/>
+            </Segment>
+          </Column>
+          <Column>
+            <Segment appearance="inverted">
+              <LoremIpsum tiny/>
+            </Segment>
+
+            <Segment appearance="inverted secondary">
+              <LoremIpsum tiny/>
+            </Segment>
+
+            <Segment appearance="inverted tertiary">
+              <LoremIpsum tiny/>
+            </Segment>
+          </Column>
+
+          <Column>
+            <Segment appearance="red inverted">
+              <LoremIpsum tiny/>
+            </Segment>
+
+            <Segment appearance="red inverted secondary">
+              <LoremIpsum tiny/>
+            </Segment>
+
+            <Segment appearance="red inverted tertiary">
+              <LoremIpsum tiny/>
+            </Segment>
+          </Column>
+        </Grid>
+      </Example>
+
+      <Example title="Circular" hint="<Segment appearance='circular'/>">
+        <Info>If you want to guarantee a perfect circle, manually match width and height of your content</Info>
+        <Segment appearance='compact circular' style={{width:180, height:180}}>
+          <Header size="large">Buy Now</Header>
+          <Subheader>$10.99</Subheader>
+        </Segment>
+
+        <Segment appearance='compact circular inverted' style={{width:180, height:180}}>
+          <Header size="large">Buy Now</Header>
+          <Subheader>$10.99</Subheader>
+        </Segment>
+
+        <Segment appearance='compact circular inverted blue' style={{width:180, height:180}}>
+          <Header size="large">Buy Now</Header>
+          <Subheader>$10.99</Subheader>
+        </Segment>
+      </Example>
+
+
+
+    </PageSection>
+
+
+  </Page>
+</OakCard>

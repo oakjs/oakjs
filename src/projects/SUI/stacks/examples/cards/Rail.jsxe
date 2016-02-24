@@ -1,0 +1,99 @@
+<OakCard id="Rail" title="Rail">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Rail">
+      A rail is used to show accompanying content outside the boundaries of the main view of a site.
+    </PageTitle>
+
+    <PageSection title="Appearance">
+
+      <Example title="Left or Right" hint="<Rail left/>">
+        <Segment style={{marginLeft:350}}>
+          <Rail left>
+            <Segment>
+              Left rail content
+            </Segment>
+          </Rail>
+          <LoremIpsum short/>
+        </Segment>
+
+        <Segment style={{marginRight:350}}>
+          <Rail right>
+            <Segment>
+              Right rail content
+            </Segment>
+          </Rail>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Internal" hint="<Rail left internal/>">
+        <Segment>
+          <Rail left internal>
+            <Segment>
+              Left rail content
+            </Segment>
+          </Rail>
+          <LoremIpsum style={{marginLeft:350}} short/>
+        </Segment>
+
+        <Segment>
+          <Rail right internal>
+            <Segment>
+              Right rail content
+            </Segment>
+          </Rail>
+          <LoremIpsum style={{marginRight:350}} short/>
+        </Segment>
+      </Example>
+    </PageSection>
+
+    <PageSection title="Appearance">
+
+      <Example title="Dividing" hint="<Rail dividing/>">
+        <Segment style={{marginLeft:350}}>
+          <Rail dividing left>
+            Left rail content
+          </Rail>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Close" hint="<Rail appearance='close'/> or <Rail appearance='very close'/>">
+        <Segment style={{marginLeft:350}}>
+          <Rail left appearance="close">
+            <Segment>
+              Left rail content
+            </Segment>
+          </Rail>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Very Close" hint="<Rail appearance='very close'/>">
+        <Segment style={{marginLeft:350}}>
+          <Rail left appearance="very close">
+            <Segment>
+              Left rail content
+            </Segment>
+          </Rail>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Attached" hint="<Rail appearance='attached'/>">
+        <Segment style={{marginLeft:350}}>
+          <Rail left appearance="attached">
+            <Segment>
+              Left rail content
+            </Segment>
+          </Rail>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+
+    </PageSection>
+
+  </Page>
+</OakCard>

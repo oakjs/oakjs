@@ -1,0 +1,135 @@
+<OakCard id="Statistic" title="Statistic">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Statistic">
+      A statistic emphasizes the current value of an attribute
+      <Info>
+        If you have multiple &lt;Statistic&gt;s in a row and they don't line up vertically,
+        wrap them in a &lt;Statistics&gt; element.
+      </Info>
+    </PageTitle>
+
+    <PageSection title="Content">
+
+      <Example title="Inline content">
+        <Statistics>
+          <Statistic>
+            <div className="value">5,500</div>
+            <div className="label">Downloads</div>
+          </Statistic>
+          <Statistic>
+            <div className="text value">Three<br/>Thousand</div>
+            <div className="label">Downloads</div>
+          </Statistic>
+        </Statistics>
+      </Example>
+
+      <Example title="Value, and Label and LabelOn attributes" hint="<Statistic value='...' label='...' labelOn='top'/>">
+        <Statistics>
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic labelOn='top' value="5,500" label="Downloads"/>
+        </Statistics>
+      </Example>
+
+      <Example title="Icon attribute" hint="<Statistic icon='...' decorationOn='right'/>">
+        <Statistic icon='world' value="500" label="Countries Represented"/>
+        <Statistic icon='world' decorationOn='right' value="500" label="Countries Represented"/>
+      </Example>
+
+      <Example title="Image attribute" hint="<Statistic image='...' imageAppearance='...' decorationOn='right'/>">
+        <Statistic image={data.joeAvatar} imageAppearance="ui circular inline image"  value="42" label="Team members"/>
+        <Statistic image={data.joeAvatar} decorationOn='right' imageAppearance="ui circular inline image"  value="42" label="Team members"/>
+      </Example>
+
+    </PageSection>
+
+    <PageSection title="Appearance">
+
+      <Example title="Horizontal" hint="<Statistic appearance='horizontal'/>">
+        <Statistic value="5,500" label="Downloads" appearance="horizontal"/>
+        <Spacer/>
+        <Statistic value="8,900" label="Signups" appearance="horizontal"/>
+        <Spacer/>
+        <Statistic value="10,400" label="Messages sent" appearance="horizontal"/>
+      </Example>
+
+      <Example title="Colored" hint="<Statistic color='red'/>">
+        <Statistics columns={6}>
+          <Statistic color="red" value="87" label="People like red"/>
+          <Statistic color="orange" value="94" label="People like orange"/>
+          <Statistic color="yellow" value="13" label="People like yellow"/>
+          <Statistic color="olive" value="8" label="People like olive"/>
+          <Statistic color="green" value="48" label="People like green"/>
+          <Statistic color="teal" value="98" label="People like teal"/>
+          <Statistic color="blue" value="34" label="People like blue"/>
+          <Statistic color="violet" value="82" label="People like violet"/>
+          <Statistic color="purple" value="100" label="People like purple"/>
+          <Statistic color="pink" value="6" label="People like pink"/>
+          <Statistic color="brown" value="42" label="People like brown"/>
+          <Statistic color="grey" value="87" label="People like grey"/>
+        </Statistics>
+      </Example>
+
+      <Example title="Inverted" hint="<Statistic appearance='inverted'/>">
+        <Segment appearance="inverted">
+          <Statistics columns={5}>
+            <Statistic appearance="inverted" value="93" label="inverted"/>
+            <Statistic appearance="inverted" color="red" value="87" label="inverted red"/>
+            <Statistic appearance="inverted" color="orange" value="94" label="inverted orange"/>
+            <Statistic appearance="inverted" color="yellow" value="13" label="inverted yellow"/>
+            <Statistic appearance="inverted" color="olive" value="8" label="inverted olive"/>
+            <Statistic appearance="inverted" color="green" value="48" label="inverted green"/>
+            <Statistic appearance="inverted" color="teal" value="98" label="inverted teal"/>
+            <Statistic appearance="inverted" color="blue" value="34" label="inverted blue"/>
+            <Statistic appearance="inverted" color="violet" value="82" label="inverted violet"/>
+            <Statistic appearance="inverted" color="purple" value="100" label="inverted purple"/>
+            <Statistic appearance="inverted" color="pink" value="6" label="inverted pink"/>
+            <Statistic appearance="inverted" color="brown" value="42" label="inverted brown"/>
+            <Statistic appearance="inverted" color="grey" value="87" label="inverted grey"/>
+          </Statistics>
+        </Segment>
+      </Example>
+
+      <Example title="Floated" hint="<Statistic floated='right'/>">
+        <Statistic value="5,500" label="Downloads" floated="right"/>
+        <LoremIpsum short/>
+        <Spacer/>
+        <Statistic value="5,500" label="Downloads" floated="left"/>
+        <LoremIpsum/>
+      </Example>
+
+      <Example title="Sizes" hint="<Statistic size='mini'/>">
+        <Grid columns={2}>
+          <Column>
+            <Statistic size='mini' icon='unhide' value="503" label="mini"/>
+            <Spacer tiny/>
+            <Statistic size='tiny' icon='unhide' value="503" label="tiny"/>
+            <Spacer tiny/>
+            <Statistic size='small' icon='unhide' value="503" label="small"/>
+            <Spacer tiny/>
+            <Statistic size='medium' icon='unhide' value="503" label="medium"/>
+            <Spacer tiny/>
+            <Statistic size='large' icon='unhide' value="503" label="large"/>
+            <Spacer tiny/>
+            <Statistic size='huge' icon='unhide' value="503" label="huge"/>
+          </Column>
+          <Column>
+            <Statistic appearance="horizontal" size='mini' icon='unhide' value="503" label="mini"/>
+            <Spacer tiny/>
+            <Statistic appearance="horizontal" size='tiny' icon='unhide' value="503" label="tiny"/>
+            <Spacer tiny/>
+            <Statistic appearance="horizontal" size='small' icon='unhide' value="503" label="small"/>
+            <Spacer tiny/>
+            <Statistic appearance="horizontal" size='medium' icon='unhide' value="503" label="medium"/>
+            <Spacer tiny/>
+            <Statistic appearance="horizontal" size='large' icon='unhide' value="503" label="large"/>
+            <Spacer tiny/>
+            <Statistic appearance="horizontal" size='huge' icon='unhide' value="503" label="huge"/>
+          </Column>
+        </Grid>
+      </Example>
+
+
+    </PageSection>
+  </Page>
+</OakCard>

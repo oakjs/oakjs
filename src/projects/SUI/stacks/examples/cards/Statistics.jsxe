@@ -1,0 +1,85 @@
+<OakCard id="Statistics" title="Statistics">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Statistics">
+      A group of statistics
+    </PageTitle>
+
+    <PageSection title="Appearance">
+
+      <Example title="Normal">
+        <Statistics>
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic value="12,000" label="New Accounts"/>
+          <Statistic value="32,129" label="Images Served"/>
+        </Statistics>
+      </Example>
+
+      <Example title="Horizontal" hint="<Statistics appearance='horizontal'/>">
+        <Statistics appearance="horizontal">
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic value="12,000" label="New Accounts"/>
+          <Statistic value="32,129" label="Images Served"/>
+        </Statistics>
+      </Example>
+
+
+      <Example title="Evenly Spaced" hint="<Statistics columns={3}/>">
+        <Statistics columns={3}>
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic value="12,000" label="New Accounts"/>
+          <Statistic value="32,129" label="Images Served"/>
+          <Statistic value="213" label="Bugs Reported"/>
+          <Statistic value="417" label="Bugs Fixed"/>
+        </Statistics>
+      </Example>
+
+      <Example title="Sizes" hint="<Statistics size='small'/>">
+        <Header appearance="dividing">Mini</Header>
+        <Statistics size='mini'>
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic value="12,000" label="New Accounts"/>
+          <Statistic value="32,129" label="Images Served"/>
+        </Statistics>
+
+        <Header appearance="dividing">Tiny</Header>
+        <Statistics size='tiny'>
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic value="12,000" label="New Accounts"/>
+          <Statistic value="32,129" label="Images Served"/>
+        </Statistics>
+
+        <Header appearance="dividing">Small</Header>
+        <Statistics size='small'>
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic value="12,000" label="New Accounts"/>
+          <Statistic value="32,129" label="Images Served"/>
+        </Statistics>
+
+        <Header appearance="dividing">Medium</Header>
+        <Statistics size='medium'>
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic value="12,000" label="New Accounts"/>
+          <Statistic value="32,129" label="Images Served"/>
+        </Statistics>
+
+        <Header appearance="dividing">Large</Header>
+        <Statistics size='large'>
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic value="12,000" label="New Accounts"/>
+          <Statistic value="32,129" label="Images Served"/>
+        </Statistics>
+
+        <Header appearance="dividing">Huge</Header>
+        <Statistics size='huge'>
+          <Statistic value="5,500" label="Downloads"/>
+          <Statistic value="12,000" label="New Accounts"/>
+          <Statistic value="32,129" label="Images Served"/>
+        </Statistics>
+
+      </Example>
+
+    </PageSection>
+
+  </Page>
+</OakCard>

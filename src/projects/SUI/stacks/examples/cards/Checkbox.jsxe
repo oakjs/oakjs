@@ -1,0 +1,156 @@
+<OakCard id="Checkbox" title="Checkbox">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Checkbox">
+      A checkbox allows a user to select a value from a small set of options, often binary
+    </PageTitle>
+
+    <PageSection title="Types">
+
+      <Columns>
+        <Example title="Checkbox">
+          <Checkbox label="Option a"/>
+          <Spacer/>
+          <Checkbox checked label="Option b"/>
+          <Spacer/>
+          <Checkbox indeterminate label="Option c"/>
+        </Example>
+
+        <Example title="Radio">
+          <Checkbox type="radio" name="foo" label="Created with Checkbox component"/>
+          <Spacer/>
+          <RadioButton checked type="radio" label="Created wtih RadioButton component"/>
+          <Info>Use the RadioGroup component for a linked group of radio buttons.</Info>
+        </Example>
+      </Columns>
+
+      <Columns>
+        <Example title="Toggle">
+          <Checkbox type="toggle" label="Created with Checkbox component"/>
+          <Spacer/>
+          <Toggle checked type="toggle" label="Created with Toggle component"/>
+          <Spacer/>
+          <Toggle indeterminate type="toggle" label="Indeterminate toggle"/>
+        </Example>
+
+        <Example title="Slider">
+          <Checkbox type="slider" label="Option a"/>
+          <Spacer/>
+          <Checkbox checked type="slider" label="Option b"/>
+          <Spacer/>
+          <Checkbox indeterminate type="slider" label="Indeterminate slider"/>
+        </Example>
+      </Columns>
+
+    </PageSection>
+
+
+    <PageSection title="States">
+
+      <Columns>
+        <Example title="Checked" hint="<Checkbox checked/>">
+          <Checkbox checked label="Checked Checkbox"/>
+          <Spacer/>
+          <Checkbox checked type="radio" label="Checked Radio"/>
+          <Spacer/>
+          <Checkbox checked type="toggle" label="Checked Toggle"/>
+          <Spacer/>
+          <Checkbox checked type="slider" label="Checked Slider"/>
+        </Example>
+
+        <Example title="Indeterminate" hint="<Checkbox indeterminate/>">
+          <Checkbox indeterminate label="Indeterminate Checkbox"/>
+          <Spacer/>
+          <Checkbox indeterminate type="radio" label="Indeterminate Radio"/>
+          <Spacer/>
+          <Checkbox indeterminate type="toggle" label="Indeterminate Toggle"/>
+          <Spacer/>
+          <Checkbox indeterminate type="slider" label="Indeterminate Slider"/>
+        </Example>
+      </Columns>
+
+      <Columns>
+        <Example title="Read-only" hint="<Checkbox readonly/>">
+          <Checkbox readonly label="Read-only Checkbox"/>
+          <Spacer/>
+          <Checkbox readonly type="radio" label="Read-only Radio"/>
+          <Spacer/>
+          <Checkbox readonly type="toggle" label="Read-only Toggle"/>
+          <Spacer/>
+          <Checkbox readonly type="slider" label="Read-only Slider"/>
+        </Example>
+
+        <Example title="Disabled" hint="<Checkbox disabled/>">
+          <Checkbox disabled label="Disabled Checkbox"/>
+          <Spacer/>
+          <Checkbox disabled type="radio" label="Disabled Radio"/>
+          <Spacer/>
+          <Checkbox disabled type="toggle" label="Disabled Toggle"/>
+          <Spacer/>
+          <Checkbox disabled type="slider" label="Disabled Slider"/>
+        </Example>
+      </Columns>
+
+      <Columns>
+        <Example title="Hidden" hint="<Checkbox hidden/>">
+          <Checkbox hidden label="Hidden Checkbox"/>
+          <Spacer/>
+          <Checkbox hidden type="radio" label="Hidden Radio"/>
+          <Spacer/>
+          <Checkbox hidden type="toggle" label="Hidden Toggle"/>
+          <Spacer/>
+          <Checkbox hidden type="slider" label="Hidden Slider"/>
+        </Example>
+
+        <Example title="Error" hint="<Checkbox error/>">
+          <Form>
+            <Checkbox error="Something went wrong" label="Error Checkbox"/>
+            <Spacer/>
+            <Checkbox error="Something went wrong" type="radio" label="Error Radio"/>
+            <Spacer/>
+            <Checkbox error="Something went wrong" type="toggle" label="Error Toggle"/>
+            <Spacer/>
+            <Checkbox error="Something went wrong" type="slider" label="Error Slider"/>
+          </Form>
+        </Example>
+      </Columns>
+    </PageSection>
+
+    <PageSection title="Events">
+
+      <Example title="Events" hint="<Checkbox onChange='...'/>">
+        <Checkbox label="Check console for events"
+          onChange={function(){console.log("onChange() called with this as ",this)}}
+          beforeChecked={function(){console.log("beforeChecked() called with this as ",this)}}
+          onChecked={function(){console.log("onChecked() called with this as ",this)}}
+          beforeUnchecked={function(){console.log("beforeUnchecked() called with this as ",this)}}
+          onUnchecked={function(){console.log("onUnchecked() called with this as ",this)}}
+          beforeIndeterminate={function(){console.log("beforeIndeterminate() called with this as ",this)}}
+          onIndeterminate={function(){console.log("onIndeterminate() called with this as ",this)}}
+          beforeDeterminate={function(){console.log("beforeDeterminate() called with this as ",this)}}
+          onDeterminate={function(){console.log("onDeterminate() called with this as ",this)}}
+          onEnable={function(){console.log("onEnable() called with this as ",this)}}
+          onDisable={function(){console.log("onDisable() called with this as ",this)}}
+        />
+      </Example>
+
+    </PageSection>
+
+
+    <PageSection title="Appearance">
+
+      <Example title="Fitted" hint="<Checkbox appearance='fitted'/>">
+        <Segment appearance="left floated compact">
+          <Checkbox appearance="fitted"/>
+        </Segment>
+        <Segment appearance="left floated compact">
+          <Checkbox appearance="fitted" type="toggle"/>
+        </Segment>
+        <Segment appearance="left floated compact">
+          <Checkbox appearance="fitted" type="slider"/>
+        </Segment>
+      </Example>
+    </PageSection>
+
+  </Page>
+</OakCard>

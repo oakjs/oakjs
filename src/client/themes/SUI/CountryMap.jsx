@@ -11,7 +11,7 @@ import Flag from "./Flag";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 
-const COUNTRY_NAME_MAP = {
+export const COUNTRY_NAME_MAP = {
   "af": "Afghanistan",
   "ax": "Aland Islands",
   "al": "Albania",

@@ -1,0 +1,126 @@
+<OakCard id="Shape" title="Shape">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Shape">
+      A shape is a three dimensional object displayed on a two dimensional plane
+      <Info>
+        The module uses 3D transformations which are currently only supported in modern versions of Chrome, Safari, and Firefox.
+      </Info>
+    </PageTitle>
+
+    <PageSection title="Content">
+      <Grid columns={2}>
+        <Column>
+          <Example title="Normal HTML markup for children">
+            <Shape ref="htmlMarkup">
+              <div className="sides">
+                <div className="joe active side">
+                  <Image src={data.joeAvatar} appearance="medium"/>
+                </div>
+                <div className="stevie side">
+                  <Image src={data.stevieAvatar} appearance="medium"/>
+                </div>
+                <div className="elliot side">
+                  <Image src={data.elliotAvatar} appearance="medium"/>
+                </div>
+              </div>
+            </Shape>
+            <Flippers for="htmlMarkup"/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Side markup for children">
+            <Shape ref="sideMarkup">
+              <Side className="joe">
+                <Image src={data.joeAvatar} appearance="medium"/>
+              </Side>
+
+              <Side className="stevie" active>
+                <Image src={data.stevieAvatar} appearance="medium"/>
+              </Side>
+
+              <Side className="elliot">
+                <Image src={data.elliotAvatar} appearance="medium"/>
+              </Side>
+            </Shape>
+            <Flippers for="sideMarkup"/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Children auto-wrapped with Sides">
+            <Shape ref="autoWrapped" active={3}>
+              <Image src={data.joeAvatar} appearance="medium"/>
+              <Image src={data.stevieAvatar} appearance="medium"/>
+              <Image src={data.elliotAvatar} appearance="medium"/>
+            </Shape>
+            <Flippers for="autoWrapped"/>
+          </Example>
+        </Column>
+      </Grid>
+    </PageSection>
+
+
+    <PageSection title="Appearance">
+      <Grid columns={2}>
+        <Column>
+          <Example title="Cube" hint="<Shape appearance='cube'/>">
+            <Shape ref="cube" appearance="cube" direction='down' onClick={()=> card.refs.cube.flip()}>
+              <Image src={data.joeAvatar} appearance="medium"/>
+              <Image src={data.stevieAvatar} appearance="medium"/>
+              <Image src={data.elliotAvatar} appearance="medium"/>
+              <Image src={data.jennyAvatar} appearance="medium"/>
+              <Image src={data.mattAvatar} appearance="medium"/>
+              <Image src={data.squareImage} appearance="medium"/>
+            </Shape>
+            <Flippers for="cube"/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Unpadded Cube" hint="<Shape appearance='unpadded cube'/>">
+            <Shape ref="unpadded" appearance="unpadded cube" active={3} direction='down' onClick={()=> card.refs.unpadded.flip()}>
+              <Image src={data.joeAvatar} appearance="medium"/>
+              <Image src={data.stevieAvatar} appearance="medium"/>
+              <Image src={data.elliotAvatar} appearance="medium"/>
+              <Image src={data.jennyAvatar} appearance="medium"/>
+              <Image src={data.mattAvatar} appearance="medium"/>
+              <Image src={data.squareImage} appearance="medium"/>
+            </Shape>
+            <Flippers for="unpadded"/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Text">
+            <Shape ref="text" appearance="text" direction='down' onClick={()=> card.refs.text.flip()}>
+              <div style={{width: 200, height:30, background:"lightgrey"}}>Side 1</div>
+              <div style={{width: 200, height:30, background:"pink"}}>Side 2</div>
+              <div style={{width: 200, height:30, background:"lightblue"}}>Side 3</div>
+              <div style={{width: 200, height:30, background:"lightgreen"}}>Side 4</div>
+            </Shape>
+            <Flippers for="text"/>
+          </Example>
+
+          <Info>
+            A text shape must have defined width and heights for each side or else text flow may change during animation.
+          </Info>
+        </Column>
+
+        <Column>
+          <Example title="Irregular content sizes">
+            <Shape ref="irregular" onClick={()=> card.refs.irregular.flip()}>
+              <Image src={data.image} appearance="medium"/>
+              <Image src={data.joeAvatar} appearance="medium"/>
+              <Card image={data.stevieAvatar} header="Stevie"/>
+            </Shape>
+            <Flippers for="irregular"/>
+          </Example>
+        </Column>
+
+      </Grid>
+    </PageSection>
+
+  </Page>
+</OakCard>

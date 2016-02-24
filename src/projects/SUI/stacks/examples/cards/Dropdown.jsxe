@@ -1,0 +1,171 @@
+<OakCard id="Dropdown" title="Dropdown">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Dropdown">
+      A dropdown allows a user to select a value from a series of options
+      <Todo>
+        <ul>
+          <li>Event handling</li>
+          <li>Remote loading stuff</li>
+        </ul>
+      </Todo>
+    </PageTitle>
+
+    <PageSection title="Types">
+      <Example title="Dropdown">
+        <Dropdown text="File" items={data.fileMenu} action="hide"/>
+      </Example>
+
+      <Grid columns={2}>
+        <Column>
+          <Example title="Selection" hint="<Dropdown selection/>">
+            <Dropdown selection placeholder="Gender" items={data.genderMenu}/>
+            <Spacer/>
+            <Dropdown selection placeholder="Select Friend" items={data.friendMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Search Selection" hint="<Dropdown search selection/>">
+            <Dropdown search selection placeholder="Select Friend" items={data.friendMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Multiple Selection" hint="<Dropdown multiple selection/>">
+            <Dropdown multiple selection placeholder="Select Friends" items={data.friendMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Multiple Search Selection" hint="<Dropdown multiple search selection/>">
+            <Dropdown multiple search selection placeholder="Select Friends" items={data.friendMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Search Button Dropdown" hint="<Dropdown search type='button' showArrow={false}/>">
+            <Dropdown search type='labeled icon button' showArrow={false} icon="world" text="Select Language" appearance="floating" items={data.languageMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Search In Menu">
+            <Dropdown search type='labeled icon button' showArrow={false} icon="filter" text="Filter Posts" appearance="floating" items={data.filterMenu}/>
+            <Todo>Make a special component for the search input?</Todo>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Inline">
+            <Header icon="trophy">
+              Trending repos <Dropdown ref="inline" inline text="" value="Today" items={data.timeMenu}/>
+            </Header>
+            <Bug>Doesn't display the value unless you add `text=""`...</Bug>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Pointing">
+            <Menu>
+              <MenuItem href="#">Home</MenuItem>
+              <MenuItem href="#">Forums</MenuItem>
+              <Dropdown text="Language:" type="right link item" appearance="pointing" items={data.languageMenu}/>
+            </Menu>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Floating">
+            <Buttons color="teal">
+              <Button>Save</Button>
+              <Dropdown type="icon button" appearance="floating" items={data.comboMenu}/>
+            </Buttons>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Combo" hint="<Dropdown action='combo' type='combo icon button'/>">
+            <Buttons color="teal">
+              <Button>Save</Button>
+              <Dropdown type="combo icon button" action="combo" items={data.comboMenu}/>
+            </Buttons>
+          </Example>
+        </Column>
+      </Grid>
+    </PageSection>
+
+
+    <PageSection title="States">
+      <Grid columns={2}>
+        <Column>
+          <Example title="Loading" hint="<Dropdown loading/>">
+            <Dropdown selection placeholder="Search" loading items={data.friendMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Error" hint="<Dropdown error/>">
+            <Dropdown error="Something went wrong" text="Friends" items={data.friendMenu}/>
+            <Spacer/>
+            <Dropdown error="Something went wrong" selection text="Select Friend" items={data.friendMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Hidden" hint="<Dropdown hidden/>">
+            <Dropdown hidden text="Friends" items={data.friendMenu}/>
+            <Spacer/>
+            <Dropdown hidden selection text="Select Friend" items={data.friendMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Read Only" hint="<Dropdown readonly/>">
+            <Dropdown readonly text="Friends" items={data.friendMenu}/>
+            <Spacer/>
+            <Dropdown readonly selection text="Select Friend" items={data.friendMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Disabled" hint="<Dropdown disabled/>">
+            <Dropdown disabled text="Friends" items={data.friendMenu}/>
+            <Spacer/>
+            <Dropdown disabled selection text="Select Friend" items={data.friendMenu}/>
+          </Example>
+        </Column>
+
+      </Grid>
+    </PageSection>
+
+    <PageSection title="Appearance">
+      <Grid columns={2}>
+        <Column>
+          <Example title="Scrolling" hint="<Dropdown appearance='scrolling'/>">
+            <Dropdown appearance="scrolling" selection placeholder="Select Language" items={data.languageMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Compact" hint="<Dropdown appearance='compact'/>">
+            <Dropdown appearance="compact" selection placeholder="Compact" items={data.genderMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Fluid" hint="<Dropdown appearance='fluid'/>">
+            <Dropdown appearance="fluid" selection placeholder="Compact" items={data.genderMenu}/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Transition" hint="<Dropdown transition='horizontal flip'/>">
+            <Dropdown transition="horizontal flip" appearance="floating" selection placeholder="Compact" items={data.genderMenu}/>
+          </Example>
+        </Column>
+      </Grid>
+    </PageSection>
+
+  </Page>
+</OakCard>

@@ -1,0 +1,79 @@
+<OakCard id="FeedEvent" title="FeedEvent">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="FeedEvent">
+      Single event in a feed.
+      <Info>Note that &lt;FeedEvent&gt; elements must be inside a &lt;Feed&gt; element to format properly.</Info>
+    </PageTitle>
+
+    <PageSection title="Content">
+
+      <Example title="Summary attribute">
+        <Feed>
+          <FeedEvent summary="Simple feed event summary"/>
+          <FeedEvent summary={<span><a href="#">Joe</a> added <a href="#">2 new illustrations</a> to his page</span>}/>
+        </Feed>
+      </Example>
+
+      <Example title="Author and authorLink attributes">
+        <Feed>
+          <FeedEvent author="Joe" summary="posted something without an authorLink"/>
+          <FeedEvent author="Joe" authorLink="/joe" summary="posted something with an authorLink"/>
+        </Feed>
+      </Example>
+
+      <Example title="Avatar attribute">
+        <Feed>
+          <FeedEvent author="Joe" avatar={data.joeAvatar} summary="posted something without an authorLink"/>
+          <FeedEvent author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="posted something with an authorLink"/>
+        </Feed>
+      </Example>
+
+      <Example title="Icon attribute">
+        <Feed>
+          <FeedEvent author="Joe" icon="pencil" summary="You posted on your friend's wall."/>
+        </Feed>
+      </Example>
+
+      <Example title="Date attribute" hint="<FeedEvent date='...'/>">
+        <Feed>
+          <FeedEvent date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added you as a friend"/>
+          <FeedEvent date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="signed up for the site"/>
+        </Feed>
+      </Example>
+
+      <Example title="Date attribute dateOn=top" hint="<FeedEvent date='...' dateOn='top'/>">
+        <Feed>
+          <FeedEvent dateOn='top' date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added you as a friend"/>
+          <FeedEvent dateOn='top' date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="signed up for the site"/>
+        </Feed>
+      </Example>
+
+      <Example title="Meta content" hint="<FeedEvent meta='...'/>">
+        <Feed>
+          <FeedEvent meta={<a><i className="like icon"/>4 likes</a>} date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added you as a friend"/>
+          <FeedEvent meta={<a><i className="check icon"/>approve mebership</a>} dateOn='top' date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="signed up for the site"/>
+        </Feed>
+      </Example>
+
+      <Example title="Extra content" hint="<FeedEvent><div className='extra ...'>...</div></FeedEvent>">
+        <Feed>
+          <FeedEvent meta={<a><i className="like icon"/>4 likes</a>} dateOn='top' date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images">
+            <div className="extra images">
+              <a><img src={data.image}/></a>
+              <a><img src={data.image}/></a>
+            </div>
+          </FeedEvent>
+          <FeedEvent meta={<a><i className="reply icon"/>reply</a>} dateOn='top' date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="created a post">
+            <div className="extra text">
+              Can you believe what JLaw said at the Oscars???
+            </div>
+          </FeedEvent>
+        </Feed>
+      </Example>
+
+
+    </PageSection>
+
+  </Page>
+</OakCard>

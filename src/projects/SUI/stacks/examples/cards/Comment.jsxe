@@ -1,0 +1,80 @@
+<OakCard id="Comment" title="Comment">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Comment">
+      A comment displays user feedback to site content
+      <Info>Note that &lt;Comment&gt; elements must be inside a &lt;Comments&gt; element to format properly.</Info>
+      <Todo>Reply form</Todo>
+    </PageTitle>
+
+    <PageSection title="Content">
+      <Grid columns={2}>
+        <Column>
+          <Example title="Text attribute" hint="<Comment text='...'/>">
+            <Comments>
+              <Comment text="Comment 1"/>
+              <Comment text="Comment 2"/>
+              <Comment text="Comment 3"/>
+            </Comments>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Author and AuthorLink attributes" hint="<Comment author='...'/>">
+            <Comments>
+              <Comment author="Elliot" text="This comment has no authorLink, so you can't click my name."/>
+              <Comment author="Joe" authorLink="/go/to/joe" text="This comment has an authorLink"/>
+            </Comments>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Avatar attribute" hint="<Comment avatar='...'/>">
+            <Comments>
+              <Comment author="Elliot" avatar={data.elliotAvatar} text="This comment has no authorLink, so you can't click my avatar."/>
+              <Comment author="Joe" avatar={data.joeAvatar} authorLink="/go/to/joe" text="This comment has an authorLink"/>
+            </Comments>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Metadata attribute" hint="<Comment metadata='...'/>">
+            <Comments>
+              <Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!"/>
+              <Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="Congratulations!"/>
+            </Comments>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Actions attribute" hint="<Comment actions={...}/>">
+            <Comments>
+              <Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!" actions={data.actions}/>
+              <Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" actions={data.actions}/>
+              <Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="Congratulations!" actions={data.actions}/>
+            </Comments>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Nested Comments" hint="<Comment...><Comments/></Comment>">
+            <Comments>
+              <Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!">
+                <Comments>
+                  <Comment metadata="2 hours ago" author="Joe" avatar={data.joeAvatar} text="That's rad!">
+                    <Comments>
+                      <Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="Yes it is!"/>
+                    </Comments>
+                  </Comment>
+                </Comments>
+              </Comment>
+              <Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!"/>
+            </Comments>
+          </Example>
+
+        </Column>
+      </Grid>
+    </PageSection>
+
+  </Page>
+</OakCard>

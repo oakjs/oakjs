@@ -1,0 +1,194 @@
+<OakCard id="Popup" title="Popup">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Popup">
+      A popup displays additional information on top of a page
+    </PageTitle>
+
+    <PageSection title="Content">
+      <Grid columns={2}>
+        <Column>
+          <Example title="Inline Content" hint="<Popup>...</Popup>">
+            <Button>Hover Over Me</Button>
+            <Popup>
+              <div className="header">Wow!</div>
+              Inline content <i>just works</i>!
+            </Popup>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Header & Content" hint="<Popup title='...' content='...'/>">
+            <Button>Hover Over Me</Button>
+            <Popup title="And and and..." content="Content attributes work, too!"/>
+          </Example>
+        </Column>
+      </Grid>
+    </PageSection>
+
+    <PageSection title="Events">
+      <Grid columns={2}>
+        <Column>
+          <Example title="Explicit target element" hint="<Popup target='...'/>">
+            <Button id='explicitTarget'>Hover Over Me</Button>
+            <Spacer/>
+            <Button>But Not Over Me</Button>
+            <Popup target="#explicitTarget" title="Achievement Unlocked" content="Explicit target works"/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Popup on click" hint="<Popup on='click'/>">
+            <Button>Click Me</Button>
+            <Popup on='click' title="Achievement Unlocked" content="Click button works!"/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Hoverable" hint="<Popup hoverable={true}/>">
+            <Button>Click Me</Button>
+            <Popup hoverable={true} title="Move mouse inside...">
+              <Button>So you can click me!</Button>
+            </Popup>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Event handlers (check out console)" hint="<Popup onShow={...}/>">
+            <Button>Hover over me</Button>
+            <Popup title="Move mouse inside..." content="Blah blah blah"
+              onCreate={(e)=> console.log("onCreate(", e, ") called")}
+              onRemove={(e)=> console.log("onRemove(", e, ") called")}
+              onShow={(e)=> console.log("onShow(", e, ") called")}
+              onVisible={(e)=> console.log("onVisible(", e, ") called")}
+              onHide={(e)=> console.log("onHide(", e, ") called")}
+              onHidden={(e)=> console.log("onHidden(", e, ") called")}
+              onUnplaceable={(e)=> console.log("onUnplaceable(", e, ") called")}
+            />
+
+            <Button>Click me</Button>
+            <Popup on="click" title="Click the button..." content="Blah blah blah"
+              onCreate={(e)=> console.log("onCreate(", e, ") called")}
+              onRemove={(e)=> console.log("onRemove(", e, ") called")}
+              onShow={(e)=> console.log("onShow(", e, ") called")}
+              onVisible={(e)=> console.log("onVisible(", e, ") called")}
+              onHide={(e)=> console.log("onHide(", e, ") called")}
+              onHidden={(e)=> console.log("onHidden(", e, ") called")}
+              onUnplaceable={(e)=> console.log("onUnplaceable(", e, ") called")}
+            />
+          </Example>
+        </Column>
+
+      </Grid>
+    </PageSection>
+
+
+
+    <PageSection title="Appearance">
+      <Grid columns={2}>
+        <Column>
+          <Example title="Basic" hint="<Popup appearance='basic'/>">
+            <Button icon="plus"/>
+            <Popup appearance="basic" content="The default theme's basic popup just hides the arrow."/>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Width" hint="<Popup appearance='wide'/> or <Popup appearance='very wide'/>">
+            <Button>Wide</Button>
+            <Popup appearance="wide"><LoremIpsum short/></Popup>
+            <Button>Very Wide</Button>
+            <Popup appearance="very wide"><LoremIpsum short/></Popup>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Fluid" hint="<Popup appearance='fluid'/>">
+            <Button>Fluid</Button>
+            <Popup appearance="fluid"><LoremIpsum short/></Popup>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Flowing" hint="<Popup appearance='flowing'/>">
+            <Button>Flowing</Button>
+            <Popup appearance="flowing"><LoremIpsum short/></Popup>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Inverted" hint="<Popup appearance='inverted'/>">
+            <Button>Inverted</Button>
+            <Popup appearance="inverted"><LoremIpsum tiny/></Popup>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Offset" hint="<Popup offset={50}/>">
+            <Button>Offset</Button>
+            <Popup offset={100}>I should be positioned off to the left</Popup>
+          </Example>
+        </Column>
+
+
+        <Column>
+          <Example title="Position" hint="<Popup position='top left'/>">
+            <Segment style={{height:200}}>
+              <Icon icon="heart" color='red' style={{position: "absolute", left:10, top: 10}}/>
+              <Popup position="top left" content="top left positioned popup"/>
+
+              <Icon icon="heart" color='red' style={{position: "absolute", left:"50%", top: 10}}/>
+              <Popup position="top center" content="top center positioned popup"/>
+
+              <Icon icon="heart" color='red' style={{position: "absolute", right:10, top: 10}}/>
+              <Popup position="top right" content="top right positioned popup"/>
+
+              <Icon icon="heart" color='red' style={{position: "absolute", left:10, top: "50%"}}/>
+              <Popup position="left center" content="left center positioned popup"/>
+
+              <Icon icon="heart" color='red' style={{position: "absolute", right:10, top: "50%"}}/>
+              <Popup position="right center" content="right center positioned popup"/>
+
+              <Icon icon="heart" color='red' style={{position: "absolute", left:10, bottom: 10}}/>
+              <Popup position="bottom left" content="bottom left positioned popup"/>
+
+              <Icon icon="heart" color='red' style={{position: "absolute", left:"50%", bottom: 10}}/>
+              <Popup position="bottom center" content="bottom center positioned popup"/>
+
+              <Icon icon="heart" color='red' style={{position: "absolute", right:10, bottom: 10}}/>
+              <Popup position="bottom right" content="bottom right positioned popup"/>
+            </Segment>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Size" hint="<Popup size='small'/>">
+            <Button size="mini">Mini</Button>
+            <Popup size="mini" content="A mini popup for a mini button."/>
+
+            <Spacer/>
+            <Button size="tiny">Tiny</Button>
+            <Popup size="tiny" content="A tiny popup for a tiny button."/>
+
+            <Spacer/>
+            <Button size="small">Small</Button>
+            <Popup size="small" content="A small popup for a small button."/>
+
+            <Spacer/>
+            <Button size="medium">Medium</Button>
+            <Popup size="medium" content="A medium popup for a medium button."/>
+
+            <Spacer/>
+            <Button size="large">Large</Button>
+            <Popup size="large" content="A large popup for a large button."/>
+
+            <Spacer/>
+            <Button size="huge">Huge</Button>
+            <Popup size="huge" content="A huge popup for a huge button."/>
+         </Example>
+        </Column>
+      </Grid>
+    </PageSection>
+
+  </Page>
+</OakCard>

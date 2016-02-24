@@ -1,0 +1,114 @@
+<OakCard id="Ad" title="Ad">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Ad">
+      An ad displays third-party promotional content
+      <Info>
+        SUI Ads don't actually serve ads -- you should create
+        a subclass of this element for your particular ad network.
+      </Info>
+    </PageTitle>
+
+    <PageSection title="Types">
+
+      <Example title="Common Units">
+        <Ad size="banner" test/>
+        <Ad size="leaderboard" test/>
+        <Grid columns={2}>
+          <Column>
+            <Ad size="medium rectangle" test/>
+            <Spacer/>
+            <Ad size="large rectangle" test/>
+          </Column>
+          <Column>
+            <Ad size="half page" test/>
+          </Column>
+        </Grid>
+      </Example>
+
+      <Example title="Mobile Sizes">
+        <Info>Mobile ads only appear when in mobile viewport width.</Info>
+        <Ad size="mobile leaderboard" test/>
+        <Ad size="mobile banner" test/>
+      </Example>
+
+      <Example title="Rectangle Sizes">
+        <Grid columns={2}>
+          <Column>
+            <Ad size="small rectangle" test/>
+          </Column>
+          <Column>
+            <Ad size="vertical rectangle" test/>
+          </Column>
+        </Grid>
+      </Example>
+
+      <Example title="Button Sizes">
+        <Grid columns={3}>
+          <Column>
+            <Ad size="button" test/>
+          </Column>
+          <Column>
+            <Ad size="square button" test/>
+          </Column>
+          <Column>
+            <Ad size="small button" test/>
+          </Column>
+        </Grid>
+      </Example>
+
+      <Example title="Skyscraper Sizes">
+        <Grid columns={2}>
+          <Column>
+            <Ad size="skyscraper" test/>
+          </Column>
+          <Column>
+            <Ad size="wide skyscraper" test/>
+          </Column>
+        </Grid>
+      </Example>
+
+      <Example title="Banner">
+        <Ad size="half banner" test/>
+        <Ad size="banner" test/>
+        <Ad size="top banner" test/>
+        <Ad size="vertical banner" test/>
+      </Example>
+
+      <Example title="Leaderboard">
+        <Ad size="leaderboard" test/>
+        <Ad size="large leaderboard" test/>
+        <Ad size="billboard" test/>
+      </Example>
+
+      <Example title="Panorama">
+        <Ad size="panorama" test/>
+      </Example>
+
+      <Example title="Netboard">
+        <Ad size="netboard" test/>
+      </Example>
+
+    </PageSection>
+
+    <PageSection title="Appearance">
+
+      <Example title="Centered" hint="<Ad appearance='centered'/>">
+        <Ad size="half banner" appearance="centered" test/>
+      </Example>
+
+      <Example title="Hidden" hint="<Ad hidden/>">
+        <Label pointing="right">Hidden ad here</Label>
+        <Ad size="half banner" hidden test/>
+        <Label pointing="left">Hidden ad here</Label>
+      </Example>
+
+      <Example title="Test" hint="<Ad test/> or <Ad test='text to show'/>">
+        <Ad size="leaderboard" test/>
+        <Ad size="leaderboard" test="custom text in leaderboard ad"/>
+      </Example>
+
+    </PageSection>
+
+  </Page>
+</OakCard>

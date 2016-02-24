@@ -1,0 +1,268 @@
+<OakCard id="List" title="List">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="List">
+      A list is used to group related content.
+    </PageTitle>
+
+    <PageSection title="Types">
+      <Grid columns={3}>
+        <Column>
+          <Example title="Text / Icon only">
+            <List>
+              <ListItem content="Semantic UI" icon="users"/>
+              <ListItem><Icon icon="marker"/>Asheville, NC</ListItem>
+              <ListItem icon="mail"><a href="mailto:jack@semantic-ui.com">jack@semantic0ui.com</a></ListItem>
+            </List>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Link" hint="<List appearance='link'/>">
+            <List appearance="link">
+              <ListItem content="Home" href="http://google.com" target="_blank"/>
+              <ListItem content="About" active  href="http://google.com" target="_blank"/>
+              <ListItem content="Jobs"  href="http://google.com" target="_blank"/>
+              <ListItem content="Team"  href="http://google.com" target="_blank"/>
+            </List>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Fancy">
+            <List appearance="relaxed divided">
+              <ListItem icon="large github middle aligned" header="Semantic-UI" description="Updated 10 minutes ago"/>
+              <ListItem icon="large github middle aligned">
+                <div className="header">Semantic-UI-Docs</div>
+                <div className="description">Updated 22 minutes ago</div>
+              </ListItem>
+            </List>
+          </Example>
+        </Column>
+
+
+        <Column columns={5}>
+          <Example title="Bulleted Lists" hint="<List appearance='bulleted'/>">
+            <List appearance="bulleted">
+              <ListItem>Gaining Access</ListItem>
+              <ListItem>Inviting Friends</ListItem>
+              <ListItem nestChildren={false}>Benefits
+                <List>
+                  <ListItem>Use Anywhere</ListItem>
+                  <ListItem>Rebates</ListItem>
+                  <ListItem>Discounts</ListItem>
+                </List>
+              </ListItem>
+              <ListItem>Warranty</ListItem>
+            </List>
+          </Example>
+        </Column>
+
+        <Column columns={5}>
+          <Example title="Ordered Lists" hint="<List appearance='ordered'/>">
+            <List appearance="ordered">
+              <ListItem>Gaining Access</ListItem>
+              <ListItem>Inviting Friends</ListItem>
+              <ListItem nestChildren={false}>Benefits
+                <List>
+                  <ListItem>Use Anywhere</ListItem>
+                  <ListItem>Rebates</ListItem>
+                  <ListItem>Discounts</ListItem>
+                </List>
+              </ListItem>
+              <ListItem>Warranty</ListItem>
+            </List>
+          </Example>
+        </Column>
+
+        <Column columns={6}>
+          <Example title="Nested Lists">
+            <List>
+              <ListItem icon="folder" header="src" description="Source files for project">
+                <List>
+                  <ListItem icon="folder" header="site" description="Your site's theme"/>
+                  <ListItem icon="folder" header="themes" description="Packaged theme files">
+                    <List>
+                      <ListItem icon="folder" header="default" description="Default theme"/>
+                      <ListItem icon="folder" header="my_theme" description="Custom themes"/>
+                    </List>
+                  </ListItem>
+                  <ListItem icon="file" header="theme.config" description="Theme configuration file"/>
+                </List>
+              </ListItem>
+              <ListItem icon="folder" header="dist" description="Compiled CSS and JS files"/>
+            </List>
+          </Example>
+        </Column>
+
+      </Grid>
+    </PageSection>
+
+    <PageSection title="Appearance">
+      <Example title="Horizontal" hint="<List appearance='horizontal'/>">
+        <List appearance="horizontal">
+          <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+          <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+          <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+        </List>
+
+        <Divider/>
+        <List appearance="horizontal divided">
+          <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+          <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+          <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+        </List>
+
+        <Divider/>
+        <List appearance="horizontal ordered">
+          <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="50 points"/>
+          <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="44 points"/>
+          <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="22 points"/>
+        </List>
+
+        <Divider/>
+        <List appearance="horizontal bulleted link">
+          <ListItem href="http://www.google.com">Terms and Conditions</ListItem>
+          <ListItem href="http://www.google.com">Privacy Policy</ListItem>
+          <ListItem href="http://www.google.com">Contact Us</ListItem>
+        </List>
+      </Example>
+
+      <Grid columns={3}>
+        <Column>
+          <Example title="Normal (non-relaxed)">
+            <List>
+              <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+              <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+              <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+            </List>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Relaxed" hint="<List appearance='relaxed'/>">
+            <List appearance="relaxed">
+              <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+              <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+              <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+            </List>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Very Relaxed" hint="<List appearance='very relaxed'/>">
+            <List appearance="very relaxed">
+              <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+              <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+              <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+            </List>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Divided" hint="<List appearance='divided'/>">
+            <List appearance="divided">
+              <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+              <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+              <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+            </List>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Celled" hint="<List appearance='celled'/>">
+            <List appearance="celled">
+              <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+              <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+              <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+            </List>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Inverted" hint="<List appearance='inverted'/>">
+            <Segment appearance="inverted">
+              <List appearance="inverted divided">
+                <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+                <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+                <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+              </List>
+            </Segment>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Selection" hint="<List appearance='selection'/>">
+            <List appearance="selection">
+              <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+              <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+              <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+            </List>
+          </Example>
+        </Column>
+
+        <Column>
+          <Example title="Animated" hint="<List appearance='animated'/>">
+            <List appearance="animated">
+              <ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor"/>
+              <ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin"/>
+              <ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user"/>
+            </List>
+          </Example>
+        </Column>
+
+      </Grid>
+
+      <Example title="Floating list" hint="<List floated='right'/>">
+        <Segment>
+          <List appearance="horizontal">
+            <ListItem>Terms</ListItem>
+            <ListItem>Privacy</ListItem>
+            <ListItem>Contact</ListItem>
+          </List>
+          <List floated="right" appearance="horizontal">
+            <ListItem>About Us</ListItem>
+            <ListItem>Jobs</ListItem>
+          </List>
+        </Segment>
+      </Example>
+
+      <Example title="Size" hint="<List size='large'/>">
+        <List size="horizontal mini">
+          <ListItem icon='mail' content="Mail"/> <ListItem icon='user' content="Contacts"/> <ListItem icon='calendar' content="Calendar"/>
+        </List>
+
+        <Spacer/>
+        <List size="horizontal tiny">
+          <ListItem icon='mail' content="Mail"/> <ListItem icon='user' content="Contacts"/> <ListItem icon='calendar' content="Calendar"/>
+        </List>
+
+        <Spacer/>
+        <List size="horizontal small">
+          <ListItem icon='mail' content="Mail"/> <ListItem icon='user' content="Contacts"/> <ListItem icon='calendar' content="Calendar"/>
+        </List>
+
+        <Spacer/>
+        <List size="horizontal medium">
+          <ListItem icon='mail' content="Mail"/> <ListItem icon='user' content="Contacts"/> <ListItem icon='calendar' content="Calendar"/>
+        </List>
+
+        <Spacer/>
+        <List size="horizontal large">
+          <ListItem icon='mail' content="Mail"/> <ListItem icon='user' content="Contacts"/> <ListItem icon='calendar' content="Calendar"/>
+        </List>
+
+        <Spacer/>
+        <List size="horizontal huge">
+          <ListItem icon='mail' content="Mail"/> <ListItem icon='user' content="Contacts"/> <ListItem icon='calendar' content="Calendar"/>
+        </List>
+
+        <Spacer/>
+        <List size="horizontal massive">
+          <ListItem icon='mail' content="Mail"/> <ListItem icon='user' content="Contacts"/> <ListItem icon='calendar' content="Calendar"/>
+        </List>
+
+      </Example>
+    </PageSection>
+  </Page>
+</OakCard>

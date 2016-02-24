@@ -90,8 +90,7 @@ export class CardElement extends JSXElement {
   // Render out outer element as a div with only a few properties
   renderType = "div";
   _attributesToSource(options, indent) {
-console.warn(this);
-    const { id, className, style } = this.attributes;
+    const { id, className, style } = this.attributes || {};
     return super._attributesToSource(options, indent, {
       id,
       className: classNames("oak Card", className),

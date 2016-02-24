@@ -1,0 +1,57 @@
+<OakCard id="Tabs" title="Tabs">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Tabs">
+      Tabs is a hidden section of content activated by a menu.
+      <Todo>
+        <ul>
+          <li>Lots more examples.</li>
+          <li>Loading stuff ???</li>
+          <li>History stuff ???</li>
+        </ul>
+      </Todo>
+    </PageTitle>
+
+    <PageSection title="Content">
+
+      <Example title="Normal">
+        <Tabs ref="normal" active="a">
+          <Tab name="a" title="A tab">
+            <Header>ZAAAAAAAYYYYYYY</Header>
+            <LoremIpsum short/>
+          </Tab>
+          <Tab name="b" title="B tab">
+            <Header>Bedebedebede</Header>
+            <LoremIpsum short/>
+          </Tab>
+        </Tabs>
+      </Example>
+
+
+      <Example title="Nested">
+        <Tabs ref="nested1" active={2}>
+          <Tab name="a" title="A tab">
+            <Header>AAAAAAAYYYYYYY</Header>
+            <Tabs ref="nestedA" barOn="top">
+              <Tab name="AA" title="A - A" active>B tab item A</Tab>
+              <Tab name="AB" title="A - B">B tab item B</Tab>
+            </Tabs>
+          </Tab>
+          <Tab name="b" title="B tab">
+            <Header>Bedebedebede</Header>
+            <Tabs ref="nestedB" barOn="top">
+              <Tab name="AA" title="B - A" active>B tab item A</Tab>
+              <Tab name="AB" title="B - B">B tab item B</Tab>
+            </Tabs>
+          </Tab>
+        </Tabs>
+        <Bug>
+          Nested tabs should have names of, eg, `a/B`, but that doesn't seem to work.
+          Maybe it's because the outer context is looking in the inner tabs?
+        </Bug>
+      </Example>
+
+    </PageSection>
+
+  </Page>
+</OakCard>

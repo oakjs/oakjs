@@ -157,13 +157,16 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     return this.renderChildren();
   }
 }`
-    console.info(code);
+window.code = code;
+//    console.info(code);
     const transformed = babel.transformExpression(code);
-    console.info(transformed);
+window.transformed = transformed;
+//    console.info(transformed);
 
     const Constructor = eval(transformed);
     Constructor.prototype.renderChildren = this.component.getRenderMethod();
-    console.info(Constructor);
+window.Constructor = Constructor;
+//    console.info(Constructor);
     return Constructor;
 /*
     const Constructor = class SomeClass extends Super {

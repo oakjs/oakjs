@@ -1,0 +1,232 @@
+<OakCard id="Header" title="Header">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Header">
+      A header provides a short summary of content.
+      <ul>
+        <li><b>&lt;Header&gt;</b> elements size according to surrounding content.</li>
+        <li><b>&lt;Header page&gt;</b> elements are fixed in size and are not affected by their surrounding content.</li>
+        <li><b>&lt;Header sub&gt;</b> elements are used for sub-header text.</li>
+      </ul>
+      Otherwise they both function identically.
+    </PageTitle>
+
+    <PageSection title="Types">
+
+      <Example title="Normal Headers" hint="<Header size='huge'/>">
+        <Info appearance="info">Normal headers <b>are</b> affected by surrounding content size.</Info>
+        <Segment>
+          <Header size="huge">First Header</Header>
+          <LoremIpsum short/>
+          <Header size="large">Second Header</Header>
+          <LoremIpsum short/>
+          <Header size="medium">Third Header</Header>
+          <LoremIpsum short/>
+          <Header size="small">Fourth Header</Header>
+          <LoremIpsum short/>
+          <Header size="tiny">Fifth Header</Header>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Page Headers" hint="<Header page size='huge'/>">
+        <Info appearance="info">Page headers <b>are not</b> affected by surrounding content size.</Info>
+        <Segment>
+          <Header page size="huge">First Page Header</Header>
+          <Header page size="large">Second Page Header</Header>
+          <Header page size="medium">Third Page Header</Header>
+          <Header page size="small">Fourth Page Header</Header>
+          <Header page size="tiny">Fifth Page Header</Header>
+        </Segment>
+      </Example>
+
+      <Example title="Sub Headers" hint="<Header sub size='huge'/>">
+        <Segment>
+          <Header sub size="huge">First Sub Header</Header>
+          <Header sub size="large">Second Sub Header</Header>
+          <Header sub size="medium">Third Sub Header</Header>
+          <Header sub size="small">Fourth Sub Header</Header>
+          <Header sub size="tiny">Fifth Sub Header</Header>
+        </Segment>
+      </Example>
+
+      <Example title="Icon Headers" hint="<Header appearance='icon' icon='settings'/>">
+        <Segment>
+          <Grid>
+            <Column width={3}>
+              <Header page appearance="icon" icon="settings" align="center" size="small">Account Settings</Header>
+            </Column>
+            <Column width={13}>
+              <LoremIpsum medium/>
+            </Column>
+          </Grid>
+        </Segment>
+
+        <Segment>
+          <Header appearance="icon" icon="circular users" align="center" size="huge">Friends</Header>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+    </PageSection>
+
+    <PageSection title="Content">
+
+      <Example title="Subheader" hint="<Header>Header Text<Subheader>Sub header text</Subheader></Header>">
+        <Segment>
+          <Header size="huge">
+            Account Settings
+            <Subheader>Manage your settings and e-mail preferences.</Subheader>
+          </Header>
+          <LoremIpsum short/>
+        </Segment>
+
+        <Segment>
+          <Header size="huge" dividing>
+            H1
+            <Subheader>Sub Header</Subheader>
+          </Header>
+          <Header size="large" dividing>
+            H2
+            <Subheader>Sub Header</Subheader>
+          </Header>
+          <Header size="medium" dividing>
+            H3
+            <Subheader>Sub Header</Subheader>
+          </Header>
+          <Header size="small" dividing>
+            H4
+            <Subheader>Sub Header</Subheader>
+          </Header>
+          <Header size="tiny">
+            H5
+            <Subheader>Sub Header</Subheader>
+          </Header>
+        </Segment>
+
+      </Example>
+
+      <Example title="Icon" hint="<Header icon='...'/>">
+        <Segment>
+          <Header size="huge" icon="settings">Settings</Header>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Image" hint="<Header image='...'/>">
+        <Segment>
+          <Header size="huge" image="http://semantic-ui.com/images/avatar2/large/patrick.png">Patrick</Header>
+          <LoremIpsum short/>
+        </Segment>
+
+        <Segment>
+          <Header size="huge" image="http://semantic-ui.com/images/avatar2/large/patrick.png" imageAppearance="ui circular image">
+            Patrick
+            <Subheader>A really spiffy guy</Subheader>
+          </Header>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+    </PageSection>
+
+
+    <PageSection title="Variations">
+
+
+      <Example title="Text alignment" hint="<Header align='left'/>">
+        <Segment>
+          <Header align="left">Left</Header>
+          <Header align="center">Center</Header>
+          <Header align="right">Right</Header>
+          <Header align="justified">Justified Text Can Have Lots Of Spaces</Header>
+        </Segment>
+      </Example>
+
+      <Example title="Floating" hint="<Header floated='left'/>">
+        <Segment clearing>
+          <Header floated="left">Go Back</Header>
+          <Header floated="right">Go Forward</Header>
+        </Segment>
+      </Example>
+
+      <Example title="Dividing" hint="<Header dividing/>">
+        <Segment>
+          <LoremIpsum short/>
+          <Header dividing>Dividing Header</Header>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+
+      <Example title="Block" hint="<Header appearance='block'/>">
+        <Spacer/>
+        <Segment appearance="basic unpadded">
+          <Header appearance="block">Block Header</Header>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+
+      <Example title="Attached" hint="<Header appearance='top attached'/>">
+        <Header appearance="top attached">Top Attached</Header>
+        <Segment appearance="attached">
+          <LoremIpsum short/>
+        </Segment>
+        <Header appearance="attached">Attached</Header>
+        <Segment appearance="attached">
+          <LoremIpsum short/>
+        </Segment>
+        <Header appearance="bottom attached">Bottom Attached</Header>
+      </Example>
+
+      <Example title="Disabled" hint="<Header disabled/>">
+        <Segment>
+          <Header disabled>
+            Disabled Header
+            <Subheader>Manage your settings and e-mail preferences.</Subheader>
+          </Header>
+          <LoremIpsum short/>
+        </Segment>
+      </Example>
+
+      <Example title="Colored" hint="<Header color='red'/>">
+        <Segment>
+          <Header size="tiny" color="red" dividing>Red</Header>
+          <Header size="tiny" color="orange" dividing>Orange</Header>
+          <Header size="tiny" color="yellow" dividing>Yellow</Header>
+          <Header size="tiny" color="olive" dividing>Olive</Header>
+          <Header size="tiny" color="green" dividing>Green</Header>
+          <Header size="tiny" color="teal" dividing>Teal</Header>
+          <Header size="tiny" color="blue" dividing>Blue</Header>
+          <Header size="tiny" color="purple" dividing>Purple</Header>
+          <Header size="tiny" color="violet" dividing>Violet</Header>
+          <Header size="tiny" color="pink" dividing>Pink</Header>
+          <Header size="tiny" color="brown" dividing>Brown</Header>
+          <Header size="tiny" color="grey" dividing>Grey</Header>
+        </Segment>
+      </Example>
+
+      <Example title="Inverted" hint="<Header appearance='inverted'/>">
+        <Segment appearance="inverted">
+          <Header appearance="inverted" size="tiny">Normal</Header>
+          <Header appearance="inverted" size="tiny" color="red">Red</Header>
+          <Header appearance="inverted" size="tiny" color="orange">Orange</Header>
+          <Header appearance="inverted" size="tiny" color="yellow">Yellow</Header>
+          <Header appearance="inverted" size="tiny" color="olive">Olive</Header>
+          <Header appearance="inverted" size="tiny" color="green">Green</Header>
+          <Header appearance="inverted" size="tiny" color="teal">Teal</Header>
+          <Header appearance="inverted" size="tiny" color="blue">Blue</Header>
+          <Header appearance="inverted" size="tiny" color="purple">Purple</Header>
+          <Header appearance="inverted" size="tiny" color="violet">Violet</Header>
+          <Header appearance="inverted" size="tiny" color="pink">Pink</Header>
+          <Header appearance="inverted" size="tiny" color="brown">Brown</Header>
+          <Header appearance="inverted" size="tiny" color="grey">Grey</Header>
+        </Segment>
+      </Example>
+
+
+    </PageSection>
+
+  </Page>
+</OakCard>

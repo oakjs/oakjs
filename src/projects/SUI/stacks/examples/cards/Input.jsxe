@@ -1,0 +1,314 @@
+<OakCard id="Input" title="Input">
+  <PageSidebar/>
+  <Page>
+    <PageTitle title="Input">
+      An input is a field used to elicit a response from a user.
+      <Todo>
+        <ul>
+          <li>Styling for textarea?</li>
+          <li>Validation?</li>
+        </ul>
+      </Todo>
+    </PageTitle>
+
+    <PageSection grid title="Types">
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=text or unspecified</Label><br/>
+        <Input type="text"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=button</Label><br/>
+        <Input type="button" value="OK"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=checkbox</Label><br/>
+        <Input type="checkbox" rightLabel="Checkbox label"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=date</Label><br/>
+        <Input type="date"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=datetime</Label><br/>
+        <Input type="datetime"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=datetime-local</Label><br/>
+        <Input type="datetime-local"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=email</Label><br/>
+        <Input type="email"/>
+      </Example>
+
+      <Example columns={10}>
+        <Spacer/>
+        <Label pointing="down">type=file</Label><br/>
+        <Input type="file"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=hidden</Label><br/>
+        <Input type="hidden"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=image</Label><br/>
+        <Input type="image"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=month</Label><br/>
+        <Input type="month"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=password</Label><br/>
+        <Input type="password"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=number</Label><br/>
+        <Input type="number" min={0} max={10}/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=password</Label><br/>
+        <Input type="password"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=radio</Label><br/>
+        <Input type="radio" name="a" value="1" rightLabel="Option 1"/><br/>
+        <Input type="radio" name="a" value="2" rightLabel="Option 2"/><br/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=range</Label><br/>
+        <Input type="range" min={0} max={10}/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=reset</Label><br/>
+        <Input type="reset" value="Reset"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=search</Label><br/>
+        <Input type="search"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=submit</Label><br/>
+        <Input type="submit" value="Save"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=tel</Label><br/>
+        <Input type="tel"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=time</Label><br/>
+        <Input type="time"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=url</Label><br/>
+        <Input type="url"/>
+      </Example>
+
+      <Example columns={5}>
+        <Spacer/>
+        <Label pointing="down">type=week</Label><br/>
+        <Input type="week"/>
+      </Example>
+
+      <Example columns={8}>
+        <Label pointing="down">type=textarea</Label><br/>
+        <Input type="textarea"/>
+        <Todo>Add styling for textarea to semantic ui?</Todo>
+      </Example>
+    </PageSection>
+
+    <PageSection grid title="States">
+        <Example title="Normal" hint="<Input/>" columns={5}>
+          <Input/>
+        </Example>
+
+        <Example title="Disabled" hint="<Input disabled/>" columns={5}>
+          <Input disabled value="text"/>
+        </Example>
+
+        <Example title="Hidden" hint="<Input hidden/>" columns={5}>
+          <Input hidden value="text"/>
+        </Example>
+
+        <Example title="Loading" hint="<Input loading icon='search'/>" columns={5}>
+          <Input loading icon="search"/>
+        </Example>
+
+        <Example title="Focused" hint="<Input focused/>" columns={5}>
+          <Input focused/>
+        </Example>
+
+        <Example title="Error" hint="<Input error/>" columns={5}>
+          <Input error="A value is required" value="text"/>
+        </Example>
+
+    </PageSection>
+
+    <PageSection title="Appearance">
+
+        <Example title="Icon" hint="<Input icon='search' iconOn='right'/>">
+          <Grid columns={3}>
+            <Column>
+              <Input icon="search"/>
+            </Column>
+            <Column>
+              <Input icon="search" iconOn="left"/>
+            </Column>
+            <Column>
+              <Input icon="inverted circular search link icon"/>
+            </Column>
+          </Grid>
+        </Example>
+
+        <Example title="Labelled" hint="<Input leftLabel='...' rightLabel='...'/>">
+          <Grid columns={3}>
+            <Column>
+              <Input leftLabel="http://"/>
+            </Column>
+            <Column>
+              <Input rightLabel=".com"/>
+            </Column>
+            <Column>
+              <Input leftLabel="$" rightLabel="kg" labelAppearance="basic"/>
+            </Column>
+
+            <Column>
+              <Input maxLength={5} icon="tags" iconOn="left" appearance="fluid" rightLabel="Tags" labelAppearance="tag"/>
+            </Column>
+            <Column>
+              <Input appearance="left corner labeled">
+                <div className="ui left corner label">
+                  <Icon icon="asterisk"/>
+                </div>
+              </Input>
+            </Column>
+            <Column>
+              <Input appearance="corner labeled">
+                <div className="ui corner label">
+                  <Icon icon="asterisk"/>
+                </div>
+              </Input>
+            </Column>
+          </Grid>
+        </Example>
+
+        <Example title="Action" hint="<Input><Button></Input>">
+          <Grid columns={2}>
+            <Column>
+              <Input placeholder="Search..." appearance="action">
+                <Button title="Search"/>
+              </Input>
+            </Column>
+            <Column>
+              <Input value="$52.03" appearance="fluid left action" childrenOn="left">
+                <Button color="teal" title="Checkout"/>
+              </Input>
+            </Column>
+            <Column>
+              <Input icon="search" iconOn="left" placeholder="search" appearance="fluid right action" >
+                <div className="ui floating dropdown button">
+                  <div className="text">This Page</div>
+                  <Icon icon="dropdown"/>
+                </div>
+              </Input>
+            </Column>
+          </Grid>
+        </Example>
+
+        <Example title="Transparent" hint="<Input appearance='transparent'/>">
+          <Grid columns={3}>
+            <Column>
+              <Input placeholder="Search..." appearance="transparent"/>
+            </Column>
+            <Column>
+              <Input placeholder="Search..." icon="search" iconOn="left" appearance="transparent"/>
+            </Column>
+            <Column>
+              <Input placeholder="Search..." icon="search" appearance="transparent"/>
+            </Column>
+          </Grid>
+        </Example>
+
+        <Example title="Inverted" hint="<Input appearance='inverted'/>">
+          <Segment appearance="inverted">
+            <Grid columns={3} appearance="inverted">
+              <Column>
+                <Input placeholder="Search..." appearance="inverted"/>
+              </Column>
+              <Column>
+                <Input placeholder="Search..." icon="search" iconOn="left" appearance="inverted"/>
+              </Column>
+              <Column>
+                <Input placeholder="Search..." icon="search" appearance="inverted transparent"/>
+              </Column>
+            </Grid>
+          </Segment>
+        </Example>
+
+        <Example title="Fluid" hint="<Input appearance='fluid'/>">
+          <Input placeholder="Search..." icon="search" appearance="fluid"/>
+          <Spacer/>
+          <Input placeholder="Search..." icon="search" iconOn="left" appearance="fluid action">
+            <Button>Search</Button>
+          </Input>
+        </Example>
+
+        <Example title="Sizes" hint="<Input size='mini'/>">
+          <Input placeholder="Mini" icon="search" size="mini"/>
+          <Spacer/>
+          <Input placeholder="Small" icon="search" size="small"/>
+          <Spacer/>
+          <Input placeholder="Medium" icon="search" size="medium"/>
+          <Spacer/>
+          <Input placeholder="Large" icon="search" size="large"/>
+          <Spacer/>
+          <Input placeholder="Huge" icon="search" size="huge"/>
+          <Spacer/>
+          <Input placeholder="Massive" icon="search" size="massive"/>
+          <Spacer/>
+        </Example>
+
+    </PageSection>
+  </Page>
+</OakCard>
