@@ -13,7 +13,7 @@ function Example(props, { components: c }) {
 
   divProps.className = classNames(
       className, appearance,
-      (columns ? [c.SUI.getColumnWidthClass(columns), "column", "unpadded"] : undefined),
+//      (columns ? [c.SUI.getColumnWidthClass(columns), "column", "unpadded"] : undefined),
       "Example"
   );
 
