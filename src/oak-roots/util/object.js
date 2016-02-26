@@ -17,7 +17,7 @@ export function values(object) {
 export function map(object, method, thisArg) {
   if (object == null) return undefined;
   const output = {};
-  Object.keys(object).forEach(key => output[key] = method.apply(thisArg, object[key], key, object));
+  Object.keys(object).forEach(key => output[key] = method.call(thisArg, object[key], key, object));
   return output;
 }
 

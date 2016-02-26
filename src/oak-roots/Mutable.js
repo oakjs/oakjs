@@ -1,3 +1,7 @@
+// REFACTOR:    rename 'attributes' to 'props'  (setAttribute ?   only use mutate)
+//              don't save props directly on object (use a getter)
+//              CHILDREN ????  ARE WE STILL USING THIS??
+
 //////////////////////////////
 // Mutable base class with `props` and `children` support.
 // The idea is that this is a mutatable object, but mutation is controlled.

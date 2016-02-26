@@ -115,7 +115,7 @@ export default function Loadable(Constructor = Object) {
       const _loadError = (error) => {
         _setLoadState(this, { state: "error", error })
         this.onLoadError(error);
-        this.trigger("loadError", error);
+        if (this.trigger) this.trigger("loadError", error);
         _reject(error);
       };
 

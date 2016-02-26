@@ -1,0 +1,15 @@
+{
+  "type": "js",
+  "basePath": "public/3rdParty/",
+  "paths": [
+    "acorn.js",
+    "babel.min.js",
+    "babel-helpers.js",
+    "jquery.js",
+    "react.min.js",
+    "react-dom.min.js",
+    "ReactRouter.min.js",
+    "SemanticUI/semantic.min.js"
+  ],
+  "bundleFile": "3rdParty/bundle.js"
+}

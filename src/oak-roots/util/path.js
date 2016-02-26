@@ -57,10 +57,10 @@ export function splitPath(pathString) {
 }
 
 
-export function getPath(object, pathString) {
-  if (object == null) return object;
+export function getPath(pathString, object) {
+  if (object == null || !pathString) return object;
   const path = splitPath(pathString);
-  if (!path) return object;
+  if (!path) return undefined;
 
   let target = object;
   for (let i = 0; i < path.length; i++) {
@@ -71,7 +71,7 @@ export function getPath(object, pathString) {
   return target;
 }
 
-export function setPath(object, pathString, value) {
+export function setPath(value, pathString, object) {
   if (object == null) return object;
   const path = splitPath(pathString);
   if (!path) return object;
@@ -98,3 +98,29 @@ export function setPath(object, pathString, value) {
   }
   return value;
 }
+
+
+
+// Interpolate a `string` with one or more `scope` objects
+// Roughly the semantics as ES2015 string interpolation,
+//  but you use a regular string, and pass in a scope object.
+//
+// TODO: mutliple scope objects!
+//
+export const INTERPOLATE_TEMPLATE_PATTERN = /\$\{([^}]*)\}/;
+export function interpolate(string, scope) {
+  // yields:  ["string", "<match_string>", "string", "<match_string>", "string"]
+  const matches = string.split(INTERPOLATE_TEMPLATE_PATTERN);
+  return matches.map( (token, index) => {
+    // even bits are literal strings
+    if (index % 2 === 0) return token;
+
+    // odd bits are substitutions
+    const replacement = getPath(token, scope);
+    return (replacement == null ? "" : replacement);
+  }).join("");
+}
+
+
+// Export all as a single object
+export default Object.assign({}, exports);

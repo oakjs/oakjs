@@ -81,7 +81,7 @@ export default class CardComponent extends React.Component {
   //        you can safely access data directly, (eg: just do `card.data.a`).
   @autobind
   get(path, defaultValue) {
-    const value = getPath(this.data, path);
+    const value = getPath(path, this.data);
     if (value === undefined) return defaultValue;
     return value;
   }
@@ -95,7 +95,7 @@ export default class CardComponent extends React.Component {
     const currentValue = this.get(path);
     if (value === currentValue) return;
 
-    setPath(this.data, path, value);
+    setPath(value, path, this.data);
     this.forceUpdate();
     return this.data;
   }
