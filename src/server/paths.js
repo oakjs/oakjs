@@ -7,47 +7,162 @@
 import fsPath from "path";
 import config from './config';
 
+
 //////////////////////////////
-//  Path utilities
+//  Project Index
 //////////////////////////////
 
-export function isValidPath(path) {
-  if (path.includes("//")) return false;
-  return path.split("/").every(segment => segment !== "." && segment !== "..");
+// Lightweight object which vends paths
+//  eg:   const path = paths.projects().projectIndexPath;
+export class projects {
+  get projectIndexPath() { return projectsPath("index.json") }
 }
 
 // Return the path for a project file.
 // Default is to return the `project.jsx` file, pass a different `fileName` for something else.
 // If you want the path to the project's directory, pass `fileName=""`.
-export function projectsPath(filename="index.json", errorMessage = "Invalid path") {
-  if (!isValidPath(filename)) throw new TypeError(`${errorMessage}: '${filename}'`);
+export function projectsPath(filename = "") {
+  if (!isValidPath(filename)) throw new TypeError(`Invalid path: '${filename}'`);
   return fsPath.join(config.paths.projects, filename);
 }
 
+
+
+//////////////////////////////
+//  Paths for projects
+//////////////////////////////
+
+// Lightweight object which vends paths
+//  eg:   const path = paths.project(<projectId>).jsxePath;
+export class project {
+  constructor(project) {
+    this.project = dieIfInvalidId(project);
+  }
+  get path() { return `${this.project}` }
+  get jsxePath() { return projectPath(this.project, "project.jsxe") }
+  get cssPath() { return projectPath(this.project, "project.css") }
+  get scriptPath() { return projectPath(this.project, "project.js") }
+  get stackIndexPath() { return projectPath(this.project, "stacks/index.json") }
+  get bundleFilePath() { return `projects/${this.path}.bundle.json` }
+}
+
 // Return the path for a project file.
 // Default is to return the `project.jsx` file, pass a different `fileName` for something else.
 // If you want the path to the project's directory, pass `fileName=""`.
-export function projectPath(project, filename="project.jsx", errorMessage) {
+export function projectPath(project, filename = "") {
   const projectPath = fsPath.join(project, filename);
-  return projectsPath(projectPath, errorMessage);
+  return projectsPath(projectPath);
 }
+
+//////////////////////////////
+//  Paths for stacks
+//////////////////////////////
+
+// Lightweight object which vends paths
+//  eg:   const path = paths.stack(<projectId>, <stackId>).jsxePath;
+export class stack {
+  constructor(project, stack) {
+    this.project = dieIfInvalidId(project);
+    this.stack = dieIfInvalidId(stack);
+  }
+  get path() { return `${this.project}/${this.stack}` }
+  get jsxePath() { return stackPath(this.project, this.stack, "stack.jsxe") }
+  get cssPath() { return stackPath(this.project, this.stack, "stack.css") }
+  get scriptPath() { return stackPath(this.project, this.stack, "stack.js") }
+  get cardIndexPath() { return stackPath(this.project, "cards/index.json") }
+  get bundleFilePath() { return `projects/${this.path}.bundle.json` }
+}
+
 
 // Return the path for a stack file.
 // Default is to return the `stack.jsx` file, pass a different `fileName` for something else.
 // If you want the path to the stack's directory, pass `fileName=""`.
-export function stackPath(project, stack, filename="stack.jsx", errorMessage) {
+export function stackPath(project, stack, filename = "") {
   const stackPath = fsPath.join("stacks", stack, filename);
-  return projectPath(project, stackPath, errorMessage);
+  return projectPath(project, stackPath);
+}
+
+//////////////////////////////
+//  Paths for cards
+//////////////////////////////
+
+// Lightweight object which vends paths
+//  eg:   const path = paths.card(<projectId>, <stackId>, <cardId>).jsxePath;
+export class card {
+  constructor(project, stack, card) {
+    this.project = dieIfInvalidId(project);
+    this.stack = dieIfInvalidId(stack);
+    this.card = dieIfInvalidId(card);
+  }
+  get path() { return `${this.project}/${this.stack}/${this.card}` }
+  get jsxePath() { return cardPath(this.project, this.stack, this.card, ".jsxe") }
+  get cssPath() { return cardPath(this.project, this.stack, this.card, ".css") }
+  get scriptPath() { return cardPath(this.project, this.stack, this.card, ".js") }
+  get bundleFilePath() { return `projects/${this.path}.bundle.json` }
 }
 
 // Return the path for a card file.
 // Default is to return the card's `.jsx` file, pass a different `extension` for something else.
-export function cardPath(project, stack, card, extension="", errorMessage) {
+export function cardPath(project, stack, card, extension="") {
   const cardPath = fsPath.join("cards", card + extension);
-  return stackPath(project, stack, cardPath, errorMessage);
+  return stackPath(project, stack, cardPath);
 }
 
 
+//////////////////////////////
+//  Build files
+//////////////////////////////
+
+// Return build file path for `buildFile`.
+export function getBuildPath(buildFile) {
+  if (!isValidPath(buildFile)) throw new TypeError(`Invalid build path: ${buildFile}`);
+  return fsPath.join(config.paths.build, buildFile);
+}
+
+
+//////////////////////////////
+//  Path utilities
+//////////////////////////////
+
+export const VALID_ID_EXPRESSION = /^([\$_\w][\$_\-\w\d$]*)$/;
+export function dieIfInvalidId(id) {
+  if (typeof id !== "string" || !VALID_ID_EXPRESSION.test(id)) {
+    throw new TypeError(`invalid id: ${id}`)
+  }
+  return id;
+}
+
+export function isValidPath(path) {
+  if (typeof path !== "string") return false;
+  // don't allow '//'
+  if (path.includes(fsPath.sep+fsPath.sep)) return false;
+  return path.split(fsPath.sep).every(segment => segment !== "." && segment !== "..");
+}
+
+// Return `true` if `path` starts with one of the specified `prefixes`
+export function hasPrefix(path, ...prefixes) {
+  if (typeof path !== "string") return false;
+  return prefixes.some(prefix => path.startsWith(prefix));
+}
+
+export function isLegalClientPath(path) {
+  return isValidPath(path) && hasPrefix(path, "public/", "projects/", "theme/");
+}
+
+export function getConfigPath(path, { basePath = "", trusted = true} = {}) {
+  const fullPath = fsPath.join(basePath, path);
+  if (!trusted && !isLegalClientPath(fullPath)) throw new TypeError(`ERROR in getConfigPath(): illegal client path ${fullPath}`);
+
+  // if we got an absolute path, just return it
+  if (fullPath.startsWith(fsPath.sep)) return fullPath;
+
+  const segments = fullPath.split(fsPath.sep);
+  const pathName = segments[0];
+  if (config.paths[pathName] === undefined) throw new TypeError(`ERROR in getConfigPath(): prefix ${pathName} not found for ${fullPath}`);
+
+  segments[0] = config.paths[pathName];
+  return fsPath.join(...segments);
+}
 
 
 // Assign all exports as a single object
