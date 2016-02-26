@@ -16,7 +16,7 @@ import api from "./api";
 export default class ComponentIndex extends Savable(Loadable(Mutable)) {
   constructor(...args) {
     super(...args);
-    objectUtil.dieIfMissing(this, ["type", "controller"]);
+    objectUtil.dieIfMissing(this, ["type", "controller", "createChild"]);
     this.registry = new Registry();
   }
 
@@ -68,7 +68,7 @@ export default class ComponentIndex extends Savable(Loadable(Mutable)) {
 
         let component = this.registry.get(componentId);
         if (!component) {
-          component = this.controller._makeChildComponent(this, componentId, this.index[componentId]);
+          component = this.createChild(this, componentId, this.index[componentId]);
           this.registry.add(component, componentId);
         }
         return component.load();

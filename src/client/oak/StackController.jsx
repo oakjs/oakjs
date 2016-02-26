@@ -16,8 +16,7 @@ export default class StackController extends ComponentController {
     super(...args);
     objectUtil.dieIfMissing(this, ["app", "project", "stackId", "projectId"]);
 
-    // create our card index
-    this.cardIndex = new ComponentIndex({ controller: this, type: "stack" });
+    this.initializeCardIndex();
   }
 
   //////////////////////////////
@@ -43,26 +42,36 @@ export default class StackController extends ComponentController {
     return Constructor;
   }
 
-  _makeChildComponent(index, cardId, props) {
-    return new CardController({
-      app: this.app,
-      project: this.project,
-      stack: this,
-      props: {
-        project: this.projectId,
-        stack: this.stackId,
-        card: cardId,
-        ...props
-      }
-    });
-  }
-
   // TODO: dynamic components
   get components() { return this.project.components }
 
   //////////////////////////////
   //  Cards
   //////////////////////////////
+
+  initializeCardIndex() {
+    const createCard = (index, cardId, props) => {
+      return new CardController({
+        app: this.app,
+        project: this.project,
+        stack: this,
+        props: {
+          project: this.projectId,
+          stack: this.stackId,
+          card: cardId,
+          ...props
+        }
+      });
+    }
+
+    this.cardIndex = new ComponentIndex({
+      controller: this,
+      type: "project",
+      createChild: createCard
+    });
+  }
+
+  get cardIds() { return this.cardIndex.ids }
 
   getCard(cardIdentifier) {
     return this.cardIndex.get(cardIdentifier);
@@ -72,9 +81,8 @@ export default class StackController extends ComponentController {
     return this.cardIndex.loadComponent(cardIdentifier);
   }
 
-  get cardIds() { return this.cardIndex.ids }
-
-  // return a map of { cardId => { card, stack, project, title, route } }
+  // Return a map of { cardId => { card, stack, project, title, route } }
+  // Used by, e.g., <CardMenu/>
   get cardMap() {
     if (this.cache.cardMap) return this.cache.cardMap;
 

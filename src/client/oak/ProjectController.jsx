@@ -17,8 +17,7 @@ export default class ProjectController extends ComponentController {
     super(...args);
     objectUtil.dieIfMissing(this, ["app", "projectId"]);
 
-    // create our stack index
-    this.stackIndex = new ComponentIndex({ controller: this, type: "project" });
+    this.initializeStackIndex();
   }
 
   //////////////////////////////
@@ -49,6 +48,26 @@ export default class ProjectController extends ComponentController {
   //  Stacks
   //////////////////////////////
 
+  initializeStackIndex() {
+    const createStack = (index, stackId, props) => {
+      return new StackController({
+        app: this.app,
+        project: this,
+        props: {
+          project: this.id,
+          stack: stackId,
+          ...props
+        }
+      });
+    }
+
+    this.stackIndex = new ComponentIndex({
+      controller: this,
+      type: "project",
+      createChild: createStack
+    });
+  }
+
   get stackIds() { return this.stackIndex.ids }
 
   getStack(stackIdentifier) {
@@ -57,18 +76,6 @@ export default class ProjectController extends ComponentController {
 
   loadStack(stackIdentifier) {
     return this.stackIndex.loadComponent(stackIdentifier);
-  }
-
-  _makeChildComponent(index, stackId, props) {
-    return new StackController({
-      app: this.app,
-      project: this,
-      props: {
-        project: this.id,
-        stack: stackId,
-        ...props
-      }
-    });
   }
 
   //////////////////////////////

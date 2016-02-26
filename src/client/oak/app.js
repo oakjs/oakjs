@@ -27,9 +27,7 @@ class App {
       throw new ReferenceError(message);
     }
 
-    this.projectIndex = new ComponentIndex({ controller: this, type: "app" });
-    // go ahead and load the project index..
-    this.projectIndex.load();
+    this.initializeProjectIndex();
   }
 
   //////////////////////////////
@@ -53,6 +51,27 @@ class App {
   //  Projects!
   //////////////////////////////
 
+  initializeProjectIndex() {
+    const createProject = (index, projectId, props) => {
+      return new ProjectController({
+        app: this,
+        props: {
+          project: projectId,
+          ...props
+        }
+      });
+    }
+
+    this.projectIndex = new ComponentIndex({
+      controller: this,
+      type: "app",
+      createChild: createProject
+    });
+
+    // go ahead and load the project index..
+    this.projectIndex.load();
+  }
+
   // Return a project, but only if it has already been loaded.
   // Returns `undefined` if the project is not found or it hasn't been loaded yet.
   // Use `app.loadProject()` if you want to ensure that a project is loaded.
@@ -71,18 +90,6 @@ class App {
         console.groupEnd();
         throw new ReferenceError("Couldn't load project");
       });
-  }
-
-// REFACTOR:  Pass this method in to the projectIndex.loadComponent
-  // Create a project with the given specs.
-  _makeChildComponent(index, projectId, props) {
-    return new ProjectController({
-      app: this,
-      props: {
-        project: projectId,
-        ...props
-      }
-    });
   }
 
   //////////////////////////////
