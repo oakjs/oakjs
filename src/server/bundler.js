@@ -24,7 +24,7 @@ export function bundle(options) {
       if (DEBUG) { // (don't log response)
         let { response, ...inputOptions } = options;
         console.log("..input options:\n", inputOptions);
-        if (response) console.log("..returning results to express response");
+        if (options.response) console.log("..returning results to express response");
       }
 
       // If we're bundling a map
@@ -47,20 +47,34 @@ export function bundlePathMap(pathMap, options = {}) {
   if (DEBUG) console.log("..bundlePathMap()\n", pathMap);
   if (!pathMap) throw new TypeError("map bundle didn't specify a 'pathMap'");
 
-  // normalize `pathMap` and `bundleFile`
+  // normalize `pathMap`
   options.pathMap = objectUtil.map(pathMap, path => apiPaths.getConfigPath(path, options));
+  options.keys = Object.keys(options.pathMap);
+  options.paths = objectUtil.values(options.pathMap);
 
   // normalize bundleFile
   if (options.bundleFile) {
     options.bundleFile = apiPaths.getBuildPath(options.bundleFile, options);
-    // paths are needed to see if bundleFile is up to date
-    options.paths = objectUtil.values(options.pathMap);
   }
 
   // default content type
   if (options.response && !("contentType" in options)) options.contentType = CONTENT_TYPE_MAP.json;
 
-  return bundleThunk( () => util.concatPathMap(options.pathMap, options), options);
+  function concatPathMap() {
+    return util.concatPathMap(options.pathMap, options)
+      .then( output => {
+        // if we know the dates of the individual files, add it to the results
+        if (options.modified) {
+          console.info("....Adding modififed dates to output");
+          output.__modified = options.modified;
+          output.__modified.__bundle = new Date();
+        }
+
+        return JSON.stringify(output, undefined, 2);
+      });
+
+  }
+  return bundleThunk( concatPathMap, options);
 }
 
 // Bundle a bunch of files together.
@@ -81,17 +95,18 @@ export function bundlePaths(paths, options = {}) {
 
 
 // Return all the data we need to display a card
-export function bundleCard({ projectId, stackId, cardId, response }) {
-  const card = new apiPaths.card(projectId, stackId, cardId);
+export function bundleCard({ projectId, stackId, cardId, force, response }) {
+  const cardPaths = new apiPaths.cardPaths(projectId, stackId, cardId);
   const pathMap = {
-    jsxe:    card.jsxePath,
-    css:     card.cssPath,
-    script:  card.scriptPath,
+    jsxe:    cardPaths.jsxe,
+    styles:  cardPaths.css,
+    script:  cardPaths.script,
   };
 
   const options = {
+    force,
     response,
-    bundleFile: card.bundleFilePath,
+    bundleFile: cardPaths.bundleFile,
     optional: true,
     trusted: true,
   }
@@ -99,18 +114,19 @@ export function bundleCard({ projectId, stackId, cardId, response }) {
 }
 
 // Return all the data we need to display a stack
-export function bundleStack({ projectId, stackId, response }) {
-  const stack = new apiPaths.stack(projectId, stackId);
+export function bundleStack({ projectId, stackId, force, response }) {
+  const stackPaths = new apiPaths.stackPaths(projectId, stackId);
   const pathMap = {
-    jsxe:    stack.jsxePath,
-    css:     stack.cssPath,
-    script:  stack.scriptPath,
-    index:   stack.cardIndexPath
+    jsxe:    stackPaths.jsxe,
+    styles:  stackPaths.css,
+    script:  stackPaths.script,
+    index:   stackPaths.cardIndex
   };
 
   const options = {
+    force,
     response,
-    bundleFile: stack.bundleFilePath,
+    bundleFile: stackPaths.bundleFile,
     optional: true,
     trusted: true,
   }
@@ -118,18 +134,19 @@ export function bundleStack({ projectId, stackId, response }) {
 }
 
 // Return all the data we need to display a project
-export function bundleProject({ projectId, response }) {
-  const project = new apiPaths.project(projectId);
+export function bundleProject({ projectId, force, response }) {
+  const projectPaths = new apiPaths.projectPaths(projectId);
   const pathMap = {
-    jsxe:    project.jsxePath,
-    css:     project.cssPath,
-    script:  project.scriptPath,
-    index:   project.stackIndexPath
+    jsxe:    projectPaths.jsxe,
+    styles:  projectPaths.css,
+    script:  projectPaths.script,
+    index:   projectPaths.stackIndex
   };
 
   const options = {
+    force,
     response,
-    bundleFile: project.bundleFilePath,
+    bundleFile: projectPaths.bundleFile,
     optional: true,
     trusted: true,
   }
@@ -147,7 +164,7 @@ export function bundleProject({ projectId, response }) {
 //   - see if we actually need to do the bundling, and if so
 //   - run the thunk and return the results.
 // If you pass an express `response` object in the options,
-export function bundleThunk(bundleThunk, { response, ...options}) {
+export function bundleThunk(bundleThunk, options) {
   if (DEBUG) console.log("....bundleThunk()");
   const {
     bundleFile,           // save results to this file, serve from that if up to date
@@ -158,20 +175,21 @@ export function bundleThunk(bundleThunk, { response, ...options}) {
     errorMessage = "Error bundling files"
   } = options;
 
-  return bundleIsUpToDate(bundleFile, paths)
+  return bundleIsUpToDate(bundleFile, paths, options)
     .then( useBundleFile => {
+      const { response } = options;
       if (useBundleFile) {
-        if (DEBUG) console.log("..bundle is up to date, returning bundleFile");
+        if (DEBUG) console.log("....bundle is up to date, returning bundleFile");
         if (response) return response.sendFile(bundleFile);
         return fsp.readFile(bundleFile, encoding);
       }
 
-      if (DEBUG) console.log("..bundle is out of date, running bundleThunk");
+      if (DEBUG) console.log("....bundle is out of date, running bundleThunk");
       return bundleThunk()
         .then( results => {
           // if an bundleFile was specified, write the results but don't wait for it
           if (bundleFile) {
-            console.log("....writing output to "+bundleFile);
+            console.log("......writing output to "+bundleFile);
             fsp.outputFile(bundleFile, results, encoding);
           }
           // send the results back
@@ -207,7 +225,7 @@ function parseBundleInputFile(options) {
   // If no inputFile, return a clone of the options
   if (!inputFile) {
     if (DEBUG) console.log("....no input file");
-    return Promise.resolve(Object.assign({}, options));
+    return Promise.resolve(options);
   }
 
   // load inputFile
@@ -217,7 +235,7 @@ function parseBundleInputFile(options) {
           .then( inputFileJSON => {
             if (DEBUG) console.log("......input options:\n", inputFileJSON);
             // return it merged with the options passed in
-            return Object.assign({}, options, inputFileJSON);
+            return Object.assign(options, inputFileJSON);
           });
 }
 
@@ -226,23 +244,47 @@ function parseBundleInputFile(options) {
 //  AFTER all of the `sourceFiles`.
 // Returns `false` if `buildFile` is not specified or doesn't exist.
 // Ignores any `sourceFiles` which aren't found.
-export function bundleIsUpToDate(bundleFile, sourceFiles) {
-  if (DEBUG) console.log("..bundleIsUpToDate(", bundleFile, ", ", `-${sourceFiles ? sourceFiles.length : "no"} source files-`, ")");
-  if (typeof bundleFile !== "string" || !sourceFiles) return Promise.resolve(false);
+export function bundleIsUpToDate(bundleFile, sourceFiles, options = {}) {
+  // bug out if we got unexpected inputs
+  if ((bundleFile && typeof bundleFile !== "string") || !sourceFiles) {
+    throw new TypeError("bundleIsUpToDate(): unexpected inputs");
+  }
 
-  return Promise.all([
-      util.lastModified(bundleFile),
-      util.latestModified(...sourceFiles)
-    ])
-    .then( ([bundleFileDate, sourceFileDate]) => {
-      if (DEBUG) console.log("....bundle date:" + bundleFileDate);
-      if (DEBUG) console.log("....source date:" + sourceFileDate);
-      return bundleFileDate !== undefined
-          && sourceFileDate !== undefined
-          && bundleFileDate > sourceFileDate;
+  if (DEBUG) console.log("......bundleIsUpToDate()");
+  const modifiedDates = [bundleFile, ...sourceFiles].map(util.lastModified);
+  return Promise.all(modifiedDates)
+    .then( ([bundleFileDate, ...sourceFileDates]) => {
+      // remember the mod dates in the options for later
+      options.bundleFileModified = bundleFileDate;
+      options.latestModified = util.latestTimestamp(sourceFileDates);
+
+      if (DEBUG) console.log(`........bundleFile: ${bundleFile}`);
+      if (DEBUG) console.log("........bundle date:" + bundleFileDate);
+      if (DEBUG) console.log("........source date:" + options.latestModified);
+
+      if (options.force) {
+        if (DEBUG) console.log("........forcing update because 'force' flag is set");
+        options.bundleIsUpToDate = false;
+      }
+      else {
+        options.bundleIsUpToDate
+          = bundleFileDate && options.latestModified && bundleFileDate > options.latestModified;
+      }
+
+      // if options specifies keys, map the dates to those keys
+      if (options.keys) {
+        options.modified = {};
+        sourceFileDates.forEach( (date, index) => options.modified[options.keys[index]] = date );
+      }
+      else {
+        options.modified = sourceFileDates;
+      }
+
+      return options.bundleIsUpToDate;
     })
     .catch(error => {
-      console.warn("error getting bundle dates: ",error);
+      console.warn("ERROR getting bundle dates: ",error);
+      throw error;
     })
 }
 

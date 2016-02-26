@@ -8,7 +8,6 @@
 import React from "react";
 import { Router, Route } from "react-router";
 
-//import oldProjectsRoute from "./projectRoutes";
 import CardRoute from "./oak/CardRoute";
 
 // Set up History.
@@ -19,7 +18,6 @@ const history = useQueries(createHistory)();
 
 const routes = (
   <Route path="/">
-    {/*oldProjectsRoute*/}
     <Route path="project/:project" component={CardRoute} />
     <Route path="project/:project/:stack" component={CardRoute} />
     <Route path="project/:project/:stack/:card" component={CardRoute} />

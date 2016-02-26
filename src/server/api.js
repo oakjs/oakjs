@@ -15,6 +15,14 @@ const router = express.Router();
 const bodyTextParser = bodyParser.text();
 
 
+// Log every api request
+router.use((request, response, next) => {
+  console.log("\n==========================================================",
+              "\n"+request.originalUrl,
+              "\n----------------------------------------------------------");
+  next()
+});
+
 
 
 //////////////////////////////
@@ -45,11 +53,12 @@ function saveTextFile(request, response, path, body) {
 //////////////////////////////
 
 
-// Router for card read actions.
-router.get("/projects/:action",  (request, response) => {
+// Router for app actions.
+router.get("/app/:action",  (request, response) => {
   const { action } = request.params;
+  const appPaths = new apiPaths.appPaths();
   switch (action) {
-    case "index":   return sendJSONFile(request, response, apiPaths.projectsPath("index.json"));
+    case "projects":   return sendJSONFile(request, response, appPaths.projectIndex);
   }
   throw new TypeError(`Projects API action ${action} not defined.`);
 });
@@ -63,12 +72,13 @@ router.get("/projects/:action",  (request, response) => {
 // Router for card read actions.
 router.get("/card/:projectId/:stackId/:cardId/:action",  (request, response) => {
   const { action, projectId, stackId, cardId } = request.params;
-  const card = new apiPaths.card(projectId, stackId, cardId);
+  const { force = false } = request.query;
+  const cardPaths = new apiPaths.cardPaths(projectId, stackId, cardId);
   switch (action) {
-    case "jsxe":    return sendTextFile(request, response, card.jsxePath);
-    case "css":     return sendTextFile(request, response, card.cssPath);
-    case "script":  return sendTextFile(request, response, card.scriptPath);
-    case "bundle":  return bundler.bundleCard({ projectId, stackId, cardId, response });
+    case "jsxe":    return sendTextFile(request, response, cardPaths.jsxe);
+    case "script":  return sendTextFile(request, response, cardPaths.script);
+    case "styles":  return sendTextFile(request, response, cardPaths.css);
+    case "bundle":  return bundler.bundleCard({ projectId, stackId, cardId, force, response });
   }
   throw new TypeError(`Card API action ${action} not defined.`);
 });
@@ -77,12 +87,12 @@ router.get("/card/:projectId/:stackId/:cardId/:action",  (request, response) => 
 // NOTE: these all assume the `body` is plain text.
 router.post("/card/:projectId/:stackId/:cardId/:action", bodyTextParser, (request, response) => {
   const { action, projectId, stackId, cardId } = request.params;
-  const card = new apiPaths.card(projectId, stackId, cardId);
+  const cardPaths = new apiPaths.cardPaths(projectId, stackId, cardId);
   const { body } = request;
   switch (action) {
-    case "jsxe":    return saveTextFile(request, response, card.jsxePath, body);
-    case "css":     return saveTextFile(request, response, card.cssPath, body);
-    case "script":  return saveTextFile(request, response, card.scriptPath, body);
+    case "jsxe":    return saveTextFile(request, response, cardPaths.jsxe, body);
+    case "script":  return saveTextFile(request, response, cardPaths.script, body);
+    case "styles":  return saveTextFile(request, response, cardPaths.css, body);
   }
   throw new TypeError(`Card API action '${action}' not defined.`);
 });
@@ -91,13 +101,14 @@ router.post("/card/:projectId/:stackId/:cardId/:action", bodyTextParser, (reques
 // Router for stackId read actions.
 router.get("/stack/:projectId/:stackId/:action",  (request, response) => {
   const { action, projectId, stackId } = request.params;
-  const stack = new apiPaths.stack(projectId, stackId);
+  const { force = false } = request.query;
+  const stackPaths = new apiPaths.stackPaths(projectId, stackId);
   switch (action) {
-    case "jsxe":    return sendTextFile(request, response, stack.jsxePath);
-    case "css":     return sendTextFile(request, response, stack.cssPath);
-    case "script":  return sendTextFile(request, response, stack.scriptPath);
-    case "index":   return sendJSONFile(request, response, stack.cardIndexPath);
-    case "bundle":  return bundler.bundleStack({ projectId, stackId, response });
+    case "jsxe":    return sendTextFile(request, response, stackPaths.jsxe);
+    case "script":  return sendTextFile(request, response, stackPaths.script);
+    case "styles":  return sendTextFile(request, response, stackPaths.css);
+    case "cards":   return sendJSONFile(request, response, stackPaths.cardIndex);
+    case "bundle":  return bundler.bundleStack({ projectId, stackId, force, response });
   }
   throw new TypeError(`Stack API action '${action}' not defined.`);
 });
@@ -106,13 +117,14 @@ router.get("/stack/:projectId/:stackId/:action",  (request, response) => {
 // Router for projectId read actions.
 router.get("/project/:projectId/:action",  (request, response) => {
   const { action, projectId } = request.params;
-  const project = new apiPaths.project(projectId);
+  const { force = false } = request.query;
+  const projectPaths = new apiPaths.projectPaths(projectId);
   switch (action) {
-    case "jsxe":    return sendTextFile(request, response, project.jsxePath);
-    case "css":     return sendTextFile(request, response, project.cssPath);
-    case "script":  return sendTextFile(request, response, project.scriptPath);
-    case "index":   return sendJSONFile(request, response, project.cardIndexPath);
-    case "bundle":  return bundler.bundleProject({ projectId, response });
+    case "jsxe":    return sendTextFile(request, response, projectPaths.jsxe);
+    case "script":  return sendTextFile(request, response, projectPaths.script);
+    case "styles":  return sendTextFile(request, response, projectPaths.css);
+    case "stacks":  return sendJSONFile(request, response, projectPaths.stackIndex);
+    case "bundle":  return bundler.bundleProject({ projectId, force, response });
   }
   throw new TypeError(`Project API action '${action}' not defined.`);
 });

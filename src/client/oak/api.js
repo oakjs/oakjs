@@ -8,6 +8,34 @@ import JSXElement from "./JSXElement";
 
 oak.api = new API({
 
+  //////////////////////////////
+  // Component bundles
+  //////////////////////////////
+
+  loadControllerBundle(controller) {
+    const url = `/api/${controller.type}/${controller.path}/bundle`;
+    const errorMessage = `Error loading ${controller.type} bundle`;
+    return this.getJSON(url)
+      .then(results => {
+        if (results.jsxe) {
+          try {
+            results.component = JSXElement.parse(results.jsxe);
+            delete results.jsxe;
+          }
+          catch (e) {
+            console.group(`Error parsing JSXE from ${url}`);
+            console.error(e);
+            console.groupEnd();
+            throw e;
+          }
+        }
+        return results;
+      })
+      .catch(e => {
+        throw new ReferenceError(errorMessage);
+      });
+  },
+
 
   //////////////////////////////
   // Component JSXE files
@@ -49,14 +77,14 @@ oak.api = new API({
   //////////////////////////////
 
   loadControllerStyles(controller) {
-    const url = `/api/${controller.type}/${controller.path}/css`;
+    const url = `/api/${controller.type}/${controller.path}/styles`;
     // Attempt to load the CSS file but swallow any errors (assuming the file doesn't exist).
     return this.getText(url)
             .catch( error => { return undefined });
   },
 
   saveControllerStyles(controller) {
-    const url = `/api/${controller.type}/${controller.path}/css`;
+    const url = `/api/${controller.type}/${controller.path}/styles`;
     if (controller.styles === undefined) return;
     console.info(`Saving ${controller.type} styles`);
     return this.post(url, controller.styles);
@@ -88,9 +116,9 @@ oak.api = new API({
 
   _getComponentIndexUrl(type, controller) {
     switch (type) {
-      case "app":       return `/api/projects/index`;
-      case "project":   return `/api/project/${controller.path}/index`;
-      case "stack":     return `/api/stack/${controller.path}/index`;
+      case "app":       return `/api/app/projects`;
+      case "project":   return `/api/project/${controller.path}/stacks`;
+      case "stack":     return `/api/stack/${controller.path}/cards`;
     }
     throw new TypeError(`api.getComponentIndexUrl(${controller}): cant get url for this type`);
   },
@@ -106,6 +134,11 @@ oak.api = new API({
     console.info(`Saving ${controller.type} index`);
     return this.post(url, controller.index);
   },
+
+
+  //////////////////////////////
+  // Utility
+  //////////////////////////////
 
 
 });

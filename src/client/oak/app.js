@@ -1,3 +1,5 @@
+//REFACTOR:  app.projectIndex is less confusing
+
 //////////////////////////////
 //
 //  App singleton for oak editor app
@@ -71,6 +73,7 @@ class App {
       });
   }
 
+// REFACTOR:  Pass this method in to the projectIndex.loadComponent
   // Create a project with the given specs.
   _makeChildComponent(index, projectId, props) {
     return new ProjectController({

@@ -50,6 +50,8 @@ export default class ComponentIndex extends Savable(Loadable(Mutable)) {
     if (componentId) return this.registry.get(componentId);
   }
 
+// REFACTOR: this is returning the CONTROLLER, NOT the COMPONENT
+
   // Return a promise which makes an component and loads it.
   // If you call with the same `componentIdentifier` later, you'll get the same object back.
   loadComponent(componentIdentifier) {

@@ -5,6 +5,7 @@ import { interpolate } from "../oak-roots/util/path";
 // Returns a promise which yields the mod date of file at path.
 // Resolves with `undefined` if file doesn't exist.  (DOES NOT REJECT THE PROMISE)
 export function lastModified(path) {
+  if (!path) return Promise.resolve(undefined);
   return fsp.stat(path)
     .then(stat => stat.mtime)
     .catch(error => undefined);
@@ -16,15 +17,18 @@ export function lastModified(path) {
 export function latestModified(...paths) {
   const modDatePromises = paths.map(path => lastModified(path));
   return Promise.all(modDatePromises)
-    .then( ([...modDates]) => {
-      return modDates.reduce( (prev, current) => {
-        if (typeof current !== "string") return prev;
-        if (typeof prev !== "string") return current;
-        return (current > prev ? current : prev);
-      });
-    });
+    .then( latestTimestamp );
 }
 
+// Given a bunch of string timestamps from `lastModified` (which may be `undefined`),
+//  return the latest one.
+export function latestTimestamp(timestamps) {
+  return timestamps.reduce( (prev, current) => {
+    if (typeof current !== "string") return prev;
+    if (typeof prev !== "string") return current;
+    return (current > prev ? current : prev);
+  });
+}
 
 // Concatenate a bunch of files together, writing `delimiter` before each one.
 // Returns a promise which yields them all as a big honking string.
@@ -40,7 +44,8 @@ export function concatPaths(paths, options = {}) {
     optional = false
   } = options;
 
-  const promises = paths.map( path => fsp.readFile(path, encoding) );
+  let promises = paths.map( path => fsp.readFile(path, encoding) );
+  if (optional) promises = promises.map( promise => promise.catch( () => undefined ));
   return Promise.all(promises)
     .then( allFiles => {
       return allFiles.map( (fileOutput, index) => {
@@ -83,7 +88,7 @@ export function concatPathMap(pathMap, options = {}) {
       keys.forEach( (key, index) => {
         output[key] = results[index];
       });
-      return JSON.stringify(output, undefined, 2);
+      return output;
     })
     .catch( error => {
       // log the error

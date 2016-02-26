@@ -14,8 +14,8 @@ import config from './config';
 
 // Lightweight object which vends paths
 //  eg:   const path = paths.projects().projectIndexPath;
-export class projects {
-  get projectIndexPath() { return projectsPath("index.json") }
+export class appPaths {
+  get projectIndex() { return projectsPath("index.json") }
 }
 
 // Return the path for a project file.
@@ -34,16 +34,16 @@ export function projectsPath(filename = "") {
 
 // Lightweight object which vends paths
 //  eg:   const path = paths.project(<projectId>).jsxePath;
-export class project {
+export class projectPaths {
   constructor(project) {
     this.project = dieIfInvalidId(project);
   }
-  get path() { return `${this.project}` }
-  get jsxePath() { return projectPath(this.project, "project.jsxe") }
-  get cssPath() { return projectPath(this.project, "project.css") }
-  get scriptPath() { return projectPath(this.project, "project.js") }
-  get stackIndexPath() { return projectPath(this.project, "stacks/index.json") }
-  get bundleFilePath() { return `projects/${this.path}.bundle.json` }
+  get id() { return `${this.project}` }
+  get jsxe() { return projectPath(this.project, "project.jsxe") }
+  get css() { return projectPath(this.project, "project.css") }
+  get script() { return projectPath(this.project, "project.js") }
+  get stackIndex() { return projectPath(this.project, "stacks/index.json") }
+  get bundleFile() { return `projects/${this.id}.bundle.json` }
 }
 
 // Return the path for a project file.
@@ -60,17 +60,17 @@ export function projectPath(project, filename = "") {
 
 // Lightweight object which vends paths
 //  eg:   const path = paths.stack(<projectId>, <stackId>).jsxePath;
-export class stack {
+export class stackPaths {
   constructor(project, stack) {
     this.project = dieIfInvalidId(project);
     this.stack = dieIfInvalidId(stack);
   }
-  get path() { return `${this.project}/${this.stack}` }
-  get jsxePath() { return stackPath(this.project, this.stack, "stack.jsxe") }
-  get cssPath() { return stackPath(this.project, this.stack, "stack.css") }
-  get scriptPath() { return stackPath(this.project, this.stack, "stack.js") }
-  get cardIndexPath() { return stackPath(this.project, "cards/index.json") }
-  get bundleFilePath() { return `projects/${this.path}.bundle.json` }
+  get id() { return `${this.project}/${this.stack}` }
+  get jsxe() { return stackPath(this.project, this.stack, "stack.jsxe") }
+  get css() { return stackPath(this.project, this.stack, "stack.css") }
+  get script() { return stackPath(this.project, this.stack, "stack.js") }
+  get cardIndex() { return stackPath(this.project, this.stack, "cards/index.json") }
+  get bundleFile() { return `projects/${this.idPath}.bundle.json` }
 }
 
 
@@ -88,17 +88,17 @@ export function stackPath(project, stack, filename = "") {
 
 // Lightweight object which vends paths
 //  eg:   const path = paths.card(<projectId>, <stackId>, <cardId>).jsxePath;
-export class card {
+export class cardPaths {
   constructor(project, stack, card) {
     this.project = dieIfInvalidId(project);
     this.stack = dieIfInvalidId(stack);
     this.card = dieIfInvalidId(card);
   }
-  get path() { return `${this.project}/${this.stack}/${this.card}` }
-  get jsxePath() { return cardPath(this.project, this.stack, this.card, ".jsxe") }
-  get cssPath() { return cardPath(this.project, this.stack, this.card, ".css") }
-  get scriptPath() { return cardPath(this.project, this.stack, this.card, ".js") }
-  get bundleFilePath() { return `projects/${this.path}.bundle.json` }
+  get id() { return `${this.project}/${this.stack}/${this.card}` }
+  get jsxe() { return cardPath(this.project, this.stack, this.card, ".jsxe") }
+  get css() { return cardPath(this.project, this.stack, this.card, ".css") }
+  get script() { return cardPath(this.project, this.stack, this.card, ".js") }
+  get bundleFile() { return `projects/${this.id}.bundle.json` }
 }
 
 // Return the path for a card file.

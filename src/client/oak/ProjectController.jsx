@@ -78,25 +78,24 @@ export default class ProjectController extends ComponentController {
   loadData() {
     return Promise.all([
         this.stacks.load(),
-        api.loadControllerJSXE(this),
-        api.loadControllerStyles(this),
-        api.loadControllerScript(this)
+        api.loadControllerBundle(this),
       ])
-      .then(([ stacks, component, styles, script ]) => {
+      .then(([ stacks, { component, styles, script } ]) => {
         this.mutate({ component, styles, script });
         return this;
       });
   }
 
-  saveData() {
-    return Promise.all([
-        this.stacks.save(),
-        api.saveControllerJSXE(this),
-        api.saveControllerStyles(this),
-        api.saveControllerScript(this)
-      ])
-      .then( () => { this } );
-  }
+// UNTESTED
+//   saveData() {
+//     return Promise.all([
+//         this.stacks.save(),
+//         api.saveControllerJSXE(this),
+//         api.saveControllerStyles(this),
+//         api.saveControllerScript(this)
+//       ])
+//       .then( () => { this } );
+//   }
 
 }
 

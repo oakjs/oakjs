@@ -104,25 +104,24 @@ export default class StackController extends ComponentController {
   loadData() {
     return Promise.all([
         this.cards.load(),
-        api.loadControllerJSXE(this),
-        api.loadControllerStyles(this),
-        api.loadControllerScript(this)
+        api.loadControllerBundle(this),
       ])
-      .then( ([ cards, component, styles, script ]) => {
+      .then(([ cards, { component, styles, script } ]) => {
         this.mutate({ component, styles, script });
         return this;
       });
   }
 
-  saveData() {
-    return Promise.all([
-        this.stacks.save(),
-        api.saveControllerJSXE(this),
-        api.saveControllerStyles(this),
-        api.saveControllerScript(this)
-      ])
-      .then( () => { this } );
-  }
+// UNTESTED
+//   saveData() {
+//     return Promise.all([
+//         this.stacks.save(),
+//         api.saveControllerJSXE(this),
+//         api.saveControllerStyles(this),
+//         api.saveControllerScript(this)
+//       ])
+//       .then( () => { this } );
+//   }
 
 }
 

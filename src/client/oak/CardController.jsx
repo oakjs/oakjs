@@ -31,6 +31,7 @@ export default class CardController extends ComponentController {
 
   _createComponentConstructor() {
     const Constructor = super._createComponentConstructor(CardComponent, "Card");
+
     Constructor.id = this.id;
     Constructor.controller = this;
     Constructor.app = this.app;
@@ -48,25 +49,22 @@ export default class CardController extends ComponentController {
   //////////////////////////////
 
   loadData() {
-    return api.map({
-      component: api.loadControllerJSXE(this),
-      styles: api.loadControllerStyles(this),
-      script: api.loadControllerScript(this)
-    })
-    .then(results => {
-      this.mutate(results);
-      return this;
-    });
+    return api.loadControllerBundle(this)
+      .then( ({ component, styles, script }) => {
+        this.mutate({ component, styles, script });
+        return this;
+      });
   }
 
-  saveData() {
-    return api.map({
-      component: api.saveControllerJSXE(this),
-      styles: api.saveControllerStyles(this),
-      script: api.saveControllerScript(this)
-    });
-  }
-
+// UNTESTED
+//   saveData() {
+//     return api.map({
+//       component: api.saveControllerJSXE(this),
+//       styles: api.saveControllerStyles(this),
+//       script: api.saveControllerScript(this)
+//     });
+//   }
+//
 }
 
 //////////////////////////////
