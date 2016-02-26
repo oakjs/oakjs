@@ -1,4 +1,5 @@
 {
+  "debug": false,
   "type": "js",
   "basePath": "public/3rdParty/",
   "paths": [

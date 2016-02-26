@@ -16,15 +16,17 @@ export const DEBUG = true;
 //  - normalizes `options.bundleFile`, `options.paths`, and `options.pathMap`
 //  - munges `options.contentType` appropriately
 export function bundle(options) {
-  if (DEBUG) console.log("bundle()");
+  if (!("debug" in options)) options.debug = DEBUG;
+
+  if (options.debug) console.log("bundle()");
 
   // Parse an `inputFile` specified in the options first
   return parseBundleInputFile(options)
     .then(options => {
-      if (DEBUG) { // (don't log response)
+      if (options.debug) { // (don't log response)
         let { response, ...inputOptions } = options;
-        console.log("..input options:\n", inputOptions);
-        if (options.response) console.log("..returning results to express response");
+        console.log("..options:\n", inputOptions);
+        if (options.response) console.log("..returning results via express response");
       }
 
       // If we're bundling a map
@@ -44,7 +46,9 @@ export function bundle(options) {
 // Bundle a map of `{ key: path }` together and return response as JSON.
 // NOTE: paths in `pathMap` and `options.bundleFile` should be full paths!
 export function bundlePathMap(pathMap, options = {}) {
-  if (DEBUG) console.log("..bundlePathMap()\n", pathMap);
+  if (!("debug" in options)) options.debug = DEBUG;
+
+  if (options.debug) console.log("..bundlePathMap()\n", pathMap);
   if (!pathMap) throw new TypeError("map bundle didn't specify a 'pathMap'");
 
   // normalize `pathMap`
@@ -79,7 +83,9 @@ export function bundlePathMap(pathMap, options = {}) {
 
 // Bundle a bunch of files together.
 export function bundlePaths(paths, options = {}) {
-  if (DEBUG) console.log("..bundlePaths()");
+  if (!("debug" in options)) options.debug = DEBUG;
+
+  if (options.debug) console.log("..bundlePaths()");
   if (!Array.isArray(paths)) throw new TypeError("bundle didn't specify a 'path' parameter");
 
   // normalize `paths` and `bundleFile`
@@ -165,7 +171,7 @@ export function bundleProject({ projectId, force, response }) {
 //   - run the thunk and return the results.
 // If you pass an express `response` object in the options,
 export function bundleThunk(bundleThunk, options) {
-  if (DEBUG) console.log("....bundleThunk()");
+  if (options.debug) console.log("....bundleThunk()");
   const {
     bundleFile,           // save results to this file, serve from that if up to date
     paths,                // we'll ensure `bundleFile` is newer than any of these files if both specified
@@ -179,12 +185,12 @@ export function bundleThunk(bundleThunk, options) {
     .then( useBundleFile => {
       const { response } = options;
       if (useBundleFile) {
-        if (DEBUG) console.log("....bundle is up to date, returning bundleFile");
+        if (options.debug) console.log("....bundle is up to date, returning bundleFile");
         if (response) return response.sendFile(bundleFile);
         return fsp.readFile(bundleFile, encoding);
       }
 
-      if (DEBUG) console.log("....bundle is out of date, running bundleThunk");
+      if (options.debug) console.log("....bundle is out of date, running bundleThunk");
       return bundleThunk()
         .then( results => {
           // if an bundleFile was specified, write the results but don't wait for it
@@ -220,22 +226,25 @@ export function bundleThunk(bundleThunk, options) {
 //       and we DO NOT munge it with `options.basePath`.
 function parseBundleInputFile(options) {
   const { inputFile, trusted = true } = options;
-  if (DEBUG) console.log("..parseBundleInputFile(", inputFile, ", ", trusted, ")");
+  if (options.debug) console.log("..parseBundleInputFile(", inputFile,")");
 
   // If no inputFile, return a clone of the options
   if (!inputFile) {
-    if (DEBUG) console.log("....no input file");
+    if (options.debug) console.log("....no input file");
     return Promise.resolve(options);
   }
 
   // load inputFile
-  if (DEBUG) console.log("....loading input file");
+  if (options.debug) console.log("....loading input file");
   const path = apiPaths.getConfigPath(inputFile, { trusted });
   return fsp.readJSON(path)
           .then( inputFileJSON => {
-            if (DEBUG) console.log("......input options:\n", inputFileJSON);
+            if (inputFileJSON.debug === false && options.debug) {
+              console.log("......input file turned off debugging, shhhhhhhhh.....");
+            }
             // return it merged with the options passed in
-            return Object.assign(options, inputFileJSON);
+            Object.assign(options, inputFileJSON);
+            return options;
           });
 }
 
@@ -250,7 +259,7 @@ export function bundleIsUpToDate(bundleFile, sourceFiles, options = {}) {
     throw new TypeError("bundleIsUpToDate(): unexpected inputs");
   }
 
-  if (DEBUG) console.log("......bundleIsUpToDate()");
+  if (options.debug) console.log("......bundleIsUpToDate()");
   const modifiedDates = [bundleFile, ...sourceFiles].map(util.lastModified);
   return Promise.all(modifiedDates)
     .then( ([bundleFileDate, ...sourceFileDates]) => {
@@ -258,12 +267,12 @@ export function bundleIsUpToDate(bundleFile, sourceFiles, options = {}) {
       options.bundleFileModified = bundleFileDate;
       options.latestModified = util.latestTimestamp(sourceFileDates);
 
-      if (DEBUG) console.log(`........bundleFile: ${bundleFile}`);
-      if (DEBUG) console.log("........bundle date:" + bundleFileDate);
-      if (DEBUG) console.log("........source date:" + options.latestModified);
+      if (options.debug) console.log(`........bundleFile: ${bundleFile}`);
+      if (options.debug) console.log("........bundle date:" + bundleFileDate);
+      if (options.debug) console.log("........source date:" + options.latestModified);
 
       if (options.force) {
-        if (DEBUG) console.log("........forcing update because 'force' flag is set");
+        if (options.debug) console.log("........forcing update because 'force' flag is set");
         options.bundleIsUpToDate = false;
       }
       else {
