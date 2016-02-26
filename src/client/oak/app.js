@@ -27,9 +27,9 @@ class App {
       throw new ReferenceError(message);
     }
 
-    this.projects = new ComponentIndex({ controller: this, type: "app" });
+    this.projectIndex = new ComponentIndex({ controller: this, type: "app" });
     // go ahead and load the project index..
-    this.projects.load();
+    this.projectIndex.load();
   }
 
   //////////////////////////////
@@ -57,14 +57,14 @@ class App {
   // Returns `undefined` if the project is not found or it hasn't been loaded yet.
   // Use `app.loadProject()` if you want to ensure that a project is loaded.
   getProject(projectIdentifier) {
-    return this.projects.get(projectIdentifier);
+    return this.projectIndex.get(projectIdentifier);
   }
 
   // Return a promise which resolves with a loaded project.
   // If project is not found, the promise will reject.
   // You can specify string id or numeric index.
   loadProject(projectIdentifier) {
-    return this.projects.loadComponent(projectIdentifier)
+    return this.projectIndex.loadComponent(projectIdentifier)
       .catch(error => {
         console.group(`Error loading project ${projectIdentifier}:`);
         console.error(error);

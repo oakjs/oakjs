@@ -17,7 +17,7 @@ export default class StackController extends ComponentController {
     objectUtil.dieIfMissing(this, ["app", "project", "stackId", "projectId"]);
 
     // create our card index
-    this.cards = new ComponentIndex({ controller: this, type: "stack" });
+    this.cardIndex = new ComponentIndex({ controller: this, type: "stack" });
   }
 
   //////////////////////////////
@@ -65,26 +65,26 @@ export default class StackController extends ComponentController {
   //////////////////////////////
 
   getCard(cardIdentifier) {
-    return this.cards.get(cardIdentifier);
+    return this.cardIndex.get(cardIdentifier);
   }
 
   loadCard(cardIdentifier) {
-    return this.cards.loadComponent(cardIdentifier);
+    return this.cardIndex.loadComponent(cardIdentifier);
   }
 
-  get cardIds() { return this.cards.ids }
+  get cardIds() { return this.cardIndex.ids }
 
   // return a map of { cardId => { card, stack, project, title, route } }
   get cardMap() {
     if (this.cache.cardMap) return this.cache.cardMap;
 
-    if (!this.cards.index) return {};
+    if (!this.cardIndex.index) return {};
 
     const cardMap = this.cache.cardMap = {};
     const { stackId: stack, projectId: project } = this;
 
-    Object.keys(this.cards.index).map(card => {
-      const info = this.cards.index[card];
+    Object.keys(this.cardIndex.index).map(card => {
+      const info = this.cardIndex.index[card];
       cardMap[card] = {
         card,
         stack,
@@ -103,7 +103,7 @@ export default class StackController extends ComponentController {
 
   loadData() {
     return Promise.all([
-        this.cards.load(),
+        this.cardIndex.load(),
         api.loadControllerBundle(this),
       ])
       .then(([ cards, { component, styles, script } ]) => {
@@ -115,7 +115,7 @@ export default class StackController extends ComponentController {
 // UNTESTED
 //   saveData() {
 //     return Promise.all([
-//         this.stacks.save(),
+//         this.cardIndex.save(),
 //         api.saveControllerJSXE(this),
 //         api.saveControllerStyles(this),
 //         api.saveControllerScript(this)

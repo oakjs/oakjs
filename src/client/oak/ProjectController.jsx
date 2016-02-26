@@ -18,7 +18,7 @@ export default class ProjectController extends ComponentController {
     objectUtil.dieIfMissing(this, ["app", "projectId"]);
 
     // create our stack index
-    this.stacks = new ComponentIndex({ controller: this, type: "project" });
+    this.stackIndex = new ComponentIndex({ controller: this, type: "project" });
   }
 
   //////////////////////////////
@@ -49,14 +49,14 @@ export default class ProjectController extends ComponentController {
   //  Stacks
   //////////////////////////////
 
-  get stackIds() { return this.stacks.ids }
+  get stackIds() { return this.stackIndex.ids }
 
   getStack(stackIdentifier) {
-    return this.stacks.get(stackIdentifier);
+    return this.stackIndex.get(stackIdentifier);
   }
 
   loadStack(stackIdentifier) {
-    return this.stacks.loadComponent(stackIdentifier);
+    return this.stackIndex.loadComponent(stackIdentifier);
   }
 
   _makeChildComponent(index, stackId, props) {
@@ -77,7 +77,7 @@ export default class ProjectController extends ComponentController {
 
   loadData() {
     return Promise.all([
-        this.stacks.load(),
+        this.stackIndex.load(),
         api.loadControllerBundle(this),
       ])
       .then(([ stacks, { component, styles, script } ]) => {
@@ -89,7 +89,7 @@ export default class ProjectController extends ComponentController {
 // UNTESTED
 //   saveData() {
 //     return Promise.all([
-//         this.stacks.save(),
+//         this.stackIndex.save(),
 //         api.saveControllerJSXE(this),
 //         api.saveControllerStyles(this),
 //         api.saveControllerScript(this)
