@@ -114,26 +114,31 @@ oak.api = new API({
   // Component Index files
   //////////////////////////////
 
-  _getComponentIndexUrl(type, controller) {
-    switch (type) {
-      case "app":       return `/api/app/projectIndex`;
-      case "project":   return `/api/project/${controller.path}/stackIndex`;
-      case "stack":     return `/api/stack/${controller.path}/cardIndex`;
-    }
-    throw new TypeError(`api.getComponentIndexUrl(${controller}): cant get url for this type`);
+  loadProjectIndex(controller) {
+    const url = `/api/app/projectIndex`;
+    const errorMessage = "Error loading project index";
+    return this.loadIndex(url, undefined, );
   },
 
-  loadComponentIndex(type, controller, fetchParams={}) {
-    const url = this._getComponentIndexUrl(type, controller);
-    return this.getJSON(url, fetchParams, `Error loading ${type} index`);
+  loadStackIndex(controller) {
+    const url = `/api/project/${controller.path}/stackIndex`;
+    const errorMessage = "Error loading stack index";
+    return this.loadIndex(url, undefined, errorMessage);
   },
 
-  saveComponentIndex(type, controller, index) {
-    if (index === undefined) return Promise.resolve();
-    const url = this._getComponentIndexUrl(type, controller);
-    console.info(`Saving ${controller.type} index`);
-    return this.post(url, controller.index);
+  loadCardIndex(controller) {
+    const url = `/api/stack/${controller.path}/cardIndex`;
+    const errorMessage = "Error loading card index";
+    return this.loadIndex(url, undefined, errorMessage);
   },
+
+  loadIndex(url, fetchParams={}, errorMessage = "Error loading index") {
+    return this.getJSON(url, fetchParams, errorMessage);
+  },
+
+//   saveIndex(url, errorMessage = "Error saving index", index) {
+//     return this.post(url, controller.index);
+//   },
 
 
   //////////////////////////////

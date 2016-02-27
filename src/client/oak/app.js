@@ -4,11 +4,12 @@
 //
 //  TODO: instantiation pattern?
 //////////////////////////////
-import Registry from "oak-roots/Registry";
+
 import global from "oak-roots/util/global";
+import LoadableIndex from "oak-roots/LoadableIndex";
 
 
-import ComponentIndex from "./ComponentIndex";
+import api from "./api";
 import ProjectController from "./ProjectController";
 
 import SUIComponents from "themes/SUI/components";
@@ -50,9 +51,11 @@ class App {
   //////////////////////////////
 
   initializeProjectIndex() {
-    this.projectIndex = new ComponentIndex({
-      controller: this,
-      type: "app",
+    this.projectIndex = new LoadableIndex({
+      itemType: "project",
+      loadIndex: () => {
+        return api.loadProjectIndex(this);
+      },
       createChild: (index, projectId, props) => {
         return new ProjectController({
           app: this,
@@ -61,7 +64,7 @@ class App {
             ...props
           }
         });
-      }
+      },
     });
 
     // go ahead and load the project index..
@@ -72,14 +75,14 @@ class App {
   // Returns `undefined` if the project is not found or it hasn't been loaded yet.
   // Use `app.loadProject()` if you want to ensure that a project is loaded.
   getProject(projectIdentifier) {
-    return this.projectIndex.get(projectIdentifier);
+    return this.projectIndex.getItem(projectIdentifier);
   }
 
   // Return a promise which resolves with a loaded project.
   // If project is not found, the promise will reject.
   // You can specify string id or numeric index.
   loadProject(projectIdentifier) {
-    return this.projectIndex.loadComponent(projectIdentifier)
+    return this.projectIndex.loadItem(projectIdentifier)
       .catch(error => {
         console.group(`Error loading project ${projectIdentifier}:`);
         console.error(error);

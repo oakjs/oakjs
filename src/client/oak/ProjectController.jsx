@@ -2,11 +2,11 @@
 // ProjectController class
 //////////////////////////////
 
+import LoadableIndex from "oak-roots/LoadableIndex";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 import ComponentController from "./ComponentController";
-import ComponentIndex from "./ComponentIndex";
 import ProjectComponent from "./ProjectComponent";
 import StackController from "./StackController";
 
@@ -49,9 +49,11 @@ export default class ProjectController extends ComponentController {
   //////////////////////////////
 
   initializeStackIndex() {
-    this.stackIndex = new ComponentIndex({
-      controller: this,
-      type: "project",
+    this.stackIndex = new LoadableIndex({
+      itemType: "stack",
+      loadIndex: () => {
+        return api.loadStackIndex(this);
+      },
       createChild: (index, stackId, props) => {
         return new StackController({
           app: this.app,
@@ -69,11 +71,11 @@ export default class ProjectController extends ComponentController {
   get stackIds() { return this.stackIndex.ids }
 
   getStack(stackIdentifier) {
-    return this.stackIndex.get(stackIdentifier);
+    return this.stackIndex.getItem(stackIdentifier);
   }
 
   loadStack(stackIdentifier) {
-    return this.stackIndex.loadComponent(stackIdentifier);
+    return this.stackIndex.loadItem(stackIdentifier);
   }
 
   //////////////////////////////

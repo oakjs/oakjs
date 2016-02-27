@@ -2,11 +2,11 @@
 // StackController class
 //////////////////////////////
 
+import LoadableIndex from "oak-roots/LoadableIndex";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 import CardController from "./CardController";
-import ComponentIndex from "./ComponentIndex";
 import ComponentController from "./ComponentController";
 import StackComponent from "./StackComponent";
 
@@ -50,9 +50,11 @@ export default class StackController extends ComponentController {
   //////////////////////////////
 
   initializeCardIndex() {
-    this.cardIndex = new ComponentIndex({
-      controller: this,
-      type: "stack",
+    this.cardIndex = new LoadableIndex({
+      itemType: "card",
+      loadIndex: () => {
+        return api.loadCardIndex(this);
+      },
       createChild: (index, cardId, props) => {
         return new CardController({
           app: this.app,
@@ -72,11 +74,11 @@ export default class StackController extends ComponentController {
   get cardIds() { return this.cardIndex.ids }
 
   getCard(cardIdentifier) {
-    return this.cardIndex.get(cardIdentifier);
+    return this.cardIndex.getItem(cardIdentifier);
   }
 
   loadCard(cardIdentifier) {
-    return this.cardIndex.loadComponent(cardIdentifier);
+    return this.cardIndex.loadItem(cardIdentifier);
   }
 
   // Return a map of { cardId => { card, stack, project, title, route } }
