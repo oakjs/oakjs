@@ -87,8 +87,8 @@ export default class ProjectController extends ComponentController {
         this.stackIndex.load(),
         api.loadControllerBundle(this),
       ])
-      .then(([ stacks, { component, styles, script } ]) => {
-        this.mutate({ component, styles, script });
+      .then(([ stacks, { jsxElement, styles, script } ]) => {
+        this.mutate({ jsxElement, styles, script });
         return this;
       });
   }

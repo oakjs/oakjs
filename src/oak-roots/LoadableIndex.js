@@ -4,12 +4,15 @@
 //
 //////////////////////////////
 
-import { proto } from "oak-roots/util/decorators";
 import objectUtil from "oak-roots/util/object";
 
 import Eventful from "oak-roots/Eventful";
 import Loadable from "oak-roots/Loadable";
 import Registry from "oak-roots/Registry";
+
+// REFACTOR:   Convert from JSON blobs to items when loading index?
+// REFACTOR:   Delta index and announce when things are added/removed/moved
+// REFACTOR:   Index to array of objects
 
 export default class LoadableIndex extends Loadable(Eventful()) {
   constructor(props) {

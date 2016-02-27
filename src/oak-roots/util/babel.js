@@ -20,5 +20,25 @@ export function evaluate(code) {
   return eval(code);
 }
 
+export function createClass(script, Super, ClassName="AClass") {
+  let code;
+  if (!Super) {
+    code = [
+      `class ${ClassName} {`,
+      `  ${script || ""}`,
+      `}`
+    ]
+  }
+  else {
+    code = [
+      `class ${ClassName} extends Super {`,
+      `  ${script || ""}`,
+      `}`
+    ]
+  }
+  const transformed = transformExpression(code.join("\n"));
+  const Constructor = eval(transformed);
+  return Constructor;
+}
 
 export default Object.assign({}, exports);

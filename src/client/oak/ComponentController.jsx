@@ -82,7 +82,9 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
     // If any of our special bits changes, notify.
     // NOTE: we don't notify on the initial load!  (???)
     if (changes.index && old.index) this.onIndexChanged(changes.index, old.index);
-    if (changes.component || changes.script && (old.component || old.script)) this.onComponentChanged(changes.component, old.component);
+    if (changes.jsxElement || changes.script && (old.jsxElement || old.script)) {
+      this.onComponentChanged(changes.jsxElement, old.jsxElement);
+    }
 
     // NOTE: we DO notify about style changes on the initial load
     if (changes.styles) this.onStylesChanged(changes.styles, old.styles);
@@ -104,7 +106,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
 
   onComponentChanged(newComponent, oldComponent) {
     this.dirty();
-//    console.info("TODO: Instantiate component ", newComponent);
+//    console.info("TODO: Instantiate jsxElement ", newComponent);
     this.trigger("componentChanged", newComponent, oldComponent);
   }
 
@@ -133,49 +135,38 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   //  Creating the class based on our loaded data
   //////////////////////////////
   get ComponentConstructor() {
-    if (!this.component) return Stub;
+    if (!this.isLoaded) return Stub;
     if (!this.cache.Constructor) {
-//      console.info("Creating Constructor for ", this);
-
-      const Constructor = this._createComponentConstructor();
-
-      this.cache.Constructor = Constructor;
+      this.cache.Constructor = this._createComponentConstructor();
     }
     return this.cache.Constructor
   }
 
+  // Actually create the ComponentConstructor based on what we've loaded.
+  // Your subclass may want to override this to add additional stuff to the Constructor.
   _createComponentConstructor(Super = React.Component, ComponentName = "Component") {
-    const code =
-`class ${ComponentName}_${this.id} extends Super {
-  // custom script
-  ${this.script || ""}
-
-  render() {
-    return this.renderChildren();
-  }
-}`
-window.code = code;
-//    console.info(code);
-    const transformed = babel.transformExpression(code);
-window.transformed = transformed;
-//    console.info(transformed);
-
-    const Constructor = eval(transformed);
-    Constructor.prototype.renderChildren = this.component.getRenderMethod();
+    try {
+      // if we have a jsxElement, create the classs and set its renderMethod
+      if (this.jsxElement) {
+        let script = [
+          this.script || "",
+          "render() { return this._renderChildren() }"
+        ].join("\n");
+        const Constructor = babel.createClass(script, Super, ComponentName);
 window.Constructor = Constructor;
-//    console.info(Constructor);
-    return Constructor;
-/*
-    const Constructor = class SomeClass extends Super {
-      static renderMethod = this.component.getRenderMethod();
-      render() {
-        return this.constructor.renderMethod.apply(this);
+        Constructor.prototype._renderChildren = this.jsxElement.getRenderMethod();
+      }
+      // otherwise if we have a `script`, assume it's a full ES2015 class expression (????)
+      else if (this.jsx) {
+        return babel.evaluate(this.jsx);
       }
     }
+    catch (error) {
+      console.error("Error creating component constructor: ", error);
+      throw error;
+    }
     return Constructor;
-*/
   }
-
 
   //////////////////////////////
   //  Debug

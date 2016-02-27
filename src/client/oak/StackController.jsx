@@ -114,8 +114,8 @@ export default class StackController extends ComponentController {
         this.cardIndex.load(),
         api.loadControllerBundle(this),
       ])
-      .then(([ cards, { component, styles, script } ]) => {
-        this.mutate({ component, styles, script });
+      .then(([ cards, { jsxElement, styles, script } ]) => {
+        this.mutate({ jsxElement, styles, script });
         return this;
       });
   }

@@ -15,12 +15,12 @@ oak.api = new API({
   loadControllerBundle(controller) {
     const url = `/api/${controller.type}/${controller.path}/bundle`;
     const errorMessage = `Error loading ${controller.type} bundle`;
-    return this.getJSON(url)
-      .then(results => {
-        if (results.jsxe) {
+    return this.getJSON(url, undefined, errorMessage)
+      .then(bundle => {
+        if (bundle.jsxe) {
           try {
-            results.component = JSXElement.parse(results.jsxe);
-            delete results.jsxe;
+            bundle.jsxElement = JSXElement.parse(bundle.jsxe);
+            delete bundle.jsxe;
           }
           catch (e) {
             console.group(`Error parsing JSXE from ${url}`);
@@ -29,9 +29,10 @@ oak.api = new API({
             throw e;
           }
         }
-        return results;
+        return bundle;
       })
       .catch(e => {
+        console.error(e);
         throw new ReferenceError(errorMessage);
       });
   },
@@ -64,12 +65,12 @@ oak.api = new API({
       });
   },
 
-  saveControllerJSXE(controller) {
-    const url = `/api/${controller.type}/${controller.path}/jsxe`;
-    if (controller.component === undefined) return;
-    console.info(`Saving ${controller.type} component`);
-    return this.post(url, controller.component.toString());
-  },
+//   saveControllerJSXE(controller) {
+//     const url = `/api/${controller.type}/${controller.path}/jsxe`;
+//     if (controller.component === undefined) return;
+//     console.info(`Saving ${controller.type} component`);
+//     return this.post(url, controller.component.toString());
+//   },
 
 
   //////////////////////////////
@@ -83,12 +84,12 @@ oak.api = new API({
             .catch( error => { return undefined });
   },
 
-  saveControllerStyles(controller) {
-    const url = `/api/${controller.type}/${controller.path}/styles`;
-    if (controller.styles === undefined) return;
-    console.info(`Saving ${controller.type} styles`);
-    return this.post(url, controller.styles);
-  },
+//   saveControllerStyles(controller) {
+//     const url = `/api/${controller.type}/${controller.path}/styles`;
+//     if (controller.styles === undefined) return;
+//     console.info(`Saving ${controller.type} styles`);
+//     return this.post(url, controller.styles);
+//   },
 
 
   //////////////////////////////
@@ -102,12 +103,12 @@ oak.api = new API({
             .catch( error => { return undefined });
   },
 
-  saveControllerScript(controller) {
-    const url = `/api/${controller.type}/${controller.path}/script`;
-    if (controller.script === undefined) return;
-    console.info(`Saving ${controller.type} script`);
-    return this.post(url, controller.script);
-  },
+//   saveControllerScript(controller) {
+//     const url = `/api/${controller.type}/${controller.path}/script`;
+//     if (controller.script === undefined) return;
+//     console.info(`Saving ${controller.type} script`);
+//     return this.post(url, controller.script);
+//   },
 
 
   //////////////////////////////

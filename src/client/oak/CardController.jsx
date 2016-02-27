@@ -50,8 +50,8 @@ export default class CardController extends ComponentController {
 
   loadData() {
     return api.loadControllerBundle(this)
-      .then( ({ component, styles, script }) => {
-        this.mutate({ component, styles, script });
+      .then( ({ jsxElement, styles, script }) => {
+        this.mutate({ jsxElement, styles, script });
         return this;
       });
   }
@@ -59,7 +59,7 @@ export default class CardController extends ComponentController {
 // UNTESTED
 //   saveData() {
 //     return api.map({
-//       component: api.saveControllerJSXE(this),
+//       jsxElement: api.saveControllerJSXE(this),
 //       styles: api.saveControllerStyles(this),
 //       script: api.saveControllerScript(this)
 //     });
