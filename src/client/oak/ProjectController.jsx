@@ -6,13 +6,13 @@ import LoadableIndex from "oak-roots/LoadableIndex";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
-import ComponentController from "./ComponentController";
+import ComponentLoader from "./ComponentLoader";
 import ProjectComponent from "./ProjectComponent";
 import StackController from "./StackController";
 
 
 
-export default class ProjectController extends ComponentController {
+export default class ProjectController extends ComponentLoader {
   constructor(...args) {
     super(...args);
     objectUtil.dieIfMissing(this, ["app", "projectId"]);

@@ -10,14 +10,19 @@ export function transform(code) {
   return Babel.transform(code, { presets: ["es2015", "react"], plugins: ["external-helpers-2"] }).code;
 }
 
+export function evaluate(code) {
+  const transformed = transform(code);
+  return eval(code);
+}
+
 export function transformExpression(expression) {
   const code = `(function(){ return (${expression}) })()`;
   return transform(code);
 }
 
-export function evaluate(code) {
-  const transformed = transform(code);
-  return eval(code);
+export function evaluateExpression(code) {
+  const transformed = transformExpression(code);
+  return eval(transformed);
 }
 
 export function createClass(script, Super, ClassName="AClass") {
@@ -37,8 +42,7 @@ export function createClass(script, Super, ClassName="AClass") {
     ]
   }
   const transformed = transformExpression(code.join("\n"));
-  const Constructor = eval(transformed);
-  return Constructor;
+  return eval(transformed);
 }
 
 export default Object.assign({}, exports);

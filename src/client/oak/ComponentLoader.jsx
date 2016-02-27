@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//  ComponentController class
+//  ComponentLoader class
 //
 //  Base class for ProjectController, StackController, CardController, ProjectController.
 //
@@ -20,7 +20,7 @@ import Stub from "./components/Stub";
 
 
 
-export default class ComponentController extends Savable(Loadable(Mutable)) {
+export default class ComponentLoader extends Savable(Loadable(Mutable)) {
 
   //////////////////////////////
   //  Creation / destruction
@@ -145,6 +145,7 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   // Actually create the ComponentConstructor based on what we've loaded.
   // Your subclass may want to override this to add additional stuff to the Constructor.
   _createComponentConstructor(Super = React.Component, ComponentName = "Component") {
+    let Constructor
     try {
       // if we have a jsxElement, create the classs and set its renderMethod
       if (this.jsxElement) {
@@ -152,19 +153,25 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
           this.script || "",
           "render() { return this._renderChildren() }"
         ].join("\n");
-        const Constructor = babel.createClass(script, Super, ComponentName);
-window.Constructor = Constructor;
+        Constructor = babel.createClass(script, Super, ComponentName);
         Constructor.prototype._renderChildren = this.jsxElement.getRenderMethod();
       }
       // otherwise if we have a `script`, assume it's a full ES2015 class expression (????)
       else if (this.jsx) {
-        return babel.evaluate(this.jsx);
+        Constructor = babel.evaluate(this.jsx);
+      }
+      // ????
+      else {
+        console.error("Don't know how to make constructor for ", this);
+        throw new TypeError("Unable to make constructor");
       }
     }
     catch (error) {
       console.error("Error creating component constructor: ", error);
       throw error;
     }
+
+    window.Constructor = Constructor;
     return Constructor;
   }
 

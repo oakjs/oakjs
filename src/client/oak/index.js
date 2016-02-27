@@ -4,7 +4,7 @@ export api from "./api";
 export app from "./app";
 export CardComponent from "./CardComponent";
 export CardController from "./CardController";
-export ComponentController from "./ComponentController";
+export ComponentLoader from "./ComponentLoader";
 export CustomComponent from "./CustomComponent";
 export JSXElement from "./JSXElement";
 export ProjectComponent from "./ProjectComponent";

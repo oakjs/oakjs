@@ -6,10 +6,10 @@ import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 import CardComponent from "./CardComponent";
-import ComponentController from "./ComponentController";
+import ComponentLoader from "./ComponentLoader";
 
 
-export default class CardController extends ComponentController {
+export default class CardController extends ComponentLoader {
   constructor(...args) {
     super(...args);
     objectUtil.dieIfMissing(this, ["app", "project", "stack", "cardId", "stackId", "projectId"]);
