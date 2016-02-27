@@ -1,5 +1,5 @@
 //////////////////////////////
-// CardController class
+// Card class
 //////////////////////////////
 
 import Loadable from "oak-roots/Loadable";
@@ -10,7 +10,7 @@ import CardComponent from "./CardComponent";
 import ComponentLoader from "./ComponentLoader";
 
 
-export default class CardController extends Loadable() {
+export default class Card extends Loadable() {
   constructor(props) {
     super();
     Object.assign(this, props);

@@ -2,7 +2,7 @@
 //
 //  ComponentLoader class
 //
-//  Base class for ProjectController, StackController, CardController, ProjectController.
+//  Loads a component from a bundle, vends a `ComponentConstructor`.
 //
 //////////////////////////////
 

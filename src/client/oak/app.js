@@ -10,7 +10,7 @@ import LoadableIndex from "oak-roots/LoadableIndex";
 
 
 import api from "./api";
-import ProjectController from "./ProjectController";
+import Project from "./Project";
 
 import SUIComponents from "themes/SUI/components";
 import oakComponents from "./components";
@@ -74,7 +74,7 @@ class App {
         return api.loadProjectIndex(this);
       },
       createChild: (projectId, props) => {
-        return new ProjectController({
+        return new Project({
           props: {
             project: projectId,
             ...props
