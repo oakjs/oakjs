@@ -202,5 +202,5 @@ export class StackElement extends JSXElement {
   }
 }
 
-// Register it so `<Stack>` elements in a jsxe will use `StackElement`.
-JSXElement.registerType("Stack", StackElement);
+// Register it so `<OakStack>` elements in a jsxe will use `StackElement`.
+JSXElement.registerType("OakStack", StackElement);

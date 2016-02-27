@@ -46,7 +46,7 @@ export default class ProjectComponent extends OakComponent {
     const { id, className, style } = this.props;
     const props = {
       id,
-      className: classNames("oak Stack", className),
+      className: classNames("oak Project", className),
       style
     }
     return <div {...props}>{this.props.children}</div>;

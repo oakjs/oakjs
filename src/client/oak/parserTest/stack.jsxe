@@ -1,4 +1,4 @@
-<Stack id="examples" title="SUI Examples">
+<OakStack id="examples" title="SUI Examples">
   <components>
     <StackComponent id="Bug"/>
     <StackComponent id="Cropper"/>
@@ -82,4 +82,4 @@
     <CardRef id="Table" title="Table"/>
   </cards>
 
-</Stack>
+</OakStack>
