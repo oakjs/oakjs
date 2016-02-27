@@ -12,7 +12,7 @@ oak.api = new API({
   // Component bundles
   //////////////////////////////
 
-  loadControllerBundle(controller) {
+  loadComponentBundle(controller) {
     const url = `/api/${controller.type}/${controller.path}/bundle`;
     const errorMessage = `Error loading ${controller.type} bundle`;
     return this.getJSON(url, undefined, errorMessage)

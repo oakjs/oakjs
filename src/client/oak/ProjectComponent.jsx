@@ -1,10 +1,12 @@
 import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
+import OakComponent from "./OakComponent";
+
 // Project-specific CSS styling.
 import "./Project.css";
 
-export default class ProjectComponent extends React.Component {
+export default class ProjectComponent extends OakComponent {
   static defaultProps = {}
 
   static propTypes = {
@@ -14,36 +16,21 @@ export default class ProjectComponent extends React.Component {
     style: PropTypes.object,
   }
 
-  static contextTypes = {
-    app: PropTypes.any
-  };
-
-  static childContextTypes = {
-    project: PropTypes.any,
-    components: PropTypes.any
-  };
-
-  getChildContext() {
-    return { project: this, components: this.components };
-  }
-
-
-  static get stackIds() { return this.controller && this.controller.stackIds }
-  static get route() { return this.app.getCardRoute(this.id) }
-
   //////////////////////////////
   // Instance property sugar
   //////////////////////////////
 
-  get id() { return this.constructor.id }
   get controller() { return this.constructor.controller }
-  get app() { return this.constructor.app }
+
+  get app() { return this.controller.app }
+  get id() { return this.controller.id }
+  get type() { return this.controller.type; }
+
+  static get route() { return this.controller.route }
 
   //////////////////////////////
   // Components
   //////////////////////////////
-
-  get components() { return this.controller.components }
 
   // Create an element, using our `components` if necessary.
   createElement(type, props, ...children) {

@@ -40,8 +40,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //////////////////////////////
 
   // Note: you SHOULD override this with the `type` of your component, eg: "card" or "stack"
-  static type = "component";
-  get type() { return this.constructor.type }
+  get type() { return "component" }
 
   get id() { throw "You must override `get id()`" }
   get path() { throw "You must override `get path()`" }
@@ -49,28 +48,6 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   get selector() { throw "You must override `get selector()`" }
 
   get title() { return ( this.props && this.props.title ) || this.id }
-
-
-  //////////////////////////////
-  //  Components
-  //////////////////////////////
-
-  getComponent(type, errorMessage) {
-    // return non-string component immediately
-    if (type && typeof type !== "string") return type;
-
-    if (typeof type === "string") {
-      // if all lower case, it's an HTML element -- just return it
-      if (type.toLowerCase() === type) return type;
-
-      // return it if we can find it in our `components`
-      if (this.components[type]) return this.components[type];
-    }
-    // log an error if they gave us an errorMessage
-    if (errorMessage) console.error(`${errorMessage}: type = '${type}'`);
-
-    return undefined;
-  }
 
   //////////////////////////////
   //  Mutation
@@ -130,7 +107,6 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   }
 
 
-
   //////////////////////////////
   //  Creating the class based on our loaded data
   //////////////////////////////
@@ -149,12 +125,23 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
     try {
       // if we have a jsxElement, create the classs and set its renderMethod
       if (this.jsxElement) {
+        // NOTE: we have to manually stick in a `render()` function here
+        //       because React barfs if we try to set `render()` directly.
         let script = [
           this.script || "",
           "render() { return this._renderChildren() }"
         ].join("\n");
         Constructor = babel.createClass(script, Super, ComponentName);
+
+        // Get the `_renderChildren` routine from the jsxElement
         Constructor.prototype._renderChildren = this.jsxElement.getRenderMethod();
+
+        // make sure we've got a `createElement` routine since `_renderChildren` expects one.
+        if (!Constructor.prototype) {
+          Constructor.prototype.createElement = function(type, props, ...children) {
+            return React.createElement(type, props, ...children);
+          }
+        }
       }
       // otherwise if we have a `script`, assume it's a full ES2015 class expression (????)
       else if (this.jsx) {

@@ -2,6 +2,7 @@
 // StackController class
 //////////////////////////////
 
+import Loadable from "oak-roots/Loadable";
 import LoadableIndex from "oak-roots/LoadableIndex";
 import objectUtil from "oak-roots/util/object";
 
@@ -11,42 +12,20 @@ import ComponentLoader from "./ComponentLoader";
 import StackComponent from "./StackComponent";
 
 
-export default class StackController extends ComponentLoader {
-  constructor(...args) {
-    super(...args);
+export default class StackController extends Loadable() {
+  constructor(props) {
+    super();
+    Object.assign(this, props);
     objectUtil.dieIfMissing(this, ["app", "project", "stackId", "projectId"]);
 
+    this.cache = {};
     this.initializeCardIndex();
+    this.initializeComponentLoader();
   }
 
-  //////////////////////////////
-  //  Identity
-  //////////////////////////////
-
-  static type = "stack";
-
-  get id() { return this.stackId }
-  get stackId() { return this.props && this.props.stack }
-  get projectId() { return this.props && this.props.project }
-
-  get path() { return `${this.projectId}/${this.stackId}` }
-  get selector() { return `.oak.Stack#${this.id}` }
-
-  _createComponentConstructor(renderMethod) {
-    const Constructor = super._createComponentConstructor(StackComponent, "Stack");
-    Constructor.id = this.id;
-    Constructor.controller = this;
-    Constructor.app = this.app;
-    Constructor.project = this.project;
-
-    return Constructor;
-  }
-
-  // TODO: dynamic components
-  get components() { return this.project.components }
 
   //////////////////////////////
-  //  Cards
+  //  Initialize our loadable bits
   //////////////////////////////
 
   initializeCardIndex() {
@@ -55,21 +34,58 @@ export default class StackController extends ComponentLoader {
       loadIndex: () => {
         return api.loadCardIndex(this);
       },
-      createChild: (index, cardId, props) => {
+      createChild: (cardId, props) => {
         return new CardController({
-          app: this.app,
-          project: this.project,
-          stack: this,
           props: {
             project: this.projectId,
             stack: this.stackId,
             card: cardId,
             ...props
-          }
+          },
+          app: this.app,
+          project: this.project,
+          stack: this,
         });
       }
     });
   }
+
+  initializeComponentLoader() {
+    this.componentLoader = new StackLoader({ controller: this });
+  }
+
+  //////////////////////////////
+  //  Identity
+  //////////////////////////////
+
+
+  get id() { return this.stackId }
+  get stackId() { return this.props && this.props.stack }
+  get projectId() { return this.props && this.props.project }
+
+  get path() { return `${this.projectId}/${this.stackId}` }
+  get selector() { return `.oak.Stack#${this.id}` }
+  get title() { return ( this.props && this.props.title ) || this.id }
+  get type() { return "stack" }
+
+
+  //////////////////////////////
+  //  Components
+  //////////////////////////////
+
+  // TODO: dynamic components
+  get components() { return this.project.components }
+
+  getComponent(type, errorMessage) {
+    return this.app.getComponent(type, errorMessage, this.components);
+  }
+
+  get ComponentConstructor() { return this.componentLoader.ComponentConstructor }
+
+
+  //////////////////////////////
+  //  Cards
+  //////////////////////////////
 
   get cardIds() { return this.cardIndex.ids }
 
@@ -109,29 +125,51 @@ export default class StackController extends ComponentLoader {
   //  Loading / Saving
   //////////////////////////////
 
+  static get route() { return this.app.getCardRoute(this.project.id, this.id) }
+
   loadData() {
     return Promise.all([
         this.cardIndex.load(),
-        api.loadControllerBundle(this),
+        this.componentLoader.load()
       ])
-      .then(([ cards, { jsxElement, styles, script } ]) => {
-        this.mutate({ jsxElement, styles, script });
-        return this;
+      .then(() => this );
+  }
+
+}
+
+
+//////////////////////////////
+// StackLoader class
+//////////////////////////////
+
+export class StackLoader extends ComponentLoader {
+  constructor(...args) {
+    super(...args);
+    objectUtil.dieIfMissing(this, ["controller"]);
+  }
+
+  loadData() {
+    return api.loadComponentBundle(this.controller)
+      .then(bundle => {
+        this.mutate(bundle);
+        return this
       });
   }
 
-// UNTESTED
-//   saveData() {
-//     return Promise.all([
-//         this.cardIndex.save(),
-//         api.saveControllerJSXE(this),
-//         api.saveControllerStyles(this),
-//         api.saveControllerScript(this)
-//       ])
-//       .then( () => { this } );
-//   }
+  get app() { return this.controller.app }
+  get id() { return this.controller.id }
+  get path() { return this.controller.path }
+  get project() { return this.controller.project }
+  get type() { return this.controller.type; }
+  get selector() { return this.controller.selector }
 
+  _createComponentConstructor() {
+    const Constructor = super._createComponentConstructor(StackComponent, "Stack_"+this.id);
+    Constructor.controller = this.controller;
+    return Constructor;
+  }
 }
+
 
 
 

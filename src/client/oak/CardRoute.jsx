@@ -6,11 +6,21 @@ import Stub from "./components/Stub";
 export default class CardRoute extends React.Component {
 
   static childContextTypes = {
-    app: PropTypes.any
+    app: PropTypes.any,
+    project: PropTypes.any,
+    stack: PropTypes.any,
+    card: PropTypes.any,
+    components: PropTypes.any
   };
 
   getChildContext() {
-    return { app };
+    return {
+      app,
+      project: app.project,
+      stack: app.stack,
+      card: app.card,
+      components: (app.card ? app.card.components : app.components)
+    };
   }
 
   render() {
@@ -32,7 +42,14 @@ export default class CardRoute extends React.Component {
           this.forceUpdate();
         });
 
-      return <Stub/>
+      // if we're currently showing a card, keep that visible until we load
+      if (app.card && app.card.project && app.card.project.isLoaded) {
+        return React.createElement(app.card.project.ComponentConstructor);
+      }
+      // otherwise return a stub
+      else {
+        return <Stub/>
+      }
     }
 
 console.log("Got card ", card);

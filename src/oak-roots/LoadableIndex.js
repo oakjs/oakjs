@@ -64,7 +64,7 @@ export default class LoadableIndex extends Loadable(Eventful()) {
 
         let item = this.registry.get(itemId);
         if (!item) {
-          item = this.createChild(this, itemId, this.index[itemId]);
+          item = this.createChild(itemId, this.index[itemId]);
           this.registry.add(item, itemId);
         }
         return item.load();

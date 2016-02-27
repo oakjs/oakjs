@@ -7,9 +7,9 @@
     "babel.min.js",
     "babel-helpers.js",
     "jquery.js",
-    "react.min.js",
-    "react-dom.min.js",
-    "ReactRouter.min.js",
+    "react.js",
+    "react-dom.js",
+    "ReactRouter.js",
     "SemanticUI/semantic.min.js"
   ],
   "bundleFile": "3rdParty/bundle.js"

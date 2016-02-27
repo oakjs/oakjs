@@ -4,32 +4,18 @@ import { autobind } from "oak-roots/util/decorators";
 import { getPath, setPath } from "oak-roots/util/path";
 import { classNames } from "oak-roots/util/react";
 
+import OakComponent from "./OakComponent";
 import Stub from "./components/Stub";
 
 // Import custom CSS for all cards.
 import "./Card.css";
 
-export default class CardComponent extends React.Component {
+export default class CardComponent extends OakComponent {
   static propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
-  }
-
-  static contextTypes = {
-    app: PropTypes.any,
-    project: PropTypes.any,
-    stack: PropTypes.any,
-  }
-
-  static childContextTypes = {
-    card: PropTypes.any,
-    components: PropTypes.any
-  };
-
-  getChildContext() {
-    return { card: this, components: this.components };
   }
 
   static get route() { return this.app.getCardRoute(this.project.id, this.stack.id, this.id) }
@@ -38,17 +24,19 @@ export default class CardComponent extends React.Component {
   // Instance property sugar
   //////////////////////////////
 
-  get id() { return this.constructor.id }
   get controller() { return this.constructor.controller }
-  get app() { return this.constructor.app }
-  get project() { return this.constructor.project }
-  get stack() { return this.constructor.stack }
+
+  get app() { return this.controller.app }
+  get id() { return this.controller.id }
+  get project() { return this.controller.project }
+  get stack() { return this.controller.stack }
+  get type() { return this.controller.type; }
+
+  static get route() { return this.controller.route }
 
   //////////////////////////////
   // Components
   //////////////////////////////
-
-  get components() { return this.controller.components }
 
   // Create an element, using our `components` if necessary.
   createElement(type, props, ...children) {
@@ -65,7 +53,7 @@ export default class CardComponent extends React.Component {
     super(...arguments);
 
     this.state = {};
-    this.data = this.getInitialData(this.getChildContext());
+    this.data = this.getInitialData(this.context);
   }
 
   // Return `data` for your card, which will be stored in `card.state.data`.

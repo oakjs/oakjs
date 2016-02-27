@@ -46,6 +46,23 @@ class App {
     return this.__PROJECT_THEMES__[projectId] || this.components;
   }
 
+  getComponent(type, errorMessage, components = this.components) {
+    // return non-string component immediately
+    if (type && typeof type !== "string") return type;
+
+    if (typeof type === "string") {
+      // if all lower case, it's an HTML element -- just return it
+      if (type.toLowerCase() === type) return type;
+
+      // return it if we can find it in our `components`
+      if (components[type]) return components[type];
+    }
+    // log an error if they gave us an errorMessage
+    if (errorMessage) console.error(`${errorMessage}: type = '${type}'`);
+
+    return undefined;
+  }
+
   //////////////////////////////
   //  Projects!
   //////////////////////////////
@@ -56,13 +73,13 @@ class App {
       loadIndex: () => {
         return api.loadProjectIndex(this);
       },
-      createChild: (index, projectId, props) => {
+      createChild: (projectId, props) => {
         return new ProjectController({
-          app: this,
           props: {
             project: projectId,
             ...props
-          }
+          },
+          app: this,
         });
       },
     });

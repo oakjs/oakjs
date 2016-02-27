@@ -1,4 +1,4 @@
-export default class Page extends oak.CustomComponent {
+export default class Page extends oak.OakComponent {
   render() {
     const { components: c } = this.context;
     return (

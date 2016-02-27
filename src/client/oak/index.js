@@ -5,7 +5,7 @@ export app from "./app";
 export CardComponent from "./CardComponent";
 export CardController from "./CardController";
 export ComponentLoader from "./ComponentLoader";
-export CustomComponent from "./CustomComponent";
+export OakComponent from "./OakComponent";
 export JSXElement from "./JSXElement";
 export ProjectComponent from "./ProjectComponent";
 export ProjectController from "./ProjectController";

@@ -1,4 +1,4 @@
-export default class Bug extends oak.CustomComponent {
+export default class Bug extends oak.OakComponent {
   render() {
     const { components:c } = this.context;
     return <c.Message icon="small bug" size="small" appearance="error" {...this.props}/>

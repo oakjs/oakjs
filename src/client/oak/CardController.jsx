@@ -2,6 +2,7 @@
 // CardController class
 //////////////////////////////
 
+import Loadable from "oak-roots/Loadable";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
@@ -9,17 +10,27 @@ import CardComponent from "./CardComponent";
 import ComponentLoader from "./ComponentLoader";
 
 
-export default class CardController extends ComponentLoader {
-  constructor(...args) {
-    super(...args);
+export default class CardController extends Loadable() {
+  constructor(props) {
+    super();
+    Object.assign(this, props);
     objectUtil.dieIfMissing(this, ["app", "project", "stack", "cardId", "stackId", "projectId"]);
+
+    this.cache = {};
+    this.initializeComponentLoader();
+  }
+
+  //////////////////////////////
+  //  Initialize our loadable bits
+  //////////////////////////////
+
+  initializeComponentLoader() {
+    this.componentLoader = new CardLoader({ controller: this });
   }
 
   //////////////////////////////
   //  Identify
   //////////////////////////////
-
-  static type = "card";
 
   get id() { return this.cardId }
   get cardId() { return this.props && this.props.card }
@@ -28,44 +39,71 @@ export default class CardController extends ComponentLoader {
 
   get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
   get selector() { return `.oak.Card#${this.id}` }
+  get title() { return ( this.props && this.props.title ) || this.id }
+  get type() { return "card" }
 
-  _createComponentConstructor() {
-    const Constructor = super._createComponentConstructor(CardComponent, "Card");
 
-    Constructor.id = this.id;
-    Constructor.controller = this;
-    Constructor.app = this.app;
-    Constructor.project = this.project;
-    Constructor.stack = this.stack;
-
-    return Constructor;
-  }
+  //////////////////////////////
+  //  Components
+  //////////////////////////////
 
   // TODO: dynamic components
   get components() { return this.stack.components }
+
+  getComponent(type, errorMessage) {
+    return this.app.getComponent(type, errorMessage, this.components);
+  }
+
+  get ComponentConstructor() { return this.componentLoader.ComponentConstructor }
+
 
   //////////////////////////////
   //  Loading / Saving
   //////////////////////////////
 
+  static get route() { return this.app.getCardRoute(this.project.id, this.stack.id, this.id) }
+
   loadData() {
-    return api.loadControllerBundle(this)
-      .then( ({ jsxElement, styles, script }) => {
-        this.mutate({ jsxElement, styles, script });
-        return this;
+    return this.componentLoader.load()
+            .then( () => this );
+  }
+}
+
+
+//////////////////////////////
+// CardLoader class
+//////////////////////////////
+
+export class CardLoader extends ComponentLoader {
+  constructor(...args) {
+    super(...args);
+    objectUtil.dieIfMissing(this, ["controller"]);
+  }
+
+  loadData() {
+    return api.loadComponentBundle(this.controller)
+      .then(bundle => {
+        this.mutate(bundle);
+        return this
       });
   }
 
-// UNTESTED
-//   saveData() {
-//     return api.map({
-//       jsxElement: api.saveControllerJSXE(this),
-//       styles: api.saveControllerStyles(this),
-//       script: api.saveControllerScript(this)
-//     });
-//   }
-//
+  get app() { return this.controller.app }
+  get id() { return this.controller.id }
+  get path() { return this.controller.path }
+  get project() { return this.controller.project }
+  get type() { return this.controller.type; }
+  get selector() { return this.controller.selector }
+  get stack() { return this.controller.stack }
+
+  _createComponentConstructor() {
+    const Constructor = super._createComponentConstructor(CardComponent, "Card_"+this.id);
+    Constructor.controller = this.controller;
+    return Constructor;
+  }
 }
+
+
 
 //////////////////////////////
 // CardElement class
