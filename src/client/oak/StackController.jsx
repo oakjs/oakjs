@@ -50,24 +50,22 @@ export default class StackController extends ComponentController {
   //////////////////////////////
 
   initializeCardIndex() {
-    const createCard = (index, cardId, props) => {
-      return new CardController({
-        app: this.app,
-        project: this.project,
-        stack: this,
-        props: {
-          project: this.projectId,
-          stack: this.stackId,
-          card: cardId,
-          ...props
-        }
-      });
-    }
-
     this.cardIndex = new ComponentIndex({
       controller: this,
-      type: "project",
-      createChild: createCard
+      type: "stack",
+      createChild: (index, cardId, props) => {
+        return new CardController({
+          app: this.app,
+          project: this.project,
+          stack: this,
+          props: {
+            project: this.projectId,
+            stack: this.stackId,
+            card: cardId,
+            ...props
+          }
+        });
+      }
     });
   }
 

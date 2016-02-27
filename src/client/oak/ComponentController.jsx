@@ -43,9 +43,6 @@ export default class ComponentController extends Savable(Loadable(Mutable)) {
   static type = "component";
   get type() { return this.constructor.type }
 
-  // Note: you MUST override this with your component constructor.
-  static baseComponentConstructor = React.Component;
-
   get id() { throw "You must override `get id()`" }
   get path() { throw "You must override `get path()`" }
 

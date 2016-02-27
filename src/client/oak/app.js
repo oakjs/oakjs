@@ -1,5 +1,3 @@
-//REFACTOR:  app.projectIndex is less confusing
-
 //////////////////////////////
 //
 //  App singleton for oak editor app
@@ -52,20 +50,18 @@ class App {
   //////////////////////////////
 
   initializeProjectIndex() {
-    const createProject = (index, projectId, props) => {
-      return new ProjectController({
-        app: this,
-        props: {
-          project: projectId,
-          ...props
-        }
-      });
-    }
-
     this.projectIndex = new ComponentIndex({
       controller: this,
       type: "app",
-      createChild: createProject
+      createChild: (index, projectId, props) => {
+        return new ProjectController({
+          app: this,
+          props: {
+            project: projectId,
+            ...props
+          }
+        });
+      }
     });
 
     // go ahead and load the project index..

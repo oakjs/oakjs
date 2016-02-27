@@ -68,7 +68,7 @@ router.get("/app/:action",  (request, response) => {
   const { action } = request.params;
   const appPaths = new apiPaths.appPaths();
   switch (action) {
-    case "projects":   return sendJSONFile(request, response, appPaths.projectIndex);
+    case "projectIndex":   return sendJSONFile(request, response, appPaths.projectIndex);
   }
   throw new TypeError(`Projects API action ${action} not defined.`);
 });
@@ -114,11 +114,11 @@ router.get("/stack/:projectId/:stackId/:action",  (request, response) => {
 
   const stackPaths = new apiPaths.stackPaths(projectId, stackId);
   switch (action) {
-    case "jsxe":    return sendTextFile(request, response, stackPaths.jsxe);
-    case "script":  return sendTextFile(request, response, stackPaths.script);
-    case "styles":  return sendTextFile(request, response, stackPaths.css);
-    case "cards":   return sendJSONFile(request, response, stackPaths.cardIndex);
-    case "bundle":  return bundler.bundleStack({ projectId, stackId, response, ...debugParams(request.query) });
+    case "jsxe":        return sendTextFile(request, response, stackPaths.jsxe);
+    case "script":      return sendTextFile(request, response, stackPaths.script);
+    case "styles":      return sendTextFile(request, response, stackPaths.css);
+    case "cardIndex":   return sendJSONFile(request, response, stackPaths.cardIndex);
+    case "bundle":      return bundler.bundleStack({ projectId, stackId, response, ...debugParams(request.query) });
   }
   throw new TypeError(`Stack API action '${action}' not defined.`);
 });
@@ -130,11 +130,11 @@ router.get("/project/:projectId/:action",  (request, response) => {
 
   const projectPaths = new apiPaths.projectPaths(projectId);
   switch (action) {
-    case "jsxe":    return sendTextFile(request, response, projectPaths.jsxe);
-    case "script":  return sendTextFile(request, response, projectPaths.script);
-    case "styles":  return sendTextFile(request, response, projectPaths.css);
-    case "stacks":  return sendJSONFile(request, response, projectPaths.stackIndex);
-    case "bundle":  return bundler.bundleProject({ projectId, response, ...debugParams(request.query) });
+    case "jsxe":        return sendTextFile(request, response, projectPaths.jsxe);
+    case "script":      return sendTextFile(request, response, projectPaths.script);
+    case "styles":      return sendTextFile(request, response, projectPaths.css);
+    case "stackIndex":  return sendJSONFile(request, response, projectPaths.stackIndex);
+    case "bundle":      return bundler.bundleProject({ projectId, response, ...debugParams(request.query) });
   }
   throw new TypeError(`Project API action '${action}' not defined.`);
 });

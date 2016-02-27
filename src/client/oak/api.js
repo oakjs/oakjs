@@ -116,9 +116,9 @@ oak.api = new API({
 
   _getComponentIndexUrl(type, controller) {
     switch (type) {
-      case "app":       return `/api/app/projects`;
-      case "project":   return `/api/project/${controller.path}/stacks`;
-      case "stack":     return `/api/stack/${controller.path}/cards`;
+      case "app":       return `/api/app/projectIndex`;
+      case "project":   return `/api/project/${controller.path}/stackIndex`;
+      case "stack":     return `/api/stack/${controller.path}/cardIndex`;
     }
     throw new TypeError(`api.getComponentIndexUrl(${controller}): cant get url for this type`);
   },

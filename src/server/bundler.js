@@ -125,8 +125,7 @@ export function bundleStack({ projectId, stackId, force, response }) {
   const pathMap = {
     jsxe:    stackPaths.jsxe,
     styles:  stackPaths.css,
-    script:  stackPaths.script,
-    index:   stackPaths.cardIndex
+    script:  stackPaths.script
   };
 
   const options = {
@@ -145,8 +144,7 @@ export function bundleProject({ projectId, force, response }) {
   const pathMap = {
     jsxe:    projectPaths.jsxe,
     styles:  projectPaths.css,
-    script:  projectPaths.script,
-    index:   projectPaths.stackIndex
+    script:  projectPaths.script
   };
 
   const options = {
