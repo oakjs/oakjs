@@ -2,12 +2,11 @@ import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
-import Stub from "./components/Stub";
 
 // Import custom CSS for all stacks.
-import "./Stack.css";
+import "./OakStack.css";
 
-export default class StackComponent extends OakComponent {
+export default class OakStack extends OakComponent {
   static propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,

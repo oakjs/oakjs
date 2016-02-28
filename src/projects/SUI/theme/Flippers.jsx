@@ -1,4 +1,4 @@
-export default class Flippers extends oak.OakComponent {
+export default class Flippers extends oak.components.OakComponent {
   render() {
     const { components:c, card } = this.context;
 

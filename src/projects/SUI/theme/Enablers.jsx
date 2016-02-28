@@ -1,4 +1,4 @@
-export default class Enablers extends oak.OakComponent {
+export default class Enablers extends oak.components.OakComponent {
   render() {
     const { components:c, card } = this.context;
 

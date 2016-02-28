@@ -8,7 +8,7 @@ import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 import ComponentLoader from "./ComponentLoader";
-import ProjectComponent from "./ProjectComponent";
+import OakProject from "./components/OakProject";
 import Stack from "./Stack";
 
 
@@ -135,7 +135,7 @@ export class ProjectLoader extends ComponentLoader {
   get selector() { return this.controller.selector }
 
   _createComponentConstructor() {
-    const Constructor = super._createComponentConstructor(ProjectComponent, "Project_"+this.id);
+    const Constructor = super._createComponentConstructor(OakProject, "Project_"+this.id);
     Constructor.controller = this.controller;
     return Constructor;
   }

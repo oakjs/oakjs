@@ -5,12 +5,11 @@ import { getPath, setPath } from "oak-roots/util/path";
 import { classNames, unknownProperties } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
-import Stub from "./components/Stub";
 
 // Import custom CSS for all cards.
-import "./Card.css";
+import "./OakCard.css";
 
-export default class CardComponent extends OakComponent {
+export default class OakCard extends OakComponent {
   static propTypes = {
     ...OakComponent.propTypes,
     title: PropTypes.string,

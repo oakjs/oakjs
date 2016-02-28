@@ -1,4 +1,4 @@
-export default class InfoHint extends oak.OakComponent {
+export default class InfoHint extends oak.components.OakComponent {
   render() {
     const { components:c } = this.context;
     return (

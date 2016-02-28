@@ -1,5 +1,5 @@
 import "./Example.css";
-export default class Example extends oak.OakComponent {
+export default class Example extends oak.components.OakComponent {
   render() {
     const { components: c } = this.context;
     const {

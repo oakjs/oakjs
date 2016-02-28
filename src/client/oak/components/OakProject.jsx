@@ -4,9 +4,9 @@ import { classNames } from "oak-roots/util/react";
 import OakComponent from "./OakComponent";
 
 // Project-specific CSS styling.
-import "./Project.css";
+import "./OakProject.css";
 
-export default class ProjectComponent extends OakComponent {
+export default class OakProject extends OakComponent {
   static defaultProps = {}
 
   static propTypes = {

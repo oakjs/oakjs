@@ -1,8 +1,9 @@
 import React, { PropTypes } from "react";
 
-import app from "./app";
-import Stub from "./components/Stub";
+import app from "../app";
+import Stub from "./Stub";
 
+// REFACTOR:  extend ReactRouter.Route ???
 export default class CardRoute extends React.Component {
 
   static childContextTypes = {

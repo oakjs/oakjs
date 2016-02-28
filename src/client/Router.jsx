@@ -8,7 +8,7 @@
 import React from "react";
 import { Router, Route } from "react-router";
 
-import CardRoute from "./oak/CardRoute";
+import CardRoute from "./oak/components/CardRoute";
 
 // Set up History.
 import { useQueries, createHistory } from "history";

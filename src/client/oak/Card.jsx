@@ -7,7 +7,7 @@ import objectUtil from "oak-roots/util/object";
 import { unknownProperties } from "oak-roots/util/react";
 
 import api from "./api";
-import CardComponent from "./CardComponent";
+import OakCard from "./components/OakCard";
 import ComponentLoader from "./ComponentLoader";
 
 
@@ -98,7 +98,7 @@ export class CardLoader extends ComponentLoader {
   get stack() { return this.controller.stack }
 
   _createComponentConstructor() {
-    const Constructor = super._createComponentConstructor(CardComponent, "Card_"+this.id);
+    const Constructor = super._createComponentConstructor(OakCard, "Card_"+this.id);
     Constructor.controller = this.controller;
     return Constructor;
   }

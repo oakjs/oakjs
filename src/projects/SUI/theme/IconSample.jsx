@@ -1,5 +1,5 @@
 import "./IconSample.css";
-export default class IconSample extends oak.OakComponent {
+export default class IconSample extends oak.components.OakComponent {
   render() {
     const { components: c } = this.context;
     const { icon } = this.props;

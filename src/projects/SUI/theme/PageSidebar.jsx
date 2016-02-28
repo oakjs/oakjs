@@ -1,4 +1,4 @@
-export default class PageSidebar extends oak.OakComponent {
+export default class PageSidebar extends oak.components.OakComponent {
   render() {
     const {components: c } = this.context;
     return (

@@ -10,7 +10,7 @@ import React, { PropTypes } from "react";
 
 import { unknownProps } from "oak-roots/util/react";
 
-import Stub from "./components/Stub";
+import Stub from "./Stub";
 
 export default class OakComponent extends React.Component {
   static propTypes = {

@@ -9,7 +9,7 @@ import objectUtil from "oak-roots/util/object";
 import api from "./api";
 import Card from "./Card";
 import ComponentLoader from "./ComponentLoader";
-import StackComponent from "./StackComponent";
+import OakStack from "./components/OakStack";
 
 
 export default class Stack extends Loadable() {
@@ -164,7 +164,7 @@ export class StackLoader extends ComponentLoader {
   get selector() { return this.controller.selector }
 
   _createComponentConstructor() {
-    const Constructor = super._createComponentConstructor(StackComponent, "Stack_"+this.id);
+    const Constructor = super._createComponentConstructor(OakStack, "Stack_"+this.id);
     Constructor.controller = this.controller;
     return Constructor;
   }
