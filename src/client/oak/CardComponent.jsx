@@ -2,7 +2,7 @@ import React, { PropTypes } from "react";
 
 import { autobind } from "oak-roots/util/decorators";
 import { getPath, setPath } from "oak-roots/util/path";
-import { classNames } from "oak-roots/util/react";
+import { classNames, unknownProperties } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
 import Stub from "./components/Stub";
@@ -12,10 +12,8 @@ import "./Card.css";
 
 export default class CardComponent extends OakComponent {
   static propTypes = {
-    id: PropTypes.string,
+    ...OakComponent.propTypes,
     title: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.object,
   }
 
   static get route() { return this.app.getCardRoute(this.project.id, this.stack.id, this.id) }
@@ -33,17 +31,6 @@ export default class CardComponent extends OakComponent {
   get type() { return this.controller.type; }
 
   static get route() { return this.controller.route }
-
-  //////////////////////////////
-  // Components
-  //////////////////////////////
-
-  // Create an element, using our `components` if necessary.
-  createElement(type, props, ...children) {
-    const component = this.controller.getComponent(type, "Can't find card component") || Stub;
-    return React.createElement(component, props, ...children);
-  }
-
 
   //////////////////////////////
   // Constructor / initial state stuff
@@ -100,14 +87,8 @@ export default class CardComponent extends OakComponent {
   // Rendering
   //////////////////////////////
 
-  render() {
-    const { id, className, style } = this.props;
-    const props = {
-      id,
-      className: classNames("oak Card", className),
-      style
-    }
-    return <div {...props}>{this.props.children}</div>;
+  getClassName() {
+    return classNames("oak Card", this.props.className);
   }
 
 }

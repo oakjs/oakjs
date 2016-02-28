@@ -72,7 +72,7 @@ class JSXElement extends Mutable {
   }
 
   // Output an expression which will render this element and its children.
-  _elementsToSource(options, indent = "") {
+  _elementsToSource(options = {}, indent = "") {
     const type = this.renderType || this.type;
     const typeExpression = JSON.stringify(type);
     const attrExpression = this._attributesToSource(options, indent);
@@ -99,10 +99,10 @@ class JSXElement extends Mutable {
 
   // Convert our attributes for use in our render method.
   _attributesToSource(options, indent, attributes = this.attributes) {
-    if (!attributes) return null;
+    if (!attributes && !options.oakids) return null;
 
-    let keys = Object.keys(attributes);
-    if (options && options.oakIds) keys.push("data-oakid");
+    let keys = attributes ? Object.keys(attributes) : [];
+    if (options.oakids) keys.push("data-oakid");
     const groups = this._splitAttributeKeys(keys);
 
     const attributeSets = groups.map(group => {
@@ -113,14 +113,14 @@ class JSXElement extends Mutable {
 
       const attrExpressions = [];
       group.forEach(key => {
-        let value = attributes[key];
+        let value;
         if (key === "data-oakid") {
           const oakid = this.oakid;
-          value = `"${oakId}"`;
+          value = `"${oakid}"`;
           options.oakids[oakid] = this;
         }
         else {
-          value = this._attributeValueToSource(key, value, options, indent);
+          value = this._attributeValueToSource(key, attributes[key], options, indent);
         }
         if (value !== undefined) attrExpressions.push(`"${key}": ${value}`);
       });

@@ -1,5 +1,8 @@
-<Card id="JSX" title="JSX Test Card">
-  <Segment>
-    <span>JSX Test Card!</span>
-  </Segment>
-</Card>
+<OakCard id="JSX" title="JSX Test Card">
+  <Container>
+    <Segment>
+      <div>JSX Test Card!</div>
+      <Button icon="heart">Love It!</Button>
+    </Segment>
+  </Container>
+</OakCard>

@@ -2,32 +2,81 @@
 //  Object Utility functions
 //////////////////////////////
 
-// Return values for all properties of object as an array.
-export function values(object) {
-  if (object == null) return [];
-  return Object.keys(object).map( key => object[key]);
-}
-
-// Map a `method` over all the keys/values of some `object`,
-//  returning a new object with `{ key: method(value) }`.
+// Map callback over all own keys of an object,
+//  accumulating results into an `output` value.
 //
-// If input is `null` or `undefined`, output will be `undefined`.
-//
-// Signature of method is:  `method(value, key, object)`
-export function map(object, method, thisArg) {
-  if (object == null) return undefined;
-  const output = {};
-  Object.keys(object).forEach(key => output[key] = method.call(thisArg, object[key], key, object));
+// Callback function signature:  `callback(previousOutput, value, key, object)`
+export function reduce(object, method, initialOutputValue) {
+  if (object == null) return initialOutputValue;
+  let output = initialOutputValue;
+  if (object) {
+    const keys = Object.keys(object), length = keys.length;
+    for (let i = 0; i < length; i++) {
+      const key = keys[i];
+      output = callback(output, object[key], key, object);
+    }
+  }
   return output;
 }
 
-// Apply a `method` against an accumulator for all the keys/values of some `object`.
-// Signature of method is:  `method(previousValue, value, key, object)`
-export function reduce(object, method, initialValue) {
-  if (object == null) return [];
-  const reducer = (prev, key, index, keys) => method(prev, object[key], key, object);
-  return Object.keys(object).reduce(reducer, initialValue);
+
+// Map callback over all own keys of an object,
+//  with results returned as an array, ordered by keys order.
+//
+// Callback function signature:  `callback(value, key, object)`
+export function mapOwn(object, callback) {
+  const results = [];
+  if (object) {
+    const keys = Object.keys(object), length = keys.length;
+    for (let i = 0; i < length; i++) {
+      const key = keys[i];
+      results[i] = callback(object[key], key, object);
+    }
+  }
+  return results;
 }
+
+// Map callback over all own keys of an object,
+//  with results returned as a new object, mapped to original keys.
+//
+// Callback function signature:  `callback(value, key, object)`
+export function mapToObject(object, callback) {
+  const results = {};
+  if (object) {
+    const keys = Object.keys(object), length = keys.length;
+    for (let i = 0; i < length; i++) {
+      const key = keys[i];
+      result[key] = callback(object[key], key, object);
+    }
+  }
+  return results;
+}
+
+
+// Map callback over all own keys of an `object`,
+//  returning a new object with only the keys/values of `object`
+//  where `filter` returns a truthy value.
+//
+// Callback function signature:  `callback(value, key, object)`
+export function filter(object, callback) {
+  const results = {};
+  if (object) {
+    const keys = Object.keys(object), length = keys.length;
+    for (let i = 0; i < length; i++) {
+      const key = keys[i], value = object[key];
+      if (callback(value, key, object)) results[key] = value;
+    }
+  }
+  return results;
+}
+
+
+
+// Return values for all properties of object as an array.
+export function values(object) {
+  return mapOwn(object, function(value, key) { return value })
+}
+
 
 // Return true if an object is `empty`, eg does not have any of its own properties.
 export function isEmpty(object) {
@@ -40,6 +89,21 @@ export function isEmpty(object) {
 export function dieIfMissing(thing, fields, errorMessage = `Error in ${thing.constructor.name}`) {
   const missing = fields.filter(field => thing[field] == null);
   if (missing.length) throw new TypeError(errorMessage + ": missing " + missing.join("\n"));
+}
+
+// Return a new object with any properties in `target` that ARE also found in `source`.
+export function knownProperties(target, source = {}) {
+  return filter(target, function(value, key) { return source.hasOwnProperty(key) });
+}
+
+// Return a new object with any properties in `target` that ARE NOT also found in `source`.
+export function unknownProperties(target, source = {}) {
+  return filter(target, function(value, key) { return !source.hasOwnProperty(key) });
+}
+
+// Return a new object with only properties in `target` that correspond to `keys`
+export function properties(target, ...keys) {
+  return filter(target, function(value, key) { return keys.includes(key) });
 }
 
 

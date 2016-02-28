@@ -6,7 +6,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { classNames } from "oak-roots/util/react";
+import { classNames, unknownProps } from "oak-roots/util/react";
 
 function SUIContainer(props) {
   const { id, className, appearance, align, style, children } = props;
@@ -17,7 +17,8 @@ function SUIContainer(props) {
   const containerProps = {
     id,
     className: classNames(className, "ui", appearance, classMap, "container"),
-    style
+    style,
+    ...unknownProps(props, SUIContainer.propTypes)
   };
 
   return <div {...containerProps}>{children}</div>;

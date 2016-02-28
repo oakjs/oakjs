@@ -29,27 +29,11 @@ export default class StackComponent extends OakComponent {
   static get route() { return this.controller.route }
 
   //////////////////////////////
-  // Components
-  //////////////////////////////
-
-  // Create an element, using our `components` if necessary.
-  createElement(type, props, ...children) {
-    const component = this.controller.getComponent(type, "Can't find stack component") || Stub;
-    return React.createElement(component, props, ...children);
-  }
-
-  //////////////////////////////
   // Rendering
   //////////////////////////////
 
-  render() {
-    const { id, className, style } = this.props;
-    const props = {
-      id,
-      className: classNames("oak Stack", className),
-      style
-    }
-    return <div {...props}>{this.props.children}</div>;
+  getClassName(props) {
+    return classNames("oak Stack", props.className);
   }
 
 }

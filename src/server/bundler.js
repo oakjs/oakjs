@@ -52,7 +52,7 @@ export function bundlePathMap(pathMap, options = {}) {
   if (!pathMap) throw new TypeError("map bundle didn't specify a 'pathMap'");
 
   // normalize `pathMap`
-  options.pathMap = objectUtil.map(pathMap, path => apiPaths.getConfigPath(path, options));
+  options.pathMap = objectUtil.mapToObject(pathMap, (path, key) => apiPaths.getConfigPath(path, options));
   options.keys = Object.keys(options.pathMap);
   options.paths = objectUtil.values(options.pathMap);
 

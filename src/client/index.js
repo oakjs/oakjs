@@ -17,4 +17,4 @@ import themeComponents from "projects/SUI/theme";
 
 //import SUI from "themes/SUI";
 import Router from "./Router";
-ReactDOM.render(Router, document.getElementById("OakPlayer"));
+window.ROOT = ReactDOM.render(Router, document.getElementById("OakPlayer"));

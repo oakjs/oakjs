@@ -8,7 +8,6 @@
 
 import React from "react";
 
-
 // Create with an IIFE for reflection in debugger.
 const SUI = new (function SUI() {})();
 
@@ -52,7 +51,7 @@ export function generateId(prefix="ID") {
 }
 
 
-//TODO: RENAME
+// REFACTOR: lodash? move to oak-roots, RENAME, Object.keys(), make generic for any object
 // Return all properties in `props` which are not defined in `propTypes`.
 // This is far more efficient than doing a ...spread operator to pull those properties out.
 export function unknownProperties(props, propTypes) {
@@ -63,7 +62,7 @@ export function unknownProperties(props, propTypes) {
   return unknown;
 }
 
-//TODO: RENAME
+// REFACTOR: lodash? move to oak-roots, RENAME, Object.keys(), make generic for any object
 // Return all properties in `props` ARE define in `propTypes` AND ARE NOT `undefined`.
 // This is far more efficient than doing a ...spread operator to pull those properties out.
 export function knownProperties(props, propTypes) {
@@ -73,7 +72,6 @@ export function knownProperties(props, propTypes) {
   }
   return known;
 }
-window.knownProperties = knownProperties;
 
 
 //TODO: RENAME

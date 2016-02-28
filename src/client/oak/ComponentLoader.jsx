@@ -129,12 +129,12 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
         //       because React barfs if we try to set `render()` directly.
         let script = [
           this.script || "",
-          "render() { return this._renderChildren() }"
+          "render() { return this.__render() }"
         ].join("\n");
         Constructor = babel.createClass(script, Super, ComponentName);
 
-        // Get the `_renderChildren` routine from the jsxElement
-        Constructor.prototype._renderChildren = this.jsxElement.getRenderMethod();
+        // Get the `__render` routine from the jsxElement
+        Constructor.prototype.__render = this.jsxElement.getRenderMethod();
 
         // make sure we've got a `createElement` routine since `_renderChildren` expects one.
         if (!Constructor.prototype) {

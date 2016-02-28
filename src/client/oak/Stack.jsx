@@ -192,13 +192,11 @@ export class StackElement extends JSXElement {
   }
   // Render out outer element as a div with only a few properties
   renderType = "div";
+
+  // Use `getRenderProps()` to massage the attributes passed in
   _attributesToSource(options, indent) {
-    const { id, className, style } = this.attributes || {};
-    return super._attributesToSource(options, indent, {
-      id,
-      className: classNames("oak Stack", className),
-      style
-    });
+    const attributeSource = super._attributesToSource(options, indent);
+    return `this.getRenderProps(${attributeSource})`;
   }
 }
 

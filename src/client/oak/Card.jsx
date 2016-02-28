@@ -4,6 +4,7 @@
 
 import Loadable from "oak-roots/Loadable";
 import objectUtil from "oak-roots/util/object";
+import { unknownProperties } from "oak-roots/util/react";
 
 import api from "./api";
 import CardComponent from "./CardComponent";
@@ -125,13 +126,11 @@ export class CardElement extends JSXElement {
   }
   // Render out outer element as a div with only a few properties
   renderType = "div";
+
+  // Use `getRenderProps()` to massage the attributes passed in
   _attributesToSource(options, indent) {
-    const { id, className, style } = this.attributes || {};
-    return super._attributesToSource(options, indent, {
-      id,
-      className: classNames("oak Card", className),
-      style
-    });
+    const attributeSource = super._attributesToSource(options, indent);
+    return `this.getRenderProps(${attributeSource})`;
   }
 }
 
