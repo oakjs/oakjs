@@ -1,12 +1,30 @@
 import React, { PropTypes } from "react";
 import Stub from "./Stub";
 
-export default function CurrentProject(props, context) {
-  const project = context.app.project;
-  if (!project) return <Stub/>;
-  return React.createElement(project.ComponentConstructor);
-}
+export default class CurrentProject extends React.Component {
+  static contextTypes = {
+    app: PropTypes.any,
+  }
 
-CurrentProject.contextTypes = {
-  app: PropTypes.any,
+  componentDidMount() {
+    app.project.component = this.refs.project;
+  }
+
+  componentWillUpdate() {
+    delete app.project.omponent;
+  }
+
+  componentDidUpdate() {
+    app.project.component = this.refs.project;
+  }
+
+  componentWillUnmount() {
+    delete app.project.omponent;
+  }
+
+  render() {
+    const project = this.context.app.project;
+    if (!project) return <Stub/>;
+    return React.createElement(project.ComponentConstructor, { ref: "project" });
+  }
 }
