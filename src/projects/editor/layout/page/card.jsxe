@@ -1,0 +1,10 @@
+<Card id="Editor">
+  <Menu id="Editor-topToolbar">
+
+  </Menu>
+  <Menu id="Editor-rightSidebar">
+
+
+  </Menu>
+  <CurrentProject/>
+</Card>

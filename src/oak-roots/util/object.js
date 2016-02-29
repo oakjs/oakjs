@@ -46,7 +46,7 @@ export function mapToObject(object, callback) {
     const keys = Object.keys(object), length = keys.length;
     for (let i = 0; i < length; i++) {
       const key = keys[i];
-      result[key] = callback(object[key], key, object);
+      results[key] = callback(object[key], key, object);
     }
   }
   return results;

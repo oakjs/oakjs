@@ -39,6 +39,6 @@ export function getLoremText(props) {
 export default class LoremIpsum extends oak.components.OakComponent {
   render() {
     const { id, style, className } = this.props;
-    return <div id={id} style={style} className={className}>{getLoremText(props)}</div>;
+    return <div id={id} style={style} className={className}>{getLoremText(this.props)}</div>;
   }
 }
