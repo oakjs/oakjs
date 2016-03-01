@@ -38,12 +38,11 @@ export class projectPaths {
   constructor(project) {
     this.project = dieIfInvalidId(project);
   }
-  get id() { return `${this.project}` }
   get jsxe() { return projectPath(this.project, "project.jsxe") }
   get css() { return projectPath(this.project, "project.css") }
   get script() { return projectPath(this.project, "project.js") }
-  get stackIndex() { return projectPath(this.project, "stacks.json") }
-  get bundleFile() { return `projects/${this.id}.bundle.json` }
+  get stackIndex() { return projectPath(this.project, fsPath.join("stacks", "stacks.json")) }
+  get bundleFile() { return bundlePath("projects", `${this.project}.bundle.json`) }
 }
 
 // Return the path for a project file.
@@ -65,12 +64,11 @@ export class stackPaths {
     this.project = dieIfInvalidId(project);
     this.stack = dieIfInvalidId(stack);
   }
-  get id() { return `${this.project}/${this.stack}` }
   get jsxe() { return stackPath(this.project, this.stack, "stack.jsxe") }
   get css() { return stackPath(this.project, this.stack, "stack.css") }
   get script() { return stackPath(this.project, this.stack, "stack.js") }
-  get cardIndex() { return stackPath(this.project, this.stack, "cards.json") }
-  get bundleFile() { return `projects/${this.idPath}.bundle.json` }
+  get cardIndex() { return stackPath(this.project, this.stack, fsPath.join("cards", "cards.json")) }
+  get bundleFile() { return bundlePath("projects", this.project, `${this.stack}.bundle.json`) }
 }
 
 
@@ -78,7 +76,7 @@ export class stackPaths {
 // Default is to return the `stack.jsx` file, pass a different `fileName` for something else.
 // If you want the path to the stack's directory, pass `fileName=""`.
 export function stackPath(project, stack, filename = "") {
-  const stackPath = fsPath.join(stack, filename);
+  const stackPath = fsPath.join("stacks", stack, filename);
   return projectPath(project, stackPath);
 }
 
@@ -94,17 +92,16 @@ export class cardPaths {
     this.stack = dieIfInvalidId(stack);
     this.card = dieIfInvalidId(card);
   }
-  get id() { return `${this.project}/${this.stack}/${this.card}` }
   get jsxe() { return cardPath(this.project, this.stack, this.card, "card.jsxe") }
   get css() { return cardPath(this.project, this.stack, this.card, "card.css") }
   get script() { return cardPath(this.project, this.stack, this.card, "card.js") }
-  get bundleFile() { return `projects/${this.id}.bundle.json` }
+  get bundleFile() { return bundlePath("projects", this.project, this.stack, `${this.card}.bundle.json`) }
 }
 
 // Return the path for a card file.
 // Default is to return the card's `.jsx` file, pass a different `filename` for something else.
 export function cardPath(project, stack, card, filename="") {
-  const cardPath = fsPath.join(card, filename);
+  const cardPath = fsPath.join("cards", card, filename);
   return stackPath(project, stack, cardPath);
 }
 
@@ -114,11 +111,18 @@ export function cardPath(project, stack, card, filename="") {
 //////////////////////////////
 
 // Return build file path for `buildFile`.
-export function getBuildPath(buildFile) {
+export function buildPath(buildFile) {
   if (!isValidPath(buildFile)) throw new TypeError(`Invalid build path: ${buildFile}`);
   return fsPath.join(config.paths.build, buildFile);
 }
 
+// Return bundle path for a project
+// NOTE: this will be relative to the `build` directory and should NOT return an absolute path.
+export function bundlePath(...segments) {
+  const path = fsPath.join(...segments);
+  if (!isValidPath(path)) throw new TypeError(`Invalid bundle path: ${buildFile}`);
+  return path;
+}
 
 //////////////////////////////
 //  Path utilities
@@ -149,16 +153,27 @@ export function isLegalClientPath(path) {
   return isValidPath(path) && hasPrefix(path, "public/", "projects/", "theme/");
 }
 
-export function getConfigPath(path, { basePath = "", trusted = true} = {}) {
+
+// Given a disk file `path` which is either:
+//  - an absolute path, or
+//  - a path that begins with one of our `config` directories as defined in `webpack.common.js::paths`
+// normalize it to an absolute path.
+//
+// If the `options` specifies:
+//  - `basePath`, we'll tack that on the beginning of the `path`
+//  - `trusted` as `false`, we'll reject absolute paths or invalid paths according to `isValidPath()`.
+//    (e.g., you should set `trusted: false` if the path specification comes from the browser)
+export function configPath(path, options = {}) {
+  const { basePath = "", trusted = true} = options;
   const fullPath = fsPath.join(basePath, path);
-  if (!trusted && !isLegalClientPath(fullPath)) throw new TypeError(`ERROR in getConfigPath(): illegal client path ${fullPath}`);
+  if (!trusted && !isLegalClientPath(fullPath)) throw new TypeError(`ERROR in configPath(): illegal client path ${fullPath}`);
 
   // if we got an absolute path, just return it
   if (fullPath.startsWith(fsPath.sep)) return fullPath;
 
   const segments = fullPath.split(fsPath.sep);
   const pathName = segments[0];
-  if (config.paths[pathName] === undefined) throw new TypeError(`ERROR in getConfigPath(): prefix ${pathName} not found for ${fullPath}`);
+  if (config.paths[pathName] === undefined) throw new TypeError(`ERROR in configPath(): prefix ${pathName} not found for ${fullPath}`);
 
   segments[0] = config.paths[pathName];
   return fsPath.join(...segments);

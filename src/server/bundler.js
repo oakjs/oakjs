@@ -52,13 +52,13 @@ export function bundlePathMap(pathMap, options = {}) {
   if (!pathMap) throw new TypeError("map bundle didn't specify a 'pathMap'");
 
   // normalize `pathMap`
-  options.pathMap = objectUtil.mapToObject(pathMap, (path, key) => apiPaths.getConfigPath(path, options));
+  options.pathMap = objectUtil.mapToObject(pathMap, (path, key) => apiPaths.configPath(path, options));
   options.keys = Object.keys(options.pathMap);
   options.paths = objectUtil.values(options.pathMap);
 
   // normalize bundleFile
   if (options.bundleFile) {
-    options.bundleFile = apiPaths.getBuildPath(options.bundleFile, options);
+    options.bundleFile = apiPaths.buildPath(options.bundleFile, options);
   }
 
   // default content type
@@ -89,8 +89,8 @@ export function bundlePaths(paths, options = {}) {
   if (!Array.isArray(paths)) throw new TypeError("bundle didn't specify a 'path' parameter");
 
   // normalize `paths` and `bundleFile`
-  options.paths = paths.map(path => apiPaths.getConfigPath(path, options));
-  if (options.bundleFile) options.bundleFile = apiPaths.getBuildPath(options.bundleFile, options);
+  options.paths = paths.map(path => apiPaths.configPath(path, options));
+  if (options.bundleFile) options.bundleFile = apiPaths.buildPath(options.bundleFile, options);
 
   // default delimiters & content type
   defaultOptionFromMap(options, "delimiter", DELIMITER_MAP);
@@ -110,6 +110,7 @@ export function bundleCard({ projectId, stackId, cardId, force, response }) {
   };
 
   const options = {
+    debug: DEBUG,
     force,
     response,
     bundleFile: cardPaths.bundleFile,
@@ -127,8 +128,10 @@ export function bundleStack({ projectId, stackId, force, response }) {
     styles:  stackPaths.css,
     script:  stackPaths.script
   };
-
+  if (DEBUG) console.log(`bundleStack(${projectId}, ${stackId})`);
+console.info(pathMap);
   const options = {
+    debug: DEBUG,
     force,
     response,
     bundleFile: stackPaths.bundleFile,
@@ -148,6 +151,7 @@ export function bundleProject({ projectId, force, response }) {
   };
 
   const options = {
+    debug: DEBUG,
     force,
     response,
     bundleFile: projectPaths.bundleFile,
@@ -234,7 +238,7 @@ function parseBundleInputFile(options) {
 
   // load inputFile
   if (options.debug) console.log("....loading input file");
-  const path = apiPaths.getConfigPath(inputFile, { trusted });
+  const path = apiPaths.configPath(inputFile, { trusted });
   return fsp.readJSON(path)
           .then( inputFileJSON => {
             if (inputFileJSON.debug === false && options.debug) {
