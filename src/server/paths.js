@@ -15,7 +15,7 @@ import config from './config';
 // Lightweight object which vends paths
 //  eg:   const path = paths.projects().projectIndexPath;
 export class appPaths {
-  get projectIndex() { return projectsPath("index.json") }
+  get projectIndex() { return projectsPath("projects.json") }
 }
 
 // Return the path for a project file.

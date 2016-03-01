@@ -27,6 +27,13 @@ class App {
     }
 
     this.initializeProjectIndex();
+
+    // HACK
+    this.state = {
+      editing: true
+
+    }
+
   }
 
   //////////////////////////////
