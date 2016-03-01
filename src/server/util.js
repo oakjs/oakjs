@@ -2,12 +2,12 @@ import fsp from "fs-promise";
 
 import { interpolate } from "../oak-roots/util/path";
 
-// Returns a promise which yields the mod date of file at path.
+// Returns a promise which yields the mod date of file at path as an ISO string.
 // Resolves with `undefined` if file doesn't exist.  (DOES NOT REJECT THE PROMISE)
 export function lastModified(path) {
   if (!path) return Promise.resolve(undefined);
   return fsp.stat(path)
-    .then(stat => stat.mtime)
+    .then(stat => stat.mtime.toISOString())
     .catch(error => undefined);
 }
 
@@ -20,12 +20,12 @@ export function latestModified(...paths) {
     .then( latestTimestamp );
 }
 
-// Given a bunch of string timestamps from `lastModified` (which may be `undefined`),
+// Given a bunch of Date timestamps from `lastModified` (which may be `undefined`),
 //  return the latest one.
 export function latestTimestamp(timestamps) {
   return timestamps.reduce( (prev, current) => {
-    if (typeof current !== "string") return prev;
-    if (typeof prev !== "string") return current;
+    if (!current) return prev;
+    if (!prev) return current;
     return (current > prev ? current : prev);
   });
 }
