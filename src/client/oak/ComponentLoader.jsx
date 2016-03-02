@@ -14,7 +14,7 @@ import Savable from "oak-roots/Savable";
 
 import babel from "oak-roots/util/babel";
 import browser from "oak-roots/util/browser";
-import objectUtil from "oak-roots/util/object";
+import { generateRandomId, normalizeIdentifier } from "oak-roots/util/ids";
 
 import Stub from "./components/Stub";
 
@@ -28,6 +28,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
 
   constructor(...args) {
     super(...args);
+    if (!this.oid) this.oid = generateRandomId();
   }
 
   destroy() {
@@ -39,13 +40,8 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //  Identify syntactic sugar
   //////////////////////////////
 
-  // Note: you SHOULD override this with the `type` of your component, eg: "card" or "stack"
-  get type() { return "component" }
-
-  get id() { throw "You must override `get id()`" }
-  get path() { throw "You must override `get path()`" }
-
-  get title() { return ( this.props && this.props.title ) || this.id }
+  get id() { return (this.controller && this.controller.id) || this.oid }
+  get type() { return (this.controller && this.controller.type) || "component"; }
 
   //////////////////////////////
   //  Mutation
@@ -90,13 +86,14 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //  Stylesheet
   //////////////////////////////
 
-  get stylesheetId() { return "STYLE-" + this.path.replace(/\//g, "-") }
+  get stylesheetId() { return normalizeIdentifier(this.id || this.oid) }
+
   onStylesChanged(newStyles, oldStyles) {
     if (oldStyles) this.dirty();
     console.info(`Updating ${this.type} styles`);
 //    console.warn("TODO: use less to convert to scoped styles");
     if (newStyles) {
-      browser.createStylesheet(newStyles || "", this.stylesheetId)
+      browser.createStylesheet(newStyles, this.stylesheetId)
     }
     else {
       browser.removeStylesheet(this.stylesheetId)
@@ -147,7 +144,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
       }
       // ????
       else {
-        console.error("Don't know how to make constructor for ", this);
+        console.error("ComponentLoader: Don't know how to make constructor for ", this);
         throw new TypeError("Unable to make constructor");
       }
     }
@@ -156,7 +153,6 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
       throw error;
     }
 
-    window.Constructor = Constructor;
     return Constructor;
   }
 
@@ -164,7 +160,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //  Debug
   //////////////////////////////
   toString() {
-    return `[${this.constructor.name} ${this.path}]`;
+    return `[${this.constructor.name} ${this.id}]`;
   }
 
 }

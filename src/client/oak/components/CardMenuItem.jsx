@@ -15,27 +15,27 @@ import Stub from "./Stub";
 function OakCardMenuItem(props, context) {
   if (!props.card || !context.components) return <Stub/>;
 
-  const c = context.components;
   const { card, label, children, ...extraProps } = props;
+  const { MenuItem } = context.components;
 
   const active = (context.card ? context.card.path === card.path : undefined);
-  if (active) extraProps.className = classNames("active", extraProps.className);
+  extraProps.className = classNames("CardMenuItem", {active}, extraProps.className);
 
-  let linkText = (children || label || card.title);
+  const itemText = (children || label || card.title);
+  const handleClick = () => app.goTo(card.route);
 
   return (
-    <c.MenuItem {...extraProps}>
-      <c.Link card={card}>
-        {linkText}
-      </c.Link>
-    </c.MenuItem>
+    <MenuItem {...extraProps} onClick={handleClick}>
+      {itemText}
+    </MenuItem>
   );
 }
 
 // Pull context in so we can get components from the card.
 OakCardMenuItem.contextTypes = {
   components: PropTypes.any,
-  card: PropTypes.any
+  card: PropTypes.any,
+  router: PropTypes.any
 };
 
 // Add render function so we hot reload.

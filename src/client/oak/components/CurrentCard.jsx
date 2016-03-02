@@ -11,7 +11,7 @@ export default class CurrentCard extends React.Component {
   }
 
   componentWillUpdate() {
-    delete app.card.omponent;
+    delete app.card.component;
   }
 
   componentDidUpdate() {
@@ -19,7 +19,7 @@ export default class CurrentCard extends React.Component {
   }
 
   componentWillUnmount() {
-    delete app.card.omponent;
+    delete app.card.component;
   }
 
   render() {

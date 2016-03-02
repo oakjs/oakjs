@@ -24,11 +24,17 @@ export default class ComponentController extends Loadable() {
   //  Component Sugar
   //////////////////////////////
 
-//TODO: from componentLoader.element???
+//TODO: props from componentLoader.element???
   get props() { return this.component ? this.component.props : {} }
   get state() { return this.component ? this.component.state : {} }
   get refs() { return this.component ? this.component.refs : {} }
 
+
+  getComponent(type, errorMessage) {
+    return this.app.getComponent(type, errorMessage, this.components);
+  }
+
+  get ComponentConstructor() { return this.componentLoader.ComponentConstructor }
 
   //////////////////////////////
   //  Loading

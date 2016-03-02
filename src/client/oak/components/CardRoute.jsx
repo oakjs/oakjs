@@ -3,7 +3,6 @@ import React, { PropTypes } from "react";
 import app from "../app";
 import Stub from "./Stub";
 
-// REFACTOR:  extend ReactRouter.Route ???
 export default class CardRoute extends React.Component {
 
   static childContextTypes = {
@@ -24,43 +23,55 @@ export default class CardRoute extends React.Component {
     };
   }
 
-  render() {
-    let { project: projectId, stack: stackId, card: cardId } = this.props.params;
+  componentDidMount() {
+    this._isMounted = true;
+  }
 
+  componentWillUpdate() {
+    this._isMounted = false;
+  }
+
+  componentDidUpdate() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  render() {
     // default to first item if id not specified
-    if (!projectId) projectId = 0;
-    if (!stackId) stackId = 0;
-    if (!cardId) cardId = 0;
+    let { projectId = 0, stackId = 0, cardId = 0} = this.props.params;
 
     console.warn("CardRoute: ", projectId, stackId, cardId);
 
     const card = app.getCard(projectId, stackId, cardId);
-    if (!card) {
-      console.log("Card not found, loading it");
-      app.loadCard(projectId, stackId, cardId)
-        .then( () => {
-          console.log("loaded card, updating ");
-          this.forceUpdate();
-        });
-
-      // if we're currently showing a card, keep that visible until we load
-      if (app.card && app.card.project && app.card.project.isLoaded) {
-        return React.createElement(app.card.project.ComponentConstructor);
-      }
-      // otherwise return a stub
-      else {
-        return <Stub/>
+    if (card && card.isLoaded) {
+      app.card = card;
+      app.stack = card.stack;
+      app.project = card.project;
+    }
+    else {
+      if (!card || !card.isLoading) {
+        app.loadCard(projectId, stackId, cardId)
+          .then( card => {
+            if (this._isMounted) {
+              console.log("loaded card, updating ");
+              this.forceUpdate();
+            }
+          })
+          .catch(e => {
+            console.log(`Card ${projectId}/${stackId}/${cardId} not found!!!`);
+          });
       }
     }
-
-console.log("Got card ", card);
-//console.dir(card);
-//console.groupEnd();
-
-    app.card = card;
-    app.stack = card.stack;
-    app.project = card.project;
-
-    return React.createElement(card.project.ComponentConstructor);
+    // if we're currently showing a card, keep that visible until we load
+    if (app.card && app.card.project && app.card.project.isLoaded) {
+      return React.createElement(app.card.project.ComponentConstructor);
+    }
+    // otherwise return a stub
+    else {
+      return <Stub/>
+    }
   }
 }

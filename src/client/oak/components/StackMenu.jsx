@@ -5,15 +5,14 @@ import { classNames } from "oak-roots/util/react";
 function StackMenu(props, context) {
   const c = context.components;
   const stack = props.stack || context.stack;
-  if (!c || !stack) return <Stub/>;
+  if (!c || !stack || !stack.isLoaded) return <Stub/>;
 
   // pass all other props along
   const menuProps = Object.assign({}, props);
   menuProps.className = classNames("StackMenu", props.className);
 
-  const cardMap = stack.cardMap;
-  const menuItems = Object.keys(cardMap).map(cardId => <c.CardMenuItem card={cardMap[cardId]}/>);
-  return React.createElement(c.Menu, menuProps, ...menuItems);
+  const menuItems = stack.cards.map(card => <c.CardMenuItem key={card.path} card={card}/>);
+  return React.createElement(c.Menu, menuProps, menuItems);
 }
 
 // Pull context in so we can get components and pointer to the current stack.

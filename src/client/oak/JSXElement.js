@@ -18,9 +18,9 @@ class JSXElement extends Mutable {
   // Generate and remember a unique id for this element on demand.
   // NOTE: this id will be copied into clones, but not saved.
   // This is NOT considered a mutation (???)
-  get oakid() {
-    if (this.hasOwnProperty("__oakid")) return this.__oakid;
-    return (this.__oakid = ids.generateRandomId())
+  get oid() {
+    if (this.hasOwnProperty("__oid")) return this.__oid;
+    return (this.__oid = ids.generateRandomId())
   }
 
   //////////////////////////////
@@ -49,7 +49,7 @@ class JSXElement extends Mutable {
   _getRenderMethodSource(indent = "  ") {
     const output = [];
     const options = {
-      oakids: (this.cache.oakids = {}),
+      oids: (this.cache.oids = {}),
     }
 
     output.push("console.log('Rendering: ',this);");
@@ -99,10 +99,10 @@ class JSXElement extends Mutable {
 
   // Convert our attributes for use in our render method.
   _attributesToSource(options, indent, attributes = this.attributes) {
-    if (!attributes && !options.oakids) return null;
+    if (!attributes && !options.oids) return null;
 
     let keys = attributes ? Object.keys(attributes) : [];
-    if (options.oakids) keys.push("data-oakid");
+    if (options.oids) keys.push("data-oid");
     const groups = this._splitAttributeKeys(keys);
 
     const attributeSets = groups.map(group => {
@@ -114,10 +114,10 @@ class JSXElement extends Mutable {
       const attrExpressions = [];
       group.forEach(key => {
         let value;
-        if (key === "data-oakid") {
-          const oakid = this.oakid;
-          value = `"${oakid}"`;
-          options.oakids[oakid] = this;
+        if (key === "data-oid") {
+          const oid = this.oid;
+          value = `"${oid}"`;
+          options.oids[oid] = this;
         }
         else {
           value = this._attributeValueToSource(key, attributes[key], options, indent);

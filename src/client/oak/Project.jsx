@@ -40,17 +40,14 @@ export default class Project extends ComponentController {
   // TODO: dynamic components
   get components() { return this.app.getProjectTheme(this.id) }
 
-  getComponent(type, errorMessage) {
-    return this.app.getComponent(type, errorMessage, this.components);
-  }
-
-  get ComponentConstructor() { return this.componentLoader.ComponentConstructor }
 
   //////////////////////////////
   //  Stacks
   //////////////////////////////
 
-  get stackIds() { return this.stackIndex.ids }
+  get stacks() { return this.stackIndex.items }
+  get stackIds() { return this.stackIndex.itemIds }
+  get stackMap() { return this.stackIndex.itemMap }
 
   getStack(stackIdentifier) {
     return this.stackIndex.getItem(stackIdentifier);
@@ -79,10 +76,10 @@ export default class Project extends ComponentController {
       },
       createItem: (stackId, props) => {
         return new Stack({
-          ...props,
-          app: this.app,
           stackId,
           projectId: this.id,
+          ...props,
+          app: this.app,
         });
       }
     });
@@ -110,6 +107,8 @@ export class ProjectLoader extends ComponentLoader {
     dieIfMissing(this, ["controller"]);
   }
 
+  get id() { return this.controller.path }
+
   loadData() {
     return api.loadComponentBundle(this.controller)
       .then(bundle => {
@@ -117,12 +116,6 @@ export class ProjectLoader extends ComponentLoader {
         return this
       });
   }
-
-  get app() { return this.controller.app }
-
-  get id() { return this.controller.id }
-  get path() { return this.controller.path }
-  get type() { return this.controller.type; }
 
   _createComponentConstructor() {
     const Constructor = super._createComponentConstructor(OakProject, "Project_"+this.id);

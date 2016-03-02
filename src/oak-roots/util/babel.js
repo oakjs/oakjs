@@ -3,6 +3,8 @@
 //
 //////////////////////////////
 
+import { normalizeIdentifier } from "./ids";
+
 // NOTE: we're currently dependent on a global `Babel` being set in the browser...
 //import Babel from "babel-core";
 
@@ -25,18 +27,19 @@ export function evaluateExpression(code) {
   return eval(transformed);
 }
 
-export function createClass(script, Super, ClassName="AClass") {
+export function createClass(script, Super, ClassName) {
   let code;
+  const normalizedClassName = normalizeIdentifier(ClassName, "AClass");
   if (!Super) {
     code = [
-      `class ${ClassName} {`,
+      `class ${normalizedClassName} {`,
       `  ${script || ""}`,
       `}`
     ]
   }
   else {
     code = [
-      `class ${ClassName} extends Super {`,
+      `class ${normalizedClassName} extends Super {`,
       `  ${script || ""}`,
       `}`
     ]

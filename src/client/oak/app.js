@@ -37,6 +37,22 @@ class App {
   }
 
   //////////////////////////////
+  //  Routing
+  //////////////////////////////
+
+  goTo(route, replace) {
+    if (!app.router) throw new TypeError(`app.goTo(${route}): app.router is not set`);
+
+    if (replace || app.router.isActive(route)) {
+      app.router.replace(route);
+    }
+    else {
+      app.router.push(route);
+    }
+  }
+
+
+  //////////////////////////////
   //  Components
   //////////////////////////////
 
@@ -74,6 +90,10 @@ class App {
   //  Projects!
   //////////////////////////////
 
+  get projects() { return this.projectIndex.items }
+  get projectIds() { return this.projectIndex.itemIds }
+  get projectMap() { return this.projectIndex.itemMap }
+
   initializeProjectIndex() {
     this.projectIndex = new LoadableIndex({
       itemType: "project",
@@ -82,8 +102,8 @@ class App {
       },
       createItem: (projectId, props) => {
         return new Project({
-          ...props,
           projectId,
+          ...props,
           app: this,
         });
       },
@@ -91,6 +111,11 @@ class App {
 
     // go ahead and load the project index..
     this.projectIndex.load();
+  }
+
+  showProject(projectIdentifier) {
+    const route = this.getCardRoute(projectIdentifier);
+    app.goTo(route);
   }
 
   // Return a project, but only if it has already been loaded.
@@ -117,6 +142,11 @@ class App {
   //  Stacks!
   //////////////////////////////
 
+  showStack(projectIdentifier, stackIdentifier) {
+    const route = this.getCardRoute(projectIdentifier, stackIdentifier);
+    app.goTo(route);
+  }
+
   getStack(projectIdentifier, stackIdentifier) {
     const project = this.getProject(projectIdentifier);
     if (project) return project.getStack(stackIdentifier);
@@ -124,7 +154,10 @@ class App {
 
   loadStack(projectIdentifier, stackIdentifier) {
     const stack = this.getStack(projectIdentifier, stackIdentifier);
-    if (stack) return Promise.resolve(stack);
+    if (stack) {
+      if (!stack.isLoaded) stack.load();
+      return Promise.resolve(stack);
+    }
 
     return this.loadProject(projectIdentifier)
       .then( project => {
@@ -143,6 +176,11 @@ class App {
   //  Cards!
   //////////////////////////////
 
+  showCard(projectIdentifier, stackIdentifier, cardIdentifier) {
+    const route = this.getCardRoute(projectIdentifier, stackIdentifier, cardIdentifier);
+    app.goTo(route);
+  }
+
   getCard(projectIdentifier, stackIdentifier, cardIdentifier) {
     const stack = this.getStack(projectIdentifier, stackIdentifier);
     if (stack) return stack.getCard(cardIdentifier);
@@ -150,7 +188,7 @@ class App {
 
   loadCard(projectIdentifier, stackIdentifier, cardIdentifier) {
     const card = this.getCard(projectIdentifier, stackIdentifier, cardIdentifier);
-    if (card) return Promise.resolve(card);
+    if (card) return card.load();
 
     return this.loadStack(projectIdentifier, stackIdentifier)
       .then( stack => {

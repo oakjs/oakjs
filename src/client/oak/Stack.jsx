@@ -41,18 +41,13 @@ export default class Stack extends ComponentController {
   // TODO: dynamic components
   get components() { return this.project.components }
 
-  getComponent(type, errorMessage) {
-    return this.app.getComponent(type, errorMessage, this.components);
-  }
-
-  get ComponentConstructor() { return this.componentLoader.ComponentConstructor }
-
-
   //////////////////////////////
   //  Cards
   //////////////////////////////
 
-  get cardIds() { return this.cardIndex.ids }
+  get cards() { return this.cardIndex.items }
+  get cardIds() { return this.cardIndex.itemIds }
+  get cardMap() { return this.cardIndex.itemMap }
 
   getCard(cardIdentifier) {
     return this.cardIndex.getItem(cardIdentifier);
@@ -60,30 +55,6 @@ export default class Stack extends ComponentController {
 
   loadCard(cardIdentifier) {
     return this.cardIndex.loadItem(cardIdentifier);
-  }
-
-  // Return a map of { cardId => { card, stack, project, title, route } }
-  // Used by, e.g., <CardMenu/>
-  get cardMap() {
-    if (this.cache.cardMap) return this.cache.cardMap;
-
-    if (!this.cardIndex.index) return {};
-
-    const cardMap = this.cache.cardMap = {};
-    const { stackId: stack, projectId: project } = this;
-
-    Object.keys(this.cardIndex.index).map(card => {
-      const info = this.cardIndex.index[card];
-      cardMap[card] = {
-        card,
-        stack,
-        project,
-        ...info,
-        route: app.getCardRoute(project, stack, card)
-      }
-    });
-
-    return cardMap;
   }
 
   //////////////////////////////
@@ -104,11 +75,11 @@ export default class Stack extends ComponentController {
       },
       createItem: (cardId, props) => {
         return new Card({
-          ...props,
-          app: this.app,
           cardId,
           stackId: this.stackId,
           projectId: this.projectId,
+          ...props,
+          app: this.app,
         });
       }
     });
@@ -135,6 +106,8 @@ export class StackLoader extends ComponentLoader {
     dieIfMissing(this, ["controller"]);
   }
 
+  get id() { return this.controller.path }
+
   loadData() {
     return api.loadComponentBundle(this.controller)
       .then(bundle => {
@@ -142,13 +115,6 @@ export class StackLoader extends ComponentLoader {
         return this
       });
   }
-
-  get app() { return this.controller.app }
-  get project() { return this.controller.project }
-
-  get id() { return this.controller.id }
-  get path() { return this.controller.path }
-  get type() { return this.controller.type; }
 
   _createComponentConstructor() {
     const Constructor = super._createComponentConstructor(OakStack, "Stack_"+this.id);
