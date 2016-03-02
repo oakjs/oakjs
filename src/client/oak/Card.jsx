@@ -3,45 +3,35 @@
 //////////////////////////////
 
 import Loadable from "oak-roots/Loadable";
-import objectUtil from "oak-roots/util/object";
+import { proto } from "oak-roots/util/decorators";
+import { dieIfMissing } from "oak-roots/util/object";
 import { unknownProperties } from "oak-roots/util/react";
 
 import api from "./api";
-import OakCard from "./components/OakCard";
+import ComponentController from "./ComponentController";
 import ComponentLoader from "./ComponentLoader";
+import OakCard from "./components/OakCard";
 
 
-export default class Card extends Loadable() {
+export default class Card extends ComponentController {
   constructor(props) {
-    super();
+    super(props);
     Object.assign(this, props);
-    objectUtil.dieIfMissing(this, ["app", "project", "stack", "cardId", "stackId", "projectId"]);
-
-    this.cache = {};
-    this.initializeComponentLoader();
+    dieIfMissing(this, ["app", "cardId", "stackId", "projectId"]);
   }
 
-  //////////////////////////////
-  //  Initialize our loadable bits
-  //////////////////////////////
-
-  initializeComponentLoader() {
-    this.componentLoader = new CardLoader({ controller: this });
-  }
+  @proto
+  type = "card";
 
   //////////////////////////////
-  //  Identify
+  //  Identify & Sugar
   //////////////////////////////
 
   get id() { return this.cardId }
-  get cardId() { return this.props && this.props.card }
-  get stackId() { return this.props && this.props.stack }
-  get projectId() { return this.props && this.props.project }
-
   get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
-  get selector() { return `.oak.Card#${this.id}` }
-  get title() { return ( this.props && this.props.title ) || this.id }
-  get type() { return "card" }
+
+  get project() { return this.app.getProject(this.projectId) }
+  get stack() { return this.app.getStack(this.projectId, this.stackId) }
 
 
   //////////////////////////////
@@ -59,10 +49,14 @@ export default class Card extends Loadable() {
 
 
   //////////////////////////////
-  //  Loading / Saving
+  //  Initialization / Loading / Saving
   //////////////////////////////
 
   static get route() { return this.app.getCardRoute(this.project.id, this.stack.id, this.id) }
+
+  initializeComponentLoader() {
+    this.componentLoader = new CardLoader({ controller: this });
+  }
 
   loadData() {
     return this.componentLoader.load()
@@ -78,7 +72,7 @@ export default class Card extends Loadable() {
 export class CardLoader extends ComponentLoader {
   constructor(...args) {
     super(...args);
-    objectUtil.dieIfMissing(this, ["controller"]);
+    dieIfMissing(this, ["controller"]);
   }
 
   loadData() {
@@ -90,12 +84,12 @@ export class CardLoader extends ComponentLoader {
   }
 
   get app() { return this.controller.app }
+  get project() { return this.controller.project }
+  get stack() { return this.controller.stack }
+
   get id() { return this.controller.id }
   get path() { return this.controller.path }
-  get project() { return this.controller.project }
   get type() { return this.controller.type; }
-  get selector() { return this.controller.selector }
-  get stack() { return this.controller.stack }
 
   _createComponentConstructor() {
     const Constructor = super._createComponentConstructor(OakCard, "Card_"+this.id);

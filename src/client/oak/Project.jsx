@@ -4,65 +4,34 @@
 
 import Loadable from "oak-roots/Loadable";
 import LoadableIndex from "oak-roots/LoadableIndex";
-import objectUtil from "oak-roots/util/object";
+import { proto } from "oak-roots/util/decorators";
+import { dieIfMissing } from "oak-roots/util/object";
 
 import api from "./api";
+import ComponentController from "./ComponentController";
 import ComponentLoader from "./ComponentLoader";
 import OakProject from "./components/OakProject";
 import Stack from "./Stack";
 
 
 
-export default class Project extends Loadable() {
+export default class Project extends ComponentController {
   constructor(props) {
-    super();
-    Object.assign(this, props);
-    objectUtil.dieIfMissing(this, ["app", "projectId"]);
-
-    this.cache = {};
+    super(props);
+    dieIfMissing(this, ["app", "projectId"]);
     this.initializeStackIndex();
-    this.initializeComponentLoader();
   }
 
-  //////////////////////////////
-  //  Initialize our loadable bits
-  //////////////////////////////
+  @proto
+  type = "project";
 
-  initializeStackIndex() {
-    this.stackIndex = new LoadableIndex({
-      itemType: "stack",
-      loadIndex: () => {
-        return api.loadStackIndex(this);
-      },
-      createChild: (stackId, props) => {
-        return new Stack({
-          props: {
-            project: this.id,
-            stack: stackId,
-            ...props
-          },
-          app: this.app,
-          project: this,
-        });
-      }
-    });
-  }
-
-  initializeComponentLoader() {
-    this.componentLoader = new ProjectLoader({ controller: this });
-  }
 
   //////////////////////////////
-  //  Identity
+  //  Identity & Sugar
   //////////////////////////////
 
   get id() { return this.projectId }
-  get projectId() { return this.props && this.props.project }
-
   get path() { return this.projectId }
-  get selector() { return `.oak.Project#${this.id}` }
-  get title() { return ( this.props && this.props.title ) || this.id }
-  get type() { return "project" }
 
   //////////////////////////////
   //  Components
@@ -93,10 +62,31 @@ export default class Project extends Loadable() {
 
 
   //////////////////////////////
-  //  Loading / Saving
+  //  Initialization / Loading / Saving
   //////////////////////////////
 
   static get route() { return this.app.getCardRoute(this.id) }
+
+  initializeComponentLoader() {
+    this.componentLoader = new ProjectLoader({ controller: this });
+  }
+
+  initializeStackIndex() {
+    this.stackIndex = new LoadableIndex({
+      itemType: "stack",
+      loadIndex: () => {
+        return api.loadStackIndex(this);
+      },
+      createItem: (stackId, props) => {
+        return new Stack({
+          ...props,
+          app: this.app,
+          stackId,
+          projectId: this.id,
+        });
+      }
+    });
+  }
 
   loadData() {
     return Promise.all([
@@ -117,7 +107,7 @@ export default class Project extends Loadable() {
 export class ProjectLoader extends ComponentLoader {
   constructor(...args) {
     super(...args);
-    objectUtil.dieIfMissing(this, ["controller"]);
+    dieIfMissing(this, ["controller"]);
   }
 
   loadData() {
@@ -129,10 +119,10 @@ export class ProjectLoader extends ComponentLoader {
   }
 
   get app() { return this.controller.app }
+
   get id() { return this.controller.id }
   get path() { return this.controller.path }
   get type() { return this.controller.type; }
-  get selector() { return this.controller.selector }
 
   _createComponentConstructor() {
     const Constructor = super._createComponentConstructor(OakProject, "Project_"+this.id);

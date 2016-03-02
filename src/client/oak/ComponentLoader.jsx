@@ -45,8 +45,6 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   get id() { throw "You must override `get id()`" }
   get path() { throw "You must override `get path()`" }
 
-  get selector() { throw "You must override `get selector()`" }
-
   get title() { return ( this.props && this.props.title ) || this.id }
 
   //////////////////////////////

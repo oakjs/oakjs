@@ -18,7 +18,7 @@ export default class LoadableIndex extends Loadable(Eventful()) {
   constructor(props) {
     super();
     Object.assign(this, props);
-    objectUtil.dieIfMissing(this, ["itemType", "createChild", "loadIndex"]);
+    objectUtil.dieIfMissing(this, ["itemType", "createItem", "loadIndex"]);
     this.registry = new Registry();
   }
 
@@ -64,7 +64,7 @@ export default class LoadableIndex extends Loadable(Eventful()) {
 
         let item = this.registry.get(itemId);
         if (!item) {
-          item = this.createChild(itemId, this.index[itemId]);
+          item = this.createItem(itemId, this.index[itemId]);
           this.registry.add(item, itemId);
         }
         return item.load();

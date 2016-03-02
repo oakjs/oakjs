@@ -80,12 +80,10 @@ class App {
       loadIndex: () => {
         return api.loadProjectIndex(this);
       },
-      createChild: (projectId, props) => {
+      createItem: (projectId, props) => {
         return new Project({
-          props: {
-            project: projectId,
-            ...props
-          },
+          ...props,
+          projectId,
           app: this,
         });
       },
