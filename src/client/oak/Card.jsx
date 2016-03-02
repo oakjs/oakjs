@@ -38,6 +38,10 @@ export default class Card extends ComponentController {
   //  Components
   //////////////////////////////
 
+  initializeComponentLoader() {
+    this.componentLoader = new CardLoader({ controller: this });
+  }
+
   // TODO: dynamic components
   get components() { return this.stack.components }
 
@@ -47,10 +51,6 @@ export default class Card extends ComponentController {
   //////////////////////////////
 
   get route() { return this.app.getCardRoute(this.projectId, this.stackId, this.cardId) }
-
-  initializeComponentLoader() {
-    this.componentLoader = new CardLoader({ controller: this });
-  }
 
   loadData() {
     return this.componentLoader.load()

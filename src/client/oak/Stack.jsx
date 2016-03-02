@@ -38,6 +38,10 @@ export default class Stack extends ComponentController {
   //  Components
   //////////////////////////////
 
+  initializeComponentLoader() {
+    this.componentLoader = new StackLoader({ controller: this });
+  }
+
   // TODO: dynamic components
   get components() { return this.project.components }
 
@@ -61,11 +65,7 @@ export default class Stack extends ComponentController {
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  static get route() { return this.app.getCardRoute(this.project.id, this.id) }
-
-  initializeComponentLoader() {
-    this.componentLoader = new StackLoader({ controller: this });
-  }
+  static get route() { return this.app.getCardRoute(this.projectId, this.stackId) }
 
   initializeCardIndex() {
     this.cardIndex = new LoadableIndex({

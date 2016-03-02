@@ -37,8 +37,12 @@ export default class Project extends ComponentController {
   //  Components
   //////////////////////////////
 
+  initializeComponentLoader() {
+    this.componentLoader = new ProjectLoader({ controller: this });
+  }
+
   // TODO: dynamic components
-  get components() { return this.app.getProjectTheme(this.id) }
+  get components() { return this.app.getProjectTheme(this.projectId) }
 
 
   //////////////////////////////
@@ -62,11 +66,7 @@ export default class Project extends ComponentController {
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  static get route() { return this.app.getCardRoute(this.id) }
-
-  initializeComponentLoader() {
-    this.componentLoader = new ProjectLoader({ controller: this });
-  }
+  static get route() { return this.app.getCardRoute(this.projectId) }
 
   initializeStackIndex() {
     this.stackIndex = new LoadableIndex({
@@ -77,7 +77,7 @@ export default class Project extends ComponentController {
       createItem: (stackId, props) => {
         return new Stack({
           stackId,
-          projectId: this.id,
+          projectId: this.projectId,
           ...props,
           app: this.app,
         });
