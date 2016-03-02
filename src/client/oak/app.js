@@ -44,13 +44,13 @@ class App {
   // TODO: this should really be dynamic...
   components = Object.assign({}, SUIComponents, oakComponents)
 
-  __PROJECT_THEMES__ = {};
+  static __PROJECT_THEMES__ = {};
   setProjectTheme(projectId, components) {
-    this.__PROJECT_THEMES__[projectId] = components;
+    this.constructor.__PROJECT_THEMES__[projectId] = components;
   }
 
   getProjectTheme(projectId) {
-    return this.__PROJECT_THEMES__[projectId] || this.components;
+    return this.constructor.__PROJECT_THEMES__[projectId] || this.components;
   }
 
   getComponent(type, errorMessage, components = this.components) {

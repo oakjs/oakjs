@@ -18,6 +18,7 @@ const history = useQueries(createHistory)();
 
 const routes = (
   <Route path="/">
+    <Route path="project" component={CardRoute} />
     <Route path="project/:project" component={CardRoute} />
     <Route path="project/:project/:stack" component={CardRoute} />
     <Route path="project/:project/:stack/:card" component={CardRoute} />
