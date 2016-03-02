@@ -4,15 +4,19 @@
 
 export const ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 export const ALPHA_NUMERIC = "0123456789" + ALPHA;
-export function generateRandomId(length = 6, radix = ALPHA_NUMERIC.length) {
+export function generateRandomId(length = 8, radix) {
   // make sure we don't start with a number so we're a legal identifier
-  const letters = [ALPHA[Math.floor(Math.random() * radix)]];
+  const letters = [ randomCharFrom(ALPHA, radix) ];
   for (let i = 1; i < length; i++) {
-    letters[i] = ALPHA_NUMERIC[Math.floor(Math.random() * radix)];
+    letters[i] = randomCharFrom(ALPHA_NUMERIC, radix);
   }
   return letters.join("");
 }
 
+export function randomCharFrom(chars, radix) {
+  const validRadix = (radix == null ? chars.length - 1 : Math.min(radix, chars.length-1));
+  return chars[Math.floor(Math.random() * validRadix)];
+}
 
 
 export const LEGAL_IDENTIFIER_START = /[^A-Za-z_\$]/;
