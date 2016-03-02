@@ -1,200 +1,196 @@
 <OakCard id="Card" title="Card">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Card">
-      A card displays site content in a manner similar to a playing card
-    </PageTitle>
+  <PageTitle title="Card">
+    A card displays site content in a manner similar to a playing card
+  </PageTitle>
 
-    <PageSection title="Content">
+  <PageSection title="Content">
 
-      <Grid columns={2}>
-        <Column>
-          <Example title="Inline Content">
-            <Card>
-              <Image src={data.kristyAvatar}/>
-              <Content>
-                <Header>Kristy</Header>
-                <Meta>Joined in 2013</Meta>
-                <Description>
-                  Kristy is an art director living in New York.
-                </Description>
-              </Content>
-              <Content appearance="extra">
-                <a><Icon icon="user"/>22 Friends</a>
-              </Content>
-            </Card>
-          </Example>
-        </Column>
+    <Grid columns={2}>
+      <Column>
+        <Example title="Inline Content">
+          <Card>
+            <Image src={data.kristyAvatar}/>
+            <Content>
+              <Header>Kristy</Header>
+              <Meta>Joined in 2013</Meta>
+              <Description>
+                Kristy is an art director living in New York.
+              </Description>
+            </Content>
+            <Content appearance="extra">
+              <a><Icon icon="user"/>22 Friends</a>
+            </Content>
+          </Card>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Attributes">
-            <Card header="Kristy" meta="Joined in 2013"
-              description="Kristy is an art director living in New York."
-              extra={<a><Icon icon="user"/>22 Friends</a>}
-              image={data.kristyAvatar}
-            />
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Attributes">
+          <Card header="Kristy" meta="Joined in 2013"
+            description="Kristy is an art director living in New York."
+            extra={<a><Icon icon="user"/>22 Friends</a>}
+            image={data.kristyAvatar}
+          />
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Link">
-            <Card header="Alphabet Inc" meta="NASDAQ: GOOG"
-              description="Alphabet Inc. is an American multinational conglomerate created in 2015 as the parent company of Google and several other companies previously owned by or tied to Google."
-              href="https://abc.xyz/" target="_blank"
-            />
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Link">
+          <Card header="Alphabet Inc" meta="NASDAQ: GOOG"
+            description="Alphabet Inc. is an American multinational conglomerate created in 2015 as the parent company of Google and several other companies previously owned by or tied to Google."
+            href="https://abc.xyz/" target="_blank"
+          />
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Extra content">
-            <Card header="Elliot" meta="Friend of Veronika"
-              description="Elliot requested permisson to view your contact details"
-              headerImage={<Image src={data.elliotAvatar} floated="right" size="mini"/>}
-            >
-              <Content appearance="extra">
-                <Buttons count={2}>
-                  <Button appearance="basic" color="green">Approve</Button>
-                  <Button appearance="basic" color="red">Decline</Button>
-                </Buttons>
-              </Content>
-            </Card>
-          </Example>
-        </Column>
-
-        <Column>
-          <Example title="Buttons">
-            <Card header="Kristy" meta="Joined in 2013"
-              description="Kristy is an art director living in New York."
-            >
-              <Button appearance="bottom attached" icon="plus" title="Add friend"/>
-            </Card>
-
-            <Card header="Elliot" meta="Joined in 2015"
-              description="Elliot is a software manager."
-            >
-              <Buttons appearance="bottom attached">
-                <Button icon="plus" title="Add friend"/>
-                <Button icon="email" title="Send Message"/>
+      <Column>
+        <Example title="Extra content">
+          <Card header="Elliot" meta="Friend of Veronika"
+            description="Elliot requested permisson to view your contact details"
+            headerImage={<Image src={data.elliotAvatar} floated="right" size="mini"/>}
+          >
+            <Content appearance="extra">
+              <Buttons count={2}>
+                <Button appearance="basic" color="green">Approve</Button>
+                <Button appearance="basic" color="red">Decline</Button>
               </Buttons>
-            </Card>
-          </Example>
-        </Column>
+            </Content>
+          </Card>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Mulitple Content Regions">
-            <Card>
-              <Content>
-                <Image src={data.elliotAvatar} appearance="avatar"/>
-                Elliot
-                <Meta floated="right">14h</Meta>
-              </Content>
-              <Image src={data.image}/>
-              <Content>
-                <span style={{float: "right"}}><Icon icon="heart outline"/>17 likes</span>
-                <span><Icon icon="comment"/>3 comments</span>
-              </Content>
-              <Content appearance="extra">
-                <Input appearance="large transparent" icon="open heart" iconOn="left" placeholder="Add comment..."/>
-              </Content>
-            </Card>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Buttons">
+          <Card header="Kristy" meta="Joined in 2013"
+            description="Kristy is an art director living in New York."
+          >
+            <Button appearance="bottom attached" icon="plus" title="Add friend"/>
+          </Card>
+
+          <Card header="Elliot" meta="Joined in 2015"
+            description="Elliot is a software manager."
+          >
+            <Buttons appearance="bottom attached">
+              <Button icon="plus" title="Add friend"/>
+              <Button icon="email" title="Send Message"/>
+            </Buttons>
+          </Card>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Mulitple Content Regions">
+          <Card>
+            <Content>
+              <Image src={data.elliotAvatar} appearance="avatar"/>
+              Elliot
+              <Meta floated="right">14h</Meta>
+            </Content>
+            <Image src={data.image}/>
+            <Content>
+              <span style={{float: "right"}}><Icon icon="heart outline"/>17 likes</span>
+              <span><Icon icon="comment"/>3 comments</span>
+            </Content>
+            <Content appearance="extra">
+              <Input appearance="large transparent" icon="open heart" iconOn="left" placeholder="Add comment..."/>
+            </Content>
+          </Card>
+        </Example>
+      </Column>
 
 
-        <Column>
-          <Example title="Image with Reveal">
-            <Card header="Team Jones & Fu" meta="Established 2012"
-              childrenOn="top"
-            >
-              <Reveal effect="slide">
-                <Image src={data.joeAvatar}/>
-                <Image src={data.elliotAvatar}/>
-              </Reveal>
-            </Card>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Image with Reveal">
+          <Card header="Team Jones & Fu" meta="Established 2012"
+            childrenOn="top"
+          >
+            <Reveal effect="slide">
+              <Image src={data.joeAvatar}/>
+              <Image src={data.elliotAvatar}/>
+            </Reveal>
+          </Card>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Image with Dimmer">
-            <Card header="Team Jones & Fu" meta="Established 2012"
-              childrenOn="top"
-            >
-             <Image src={data.joeAvatar} appearance="dimmable"/>
-            </Card>
-            <Todo>How to do dimmable?</Todo>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Image with Dimmer">
+          <Card header="Team Jones & Fu" meta="Established 2012"
+            childrenOn="top"
+          >
+           <Image src={data.joeAvatar} appearance="dimmable"/>
+          </Card>
+          <Todo>How to do dimmable?</Todo>
+        </Example>
+      </Column>
 
-      </Grid>
-    </PageSection>
+    </Grid>
+  </PageSection>
 
-    <PageSection title="Appearance">
-      <Grid columns={2}>
+  <PageSection title="Appearance">
+    <Grid columns={2}>
 
-        <Column>
-          <Example title="Centered">
-            <Card appearance="centered" header="Elliot Fu"
-              image={data.elliotAvatar}
-            />
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Centered">
+          <Card appearance="centered" header="Elliot Fu"
+            image={data.elliotAvatar}
+          />
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Fluid">
-            <Card appearance="fluid" header="Elliot Fu"
-              image={data.elliotAvatar}
-            />
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Fluid">
+          <Card appearance="fluid" header="Elliot Fu"
+            image={data.elliotAvatar}
+          />
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Alignment">
-            <Card>
-              <Header align="center">Kristy York</Header>
-              <Content align="left">Liberal</Content>
-            </Card>
-            <Card>
-              <Header align="center">Joe Jones</Header>
-              <Content align="center">Independent</Content>
-            </Card>
-            <Card>
-              <Header align="center">Joe Jones</Header>
-              <Content align="right">Conservative</Content>
-            </Card>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Alignment">
+          <Card>
+            <Header align="center">Kristy York</Header>
+            <Content align="left">Liberal</Content>
+          </Card>
+          <Card>
+            <Header align="center">Joe Jones</Header>
+            <Content align="center">Independent</Content>
+          </Card>
+          <Card>
+            <Header align="center">Joe Jones</Header>
+            <Content align="right">Conservative</Content>
+          </Card>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Floated Content">
-            <Card>
-              <Content>
-                <Header>Kristy York</Header>
-                <Meta floated="right">24 Friends</Meta>
-              </Content>
-            </Card>
-          </Example>
-        </Column>
-      </Grid>
+      <Column>
+        <Example title="Floated Content">
+          <Card>
+            <Content>
+              <Header>Kristy York</Header>
+              <Meta floated="right">24 Friends</Meta>
+            </Content>
+          </Card>
+        </Example>
+      </Column>
+    </Grid>
 
-      <Example title="Colors">
-        <Cards columns={5}>
-          <Card color="red" header="Red" image={data.whiteImage}/>
-          <Card color="orange" header="Orange" image={data.whiteImage}/>
-          <Card color="yellow" header="Yellow" image={data.whiteImage}/>
-          <Card color="olive" header="Olive" image={data.whiteImage}/>
-          <Card color="green" header="Green" image={data.whiteImage}/>
-          <Card color="teal" header="Teal" image={data.whiteImage}/>
-          <Card color="blue" header="Blue" image={data.whiteImage}/>
-          <Card color="violet" header="Violet" image={data.whiteImage}/>
-          <Card color="purple" header="Purple" image={data.whiteImage}/>
-          <Card color="pink" header="Pink" image={data.whiteImage}/>
-          <Card color="brown" header="Brown" image={data.whiteImage}/>
-          <Card color="grey" header="Grey" image={data.whiteImage}/>
-          <Card color="black" header="Black" image={data.whiteImage}/>
-        </Cards>
-      </Example>
+    <Example title="Colors">
+      <Cards columns={5}>
+        <Card color="red" header="Red" image={data.whiteImage}/>
+        <Card color="orange" header="Orange" image={data.whiteImage}/>
+        <Card color="yellow" header="Yellow" image={data.whiteImage}/>
+        <Card color="olive" header="Olive" image={data.whiteImage}/>
+        <Card color="green" header="Green" image={data.whiteImage}/>
+        <Card color="teal" header="Teal" image={data.whiteImage}/>
+        <Card color="blue" header="Blue" image={data.whiteImage}/>
+        <Card color="violet" header="Violet" image={data.whiteImage}/>
+        <Card color="purple" header="Purple" image={data.whiteImage}/>
+        <Card color="pink" header="Pink" image={data.whiteImage}/>
+        <Card color="brown" header="Brown" image={data.whiteImage}/>
+        <Card color="grey" header="Grey" image={data.whiteImage}/>
+        <Card color="black" header="Black" image={data.whiteImage}/>
+      </Cards>
+    </Example>
 
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

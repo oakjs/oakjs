@@ -1,169 +1,165 @@
 <OakCard id="MenuItem" title="MenuItem">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="MenuItem">
-      A MenuItem is one item in a menu.
-    </PageTitle>
+  <PageTitle title="MenuItem">
+    A MenuItem is one item in a menu.
+  </PageTitle>
 
-    <PageSection title="Content">
+  <PageSection title="Content">
 
-      <Example title="Inline contents">
-        <Menu appearance="vertical">
-          <MenuItem>Inline content</MenuItem>
-          <MenuItem><Icon icon="checkmark"/>Inline with icon</MenuItem>
-          <MenuItem><span>Inline with <b> nested html</b></span></MenuItem>
-          <MenuItem><Header>In-item header</Header><p>Inline item text</p></MenuItem>
+    <Example title="Inline contents">
+      <Menu appearance="vertical">
+        <MenuItem>Inline content</MenuItem>
+        <MenuItem><Icon icon="checkmark"/>Inline with icon</MenuItem>
+        <MenuItem><span>Inline with <b> nested html</b></span></MenuItem>
+        <MenuItem><Header>In-item header</Header><p>Inline item text</p></MenuItem>
+      </Menu>
+    </Example>
+
+    <Example title="Label and icon attributes">
+      <Menu>
+        <MenuItem label="Label attribute"/>
+        <MenuItem label="Label and icon attributes" icon="checkmark"/>
+      </Menu>
+    </Example>
+
+    <Example title="Menu">
+      <Menu>
+        <MenuItem>Left Item 1</MenuItem>
+        <MenuItem>Left Item 2</MenuItem>
+        <Menu appearance="right">
+          <MenuItem>Right Item 1</MenuItem>
+          <MenuItem>Right Item 2</MenuItem>
         </Menu>
-      </Example>
+      </Menu>
+    </Example>
 
-      <Example title="Label and icon attributes">
-        <Menu>
-          <MenuItem label="Label attribute"/>
-          <MenuItem label="Label and icon attributes" icon="checkmark"/>
-        </Menu>
-      </Example>
+    <Example title="Sub Menu">
+      <Menu appearance="vertical">
+        <MenuItem>Home</MenuItem>
+        <MenuItem>Browse</MenuItem>
+        <Submenu label="More">
+          <MenuItem>Edit Profile</MenuItem>
+          <MenuItem>Choose Language</MenuItem>
+          <Divider/>
+          <MenuItem>Account Settings</MenuItem>
+        </Submenu>
+        <Submenu label="Yet More" items={["Edit Profile", "Choose Language", "-----", "Account Settings"]}/>
+      </Menu>
+    </Example>
 
-      <Example title="Menu">
-        <Menu>
-          <MenuItem>Left Item 1</MenuItem>
-          <MenuItem>Left Item 2</MenuItem>
-          <Menu appearance="right">
-            <MenuItem>Right Item 1</MenuItem>
-            <MenuItem>Right Item 2</MenuItem>
-          </Menu>
-        </Menu>
-      </Example>
+    <Example title="Input">
+      <Menu>
+        <MenuItem><Input placeholder="search" icon="search"/></MenuItem>
+      </Menu>
+    </Example>
 
-      <Example title="Sub Menu">
-        <Menu appearance="vertical">
-          <MenuItem>Home</MenuItem>
-          <MenuItem>Browse</MenuItem>
-          <Submenu label="More">
-            <MenuItem>Edit Profile</MenuItem>
-            <MenuItem>Choose Language</MenuItem>
-            <Divider/>
-            <MenuItem>Account Settings</MenuItem>
-          </Submenu>
-          <Submenu label="Yet More" items={["Edit Profile", "Choose Language", "-----", "Account Settings"]}/>
-        </Menu>
-      </Example>
+    <Example title="Button">
+      <Menu>
+        <MenuItem><Button appearance="primary" title="Sign up"/></MenuItem>
+      </Menu>
+    </Example>
 
-      <Example title="Input">
-        <Menu>
-          <MenuItem><Input placeholder="search" icon="search"/></MenuItem>
-        </Menu>
-      </Example>
+    <Example title="Dropdown">
+      <Todo>Add a dropdown example</Todo>
+    </Example>
 
-      <Example title="Button">
-        <Menu>
-          <MenuItem><Button appearance="primary" title="Sign up"/></MenuItem>
-        </Menu>
-      </Example>
+    <Example title="Popup">
+      <Todo>Add a popup example</Todo>
+    </Example>
 
-      <Example title="Dropdown">
-        <Todo>Add a dropdown example</Todo>
-      </Example>
-
-      <Example title="Popup">
-        <Todo>Add a popup example</Todo>
-      </Example>
-
-    </PageSection>
+  </PageSection>
 
 
-    <PageSection title="States">
+  <PageSection title="States">
 
-      <Example title="Hover" hint="<MenuItem href='...'/> or <MenuItem onClick='...'/> or <MenuItem appearance='link'/>">
-        <Menu appearance="compact">
-          <MenuItem href="#" label="Anchor"/>
-          <MenuItem onClick={Function.prototype} label="onClick item"/>
-          <MenuItem appearance="link" label="appearance = link"/>
-        </Menu>
-      </Example>
+    <Example title="Hover" hint="<MenuItem href='...'/> or <MenuItem onClick='...'/> or <MenuItem appearance='link'/>">
+      <Menu appearance="compact">
+        <MenuItem href="#" label="Anchor"/>
+        <MenuItem onClick={Function.prototype} label="onClick item"/>
+        <MenuItem appearance="link" label="appearance = link"/>
+      </Menu>
+    </Example>
 
-      <Example title="Active" hint="<MenuItem active/>">
-        <Menu appearance="compact">
-          <MenuItem appearance="link" label="Normal"/>
-          <MenuItem active appearance="link" label="Active"/>
-        </Menu>
-      </Example>
+    <Example title="Active" hint="<MenuItem active/>">
+      <Menu appearance="compact">
+        <MenuItem appearance="link" label="Normal"/>
+        <MenuItem active appearance="link" label="Active"/>
+      </Menu>
+    </Example>
 
-      <Example title="Disabled" hint="<MenuItem disabled/>">
-        <Menu appearance="compact">
-          <MenuItem appearance="link" label="Normal"/>
-          <MenuItem disabled appearance="link" label="Disabled"/>
-        </Menu>
-      </Example>
+    <Example title="Disabled" hint="<MenuItem disabled/>">
+      <Menu appearance="compact">
+        <MenuItem appearance="link" label="Normal"/>
+        <MenuItem disabled appearance="link" label="Disabled"/>
+      </Menu>
+    </Example>
 
-      <Example title="Down" hint="<MenuItem down/>">
-        <Menu appearance="compact">
-          <MenuItem appearance="link" label="Normal"/>
-          <MenuItem down appearance="link" label="Down"/>
-        </Menu>
-        <Bug>The "down" state doesn't seem to have an effect with the default SUI styles.</Bug>
-      </Example>
-
-
-    </PageSection>
+    <Example title="Down" hint="<MenuItem down/>">
+      <Menu appearance="compact">
+        <MenuItem appearance="link" label="Normal"/>
+        <MenuItem down appearance="link" label="Down"/>
+      </Menu>
+      <Bug>The "down" state doesn't seem to have an effect with the default SUI styles.</Bug>
+    </Example>
 
 
-    <PageSection title="Appearance">
+  </PageSection>
 
-      <Example title="Format as a link" hint="<MenuItem href='...'/> or <MenuItem appearance='link'/>">
-        <Menu>
-          <MenuItem href="http://www.google.com" target="_blank" label="Visit Google"/>
-          <MenuItem appearance="link" label="Visit Google"/>
-        </Menu>
-      </Example>
 
-      <Example title="Alignment" hint="<MenuItem align='right'/>">
-        <Menu>
-          <MenuItem align="left" label="Left Aligned"/>
-          <MenuItem align="center" label="Center Aligned"/>
-          <MenuItem align="justified" label="Completely Justified"/>
-          <MenuItem align="right" label="RightAligned"/>
-        </Menu>
+  <PageSection title="Appearance">
 
-        <Menu itemCount={4}>
-          <MenuItem align="left" label="Left Aligned"/>
-          <MenuItem align="center" label="Center Aligned"/>
-          <MenuItem align="justified" label="Completely Justified"/>
-          <MenuItem align="right" label="RightAligned"/>
-        </Menu>
-      </Example>
+    <Example title="Format as a link" hint="<MenuItem href='...'/> or <MenuItem appearance='link'/>">
+      <Menu>
+        <MenuItem href="http://www.google.com" target="_blank" label="Visit Google"/>
+        <MenuItem appearance="link" label="Visit Google"/>
+      </Menu>
+    </Example>
 
-      <Example title="Color" hint="<MenuItem color='red'/>  NOTE: items are only colored when active.">
-        <Menu>
-          <MenuItem active color="red">red</MenuItem>
-          <MenuItem active color="orange">orange</MenuItem>
-          <MenuItem active color="yellow">yellow</MenuItem>
-          <MenuItem active color="olive">olive</MenuItem>
-          <MenuItem active color="green">green</MenuItem>
-          <MenuItem active color="teal">teal</MenuItem>
-          <MenuItem active color="blue">blue</MenuItem>
-          <MenuItem active color="violet">violet</MenuItem>
-          <MenuItem active color="purple">purple</MenuItem>
-          <MenuItem active color="brown">brown</MenuItem>
-          <MenuItem active color="grey">grey</MenuItem>
-        </Menu>
-      </Example>
+    <Example title="Alignment" hint="<MenuItem align='right'/>">
+      <Menu>
+        <MenuItem align="left" label="Left Aligned"/>
+        <MenuItem align="center" label="Center Aligned"/>
+        <MenuItem align="justified" label="Completely Justified"/>
+        <MenuItem align="right" label="RightAligned"/>
+      </Menu>
 
-      <Example title="Inverted Color" hint="<Menu appearance='inverted'><MenuItem color='red'/></Menu>">
-        <Menu appearance="inverted" color='red' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='orange' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='yellow' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='olive' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='green' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='teal' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='blue' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='violet' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='purple' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='pink' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='brown' items={data.simpleItems} itemCount={4}/>
-        <Menu appearance="inverted" color='grey' items={data.simpleItems} itemCount={4}/>
-      </Example>
+      <Menu itemCount={4}>
+        <MenuItem align="left" label="Left Aligned"/>
+        <MenuItem align="center" label="Center Aligned"/>
+        <MenuItem align="justified" label="Completely Justified"/>
+        <MenuItem align="right" label="RightAligned"/>
+      </Menu>
+    </Example>
 
-    </PageSection>
+    <Example title="Color" hint="<MenuItem color='red'/>  NOTE: items are only colored when active.">
+      <Menu>
+        <MenuItem active color="red">red</MenuItem>
+        <MenuItem active color="orange">orange</MenuItem>
+        <MenuItem active color="yellow">yellow</MenuItem>
+        <MenuItem active color="olive">olive</MenuItem>
+        <MenuItem active color="green">green</MenuItem>
+        <MenuItem active color="teal">teal</MenuItem>
+        <MenuItem active color="blue">blue</MenuItem>
+        <MenuItem active color="violet">violet</MenuItem>
+        <MenuItem active color="purple">purple</MenuItem>
+        <MenuItem active color="brown">brown</MenuItem>
+        <MenuItem active color="grey">grey</MenuItem>
+      </Menu>
+    </Example>
 
-  </Page>
+    <Example title="Inverted Color" hint="<Menu appearance='inverted'><MenuItem color='red'/></Menu>">
+      <Menu appearance="inverted" color='red' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='orange' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='yellow' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='olive' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='green' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='teal' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='blue' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='violet' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='purple' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='pink' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='brown' items={data.simpleItems} itemCount={4}/>
+      <Menu appearance="inverted" color='grey' items={data.simpleItems} itemCount={4}/>
+    </Example>
+
+  </PageSection>
 </OakCard>

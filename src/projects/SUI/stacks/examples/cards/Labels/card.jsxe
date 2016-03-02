@@ -1,170 +1,166 @@
 <OakCard id="Labels" title="Labels">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Labels">
-      A group of <Link card="SUI/examples/Label">Labels</Link>.
-    </PageTitle>
+  <PageTitle title="Labels">
+    A group of <Link card="SUI/examples/Label">Labels</Link>.
+  </PageTitle>
 
 
-    <PageSection title="Appearance">
+  <PageSection title="Appearance">
 
-      <Example title="Normal" hint="<Labels/>">
-        <Labels>
+    <Example title="Normal" hint="<Labels/>">
+      <Labels>
+        <Label>Text label</Label>
+        <Label icon="mail" content="Messages" detail="30"/>
+        <Label content="Item with detail" detail="Detail"/>
+        <Label image={data.elliotAvatar} size="small">Elliot</Label>
+      </Labels>
+    </Example>
+
+    <Example title="Colors" hint="<Labels color='red'/>">
+        <Labels color="red">
           <Label>Text label</Label>
           <Label icon="mail" content="Messages" detail="30"/>
           <Label content="Item with detail" detail="Detail"/>
           <Label image={data.elliotAvatar} size="small">Elliot</Label>
         </Labels>
-      </Example>
+    </Example>
 
-      <Example title="Colors" hint="<Labels color='red'/>">
-          <Labels color="red">
-            <Label>Text label</Label>
-            <Label icon="mail" content="Messages" detail="30"/>
-            <Label content="Item with detail" detail="Detail"/>
-            <Label image={data.elliotAvatar} size="small">Elliot</Label>
-          </Labels>
-      </Example>
+    <Example title="Circular" hint="<Labels appearance='circular'/>">
+        <Labels appearance="circular">
+          <Label>2</Label>
+          <Label>200</Label>
+          <Label>20,000</Label>
+          <Label>2,000,000</Label>
+        </Labels>
+    </Example>
 
-      <Example title="Circular" hint="<Labels appearance='circular'/>">
-          <Labels appearance="circular">
-            <Label>2</Label>
-            <Label>200</Label>
-            <Label>20,000</Label>
-            <Label>2,000,000</Label>
-          </Labels>
-      </Example>
+    <Example title="Dots (empty circular)" hint="<Labels appearance='empty circular'/>">
+        <Labels appearance="empty circular">
+          <Label color="red"/>
+          <Label color="green"/>
+          <Label color="blue"/>
+          <Label color="yellow"/>
+        </Labels>
+    </Example>
 
-      <Example title="Dots (empty circular)" hint="<Labels appearance='empty circular'/>">
-          <Labels appearance="empty circular">
-            <Label color="red"/>
-            <Label color="green"/>
-            <Label color="blue"/>
-            <Label color="yellow"/>
-          </Labels>
-      </Example>
+    <Example title="Tag" hint="<Labels appearance='tag'/>">
+        <Labels appearance="tag">
+          <Label>Text label</Label>
+          <Label icon="mail" content="Messages" detail="30"/>
+          <Label color="grey" content="Item with detail" detail="Detail"/>
+        </Labels>
+    </Example>
 
-      <Example title="Tag" hint="<Labels appearance='tag'/>">
-          <Labels appearance="tag">
-            <Label>Text label</Label>
-            <Label icon="mail" content="Messages" detail="30"/>
-            <Label color="grey" content="Item with detail" detail="Detail"/>
-          </Labels>
-      </Example>
+    <Example title="horizontal" hint="<Labels appearance='horizontal'/>">
+        <Labels appearance="horizontal">
+          <Label>Text label</Label>
+          <Label icon="mail" content="Messages" detail="30"/>
+          <Label color="grey" content="Item with detail" detail="Detail"/>
+          Text Here
+        </Labels>
+    </Example>
 
-      <Example title="horizontal" hint="<Labels appearance='horizontal'/>">
-          <Labels appearance="horizontal">
-            <Label>Text label</Label>
-            <Label icon="mail" content="Messages" detail="30"/>
-            <Label color="grey" content="Item with detail" detail="Detail"/>
-            Text Here
-          </Labels>
-      </Example>
+    <Example title="Sizes" hint="<Labels size='large'/>">
+        <Labels size="tiny">
+          <Label>Tiny label</Label>
+          <Label icon="mail" content="Messages" detail="30"/>
+          <Label color="grey" content="Item with detail" detail="Detail"/>
+        </Labels>
 
-      <Example title="Sizes" hint="<Labels size='large'/>">
-          <Labels size="tiny">
-            <Label>Tiny label</Label>
-            <Label icon="mail" content="Messages" detail="30"/>
-            <Label color="grey" content="Item with detail" detail="Detail"/>
-          </Labels>
+        <Labels size="large">
+          <Label>Large label</Label>
+          <Label icon="mail" content="Messages" detail="30"/>
+          <Label color="grey" content="Item with detail" detail="Detail"/>
+        </Labels>
+    </Example>
 
-          <Labels size="large">
-            <Label>Large label</Label>
-            <Label icon="mail" content="Messages" detail="30"/>
-            <Label color="grey" content="Item with detail" detail="Detail"/>
-          </Labels>
-      </Example>
-
-      <Example title="Fluid" hint="<Labels appearance='fluid'/>">
-          <Labels appearance="fluid">
-            <Label>Text label</Label>
-            <Label icon="mail" content="Messages" detail="30"/>
-            <Label color="grey" content="Item with detail" detail="Detail"/>
-          </Labels>
-      </Example>
+    <Example title="Fluid" hint="<Labels appearance='fluid'/>">
+        <Labels appearance="fluid">
+          <Label>Text label</Label>
+          <Label icon="mail" content="Messages" detail="30"/>
+          <Label color="grey" content="Item with detail" detail="Detail"/>
+        </Labels>
+    </Example>
 
 
-    </PageSection>
+  </PageSection>
 
-    <PageSection title="States">
+  <PageSection title="States">
 
-      <Example title="Hidden" hint="<Labels hidden/>">
-        <Label pointing="down">Hidden labels here</Label>
-        <Labels hidden>
+    <Example title="Hidden" hint="<Labels hidden/>">
+      <Label pointing="down">Hidden labels here</Label>
+      <Labels hidden>
+        <Label>Text label</Label>
+        <Label icon="mail" content="Messages" detail="30"/>
+        <Label content="Item with detail" detail="Detail"/>
+        <Label image={data.elliotAvatar} size="small">Elliot</Label>
+      </Labels>
+      <Label pointing="up">Hidden labels here</Label>
+    </Example>
+
+    <Example title="Disabled" hint="<Labels disabled/>">
+      <Labels disabled>
+        <Label>Text label</Label>
+        <Label icon="mail" content="Messages" detail="30"/>
+        <Label content="Item with detail" detail="Detail"/>
+        <Label image={data.elliotAvatar} size="small">Elliot</Label>
+      </Labels>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="Not Working but should work... ?">
+
+    <Example title="Basic" hint="<Labels appearance='basic'/>">
+      <Bug>This appears to be broken in Semantic UI.</Bug>
+      <Labels appearance="basic">
+        <Label>Text label</Label>
+        <Label icon="mail" content="Messages" detail="30"/>
+        <Label content="Item with detail" detail="Detail"/>
+        <Label image={data.elliotAvatar} size="small">Elliot</Label>
+      </Labels>
+    </Example>
+
+    <Example title="Transparent" hint="<Labels appearance='transparent'/>">
+      <Bug>This appears to be broken in Semantic UI.</Bug>
+      <Labels appearance="transparent">
+        <Label>Text label</Label>
+        <Label icon="mail" content="Messages" detail="30"/>
+        <Label content="Item with detail" detail="Detail"/>
+        <Label image={data.elliotAvatar} size="small">Elliot</Label>
+      </Labels>
+    </Example>
+
+    <Example title="Inverted" hint="<Labels appearance='inverted'/>">
+      <Bug>This appears to be broken in Semantic UI.</Bug>
+      <Segment appearance="inverted">
+        <Labels appearance="inverted">
           <Label>Text label</Label>
           <Label icon="mail" content="Messages" detail="30"/>
           <Label content="Item with detail" detail="Detail"/>
           <Label image={data.elliotAvatar} size="small">Elliot</Label>
         </Labels>
-        <Label pointing="up">Hidden labels here</Label>
-      </Example>
+      </Segment>
+    </Example>
 
-      <Example title="Disabled" hint="<Labels disabled/>">
-        <Labels disabled>
-          <Label>Text label</Label>
-          <Label icon="mail" content="Messages" detail="30"/>
-          <Label content="Item with detail" detail="Detail"/>
-          <Label image={data.elliotAvatar} size="small">Elliot</Label>
-        </Labels>
-      </Example>
+    <Example title="active" hint="<Labels active/>">
+      <Bug>This appears to be broken in Semantic UI.</Bug>
+      <Labels active>
+        <Label>Text label</Label>
+        <Label icon="mail" content="Messages" detail="30"/>
+        <Label content="Item with detail" detail="Detail"/>
+        <Label image={data.elliotAvatar} size="small">Elliot</Label>
+      </Labels>
+    </Example>
 
-    </PageSection>
+    <Example title="Closable" hint="<Labels closable/>">
+      <Bug>Unclear how to do this in react... :-(</Bug>
+      <Labels closable>
+        <Label>Text label</Label>
+        <Label icon="mail" content="Messages" detail="30"/>
+        <Label content="Item with detail" detail="Detail"/>
+        <Label image={data.elliotAvatar} size="small">Elliot</Label>
+      </Labels>
+    </Example>
 
-    <PageSection title="Not Working but should work... ?">
-
-      <Example title="Basic" hint="<Labels appearance='basic'/>">
-        <Bug>This appears to be broken in Semantic UI.</Bug>
-        <Labels appearance="basic">
-          <Label>Text label</Label>
-          <Label icon="mail" content="Messages" detail="30"/>
-          <Label content="Item with detail" detail="Detail"/>
-          <Label image={data.elliotAvatar} size="small">Elliot</Label>
-        </Labels>
-      </Example>
-
-      <Example title="Transparent" hint="<Labels appearance='transparent'/>">
-        <Bug>This appears to be broken in Semantic UI.</Bug>
-        <Labels appearance="transparent">
-          <Label>Text label</Label>
-          <Label icon="mail" content="Messages" detail="30"/>
-          <Label content="Item with detail" detail="Detail"/>
-          <Label image={data.elliotAvatar} size="small">Elliot</Label>
-        </Labels>
-      </Example>
-
-      <Example title="Inverted" hint="<Labels appearance='inverted'/>">
-        <Bug>This appears to be broken in Semantic UI.</Bug>
-        <Segment appearance="inverted">
-          <Labels appearance="inverted">
-            <Label>Text label</Label>
-            <Label icon="mail" content="Messages" detail="30"/>
-            <Label content="Item with detail" detail="Detail"/>
-            <Label image={data.elliotAvatar} size="small">Elliot</Label>
-          </Labels>
-        </Segment>
-      </Example>
-
-      <Example title="active" hint="<Labels active/>">
-        <Bug>This appears to be broken in Semantic UI.</Bug>
-        <Labels active>
-          <Label>Text label</Label>
-          <Label icon="mail" content="Messages" detail="30"/>
-          <Label content="Item with detail" detail="Detail"/>
-          <Label image={data.elliotAvatar} size="small">Elliot</Label>
-        </Labels>
-      </Example>
-
-      <Example title="Closable" hint="<Labels closable/>">
-        <Bug>Unclear how to do this in react... :-(</Bug>
-        <Labels closable>
-          <Label>Text label</Label>
-          <Label icon="mail" content="Messages" detail="30"/>
-          <Label content="Item with detail" detail="Detail"/>
-          <Label image={data.elliotAvatar} size="small">Elliot</Label>
-        </Labels>
-      </Example>
-
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

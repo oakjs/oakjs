@@ -1,45 +1,41 @@
 <OakCard id="Sticky" title="Sticky">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Sticky">
-      Sticky content fixes itself to the browser viewport as content is scrolled
-      <Bug>Not sure why Sticky is disappearing on scroll, AFAICT it's set up correctly.</Bug>
-      <Todo>
-        <ul>
-          <li>Other styles</li>
-          <li>Events</li>
-        </ul>
-      </Todo>
-    </PageTitle>
+  <PageTitle title="Sticky">
+    Sticky content fixes itself to the browser viewport as content is scrolled
+    <Bug>Not sure why Sticky is disappearing on scroll, AFAICT it's set up correctly.</Bug>
+    <Todo>
+      <ul>
+        <li>Other styles</li>
+        <li>Events</li>
+      </ul>
+    </Todo>
+  </PageTitle>
 
-    <PageSection title="Sticky">
-      <Rail internal left>
-        <Sticky ref="leftSticky" bound context="#sticky">
-          <Segment>
-            <LoremIpsum short/>
-          </Segment>
-        </Sticky>
-      </Rail>
+  <PageSection title="Sticky">
+    <Rail internal left>
+      <Sticky ref="leftSticky" bound context="#sticky">
+        <Segment>
+          <LoremIpsum short/>
+        </Segment>
+      </Sticky>
+    </Rail>
 
-      <Rail internal right>
-        <Sticky context="#sticky">
-          <Segment>
-            <LoremIpsum short/>
-          </Segment>
-        </Sticky>
-      </Rail>
+    <Rail internal right>
+      <Sticky context="#sticky">
+        <Segment>
+          <LoremIpsum short/>
+        </Segment>
+      </Sticky>
+    </Rail>
 
-      <Example id="sticky" title="Sticky" style={{marginLeft:350, marginRight:350}}>
-        <LoremIpsum/>
-        <LoremIpsum/>
-        <LoremIpsum/>
-        <LoremIpsum/>
-        <LoremIpsum/>
-        <LoremIpsum/>
-        <LoremIpsum/>
-      </Example>
+    <Example id="sticky" title="Sticky" style={{marginLeft:350, marginRight:350}}>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
+    </Example>
 
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

@@ -1,441 +1,437 @@
 <OakCard id="Label" title="Label">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Label">
-      A label displays content classification
-    </PageTitle>
+  <PageTitle title="Label">
+    A label displays content classification
+  </PageTitle>
 
-    <PageSection title="Content">
+  <PageSection title="Content">
 
-      <Example title="Text">
-        <Label content="Label with content attribute"/>
-        <Label>Label with inline content</Label>
-      </Example>
+    <Example title="Text">
+      <Label content="Label with content attribute"/>
+      <Label>Label with inline content</Label>
+    </Example>
 
-      <Example title="Icon">
-        <Label icon="mail" content="Label with content and icon attributes"/>
-        <Label icon="mail" iconOn="right" content="Label with content and icon attributes"/>
-        <Spacer/>
-        <Label><Icon icon="mail"/>Label with inline content and icon</Label>
-        <Label appearance="right icon">Label with inline content and icon<Icon icon="mail"/></Label>
-      </Example>
+    <Example title="Icon">
+      <Label icon="mail" content="Label with content and icon attributes"/>
+      <Label icon="mail" iconOn="right" content="Label with content and icon attributes"/>
+      <Spacer/>
+      <Label><Icon icon="mail"/>Label with inline content and icon</Label>
+      <Label appearance="right icon">Label with inline content and icon<Icon icon="mail"/></Label>
+    </Example>
 
-      <Example title="Detail">
-        <Label content="Label with content and detail attributes" detail="Detail here"/>
-        <Label>Label with inline content and detail<div className="detail">Detail here</div></Label>
+    <Example title="Detail">
+      <Label content="Label with content and detail attributes" detail="Detail here"/>
+      <Label>Label with inline content and detail<div className="detail">Detail here</div></Label>
 
-        <Spacer/>
-        <Label icon="mail" content="Label with detail and icon" detail="Detail here"/>
-        <Label icon="mail" iconOn="right" content="Label with detail and icon" detail="Detail here"/>
+      <Spacer/>
+      <Label icon="mail" content="Label with detail and icon" detail="Detail here"/>
+      <Label icon="mail" iconOn="right" content="Label with detail and icon" detail="Detail here"/>
 
-        <Spacer/>
-        <Label closable content="Closable label with detail and icon" detail="Detail here"/>
-      </Example>
+      <Spacer/>
+      <Label closable content="Closable label with detail and icon" detail="Detail here"/>
+    </Example>
 
 
-      <Example title="Image" hint="<Label image='http://...'/>">
-        <Label image={data.joeAvatar}>Joe</Label>
-        <Label image={data.elliotAvatar}>Elliot</Label>
-        <Label image={data.stevieAvatar}>Stevie</Label>
+    <Example title="Image" hint="<Label image='http://...'/>">
+      <Label image={data.joeAvatar}>Joe</Label>
+      <Label image={data.elliotAvatar}>Elliot</Label>
+      <Label image={data.stevieAvatar}>Stevie</Label>
 
-        <Spacer/>
-        <Label image={data.joeAvatar} imageOn="right">Joe</Label>
-        <Label image={data.elliotAvatar} imageOn="right">Elliot</Label>
-        <Label image={data.stevieAvatar} imageOn="right">Stevie</Label>
+      <Spacer/>
+      <Label image={data.joeAvatar} imageOn="right">Joe</Label>
+      <Label image={data.elliotAvatar} imageOn="right">Elliot</Label>
+      <Label image={data.stevieAvatar} imageOn="right">Stevie</Label>
 
-        <Spacer/>
-        <Label color="yellow" image={data.joeAvatar}>Joe</Label>
-        <Label color="teal" image={data.elliotAvatar}>Elliot<div className="detail">Professor</div></Label>
-      </Example>
+      <Spacer/>
+      <Label color="yellow" image={data.joeAvatar}>Joe</Label>
+      <Label color="teal" image={data.elliotAvatar}>Elliot<div className="detail">Professor</div></Label>
+    </Example>
 
-      <Example title="Including image" hint="<Label><Image src='http://...'/></Label>">
-        <Label><Image src={data.joeAvatar} size="tiny"/>Joe</Label>
-        <Label><Image src={data.elliotAvatar} size="tiny"/>Elliot</Label>
-        <Label><Image src={data.stevieAvatar} size="tiny"/>Stevie</Label>
+    <Example title="Including image" hint="<Label><Image src='http://...'/></Label>">
+      <Label><Image src={data.joeAvatar} size="tiny"/>Joe</Label>
+      <Label><Image src={data.elliotAvatar} size="tiny"/>Elliot</Label>
+      <Label><Image src={data.stevieAvatar} size="tiny"/>Stevie</Label>
 
-        <Spacer/>
-        <Label><Image src={data.joeAvatar} appearance="avatar" size="tiny"/>Joe</Label>
-        <Label><Image src={data.elliotAvatar} appearance="avatar" size="tiny"/>Elliot</Label>
-        <Label><Image src={data.stevieAvatar} appearance="avatar" size="tiny"/>Stevie</Label>
-      </Example>
+      <Spacer/>
+      <Label><Image src={data.joeAvatar} appearance="avatar" size="tiny"/>Joe</Label>
+      <Label><Image src={data.elliotAvatar} appearance="avatar" size="tiny"/>Elliot</Label>
+      <Label><Image src={data.stevieAvatar} appearance="avatar" size="tiny"/>Stevie</Label>
+    </Example>
 
-      <Example title="Link" hint="<Label tagName='a'.../>">
-        <Label tagName="a" content="Google" icon="google" href="http://google.com" target="_blank"/>
-      </Example>
+    <Example title="Link" hint="<Label tagName='a'.../>">
+      <Label tagName="a" content="Google" icon="google" href="http://google.com" target="_blank"/>
+    </Example>
 
-    </PageSection>
+  </PageSection>
 
 
-    <PageSection title="Appearance">
+  <PageSection title="Appearance">
 
-      <Example title="Basic" hint="<Label appearance='basic'/>">
-        <Label appearance="basic">Basic</Label>
-        <Label appearance="basic" image={data.elliotAvatar} size="small">Elliot</Label>
-        <Label appearance="basic" pointing>Pointing</Label>
-        <Label appearance="basic" pointing="down" color="red">Red Pointing</Label>
-        <Label appearance="basic" color="blue">Blue</Label>
-      </Example>
+    <Example title="Basic" hint="<Label appearance='basic'/>">
+      <Label appearance="basic">Basic</Label>
+      <Label appearance="basic" image={data.elliotAvatar} size="small">Elliot</Label>
+      <Label appearance="basic" pointing>Pointing</Label>
+      <Label appearance="basic" pointing="down" color="red">Red Pointing</Label>
+      <Label appearance="basic" color="blue">Blue</Label>
+    </Example>
 
-      <Example title="Transparent" hint="<Label appearance='transparent'/>">
-        <Todo>Transparent colors would be cool...</Todo>
-          <Label appearance="transparent">transparent</Label>
-          <Label appearance="transparent baisc">transparent basic</Label>
-          <Label appearance="transparent" image={data.elliotAvatar} size="small">Elliot</Label>
-          <Label appearance="transparent" pointing>Pointing</Label>
-          <Label appearance="transparent" pointing="down" color="red">Red Pointing</Label>
-          <Label appearance="transparent" color="blue">Blue</Label>
-      </Example>
+    <Example title="Transparent" hint="<Label appearance='transparent'/>">
+      <Todo>Transparent colors would be cool...</Todo>
+        <Label appearance="transparent">transparent</Label>
+        <Label appearance="transparent baisc">transparent basic</Label>
+        <Label appearance="transparent" image={data.elliotAvatar} size="small">Elliot</Label>
+        <Label appearance="transparent" pointing>Pointing</Label>
+        <Label appearance="transparent" pointing="down" color="red">Red Pointing</Label>
+        <Label appearance="transparent" color="blue">Blue</Label>
+    </Example>
 
-      <Example title="Inverted" hint="<Label appearance='inverted'/>">
-        <Todo>SUI doesn't support inverted unless you specify a color...</Todo>
-        <Segment appearance="inverted">
-          <Label appearance="inverted">inverted</Label>
-          <Label appearance="inverted baisc">inverted basic</Label>
-          <Label appearance="inverted" image={data.elliotAvatar} size="small">Elliot</Label>
-          <Label appearance="inverted" pointing>Pointing</Label>
-          <Label appearance="inverted" pointing="down" color="red">Red Pointing</Label>
-          <Label appearance="inverted" color="blue">Blue</Label>
-        </Segment>
-      </Example>
+    <Example title="Inverted" hint="<Label appearance='inverted'/>">
+      <Todo>SUI doesn't support inverted unless you specify a color...</Todo>
+      <Segment appearance="inverted">
+        <Label appearance="inverted">inverted</Label>
+        <Label appearance="inverted baisc">inverted basic</Label>
+        <Label appearance="inverted" image={data.elliotAvatar} size="small">Elliot</Label>
+        <Label appearance="inverted" pointing>Pointing</Label>
+        <Label appearance="inverted" pointing="down" color="red">Red Pointing</Label>
+        <Label appearance="inverted" color="blue">Blue</Label>
+      </Segment>
+    </Example>
 
-      <Example title="Colors" hint="<Label appearance='circular'/>">
-        <Label>(no color)</Label>
-        <Label color="red">red</Label>
-        <Label color="orange">orange</Label>
-        <Label color="yellow">yellow</Label>
-        <Label color="olive">olive</Label>
-        <Label color="green">green</Label>
-        <Label color="teal">teal</Label>
-        <Label color="blue">blue</Label>
-        <Label color="violet">violet</Label>
-        <Label color="purple">purple</Label>
-        <Label color="pink">pink</Label>
-        <Label color="brown">brown</Label>
-        <Label color="grey">grey</Label>
-        <Label color="black">black</Label>
-      </Example>
+    <Example title="Colors" hint="<Label appearance='circular'/>">
+      <Label>(no color)</Label>
+      <Label color="red">red</Label>
+      <Label color="orange">orange</Label>
+      <Label color="yellow">yellow</Label>
+      <Label color="olive">olive</Label>
+      <Label color="green">green</Label>
+      <Label color="teal">teal</Label>
+      <Label color="blue">blue</Label>
+      <Label color="violet">violet</Label>
+      <Label color="purple">purple</Label>
+      <Label color="pink">pink</Label>
+      <Label color="brown">brown</Label>
+      <Label color="grey">grey</Label>
+      <Label color="black">black</Label>
+    </Example>
 
 
 
-      <Example title="Pointing" hint="<Label pointing/> or <Label pointing='right'/>">
-        <Grid columns={2}>
-          <Column>
-            <Input appearance="fluid" placeholder="First name"/>
-            <Label pointing>Please enter a value</Label>
-          </Column>
+    <Example title="Pointing" hint="<Label pointing/> or <Label pointing='right'/>">
+      <Grid columns={2}>
+        <Column>
+          <Input appearance="fluid" placeholder="First name"/>
+          <Label pointing>Please enter a value</Label>
+        </Column>
 
-          <Column>
-            <Label pointing="down">Please enter a value</Label>
-            <Input appearance="fluid" placeholder="First name"/>
-          </Column>
+        <Column>
+          <Label pointing="down">Please enter a value</Label>
+          <Input appearance="fluid" placeholder="First name"/>
+        </Column>
 
-          <Column>
-            <Label pointing="right" color="red" appearance="basic">6 characters or more</Label>
-            <Input type="password" value="xxx" error/>
-          </Column>
+        <Column>
+          <Label pointing="right" color="red" appearance="basic">6 characters or more</Label>
+          <Input type="password" value="xxx" error/>
+        </Column>
 
-          <Column>
-            <Input placeholder="Username"/>
-            <Label pointing="left" color="red">That name is taken.</Label>
-          </Column>
-        </Grid>
-      </Example>
+        <Column>
+          <Input placeholder="Username"/>
+          <Label pointing="left" color="red">That name is taken.</Label>
+        </Column>
+      </Grid>
+    </Example>
 
-      <Example title="Corner" hint="<Label appearance='left corner'/>">
-        <Grid columns={3}>
-          <Column>
-            <Image src={data.placeholderImage} appearance="fluid">
-              <Label appearance="corner" icon='heart'/>
-            </Image>
-          </Column>
-          <Column>
-            <Image src={data.placeholderImage} appearance="fluid">
-              <Label appearance="left corner" icon='heart'/>
-            </Image>
-          </Column>
-          <Column>
-            <Image src={data.placeholderImage} appearance="fluid">
-              <Label appearance="right corner" icon='heart'/>
-            </Image>
-          </Column>
-        </Grid>
-      </Example>
+    <Example title="Corner" hint="<Label appearance='left corner'/>">
+      <Grid columns={3}>
+        <Column>
+          <Image src={data.placeholderImage} appearance="fluid">
+            <Label appearance="corner" icon='heart'/>
+          </Image>
+        </Column>
+        <Column>
+          <Image src={data.placeholderImage} appearance="fluid">
+            <Label appearance="left corner" icon='heart'/>
+          </Image>
+        </Column>
+        <Column>
+          <Image src={data.placeholderImage} appearance="fluid">
+            <Label appearance="right corner" icon='heart'/>
+          </Image>
+        </Column>
+      </Grid>
+    </Example>
 
-      <Example title="Tag" hint="<Label appearance='tag'/>">
-        <Label appearance="tag">New</Label>
-        <Label appearance="tag" color="red">Upcoming</Label>
-        <Label appearance="tag" color="teal">Featured</Label>
-      </Example>
+    <Example title="Tag" hint="<Label appearance='tag'/>">
+      <Label appearance="tag">New</Label>
+      <Label appearance="tag" color="red">Upcoming</Label>
+      <Label appearance="tag" color="teal">Featured</Label>
+    </Example>
 
-      <Example title="Ribbon" hint="<Label appearance='ribbon'/>">
-        <Grid columns={2}>
-          <Column>
-            <Segment appearance="raised">
-              <Label appearance="ribbon">Overview</Label>
-              <span>Account Details</span>
-              <LoremIpsum short/>
-              <Spacer/>
-              <Label appearance="ribbon" color="red">Community</Label>
-              <span>User Reviews</span>
-              <LoremIpsum short/>
-            </Segment>
-          </Column>
+    <Example title="Ribbon" hint="<Label appearance='ribbon'/>">
+      <Grid columns={2}>
+        <Column>
+          <Segment appearance="raised">
+            <Label appearance="ribbon">Overview</Label>
+            <span>Account Details</span>
+            <LoremIpsum short/>
+            <Spacer/>
+            <Label appearance="ribbon" color="red">Community</Label>
+            <span>User Reviews</span>
+            <LoremIpsum short/>
+          </Segment>
+        </Column>
 
-          <Column>
-            <Segment appearance="raised">
-              <Label appearance="right ribbon" color="orange">Specs</Label>
-              <LoremIpsum short/>
-              <Spacer/>
-              <Label appearance="right ribbon" color="teal">Reviews</Label>
-              <LoremIpsum short/>
-            </Segment>
-          </Column>
+        <Column>
+          <Segment appearance="raised">
+            <Label appearance="right ribbon" color="orange">Specs</Label>
+            <LoremIpsum short/>
+            <Spacer/>
+            <Label appearance="right ribbon" color="teal">Reviews</Label>
+            <LoremIpsum short/>
+          </Segment>
+        </Column>
 
-          <Column>
-            <Image src={data.placeholderImage} appearance="fluid">
-              <Label appearance="black ribbon" icon='hotel'>Hotel</Label>
-            </Image>
-          </Column>
+        <Column>
+          <Image src={data.placeholderImage} appearance="fluid">
+            <Label appearance="black ribbon" icon='hotel'>Hotel</Label>
+          </Image>
+        </Column>
 
-          <Column>
-            <Image src={data.placeholderImage} appearance="fluid">
-              <Label appearance="right ribbon" color="red" icon='food'>Food</Label>
-            </Image>
-          </Column>
+        <Column>
+          <Image src={data.placeholderImage} appearance="fluid">
+            <Label appearance="right ribbon" color="red" icon='food'>Food</Label>
+          </Image>
+        </Column>
 
-        </Grid>
-      </Example>
+      </Grid>
+    </Example>
 
 
-      <Example title="Attached" hint="<Label appearance='top attached'/>">
-        <Grid columns={3}>
-          <Column>
-            <Segment>
-              <Label appearance="top left attached">top right</Label>
-              <LoremIpsum tiny/>
-            </Segment>
-          </Column>
+    <Example title="Attached" hint="<Label appearance='top attached'/>">
+      <Grid columns={3}>
+        <Column>
+          <Segment>
+            <Label appearance="top left attached">top right</Label>
+            <LoremIpsum tiny/>
+          </Segment>
+        </Column>
 
-          <Column>
-            <Segment>
-              <Label appearance="top attached">top attached</Label>
-              <LoremIpsum tiny/>
-            </Segment>
-          </Column>
+        <Column>
+          <Segment>
+            <Label appearance="top attached">top attached</Label>
+            <LoremIpsum tiny/>
+          </Segment>
+        </Column>
 
-          <Column>
-            <Segment>
-              <Label appearance="top right attached">top right</Label>
-              <LoremIpsum tiny/>
-            </Segment>
-          </Column>
+        <Column>
+          <Segment>
+            <Label appearance="top right attached">top right</Label>
+            <LoremIpsum tiny/>
+          </Segment>
+        </Column>
 
-          <Column>
-            <Segment>
-              <Label appearance="bottom left attached">bottom right</Label>
-              <LoremIpsum tiny/>
-            </Segment>
-          </Column>
+        <Column>
+          <Segment>
+            <Label appearance="bottom left attached">bottom right</Label>
+            <LoremIpsum tiny/>
+          </Segment>
+        </Column>
 
-          <Column>
-            <Segment>
-              <Label appearance="bottom attached">bottom attached</Label>
-              <LoremIpsum tiny/>
-            </Segment>
-          </Column>
+        <Column>
+          <Segment>
+            <Label appearance="bottom attached">bottom attached</Label>
+            <LoremIpsum tiny/>
+          </Segment>
+        </Column>
 
-          <Column>
-            <Segment>
-              <Label appearance="bottom right attached">bottom right</Label>
-              <LoremIpsum tiny/>
-            </Segment>
-          </Column>
+        <Column>
+          <Segment>
+            <Label appearance="bottom right attached">bottom right</Label>
+            <LoremIpsum tiny/>
+          </Segment>
+        </Column>
 
-        </Grid>
-      </Example>
+      </Grid>
+    </Example>
 
-      <Example title="Horizontal" hint="<Label appearance='horizontal'/>">
-        <Todo>refactor this to a &lt;List&gt;</Todo>
-        <div className="ui divided section list">
-          <div className="item">
-            <Label appearance="horizontal" color="red">Fruit</Label>
-            Kumquats
-          </div>
-          <div className="item">
-            <Label appearance="horizontal" color="purple">Candy</Label>
-            Ice Cream
-          </div>
-          <div className="item">
-            <Label appearance="horizontal" color="red">Fruit</Label>
-            Orange
-          </div>
+    <Example title="Horizontal" hint="<Label appearance='horizontal'/>">
+      <Todo>refactor this to a &lt;List&gt;</Todo>
+      <div className="ui divided section list">
+        <div className="item">
+          <Label appearance="horizontal" color="red">Fruit</Label>
+          Kumquats
         </div>
-      </Example>
+        <div className="item">
+          <Label appearance="horizontal" color="purple">Candy</Label>
+          Ice Cream
+        </div>
+        <div className="item">
+          <Label appearance="horizontal" color="red">Fruit</Label>
+          Orange
+        </div>
+      </div>
+    </Example>
 
-      <Example title="Floating" hint="<Label floating/>">
-        <Menu appearance="compact">
-          <MenuItem icon="mail" label="Messages">
-            <Label floating color="red">22</Label>
-          </MenuItem>
-          <MenuItem icon="users" label="Friends">
-            <Label floating color="teal">3</Label>
-          </MenuItem>
-        </Menu>
-      </Example>
+    <Example title="Floating" hint="<Label floating/>">
+      <Menu appearance="compact">
+        <MenuItem icon="mail" label="Messages">
+          <Label floating color="red">22</Label>
+        </MenuItem>
+        <MenuItem icon="users" label="Friends">
+          <Label floating color="teal">3</Label>
+        </MenuItem>
+      </Menu>
+    </Example>
 
-      <Example title="Closable" hint="<Label closable onClose='...'/>">
-        <Label closable onClose={data.onClosed.bind(undefined, "Joe")}>Joe</Label>
-        <Label closable onClose={data.onClosed.bind(undefined, "Elliot")}>Elliot</Label>
-        <Label closable onClose={data.onClosed.bind(undefined, "Stevie")}>Stevie</Label>
-        <Spacer/>
+    <Example title="Closable" hint="<Label closable onClose='...'/>">
+      <Label closable onClose={data.onClosed.bind(undefined, "Joe")}>Joe</Label>
+      <Label closable onClose={data.onClosed.bind(undefined, "Elliot")}>Elliot</Label>
+      <Label closable onClose={data.onClosed.bind(undefined, "Stevie")}>Stevie</Label>
+      <Spacer/>
 
-        <Label closable onClose={data.onClosed.bind(undefined, "Joe")} icon="mail">Joe</Label>
-        <Label closable onClose={data.onClosed.bind(undefined, "Elliot")} icon="mail">Elliot</Label>
-        <Label closable onClose={data.onClosed.bind(undefined, "Stevie")} icon="mail">Stevie</Label>
-        <Spacer/>
+      <Label closable onClose={data.onClosed.bind(undefined, "Joe")} icon="mail">Joe</Label>
+      <Label closable onClose={data.onClosed.bind(undefined, "Elliot")} icon="mail">Elliot</Label>
+      <Label closable onClose={data.onClosed.bind(undefined, "Stevie")} icon="mail">Stevie</Label>
+      <Spacer/>
 
-        <Label closable onClose={data.onClosed.bind(undefined, "Joe")} image={data.joeAvatar}>Joe</Label>
-        <Label closable onClose={data.onClosed.bind(undefined, "Elliot")} image={data.elliotAvatar}>Elliot</Label>
-        <Label closable onClose={data.onClosed.bind(undefined, "Stevie")} image={data.stevieAvatar}>Stevie</Label>
-      </Example>
-
-
-      <Example title="Circular" hint="<Label appearance='circular'/>">
-        <Label appearance="circular">2</Label>
-        <Label color="red" appearance="circular">2</Label>
-        <Label color="orange" appearance="circular">2</Label>
-        <Label color="yellow" appearance="circular">2</Label>
-        <Label color="olive" appearance="circular">2</Label>
-        <Label color="green" appearance="circular">2</Label>
-        <Label color="teal" appearance="circular">2</Label>
-        <Label color="blue" appearance="circular">2</Label>
-        <Label color="violet" appearance="circular">2</Label>
-        <Label color="purple" appearance="circular">2</Label>
-        <Label color="pink" appearance="circular">2</Label>
-        <Label color="brown" appearance="circular">2</Label>
-        <Label color="grey" appearance="circular">2</Label>
-        <Label color="black" appearance="circular">2</Label>
-
-        <Spacer/>
-        <Label appearance="circular">200</Label>
-        <Label appearance="circular" color='teal'>2,000</Label>
-        <Label appearance="circular" color='blue'>2,000,000</Label>
-      </Example>
-
-      <Example title="Dots (empty circular)" hint="<Label appearance='empty circular'/>">
-        <Label appearance="empty circular"></Label>
-        <Label color="red" appearance="empty circular"></Label>
-        <Label color="orange" appearance="empty circular"></Label>
-        <Label color="yellow" appearance="empty circular"></Label>
-        <Label color="olive" appearance="empty circular"></Label>
-        <Label color="green" appearance="empty circular"></Label>
-        <Label color="teal" appearance="empty circular"></Label>
-        <Label color="blue" appearance="empty circular"></Label>
-        <Label color="violet" appearance="empty circular"></Label>
-        <Label color="purple" appearance="empty circular"></Label>
-        <Label color="pink" appearance="empty circular"></Label>
-        <Label color="brown" appearance="empty circular"></Label>
-        <Label color="grey" appearance="empty circular"></Label>
-        <Label color="black" appearance="empty circular"></Label>
-      </Example>
-
-      <Example title="Sizes" hint="<Label size='large'/>">
-        <Label size="mini">mini</Label>
-        <Label size="mini" icon="mail">icon</Label>
-        <Label size="mini" icon="mail" iconOn="right">icon</Label>
-        <Label size="mini" image={data.joeAvatar}>image</Label>
-        <Label size="mini" image={data.joeAvatar} imageOn="right">image</Label>
-
-        <Spacer/>
-        <Label size="tiny">tiny</Label>
-        <Label size="tiny" icon="mail">icon</Label>
-        <Label size="tiny" icon="mail" iconOn="right">icon</Label>
-        <Label size="tiny" image={data.joeAvatar}>image</Label>
-        <Label size="tiny" image={data.joeAvatar} imageOn="right">image</Label>
-
-        <Spacer/>
-        <Label size="small">small</Label>
-        <Label size="small" icon="mail">icon</Label>
-        <Label size="small" icon="mail" iconOn="right">icon</Label>
-        <Label size="small" image={data.joeAvatar}>image</Label>
-        <Label size="small" image={data.joeAvatar} imageOn="right">image</Label>
-
-        <Spacer/>
-        <Label size="medium">medium</Label>
-        <Label size="medium" icon="mail">icon</Label>
-        <Label size="medium" icon="mail" iconOn="right">icon</Label>
-        <Label size="medium" image={data.joeAvatar}>image</Label>
-        <Label size="medium" image={data.joeAvatar} imageOn="right">image</Label>
-
-        <Spacer/>
-        <Label size="large">large</Label>
-        <Label size="large" icon="mail">icon</Label>
-        <Label size="large" icon="mail" iconOn="right">icon</Label>
-        <Label size="large" image={data.joeAvatar}>image</Label>
-        <Label size="large" image={data.joeAvatar} imageOn="right">image</Label>
-
-        <Spacer/>
-        <Label size="big">big</Label>
-        <Label size="big" icon="mail">icon</Label>
-        <Label size="big" icon="mail" iconOn="right">icon</Label>
-        <Label size="big" image={data.joeAvatar}>image</Label>
-        <Label size="big" image={data.joeAvatar} imageOn="right">image</Label>
-
-        <Spacer/>
-        <Label size="huge">huge</Label>
-        <Label size="huge" icon="mail">icon</Label>
-        <Label size="huge" icon="mail" iconOn="right">icon</Label>
-        <Label size="huge" image={data.joeAvatar}>image</Label>
-        <Label size="huge" image={data.joeAvatar} imageOn="right">image</Label>
-
-        <Spacer/>
-        <Label size="massive">massive</Label>
-        <Label size="massive" icon="mail">icon</Label>
-        <Label size="massive" icon="mail" iconOn="right">icon</Label>
-        <Label size="massive" image={data.joeAvatar}>image</Label>
-        <Label size="massive" image={data.joeAvatar} imageOn="right">image</Label>
-      </Example>
-
-    </PageSection>
+      <Label closable onClose={data.onClosed.bind(undefined, "Joe")} image={data.joeAvatar}>Joe</Label>
+      <Label closable onClose={data.onClosed.bind(undefined, "Elliot")} image={data.elliotAvatar}>Elliot</Label>
+      <Label closable onClose={data.onClosed.bind(undefined, "Stevie")} image={data.stevieAvatar}>Stevie</Label>
+    </Example>
 
 
-    <PageSection title="States">
-      <Example title="Hidden" hint="<Label hidden/>">
-        <Label pointing="right">Hidden label here</Label>
-        <Label hidden>You should not see me</Label>
-        <Label pointing="left">Hidden label here</Label>
-      </Example>
+    <Example title="Circular" hint="<Label appearance='circular'/>">
+      <Label appearance="circular">2</Label>
+      <Label color="red" appearance="circular">2</Label>
+      <Label color="orange" appearance="circular">2</Label>
+      <Label color="yellow" appearance="circular">2</Label>
+      <Label color="olive" appearance="circular">2</Label>
+      <Label color="green" appearance="circular">2</Label>
+      <Label color="teal" appearance="circular">2</Label>
+      <Label color="blue" appearance="circular">2</Label>
+      <Label color="violet" appearance="circular">2</Label>
+      <Label color="purple" appearance="circular">2</Label>
+      <Label color="pink" appearance="circular">2</Label>
+      <Label color="brown" appearance="circular">2</Label>
+      <Label color="grey" appearance="circular">2</Label>
+      <Label color="black" appearance="circular">2</Label>
 
-      <Example title="Disabled" hint="<Label disabled/>">
-        <Label disabled>Normal</Label>
-        <Label disabled image={data.elliotAvatar} size="small">Elliot</Label>
-        <Label disabled pointing>Pointing</Label>
-        <Label disabled pointing="down" color="red">Red Pointing</Label>
-        <Label disabled color="blue">Blue</Label>
-        <Spacer/>
-        <Label disabled appearance="basic">Basic</Label>
-        <Label disabled appearance="basic" image={data.elliotAvatar} size="small">Elliot</Label>
-        <Label disabled appearance="basic" pointing>Pointing</Label>
-        <Label disabled appearance="basic" pointing="down" color="red">Red Pointing</Label>
-        <Label disabled appearance="basic" color="blue">Blue</Label>
-        <Spacer/>
-        <Label disabled appearance="transparent">transparent</Label>
-        <Label disabled appearance="transparent" image={data.elliotAvatar} size="small">Elliot</Label>
-        <Label disabled appearance="transparent" pointing>Pointing</Label>
-        <Label disabled appearance="transparent" pointing="down" color="red">Red Pointing</Label>
-        <Label disabled appearance="transparent" color="blue">Blue</Label>
-      </Example>
+      <Spacer/>
+      <Label appearance="circular">200</Label>
+      <Label appearance="circular" color='teal'>2,000</Label>
+      <Label appearance="circular" color='blue'>2,000,000</Label>
+    </Example>
 
-      <Example title="Active" hint="<Label active/>">
-        <Label active>Normal</Label>
-        <Label active image={data.elliotAvatar} size="small">Elliot</Label>
-        <Label active pointing>Pointing</Label>
-        <Label active pointing="down" color="red">Red Pointing</Label>
-        <Label active color="blue">Blue</Label>
-      </Example>
+    <Example title="Dots (empty circular)" hint="<Label appearance='empty circular'/>">
+      <Label appearance="empty circular"></Label>
+      <Label color="red" appearance="empty circular"></Label>
+      <Label color="orange" appearance="empty circular"></Label>
+      <Label color="yellow" appearance="empty circular"></Label>
+      <Label color="olive" appearance="empty circular"></Label>
+      <Label color="green" appearance="empty circular"></Label>
+      <Label color="teal" appearance="empty circular"></Label>
+      <Label color="blue" appearance="empty circular"></Label>
+      <Label color="violet" appearance="empty circular"></Label>
+      <Label color="purple" appearance="empty circular"></Label>
+      <Label color="pink" appearance="empty circular"></Label>
+      <Label color="brown" appearance="empty circular"></Label>
+      <Label color="grey" appearance="empty circular"></Label>
+      <Label color="black" appearance="empty circular"></Label>
+    </Example>
+
+    <Example title="Sizes" hint="<Label size='large'/>">
+      <Label size="mini">mini</Label>
+      <Label size="mini" icon="mail">icon</Label>
+      <Label size="mini" icon="mail" iconOn="right">icon</Label>
+      <Label size="mini" image={data.joeAvatar}>image</Label>
+      <Label size="mini" image={data.joeAvatar} imageOn="right">image</Label>
+
+      <Spacer/>
+      <Label size="tiny">tiny</Label>
+      <Label size="tiny" icon="mail">icon</Label>
+      <Label size="tiny" icon="mail" iconOn="right">icon</Label>
+      <Label size="tiny" image={data.joeAvatar}>image</Label>
+      <Label size="tiny" image={data.joeAvatar} imageOn="right">image</Label>
+
+      <Spacer/>
+      <Label size="small">small</Label>
+      <Label size="small" icon="mail">icon</Label>
+      <Label size="small" icon="mail" iconOn="right">icon</Label>
+      <Label size="small" image={data.joeAvatar}>image</Label>
+      <Label size="small" image={data.joeAvatar} imageOn="right">image</Label>
+
+      <Spacer/>
+      <Label size="medium">medium</Label>
+      <Label size="medium" icon="mail">icon</Label>
+      <Label size="medium" icon="mail" iconOn="right">icon</Label>
+      <Label size="medium" image={data.joeAvatar}>image</Label>
+      <Label size="medium" image={data.joeAvatar} imageOn="right">image</Label>
+
+      <Spacer/>
+      <Label size="large">large</Label>
+      <Label size="large" icon="mail">icon</Label>
+      <Label size="large" icon="mail" iconOn="right">icon</Label>
+      <Label size="large" image={data.joeAvatar}>image</Label>
+      <Label size="large" image={data.joeAvatar} imageOn="right">image</Label>
+
+      <Spacer/>
+      <Label size="big">big</Label>
+      <Label size="big" icon="mail">icon</Label>
+      <Label size="big" icon="mail" iconOn="right">icon</Label>
+      <Label size="big" image={data.joeAvatar}>image</Label>
+      <Label size="big" image={data.joeAvatar} imageOn="right">image</Label>
+
+      <Spacer/>
+      <Label size="huge">huge</Label>
+      <Label size="huge" icon="mail">icon</Label>
+      <Label size="huge" icon="mail" iconOn="right">icon</Label>
+      <Label size="huge" image={data.joeAvatar}>image</Label>
+      <Label size="huge" image={data.joeAvatar} imageOn="right">image</Label>
+
+      <Spacer/>
+      <Label size="massive">massive</Label>
+      <Label size="massive" icon="mail">icon</Label>
+      <Label size="massive" icon="mail" iconOn="right">icon</Label>
+      <Label size="massive" image={data.joeAvatar}>image</Label>
+      <Label size="massive" image={data.joeAvatar} imageOn="right">image</Label>
+    </Example>
+
+  </PageSection>
 
 
-    </PageSection>
+  <PageSection title="States">
+    <Example title="Hidden" hint="<Label hidden/>">
+      <Label pointing="right">Hidden label here</Label>
+      <Label hidden>You should not see me</Label>
+      <Label pointing="left">Hidden label here</Label>
+    </Example>
 
-  </Page>
+    <Example title="Disabled" hint="<Label disabled/>">
+      <Label disabled>Normal</Label>
+      <Label disabled image={data.elliotAvatar} size="small">Elliot</Label>
+      <Label disabled pointing>Pointing</Label>
+      <Label disabled pointing="down" color="red">Red Pointing</Label>
+      <Label disabled color="blue">Blue</Label>
+      <Spacer/>
+      <Label disabled appearance="basic">Basic</Label>
+      <Label disabled appearance="basic" image={data.elliotAvatar} size="small">Elliot</Label>
+      <Label disabled appearance="basic" pointing>Pointing</Label>
+      <Label disabled appearance="basic" pointing="down" color="red">Red Pointing</Label>
+      <Label disabled appearance="basic" color="blue">Blue</Label>
+      <Spacer/>
+      <Label disabled appearance="transparent">transparent</Label>
+      <Label disabled appearance="transparent" image={data.elliotAvatar} size="small">Elliot</Label>
+      <Label disabled appearance="transparent" pointing>Pointing</Label>
+      <Label disabled appearance="transparent" pointing="down" color="red">Red Pointing</Label>
+      <Label disabled appearance="transparent" color="blue">Blue</Label>
+    </Example>
+
+    <Example title="Active" hint="<Label active/>">
+      <Label active>Normal</Label>
+      <Label active image={data.elliotAvatar} size="small">Elliot</Label>
+      <Label active pointing>Pointing</Label>
+      <Label active pointing="down" color="red">Red Pointing</Label>
+      <Label active color="blue">Blue</Label>
+    </Example>
+
+
+  </PageSection>
 </OakCard>

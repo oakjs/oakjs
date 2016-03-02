@@ -1,60 +1,56 @@
 <OakCard id="Breadcrumb" title="Breadcrumb">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Breadcrumb">
-      A breadcrumb is used to show hierarchy between content
-    </PageTitle>
+  <PageTitle title="Breadcrumb">
+    A breadcrumb is used to show hierarchy between content
+  </PageTitle>
 
-    <PageSection title="Content">
+  <PageSection title="Content">
 
-      <Example title="Map of items" hint="<Breadcrumb items={{...}}/>">
-        <Breadcrumb items={data.map}/>
-      </Example>
+    <Example title="Map of items" hint="<Breadcrumb items={{...}}/>">
+      <Breadcrumb items={data.map}/>
+    </Example>
 
-      <Example title="List of item objects" hint="<Breadcrumb items={[ {link, title, active}, ...]}/>">
-        <Breadcrumb items={data.items}/>
-      </Example>
+    <Example title="List of item objects" hint="<Breadcrumb items={[ {link, title, active}, ...]}/>">
+      <Breadcrumb items={data.items}/>
+    </Example>
 
-      <Example title="List of strings" hint="<Breadcrumb items={[ '...', '...', ...}/>">
-        <Breadcrumb items={data.strings}/>
-      </Example>
+    <Example title="List of strings" hint="<Breadcrumb items={[ '...', '...', ...}/>">
+      <Breadcrumb items={data.strings}/>
+    </Example>
 
-      <Example title="Inline content" hint="<Breadcrumb>...</Breadcrumb>">
-        <Breadcrumb>
-          <a href="#" className="section">Home</a>
-          <div className="divider">/</div>
-          <div className="active section">Search for: <a href="#">paper towels</a></div>
-        </Breadcrumb>
-      </Example>
+    <Example title="Inline content" hint="<Breadcrumb>...</Breadcrumb>">
+      <Breadcrumb>
+        <a href="#" className="section">Home</a>
+        <div className="divider">/</div>
+        <div className="active section">Search for: <a href="#">paper towels</a></div>
+      </Breadcrumb>
+    </Example>
 
-    </PageSection>
+  </PageSection>
 
-    <PageSection title="Appearance">
+  <PageSection title="Appearance">
 
-      <Example title="Text divider" hint="<Breadcrumb divider='/'/>">
-        <Breadcrumb items={data.map}/>
-        <Spacer/>
-        <Breadcrumb divider="•" items={data.map}/>
-      </Example>
+    <Example title="Text divider" hint="<Breadcrumb divider='/'/>">
+      <Breadcrumb items={data.map}/>
+      <Spacer/>
+      <Breadcrumb divider="•" items={data.map}/>
+    </Example>
 
-      <Example title="Icon divider" hint="<Breadcrumb icon='right chevron'/>">
-        <Breadcrumb icon="right chevron" items={data.map}/>
-        <Spacer/>
-        <Breadcrumb icon="right arrow" items={data.map}/>
-      </Example>
+    <Example title="Icon divider" hint="<Breadcrumb icon='right chevron'/>">
+      <Breadcrumb icon="right chevron" items={data.map}/>
+      <Spacer/>
+      <Breadcrumb icon="right arrow" items={data.map}/>
+    </Example>
 
 
-      <Example title="Size" hint="<Breadcrumb size='small'/>">
-        <Breadcrumb size='small'items={data.map}/>
-        <Spacer/>
-        <Breadcrumb size='medium'items={data.map}/>
-        <Spacer/>
-        <Breadcrumb size='large'items={data.map}/>
-        <Spacer/>
-        <Breadcrumb size='huge'items={data.map}/>
-      </Example>
+    <Example title="Size" hint="<Breadcrumb size='small'/>">
+      <Breadcrumb size='small'items={data.map}/>
+      <Spacer/>
+      <Breadcrumb size='medium'items={data.map}/>
+      <Spacer/>
+      <Breadcrumb size='large'items={data.map}/>
+      <Spacer/>
+      <Breadcrumb size='huge'items={data.map}/>
+    </Example>
 
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

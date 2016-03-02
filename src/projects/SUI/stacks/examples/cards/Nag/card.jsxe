@@ -1,26 +1,22 @@
 <OakCard id="Nag" title="Nag">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Nag">
-      A nag is an important message that persists until dismissed by a user
-      <Bug>
-        This component isn't working, not sure what's wrong.
-        The <a href="">SUI documentation</a> indicates that it's not production ready (as of Feb 2015).
-      </Bug>
-    </PageTitle>
+  <PageTitle title="Nag">
+    A nag is an important message that persists until dismissed by a user
+    <Bug>
+      This component isn't working, not sure what's wrong.
+      The <a href="">SUI documentation</a> indicates that it's not production ready (as of Feb 2015).
+    </Bug>
+  </PageTitle>
 
-    <PageSection title="Usage">
+  <PageSection title="Usage">
 
-      <Example title="Nag" hint="<Nag key='cookie-name'/>">
-        <Nag ref='nag' inline key='nagCookie'>
-          We use cookies to ensure you get the best experience on our website.
-        </Nag>
-        <Button onClick={()=> card.refs.nag.show()}>Show</Button>
-        <Button onClick={()=> card.refs.nag.clear()}>Clear</Button>
-        <Button onClick={()=> card.refs.nag.refresh()}>Refresh</Button>
-      </Example>
+    <Example title="Nag" hint="<Nag key='cookie-name'/>">
+      <Nag ref='nag' inline key='nagCookie'>
+        We use cookies to ensure you get the best experience on our website.
+      </Nag>
+      <Button onClick={()=> card.refs.nag.show()}>Show</Button>
+      <Button onClick={()=> card.refs.nag.clear()}>Clear</Button>
+      <Button onClick={()=> card.refs.nag.refresh()}>Refresh</Button>
+    </Example>
 
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

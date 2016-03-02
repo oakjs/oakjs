@@ -1,3 +1,7 @@
 <OakStack id="examples" title="Examples">
+  <Menu id="PageSidebar" appearance="inverted attached vertical">
+    <MenuHeader>Components</MenuHeader>
+    <StackMenu appearance="inverted vertical"/>
+  </Menu>
   <CurrentCard/>
 </OakStack>

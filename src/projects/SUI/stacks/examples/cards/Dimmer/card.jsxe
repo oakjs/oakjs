@@ -1,164 +1,159 @@
 <OakCard id="Dimmer" title="Dimmer">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Dimmer">
-      A dimmer hides distractions to focus attention on particular content.
-      <Todo>
-        <ul>
-          <li><i>active</i> vs <i>visible</i>, especially with loaders.</li>
-          <li><i>loading</i> property to automatically add a loader?</li>
-        </ul>
-      </Todo>
-    </PageTitle>
+  <PageTitle title="Dimmer">
+    A dimmer hides distractions to focus attention on particular content.
+    <Todo>
+      <ul>
+        <li><i>active</i> vs <i>visible</i>, especially with loaders.</li>
+        <li><i>loading</i> property to automatically add a loader?</li>
+      </ul>
+    </Todo>
+  </PageTitle>
 
-    <PageSection title="Types">
+  <PageSection title="Types">
 
-      <Example title="Simple">
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer visible/>
-        </Segment>
-      </Example>
+    <Example title="Simple">
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer visible/>
+      </Segment>
+    </Example>
 
-      <Example title="Inline Content" hint="<Dimmer>...text...</Dimmer>">
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer visible>
-              Inline content here!
-          </Dimmer>
-        </Segment>
-      </Example>
+    <Example title="Inline Content" hint="<Dimmer>...text...</Dimmer>">
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer visible>
+            Inline content here!
+        </Dimmer>
+      </Segment>
+    </Example>
 
-      <Example title="Content + Icon Attributes" hint="<Dimmer content='text' icon='icon'/>">
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer visible content="Content from attribute" icon="heart"/>
-        </Segment>
-      </Example>
+    <Example title="Content + Icon Attributes" hint="<Dimmer content='text' icon='icon'/>">
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer visible content="Content from attribute" icon="heart"/>
+      </Segment>
+    </Example>
 
-      <Example title="Page Dimmer" hint="<Dimmer appearance='page'/>">
-        <Dimmer ref="pageDimmer" appearance="page" content="I am the page dimmer!" closable/>
-        <Button icon="plus" title="Show" onClick={()=>card.refs.pageDimmer.show()}/>
-      </Example>
-    </PageSection>
+    <Example title="Page Dimmer" hint="<Dimmer appearance='page'/>">
+      <Dimmer ref="pageDimmer" appearance="page" content="I am the page dimmer!" closable/>
+      <Button icon="plus" title="Show" onClick={()=>card.refs.pageDimmer.show()}/>
+    </Example>
+  </PageSection>
 
 
-    <PageSection title="Appearance">
+  <PageSection title="Appearance">
 
-      <Example title="Inverted" hint="<Dimmer appearance='inverted'/>">
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer visible appearance="inverted" content="I am inverted!" icon="heart"/>
-        </Segment>
-      </Example>
+    <Example title="Inverted" hint="<Dimmer appearance='inverted'/>">
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer visible appearance="inverted" content="I am inverted!" icon="heart"/>
+      </Segment>
+    </Example>
 
-      <Example title="Blurring" hint="<SomeContainer appearance='blurring'><Dimmer/>...container content...</SomeContainer>">
-        <Segment>
-          <Dimmer visible appearance="blurring"/>
-          <LoremIpsum/>
-        </Segment>
+    <Example title="Blurring" hint="<SomeContainer appearance='blurring'><Dimmer/>...container content...</SomeContainer>">
+      <Segment>
+        <Dimmer visible appearance="blurring"/>
+        <LoremIpsum/>
+      </Segment>
 
-        <Segment>
-          <Dimmer visible appearance="inverted blurring" icon="heart" content="I love it when a plan comes together"/>
-          <LoremIpsum/>
-        </Segment>
+      <Segment>
+        <Dimmer visible appearance="inverted blurring" icon="heart" content="I love it when a plan comes together"/>
+        <LoremIpsum/>
+      </Segment>
 
-        <Warning>Blurring doesn't work unless the dimmer is the FIRST ELEMENT in its container.</Warning>
-      </Example>
+      <Warning>Blurring doesn't work unless the dimmer is the FIRST ELEMENT in its container.</Warning>
+    </Example>
 
-    </PageSection>
+  </PageSection>
 
-    <PageSection title="States">
+  <PageSection title="States">
 
-      <Example title="Normal (hidden)" hint="<Dimmer/>">
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer ref="normalDimmer"/>
-        </Segment>
-      </Example>
+    <Example title="Normal (hidden)" hint="<Dimmer/>">
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer ref="normalDimmer"/>
+      </Segment>
+    </Example>
 
-      <Example title="Start visible" hint="<Dimmer visible/>">
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer ref="visibleDimmer" visible/>
-        </Segment>
-      </Example>
+    <Example title="Start visible" hint="<Dimmer visible/>">
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer ref="visibleDimmer" visible/>
+      </Segment>
+    </Example>
 
-      <Example title="Disabled" hint="<Dimmer disabled/>">
-        <Enablers ref="disabledEnabler" for="disabled" result="Initially disabled"/>
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer ref="disabled" disabled visible {...data.disabled}/>
-        </Segment>
-      </Example>
+    <Example title="Disabled" hint="<Dimmer disabled/>">
+      <Enablers ref="disabledEnabler" for="disabled" result="Initially disabled"/>
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer ref="disabled" disabled visible {...data.disabled}/>
+      </Segment>
+    </Example>
 
-    </PageSection>
-
-
-    <PageSection title="Events">
-
-      <Example title="onClick" hint="<Dimmer onClick={...func...}/>">
-        <Enablers for="click"/>
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer ref="click" visible id="click"
-            onClick={card.deferredSet("click.result", "onClick() called")}
-            {...data.click}
-          />
-        </Segment>
-      </Example>
-
-      <Example title="onShow and onHide" hint="<Dimmer onShow={...func...} onHide={...func...}/>">
-        <Enablers for="showHide"/>
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer ref="showHide"
-            onClick={card.deferredSet("showHide.result", "onClick() called")}
-            onShow={card.deferredSet("showHide.result", "onShow() called")}
-            onHide={card.deferredSet("showHide.result", "onHide() called")}
-            {...data.showHide}
-          />
-        </Segment>
-      </Example>
-
-      <Example title="onShow and onHide starting visible" hint="<Dimmer visible onShow={...func...} onHide={...func...}/>">
-        <Enablers for="hideShow"/>
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer ref="hideShow" visible {...data.hideShow}
-            onClick={card.deferredSet("hideShow.result", "onClick() called")}
-            onShow={card.deferredSet("hideShow.result", "onShow() called")}
-            onHide={card.deferredSet("hideShow.result", "onHide() called")}
-            {...data.hideShow}
-          />
-        </Segment>
-      </Example>
-
-      <Example title="onChange" hint="<Dimmer visible onChange={...func...}/>">
-        <Enablers for="onChange"/>
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer ref="onChange" visible {...data.onChange}
-            onChange={card.deferredSet("onChange.result", "onChange() called")}
-            {...data.onChange}
-          />
-        </Segment>
-      </Example>
-
-      <Example title="Closable" hint="<Dimmer closable/>">
-        <Enablers for="closable"/>
-        <Segment>
-          <LoremIpsum/>
-          <Dimmer id="closable" ref="closable" closable visible content="Click to close me"
-            onClick={card.deferredSet("closable.result", "onClick() called")}
-            {...data.closable}
-          />
-        </Segment>
-      </Example>
+  </PageSection>
 
 
-    </PageSection>
+  <PageSection title="Events">
+
+    <Example title="onClick" hint="<Dimmer onClick={...func...}/>">
+      <Enablers for="click"/>
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer ref="click" visible id="click"
+          onClick={card.deferredSet("click.result", "onClick() called")}
+          {...data.click}
+        />
+      </Segment>
+    </Example>
+
+    <Example title="onShow and onHide" hint="<Dimmer onShow={...func...} onHide={...func...}/>">
+      <Enablers for="showHide"/>
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer ref="showHide"
+          onClick={card.deferredSet("showHide.result", "onClick() called")}
+          onShow={card.deferredSet("showHide.result", "onShow() called")}
+          onHide={card.deferredSet("showHide.result", "onHide() called")}
+          {...data.showHide}
+        />
+      </Segment>
+    </Example>
+
+    <Example title="onShow and onHide starting visible" hint="<Dimmer visible onShow={...func...} onHide={...func...}/>">
+      <Enablers for="hideShow"/>
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer ref="hideShow" visible {...data.hideShow}
+          onClick={card.deferredSet("hideShow.result", "onClick() called")}
+          onShow={card.deferredSet("hideShow.result", "onShow() called")}
+          onHide={card.deferredSet("hideShow.result", "onHide() called")}
+          {...data.hideShow}
+        />
+      </Segment>
+    </Example>
+
+    <Example title="onChange" hint="<Dimmer visible onChange={...func...}/>">
+      <Enablers for="onChange"/>
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer ref="onChange" visible {...data.onChange}
+          onChange={card.deferredSet("onChange.result", "onChange() called")}
+          {...data.onChange}
+        />
+      </Segment>
+    </Example>
+
+    <Example title="Closable" hint="<Dimmer closable/>">
+      <Enablers for="closable"/>
+      <Segment>
+        <LoremIpsum/>
+        <Dimmer id="closable" ref="closable" closable visible content="Click to close me"
+          onClick={card.deferredSet("closable.result", "onClick() called")}
+          {...data.closable}
+        />
+      </Segment>
+    </Example>
 
 
-  </Page>
+  </PageSection>
 </OakCard>

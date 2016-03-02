@@ -1,60 +1,56 @@
 <OakCard id="Step" title="Step">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Step">
-      A step shows the completion status of an activity in a series of activities
-    </PageTitle>
+  <PageTitle title="Step">
+    A step shows the completion status of an activity in a series of activities
+  </PageTitle>
 
-    <PageSection title="Content">
+  <PageSection title="Content">
 
-      <Example title="Inline content">
-        <Steps>
-          <Step>
-            Shipping
-          </Step>
-        </Steps>
-      </Example>
+    <Example title="Inline content">
+      <Steps>
+        <Step>
+          Shipping
+        </Step>
+      </Steps>
+    </Example>
 
-      <Example title="Title and Description">
-        <Steps>
-          <Step title="Shipping" description="Choose your shipping options"/>
-        </Steps>
-      </Example>
+    <Example title="Title and Description">
+      <Steps>
+        <Step title="Shipping" description="Choose your shipping options"/>
+      </Steps>
+    </Example>
 
-      <Example title="Icon">
-        <Steps>
-          <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
-        </Steps>
-      </Example>
+    <Example title="Icon">
+      <Steps>
+        <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
+      </Steps>
+    </Example>
 
-      <Example title="Link">
-        <Steps>
-          <Step link="http://www.ups.com" target="_blank" icon="truck" title="Shipping" description="Choose your shipping options"/>
-        </Steps>
-      </Example>
+    <Example title="Link">
+      <Steps>
+        <Step link="http://www.ups.com" target="_blank" icon="truck" title="Shipping" description="Choose your shipping options"/>
+      </Steps>
+    </Example>
 
-    </PageSection>
+  </PageSection>
 
-    <PageSection title="States">
-      <Example title="Active">
-        <Steps>
-          <Step active icon="truck" title="Shipping" description="Choose your shipping options"/>
-        </Steps>
-      </Example>
+  <PageSection title="States">
+    <Example title="Active">
+      <Steps>
+        <Step active icon="truck" title="Shipping" description="Choose your shipping options"/>
+      </Steps>
+    </Example>
 
-      <Example title="Completed">
-        <Steps>
-          <Step completed icon="truck" title="Shipping" description="Choose your shipping options"/>
-        </Steps>
-      </Example>
+    <Example title="Completed">
+      <Steps>
+        <Step completed icon="truck" title="Shipping" description="Choose your shipping options"/>
+      </Steps>
+    </Example>
 
-      <Example title="Disabled">
-        <Steps>
-          <Step disabled icon="truck" title="Shipping" description="Choose your shipping options"/>
-        </Steps>
-      </Example>
+    <Example title="Disabled">
+      <Steps>
+        <Step disabled icon="truck" title="Shipping" description="Choose your shipping options"/>
+      </Steps>
+    </Example>
 
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

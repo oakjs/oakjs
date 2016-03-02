@@ -1,72 +1,60 @@
 <OakCard id="Search" title="Search">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Search">
-      A search component allows a user to query for results from a selection of data
-      <Todo>
-        <ul>
-          <li>Events tests</li>
-        </ul>
-      </Todo>
-    </PageTitle>
+  <PageTitle title="Search">
+    A search component allows a user to query for results from a selection of data
+    <Todo>
+      <ul>
+        <li>Events tests</li>
+      </ul>
+    </Todo>
+  </PageTitle>
 
-    <PageSection title="Types">
+  <PageSection title="Types">
 
-      <Example title="API-Based" hint="<Search apiSettings={{...}} fields={{...}}/>">
-        <Search apiSettings={{ url: "//api.github.com/search/repositories?q={query}"}}
-                  fields={{ results: "items", title: "name", url: "html_url" }}
-                  minCharacters={3}
-                  placeholder="Search GitHub Repos"
-          />
-      </Example>
+    <Example title="API-Based" hint="<Search apiSettings={{...}} fields={{...}}/>">
+      <Search apiSettings={{ url: "//api.github.com/search/repositories?q={query}"}}
+                fields={{ results: "items", title: "name", url: "html_url" }}
+                minCharacters={3}
+                placeholder="Search GitHub Repos"
+        />
+    </Example>
 
-      <Example title="Local Source" hint="<Search category/>">
-        <Search source={data.countryNames}
-                  placeholder="Choose a Country"
-          />
-      </Example>
+    <Example title="Local Source" hint="<Search category/>">
+      <Search source={data.countryNames} placeholder="Choose a Country"/>
+    </Example>
 
-      <Example title="Category Results" hint="<Search source={[...]}/>">
-        <Search category
-                  apiSettings={{
-                    url: "//api.github.com/search/repositories?q={query}",
-                    onResponse: data.processGithubResponse
-                  }}
-                  placeholder="Search Github"
-                  icon="github" iconOn="left"
-          />
-      </Example>
+    <Example title="Category Results" hint="<Search source={[...]}/>">
+      <Search category
+                apiSettings={{
+                  url: "//api.github.com/search/repositories?q={query}",
+                  onResponse: data.processGithubResponse
+                }}
+                placeholder="Search Github"
+                icon="github" iconOn="left"
+        />
+    </Example>
 
-    </PageSection>
+  </PageSection>
 
 
-    <PageSection title="States">
+  <PageSection title="States">
 
-      <Example title="Loading" hint="<Search loading/>">
-        <Search loading
-                  placeholder="Search..."
-          />
-      </Example>
+    <Example title="Loading" hint="<Search loading/>">
+      <Search loading
+                placeholder="Search..."
+        />
+    </Example>
 
-    </PageSection>
+  </PageSection>
 
-    <PageSection title="Appearance">
+  <PageSection title="Appearance">
 
-      <Example title="Fluid results" hint="<Search appearance='fluid'/>">
-        <Search appearance="fluid"
-                  source={data.countryNames}
-                  placeholder="Search..."
-          />
-      </Example>
+    <Example title="Fluid results" hint="<Search appearance='fluid'/>">
+      <Search appearance="fluid" source={data.countryNames} placeholder="Search..."/>
+    </Example>
 
-      <Example title="Right aligned results" hint="<Search appearance='right aligned'/>">
-        <Search appearance="right aligned"
-                  source={data.countryNames}
-                  placeholder="Search..."
-          />
-      </Example>
+    <Example title="Right aligned results" hint="<Search appearance='right aligned'/>">
+      <Search appearance="right aligned" source={data.countryNames} placeholder="Search..."/>
+    </Example>
 
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

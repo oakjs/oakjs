@@ -1,204 +1,199 @@
 <OakCard id="Field" title="Field">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Field">
-      A field is a form element containing a label and an input.
-      <Info>Note that a Field will only display properly if inside a Form.</Info>
-      <Todo>
-        <ul>
-          <li>Support `type=select'??</li>
-          <li>Output field type??</li>
-          <li>Add Dropdown, Checkbox, etc examples.</li>
-        </ul>
-      </Todo>
-    </PageTitle>
+  <PageTitle title="Field">
+    A field is a form element containing a label and an input.
+    <Info>Note that a Field will only display properly if inside a Form.</Info>
+    <Todo>
+      <ul>
+        <li>Support `type=select'??</li>
+        <li>Output field type??</li>
+        <li>Add Dropdown, Checkbox, etc examples.</li>
+      </ul>
+    </Todo>
+  </PageTitle>
 
-    <PageSection title="Content">
+  <PageSection title="Content">
 
-      <Example title="Inline Content" hint="<Field><Input/></Field>">
+    <Example title="Inline Content" hint="<Field><Input/></Field>">
+      <Form>
+        <Field>
+          <label>First Name</label>
+          <input type="text" placeholder="this field was field specified as an html <input>"/>
+        </Field>
+        <Field>
+          <label>First Name</label>
+          <Input type="text" placeholder="this field was specified as an SUI <Input>"/>
+        </Field>
+      </Form>
+    </Example>
+
+    <Example title="Fields Specified with `type`, `label`, etc Attributes" hint="<Field type='text' label='...'/>">
+      <Form appearance="equal width">
+        <Fields appearance="compact">
+          <Field label="type=text"/>
+          <Field label="type=button"/>
+          <Field label="type=checkbox"/>
+        </Fields>
+        <Fields>
+          <Field type="text"/>
+          <Field type="button" value="OK" error="SUI styling messes this up"/>
+          <Field type="checkbox" label="Checkbox label"/>
+        </Fields>
+
+        <Spacer large/>
+        <Fields appearance="compact">
+          <Field label="type=date"/>
+          <Field label="type=datetime"/>
+          <Field label="type=datetime-local"/>
+        </Fields>
+        <Fields>
+          <Field type="date"/>
+          <Field type="datetime"/>
+          <Field type="datetime-local"/>
+        </Fields>
+
+        <Spacer large/>
+        <Fields appearance="compact">
+          <Field label="type=email"/>
+          <Field label="type=file"/>
+          <Field label="type=hidden"/>
+        </Fields>
+        <Fields>
+          <Field type="email"/>
+          <Field type="file"/>
+          <Field type="hidden"/>
+        </Fields>
+
+        <Spacer large/>
+        <Fields appearance="compact">
+          <Field label="type=image"/>
+          <Field label="type=month"/>
+          <Field label="type=number"/>
+        </Fields>
+        <Fields>
+          <Field type="image" error="SUI styling messes this up"/>
+          <Field type="month"/>
+          <Field type="number" min={0} max={10}/>
+        </Fields>
+
+        <Spacer large/>
+        <Fields appearance="compact">
+          <Field label="type=password"/>
+          <Field label="type=radio"/>
+          <Field label="type=range"/>
+        </Fields>
+        <Fields>
+          <Field type="password"/>
+          <Field type="radio" name="a" value="1" label="Radio label"/>
+          <Field type="range" min={0} max={10}/>
+        </Fields>
+
+        <Spacer large/>
+        <Fields appearance="compact">
+          <Field label="type=reset"/>
+          <Field label="type=search"/>
+          <Field label="type=submit"/>
+        </Fields>
+        <Fields>
+          <Field type="reset" value="Reset" error="SUI styling messes this up"/>
+          <Field type="search"/>
+          <Field type="submit" value="Submit" error="SUI styling messes this up"/>
+        </Fields>
+
+        <Spacer large/>
+        <Fields appearance="compact">
+          <Field label="type=tel"/>
+          <Field label="type=time"/>
+          <Field label="type=toggle"/>
+        </Fields>
+        <Fields>
+          <Field type="tel"/>
+          <Field type="time"/>
+          <Field type="toggle"/>
+        </Fields>
+
+        <Spacer large/>
+        <Fields appearance="compact">
+          <Field label="type=url"/>
+          <Field label="type=week"/>
+          <Field label="type=textarea"/>
+        </Fields>
+        <Fields>
+          <Field type="url"/>
+          <Field type="week"/>
+          <Field type="textarea"/>
+        </Fields>
+
+      </Form>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="States">
+    <Columns>
+      <Example title="Readonly" hint="<Field readonly/>">
+        <Form state='error'>
+          <Field readonly type="text" label="Read Only Field" value="text"/>
+          <Info>Text field is selectable, this is correct according to the standard.</Info>
+          <Field readonly type="checkbox" rightLabel="Read Only Checkbox"/>
+          <Field readonly type="radio" rightLabel="Read Only Radio Button"/>
+        </Form>
+      </Example>
+
+      <Example title="Disabled" hint="<Field disabled/>">
         <Form>
-          <Field>
-            <label>First Name</label>
-            <input type="text" placeholder="this field was field specified as an html <input>"/>
-          </Field>
-          <Field>
-            <label>First Name</label>
-            <Input type="text" placeholder="this field was specified as an SUI <Input>"/>
-          </Field>
+          <Field disabled type="text" label="Disabled Field"/>
+          <Field disabled type="checkbox" rightLabel="Disabled Checkbox"/>
+          <Field disabled type="radio" rightLabel="Disabled Radio Button"/>
         </Form>
       </Example>
 
-      <Example title="Fields Specified with `type`, `label`, etc Attributes" hint="<Field type='text' label='...'/>">
-        <Form appearance="equal width">
-          <Fields appearance="compact">
-            <Field label="type=text"/>
-            <Field label="type=button"/>
-            <Field label="type=checkbox"/>
-          </Fields>
-          <Fields>
-            <Field type="text"/>
-            <Field type="button" value="OK" error="SUI styling messes this up"/>
-            <Field type="checkbox" label="Checkbox label"/>
-          </Fields>
-
-          <Spacer large/>
-          <Fields appearance="compact">
-            <Field label="type=date"/>
-            <Field label="type=datetime"/>
-            <Field label="type=datetime-local"/>
-          </Fields>
-          <Fields>
-            <Field type="date"/>
-            <Field type="datetime"/>
-            <Field type="datetime-local"/>
-          </Fields>
-
-          <Spacer large/>
-          <Fields appearance="compact">
-            <Field label="type=email"/>
-            <Field label="type=file"/>
-            <Field label="type=hidden"/>
-          </Fields>
-          <Fields>
-            <Field type="email"/>
-            <Field type="file"/>
-            <Field type="hidden"/>
-          </Fields>
-
-          <Spacer large/>
-          <Fields appearance="compact">
-            <Field label="type=image"/>
-            <Field label="type=month"/>
-            <Field label="type=number"/>
-          </Fields>
-          <Fields>
-            <Field type="image" error="SUI styling messes this up"/>
-            <Field type="month"/>
-            <Field type="number" min={0} max={10}/>
-          </Fields>
-
-          <Spacer large/>
-          <Fields appearance="compact">
-            <Field label="type=password"/>
-            <Field label="type=radio"/>
-            <Field label="type=range"/>
-          </Fields>
-          <Fields>
-            <Field type="password"/>
-            <Field type="radio" name="a" value="1" label="Radio label"/>
-            <Field type="range" min={0} max={10}/>
-          </Fields>
-
-          <Spacer large/>
-          <Fields appearance="compact">
-            <Field label="type=reset"/>
-            <Field label="type=search"/>
-            <Field label="type=submit"/>
-          </Fields>
-          <Fields>
-            <Field type="reset" value="Reset" error="SUI styling messes this up"/>
-            <Field type="search"/>
-            <Field type="submit" value="Submit" error="SUI styling messes this up"/>
-          </Fields>
-
-          <Spacer large/>
-          <Fields appearance="compact">
-            <Field label="type=tel"/>
-            <Field label="type=time"/>
-            <Field label="type=toggle"/>
-          </Fields>
-          <Fields>
-            <Field type="tel"/>
-            <Field type="time"/>
-            <Field type="toggle"/>
-          </Fields>
-
-          <Spacer large/>
-          <Fields appearance="compact">
-            <Field label="type=url"/>
-            <Field label="type=week"/>
-            <Field label="type=textarea"/>
-          </Fields>
-          <Fields>
-            <Field type="url"/>
-            <Field type="week"/>
-            <Field type="textarea"/>
-          </Fields>
-
-        </Form>
-      </Example>
-
-    </PageSection>
-
-    <PageSection title="States">
-      <Columns>
-        <Example title="Readonly" hint="<Field readonly/>">
-          <Form state='error'>
-            <Field readonly type="text" label="Read Only Field" value="text"/>
-            <Info>Text field is selectable, this is correct according to the standard.</Info>
-            <Field readonly type="checkbox" rightLabel="Read Only Checkbox"/>
-            <Field readonly type="radio" rightLabel="Read Only Radio Button"/>
-          </Form>
-        </Example>
-
-        <Example title="Disabled" hint="<Field disabled/>">
-          <Form>
-            <Field disabled type="text" label="Disabled Field"/>
-            <Field disabled type="checkbox" rightLabel="Disabled Checkbox"/>
-            <Field disabled type="radio" rightLabel="Disabled Radio Button"/>
-          </Form>
-        </Example>
-
-        <Example title="Error" hint="<Field error> or <Field error='...'">
-          <Form>
-            <Field error type="text" label="Error Field with No Error Message"/>
-            <Field error="Something went wrong" type="text" label="Error Field with Message"/>
-            <Field error="Something went wrong" type="checkbox" rightLabel="Errors work for Checkboxes"/>
-          </Form>
-        </Example>
-      </Columns>
-
-      <Columns>
-        <Example title="Requied" hint="<Field requied>">
-          <Form>
-            <Field required appearance="fluid" type="text" label="Last Name"/>
-            <Field required type="checkbox" rightLabel="I agree to the terms and conditions"/>
-          </Form>
-        </Example>
-      </Columns>
-
-    </PageSection>
-
-    <PageSection title="Appearance">
-      <Example title="Inline" hint="<Field inline label='...'/>">
+      <Example title="Error" hint="<Field error> or <Field error='...'">
         <Form>
-          <Field inline type="text" label="Field Label"/>
-          <Field inline type="checkbox" label="Field Label" rightLabel="Checkbox label"/>
+          <Field error type="text" label="Error Field with No Error Message"/>
+          <Field error="Something went wrong" type="text" label="Error Field with Message"/>
+          <Field error="Something went wrong" type="checkbox" rightLabel="Errors work for Checkboxes"/>
         </Form>
       </Example>
+    </Columns>
 
-      <Example title="Width" hint="<Field columns={3}/>">
+    <Columns>
+      <Example title="Requied" hint="<Field requied>">
         <Form>
-          <Fields>
-            <Field columns={6} type="text" label="First Name"/>
-            <Field columns={4} type="text" label="Middle"/>
-            <Field columns={6} type="text" label="Last Name"/>
-          </Fields>
-          <Fields>
-            <Field columns={2} type="text" placeholder="2 wide"/>
-            <Field columns={12} type="text" placeholder="12 wide"/>
-            <Field columns={2} type="text" placeholder="2 wide"/>
-          </Fields>
-          <Fields>
-            <Field columns={8} type="text" placeholder="8 wide"/>
-            <Field columns={6} type="text" placeholder="6 wide"/>
-            <Field columns={2} type="text" placeholder="2 wide"/>
-          </Fields>
+          <Field required appearance="fluid" type="text" label="Last Name"/>
+          <Field required type="checkbox" rightLabel="I agree to the terms and conditions"/>
         </Form>
       </Example>
+    </Columns>
 
-    </PageSection>
+  </PageSection>
 
+  <PageSection title="Appearance">
+    <Example title="Inline" hint="<Field inline label='...'/>">
+      <Form>
+        <Field inline type="text" label="Field Label"/>
+        <Field inline type="checkbox" label="Field Label" rightLabel="Checkbox label"/>
+      </Form>
+    </Example>
 
-  </Page>
+    <Example title="Width" hint="<Field columns={3}/>">
+      <Form>
+        <Fields>
+          <Field columns={6} type="text" label="First Name"/>
+          <Field columns={4} type="text" label="Middle"/>
+          <Field columns={6} type="text" label="Last Name"/>
+        </Fields>
+        <Fields>
+          <Field columns={2} type="text" placeholder="2 wide"/>
+          <Field columns={12} type="text" placeholder="12 wide"/>
+          <Field columns={2} type="text" placeholder="2 wide"/>
+        </Fields>
+        <Fields>
+          <Field columns={8} type="text" placeholder="8 wide"/>
+          <Field columns={6} type="text" placeholder="6 wide"/>
+          <Field columns={2} type="text" placeholder="2 wide"/>
+        </Fields>
+      </Form>
+    </Example>
+
+  </PageSection>
 </OakCard>

@@ -1,141 +1,137 @@
 <OakCard id="Form" title="Form">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Form">
-    </PageTitle>
+  <PageTitle title="Form">
+  </PageTitle>
 
-    <PageSection title="Content">
+  <PageSection title="Content">
 
-      <Example title="Simple Form">
-        <Form>
-          <Field label="First Name" type="text" placeholder="First Name"/>
-          <Field label="Last Name" type="text" placeholder="Last Name"/>
-          <Field type="checkbox" rightLabel="I agree to the terms and conditions"/>
-          <Button type="submit">Save</Button>
-        </Form>
-      </Example>
+    <Example title="Simple Form">
+      <Form>
+        <Field label="First Name" type="text" placeholder="First Name"/>
+        <Field label="Last Name" type="text" placeholder="Last Name"/>
+        <Field type="checkbox" rightLabel="I agree to the terms and conditions"/>
+        <Button type="submit">Save</Button>
+      </Form>
+    </Example>
 
-      <Example title="Complex Layout with Fields">
-        <Form>
-          <Header dividing>Shipping Information</Header>
-          <Fields count={2} label="Name">
-            <Field type="text" placeholder="First Name"/>
-            <Field type="text" placeholder="Last Name"/>
-          </Fields>
-          <Fields label="Billing Address">
-            <Field columns={12} type="text" placeholder="Street Address"/>
-            <Field columns={4} type="text" placeholder="Apt #"/>
-          </Fields>
-          <Fields count={2}>
-              <Field type="text" label="State" placeholder="State"/>
-              <Field type="text" label="Country "placeholder="Country"/>
-          </Fields>
+    <Example title="Complex Layout with Fields">
+      <Form>
+        <Header dividing>Shipping Information</Header>
+        <Fields count={2} label="Name">
+          <Field type="text" placeholder="First Name"/>
+          <Field type="text" placeholder="Last Name"/>
+        </Fields>
+        <Fields label="Billing Address">
+          <Field columns={12} type="text" placeholder="Street Address"/>
+          <Field columns={4} type="text" placeholder="Apt #"/>
+        </Fields>
+        <Fields count={2}>
+            <Field type="text" label="State" placeholder="State"/>
+            <Field type="text" label="Country "placeholder="Country"/>
+        </Fields>
 
-          <Header dividing>Billing Information</Header>
-          <Field label="Card Type" type="text" placeholder="Type"/>
-          <Fields>
-            <Field columns={7} type="text" label="Card Number" placeholder="Card #"/>
-            <Field columns={3} type="text" label="CVC" placeholder="CVC"/>
-            <Field columns={6} label="Expiration">
-              <Fields count={2}>
-                <Field type="text" placeholder="Month"/>
-                <Field type="text" placeholder="Year"/>
-              </Fields>
-            </Field>
-          </Fields>
-
-          <Button type="submit">Submit Order</Button>
-        </Form>
-      </Example>
-
-    </PageSection>
-
-    <PageSection title="States">
-
-      <Example title="Loading" hint="<Form loading/>">
-        <Form loading>
-          <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
-          <Button type="submit">Sign up For Newsletter</Button>
-        </Form>
-      </Example>
-
-      <Example title="Success" hint="<Form state='success'/>">
-        <Form state='success'>
-          <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
-          <Message appearance="success" header="Form Completed" content="You're all signed up for the newsletter"/>
-          <Button type="submit" disabled>Sign up For Newsletter</Button>
-        </Form>
-      </Example>
-
-      <Example title="Error" hint="<Form state='error'/>">
-        <Form state='error'>
-          <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
-          <Message appearance="error" content="This address has already been signed up."/>
-          <Button type="submit">Sign up For Newsletter</Button>
-        </Form>
-      </Example>
-
-      <Example title="Warning" hint="<Form state='warning'/>">
-        <Form state='warning'>
-          <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
-          <Message appearance="warning" content="This address has already signed up, but you have not clicked the link in the confirmation email."/>
-          <Button type="submit">Sign up For Newsletter</Button>
-        </Form>
-      </Example>
-
-    </PageSection>
-
-
-    <PageSection title="Appearance">
-
-      <Example title="Size" hint="<Form appearance='equal width'/>">
-        <Form appearance="equal width">
-          <Fields>
-            <Field type="text" label="Username" placeholder="Username"/>
-            <Field type="password" label="Password"/>
-          </Fields>
-          <Fields>
-            <Field type="text" label="First Name" placeholder="First Name"/>
-            <Field type="text" label="Middle Name" placeholder="Middle Name"/>
-            <Field type="text" label="Last Name" placeholder="Last Name"/>
-          </Fields>
-        </Form>
-      </Example>
-
-      <Example title="Size" hint="<Form size='large'/>">
-        <Columns>
-          <Form size='small'>
-            <Label pointing="down" color="teal">size=small</Label>
-            <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
-            <Button type="submit">Sign up For Newsletter</Button>
-          </Form>
-          <Form size='medium'>
-            <Label pointing="down" color="teal">size=medium (default)</Label>
-            <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
-            <Button type="submit">Sign up For Newsletter</Button>
-          </Form>
-          <Form size='large'>
-            <Label pointing="down" color="teal">size=large</Label>
-            <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
-            <Button type="submit">Sign up For Newsletter</Button>
-          </Form>
-        </Columns>
-      </Example>
-
-      <Example title="Inverted" hint="<Form appearance='inverted'/>">
-        <Segment appearance="inverted">
-          <Form appearance="inverted">
+        <Header dividing>Billing Information</Header>
+        <Field label="Card Type" type="text" placeholder="Type"/>
+        <Fields>
+          <Field columns={7} type="text" label="Card Number" placeholder="Card #"/>
+          <Field columns={3} type="text" label="CVC" placeholder="CVC"/>
+          <Field columns={6} label="Expiration">
             <Fields count={2}>
-              <Field label="First Name" type="text" placeholder="First Name"/>
-              <Field label="Last Name" type="text" placeholder="Last Name"/>
+              <Field type="text" placeholder="Month"/>
+              <Field type="text" placeholder="Year"/>
             </Fields>
-            <Field type="checkbox" rightLabel="I agree to the terms and conditions"/>
-            <Button type="submit">Sign up For Newsletter</Button>
-          </Form>
-        </Segment>
-      </Example>
+          </Field>
+        </Fields>
 
-    </PageSection>
+        <Button type="submit">Submit Order</Button>
+      </Form>
+    </Example>
 
-  </Page>
+  </PageSection>
+
+  <PageSection title="States">
+
+    <Example title="Loading" hint="<Form loading/>">
+      <Form loading>
+        <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+        <Button type="submit">Sign up For Newsletter</Button>
+      </Form>
+    </Example>
+
+    <Example title="Success" hint="<Form state='success'/>">
+      <Form state='success'>
+        <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+        <Message appearance="success" header="Form Completed" content="You're all signed up for the newsletter"/>
+        <Button type="submit" disabled>Sign up For Newsletter</Button>
+      </Form>
+    </Example>
+
+    <Example title="Error" hint="<Form state='error'/>">
+      <Form state='error'>
+        <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+        <Message appearance="error" content="This address has already been signed up."/>
+        <Button type="submit">Sign up For Newsletter</Button>
+      </Form>
+    </Example>
+
+    <Example title="Warning" hint="<Form state='warning'/>">
+      <Form state='warning'>
+        <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+        <Message appearance="warning" content="This address has already signed up, but you have not clicked the link in the confirmation email."/>
+        <Button type="submit">Sign up For Newsletter</Button>
+      </Form>
+    </Example>
+
+  </PageSection>
+
+
+  <PageSection title="Appearance">
+
+    <Example title="Size" hint="<Form appearance='equal width'/>">
+      <Form appearance="equal width">
+        <Fields>
+          <Field type="text" label="Username" placeholder="Username"/>
+          <Field type="password" label="Password"/>
+        </Fields>
+        <Fields>
+          <Field type="text" label="First Name" placeholder="First Name"/>
+          <Field type="text" label="Middle Name" placeholder="Middle Name"/>
+          <Field type="text" label="Last Name" placeholder="Last Name"/>
+        </Fields>
+      </Form>
+    </Example>
+
+    <Example title="Size" hint="<Form size='large'/>">
+      <Columns>
+        <Form size='small'>
+          <Label pointing="down" color="teal">size=small</Label>
+          <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+          <Button type="submit">Sign up For Newsletter</Button>
+        </Form>
+        <Form size='medium'>
+          <Label pointing="down" color="teal">size=medium (default)</Label>
+          <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+          <Button type="submit">Sign up For Newsletter</Button>
+        </Form>
+        <Form size='large'>
+          <Label pointing="down" color="teal">size=large</Label>
+          <Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+          <Button type="submit">Sign up For Newsletter</Button>
+        </Form>
+      </Columns>
+    </Example>
+
+    <Example title="Inverted" hint="<Form appearance='inverted'/>">
+      <Segment appearance="inverted">
+        <Form appearance="inverted">
+          <Fields count={2}>
+            <Field label="First Name" type="text" placeholder="First Name"/>
+            <Field label="Last Name" type="text" placeholder="Last Name"/>
+          </Fields>
+          <Field type="checkbox" rightLabel="I agree to the terms and conditions"/>
+          <Button type="submit">Sign up For Newsletter</Button>
+        </Form>
+      </Segment>
+    </Example>
+
+  </PageSection>
 </OakCard>

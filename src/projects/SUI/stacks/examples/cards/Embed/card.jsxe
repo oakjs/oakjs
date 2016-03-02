@@ -1,70 +1,65 @@
 <OakCard id="Embed" title="Embed">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Embed">
-    </PageTitle>
+  <PageTitle title="Embed">
+  </PageTitle>
 
-    <PageSection title="Sources">
-      <Example title="YouTube">
-        <Embed source="youtube" embedId="pfdu_gTry8E" placeholder="http://semantic-ui.com/images/image-16by9.png"/>
-      </Example>
+  <PageSection title="Sources">
+    <Example title="YouTube">
+      <Embed source="youtube" embedId="pfdu_gTry8E" placeholder="http://semantic-ui.com/images/image-16by9.png"/>
+    </Example>
 
-      <Example title="Vimeo">
-        <Embed source="vimeo" embedId="125292332" placeholder="http://semantic-ui.com/images/vimeo-example.jpg"/>
-      </Example>
+    <Example title="Vimeo">
+      <Embed source="vimeo" embedId="125292332" placeholder="http://semantic-ui.com/images/vimeo-example.jpg"/>
+    </Example>
 
-      <Example title="Custom Content">
-        <Embed url='http://www.myfav.es/jack' icon='right circle arrow' placeholder="http://semantic-ui.com/images/image-16by9.png"/>
-      </Example>
-    </PageSection>
+    <Example title="Custom Content">
+      <Embed url='http://www.myfav.es/jack' icon='right circle arrow' placeholder="http://semantic-ui.com/images/image-16by9.png"/>
+    </Example>
+  </PageSection>
 
-    <PageSection title="Behavior">
-      <Example title="Change behavior" hint="<Embed aspectRatio='4:3'/>">
-        <Embed ref='behavior' source="youtube" embedId="pfdu_gTry8E" placeholder="http://semantic-ui.com/images/image-16by9.png"/>
-        <Spacer/>
-        <Buttons>
-          <Button onClick={()=> card.refs.behavior.change("youtube", "HTZudKi36bo")} title="Change"/>
-          <Button onClick={()=> card.refs.behavior.reset()} title="Reset"/>
-          <Button onClick={()=> card.refs.behavior.show()} title="Show"/>
-          <Button onClick={()=> card.refs.behavior.hide()} title="Hide"/>
-          <Button onClick={()=> card.refs.behavior.destroy()} title="Destroy"/>
-        </Buttons>
-        <Spacer/>
-        <Buttons>
-          <Button onClick={()=> console.log(card.refs.behavior.getId())} title="getId"/>
-          <Button onClick={()=> console.log(card.refs.behavior.getPlaceholder())} title="getPlaceholder"/>
-          <Button onClick={()=> console.log(card.refs.behavior.getSource())} title="getSource"/>
-          <Button onClick={()=> console.log(card.refs.behavior.getType())} title="getType"/>
-          <Button onClick={()=> console.log(card.refs.behavior.getUrl())} title="getUrl"/>
-          <Button onClick={()=> console.log(card.refs.behavior.hasPlaceholder())} title="hasPlaceholder"/>
-        </Buttons>
-      </Example>
-    </PageSection>
+  <PageSection title="Behavior">
+    <Example title="Change behavior" hint="<Embed aspectRatio='4:3'/>">
+      <Embed ref='behavior' source="youtube" embedId="pfdu_gTry8E" placeholder="http://semantic-ui.com/images/image-16by9.png"/>
+      <Spacer/>
+      <Buttons>
+        <Button onClick={()=> card.refs.behavior.change("youtube", "HTZudKi36bo")} title="Change"/>
+        <Button onClick={()=> card.refs.behavior.reset()} title="Reset"/>
+        <Button onClick={()=> card.refs.behavior.show()} title="Show"/>
+        <Button onClick={()=> card.refs.behavior.hide()} title="Hide"/>
+        <Button onClick={()=> card.refs.behavior.destroy()} title="Destroy"/>
+      </Buttons>
+      <Spacer/>
+      <Buttons>
+        <Button onClick={()=> console.log(card.refs.behavior.getId())} title="getId"/>
+        <Button onClick={()=> console.log(card.refs.behavior.getPlaceholder())} title="getPlaceholder"/>
+        <Button onClick={()=> console.log(card.refs.behavior.getSource())} title="getSource"/>
+        <Button onClick={()=> console.log(card.refs.behavior.getType())} title="getType"/>
+        <Button onClick={()=> console.log(card.refs.behavior.getUrl())} title="getUrl"/>
+        <Button onClick={()=> console.log(card.refs.behavior.hasPlaceholder())} title="hasPlaceholder"/>
+      </Buttons>
+    </Example>
+  </PageSection>
 
-    <PageSection title="Appearance">
-      <Grid columns={2}>
-        <Column>
-          <Example title="Aspect Ratio" hint="<Embed aspectRatio='4:3'/>">
-            <Embed aspectRatio='4:3' source="youtube" embedId="HTZudKi36bo" placeholder="http://semantic-ui.com/images/4by3.jpg"/>
-          </Example>
-        </Column>
+  <PageSection title="Appearance">
+    <Grid columns={2}>
+      <Column>
+        <Example title="Aspect Ratio" hint="<Embed aspectRatio='4:3'/>">
+          <Embed aspectRatio='4:3' source="youtube" embedId="HTZudKi36bo" placeholder="http://semantic-ui.com/images/4by3.jpg"/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Icon" hint="<Embed icon='...'/>">
-            <Embed url="#" icon='chevron right' placeholder="http://semantic-ui.com/images/image-16by9.png"/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Icon" hint="<Embed icon='...'/>">
+          <Embed url="#" icon='chevron right' placeholder="http://semantic-ui.com/images/image-16by9.png"/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Color" hint="<Embed color='...'/>">
-            <Embed source="youtube" embedId="pfdu_gTry8E" autoplay={false} color="#cc00cc"/>
-            <Bug>Not sure how this is supposed to work...</Bug>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Color" hint="<Embed color='...'/>">
+          <Embed source="youtube" embedId="pfdu_gTry8E" autoplay={false} color="#cc00cc"/>
+          <Bug>Not sure how this is supposed to work...</Bug>
+        </Example>
+      </Column>
 
-      </Grid>
-    </PageSection>
-
-
-  </Page>
+    </Grid>
+  </PageSection>
 </OakCard>

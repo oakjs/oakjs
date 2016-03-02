@@ -1,53 +1,49 @@
 <OakCard id="Toggle" title="Toggle">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Toggle">
-      A toggle allows the user turn a setting on or off.
-    </PageTitle>
+  <PageTitle title="Toggle">
+    A toggle allows the user turn a setting on or off.
+  </PageTitle>
 
-    <PageSection title="States">
+  <PageSection title="States">
 
-      <Columns>
-        <Example title="Unchecked">
-          <Toggle label="Unchecked Toggle"/>
-        </Example>
-
-        <Example title="Checked" hint="<Toggle checked/>">
-          <Toggle checked label="Checked Toggle"/>
-        </Example>
-      </Columns>
-
-      <Columns>
-        <Example title="Read-only" hint="<Toggle readonly/>">
-          <Toggle readonly label="Read-only Toggle"/>
-        </Example>
-
-        <Example title="Disabled" hint="<Toggle disabled/>">
-          <Toggle disabled label="Disabled Toggle"/>
-        </Example>
-      </Columns>
-
-      <Columns>
-        <Example title="Hidden" hint="<Toggle hidden/>">
-          <Toggle hidden label="Hidden Toggle"/>
-        </Example>
-
-        <Example title="Error" hint="<Toggle error/>">
-          <Toggle error="Something went wrong" label="Error Toggle"/>
-        </Example>
-      </Columns>
-
-    </PageSection>
-
-
-    <PageSection title="Appearance">
-
-      <Example title="Fitted" hint="<Toggle appearance='fitted'/>">
-        <Segment appearance="left floated compact">
-          <Toggle appearance="fitted"/>
-        </Segment>
+    <Columns>
+      <Example title="Unchecked">
+        <Toggle label="Unchecked Toggle"/>
       </Example>
-    </PageSection>
 
-  </Page>
+      <Example title="Checked" hint="<Toggle checked/>">
+        <Toggle checked label="Checked Toggle"/>
+      </Example>
+    </Columns>
+
+    <Columns>
+      <Example title="Read-only" hint="<Toggle readonly/>">
+        <Toggle readonly label="Read-only Toggle"/>
+      </Example>
+
+      <Example title="Disabled" hint="<Toggle disabled/>">
+        <Toggle disabled label="Disabled Toggle"/>
+      </Example>
+    </Columns>
+
+    <Columns>
+      <Example title="Hidden" hint="<Toggle hidden/>">
+        <Toggle hidden label="Hidden Toggle"/>
+      </Example>
+
+      <Example title="Error" hint="<Toggle error/>">
+        <Toggle error="Something went wrong" label="Error Toggle"/>
+      </Example>
+    </Columns>
+
+  </PageSection>
+
+
+  <PageSection title="Appearance">
+
+    <Example title="Fitted" hint="<Toggle appearance='fitted'/>">
+      <Segment appearance="left floated compact">
+        <Toggle appearance="fitted"/>
+      </Segment>
+    </Example>
+  </PageSection>
 </OakCard>

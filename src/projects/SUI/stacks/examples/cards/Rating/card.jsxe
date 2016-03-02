@@ -1,163 +1,159 @@
 <OakCard id="Rating" title="Rating">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Rating">
-      A rating indicates user interest in content
-    </PageTitle>
+  <PageTitle title="Rating">
+    A rating indicates user interest in content
+  </PageTitle>
 
-    <PageSection title="Types">
-      <Grid columns={2}>
+  <PageSection title="Types">
+    <Grid columns={2}>
+      <Column>
+        <Example title="Normal" hint="<Rating/>">
+          <Rating/>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Single Rating" hint="<Rating max={1}/>">
+          <Rating max={1}/>
+        </Example>
+      </Column>
+    </Grid>
+  </PageSection>
+
+  <PageSection title="Content">
+    <Grid columns={2}>
+      <Column>
+        <Example title="Initial Value" hint="<Rating rating={4}/>">
+          <Rating rating={2}/>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Max Value" hint="<Rating max={10}/>">
+          <Rating max={10}/>
+        </Example>
+      </Column>
+    </Grid>
+  </PageSection>
+
+  <PageSection title="States, Events & Behaviors">
+    <Grid columns={2}>
+      <Column>
+        <Example title="Disabled" hint="<Rating disabled/>">
+          <Rating disabled rating={2} max={5}/>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Clearable" hint="<Rating clearable/>">
+          <Rating clearable rating={2} max={5}/>
+        </Example>
+      </Column>
+    </Grid>
+
+    <Example title="Events" hint="<Rating onRate='...'/>">
+      <Rating ref="events" icon="star" rating={card.get("events.value")} max={5}
+        onRate={(value)=> {card.set("events.value", value)}}
+      />
+      <Spacer inline width={100}/>
+      <Label content={"value = "+card.get("events.value")}/>
+
+      <Spacer/>
+      <Buttons>
+        <Button onClick={()=>card.refs.events.setRating(0)} title="0"/>
+        <Button onClick={()=>card.refs.events.setRating(1)} title="1"/>
+        <Button onClick={()=>card.refs.events.setRating(2)} title="2"/>
+        <Button onClick={()=>card.refs.events.setRating(3)} title="3"/>
+        <Button onClick={()=>card.refs.events.setRating(4)} title="4"/>
+        <Button onClick={()=>card.refs.events.setRating(5)} title="5"/>
+      </Buttons>
+
+      <Spacer/>
+      <Buttons>
+        <Button onClick={()=>card.refs.events.enable()} title="Enable"/>
+        <Button onClick={()=>card.refs.events.disable()} title="Disable"/>
+        <Button onClick={()=>card.refs.events.clear()} title="Clear"/>
+      </Buttons>
+    </Example>
+
+  </PageSection>
+
+
+  <PageSection title="Appearance">
+    <Grid columns={2}>
+      <Column>
+        <Example title="Star" hint="<Rating icon='star'/>">
+          <Rating icon="star" rating={2} max={5}/>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Heart" hint="<Rating icon='heart'/>">
+          <Rating icon="heart" rating={2} max={5}/>
+        </Example>
+      </Column>
+    </Grid>
+
+    <Example title="Sizes" hint="<Rating size='small'/>">
+      <Grid columns={3} style={{width:500}}>
         <Column>
-          <Example title="Normal" hint="<Rating/>">
-            <Rating/>
-          </Example>
+          <Label pointing="right" color="teal" style={{width:80}}>mini</Label>
+        </Column>
+        <Column>
+          <Rating size="mini"/>
+        </Column>
+        <Column>
+          <Rating size="mini" icon="heart"/>
         </Column>
 
         <Column>
-          <Example title="Single Rating" hint="<Rating max={1}/>">
-            <Rating max={1}/>
-          </Example>
+          <Label pointing="right" color="teal" style={{width:80}}>tiny</Label>
+        </Column><Column>
+          <Rating size="tiny"/>
+        </Column><Column>
+          <Rating size="tiny" icon="heart"/>
+        </Column>
+
+        <Column>
+          <Label pointing="right" color="teal" style={{width:80}}>small</Label>
+        </Column><Column>
+          <Rating size="small"/>
+        </Column><Column>
+          <Rating size="small" icon="heart"/>
+        </Column>
+
+        <Column>
+          <Label pointing="right" color="teal" style={{width:80}}>medium</Label>
+        </Column><Column>
+          <Rating size="medium"/>
+        </Column><Column>
+          <Rating size="medium" icon="heart"/>
+        </Column>
+
+        <Column>
+          <Label pointing="right" color="teal" style={{width:80}}>large</Label>
+        </Column><Column>
+          <Rating size="large"/>
+        </Column><Column>
+          <Rating size="large" icon="heart"/>
+        </Column>
+
+        <Column>
+          <Label pointing="right" color="teal" style={{width:80}}>huge</Label>
+        </Column><Column>
+          <Rating size="huge"/>
+        </Column><Column>
+          <Rating size="huge" icon="heart"/>
+        </Column>
+
+        <Column>
+          <Label pointing="right" color="teal" style={{width:80}}>massive</Label>
+        </Column><Column>
+          <Rating size="massive"/>
+        </Column><Column>
+          <Rating size="massive" icon="heart"/>
         </Column>
       </Grid>
-    </PageSection>
+    </Example>
 
-    <PageSection title="Content">
-      <Grid columns={2}>
-        <Column>
-          <Example title="Initial Value" hint="<Rating rating={4}/>">
-            <Rating rating={2}/>
-          </Example>
-        </Column>
-
-        <Column>
-          <Example title="Max Value" hint="<Rating max={10}/>">
-            <Rating max={10}/>
-          </Example>
-        </Column>
-      </Grid>
-    </PageSection>
-
-    <PageSection title="States, Events & Behaviors">
-      <Grid columns={2}>
-        <Column>
-          <Example title="Disabled" hint="<Rating disabled/>">
-            <Rating disabled rating={2} max={5}/>
-          </Example>
-        </Column>
-
-        <Column>
-          <Example title="Clearable" hint="<Rating clearable/>">
-            <Rating clearable rating={2} max={5}/>
-          </Example>
-        </Column>
-      </Grid>
-
-      <Example title="Events" hint="<Rating onRate='...'/>">
-        <Rating ref="events" icon="star" rating={card.get("events.value")} max={5}
-          onRate={(value)=> {card.set("events.value", value)}}
-        />
-        <Spacer inline width={100}/>
-        <Label content={"value = "+card.get("events.value")}/>
-
-        <Spacer/>
-        <Buttons>
-          <Button onClick={()=>card.refs.events.setRating(0)} title="0"/>
-          <Button onClick={()=>card.refs.events.setRating(1)} title="1"/>
-          <Button onClick={()=>card.refs.events.setRating(2)} title="2"/>
-          <Button onClick={()=>card.refs.events.setRating(3)} title="3"/>
-          <Button onClick={()=>card.refs.events.setRating(4)} title="4"/>
-          <Button onClick={()=>card.refs.events.setRating(5)} title="5"/>
-        </Buttons>
-
-        <Spacer/>
-        <Buttons>
-          <Button onClick={()=>card.refs.events.enable()} title="Enable"/>
-          <Button onClick={()=>card.refs.events.disable()} title="Disable"/>
-          <Button onClick={()=>card.refs.events.clear()} title="Clear"/>
-        </Buttons>
-      </Example>
-
-    </PageSection>
-
-
-    <PageSection title="Appearance">
-      <Grid columns={2}>
-        <Column>
-          <Example title="Star" hint="<Rating icon='star'/>">
-            <Rating icon="star" rating={2} max={5}/>
-          </Example>
-        </Column>
-
-        <Column>
-          <Example title="Heart" hint="<Rating icon='heart'/>">
-            <Rating icon="heart" rating={2} max={5}/>
-          </Example>
-        </Column>
-      </Grid>
-
-      <Example title="Sizes" hint="<Rating size='small'/>">
-        <Grid columns={3} style={{width:500}}>
-          <Column>
-            <Label pointing="right" color="teal" style={{width:80}}>mini</Label>
-          </Column>
-          <Column>
-            <Rating size="mini"/>
-          </Column>
-          <Column>
-            <Rating size="mini" icon="heart"/>
-          </Column>
-
-          <Column>
-            <Label pointing="right" color="teal" style={{width:80}}>tiny</Label>
-          </Column><Column>
-            <Rating size="tiny"/>
-          </Column><Column>
-            <Rating size="tiny" icon="heart"/>
-          </Column>
-
-          <Column>
-            <Label pointing="right" color="teal" style={{width:80}}>small</Label>
-          </Column><Column>
-            <Rating size="small"/>
-          </Column><Column>
-            <Rating size="small" icon="heart"/>
-          </Column>
-
-          <Column>
-            <Label pointing="right" color="teal" style={{width:80}}>medium</Label>
-          </Column><Column>
-            <Rating size="medium"/>
-          </Column><Column>
-            <Rating size="medium" icon="heart"/>
-          </Column>
-
-          <Column>
-            <Label pointing="right" color="teal" style={{width:80}}>large</Label>
-          </Column><Column>
-            <Rating size="large"/>
-          </Column><Column>
-            <Rating size="large" icon="heart"/>
-          </Column>
-
-          <Column>
-            <Label pointing="right" color="teal" style={{width:80}}>huge</Label>
-          </Column><Column>
-            <Rating size="huge"/>
-          </Column><Column>
-            <Rating size="huge" icon="heart"/>
-          </Column>
-
-          <Column>
-            <Label pointing="right" color="teal" style={{width:80}}>massive</Label>
-          </Column><Column>
-            <Rating size="massive"/>
-          </Column><Column>
-            <Rating size="massive" icon="heart"/>
-          </Column>
-        </Grid>
-      </Example>
-
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

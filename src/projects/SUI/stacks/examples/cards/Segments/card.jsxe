@@ -1,113 +1,109 @@
 <OakCard id="Segments" title="Segments">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Segments">
-      A Segments is used to create a grouping of segments with similar appearance.
-    </PageTitle>
+  <PageTitle title="Segments">
+    A Segments is used to create a grouping of segments with similar appearance.
+  </PageTitle>
 
-    <PageSection title="Types">
+  <PageSection title="Types">
 
-      <Example title="Normal">
-        <Grid columns={3}>
-          <Column>
-            <Segments>
-              <Segment>Top</Segment>
-              <Segment>Middle</Segment>
-              <Segment>Middle</Segment>
-              <Segment>Middle</Segment>
-              <Segment>Bottom</Segment>
-            </Segments>
-          </Column>
+    <Example title="Normal">
+      <Grid columns={3}>
+        <Column>
+          <Segments>
+            <Segment>Top</Segment>
+            <Segment>Middle</Segment>
+            <Segment>Middle</Segment>
+            <Segment>Middle</Segment>
+            <Segment>Bottom</Segment>
+          </Segments>
+        </Column>
 
-          <Column>
-            <Segments>
-              <Segment>Top</Segment>
-              <Segment color="red">Middle</Segment>
-              <Segment color="blue">Middle</Segment>
-              <Segment color="green">Middle</Segment>
-              <Segment color="yellow">Bottom</Segment>
-            </Segments>
-          </Column>
+        <Column>
+          <Segments>
+            <Segment>Top</Segment>
+            <Segment color="red">Middle</Segment>
+            <Segment color="blue">Middle</Segment>
+            <Segment color="green">Middle</Segment>
+            <Segment color="yellow">Bottom</Segment>
+          </Segments>
+        </Column>
 
-          <Column>
-            <Segments>
-              <Segment appearance="inverted">Inverted</Segment>
-              <Segment appearance="secondary">Secondary</Segment>
-              <Segment>Normal</Segment>
-              <Segment>Normal</Segment>
-              <Segment appearance="tertiary">Tertiary</Segment>
-            </Segments>
-          </Column>
-        </Grid>
-      </Example>
+        <Column>
+          <Segments>
+            <Segment appearance="inverted">Inverted</Segment>
+            <Segment appearance="secondary">Secondary</Segment>
+            <Segment>Normal</Segment>
+            <Segment>Normal</Segment>
+            <Segment appearance="tertiary">Tertiary</Segment>
+          </Segments>
+        </Column>
+      </Grid>
+    </Example>
 
-      <Example title="Horizontal" hint="<Segments horizontal/>">
-        <Segments horizontal>
-          <Segment>Left</Segment>
-          <Segment>Right</Segment>
+    <Example title="Horizontal" hint="<Segments horizontal/>">
+      <Segments horizontal>
+        <Segment>Left</Segment>
+        <Segment>Right</Segment>
+      </Segments>
+
+      <Segments horizontal>
+        <Segment>Left</Segment>
+        <Segment>Center</Segment>
+        <Segment>Right</Segment>
+      </Segments>
+
+      <Segments horizontal>
+        <Segment>1</Segment>
+        <Segment>2</Segment>
+        <Segment>3</Segment>
+        <Segment>4</Segment>
+        <Segment>5</Segment>
+      </Segments>
+    </Example>
+
+    <Example title="Nested">
+      <Segments>
+        <Segment>Top</Segment>
+        <Segments>
+          <Segment>Nested Top</Segment>
+          <Segment>Nested Middle</Segment>
+          <Segment>Nested Bottom</Segment>
         </Segments>
-
+        <Segment>Middle</Segment>
         <Segments horizontal>
           <Segment>Left</Segment>
           <Segment>Center</Segment>
           <Segment>Right</Segment>
         </Segments>
+        <Segment>Bottom</Segment>
+      </Segments>
+    </Example>
 
-        <Segments horizontal>
-          <Segment>1</Segment>
-          <Segment>2</Segment>
-          <Segment>3</Segment>
-          <Segment>4</Segment>
-          <Segment>5</Segment>
-        </Segments>
-      </Example>
+  </PageSection>
 
-      <Example title="Nested">
-        <Segments>
-          <Segment>Top</Segment>
-          <Segments>
-            <Segment>Nested Top</Segment>
-            <Segment>Nested Middle</Segment>
-            <Segment>Nested Bottom</Segment>
-          </Segments>
-          <Segment>Middle</Segment>
-          <Segments horizontal>
-            <Segment>Left</Segment>
-            <Segment>Center</Segment>
-            <Segment>Right</Segment>
-          </Segments>
-          <Segment>Bottom</Segment>
-        </Segments>
-      </Example>
+  <PageSection title="Appearance">
+    <Example title="Raised" hint="<Segments appearance='raised'/>">
+      <Segments appearance="raised">
+        <Segment>Top</Segment>
+        <Segment>Middle</Segment>
+        <Segment>Bottom</Segment>
+      </Segments>
+    </Example>
 
-    </PageSection>
+    <Example title="Stacked" hint="<Segments appearance='stacked'/>">
+      <Segments appearance="stacked">
+        <Segment>Top</Segment>
+        <Segment>Middle</Segment>
+        <Segment>Bottom</Segment>
+      </Segments>
+    </Example>
 
-    <PageSection title="Appearance">
-      <Example title="Raised" hint="<Segments appearance='raised'/>">
-        <Segments appearance="raised">
-          <Segment>Top</Segment>
-          <Segment>Middle</Segment>
-          <Segment>Bottom</Segment>
-        </Segments>
-      </Example>
+    <Example title="Piled" hint="<Segments appearance='piled'/>">
+      <Segments appearance="piled">
+        <Segment>Top</Segment>
+        <Segment>Middle</Segment>
+        <Segment>Bottom</Segment>
+      </Segments>
+    </Example>
 
-      <Example title="Stacked" hint="<Segments appearance='stacked'/>">
-        <Segments appearance="stacked">
-          <Segment>Top</Segment>
-          <Segment>Middle</Segment>
-          <Segment>Bottom</Segment>
-        </Segments>
-      </Example>
-
-      <Example title="Piled" hint="<Segments appearance='piled'/>">
-        <Segments appearance="piled">
-          <Segment>Top</Segment>
-          <Segment>Middle</Segment>
-          <Segment>Bottom</Segment>
-        </Segments>
-      </Example>
-
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

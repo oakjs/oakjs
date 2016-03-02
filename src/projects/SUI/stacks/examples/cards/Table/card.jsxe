@@ -1,182 +1,178 @@
 <OakCard id="Table" title="Table">
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Table">
-      A table displays a collections of data grouped into rows
-      <Info>Semantic UI Tables are (so far) fairly limited in this React Wrapper:
-        <ul>
-          <li>Either you inline html for the <b>thead</b>, <b>tbody</b>, <b>tfoot</b>, directly in the table,
-              in which case you have full control.</li>
-          <li>You can pass element <b>thead</b>, <b>tbody</b>, <b>tfoot</b> properties to the table,
-              in which case you have full control over everything.</li>
-          <li>You pass an array for <b>thead</b> and <b>tfoot</b>, and an array of arrays inline for <b>tbody</b>.
-            In this case you don't have control over individual row or cell styling.
-          </li>
-          <li>Note that you can mix and match, eg, inline html for your <b>thead</b>,
-            have your <b>tbody</b> come from an array of arrays, and pass an element <b>tfoot</b> property.
-          </li>
-        </ul>
-      </Info>
-    </PageTitle>
+  <PageTitle title="Table">
+    A table displays a collections of data grouped into rows
+    <Info>Semantic UI Tables are (so far) fairly limited in this React Wrapper:
+      <ul>
+        <li>Either you inline html for the <b>thead</b>, <b>tbody</b>, <b>tfoot</b>, directly in the table,
+            in which case you have full control.</li>
+        <li>You can pass element <b>thead</b>, <b>tbody</b>, <b>tfoot</b> properties to the table,
+            in which case you have full control over everything.</li>
+        <li>You pass an array for <b>thead</b> and <b>tfoot</b>, and an array of arrays inline for <b>tbody</b>.
+          In this case you don't have control over individual row or cell styling.
+        </li>
+        <li>Note that you can mix and match, eg, inline html for your <b>thead</b>,
+          have your <b>tbody</b> come from an array of arrays, and pass an element <b>tfoot</b> property.
+        </li>
+      </ul>
+    </Info>
+  </PageTitle>
 
-    <PageSection title="Content">
+  <PageSection title="Content">
 
-      <Example title="Fully Inline Table Definition">
-        <Table>
-          <thead><tr><th>A</th><th>B</th><th>C</th></tr></thead>
-          <tbody>
-            <tr><td>A1</td><td>D1</td><td>C1</td></tr>
-            <tr><td>A2</td><td>D2</td><td>C2</td></tr>
-            <tr><td>A3</td><td>D3</td><td>C3</td></tr>
-          </tbody>
-          <tfoot><tr><th>A</th><th>B</th><th>C</th></tr></tfoot>
-        </Table>
-      </Example>
+    <Example title="Fully Inline Table Definition">
+      <Table>
+        <thead><tr><th>A</th><th>B</th><th>C</th></tr></thead>
+        <tbody>
+          <tr><td>A1</td><td>D1</td><td>C1</td></tr>
+          <tr><td>A2</td><td>D2</td><td>C2</td></tr>
+          <tr><td>A3</td><td>D3</td><td>C3</td></tr>
+        </tbody>
+        <tfoot><tr><th>A</th><th>B</th><th>C</th></tr></tfoot>
+      </Table>
+    </Example>
 
-      <Example title="Header, Body, Footer elements" hint="<Table header={...} footer={...}>{body}</Table>">
-        <Table header={data.headerElement} footer={data.footerElement} body={data.bodyElement}/>
-      </Example>
+    <Example title="Header, Body, Footer elements" hint="<Table header={...} footer={...}>{body}</Table>">
+      <Table header={data.headerElement} footer={data.footerElement} body={data.bodyElement}/>
+    </Example>
 
-      <Example title="Header, Body, Footer arrays" hint="<Table header={...} body={...} footer={...}/>">
-        <Table header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
-        <Bug>Not sure why that bottom-left cell isn't working...</Bug>
-      </Example>
+    <Example title="Header, Body, Footer arrays" hint="<Table header={...} body={...} footer={...}/>">
+      <Table header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
+      <Bug>Not sure why that bottom-left cell isn't working...</Bug>
+    </Example>
 
-    </PageSection>
+  </PageSection>
 
-    <PageSection title="Functionality">
-      <Example title="Sortable" hint="<Table sorting/>">
-        <Table sorting header={data.headerElement} body={data.bodyElement} footer={data.footerElement}/>
-      </Example>
-      <Bug>What do we have to do to turn soring on?</Bug>
-    </PageSection>
+  <PageSection title="Functionality">
+    <Example title="Sortable" hint="<Table sorting/>">
+      <Table sorting header={data.headerElement} body={data.bodyElement} footer={data.footerElement}/>
+    </Example>
+    <Bug>What do we have to do to turn soring on?</Bug>
+  </PageSection>
 
-    <PageSection title="Appearance">
+  <PageSection title="Appearance">
 
-      <Example title="Fixed" hint="<Table appearance='fixed'/>">
-        <Table appearance="fixed" header={data.headerArray} body={data.bodyArray}/>
-      </Example>
+    <Example title="Fixed" hint="<Table appearance='fixed'/>">
+      <Table appearance="fixed" header={data.headerArray} body={data.bodyArray}/>
+    </Example>
 
-      <Example title="Column Count" hint="<Table columns='2'/>">
-        <Table columns={5} header={data.headerArray} body={data.bodyArray}/>
-      </Example>
+    <Example title="Column Count" hint="<Table columns='2'/>">
+      <Table columns={5} header={data.headerArray} body={data.bodyArray}/>
+    </Example>
 
-      <Example title="Collapsing" hint="<Table appearance='collapsing'/>">
-        <Table appearance="collapsing" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
-      </Example>
+    <Example title="Collapsing" hint="<Table appearance='collapsing'/>">
+      <Table appearance="collapsing" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
+    </Example>
 
-      <Grid columns={2}>
-        <Column>
-          <Example title="Striped" hint="<Table appearance='striped'/>">
-            <Table appearance="striped" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
-          </Example>
-        </Column>
+    <Grid columns={2}>
+      <Column>
+        <Example title="Striped" hint="<Table appearance='striped'/>">
+          <Table appearance="striped" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Celled" hint="<Table appearance='celled'/>">
-            <Table appearance="celled" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Celled" hint="<Table appearance='celled'/>">
+          <Table appearance="celled" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Basic" hint="<Table appearance='basic'/>">
-            <Table appearance="basic" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Basic" hint="<Table appearance='basic'/>">
+          <Table appearance="basic" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Very Basic" hint="<Table appearance='very basic'/>">
-            <Table appearance="very basic" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Very Basic" hint="<Table appearance='very basic'/>">
+          <Table appearance="very basic" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Definition" hint="<Table appearance='definition'/>">
-            <Table appearance="definition" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Definition" hint="<Table appearance='definition'/>">
+          <Table appearance="definition" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Single Line" hint="<Table appearance='single line'/>">
-            <Table appearance="single line" header={data.headerArray} body={data.bodyArray}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Single Line" hint="<Table appearance='single line'/>">
+          <Table appearance="single line" header={data.headerArray} body={data.bodyArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Padded" hint="<Table appearance='padded'/>">
-            <Table appearance="padded" header={data.headerArray} body={data.bodyArray}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Padded" hint="<Table appearance='padded'/>">
+          <Table appearance="padded" header={data.headerArray} body={data.bodyArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Very Padded" hint="<Table appearance='very padded'/>">
-            <Table appearance="very padded" header={data.headerArray} body={data.bodyArray}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Very Padded" hint="<Table appearance='very padded'/>">
+          <Table appearance="very padded" header={data.headerArray} body={data.bodyArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Compact" hint="<Table appearance='compact'/>">
-            <Table appearance="compact" header={data.headerArray} body={data.bodyArray}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Compact" hint="<Table appearance='compact'/>">
+          <Table appearance="compact" header={data.headerArray} body={data.bodyArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Very Compact" hint="<Table appearance='very compact'/>">
-            <Table appearance="very compact" header={data.headerArray} body={data.bodyArray}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Very Compact" hint="<Table appearance='very compact'/>">
+          <Table appearance="very compact" header={data.headerArray} body={data.bodyArray}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Size=small" hint="<Table size='small'/>">
-            <Table size="small" header={data.headerElement} body={data.bodyElement}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Size=small" hint="<Table size='small'/>">
+          <Table size="small" header={data.headerElement} body={data.bodyElement}/>
+        </Example>
+      </Column>
 
-        <Column>
-          <Example title="Size=large" hint="<Table size='small'/>">
-            <Table size="large" header={data.headerElement} body={data.bodyElement}/>
-          </Example>
-        </Column>
+      <Column>
+        <Example title="Size=large" hint="<Table size='small'/>">
+          <Table size="large" header={data.headerElement} body={data.bodyElement}/>
+        </Example>
+      </Column>
 
 
-        <Column>
-          <Example title="Colored" hint="<Table color='red'/>">
-            <Table color='red' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='orange' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='yellow' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='olive' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='green' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='teal' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='blue' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='violet' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='purple' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='pink' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='brown' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='grey' header={data.headerElement} body={data.bodyElement}/>
-            <Table color='black' header={data.headerElement} body={data.bodyElement}/>
-          </Example>
-        </Column>
-        <Column>
-          <Example title="Inverted" hint="<Table color='red'/>">
-            <Table appearance="inverted" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
-            <Table appearance="inverted striped" color='red' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='orange' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='yellow' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='olive' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='green' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='teal' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='blue' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='violet' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='purple' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='pink' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='brown' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='grey' header={data.headerElement} body={data.bodyElement}/>
-            <Table appearance="inverted striped" color='black' header={data.headerElement} body={data.bodyElement}/>
-          </Example>
-        </Column>
-      </Grid>
+      <Column>
+        <Example title="Colored" hint="<Table color='red'/>">
+          <Table color='red' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='orange' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='yellow' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='olive' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='green' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='teal' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='blue' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='violet' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='purple' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='pink' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='brown' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='grey' header={data.headerElement} body={data.bodyElement}/>
+          <Table color='black' header={data.headerElement} body={data.bodyElement}/>
+        </Example>
+      </Column>
+      <Column>
+        <Example title="Inverted" hint="<Table color='red'/>">
+          <Table appearance="inverted" header={data.headerArray} body={data.bodyArray} footer={data.footerArray}/>
+          <Table appearance="inverted striped" color='red' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='orange' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='yellow' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='olive' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='green' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='teal' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='blue' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='violet' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='purple' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='pink' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='brown' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='grey' header={data.headerElement} body={data.bodyElement}/>
+          <Table appearance="inverted striped" color='black' header={data.headerElement} body={data.bodyElement}/>
+        </Example>
+      </Column>
+    </Grid>
 
-    </PageSection>
-
-  </Page>
+  </PageSection>
 </OakCard>

@@ -1,8 +1,13 @@
 #SUI #examples #PageSidebar {
-  width: 150px;
+  position:fixed;
+  left:0; width: 150px;
+  top:0; bottom: 0;
+  background-color: #1b1c1d;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-#SUI #examples .Page {
+#SUI #examples .oak.Card {
   margin-right: 150px;
   transform: translate3d(150px, 0px, 0px);
 }
