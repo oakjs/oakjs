@@ -26,8 +26,14 @@ export function proto(target, key, descriptor) {
   let value = undefined;
   if ("value" in descriptor) value = descriptor.value;
   if ("initializer" in descriptor) value = descriptor.initializer();
+
+  // figure out the prototype to assign to
+  // NOTE: Different versions of babel (or different stages?) differ in what's passed in as `target`
+  const prototype = (target.prototype || target.constructor.prototype);
+
   // assign the value to the prototype non-enumerable, non-writable, non-configurable
-  Object.defineProperty(target.prototype, key, { value });
+  Object.defineProperty(prototype, key, { value });
+
   // return an empty descriptor to cancel assigning to the class
   return {}
 }
