@@ -25,6 +25,6 @@ export default class CurrentStack extends React.Component {
   render() {
     const stack = this.context.app.stack;
     if (!stack) return <Stub/>;
-    return React.createElement(stack.ComponentConstructor, { ref: "stack" });
+    return React.createElement(stack.Component, { ref: "stack" });
   }
 }

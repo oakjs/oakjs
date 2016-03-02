@@ -69,7 +69,7 @@ class App {
     return this.constructor.__PROJECT_THEMES__[projectId] || this.components;
   }
 
-  getComponent(type, errorMessage, components = this.components) {
+  getComponentForType(type, errorMessage, components = this.components) {
     // return non-string component immediately
     if (type && typeof type !== "string") return type;
 

@@ -2,7 +2,7 @@
 //
 //  ComponentLoader class
 //
-//  Loads a component from a bundle, vends a `ComponentConstructor`.
+//  Loads a component from a bundle, vends a `Component`.
 //
 //////////////////////////////
 
@@ -105,7 +105,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //////////////////////////////
   //  Creating the class based on our loaded data
   //////////////////////////////
-  get ComponentConstructor() {
+  get Component() {
     if (!this.isLoaded) return Stub;
     if (!this.cache.Constructor) {
       this.cache.Constructor = this._createComponentConstructor();
@@ -113,7 +113,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
     return this.cache.Constructor
   }
 
-  // Actually create the ComponentConstructor based on what we've loaded.
+  // Actually create the Component based on what we've loaded.
   // Your subclass may want to override this to add additional stuff to the Constructor.
   _createComponentConstructor(Super = React.Component, ComponentName = "Component") {
     let Constructor

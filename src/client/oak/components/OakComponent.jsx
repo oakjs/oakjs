@@ -33,15 +33,15 @@ export default class OakComponent extends React.Component {
   //////////////////////////////
 
   // Return a component... TODOC
-  getComponent(type) {
+  getComponentForType(type) {
     if (typeof type !== "string") return type;
 
     let component = type;
     if (this.controller) {
-      component = this.controller.getComponent(type);
+      component = this.controller.getComponentForType(type);
     }
     if (!component) {
-      console.warn(`${this}.getComponent(${type}): cant find component, returning <Stub/>`);
+      console.warn(`${this}.getComponentForType(${type}): cant find component, returning <Stub/>`);
       component = Stub;
     }
     return component;
@@ -49,7 +49,7 @@ export default class OakComponent extends React.Component {
 
   // Create an element, using our controller's `components` as necessary.
   createElement(type, props, ...children) {
-    const component = this.getComponent(type);
+    const component = this.getComponentForType(type);
     return React.createElement(component, props, ...children);
   }
 

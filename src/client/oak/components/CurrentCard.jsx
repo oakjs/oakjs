@@ -25,7 +25,7 @@ export default class CurrentCard extends React.Component {
   render() {
     const card = this.context.app.card;
     if (!card) return <Stub/>;
-    return React.createElement(card.ComponentConstructor, { ref: "card" });
+    return React.createElement(card.Component, { ref: "card" });
   }
 }
 
