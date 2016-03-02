@@ -24,7 +24,8 @@ export function parseElement(astElement, code, options) {
   });
 
   // parse attributes
-  const attributes = parseAttributes(astElement, code, options);
+  const attributeParser = options.parseAttributes || parseAttributes;
+  const attributes = attributeParser(astElement, code, options);
   if (attributes) element.attributes = attributes;
 
   const astChildren = astElement.children;

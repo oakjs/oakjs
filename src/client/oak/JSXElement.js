@@ -11,17 +11,7 @@ import api from "./api";
 
 class JSXElement extends Mutable {
 
-  //////////////////////////////
-  //  Properties
-  //////////////////////////////
-
-  // Generate and remember a unique id for this element on demand.
-  // NOTE: this id will be copied into clones, but not saved.
-  // This is NOT considered a mutation (???)
-  get oid() {
-    if (this.hasOwnProperty("__oid")) return this.__oid;
-    return (this.__oid = ids.generateRandomId())
-  }
+  get oid() { return this.attributes && this.attributes.oid }
 
   //////////////////////////////
   //  Render method
@@ -102,7 +92,7 @@ class JSXElement extends Mutable {
     if (!attributes && !options.oids) return null;
 
     let keys = attributes ? Object.keys(attributes) : [];
-    if (options.oids) keys.push("data-oid");
+    if (options.oids && this.oid) keys.push("data-oid");
     const groups = this._splitAttributeKeys(keys);
 
     const attributeSets = groups.map(group => {
@@ -246,6 +236,14 @@ class JSXElement extends Mutable {
     return JSXElement.TYPE_REGISTRY[type] || JSXElement;
   }
 
+  // Add a unique-ish `oid` property to all nodes as we parse node attributes.
+  // NOTE: this will then be saved with the node...
+  static parseAttributes(astElement, code, options) {
+    const attributes = astParser.parseAttributes(astElement, code, options) || {};
+    if (!attributes.oid) attributes.oid = ids.generateRandomId();
+    return attributes;
+  }
+
   //////////////////////////////
   // Parsing
   //////////////////////////////
@@ -253,7 +251,8 @@ class JSXElement extends Mutable {
   // Parse a `.jsxe` file's code.
   static parse(code) {
     const options = {
-      getElementConstructor: JSXElement.getElementConstructor
+      getElementConstructor: JSXElement.getElementConstructor,
+      parseAttributes: JSXElement.parseAttributes
     }
     return astParser.parse(code, options);
   }
