@@ -22,9 +22,12 @@ export default class ComponentController extends Loadable() {
   //  Component Sugar
   //////////////////////////////
 
+  get jsxElement() { return this.componentLoader && this.componentLoader.jsxElement }
+
   // Props come from the root element of our JSXE
   get props() {
-    return this.componentLoader && this.componentLoader.jsxElement && this.componentLoader.jsxElement.attributes;
+    const jsxElement = this.jsxElement;
+    if (jsxElement) return this.jsxElement.attributes;
   }
 
   // State comes from our instantiated component

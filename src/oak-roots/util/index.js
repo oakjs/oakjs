@@ -1,4 +1,3 @@
-export astParser from "./astParser";
 export babel from "./babel";
 export browser from "./browser";
 export decorators from "./decorators";

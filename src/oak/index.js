@@ -16,7 +16,7 @@ export roots from "oak-roots";
 export components from "./components";
 
 // Test stuff
-//export parserTest from "../parserTest";
+export parserTest from "./parserTest";
 
 
 // assign everything we've loaded to the oak singleton

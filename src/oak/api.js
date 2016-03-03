@@ -16,26 +16,7 @@ oak.api = new API({
   loadComponentBundle(controller) {
     const url = `/api/${controller.type}/${controller.path}/${controller.type}`;
     const errorMessage = `Error loading ${controller.type} bundle`;
-    return this.getJSON(url, undefined, errorMessage)
-      .then(bundle => {
-        if (bundle.jsxe) {
-          try {
-            bundle.jsxElement = JSXElement.parse(bundle.jsxe);
-            delete bundle.jsxe;
-          }
-          catch (e) {
-            console.group(`Error parsing JSXE from ${url}`);
-            console.error(e);
-            console.groupEnd();
-            throw e;
-          }
-        }
-        return bundle;
-      })
-      .catch(e => {
-        console.error(e);
-        throw new ReferenceError(errorMessage);
-      });
+    return this.getJSON(url, undefined, errorMessage);
   },
 
 

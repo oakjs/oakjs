@@ -63,6 +63,7 @@ export default class CardRoute extends React.Component {
             }
           })
           .catch(e => {
+            console.error(e);
             console.log(`Card ${projectId}/${stackId}/${cardId} not found!!!`);
           });
       }

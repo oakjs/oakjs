@@ -2,7 +2,7 @@
 // JSXElement class
 //////////////////////////////
 
-import astParser from "oak-roots/util/astParser";
+import AcornParser from "oak-roots/AcornParser";
 import ids from "oak-roots/util/ids";
 import Mutable from "oak-roots/Mutable";
 
@@ -11,6 +11,31 @@ import api from "./api";
 class JSXElement extends Mutable {
 
   get oid() { return this.attributes && this.attributes.oid }
+
+  // Return the root as specified by our constructor
+  // NOTE: this will generally be overridden on each instance....
+  getRoot() {
+    return undefined;
+  }
+
+  get children() {
+    if (!this._children) return undefined;
+    return this._children.map( child => {
+      // look up any OidRefs
+      if (child instanceof OidRef) return child.dereference();
+      return child;
+    });
+  }
+
+  get parent() {
+    return this.getItem(this._parent);
+  }
+
+  getItem(oid) {
+    const root = (this.oids ? this : this.getRoot());
+console.info(root);
+    if (root && root.oids) return this.oids[oid];
+  }
 
   //////////////////////////////
   //  Render method
@@ -22,8 +47,6 @@ class JSXElement extends Mutable {
     state: "this.state",
     context: "this.context"
   };
-
-  get oid() { return this.attributes && this.attributes.oid }
 
   // Return a function to draw this element and its children.
   // ASSUMES: that the end class this will be added to has a `createElement()` method
@@ -118,9 +141,14 @@ class JSXElement extends Mutable {
       return "{" + attrExpressions.join(", ") + "}"
     });
 
+    if (attributeSets.length === 0) {
+      return "undefined";
+    }
+
     if (attributeSets.length === 1) {
       return attributeSets[0];
     }
+
     return "Object.assign(" + attributeSets.join(", ") + ")";
   }
 
@@ -233,36 +261,20 @@ class JSXElement extends Mutable {
   static registerType(type, constructor) {
     JSXElement.TYPE_REGISTRY[type] = constructor;
   }
-  static getElementConstructor(type) {
-    return JSXElement.TYPE_REGISTRY[type] || JSXElement;
-  }
-
-  // Add a unique-ish `oid` property to all nodes as we parse node attributes.
-  // NOTE: this will then be saved with the node...
-  static parseAttributes(element, astElement, code, options) {
-    const attributes = astParser.parseAttributes(element, astElement, code, options) || {};
-    if (!attributes.oid) attributes.oid = ids.generateRandomId();
-    return attributes;
-  }
-
-  static parseChildren(parent, astChildren, code, options) {
-    const children = astParser.parseChildren(parent, astChildren, code, options);
-    return children;
-  }
 
   //////////////////////////////
   // Parsing
   //////////////////////////////
 
   // Parse a `.jsxe` file's code.
-  static parse(code) {
-    const options = {
-      oids: {},
-      getElementConstructor: JSXElement.getElementConstructor,
-      parseAttributes: JSXElement.parseAttributes,
-      parseChildren: JSXElement.parseChildren
-    }
-    return astParser.parse(code, options);
+  static parse(code, options) {
+    if (!options.oids) options.oids = {};
+
+    const parser = new JSXElementParser();
+    const element = parser.parse(code, options);
+
+    element.oids = options.oids;
+    return element;
   }
 
   // Load a `.jsxe` file from the server and parse it.
@@ -276,10 +288,65 @@ class JSXElement extends Mutable {
   }
 }
 
-class OidRef {
-  constructor(oid) {
-    this.oid = oid;
+class JSXElementParser extends AcornParser {
+  parse(code, options) {
+    const root = super.parse(code, options);
+    if (options.itemProps) Object.assign(root, options.itemProps);
+    return root;
   }
+
+  getElementConstructor(type) {
+    return JSXElement.TYPE_REGISTRY[type] || JSXElement;
+  }
+
+  // Add a unique-ish `oid` property to all nodes as we parse node attributes.
+  // NOTE: this will then be saved with the node...
+  parseAttributes(element, astElement, code, options) {
+    const attributes = super.parseAttributes(element, astElement, code, options) || {};
+
+    // make sure we've got an oid that's unique within options.oids
+    while (!attributes.oid || (attributes.oid in options.oids)) {
+      attributes.oid = ids.generateRandomId();
+    }
+    // point to the element by oid for later
+    options.oids[attributes.oid] = element;
+
+    return attributes;
+  }
+
+  parseChild(parent, astElement, code, options) {
+    const child = super.parseChild(parent, astElement, code, options);
+    if (child instanceof JSXElement) {
+      // add any itemProps to the child
+      if (options.itemProps) Object.assign(child, options.itemProps);
+      // have children point back to their parent
+      if (parent.oid) child._parent = parent.oid;
+      // if we have an oid, we'll pull this child from the `oids` map rather than embedding it
+      if (child.oid) {
+        return new OidRef(child.oid, options.itemProps);
+      }
+    }
+    return child;
+  }
+
+  // Assign children to _children since we do the child lookup thing
+  parseChildren(parent, astChildren, code, options) {
+    let children = this._parseChildren(parent, astChildren, code, options);
+    if (!children || children.length === 0) return;
+    parent._children = children;
+  }
+}
+
+class OidRef {
+  constructor(oid, props) {
+    this.oid = oid;
+    if (props) Object.assign(this, props);
+  }
+
+  dereference() {
+    return this.getRoot().oids[this.oid];
+  }
+
 }
 
 export default JSXElement;

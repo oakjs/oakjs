@@ -18,6 +18,7 @@ import { generateRandomId, normalizeIdentifier } from "oak-roots/util/ids";
 import { dieIfMissing } from "oak-roots/util/object";
 
 import api from "./api";
+import JSXElement from "./JSXElement";
 
 import Stub from "./components/Stub";
 
@@ -44,6 +45,27 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //////////////////////////////
   loadData() {
     return api.loadComponentBundle(this.controller)
+      .then(bundle => {
+        if (bundle.jsxe) {
+          try {
+            const options = {
+              oids: {},
+              itemProps : {
+                getRoot: () => { return this.jsxElement }
+              }
+            };
+            bundle.jsxElement = JSXElement.parse(bundle.jsxe, options);
+            delete bundle.jsxe;
+          }
+          catch (e) {
+            console.group(`Error parsing JSXE for ${this.controller.type}`);
+            console.error(e);
+            console.groupEnd();
+            throw e;
+          }
+        }
+        return bundle;
+      })
       .then(bundle => {
         this.mutate(bundle);
         return this
