@@ -1,6 +1,8 @@
 import React, { PropTypes } from "react";
 
 import app from "../app";
+
+import CurrentProject from "./CurrentProject";
 import Stub from "./Stub";
 
 export default class CardRoute extends React.Component {
@@ -66,8 +68,8 @@ export default class CardRoute extends React.Component {
       }
     }
     // if we're currently showing a card, keep that visible until we load
-    if (app.card && app.card.project && app.card.project.isLoaded) {
-      return React.createElement(app.card.project.Component);
+    if (app.card && app.card.project) {
+      return React.createElement(CurrentProject);
     }
     // otherwise return a stub
     else {

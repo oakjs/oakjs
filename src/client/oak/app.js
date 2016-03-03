@@ -7,10 +7,17 @@
 
 import global from "oak-roots/util/global";
 import LoadableIndex from "oak-roots/LoadableIndex";
-
+import Registry from "oak-roots/Registry";
 
 import api from "./api";
+import Card from "./Card";
 import Project from "./Project";
+import Stack from "./Stack";
+import ComponentLoader from "./ComponentLoader";
+
+import OakCard from "./components/OakCard";
+import OakProject from "./components/OakProject";
+import OakStack from "./components/OakStack";
 
 import SUIComponents from "themes/SUI/components";
 import oakComponents from "./components";
@@ -26,12 +33,14 @@ class App {
       throw new ReferenceError(message);
     }
 
-    this.initializeProjectIndex();
+    this.registry = new Registry();
+
+    // load the project index to start with since that's the first thing we'll need
+    this.projectIndex.load();
 
     // HACK
     this.state = {
       editing: true
-
     }
 
   }
@@ -51,6 +60,10 @@ class App {
     }
   }
 
+  // Return URL for card, stack or project
+  getCardRoute(projectId, stackId = 0, cardId = 0) {
+    return `/project/${projectId}/${stackId}/${cardId}`;
+  }
 
   //////////////////////////////
   //  Components
@@ -90,28 +103,10 @@ class App {
   //  Projects!
   //////////////////////////////
 
+  get projectIndex() { return this.getProjectIndex() }
   get projects() { return this.projectIndex.items }
   get projectIds() { return this.projectIndex.itemIds }
   get projectMap() { return this.projectIndex.itemMap }
-
-  initializeProjectIndex() {
-    this.projectIndex = new LoadableIndex({
-      itemType: "project",
-      loadIndex: () => {
-        return api.loadProjectIndex(this);
-      },
-      createItem: (projectId, props) => {
-        return new Project({
-          projectId,
-          ...props,
-          app: this,
-        });
-      },
-    });
-
-    // go ahead and load the project index..
-    this.projectIndex.load();
-  }
 
   showProject(projectIdentifier) {
     const route = this.getCardRoute(projectIdentifier);
@@ -202,8 +197,151 @@ class App {
       });
   }
 
-  getCardRoute(projectId, stackId = 0, cardId = 0) {
-    return `/project/${projectId}/${stackId}/${cardId}`;
+
+
+
+  //////////////////////////////
+  //  Indexes
+  //////////////////////////////
+
+  _getFromRegistry(typePrefix, pathOrController, creatorFunction) {
+    const path = (typeof pathOrController === "string" ? pathOrController : pathOrController.path);
+    let item = this.registry.get(typePrefix, path);
+    if (!item) {
+      item = creatorFunction.call(this, pathOrController);
+      this.registry.add(item, typePrefix, path);
+    }
+    return item;
+  }
+
+  // Return the one and only project index singleton.
+  getProjectIndex() {
+    return this._getFromRegistry("PROJECTS:", "", this._makeProjectIndex);
+  }
+
+  // Create the project index on demand.
+  // DO NOT CALL THIS!  Use `app.getProjectIndex()` instead.
+  _makeProjectIndex() {
+    return new LoadableIndex({
+      itemType: "project",
+      loadIndex: () => {
+        return api.loadProjectIndex();
+      },
+      createItem: (projectId, props) => {
+        return new Project({
+          projectId,
+          ...props,
+          app: this,
+        });
+      },
+    });
+  }
+
+
+  // Return the stack index singleton for a specific project.
+  getStackIndex(projectPath) {
+    return this._getFromRegistry("STACK-INDEX:", projectPath, this._makeStackIndex)
+  }
+
+  // Create a stack index on demand.
+  // DO NOT CALL THIS!  Use `app.getStackIndex()` instead.
+  _makeStackIndex(projectPath) {
+    const projectId = projectPath;
+    return new LoadableIndex({
+      itemType: "stack",
+      loadIndex: () => {
+        return api.loadStackIndex(projectPath);
+      },
+      createItem: (stackId, props) => {
+        return new Stack({
+          stackId,
+          projectId,
+          ...props,
+          app: this,
+        });
+      }
+    });
+  }
+
+
+  // Return the card index singleton for a specific stack.
+  getCardIndex(stackPath) {
+    return this._getFromRegistry("CARD-INDEX:", stackPath, this._makeCardIndex)
+  }
+
+  // Create a card index on demand.
+  // DO NOT CALL THIS!  Use `app.getCardIndex()` instead.
+  _makeCardIndex(stackPath) {
+    const [ projectId, stackId ] = stackPath.split("/");
+    return new LoadableIndex({
+      itemType: "card",
+      loadIndex: () => {
+        return api.loadCardIndex(stackPath);
+      },
+      createItem: (cardId, props) => {
+        return new Card({
+          cardId,
+          stackId,
+          projectId,
+          ...props,
+          app: this,
+        });
+      }
+    });
+  }
+
+
+  //////////////////////////////
+  //  Loaders
+  //////////////////////////////
+
+
+  // Return the singleton loader for some project.
+  getProjectLoader(project) {
+    return this._getFromRegistry("PROJECT-LOADER:", project, this._makeProjectLoader);
+  }
+
+  // Create a project loader on demand.
+  // DO NOT CALL THIS!  Use `app.getProjectLoader()` instead.
+  _makeProjectLoader(project) {
+    return new ComponentLoader({
+      type: "Project",
+      path: project.path,
+      controller: project,
+      SuperConstructor: OakProject
+    });
+  }
+
+  // Return the singleton loader for some stack.
+  getStackLoader(stack) {
+    return this._getFromRegistry("STACK-LOADER:", stack, this._makeStackLoader);
+  }
+
+  // Create a stack loader on demand.
+  // DO NOT CALL THIS!  Use `app.getStackLoader()` instead.
+  _makeStackLoader(stack) {
+    return new ComponentLoader({
+      type: "Stack",
+      path: stack.path,
+      controller: stack,
+      SuperConstructor: OakStack
+    });
+  }
+
+  // Return the singleton loader for some card.
+  getCardLoader(card) {
+    return this._getFromRegistry("CARD-LOADER:", card, this._makeCardLoader);
+  }
+
+  // Create a card loader on demand.
+  // DO NOT CALL THIS!  Use `app.getCardLoader()` instead.
+  _makeCardLoader(card) {
+    return new ComponentLoader({
+      type: "Card",
+      path: card.path,
+      controller: card,
+      SuperConstructor: OakCard
+    });
   }
 
 }

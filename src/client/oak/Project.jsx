@@ -10,7 +10,6 @@ import { dieIfMissing } from "oak-roots/util/object";
 import api from "./api";
 import ComponentController from "./ComponentController";
 import ComponentLoader from "./ComponentLoader";
-import OakProject from "./components/OakProject";
 import Stack from "./Stack";
 
 
@@ -19,7 +18,6 @@ export default class Project extends ComponentController {
   constructor(props) {
     super(props);
     dieIfMissing(this, ["app", "projectId"]);
-    this.initializeStackIndex();
   }
 
   @proto
@@ -37,17 +35,21 @@ export default class Project extends ComponentController {
   //  Components
   //////////////////////////////
 
-  initializeComponentLoader() {
-    this.componentLoader = new ProjectLoader({ controller: this });
+  get componentLoader() {
+    return this.app.getProjectLoader(this);
   }
 
   // TODO: dynamic components
   get components() { return this.app.getProjectTheme(this.projectId) }
 
+  get component() { if (app.project === this) return app._projectComponent }
+
 
   //////////////////////////////
   //  Stacks
   //////////////////////////////
+
+  get stackIndex() { return this.app.getStackIndex(this.path) }
 
   get stacks() { return this.stackIndex.items }
   get stackIds() { return this.stackIndex.itemIds }
@@ -68,23 +70,6 @@ export default class Project extends ComponentController {
 
   static get route() { return this.app.getCardRoute(this.projectId) }
 
-  initializeStackIndex() {
-    this.stackIndex = new LoadableIndex({
-      itemType: "stack",
-      loadIndex: () => {
-        return api.loadStackIndex(this);
-      },
-      createItem: (stackId, props) => {
-        return new Stack({
-          stackId,
-          projectId: this.projectId,
-          ...props,
-          app: this.app,
-        });
-      }
-    });
-  }
-
   loadData() {
     return Promise.all([
         this.stackIndex.load(),
@@ -94,36 +79,6 @@ export default class Project extends ComponentController {
   }
 
 }
-
-
-
-//////////////////////////////
-// ProjectLoader class
-//////////////////////////////
-
-export class ProjectLoader extends ComponentLoader {
-  constructor(...args) {
-    super(...args);
-    dieIfMissing(this, ["controller"]);
-  }
-
-  get id() { return this.controller.path }
-
-  loadData() {
-    return api.loadComponentBundle(this.controller)
-      .then(bundle => {
-        this.mutate(bundle);
-        return this
-      });
-  }
-
-  _createComponentConstructor() {
-    const Constructor = super._createComponentConstructor(OakProject, "Project_"+this.id);
-    Constructor.controller = this.controller;
-    return Constructor;
-  }
-}
-
 
 //////////////////////////////
 // ProjectElement class

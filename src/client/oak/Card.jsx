@@ -38,13 +38,14 @@ export default class Card extends ComponentController {
   //  Components
   //////////////////////////////
 
-  initializeComponentLoader() {
-    this.componentLoader = new CardLoader({ controller: this });
+  get componentLoader() {
+    return this.app.getCardLoader(this);
   }
 
   // TODO: dynamic components
   get components() { return this.stack.components }
 
+  get component() { if (app.card === this) return app._cardComponent }
 
   //////////////////////////////
   //  Initialization / Loading / Saving
@@ -57,35 +58,6 @@ export default class Card extends ComponentController {
             .then( () => this );
   }
 }
-
-
-//////////////////////////////
-// CardLoader class
-//////////////////////////////
-
-export class CardLoader extends ComponentLoader {
-  constructor(...args) {
-    super(...args);
-    dieIfMissing(this, ["controller"]);
-  }
-
-  get id() { return this.controller.path }
-
-  loadData() {
-    return api.loadComponentBundle(this.controller)
-      .then(bundle => {
-        this.mutate(bundle);
-        return this
-      });
-  }
-
-  _createComponentConstructor() {
-    const Constructor = super._createComponentConstructor(OakCard, "Card_"+this.id);
-    Constructor.controller = this.controller;
-    return Constructor;
-  }
-}
-
 
 
 //////////////////////////////

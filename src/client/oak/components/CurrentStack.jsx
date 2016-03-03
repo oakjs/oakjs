@@ -7,19 +7,19 @@ export default class CurrentStack extends React.Component {
   }
 
   componentDidMount() {
-    app.stack.component = this.refs.stack;
-  }
-
-  componentWillUpdate() {
-    delete app.stack.omponent;
+    app._stackComponent = this.refs.stack;
   }
 
   componentDidUpdate() {
-    app.stack.component = this.refs.stack;
+    app._stackComponent = this.refs.stack;
+  }
+
+  componentWillUpdate() {
+    delete app._stackComponent;
   }
 
   componentWillUnmount() {
-    delete app.stack.omponent;
+    delete app._stackComponent;
   }
 
   render() {

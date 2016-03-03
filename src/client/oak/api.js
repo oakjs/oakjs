@@ -115,20 +115,20 @@ oak.api = new API({
   // Component Index files
   //////////////////////////////
 
-  loadProjectIndex(controller) {
+  loadProjectIndex() {
     const url = `/api/app/projectIndex`;
     const errorMessage = "Error loading project index";
     return this.loadIndex(url, undefined, );
   },
 
-  loadStackIndex(controller) {
-    const url = `/api/project/${controller.path}/stackIndex`;
+  loadStackIndex(projectPath) {
+    const url = `/api/project/${projectPath}/stackIndex`;
     const errorMessage = "Error loading stack index";
     return this.loadIndex(url, undefined, errorMessage);
   },
 
-  loadCardIndex(controller) {
-    const url = `/api/stack/${controller.path}/cardIndex`;
+  loadCardIndex(stackPath) {
+    const url = `/api/stack/${stackPath}/cardIndex`;
     const errorMessage = "Error loading card index";
     return this.loadIndex(url, undefined, errorMessage);
   },

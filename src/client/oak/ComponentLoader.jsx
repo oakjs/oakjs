@@ -15,6 +15,9 @@ import Savable from "oak-roots/Savable";
 import babel from "oak-roots/util/babel";
 import browser from "oak-roots/util/browser";
 import { generateRandomId, normalizeIdentifier } from "oak-roots/util/ids";
+import { dieIfMissing } from "oak-roots/util/object";
+
+import api from "./api";
 
 import Stub from "./components/Stub";
 
@@ -28,7 +31,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
 
   constructor(...args) {
     super(...args);
-    if (!this.oid) this.oid = generateRandomId();
+    dieIfMissing(this, ["controller", "SuperConstructor", "type", "path"]);
   }
 
   destroy() {
@@ -37,11 +40,16 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
 
 
   //////////////////////////////
-  //  Identify syntactic sugar
+  //  Loading
   //////////////////////////////
+  loadData() {
+    return api.loadComponentBundle(this.controller)
+      .then(bundle => {
+        this.mutate(bundle);
+        return this
+      });
+  }
 
-  get id() { return (this.controller && this.controller.id) || this.oid }
-  get type() { return (this.controller && this.controller.type) || "component"; }
 
   //////////////////////////////
   //  Mutation
@@ -86,7 +94,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //  Stylesheet
   //////////////////////////////
 
-  get stylesheetId() { return normalizeIdentifier(this.id || this.oid) }
+  get stylesheetId() { return normalizeIdentifier(this.path) }
 
   onStylesChanged(newStyles, oldStyles) {
     if (oldStyles) this.dirty();
@@ -107,16 +115,21 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //////////////////////////////
   get Component() {
     if (!this.isLoaded) return Stub;
-    if (!this.cache.Constructor) {
-      this.cache.Constructor = this._createComponentConstructor();
+    if (!this.cache.Component) {
+      this.cache.Component = this._createComponent();
     }
-    return this.cache.Constructor
+    return this.cache.Component
+  }
+
+  getConstructorName() {
+    return this.type + "_"+this.path;
   }
 
   // Actually create the Component based on what we've loaded.
   // Your subclass may want to override this to add additional stuff to the Constructor.
-  _createComponentConstructor(Super = React.Component, ComponentName = "Component") {
-    let Constructor
+  _createComponent() {
+    let Constructor;
+    const componentName = this.getConstructorName();
     try {
       // if we have a jsxElement, create the classs and set its renderMethod
       if (this.jsxElement) {
@@ -126,13 +139,13 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
           this.script || "",
           "render() { return this.__render() }"
         ].join("\n");
-        Constructor = babel.createClass(script, Super, ComponentName);
+        Constructor = babel.createClass(script, this.SuperConstructor, componentName);
 
         // Get the `__render` routine from the jsxElement
         Constructor.prototype.__render = this.jsxElement.getRenderMethod();
 
         // make sure we've got a `createElement` routine since `_renderChildren` expects one.
-        if (!Constructor.prototype) {
+        if (!Constructor.prototype.createElement) {
           Constructor.prototype.createElement = function(type, props, ...children) {
             return React.createElement(type, props, ...children);
           }
@@ -153,6 +166,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
       throw error;
     }
 
+    Constructor.controller = this.controller;
     return Constructor;
   }
 
@@ -160,7 +174,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //  Debug
   //////////////////////////////
   toString() {
-    return `[${this.constructor.name} ${this.id}]`;
+    return `[${this.type} ${this.path}]`;
   }
 
 }

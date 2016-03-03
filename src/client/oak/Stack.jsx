@@ -18,7 +18,6 @@ export default class Stack extends ComponentController {
   constructor(props) {
     super(props);
     dieIfMissing(this, ["app", "stackId", "projectId"]);
-    this.initializeCardIndex();
   }
 
   @proto
@@ -38,16 +37,20 @@ export default class Stack extends ComponentController {
   //  Components
   //////////////////////////////
 
-  initializeComponentLoader() {
-    this.componentLoader = new StackLoader({ controller: this });
+  get componentLoader() {
+    return this.app.getStackLoader(this);
   }
 
   // TODO: dynamic components
   get components() { return this.project.components }
 
+  get component() { if (app.stack === this) return app._stackComponent }
+
   //////////////////////////////
   //  Cards
   //////////////////////////////
+
+  get cardIndex() { return this.app.getCardIndex(this.path) }
 
   get cards() { return this.cardIndex.items }
   get cardIds() { return this.cardIndex.itemIds }
@@ -67,24 +70,6 @@ export default class Stack extends ComponentController {
 
   static get route() { return this.app.getCardRoute(this.projectId, this.stackId) }
 
-  initializeCardIndex() {
-    this.cardIndex = new LoadableIndex({
-      itemType: "card",
-      loadIndex: () => {
-        return api.loadCardIndex(this);
-      },
-      createItem: (cardId, props) => {
-        return new Card({
-          cardId,
-          stackId: this.stackId,
-          projectId: this.projectId,
-          ...props,
-          app: this.app,
-        });
-      }
-    });
-  }
-
   loadData() {
     return Promise.all([
         this.cardIndex.load(),
@@ -94,36 +79,6 @@ export default class Stack extends ComponentController {
   }
 
 }
-
-
-//////////////////////////////
-// StackLoader class
-//////////////////////////////
-
-export class StackLoader extends ComponentLoader {
-  constructor(...args) {
-    super(...args);
-    dieIfMissing(this, ["controller"]);
-  }
-
-  get id() { return this.controller.path }
-
-  loadData() {
-    return api.loadComponentBundle(this.controller)
-      .then(bundle => {
-        this.mutate(bundle);
-        return this
-      });
-  }
-
-  _createComponentConstructor() {
-    const Constructor = super._createComponentConstructor(OakStack, "Stack_"+this.id);
-    Constructor.controller = this.controller;
-    return Constructor;
-  }
-}
-
-
 
 
 //////////////////////////////

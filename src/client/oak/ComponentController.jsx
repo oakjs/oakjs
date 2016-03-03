@@ -13,7 +13,6 @@ export default class ComponentController extends Loadable() {
   constructor(props) {
     super();
     Object.assign(this, props);
-    this.initializeComponentLoader();
   }
 
   @proto
@@ -38,11 +37,6 @@ export default class ComponentController extends Loadable() {
   //////////////////////////////
   //  Components
   //////////////////////////////
-
-  // Subclass this to return your specific ComponentLoader type as necessary.
-  initializeComponentLoader() {
-    this.componentLoader = new ComponentLoader({ controller: this });
-  }
 
   get Component() { return this.componentLoader.Component }
 

@@ -7,19 +7,19 @@ export default class CurrentProject extends React.Component {
   }
 
   componentDidMount() {
-    app.project.component = this.refs.project;
-  }
-
-  componentWillUpdate() {
-    delete app.project.omponent;
+    app._projectComponent = this.refs.project;
   }
 
   componentDidUpdate() {
-    app.project.component = this.refs.project;
+    app._projectComponent = this.refs.project;
+  }
+
+  componentWillUpdate() {
+    delete app._projectComponent;
   }
 
   componentWillUnmount() {
-    delete app.project.omponent;
+    delete app._projectComponent;
   }
 
   render() {
