@@ -10,7 +10,6 @@ import ComponentController from "./ComponentController";
 export default class Card extends ComponentController {
   constructor(props) {
     super(props);
-    Object.assign(this, props);
     dieIfMissing(this, ["app", "cardId", "stackId", "projectId"]);
   }
 

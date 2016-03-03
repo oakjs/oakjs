@@ -149,10 +149,7 @@ class App {
 
   loadStack(projectIdentifier, stackIdentifier) {
     const stack = this.getStack(projectIdentifier, stackIdentifier);
-    if (stack) {
-      if (!stack.isLoaded) stack.load();
-      return Promise.resolve(stack);
-    }
+    if (stack) return stack.load();
 
     return this.loadProject(projectIdentifier)
       .then( project => {
