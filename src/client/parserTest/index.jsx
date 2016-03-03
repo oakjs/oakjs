@@ -1,4 +1,4 @@
-import JSXElement from "../JSXElement";
+import JSXElement from "oak/JSXElement";
 
 // Load some sample parser files
 export smallTest from "raw!./small.jsxe";

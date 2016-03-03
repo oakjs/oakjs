@@ -6,7 +6,6 @@ import astParser from "oak-roots/util/astParser";
 import ids from "oak-roots/util/ids";
 import Mutable from "oak-roots/Mutable";
 
-import oak from "./oak";
 import api from "./api";
 
 class JSXElement extends Mutable {

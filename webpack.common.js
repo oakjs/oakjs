@@ -20,21 +20,13 @@ Object.assign(paths, {
   server:       path.join(paths.src, "server"),
   client:       path.join(paths.src, "client"),
   projects:     path.join(paths.src, "projects"),
+  oak:          path.join(paths.src, "oak"),
   "oak-roots":  path.join(paths.src, "oak-roots"),
-});
-
-// Add paths based on the above
-Object.assign(paths, {
-  oak:          path.join(paths.client, "oak"),
-  themes:       path.join(paths.client, "themes"),
   // NOTE: `public` is a reserved word, so access as `config.paths["public"]`...
-  "public":     path.join(paths.client, "public"),
-})
-
-// Add paths based on the above
-Object.assign(paths, {
-  build:        path.join(paths["public"], "build")
+  "public":     path.join(paths.src, "public"),
+  themes:       path.join(paths.src, "themes"),
 });
+
 
 module.exports = {
   // NOTE: not part of the webpack standard!
@@ -78,7 +70,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: paths.src,
-        loaders: ["babel?cacheDirectory"]
+        loader: "babel?cacheDirectory"
       },
       {
         test: /\.css$/, // Only .css files

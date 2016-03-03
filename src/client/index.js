@@ -9,8 +9,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// load oak
-import oak from "./oak";
+// load entire oak framework
+import oak from "oak";
 
 // load theme
 import themeComponents from "projects/SUI/theme";

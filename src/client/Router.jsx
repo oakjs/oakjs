@@ -8,8 +8,8 @@
 import React, { PropTypes } from "react";
 import { Router, Route } from "react-router";
 
-import AppRoot from "./oak/components/AppRoot";
-import CardRoute from "./oak/components/CardRoute";
+import AppRoot from "oak/components/AppRoot";
+import CardRoute from "oak/components/CardRoute";
 
 // Set up History.
 import { useQueries, createHistory } from "history";
