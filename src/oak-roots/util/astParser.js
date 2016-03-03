@@ -25,13 +25,13 @@ export function parseElement(astElement, code, options) {
 
   // parse attributes
   const attributeParser = options.parseAttributes || parseAttributes;
-  const attributes = attributeParser(astElement, code, options);
+  const attributes = attributeParser(element, astElement, code, options);
   if (attributes) element.attributes = attributes;
 
-  const astChildren = astElement.children;
-  if (astChildren && astChildren.length !== 0) {
-    astChildren.forEach(astChild => parseChild(element, astChild, code, options));
-  }
+  // parse children
+  const childrenParser = options.parseChildren || parseChildren;
+  const children = childrenParser(element, astElement.children, code, options);
+  if (children && children.length) element.children = children;
 
   return element;
 }
@@ -42,7 +42,7 @@ export function parseElementType(astElement, code, options) {
 
 // Parse a JSXElement's `openingElement.attributes` and return an attributes object.
 // Returns `undefined` if no attributes.
-export function parseAttributes(astElement, code, options) {
+export function parseAttributes(element, astElement, code, options) {
   const astAttributes = astElement.openingElement.attributes;
   if (!astAttributes || !astAttributes.length) return undefined;
 
@@ -85,26 +85,26 @@ export function parseAttributeValue(astValue, code, options) {
 }
 
 
+export function parseChildren(parent, astChildren, code, options) {
+  if (!astChildren || astChildren.length === 0) return [];
+
+  const childParser = options.parseChild || parseChild;
+  return astChildren.map(astChild => childParser(parent, astChild, code, options))
+    .filter(child => child !== undefined);
+}
 
 export function parseChild(parent, astChild, code, options) {
   const astType = astChild.type;
   let child;
   switch (astType) {
     case "Literal":
-      child = parseChildLiteral(parent, astChild, code, options);
-      break;
+      return parseChildLiteral(parent, astChild, code, options);
 
     case "JSXElement":
-      child = parseChildElement(parent, astChild, code, options);
-      break;
+      return parseChildElement(parent, astChild, code, options);
 
     default:
       throw new TypeError(`parseChild({astType:'${astType}'}): dont know how to parse this type.`);
-  }
-  // NOTE: we do NOT go through `parent.addChild()` here!
-  if (child !== undefined) {
-    if (!parent.children) parent.children = [];
-    parent.children.push(child);
   }
 }
 
@@ -121,16 +121,6 @@ export function parseChildLiteral(parent, astLiteral, code, options) {
 }
 
 export function parseChildElement(parent, astElement, code, options) {
-  const childType = parseElementType(astElement);
-
-  // allow JSXElement subclasses to intercept certain children to do special stuff
-  if (parent.constructor.specialChildParsers) {
-    const specialHandler = parent.constructor.specialChildParsers[childType];
-    if (specialHandler) {
-      return specialHandler(parent, astElement, code, options);
-    }
-  }
-
   return parseElement(astElement, code, options);
 }
 

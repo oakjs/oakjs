@@ -23,6 +23,8 @@ class JSXElement extends Mutable {
     context: "this.context"
   };
 
+  get oid() { return this.attributes && this.attributes.oid }
+
   // Return a function to draw this element and its children.
   // ASSUMES: that the end class this will be added to has a `createElement()` method
   //  with the same signature as `React.createElement()`, but that is aware of the
@@ -237,10 +239,15 @@ class JSXElement extends Mutable {
 
   // Add a unique-ish `oid` property to all nodes as we parse node attributes.
   // NOTE: this will then be saved with the node...
-  static parseAttributes(astElement, code, options) {
-    const attributes = astParser.parseAttributes(astElement, code, options) || {};
+  static parseAttributes(element, astElement, code, options) {
+    const attributes = astParser.parseAttributes(element, astElement, code, options) || {};
     if (!attributes.oid) attributes.oid = ids.generateRandomId();
     return attributes;
+  }
+
+  static parseChildren(parent, astChildren, code, options) {
+    const children = astParser.parseChildren(parent, astChildren, code, options);
+    return children;
   }
 
   //////////////////////////////
@@ -250,8 +257,10 @@ class JSXElement extends Mutable {
   // Parse a `.jsxe` file's code.
   static parse(code) {
     const options = {
+      oids: {},
       getElementConstructor: JSXElement.getElementConstructor,
-      parseAttributes: JSXElement.parseAttributes
+      parseAttributes: JSXElement.parseAttributes,
+      parseChildren: JSXElement.parseChildren
     }
     return astParser.parse(code, options);
   }
@@ -265,18 +274,12 @@ class JSXElement extends Mutable {
         return this.parse(code);
       });
   }
+}
 
-  //////////////////////////////
-  // Subclass-specific parsing
-  //
-  // Add `{ tagName: specialParsingHandlerFn(parent, astNode, code, options)`
-  //  to parse DIRECT children with tagName specially.
-  //
-  // See `astParser.parseChild()`.
-  //
-  //////////////////////////////
-
-  static specialChildParsers = {};
+class OidRef {
+  constructor(oid) {
+    this.oid = oid;
+  }
 }
 
 export default JSXElement;
