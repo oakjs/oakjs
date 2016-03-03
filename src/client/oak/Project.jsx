@@ -2,17 +2,10 @@
 // Project class
 //////////////////////////////
 
-import Loadable from "oak-roots/Loadable";
-import LoadableIndex from "oak-roots/LoadableIndex";
 import { proto } from "oak-roots/util/decorators";
 import { dieIfMissing } from "oak-roots/util/object";
 
-import api from "./api";
 import ComponentController from "./ComponentController";
-import ComponentLoader from "./ComponentLoader";
-import Stack from "./Stack";
-
-
 
 export default class Project extends ComponentController {
   constructor(props) {
@@ -85,7 +78,6 @@ export default class Project extends ComponentController {
 //////////////////////////////
 
 import JSXElement from "./JSXElement";
-import { classNames } from "oak-roots/util/react";
 
 // Create a specialized `ProjectElement` and export it
 export class ProjectElement extends JSXElement {

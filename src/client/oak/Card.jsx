@@ -2,16 +2,10 @@
 // Card class
 //////////////////////////////
 
-import Loadable from "oak-roots/Loadable";
 import { proto } from "oak-roots/util/decorators";
 import { dieIfMissing } from "oak-roots/util/object";
-import { unknownProperties } from "oak-roots/util/react";
 
-import api from "./api";
 import ComponentController from "./ComponentController";
-import ComponentLoader from "./ComponentLoader";
-import OakCard from "./components/OakCard";
-
 
 export default class Card extends ComponentController {
   constructor(props) {
@@ -65,7 +59,6 @@ export default class Card extends ComponentController {
 //////////////////////////////
 
 import JSXElement from "./JSXElement";
-import { classNames } from "oak-roots/util/react";
 
 // Create a specialized `CardElement` and export it
 export class CardElement extends JSXElement {
