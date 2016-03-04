@@ -143,27 +143,13 @@ class Mutable extends Eventful() {
   //  Clone this object!
   //////////////////////////////
 
-  // Return a clone of this element and all of its children, sharing as much as we can.
+  // Return a SHALLOW clone of this element.
   // Override if you have other data which should be manipulated when cloning.
   clone() {
     const Constructor = this.constructor;
-    const clone = new Constructor(this);
-    if (clone.props) clone.props = Object.assign({}, clone.props);
-    if (clone.children) clone.children = clone.children.map(this.cloneChild, this);
-    return clone;
+    const props = objectUtil.cloneProperties(this);
+    return new Constructor(props);
   }
-
-  // Clone a child.
-  // The default version uses `objectUtil.clone()`, which will throw
-  //  if child is of an unrecognized type, or doesn't have a `clone` method.
-  //
-  // Override this method to do something smarter, or use
-  //     `objectUtil.registerCloner(Constructor, function cloner(value){....})`
-  // to teach us how to clone that type of object.
-  cloneChild(child) {
-    return objectUtil.clone(child);
-  }
-
 
 }
 
