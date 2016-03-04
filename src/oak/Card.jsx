@@ -73,10 +73,10 @@ export class CardElement extends JSXElement {
   // Render out outer element as a div with only a few properties
   renderType = "div";
 
-  // Use `getRenderProps()` to massage the attributes passed in
-  _attributesToSource(options, indent) {
-    const attributeSource = super._attributesToSource(options, indent);
-    return `this.getRenderProps(${attributeSource})`;
+  // Use `getRenderProps()` to massage the props passed in
+  _propsToSource(options, indent) {
+    const propSource = super._propsToSource(options, indent);
+    return `this.getRenderProps(${propSource})`;
   }
 }
 

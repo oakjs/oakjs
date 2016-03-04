@@ -31,9 +31,9 @@ export default class AcornParser {
       selfClosing: astElement.openingElement.selfClosing
     });
 
-    // parse attributes
-    const attributes = this.parseAttributes(element, astElement, code, options);
-    if (attributes) element.attributes = attributes;
+    // parse props
+    const props = this.parseProps(element, astElement, code, options);
+    if (props) element.props = props;
 
     // parse children
     this.parseChildren(element, astElement.children, code, options);
@@ -45,41 +45,41 @@ export default class AcornParser {
     return this.parseIdentifier(astElement.openingElement.name);
   }
 
-  // Parse a JSXElement's `openingElement.attributes` and return an attributes object.
-  // Returns `undefined` if no attributes.
-  parseAttributes(element, astElement, code, options) {
+  // Parse a JSXElement's `openingElement.attributes` and return a `props` object.
+  // Returns `undefined` if no props.
+  parseProps(element, astElement, code, options) {
     const astAttributes = astElement.openingElement.attributes;
     if (!astAttributes || !astAttributes.length) return undefined;
 
-    const attributes = {};
+    const props = {};
     let spreadIndex = 0;
     astAttributes.forEach(astAttribute => {
       if (astAttribute.type === "JSXSpreadAttribute") {
-        attributes[`...${spreadIndex++}`] = this.parseAttributeValue(astAttribute.argument, code, options);
+        props[`...${spreadIndex++}`] = this.parsePropValue(astAttribute.argument, code, options);
         return;
       }
       if (astAttribute.type !== "JSXAttribute") {
-        throw new TypeError(`parseAttribute({type:'${astAttribute.type}'}): we can only parse {type:'JSXAttribute'}.`)
+        throw new TypeError(`parseProps({type:'${astAttribute.type}'}): we can only parse {type:'JSXAttribute'}.`)
       }
-      const name = this.parseAttributeName(astAttribute.name, code, options);
-      const value = this.parseAttributeValue(astAttribute.value, code, options);
+      const name = this.parsePropName(astAttribute.name, code, options);
+      const value = this.parsePropValue(astAttribute.value, code, options);
   //if (name === "func") console.warn(astAttribute, value);
-      attributes[name] = value;
+      props[name] = value;
     });
-    return attributes;
+    return props;
   }
 
-  parseAttributeName(astName, code, options) {
+  parsePropName(astName, code, options) {
     return this.parseIdentifier(astName, code, options);
   }
 
-  parseAttributeValue(astValue, code, options) {
+  parsePropValue(astValue, code, options) {
     // <div attr />  <== attr value is `true`
     if (astValue == null) return true;
 
     switch (astValue.type) {
       case "Literal":                 return astValue.value;
-      case "JSXExpressionContainer":  return this.parseAttributeValue(astValue.expression, code, options);
+      case "JSXExpressionContainer":  return this.parsePropValue(astValue.expression, code, options);
       case "JSXElement":              return this.parseElement(astValue, code, options);
   // NOTE: arrow functions work in FF, Chrome and Edge, but not in Safari, see:  http://caniuse.com/#feat=arrow-functions
   //    case "ArrowFunctionExpression": return this.parseArrowFunction(astValue, code, options);

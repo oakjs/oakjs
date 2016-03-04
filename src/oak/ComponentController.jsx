@@ -27,7 +27,7 @@ export default class ComponentController extends Loadable() {
   // Props come from the root element of our JSXE
   get props() {
     const jsxElement = this.jsxElement;
-    if (jsxElement) return this.jsxElement.attributes;
+    if (jsxElement) return this.jsxElement.props;
   }
 
   // State comes from our instantiated component
