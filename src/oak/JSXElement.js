@@ -12,9 +12,9 @@ class JSXElement extends Mutable {
 
   get oid() { return this.attributes && this.attributes.oid }
 
-  // Return the root as specified by our constructor
-  // NOTE: this will generally be overridden on each instance....
-  getRoot() {
+  // Return an item specified by oid.
+  // NOTE: this will generally be overridden on each instance during parse....
+  getItem(oid) {
     return undefined;
   }
 
@@ -22,19 +22,17 @@ class JSXElement extends Mutable {
     if (!this._children) return undefined;
     return this._children.map( child => {
       // look up any OidRefs
-      if (child instanceof OidRef) return child.dereference();
+      if (child instanceof OidRef) {
+        const item = this.getItem(child.oid);
+        if (!item) console.info("missing child: ",child.oid, " in ", this);
+        return item;
+      }
       return child;
     });
   }
 
   get parent() {
     return this.getItem(this._parent);
-  }
-
-  getItem(oid) {
-    const root = (this.oids ? this : this.getRoot());
-console.info(root);
-    if (root && root.oids) return this.oids[oid];
   }
 
   //////////////////////////////
@@ -62,9 +60,7 @@ console.info(root);
 
   _getRenderMethodSource(indent = "  ") {
     const output = [];
-    const options = {
-      oids: (this.cache.oids = {}),
-    }
+    const options = {}
 
     output.push("console.log('Rendering: ',this);");
 //    output.push("console.dir(this.context);");
@@ -113,10 +109,9 @@ console.info(root);
 
   // Convert our attributes for use in our render method.
   _attributesToSource(options, indent, attributes = this.attributes) {
-    if (!attributes && !options.oids) return null;
+    if (!attributes) return null;
 
-    let keys = attributes ? Object.keys(attributes) : [];
-    if (options.oids && this.oid) keys.push("data-oid");
+    let keys = Object.keys(attributes);
     const groups = this._splitAttributeKeys(keys);
 
     const attributeSets = groups.map(group => {
@@ -127,15 +122,8 @@ console.info(root);
 
       const attrExpressions = [];
       group.forEach(key => {
-        let value;
-        if (key === "data-oid") {
-          const oid = this.oid;
-          value = `"${oid}"`;
-          options.oids[oid] = this;
-        }
-        else {
-          value = this._attributeValueToSource(key, attributes[key], options, indent);
-        }
+        let value = this._attributeValueToSource(key, attributes[key], options, indent);
+        if (key === "oid") key = "data-oid";
         if (value !== undefined) attrExpressions.push(`"${key}": ${value}`);
       });
       return "{" + attrExpressions.join(", ") + "}"
@@ -299,6 +287,15 @@ class JSXElementParser extends AcornParser {
     return JSXElement.TYPE_REGISTRY[type] || JSXElement;
   }
 
+  parseElement(astElement, code, options) {
+    const element = super.parseElement(astElement, code, options);
+    if (element instanceof JSXElement) {
+      // add any itemProps to the element
+      Object.assign(element, options.itemProps);
+    }
+    return element;
+  }
+
   // Add a unique-ish `oid` property to all nodes as we parse node attributes.
   // NOTE: this will then be saved with the node...
   parseAttributes(element, astElement, code, options) {
@@ -314,11 +311,16 @@ class JSXElementParser extends AcornParser {
     return attributes;
   }
 
+  // Assign children to _children since we do the child lookup thing
+  parseChildren(parent, astChildren, code, options) {
+    let children = this._parseChildren(parent, astChildren, code, options);
+    if (!children || children.length === 0) return;
+    parent._children = children;
+  }
+
   parseChild(parent, astElement, code, options) {
     const child = super.parseChild(parent, astElement, code, options);
     if (child instanceof JSXElement) {
-      // add any itemProps to the child
-      if (options.itemProps) Object.assign(child, options.itemProps);
       // have children point back to their parent
       if (parent.oid) child._parent = parent.oid;
       // if we have an oid, we'll pull this child from the `oids` map rather than embedding it
@@ -329,12 +331,6 @@ class JSXElementParser extends AcornParser {
     return child;
   }
 
-  // Assign children to _children since we do the child lookup thing
-  parseChildren(parent, astChildren, code, options) {
-    let children = this._parseChildren(parent, astChildren, code, options);
-    if (!children || children.length === 0) return;
-    parent._children = children;
-  }
 }
 
 class OidRef {

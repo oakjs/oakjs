@@ -19,7 +19,8 @@ export default class AcornParser {
     if (type === "Program") return this.parseElement(astElement.body[0], code, options);
     if (type === "ExpressionStatement") return this.parseElement(astElement.expression, code, options);
     if (type !== "JSXElement") {
-    console.trace();
+      console.trace();
+      console.warn(astElement);
       throw new TypeError(`parseElement({type:'${type}'}): dont know how to parse this type.`);
     }
 

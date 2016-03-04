@@ -39,6 +39,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
     if (this.styles) browser.removeStylesheet(this.stylesheetId);
   }
 
+  get jsxElement() { return this.oids && this.oids[this.rootOid] }
 
   //////////////////////////////
   //  Loading
@@ -51,10 +52,17 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
             const options = {
               oids: {},
               itemProps : {
-                getRoot: () => { return this.jsxElement }
+                getItem: (oid) => { return this.oids && this.oids[oid] }
               }
             };
-            bundle.jsxElement = JSXElement.parse(bundle.jsxe, options);
+            // parse the jsxElement
+            const jsxElement = JSXElement.parse(bundle.jsxe, options);
+            // save the oid of the root element
+            bundle.rootOid = jsxElement.oid;
+            // save the oids so we can get the elements back.
+            bundle.oids = options.oids;
+
+            // don't save the jsxe
             delete bundle.jsxe;
           }
           catch (e) {
