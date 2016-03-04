@@ -7,18 +7,18 @@ import AcornParser from "oak-roots/AcornParser";
 import Mutable from "oak-roots/Mutable";
 
 import ids from "oak-roots/util/ids";
-import { cloneProperties } from "oak-roots/util/object";
+import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
 
-class JSXElement {
+export default class JSXElement {
   constructor(props) {
     if (props) Object.assign(this, props);
   }
 
   clone() {
     const Constructor = this.constructor;
-    const props = cloneProperties(this);
+    const props = objectUtil.cloneProperties(this);
     return new Constructor(props);
   }
 
@@ -298,7 +298,13 @@ class JSXElement {
   }
 }
 
-class JSXElementParser extends AcornParser {
+
+
+//////////////////////////////
+// Specialized JSXElement Parser
+//////////////////////////////
+
+export class JSXElementParser extends AcornParser {
   parse(code, options) {
     const root = super.parse(code, options);
     if (options.itemProps) Object.assign(root, options.itemProps);
@@ -355,16 +361,14 @@ class JSXElementParser extends AcornParser {
 
 }
 
-class OidRef {
+
+//////////////////////////////
+//  OidRef class for encapsulating references to other elements
+//////////////////////////////
+
+export class OidRef {
   constructor(oid, props) {
     this.oid = oid;
     if (props) Object.assign(this, props);
   }
-
-  dereference() {
-    return this.getRoot().oids[this.oid];
-  }
-
 }
-
-export default JSXElement;
