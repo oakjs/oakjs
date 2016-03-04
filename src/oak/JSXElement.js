@@ -179,14 +179,22 @@ class JSXElement extends Mutable {
 
   // Render this element as a string, close to the code we parsed it from.
   // NOTE: this will normalize the JSX to a canonical format, this is desired.
-	toString(indent = "") {
+	toString(indent = "", dontNest) {
     const attributes = this._attributesToString(indent);
     const tagPrefix = indent + "<" + this.type + (attributes ? " "+attributes : "");
     if (this.selfClosing) {
       return tagPrefix + "/>";
     }
-    const children = this._childrenToString(indent+"  ");
-    return tagPrefix + ">" + (children ? children + "\n" + indent : "") + "</" + this.type + ">";
+
+    let children;
+    if (dontNest) {
+      children = this._childrenToString("", dontNest);
+    }
+    else {
+      children = this._childrenToString(indent+"  ");
+      if (children) children += "\n" + indent;
+    }
+    return tagPrefix + ">" + ( children || "" ) + "</" + this.type + ">";
 	}
 
   // Convert our attributes to a JSX string.
@@ -215,6 +223,9 @@ class JSXElement extends Mutable {
       else if (value instanceof acorn.Node) {
         results.push(`${key}={${value._code}}`);
       }
+      else if (value instanceof JSXElement) {
+        results.push(`${key}={${value.toString("", "DONT_NEST")}}`);
+      }
       // Otherwise wrap the value in curly braces and stringify it
       // This is non-optimal but will work for now.
       else {
@@ -226,7 +237,7 @@ class JSXElement extends Mutable {
 
   // Convert our children to a JSX string.
   // NOTE: if you have special stuff (eg: <script> etc) to output, override this.
-  _childrenToString(indent) {
+  _childrenToString(indent, dontNest) {
     const children = this.children;
     if (!children || children.length === 0) return "";
 
@@ -235,6 +246,7 @@ class JSXElement extends Mutable {
       return child.toString(indent);
     })
 
+    if (dontNest) return childExpressions.join("");
     return "\n" + childExpressions.join("\n")
   }
 
