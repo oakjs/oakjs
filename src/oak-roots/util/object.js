@@ -141,6 +141,15 @@ export function clone(value) {
   throw new TypeError(`clone(${value}): dont know how to clone this type.`);
 }
 
+// SHALLOW clone all enumerable properties of `source` onto `target`.
+// Returns the `target`.
+export function cloneProperties(source, target = {}) {
+  Object.keys(source).forEach(key => {
+    target[key] = clone(source[key]);
+  });
+  return target;
+}
+
 
 
 //////////////////////////////

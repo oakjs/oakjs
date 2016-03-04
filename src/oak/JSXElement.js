@@ -1,14 +1,30 @@
 //////////////////////////////
 // JSXElement class
 //////////////////////////////
+"use strict"
 
 import AcornParser from "oak-roots/AcornParser";
-import ids from "oak-roots/util/ids";
 import Mutable from "oak-roots/Mutable";
+
+import ids from "oak-roots/util/ids";
+import { cloneProperties } from "oak-roots/util/object";
 
 import api from "./api";
 
-class JSXElement extends Mutable {
+class JSXElement {
+  constructor(props) {
+    if (props) Object.assign(this, props);
+  }
+
+  clone() {
+    const Constructor = this.constructor;
+    const props = cloneProperties(this);
+    return new Constructor(props);
+  }
+
+  //////////////////////////////
+  //  Identification via `oid`
+  //////////////////////////////
 
   get oid() { return this.attributes && this.attributes.oid }
 
@@ -51,11 +67,8 @@ class JSXElement extends Mutable {
   //  with the same signature as `React.createElement()`, but that is aware of the
   //  `components` which are in scope.
   getRenderMethod(indent) {
-    if (!this.cache.renderMethod) {
-      const source = this._getRenderMethodSource(indent);
-      this.cache.renderMethod = new Function(source);
-    }
-    return this.cache.renderMethod;
+    const source = this._getRenderMethodSource(indent);
+    return new Function(source);
   }
 
   _getRenderMethodSource(indent = "  ") {
@@ -271,10 +284,7 @@ class JSXElement extends Mutable {
     if (!options.oids) options.oids = {};
 
     const parser = new JSXElementParser();
-    const element = parser.parse(code, options);
-
-    element.oids = options.oids;
-    return element;
+    return parser.parse(code, options);
   }
 
   // Load a `.jsxe` file from the server and parse it.
