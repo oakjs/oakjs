@@ -202,11 +202,13 @@ class App {
   //////////////////////////////
 
   _getFromRegistry(typePrefix, pathOrController, creatorFunction) {
-    const path = (typeof pathOrController === "string" ? pathOrController : pathOrController.path);
-    let item = this.registry.get(typePrefix, path);
+    const registryPath = typePrefix + (typeof pathOrController === "string" ? pathOrController : pathOrController.path);
+    let item = this.registry.get(registryPath);
     if (!item) {
       item = creatorFunction.call(this, pathOrController);
-      this.registry.add(item, typePrefix, path);
+      item.app = this;
+      item._registryPath = registryPath;
+      this.registry.add(item, registryPath);
     }
     return item;
   }
