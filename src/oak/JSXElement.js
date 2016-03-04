@@ -16,6 +16,7 @@ export default class JSXElement {
     if (props) Object.assign(this, props);
   }
 
+  // Clone this element, including making clones of `props` and `_children` if defined.
   clone() {
     const Constructor = this.constructor;
     const props = objectUtil.cloneProperties(this);
@@ -26,11 +27,11 @@ export default class JSXElement {
   //  Identification via `oid`
   //////////////////////////////
 
-  get oid() { return this.attributes && this.attributes.oid }
+  get oid() { return this.props && this.props.oid }
 
   // Return an item specified by oid.
   // NOTE: this will generally be overridden on each instance during parse....
-  getItem(oid) {
+  getElement(oid) {
     return undefined;
   }
 
@@ -39,7 +40,7 @@ export default class JSXElement {
     return this._children.map( child => {
       // look up any OidRefs
       if (child instanceof OidRef) {
-        const item = this.getItem(child.oid);
+        const item = this.getElement(child.oid);
         if (!item) console.info("missing child: ",child.oid, " in ", this);
         return item;
       }
@@ -48,7 +49,7 @@ export default class JSXElement {
   }
 
   get parent() {
-    return this.getItem(this._parent);
+    return this.getElement(this._parent);
   }
 
   //////////////////////////////
@@ -98,7 +99,7 @@ export default class JSXElement {
   _elementsToSource(options = {}, indent = "") {
     const type = this.renderType || this.type;
     const typeExpression = JSON.stringify(type);
-    const attrExpression = this._attributesToSource(options, indent);
+    const attrExpression = this._propsToSource(options, indent);
 
     // output on one line if no children
     if (!this.children || this.children.length === 0) {
@@ -120,41 +121,41 @@ export default class JSXElement {
       + indent + ")";
   }
 
-  // Convert our attributes for use in our render method.
-  _attributesToSource(options, indent, attributes = this.attributes) {
-    if (!attributes) return null;
+  // Convert our props for use in our render method.
+  _propsToSource(options, indent, props = this.props) {
+    if (!props) return null;
 
-    let keys = Object.keys(attributes);
-    const groups = this._splitAttributeKeys(keys);
+    let keys = Object.keys(props);
+    const groups = this._splitPropKeys(keys);
 
-    const attributeSets = groups.map(group => {
+    const propSets = groups.map(group => {
       // if we got just a string, it's an object spread expression
       if (typeof group === "string") {
-        return this._attributeValueToSource("...", attributes[group], options, indent);
+        return this._propValueToSource("...", props[group], options, indent);
       }
 
       const attrExpressions = [];
       group.forEach(key => {
-        let value = this._attributeValueToSource(key, attributes[key], options, indent);
+        let value = this._propValueToSource(key, props[key], options, indent);
         if (key === "oid") key = "data-oid";
         if (value !== undefined) attrExpressions.push(`"${key}": ${value}`);
       });
       return "{" + attrExpressions.join(", ") + "}"
     });
 
-    if (attributeSets.length === 0) {
+    if (propSets.length === 0) {
       return "undefined";
     }
 
-    if (attributeSets.length === 1) {
-      return attributeSets[0];
+    if (propSets.length === 1) {
+      return propSets[0];
     }
 
-    return "Object.assign(" + attributeSets.join(", ") + ")";
+    return "Object.assign(" + propSets.join(", ") + ")";
   }
 
-  // Given a set of attribute keys, split into an array of arrays separating `...` entries from normal ones
-  _splitAttributeKeys(keys) {
+  // Given a set of prop keys, split into an array of arrays separating `...` entries from normal ones
+  _splitPropKeys(keys) {
     const groups = [];
     keys.forEach(key => {
       // if we got a spread
@@ -174,7 +175,7 @@ export default class JSXElement {
     return groups;
   }
 
-  _attributeValueToSource(key, value, options, indent) {
+  _propValueToSource(key, value, options, indent) {
     if (value === undefined) return undefined;
     if (value instanceof acorn.Node) {
       return value._code;
@@ -193,8 +194,8 @@ export default class JSXElement {
   // Render this element as a string, close to the code we parsed it from.
   // NOTE: this will normalize the JSX to a canonical format, this is desired.
 	toString(indent = "", dontNest) {
-    const attributes = this._attributesToString(indent);
-    const tagPrefix = indent + "<" + this.type + (attributes ? " "+attributes : "");
+    const props = this._propsToString(indent);
+    const tagPrefix = indent + "<" + this.type + (props ? " "+props : "");
     if (this.selfClosing) {
       return tagPrefix + "/>";
     }
@@ -210,12 +211,12 @@ export default class JSXElement {
     return tagPrefix + ">" + ( children || "" ) + "</" + this.type + ">";
 	}
 
-  // Convert our attributes to a JSX string.
-  _attributesToString(indent, attributes = this.attributes) {
-    if (!attributes) return "";
+  // Convert our props to a JSX string.
+  _propsToString(indent, props = this.props) {
+    if (!props) return "";
     const results = [];
-    for (let key in attributes) {
-      let value = attributes[key];
+    for (let key in props) {
+      let value = props[key];
       // skip undefined (but not null ???)
       if (value === undefined) continue;
 
@@ -228,7 +229,7 @@ export default class JSXElement {
       else if (typeof value === "string") {
         results.push(`${key}="${value}"`);
       }
-      // `true` renders as just the attribute name
+      // `true` renders as just the prop name
       else if (value === true) {
         results.push(key)
       }
@@ -324,19 +325,19 @@ export class JSXElementParser extends AcornParser {
     return element;
   }
 
-  // Add a unique-ish `oid` property to all nodes as we parse node attributes.
+  // Add a unique-ish `oid` property to all nodes as we parse node props.
   // NOTE: this will then be saved with the node...
-  parseAttributes(element, astElement, code, options) {
-    const attributes = super.parseAttributes(element, astElement, code, options) || {};
+  parseProps(element, astElement, code, options) {
+    const props = super.parseProps(element, astElement, code, options) || {};
 
     // make sure we've got an oid that's unique within options.oids
-    while (!attributes.oid || (attributes.oid in options.oids)) {
-      attributes.oid = ids.generateRandomId();
+    while (!props.oid || (props.oid in options.oids)) {
+      props.oid = ids.generateRandomId();
     }
     // point to the element by oid for later
-    options.oids[attributes.oid] = element;
+    options.oids[props.oid] = element;
 
-    return attributes;
+    return props;
   }
 
   // Assign children to _children since we do the child lookup thing
