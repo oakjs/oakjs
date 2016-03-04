@@ -14,7 +14,7 @@ import Registry from "oak-roots/Registry";
 // REFACTOR:   Delta index and announce when things are added/removed/moved
 // REFACTOR:   Index to array of objects
 
-export default class LoadableIndex extends Loadable(Eventful()) {
+export default class LoadableIndex extends Loadable() {
   constructor(props) {
     super();
     Object.assign(this, props);

@@ -8,6 +8,7 @@
 import global from "oak-roots/util/global";
 import LoadableIndex from "oak-roots/LoadableIndex";
 import Registry from "oak-roots/Registry";
+import UndoQueue from "oak-roots/UndoQueue";
 
 import api from "./api";
 import Card from "./Card";
@@ -34,6 +35,8 @@ class App {
     }
 
     this.registry = new Registry();
+
+    this.undoQueue = new UndoQueue();
 
     // load the project index to start with since that's the first thing we'll need
     this.projectIndex.load();
