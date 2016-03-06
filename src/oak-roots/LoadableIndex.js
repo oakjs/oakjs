@@ -4,7 +4,7 @@
 //
 //////////////////////////////
 
-import objectUtil from "oak-roots/util/object";
+import { dieIfMissing } from "oak-roots/util/die";
 
 import Eventful from "oak-roots/Eventful";
 import Loadable from "oak-roots/Loadable";
@@ -18,7 +18,7 @@ export default class LoadableIndex extends Loadable() {
   constructor(props) {
     super();
     Object.assign(this, props);
-    objectUtil.dieIfMissing(this, ["itemType", "createItem", "loadIndex"]);
+    dieIfMissing(this, "constructor", ["itemType", "createItem", "loadIndex"]);
     this.registry = new Registry();
   }
 

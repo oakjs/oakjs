@@ -3,14 +3,14 @@
 //////////////////////////////
 
 import { proto } from "oak-roots/util/decorators";
-import { dieIfMissing } from "oak-roots/util/object";
+import { dieIfMissing } from "oak-roots/util/die";
 
 import ComponentController from "./ComponentController";
 
 export default class Card extends ComponentController {
   constructor(props) {
     super(props);
-    dieIfMissing(this, ["app", "cardId", "stackId", "projectId"]);
+    dieIfMissing(this, "new Card", ["app", "cardId", "stackId", "projectId"]);
   }
 
   @proto
@@ -32,7 +32,7 @@ export default class Card extends ComponentController {
   //////////////////////////////
 
   get componentLoader() {
-    return this.app.getCardLoader(this);
+    return this.app.getCardLoader(this, "MAKE");
   }
 
   // TODO: dynamic components

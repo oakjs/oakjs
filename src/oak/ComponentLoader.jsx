@@ -17,10 +17,10 @@ import babel from "oak-roots/util/babel";
 import browser from "oak-roots/util/browser";
 import { autobind } from "oak-roots/util/decorators";
 import { generateRandomId, normalizeIdentifier } from "oak-roots/util/ids";
-import { dieIfMissing } from "oak-roots/util/object";
+import { dieIfMissing } from "oak-roots/util/die";
 
 import api from "./api";
-import JSXElement, { OidRef } from "./JSXElement";
+import JSXElement, { JSXElementParser, OidRef } from "./JSXElement";
 
 import Stub from "./components/Stub";
 
@@ -34,7 +34,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
 
   constructor(...args) {
     super(...args);
-    dieIfMissing(this, ["controller", "SuperConstructor", "type", "path"]);
+    dieIfMissing(this, "constructor", ["controller", "SuperConstructor", "type", "path"]);
   }
 
   destroy() {
@@ -84,207 +84,32 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
 
 
   //////////////////////////////
-  //  Dealing with component elements
+  //  Finding / manipulating elements
   //////////////////////////////
 
   @autobind
   getElement(oid) {
-    return this.oids && this.oids[oid];
+    if (oid instanceof JSXElement) return oid;
+    if (!this.oids) return undefined;
+    return (oid instanceof OidRef ? this.oids[oid.oid] : this.oids[oid]);
   }
 
-  // Add an element in our map according to its `oid`.
-  // Returns thing that was under that `oid` before, if any.
-  add(element) {
-    this._dieIfNoOids("add", arguments);
-    if (!(element instanceof JSXElement)) this._die("add", element, "expected a JSXElement");
-
-    const oid = element.oid;
-    const oldElement = this.oids[oid];
-
-    // make sure the element looks up to us for parenting!
-    newElement.getElement = this.getElement;
-    this.oids[oid] = newElement;
-
-    return oldElement;
+  // Does this laoder contains some element?
+  // You can pass:
+  //  - an `oid` string
+  //  - an `OidRef`, or
+  //  - a `JSXElement`.
+  contains(oidOrChild) {
+    if (this.oids) return false;
+    const oid = typeof oidOrChild === "string"
+              ? oidOrChild
+              : oid && oid.oid;
+    return !!this.oids[oidOrChild];
   }
 
-  // Remove an element specified by `oid` or by reference.
-  // Returns the element that was removed, if there was one.
-  remove(oidOrElement) {
-    this._dieIfNoOids("remove", arguments);
-
-    const oid = (typeof oidOrElement === "string" ? oidOrElement : oidOrElement.oid);
-    const oldElement = this.oids[oid];
-
-    delete this.oids[oid];
-    return oldElement;
-  }
-
-
-  // Set a single prop of an element.
-  // Returns the original element BEFORE properties were set.
-  // Throws if the element isn't found.
-  setProp(oid, key, value) {
-    const clone = this._getElementOrDie(oid, "setProp").clone();
-    clone.props[key] = value;
-    return this.add(clone);
-  }
-
-  // Set a single prop of an element.
-  // Returns the original element BEFORE properties were set.
-  // Throws if the element isn't found.
-  setProps(oid, props) {
-    const clone = this._getElementOrDie(oid, "setProp").clone();
-    clone.props = Object.assign(clone.props || {}, props);
-    return this.add(clone);
-  }
-
-  // Reset all props of an element.
-  // Returns the original element BEFORE properties were set.
-  // Throws if the element isn't found.
-  resetProps(oid, props) {
-    const clone = this._getElementOrDie(oid, "setProp").clone();
-    clone.props = Object.assign({}, props);
-    return this.add(clone);
-  }
-
-
-  // Set `child` of some parent at `position`.
-  // Replaces whatever was at that position.
-  // Returns original parent, unmodified.
-  //
-  // If you pass a `JSXElement`, we'll insert an `OidRef` instead
-  //  and automatically add the element with `addElement()`.
-  // If you pass a string or a literal or something else , we'll add it directly.
-  //
-  // Throws if `position` is outside the current range of the parent or is otherwise wonky.
-  setChild(parentOid, child, position) {
-    const parent = this._getElementOrDie(parentOid, "setChild", "parent not found");
-    this._dieIfInvalidChildPosition(parent, position, "setChild");
-
-    // if we were passed an element, add it to the table and add an `OidRef` to the parent.
-    if (child instanceof JSXElement) {
-      this.addElement(child);
-      child = new OidRef(child.oid);
-    }
-
-    // create a new array and modify that
-    const children = Array.from(parent._children);
-    children[position] = child;
-    return this.set(parent, { _children: children });
-  }
-
-  // Add a new child to some parent at `position`, possibly pushing other children out of the way.
-  // Defaults to putting things at the end.
-  // Pass `position = 0` to prepend.
-  //
-  // If you pass a `JSXElement`, we'll insert an `OidRef` instead
-  //  and add the element with `addElement()`.
-  // If you pass a string or a literal or something else , we'll add it directly.
-  //
-  // Throws if `position` is outside range of the parent or is otherwise wonky.
-  addChild(parentOid, child, position) {
-    const parent = this._getElementOrDie(parentOid, "addChild", "parent not found");
-
-    // default _children array if we don't have one
-    const children = parent._children || (parent._children = []);
-    if (position === undefined) {
-      position = children.length;
-    } else {
-      this._dieIfInvalidChildPosition(parent, position, operation, children.length);
-    }
-
-    // if we were passed an element, add it to the table and add an `OidRef` to the parent.
-    if (child instanceof JSXElement) {
-      this.addElement(child);
-      child = new OidRef(child.oid);
-    }
-
-    // create a new array and add to that
-    parent._children = Array.from(parent._children);
-    parent._children.splice(position, 0, child);
-  }
-
-  // Remove a a `child` from `parent`.
-  // Pass a `JSXElement`, an `OidRef` or a literal to remove (we'll remove the first one found).
-  // NOTE: removes `JSXElement` or `OidRef` from the `oids` table as well.
-  // Throws if `child` not found.
-  removeChild(parentOid, child) {
-    const parent = this._getElementOrDie(parentOid, "removeChild", "parent not found");
-    if (!parent._children) this._die("removeChild", arguments, "parent has no children");
-
-    let position;
-    if (child && child.oid) {
-      position = parent._children.findIndex( next => next.oid === child.oid );
-    }
-    else {
-      position = parent._children.indexOf(child);
-    }
-    return this.removeChildAtPosition(parent, position);
-  }
-
-  // Remove a the child at `position` from `parent`.
-  // Returns the child so removed, if any.
-  // NOTE: if the child is an `OidRef`, removes the corresponding JSXElement from our `oids`.
-  // Throws if `position` is outside the current range of the parent or is otherwise wonky.
-  removeChildAtPosition(parentOid, position) {
-    const parent = this._getElementOrDie(parentOid, "removeChildAtPosition", "parent not found");
-    this._dieIfInvalidChildPosition(parent, position, "removeChild");
-
-    const child = parent._children[position];
-
-    // duplicate children array and remove the child
-    parent._children = Array.from(parent._children);
-    parent._children.splice(position, 1);
-
-    // remove from the oids table
-    if (child && child.oid) this.remove(child);
-
-    return child;
-  }
-
-
-
-
-  //////////////////////////////
-  //  Standardized morbidity is a terrible thing
-  //////////////////////////////
-
-  _die(operation, args, message = "") {
-    const messages = [`${this}.${operation}(`, (args || ""), `): ${message}`];
-    console.error(...messages);
-    console.trace();
-    throw new TypeError(messages.join(""));
-  }
-
-  _dieIfNoOids(operation, args) {
-    if (!this.oids) this._die(operation, args, "no oids!");
-  }
-
-  _getElementOrDie(oidOrElement, operation, message = "element not found") {
-    this._dieIfNoOids(operation);
-    if (oidOrElement instanceof jsxElement) return oid;
-
-    const element = this.getElement(oidOrElement);
-    if (!element) {
-      this._die(operation, oidOrElement, message);
-    }
-    return element;
-  }
-
-  _dieIfInvalidChildPosition(parent, position, operation, lastPosition) {
-    const children = parent._children;
-    if (!children) this._die(operation, parent, "parent has no children");
-
-    if (typeof position !== "number") {
-      this._die(operation, [parent, position], "position must be a number");
-    }
-
-    if (typeof lastPosition !== "number") lastPosition = children.length - 1;
-
-    if (position < 0 || position > lastPosition) {
-     this._die(operation, [parent, position], `position out of range [0-${lastPosition}]`);
-    }
+  getUniqueOid() {
+    dieIfMissing(this, "getUniqueId", ["oids"]);
+    return JSXElement.getUniqueId(this.oids);
   }
 
 

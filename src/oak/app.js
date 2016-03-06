@@ -207,7 +207,7 @@ class App {
   _getFromRegistry(typePrefix, pathOrController, creatorFunction) {
     const registryPath = typePrefix + (typeof pathOrController === "string" ? pathOrController : pathOrController.path);
     let item = this.registry.get(registryPath);
-    if (!item) {
+    if (!item && creatorFunction) {
       item = creatorFunction.call(this, pathOrController);
       item.app = this;
       item._registryPath = registryPath;
@@ -297,10 +297,25 @@ class App {
   //  Loaders
   //////////////////////////////
 
+  getPath(pathOrController) {
+    if (typeof pathOrController === "string") return pathOrController;
+    if (pathOrController && pathOrController.path) return pathOrController.path;
+    console.warn(`app.getPath(${controller}): cant figure out path`);
+  }
+
+  getLoader(pathOrController, makeIfNecessary) {
+    const path = this.getPath(pathOrController);
+    if (!path) return;
+    const { projectId, stackId, cardId } = path.split("/");
+    if (cardId) return app.getCardLoader(pathOrController, makeIfNecessary);
+    if (stackId) return app.getStackLoader(pathOrController, makeIfNecessary);
+    return app.getProjectLoader(pathOrController, makeIfNecessary);
+  }
 
   // Return the singleton loader for some project.
-  getProjectLoader(project) {
-    return this._getFromRegistry("PROJECT-LOADER:", project, this._makeProjectLoader);
+  getProjectLoader(project, makeIfNecessary) {
+    const makeLoader = makeIfNecessary && project instanceof Project && this._makeProjectLoader;
+    return this._getFromRegistry("PROJECT-LOADER:", project, makeLoader);
   }
 
   // Create a project loader on demand.
@@ -315,8 +330,9 @@ class App {
   }
 
   // Return the singleton loader for some stack.
-  getStackLoader(stack) {
-    return this._getFromRegistry("STACK-LOADER:", stack, this._makeStackLoader);
+  getStackLoader(stack, makeIfNecessary) {
+    const makeLoader = makeIfNecessary && stack instanceof Stack && this._makeStackLoader;
+    return this._getFromRegistry("STACK-LOADER:", stack, makeLoader);
   }
 
   // Create a stack loader on demand.
@@ -331,8 +347,9 @@ class App {
   }
 
   // Return the singleton loader for some card.
-  getCardLoader(card) {
-    return this._getFromRegistry("CARD-LOADER:", card, this._makeCardLoader);
+  getCardLoader(card, makeIfNecessary) {
+    const makeLoader = makeIfNecessary && card instanceof Card && this._makeCardLoader;
+    return this._getFromRegistry("CARD-LOADER:", card, makeLoader);
   }
 
   // Create a card loader on demand.

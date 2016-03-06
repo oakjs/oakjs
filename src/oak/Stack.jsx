@@ -3,14 +3,14 @@
 //////////////////////////////
 
 import { proto } from "oak-roots/util/decorators";
-import { dieIfMissing } from "oak-roots/util/object";
+import { dieIfMissing } from "oak-roots/util/die";
 
 import ComponentController from "./ComponentController";
 
 export default class Stack extends ComponentController {
   constructor(props) {
     super(props);
-    dieIfMissing(this, ["app", "stackId", "projectId"]);
+    dieIfMissing(this, "new Stack", ["app", "stackId", "projectId"]);
   }
 
   @proto
@@ -31,7 +31,7 @@ export default class Stack extends ComponentController {
   //////////////////////////////
 
   get componentLoader() {
-    return this.app.getStackLoader(this);
+    return this.app.getStackLoader(this, "MAKE");
   }
 
   // TODO: dynamic components

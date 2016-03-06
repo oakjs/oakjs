@@ -6,6 +6,7 @@
 import AcornParser from "oak-roots/AcornParser";
 import Mutable from "oak-roots/Mutable";
 
+import { die, dieIfOutOfRange } from "oak-roots/util/die";
 import ids from "oak-roots/util/ids";
 import objectUtil from "oak-roots/util/object";
 
@@ -17,9 +18,9 @@ export default class JSXElement {
   }
 
   // Clone this element, including making clones of `props` and `_children` if defined.
-  clone() {
+  clone(newProps) {
     const Constructor = this.constructor;
-    const props = objectUtil.cloneProperties(this);
+    const props = Object.assign(objectUtil.cloneProperties(this), newProps);
     return new Constructor(props);
   }
 
@@ -27,12 +28,36 @@ export default class JSXElement {
   //  Identification via `oid`
   //////////////////////////////
 
+  // Return a random `oid` for an element.
+  static getRandomOid() {
+    return ids.generateRandomId();
+  }
+
+  // Return an unique `oid` which is not already contained in `oidMap`.
+  static getUniqueOid(oidMap) {
+    let oid;
+    while (!oid || oidMap[oid]) {
+      oid = this.getRandomId();
+    }
+    return oid;
+  }
+
   get oid() { return this.props && this.props.oid }
+
+  getReference() { return new OidRef(this.oid) }
 
   // Return an item specified by oid.
   // NOTE: this will generally be overridden on each instance during parse....
   getElement(oid) {
     return undefined;
+  }
+
+  getChildPosition(child) {
+    if (!this._children) return -1;
+    if (child && child.oid) {
+      return this._children.findIndex( next => next.oid === child.oid );
+    }
+    return this._children.indexOf(child);
   }
 
   get children() {
@@ -48,9 +73,24 @@ export default class JSXElement {
     });
   }
 
+  // Return an arry of of our descendants who are `JSXElement`s
+  //  (looking up `OidRef`s and ignoring everything else).
+  getDescendentElements(descendents = []) {
+    const children = this.children;
+    if (children) {
+      children.forEach(child => {
+        if (!(child instanceof JSXElement)) return;
+        descendents.push(child);
+        child.getDescendentElements(descendents);
+      });
+    }
+    return descendents;
+  }
+
   get parent() {
     return this.getElement(this._parent);
   }
+
 
   //////////////////////////////
   //  Render method
@@ -332,7 +372,7 @@ export class JSXElementParser extends AcornParser {
 
     // make sure we've got an oid that's unique within options.oids
     while (!props.oid || (props.oid in options.oids)) {
-      props.oid = ids.generateRandomId();
+      props.oid = JSXElement.getRandomOid();
     }
     // point to the element by oid for later
     options.oids[props.oid] = element;
@@ -368,8 +408,9 @@ export class JSXElementParser extends AcornParser {
 //////////////////////////////
 
 export class OidRef {
-  constructor(oid, props) {
-    this.oid = oid;
-    if (props) Object.assign(this, props);
+  constructor(oid) {
+    if (typeof oid !== "string" || !oid) die(app, "new OidRef", oid, "Invalid oid!");
+    // define the oid property non-changeable
+    Object.defineProperty(this, "oid", { value: oid, enumerable: true });
   }
 }

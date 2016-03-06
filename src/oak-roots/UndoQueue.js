@@ -90,25 +90,49 @@ export default class UndoQueue {
   //////////////////////////////
 
   // Add `undoActions` and `redoActions` to the "current" transaction.
+  // You can pass a single function or an array of functions.
+  //
   // If a transaction is pending, this will add them to that transaction.
   // If no transaction is pending, this creates a new transaction, adds the actions and commits it.
   // Thus if you call this with no transaction pending, you'll get a new atomic undo.
-  add(undoActions, redoActions, actionName) {
-    const startedWithTransaction = !!this.transaction;
+  addActions(redoActions, undoActions, options = {}) {
+    let commit = false;
+    if (!this.transaction) {
+      this.transaction = this.startTransaction(options.name);
+      commit = true;
+    }
 
-    const transaction = this.transaction || this.startTransaction(actionName);
-    transaction.addUndoActions(undoActions);
-    transaction.addRedoActions(redoActions);
+    this.transaction.addUndoActions(undoActions);
+    this.transaction.addRedoActions(redoActions);
 
-    if (startedWithTransaction) transaction.commit();
+    if (commit) this.transaction.commit(options.execute);
   }
 
+  // Add a `transaction` to the queue.
+  //
+  // If a transaction is pending, this will append actions to that transaction.
+  //
+  // If no transaction is pending, this will add the transaction and commits it.
+  // Thus if you call this with no transaction pending, you'll get a new atomic undo.
+  addTransaction(transaction, options = {}) {
+    // If a transaction is pending, add to that transaction.
+    if (this.transaction) {
+      this.transaction.addTransaction(transaction);
+    }
+    else {
+      this._addAndCommitTransaction(transaction, options);
+    }
+  }
 
 
   //////////////////////////////
   //  Transactions
   //////////////////////////////
 
+  // Start a long-running transaction.
+// TODO: start the tickler!
+// TODO: accept guard condition
+// TODO: what to do if in the middle of a transaction???
   startTransaction(actionName) {
     // if we're already in the middle of a transaction,
     // return `undefined` as a signal.
@@ -118,8 +142,6 @@ export default class UndoQueue {
       return undefined;
     }
 
-// TODO: start the tickler!
-// TODO: accept guard condition
     this.transaction = new UndoTransaction({ name:actionName, queue: this });
     return this.transaction;
   }
@@ -129,9 +151,9 @@ export default class UndoQueue {
 
   // Add an action *which must already be completed* to the queue.
   // You should NOT call this, create a `transaction` and `commit()` it instead.
-  _addTransaction(transaction) {
-    if (this.transaction !== transaction) {
-      console.log("undoQueue._addTransaction() called on transaction which is not current!", transaction);
+  _addAndCommitTransaction(transaction) {
+    if (this.transaction && this.transaction !== transaction) {
+      console.log("undoQueue._addAndCommitTransaction() called on transaction which is not current!", transaction);
       console.trace();
       return;
     }
@@ -150,6 +172,17 @@ export default class UndoQueue {
 
     // reset the cursor just past the end of the list
     this.cursor = this.transactions.length;
+  }
+
+  // Create a new transaction by mapping `method` over a `list`,
+  //  assuming each return of method will return a sub-transaction.
+  static mapTransactions(list, method, name) {
+    const transaction = new UndoTransaction({name});
+
+    const subTransactions = list.map( (item, index, list) => method(item, index, list) );
+    transaction.addTransactions(subTransactions);
+
+    return transaction;
   }
 
 
@@ -176,9 +209,9 @@ export default class UndoQueue {
 
 export class UndoTransaction {
   constructor(props) {
+    this.undoActions = [];
+    this.redoActions = [];
     Object.assign(this, props);
-    this.undoActions = {};
-    this.redoActions = {};
   }
 
   // Has this transaction been committed?
@@ -191,14 +224,17 @@ export class UndoTransaction {
   name = "";
 
 //TODO:  execute the redo?
-  commit() {
+  commit(execute = true) {
     if (this.committed) {
       console.log("undoTransaction.commit() called on committed transaction!", this);
       return;
     }
     this.committed = true;
-    this.queue._addTransaction(this);
+// TODO: try....
+    if (execute) this.redo();
+    this.queue._addAndCommitTransaction(this);
   }
+
 
   //////////////////////////////
   //  Undo / redo
@@ -236,15 +272,41 @@ export class UndoTransaction {
   // Add a map of `{ context: args }` to the `undo` portion of this transaction.
   // See `addUndoAction()` for `args` semantics.
   addUndoActions(actions) {
-    actions.forEach( action => this.addUndoAction(action) )
+    if (Array.isArray(actions)) {
+      actions.forEach( action => this.addUndoAction(action) );
+    }
+    else {
+      this.addUndoAction(action);
+    }
   }
 
   // Add a map of `{ context: args }` to the `redo` portion of this transaction.
   // See `addRedoAction()` for `args` semantics.
   addRedoActions(actions) {
-    actions.forEach( action => this.addRedoAction(action) )
+    if (Array.isArray(actions)) {
+      actions.forEach( action => this.addRedoAction(action) );
+    }
+    else {
+      this.addRedoAction(action);
+    }
   }
 
+  //////////////////////////////
+  //  Adding (nested) transactions
+  //////////////////////////////
+
+  addTransaction(transaction) {
+    this.addRedoActions(transaction.redoActions);
+    this.addUndoActions(transaction.undoActions);
+  }
+
+// NOTE: add undos in REVERSE order???
+  addTransactions(transactions) {
+    transactions.forEach(transaction => {
+      this.addRedoActions(transaction.redoActions);
+      this.addUndoActions(transaction.undoActions);
+    });
+  }
 
 
   //////////////////////////////

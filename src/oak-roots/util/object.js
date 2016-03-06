@@ -85,12 +85,6 @@ export function isEmpty(object) {
 }
 
 
-// Throw an error if `thing` is missing any required fields.
-export function dieIfMissing(thing, fields, errorMessage = `Error in ${thing.constructor.name}`) {
-  const missing = fields.filter(field => thing[field] == null);
-  if (missing.length) throw new TypeError(errorMessage + ": missing " + missing.join("\n"));
-}
-
 // Return a new object with any properties in `target` that ARE also found in `source`.
 export function knownProperties(target, source = {}) {
   return filter(target, function(value, key) { return source.hasOwnProperty(key) });
