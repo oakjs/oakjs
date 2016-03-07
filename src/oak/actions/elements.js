@@ -22,15 +22,20 @@ import JSXElement, { JSXElementParser } from "../JSXElement";
 // Optional options:  `returnTransaction`, `operation`
 //
 // NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
-export function setElementProp(options) {
-  const KEYS = ["context", "element", "key", "value", "operation"];
-  const [ context, element, key, value, operation ]
-    = getOptionsOrDie(options, "setElementProp", KEYS);
+export function setElementProp({
+  context, element, key, value,
+  operation = "setElementProp", returnTransaction
+}) {
+  if (typeof key !== "string") die(app, operation, options, "`options.key` must be a string");
 
   const transactionOptions = {
     actionName: "Set Property",
+    context,
+    element,
+    key,
+    value,
     operation,
-    ...options,
+    returnTransaction,
     transformer: (clone) => clone.props = Object.assign({}, clone.props, { [key]: value }),
   }
   return _changeElementTransaction(transactionOptions);
@@ -44,15 +49,19 @@ export function setElementProp(options) {
 // Optional options:  `returnTransaction`, `operation`
 //
 // NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
-export function setElementProps(options) {
-  const KEYS = ["context", "element", "deltas", "operation"];
-  const [ context, element, deltas, operation ]
-    = getOptionsOrDie(options, "setElementProps", KEYS);
+export function setElementProps({
+  context, element, deltas,
+  operation = "setElementProps", returnTransaction
+}) {
+  if (deltas == null) die(app, operation, options, "`options.deltas` must be an object");
 
   const transactionOptions = {
     actionName: "Set Properties",
+    context,
+    element,
+    deltas,
     operation,
-    ...options,
+    returnTransaction,
     transformer: (clone) => clone.props = Object.assign({}, clone.props, options.deltas),
   }
   return _changeElementTransaction(transactionOptions);
@@ -67,15 +76,19 @@ export function setElementProps(options) {
 // Optional options:  `returnTransaction`, `operation`
 //
 // NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
-export function resetElementProps(options) {) {
-  const KEYS = ["context", "element", "props", "operation"];
-  const [ context, element, props, operation ]
-    = getOptionsOrDie(options, "resetElementProps", KEYS);
+export function resetElementProps({
+  context, element, props,
+  operation = "setElementProps", returnTransaction
+}) {
+  if (deltas == null) die(app, operation, options, "`options.deltas` must be an object");
 
   const transactionOptions = {
     actionName: "Set Properties",
+    context,
+    element,
+    deltas,
     operation,
-    ...options,
+    returnTransaction,
     transformer: (clone) => clone.props = Object.assign({}, options.props),
   }
   return _changeElementTransaction(transactionOptions);
@@ -100,66 +113,29 @@ export function resetElementProps(options) {) {
 //
 // NOTE: You cannot reliably use this to move a non-element child,
 //       use `moveChildAtPosition()` instead.
-export function moveElement(options) {
-  const KEYS = ["context", "element", "targetParent", "targetPosition", "operation"];
-  const [ context, element, targetParent, targetPosition, operation ]
-    = getOptionsOrDie(options, "moveElement", KEYS);
-
+export function moveElement({
+  context, element: _element, targetParent, targetPosition,
+  operation = "moveElement", returnTransaction
+}) {
   const loader = getLoaderOrDie(context, operation);
-  const original = getLoaderElementOrDie(loader, element, operation);
-  const sourceParent = getLoaderElementOrDie(loader, original._parent, operation);
-  const sourcePosition = getElementPositionOrDie(sourceParent, original, operation);
+  const element = getElementOrDie(loader, _element, operation);
+  const sourceParent = getElementOrDie(loader, element._parent, operation);
+  const sourcePosition = getElementPositionOrDie(sourceParent, element, operation);
 
   const moveChildOptions = {
-    actionName: "Move Element",
-    operation,
-    ...options,
-    loader,
-    original,
+    context: loader,
+    element,
     sourceParent,
     sourcePosition,
+    targetParent,
+    targetPosition,
+    operation,
+    returnTransaction
   }
 
   // delegate to `moveChildAtPosition()` to actually do the move
   return moveChildAtPosition(moveChildOptions);
 }
-
-
-// Move a bunch of `elements` to new `targetParent` at `targetPosition`,
-//  pushing other elements out of the way.
-//
-// Required options:  `context`, `elements`, `targetParent`, `targetPosition`
-// Optional options:  `returnTransaction`, `operation`
-//
-// You can specify an `oid` string, an `OidRef` or a `JSXElement`.
-//
-// NOTE: You cannot reliably use this to move a non-element child,
-//       use `moveChildrenAtPosition()` instead.
-export function moveElements(options) {
-  const KEYS = ["context", "elements", "targetParent", "targetPosition", "operation"];
-  const [ context, elements, targetParent, targetPosition, operation ]
-    = getOptionsOrDie(options, "moveElements", KEYS);
-
-  const transactionOptions = {
-    actionName: "Move Elements",
-    operation,
-    ...options,
-    list: elements,
-    getItemTransaction: (element, index) => {
-      return moveElement({
-        context,
-        element,
-        targetParent,
-        targetPosition: targetPosition + index,
-        operation,
-        returnTransaction: true
-      });
-    }
-  }
-  return _mapElementsTransaction(transactionOptions);
-}
-
-
 
 // Move item at `sourcePosition` in `sourceParent` to `targetPosition` in `targetParent`
 //
@@ -172,14 +148,13 @@ export function moveElements(options) {
 //
 // NOTE: This method is called out specially because we don't have to worry about
 //       manipulating element descendents or changing oids...
-export function moveChildAtPosition(options) {
-  const KEYS = ["context", "sourceParent", "sourcePosition", "targetParent", "targetPosition", "operation"];
-  const [ context, sourceParent, sourcePosition, targetParent, targetPosition, operation ]
-    = getOptionsOrDie(options, "moveChildAtPosition", KEYS);
+export function moveChildAtPosition({
+  context, sourceParent, sourcePosition, targetParent, targetPosition,
+  operation = "moveChildAtPosition", returnTransaction
+}) {
 
   const loader = getLoaderOrDie(context, operation);
 
-// TODO: if source and target are the same...
   const originalSourceParent = getElementOrDie(loader, sourceParent, operation);
   const originalTargetParent = getElementOrDie(loader, targetParent, operation);
   const originalChild = getChildAtPositionOrDie(loader, originalSourceParent, sourcePosition, operation);
@@ -197,14 +172,48 @@ export function moveChildAtPosition(options) {
 
   const transactionOptions = {
     actionName: "Move Element",
-    operation,
-    ...options,
     loader,
     originalItems: [originalChild, originalTargetParent, originalSourceParent],
-    newItems: [newChild, newSourceParent, newTargetParent]
+    newItems: [newChild, newSourceParent, newTargetParent],
+    returnTransaction
   }
   return _changeElementsTransaction(transactionOptions);
 }
+
+
+
+// Move a bunch of `elements` to new `targetParent` at `targetPosition`,
+//  pushing other elements out of the way.
+//
+// Required options:  `context`, `elements`, `targetParent`, `targetPosition`
+// Optional options:  `returnTransaction`, `operation`
+//
+// You can specify an `oid` string, an `OidRef` or a `JSXElement`.
+//
+// NOTE: You cannot reliably use this to move a non-element child,
+//       use `moveChildrenAtPosition()` instead.
+export function moveElements({
+  context, elements, targetParent, targetPosition,
+  operation = "moveElements", returnTransaction
+}) {
+
+  const transactionOptions = {
+    actionName: "Move Elements",
+    list: elements,
+    getItemTransaction: (element, index) => {
+      return moveElement({
+        context,
+        element,
+        targetParent,
+        targetPosition: targetPosition + index,
+        operation,
+        returnTransaction: true
+      });
+    }
+  }
+  return _mapElementsTransaction(transactionOptions);
+}
+
 
 
 
@@ -222,11 +231,10 @@ export function moveChildAtPosition(options) {
 // NOTE: This routine CHANGES THE OIDS of the `child` and all descendents.
 //        If you're moving a node within the same tree and don't want to change oids,
 //        use `moveElement()` instead.
-export function addChildToElement(options) {
-  const KEYS = ["context", "parent", "position", "child", "operation"];
-  const [ context, parent, position, child, operation ]
-    = getOptionsOrDie(options, "addChildToElement", KEYS);
-
+export function addChildToElement({
+  context, parent, position, child,
+  operation = "addChildToElement", returnTransaction
+}) {
   if (child == null) die(app, operation, child, "Child must not be null");
   if (child instanceof OidRef) die(app, operation, child, "Child must not be an OidRef");
 
@@ -253,11 +261,10 @@ export function addChildToElement(options) {
 
   const transactionOptions = {
     actionName: "Add Element",
-    operation,
-    ...options,
     loader,
     originalItems,
-    newItems
+    newItems,
+    returnTransaction
   }
 
   return _changeElementsTransaction(transactionOptions);
@@ -273,47 +280,66 @@ export function addChildToElement(options) {
 //
 // NOTE: You cannot reliably use this to remove a non-element child,
 //       use `removeChildAtPosition()` instead.
-export function removeElement(options) {
-  const KEYS = ["context", "element", "operation"];
-  const [ context, element: _element, operation ]
-    = getOptionsOrDie(options, "removeElement", KEYS);
-
-  const loader = getLoaderOrDie(context, "removeElement");
-
-  const element = getLoaderElementOrDie(loader, _element, "removeElement");
-  const parent = getLoaderElementOrDie(loader, element._parent, "removeElement");
-  const position = getElementPositionOrDie(parent, element, "removeElement");
+export function removeElement({
+  context, element: _element,
+  operation = "removeElement", returnTransaction
+}) {
+  const loader = getLoaderOrDie(context, operation);
+  const element = getElementOrDie(loader, _element, operation);
 
   const removeChildOptions = {
     actionName: "Remove Element",
-    operation,
-    ...options,
     loader,
     element,
-    parent,
-    position
+    parent: getElementOrDie(loader, element._parent, operation),
+    position: getElementPositionOrDie(parent, element, operation),
+    returnTransaction
   }
 
   return removeChildAtPosition(removeChildOptions);
 }
 
 
+
+// Remove child at `position` from `parent`.
+// NOTE: also removes all descendent elements!
+export function removeChildAtPosition({
+  context, parent, position,
+  operation = "removeChildAtPosition", returnTransaction
+}) {
+  const loader = getLoaderOrDie(context, operation);
+
+  const originalParent = getElementOrDie(loader, parent, operation);
+  const originalChild = getChildAtPositionOrDie(loader, originalParent, position, operation);
+  const originalDescendents = getDescendentElements(originalChild);
+
+  const newParent = originalParent.clone();
+  removeChildAtPositionOrDie(newParent, position);
+
+  const transactionOptions = {
+    actionName: "Remove Element",
+    loader,
+    originalItems: [ originalChild, originalDescendents, originalParent ]
+    newItems: [ newParent ],
+  }
+
+  return _changeElementsTransaction(transactionOptions);
+}
+
+
 // Remove a `element` passed as `oid` string, `OidRef` or by reference from the `context`.
 //
-// Required options:  `context`, `element`
+// Required options:  `context`, `elements`
 // Optional options:  `returnTransaction`, `operation`
 //
 // NOTE: You cannot reliably use this to remove a non-element children,
 //       use `removeChildrenAtPositions()` instead.
-export function removeElements(options) {
-  const KEYS = ["context", "elements", "operation"];
-  const [ context, elements, operation ]
-    = getOptionsOrDie(options, "removeElements", KEYS);
-
+export function removeElements({
+  context, elements,
+  operation = "removeElements", returnTransaction
+}) {
   const transactionOptions = {
     actionName: "Remove Elements",
-    operation,
-    ...options,
     list: elements,
     getItemTransaction: (element, index) => {
       return removeElement({
@@ -324,36 +350,6 @@ export function removeElements(options) {
       });
   }
   return _mapElementsTransaction(transactionOptions);
-}
-
-
-
-// Remove child at `position` from `parent`.
-// NOTE: also removes all descendent elements!
-export function removeChildAtPosition(options) {
-  const KEYS = ["context", "parent", "position", "operation"];
-  const [ context, parent, position, operation ]
-    = getOptionsOrDie(options, "removeElement", KEYS);
-
-  const loader = getLoaderOrDie(context, "removeChildAtPosition");
-
-  const originalParent = getElementOrDie(loader, parent, "removeChildAtPosition");
-  const originalChild = getChildAtPositionOrDie(loader, originalParent, position, "removeChildAtPosition");
-  const originalDescendents = getDescendentElements(originalChild);
-
-  const newParent = originalParent.clone();
-  removeChildAtPositionOrDie(newParent, position);
-
-  const transactionOptions = {
-    actionName: "Remove Element",
-    operation,
-    ...options,
-    loader,
-    originalItems: [ originalChild, originalDescendents, originalParent ]
-    newItems: [ newParent ]
-  }
-
-  return _changeElementsTransaction(transactionOptions);
 }
 
 
@@ -471,9 +467,8 @@ function getChildOid(child) {
 //////////////////////////////
 
 function getLoaderOrDie(pathOrController, operation) {
-  if (loader instanceof ComponentLoader) return loader;
   const loader = app.getLoader(pathOrController);
-  if (!loader) die(app, operation, pathOrController, "Couldn't get controller -- is this a valid path?");
+  if (!loader) die(app, operation, pathOrController, "Couldn't get loader -- is this a valid path?");
   return loader;
 }
 
@@ -504,14 +499,6 @@ function cloneOrDie(child, operation) {
   return child;
 }
 
-// Given a `loader` and an `element` as a `oid`, `OidRef` or `JSXElement`,
-//  return the version of that `element` that the `loader` knows about.
-function getLoaderElementOrDie(loader, element, operation) {
-  const oid = getChildOid(element);
-  if (!oid) die(app, operation, element, "Element must be an oid string, OidRef or JSXElement");
-  if (!loader.contains(oid)) die(app, operation, [loader, element], "Child not found in loader");
-  return loader.oids[oid];
-}
 
 function getElementPositionOrDie(parent, element, operation) {
   const position = parent.getChildPosition(element);
@@ -570,7 +557,7 @@ function _changeElementTransaction({ context, element, transformer, actionName, 
 // NOTE: don't call this directly, use one of the `setElementProp()` calls.
 //
 // TODO: how will we return the things that have been added for selection?
-function _changeElementsTransaction({ originalItems, newItems, actionName, returnTransaction }) {
+function _changeElementsTransaction({ loader, originalItems, newItems, actionName, returnTransaction }) {
   function redo() {
     if (onRedo.remove) removeElementsFromLoader(loader, ...onRedo.remove);
     if (onRedo.add) return addElementsToLoader(loader, ...onRedo.add);
