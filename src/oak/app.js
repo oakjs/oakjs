@@ -304,6 +304,8 @@ class App {
   }
 
   getLoader(pathOrController, makeIfNecessary) {
+    if (pathOrController instanceof ComponentLoader) return pathOrController;
+
     const path = this.getPath(pathOrController);
     if (!path) return;
     const { projectId, stackId, cardId } = path.split("/");
