@@ -166,7 +166,7 @@ export function moveChildAtPosition({
   const newChild = cloneOrDie(originalChild, operation);
 
   // if we're adding to the same parent, position may change because of the delete
-  const deleteDelta = (sameParent && targetPosition > sourcePosition) -1 : 0;
+  const deleteDelta = (sameParent && targetPosition > sourcePosition -1 : 0);
   removeChildAtPositionOrDie(newSourceParent, sourcePosition);
   addChildAtPositionOrDie(newTargetParent, targetPosition + deleteDelta, newChild, operation);
 
@@ -319,7 +319,7 @@ export function removeChildAtPosition({
   const transactionOptions = {
     actionName: "Remove Element",
     loader,
-    originalItems: [ originalChild, originalDescendents, originalParent ]
+    originalItems: [ originalChild, originalDescendents, originalParent ],
     newItems: [ newParent ],
   }
 
@@ -347,7 +347,8 @@ export function removeElements({
         element,
         operation,
         returnTransaction: true
-      });
+      })
+    }
   }
   return _mapElementsTransaction(transactionOptions);
 }
@@ -365,7 +366,7 @@ function addElementsToLoader(loader, elements) {
       loader.oids[element.oid] = element;
     }
     // recurse for arrays
-    else if (Array.isArray(element) {
+    else if (Array.isArray(element)) {
       addElementsToLoader(loader, element);
     }
     // ignore everything else
@@ -421,7 +422,7 @@ function removeChildAtPositionOrDie(parent, position, operation) {
 function cloneAndGenerateNewOids(loader, elements) {
   // first make a map of { currentOid => [<originalElement> or <newOid>] }
   const map = Object.assign({}, loader.oids);
-  const clones = elements.map(element {
+  const clones = elements.map(element => {
     const clone = element.clone();
     const oldOid = element.oid;
     const newOid = JSXElement.getUniqueOid(map);
@@ -434,6 +435,7 @@ function cloneAndGenerateNewOids(loader, elements) {
     if (!mapItem) {
       if (errorMessage) console.warn(`ERROR: getMappedOid(${oid}): ${errorMessage} for element:`, element, " and map:", map);
       return undefined;
+    }
     if (typeof mapItem === "string") return mapItem;
     return mapItem.oid;
   }
@@ -589,3 +591,11 @@ function _mapElementsTransaction({ list, getItemTransaction, actionName, returnT
   if (returnTransaction) return transaction;
   return app.UndoQueue.addTransaction(transaction);
 }
+
+
+
+
+
+
+// Export all as a lump
+export default Object.assign({}, exports);
