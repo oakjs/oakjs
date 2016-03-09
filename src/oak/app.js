@@ -70,6 +70,11 @@ class App {
     return `/project/${projectId}/${stackId}/${cardId}`;
   }
 
+  // Force update of the entire app, including any changed props in card/stack/project
+  forceUpdate() {
+    if (this.router) this.router.setState({});
+  }
+
   //////////////////////////////
   //  Components
   //////////////////////////////
@@ -130,12 +135,12 @@ class App {
   // You can specify string id or numeric index.
   loadProject(projectIdentifier) {
     return this.projectIndex.loadItem(projectIdentifier)
-      .catch(error => {
-        console.group(`Error loading project ${projectIdentifier}:`);
-        console.error(error);
-        console.groupEnd();
-        throw new ReferenceError("Couldn't load project");
-      });
+//       .catch(error => {
+//         console.group(`Error loading project ${projectIdentifier}:`);
+//         console.error(error);
+//         console.groupEnd();
+//         throw new ReferenceError("Couldn't load project");
+//       });
   }
 
   //////////////////////////////
@@ -160,12 +165,12 @@ class App {
       .then( project => {
         return project.loadStack(stackIdentifier);
       })
-      .catch(error => {
-        console.group(`Error loading stack ${projectIdentifier}/${stackIdentifier}:`);
-        console.error(error);
-        console.groupEnd();
-        throw new ReferenceError("Couldn't load stack");
-      });
+//       .catch(error => {
+//         console.group(`Error loading stack ${projectIdentifier}/${stackIdentifier}:`);
+//         console.error(error);
+//         console.groupEnd();
+//         throw new ReferenceError("Couldn't load stack");
+//       });
   }
 
 
@@ -191,12 +196,12 @@ class App {
       .then( stack => {
         return stack.loadCard(cardIdentifier);
       })
-      .catch(error => {
-        console.group(`Error loading card ${projectIdentifier}/${stackIdentifier}/${cardIdentifier}:`);
-        console.error(error);
-        console.groupEnd();
-        throw new ReferenceError("Couldn't load card");
-      });
+//       .catch(error => {
+//         console.group(`Error loading card ${projectIdentifier}/${stackIdentifier}/${cardIdentifier}:`);
+//         console.error(error);
+//         console.groupEnd();
+//         throw new ReferenceError("Couldn't load card");
+//       });
   }
 
 
@@ -310,7 +315,7 @@ class App {
 
     const path = this.getPath(pathOrController);
     if (!path) return;
-    const { projectId, stackId, cardId } = path.split("/");
+    const [ projectId, stackId, cardId ] = path.split("/");
     if (cardId) return app.getCardLoader(pathOrController, makeIfNecessary);
     if (stackId) return app.getStackLoader(pathOrController, makeIfNecessary);
     return app.getProjectLoader(pathOrController, makeIfNecessary);

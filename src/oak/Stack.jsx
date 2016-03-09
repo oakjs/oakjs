@@ -30,7 +30,7 @@ export default class Stack extends ComponentController {
   //  Components
   //////////////////////////////
 
-  get componentLoader() {
+  createComponentLoader() {
     return this.app.getStackLoader(this, "MAKE");
   }
 

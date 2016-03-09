@@ -4,6 +4,7 @@
 "use strict";
 
 import { die, dieIfMissing, dieIfOutOfRange } from "oak-roots/util/die";
+import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import app from "../app";
 import JSXElement, { JSXElementParser } from "../JSXElement";
@@ -22,10 +23,12 @@ import JSXElement, { JSXElementParser } from "../JSXElement";
 // Optional options:  `returnTransaction`, `operation`
 //
 // NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
-export function setElementProp({
-  context, element, key, value,
-  operation = "setElementProp", returnTransaction
-}) {
+export function setElementProp(options) {
+  const {
+    context, element, key, value,
+    operation = "setElementProp", returnTransaction
+  } = options;
+
   if (typeof key !== "string") die(app, operation, options, "`options.key` must be a string");
 
   const transactionOptions = {
@@ -36,7 +39,10 @@ export function setElementProp({
     value,
     operation,
     returnTransaction,
-    transformer: (clone) => clone.props = Object.assign({}, clone.props, { [key]: value }),
+    transformer: (clone) => {
+      clone.props = Object.assign({}, clone.props, { [key]: value });
+      return clone
+    },
   }
   return _changeElementTransaction(transactionOptions);
 }
@@ -62,7 +68,10 @@ export function setElementProps({
     deltas,
     operation,
     returnTransaction,
-    transformer: (clone) => clone.props = Object.assign({}, clone.props, options.deltas),
+    transformer: (clone) => {
+      clone.props = Object.assign({}, clone.props, options.deltas);
+      return clone;
+    },
   }
   return _changeElementTransaction(transactionOptions);
 }
@@ -89,7 +98,10 @@ export function resetElementProps({
     deltas,
     operation,
     returnTransaction,
-    transformer: (clone) => clone.props = Object.assign({}, options.props),
+    transformer: (clone) => {
+      clone.props = Object.assign({}, options.props);
+      return clone;
+    },
   }
   return _changeElementTransaction(transactionOptions);
 }
@@ -360,6 +372,7 @@ export function removeElements({
 //////////////////////////////
 
 function addElementsToLoader(loader, elements) {
+console.log("adding", elements, "to", loader);
   elements.forEach(element => {
     if (element instanceof JSXElement) {
       element.getElement = loader.getElement;
@@ -371,12 +384,17 @@ function addElementsToLoader(loader, elements) {
     }
     // ignore everything else
   })
+  loader.onComponentChanged();
+  return elements;
 }
 
 function removeElementsFromLoader(loader, elements) {
+console.log("removing", elements, "from", loader);
   elements.forEach(element => {
     if (element instanceof JSXElement) delete loader.oids[element.oid];
   })
+  loader.onComponentChanged();
+  return elements;
 }
 
 //////////////////////////////
@@ -540,14 +558,13 @@ function _changeElementTransaction({ context, element, transformer, actionName, 
   const original = getElementOrDie(loader, element, operation);
 
   const clone = transformer(original.clone(), loader);
-
-  function redo() { return addElementsToLoader(loader, clone); }
-  function undo() { return addElementsToLoader(loader, element); }
+  function redo() { return addElementsToLoader(loader, [clone]); }
+  function undo() { return addElementsToLoader(loader, [original]); }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
 
   if (returnTransaction) return transaction;
-  return app.UndoQueue.addTransaction(transaction);
+  return app.undoQueue.addTransaction(transaction);
 }
 
 
@@ -559,21 +576,21 @@ function _changeElementTransaction({ context, element, transformer, actionName, 
 // NOTE: don't call this directly, use one of the `setElementProp()` calls.
 //
 // TODO: how will we return the things that have been added for selection?
-function _changeElementsTransaction({ loader, originalItems, newItems, actionName, returnTransaction }) {
+function _changeElementsTransaction({ loader, originalItems = [], newItems = [], actionName, returnTransaction }) {
   function redo() {
-    if (onRedo.remove) removeElementsFromLoader(loader, ...onRedo.remove);
-    if (onRedo.add) return addElementsToLoader(loader, ...onRedo.add);
+    removeElementsFromLoader(loader, originalItems);
+    return addElementsToLoader(loader, newItems);
   }
 
   function undo() {
-    if (onUndo.remove) removeElementsFromLoader(loader, ...onUndo.remove);
-    if (onUndo.add) return addElementsToLoader(loader, ...onUndo.add);
+    removeElementsFromLoader(loader, newItems);
+    return addElementsToLoader(loader, originalItems);
   }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
 
   if (returnTransaction) return transaction;
-  return app.UndoQueue.addTransaction(transaction);
+  return app.undoQueue.addTransaction(transaction);
 }
 
 
@@ -589,7 +606,7 @@ function _mapElementsTransaction({ list, getItemTransaction, actionName, returnT
   const transaction = UndoQueue.mapTransactions(list, getTransaction, actionName);
 
   if (returnTransaction) return transaction;
-  return app.UndoQueue.addTransaction(transaction);
+  return app.undoQueue.addTransaction(transaction);
 }
 
 

@@ -10,26 +10,23 @@ export default class UndoQueue {
     if (props) Object.assign(this, props);
   }
 
+  // Cursor in the undo queue.
+  // Generally, the cursor will be just past the last transaction in the queue.
+  // If we're in the middle of undoing, the cursor will be in the middle of the queue.
+  cursor = 0;
+
   // Queue of undo transactions.
   // We add new transactions to the end.
   // See `cursor`.
   transactions = [];
 
-  // Cursor in the undo queue.
-  // Generally, the cursor will be just past the last transaction in the queue.
-  // If we're in the middle of undoing, the cursor will be in the middle of the queue.
-  @proto
-  cursor = 0;
-
   // Max number of items in the queue.
-  @proto
   maxLength = 100;
 
   // Transaction that's currently pending.
   // If you're performing a multi-step action which should be undoable together,
   // call `startTransaction()` FIRST to start a transaction,
   // then call `endTransaction()` when you're done.
-  @proto
   transaction = undefined;
 
 
@@ -166,8 +163,10 @@ export default class UndoQueue {
     delete this.transaction;
     this.transactions.push(transaction);
 
+    transaction.commit();
+
     // if we're beyond the number of transactions we should have, remove from the beginnning
-    const itemsToRemove = this.maxLength - this.transactions.length;
+    const itemsToRemove = this.transactions.length - this.maxLength;
     if (itemsToRemove > 0) this.transactions = this.transactions.slice(itemsToRemove);
 
     // reset the cursor just past the end of the list
@@ -214,14 +213,12 @@ export class UndoTransaction {
     Object.assign(this, props);
   }
 
-  // Has this transaction been committed?
-  @proto
-  committed = false;
-
   // Default name for the transaction, WITHOUT the "undo" or "redo" bit.
   // Set this when constructing the transaction for a more informative UI.
-  @proto
   name = "";
+
+  // Has this transaction been committed?
+  committed = false;
 
 //TODO:  execute the redo?
   commit(execute = true) {
@@ -231,8 +228,9 @@ export class UndoTransaction {
     }
     this.committed = true;
 // TODO: try....
+console.info("executing", this);
     if (execute) this.redo();
-    this.queue._addAndCommitTransaction(this);
+//    this.queue._addAndCommitTransaction(this);
   }
 
 
@@ -241,15 +239,11 @@ export class UndoTransaction {
   //////////////////////////////
 
   undo() {
-    this.undoActions.forEach(([method, ...args]) => {
-      method(...args);
-    })
+    this.undoActions.forEach(method => method())
   }
 
   redo() {
-    this.redoActions.forEach(([method, ...args]) => {
-      method(...args);
-    })
+    this.redoActions.forEach(method => method())
   }
 
 

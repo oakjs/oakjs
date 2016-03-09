@@ -28,7 +28,7 @@ export default class Project extends ComponentController {
   //  Components
   //////////////////////////////
 
-  get componentLoader() {
+  createComponentLoader() {
     return this.app.getProjectLoader(this, "MAKE");
   }
 

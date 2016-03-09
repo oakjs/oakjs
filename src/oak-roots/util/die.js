@@ -6,10 +6,10 @@ export function die(thing, operation, args, message = "") {
   let messages;
   // special message for dying in constructor function
   if (operation && operation.startsWith && operation.startsWith("new ")) {
-    const messages = [`${operation}(`, (args || ""), `): ${message}`];
+    messages = [`${operation}(`, (args || ""), `): ${message}`];
   }
   else {
-    const messages = [thing, `.${operation}(`, (args || ""), `): ${message}`];
+    messages = [thing, `.${operation}(`, (args || ""), `): ${message}`];
   }
   console.error(...messages);
   console.trace();

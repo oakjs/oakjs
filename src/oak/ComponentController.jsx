@@ -4,7 +4,7 @@
 
 import Loadable from "oak-roots/Loadable";
 import LoadableIndex from "oak-roots/LoadableIndex";
-import { proto } from "oak-roots/util/decorators";
+import { proto, debounce } from "oak-roots/util/decorators";
 
 import ComponentLoader from "./ComponentLoader";
 
@@ -13,6 +13,8 @@ export default class ComponentController extends Loadable() {
   constructor(props) {
     super();
     Object.assign(this, props);
+
+    this.initComponentLoader();
   }
 
   @proto
@@ -40,6 +42,22 @@ export default class ComponentController extends Loadable() {
   //////////////////////////////
   //  Components
   //////////////////////////////
+
+  initComponentLoader() {
+    this.componentLoader = this.createComponentLoader();
+
+    // watch componentChanged to update our element
+    this.componentLoader.on("componentChanged", () => this.onComponentChanged() );
+  }
+
+  createComponentLoader() {
+    throw new TypeError(`You must override ${this}.createComponentLoader()`);
+  }
+
+  onComponentChanged() {
+    throw new TypeError(`You must override ${this}.onComponentChanged()`);
+  }
+
 
   get Component() { return this.componentLoader.Component }
 

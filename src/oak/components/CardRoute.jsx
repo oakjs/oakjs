@@ -62,10 +62,10 @@ export default class CardRoute extends React.Component {
               this.forceUpdate();
             }
           })
-          .catch(e => {
-            console.error(e);
-            console.log(`Card ${projectId}/${stackId}/${cardId} not found!!!`);
-          });
+//           .catch(e => {
+//             console.error(e);
+//             console.log(`Card ${projectId}/${stackId}/${cardId} not found!!!`);
+//           });
       }
     }
     // if we're currently showing a card, keep that visible until we load
