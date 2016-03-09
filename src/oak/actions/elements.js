@@ -7,7 +7,7 @@ import { die, dieIfMissing, dieIfOutOfRange } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import app from "../app";
-import JSXElement, { JSXElementParser } from "../JSXElement";
+import JSXElement, { JSXElementParser, OidRef } from "../JSXElement";
 
 
 
@@ -161,7 +161,7 @@ export function moveElement({
 // NOTE: This method is called out specially because we don't have to worry about
 //       manipulating element descendents or changing oids...
 export function moveChildAtPosition({
-  context, sourceParent, sourcePosition, targetParent, targetPosition,
+  context, sourceParent, sourcePosition, targetParent, targetPosition:_targetPosition,
   operation = "moveChildAtPosition", returnTransaction
 }) {
 
@@ -175,10 +175,11 @@ export function moveChildAtPosition({
 
   const newSourceParent = originalSourceParent.clone();
   const newTargetParent = (sameParent ? newSourceParent : originalTargetParent.clone());
+  const targetPosition = (_targetPosition !== undefined ? _targetPosition : newTargetParent.childCount);
   const newChild = cloneOrDie(originalChild, operation);
 
   // if we're adding to the same parent, position may change because of the delete
-  const deleteDelta = (sameParent && targetPosition > sourcePosition -1 : 0);
+  const deleteDelta = (sameParent && (targetPosition > sourcePosition)) ? -1 : 0;
   removeChildAtPositionOrDie(newSourceParent, sourcePosition);
   addChildAtPositionOrDie(newTargetParent, targetPosition + deleteDelta, newChild, operation);
 
@@ -298,13 +299,15 @@ export function removeElement({
 }) {
   const loader = getLoaderOrDie(context, operation);
   const element = getElementOrDie(loader, _element, operation);
+  const parent = getElementOrDie(loader, element._parent, operation);
+  const position = getElementPositionOrDie(parent, element, operation);
 
   const removeChildOptions = {
     actionName: "Remove Element",
-    loader,
+    context: loader,
     element,
-    parent: getElementOrDie(loader, element._parent, operation),
-    position: getElementPositionOrDie(parent, element, operation),
+    parent,
+    position,
     returnTransaction
   }
 
@@ -367,35 +370,6 @@ export function removeElements({
 
 
 
-//////////////////////////////
-//  Utility functions to manipulate Loaders
-//////////////////////////////
-
-function addElementsToLoader(loader, elements) {
-console.log("adding", elements, "to", loader);
-  elements.forEach(element => {
-    if (element instanceof JSXElement) {
-      element.getElement = loader.getElement;
-      loader.oids[element.oid] = element;
-    }
-    // recurse for arrays
-    else if (Array.isArray(element)) {
-      addElementsToLoader(loader, element);
-    }
-    // ignore everything else
-  })
-  loader.onComponentChanged();
-  return elements;
-}
-
-function removeElementsFromLoader(loader, elements) {
-console.log("removing", elements, "from", loader);
-  elements.forEach(element => {
-    if (element instanceof JSXElement) delete loader.oids[element.oid];
-  })
-  loader.onComponentChanged();
-  return elements;
-}
 
 //////////////////////////////
 //  Utility functions to manipulate JSXElements
@@ -403,16 +377,16 @@ console.log("removing", elements, "from", loader);
 
 
 function setChildAtPositionOrDie(parent, position, child, operation) {
-  dieIfPositionOutOfRange(app, operation, parent._children, position);
+  dieIfOutOfRange(app, operation, parent._children, position);
   _setChildAtPosition(parent, position, child);
 }
 
 function addChildAtPositionOrDie(parent, position, child, operation) {
-  if (parent._children) parent._children = [];
+  if (!parent._children) parent._children = [];
   if (position === null) {
     position = parent._children.length;
   } else {
-    dieIfPositionOutOfRange(app, operation, parent._children, position, position._children.length);
+    dieIfOutOfRange(app, operation, parent._children, position, parent._children.length);
   }
   parent._children.splice(position, 0, undefined);
   _setChildAtPosition(parent, position, child);
@@ -429,7 +403,7 @@ function _setChildAtPosition(parent, position, child) {
 }
 
 function removeChildAtPositionOrDie(parent, position, operation) {
-  dieIfPositionOutOfRange(app, operation, parent._children, position);
+  dieIfOutOfRange(app, operation, parent._children, position);
   parent._children.splice(position, 1);
 }
 
@@ -501,7 +475,7 @@ function getElementOrDie(loader, oid, operation) {
 }
 
 function getChildAtPositionOrDie(loader, parent, position, operation) {
-  dieIfPositionOutOfRange(app, operation, parent._children, position);
+  dieIfOutOfRange(app, operation, parent._children, position);
   const child = parent._children[position];
   if (child instanceof OidRef) return loader.getElement(child);
   return child;
@@ -521,6 +495,7 @@ function cloneOrDie(child, operation) {
 
 
 function getElementPositionOrDie(parent, element, operation) {
+console.info(parent, element);
   const position = parent.getChildPosition(element);
   if (position === -1) die(app, "removeElement", arguments, "Child not found in parent. ???");
   return position;
@@ -536,6 +511,38 @@ function getOptionsOrDie(options, operation, keys) {
     return options[key];
   });
 }
+
+
+//////////////////////////////
+//  Utility functions to manipulate Loaders
+//////////////////////////////
+
+function addElementsToLoader(loader, elements) {
+console.log("adding", elements, "to", loader);
+  elements.forEach(element => {
+    if (element instanceof JSXElement) {
+      element.getElement = loader.getElement;
+      loader.oids[element.oid] = element;
+    }
+    // recurse for arrays
+    else if (Array.isArray(element)) {
+      addElementsToLoader(loader, element);
+    }
+    // ignore everything else
+  })
+  loader.onComponentChanged();
+  return elements;
+}
+
+function removeElementsFromLoader(loader, elements) {
+console.log("removing", elements, "from", loader);
+  elements.forEach(element => {
+    if (element instanceof JSXElement) delete loader.oids[element.oid];
+  })
+  loader.onComponentChanged();
+  return elements;
+}
+
 
 
 //////////////////////////////

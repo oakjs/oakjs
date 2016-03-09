@@ -73,6 +73,10 @@ export default class JSXElement {
     });
   }
 
+  get childCount() {
+    return (this.children ? this.children.length : 0);
+  }
+
   // Return an arry of of our descendants who are `JSXElement`s
   //  (looking up `OidRef`s and ignoring everything else).
   getDescendentElements(descendents = []) {

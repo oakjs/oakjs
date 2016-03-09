@@ -319,7 +319,7 @@ class App {
   getPath(pathOrController) {
     if (typeof pathOrController === "string") return pathOrController;
     if (pathOrController && pathOrController.path) return pathOrController.path;
-    console.warn(`app.getPath(${controller}): cant figure out path`);
+    console.warn(`app.getPath(${pathOrController}): cant figure out path`);
   }
 
   getLoader(pathOrController, makeIfNecessary) {
