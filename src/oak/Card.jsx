@@ -35,11 +35,6 @@ export default class Card extends ComponentController {
     return this.app.getCardLoader(this, "MAKE");
   }
 
-  @debounce(100)
-  onComponentChanged() {
-    if (this.component) app.forceUpdate();
-  }
-
   // TODO: dynamic components
   get components() { return this.stack.components }
 

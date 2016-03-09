@@ -13,7 +13,7 @@ import { classNames } from "oak-roots/util/react";
 import Stub from "./Stub";
 
 function OakCardMenuItem(props, context) {
-  if (!props.card || !context.components) return <Stub/>;
+  if (!props.card || !context.components) return null;
 
   const { card, label, children, ...extraProps } = props;
   const { MenuItem } = context.components;

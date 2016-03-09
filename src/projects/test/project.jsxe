@@ -1,3 +1,4 @@
 <OakProject id="test" title="test">
+  <EditorToolbar/>
   <CurrentStack/>
 </OakProject>

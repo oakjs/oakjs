@@ -24,7 +24,7 @@ export default class CurrentProject extends React.Component {
 
   render() {
     const project = this.context.app.project;
-    if (!project) return <Stub/>;
+    if (!project) return false;
     return React.createElement(project.Component, { ref: "project" });
   }
 }

@@ -2,7 +2,6 @@ import app from "../app";
 
 import AppRoute from "./AppRoute";
 import CurrentProject from "./CurrentProject";
-import Stub from "./Stub";
 
 export default class CardRoute extends AppRoute {
   render() {
@@ -36,9 +35,9 @@ export default class CardRoute extends AppRoute {
     if (app.card && app.card.project) {
       return React.createElement(CurrentProject);
     }
-    // otherwise return a stub
+    // otherwise return fals to tell react not to render yet.
     else {
-      return <Stub/>
+      return false;
     }
   }
 }

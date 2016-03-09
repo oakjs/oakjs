@@ -5,7 +5,7 @@ import { classNames } from "oak-roots/util/react";
 function StackMenu(props, context) {
   const c = context.components;
   const stack = props.stack || context.stack;
-  if (!c || !stack || !stack.isLoaded) return <Stub/>;
+  if (!c || !stack || !stack.isLoaded) return false;
 
   // pass all other props along
   const menuProps = Object.assign({}, props);

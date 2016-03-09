@@ -55,7 +55,7 @@ export default class ComponentController extends Loadable() {
   }
 
   onComponentChanged() {
-    if (this.component) app.forceUpdate();
+    if (this.component) app.updateSoon();
   }
 
 
