@@ -37,7 +37,6 @@ export default class Card extends ComponentController {
 
   @debounce(100)
   onComponentChanged() {
-console.info("card.onComponentChanged()");
     if (this.component) app.forceUpdate();
   }
 

@@ -51,6 +51,18 @@ class App {
   }
 
   //////////////////////////////
+  //  Undo
+  //////////////////////////////
+  undo() {
+    this.undoQueue.undo();
+  }
+
+  redo() {
+    this.undoQueue.redo();
+  }
+
+
+  //////////////////////////////
   //  Routing
   //////////////////////////////
 
@@ -72,7 +84,7 @@ class App {
 
   // Force update of the entire app, including any changed props in card/stack/project
   forceUpdate() {
-    if (this.router) this.router.setState({});
+    if (this._appRoute) this._appRoute.forceUpdate();
   }
 
   //////////////////////////////

@@ -138,6 +138,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //////////////////////////////
 
   onComponentChanged(newComponent, oldComponent) {
+    this.resetCache();
     this.dirty();
 //    console.info("TODO: Instantiate jsxElement ", newComponent);
     this.trigger("componentChanged", newComponent, oldComponent);
@@ -184,6 +185,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   _createComponent() {
     let Constructor;
     const componentName = this.getConstructorName();
+console.info("creating component ",componentName);
     try {
       // if we have a jsxElement, create the classs and set its renderMethod
       if (this.jsxElement) {

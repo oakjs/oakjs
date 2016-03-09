@@ -1,46 +1,10 @@
-import React, { PropTypes } from "react";
-
 import app from "../app";
 
+import AppRoute from "./AppRoute";
 import CurrentProject from "./CurrentProject";
 import Stub from "./Stub";
 
-export default class CardRoute extends React.Component {
-
-  static childContextTypes = {
-    app: PropTypes.any,
-    project: PropTypes.any,
-    stack: PropTypes.any,
-    card: PropTypes.any,
-    components: PropTypes.any
-  };
-
-  getChildContext() {
-    return {
-      app,
-      project: app.project,
-      stack: app.stack,
-      card: app.card,
-      components: (app.card ? app.card.components : app.components)
-    };
-  }
-
-  componentDidMount() {
-    this._isMounted = true;
-  }
-
-  componentWillUpdate() {
-    this._isMounted = false;
-  }
-
-  componentDidUpdate() {
-    this._isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
+export default class CardRoute extends AppRoute {
   render() {
     // default to first item if id not specified
     let { projectId = 0, stackId = 0, cardId = 0} = this.props.params;

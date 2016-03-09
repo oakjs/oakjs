@@ -55,7 +55,7 @@ export default class ComponentController extends Loadable() {
   }
 
   onComponentChanged() {
-    throw new TypeError(`You must override ${this}.onComponentChanged()`);
+    if (this.component) app.forceUpdate();
   }
 
 
