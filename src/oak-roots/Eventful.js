@@ -60,16 +60,18 @@ export default function Eventful(Constructor = Object) {
       return event;
     }
 
-    // Internal event to handle all event handlers for a given `event`
+    // Internal method to handle all event handlers for a given `event`
     // Respects `event.stopPropagation()` calls.
     // NOTE: you should not use this, use `trigger` instead.
     _handleEvent(event, args) {
       const handlers = this._getEventHandlers(event.type);
+//console.info(this, "_handleEvent", event, " args", args, "handlers", handlers);
       if (handlers && handlers.length) {
         if (event._setCurrentTarget) event._setCurrentTarget(this);
         handlers.forEach(handler => {
           try {
             if (event.isPropagationStopped()) return;
+//console.info(this, "_handleEvent", event.type, " calling\n", handler+"");
             handler(event, ...args);
           }
           catch (e) {
@@ -92,8 +94,8 @@ export default function Eventful(Constructor = Object) {
       const type = (typeof event === "string" ? event : event && event.type);
       if (this.__handlers && this.__handlers[type]) return this.__handlers[type];
       if (type && createIfNecessary) {
-        if (!this.hasOwnProperty("__handlers")) Object.defineProperty(this, "handlers", { value: {} });
-        return (this._handlers[type] = []);
+        if (!this.hasOwnProperty("__handlers")) Object.defineProperty(this, "__handlers", { value: {} });
+        return (this.__handlers[type] = []);
       }
     }
 

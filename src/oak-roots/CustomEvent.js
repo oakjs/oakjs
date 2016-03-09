@@ -17,10 +17,10 @@ export default class CustomEvent {
   _setCurrentTarget(target) { this._state.currentTarget = target }
 
   preventDefault() { this._state.defaultPrevented = true }
-  isDefaultPrevented() { return !!_state.defaultPrevented }
+  isDefaultPrevented() { return !!this._state.defaultPrevented }
 
   stopPropagation() { this._state.propagationStopped = true }
-  isPropagationStopped() { return !!_state.propagationStopped }
+  isPropagationStopped() { return !!this._state.propagationStopped }
 
   isCustom() { return true }
 }
