@@ -5,6 +5,7 @@
 //  TODO: instantiation pattern?
 //////////////////////////////
 
+import { debounce } from "oak-roots/util/decorators";
 import global from "oak-roots/util/global";
 import LoadableIndex from "oak-roots/LoadableIndex";
 import Registry from "oak-roots/Registry";
@@ -43,27 +44,34 @@ class App {
     // load the project index to start with since that's the first thing we'll need
     this.projectIndex.load();
 
-    // HACK
+    // set app.actions to all defined global actions
+    Object.defineProperty(this, "actions", { value: actions });
+
+    // App state.
+    // NOTE: NEVER update this directly, use `app.action.setState()` or some sugary variant thereof.
     this.state = {
-      editing: true
+      editing: false,
+      selection: undefined
     }
 
   }
 
   //////////////////////////////
-  //  Undo / State / etc
+  //  Actions / Undo / State / etc
   //////////////////////////////
+
   undo() {
-    this.undoQueue.undo();
+    app.undoQueue.undo();
   }
 
   redo() {
-    this.undoQueue.redo();
+    app.undoQueue.redo();
   }
 
   // Force update of the entire app, including any changed props in card/stack/project
+  @debounce(50)
   updateSoon() {
-    if (this._appRoute) this._appRoute.setState({});
+    if (app._appRoute) app._appRoute.setState({});
   }
 
 

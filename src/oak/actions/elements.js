@@ -1,14 +1,14 @@
 //////////////////////////////
 //  Actions for dealing with elements
 //////////////////////////////
-"use strict";
 
-import { die, dieIfMissing, dieIfOutOfRange } from "oak-roots/util/die";
+import { die } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import app from "../app";
-import JSXElement, { JSXElementParser, OidRef } from "../JSXElement";
+import JSXElement, { OidRef } from "../JSXElement";
 
+import utils from "./utils";
 
 
 //////////////////////////////
@@ -129,10 +129,10 @@ export function moveElement({
   context, element: _element, targetParent, targetPosition,
   operation = "moveElement", returnTransaction
 }) {
-  const loader = getLoaderOrDie(context, operation);
-  const element = getElementOrDie(loader, _element, operation);
-  const sourceParent = getElementOrDie(loader, element._parent, operation);
-  const sourcePosition = getElementPositionOrDie(sourceParent, element, operation);
+  const loader = utils.getLoaderOrDie(context, operation);
+  const element = utils.getElementOrDie(loader, _element, operation);
+  const sourceParent = utils.getElementOrDie(loader, element._parent, operation);
+  const sourcePosition = utils.getElementPositionOrDie(sourceParent, element, operation);
 
   const moveChildOptions = {
     context: loader,
@@ -165,23 +165,23 @@ export function moveChildAtPosition({
   operation = "moveChildAtPosition", returnTransaction
 }) {
 
-  const loader = getLoaderOrDie(context, operation);
+  const loader = utils.getLoaderOrDie(context, operation);
 
-  const originalSourceParent = getElementOrDie(loader, sourceParent, operation);
-  const originalTargetParent = getElementOrDie(loader, targetParent, operation);
-  const originalChild = getChildAtPositionOrDie(loader, originalSourceParent, sourcePosition, operation);
+  const originalSourceParent = utils.getElementOrDie(loader, sourceParent, operation);
+  const originalTargetParent = utils.getElementOrDie(loader, targetParent, operation);
+  const originalChild = utils.getChildAtPositionOrDie(loader, originalSourceParent, sourcePosition, operation);
 
   const sameParent = (originalSourceParent === originalTargetParent);
 
   const newSourceParent = originalSourceParent.clone();
   const newTargetParent = (sameParent ? newSourceParent : originalTargetParent.clone());
   const targetPosition = (_targetPosition !== undefined ? _targetPosition : newTargetParent.childCount);
-  const newChild = cloneOrDie(originalChild, operation);
+  const newChild = utils.cloneOrDie(originalChild, operation);
 
   // if we're adding to the same parent, position may change because of the delete
   const deleteDelta = (sameParent && (targetPosition > sourcePosition)) ? -1 : 0;
-  removeChildAtPositionOrDie(newSourceParent, sourcePosition);
-  addChildAtPositionOrDie(newTargetParent, targetPosition + deleteDelta, newChild, operation);
+  utils.removeChildAtPositionOrDie(newSourceParent, sourcePosition);
+  utils.addChildAtPositionOrDie(newTargetParent, targetPosition + deleteDelta, newChild, operation);
 
   const transactionOptions = {
     actionName: "Move Element",
@@ -251,32 +251,30 @@ export function addChildToElement({
   if (child == null) die(app, operation, child, "Child must not be null");
   if (child instanceof OidRef) die(app, operation, child, "Child must not be an OidRef");
 
-  const loader = getLoaderOrDie(context, operation);
+  const loader = utils.getLoaderOrDie(context, operation);
 
-  const originalParent = getElementOrDie(loader, parent, operation);
+  const originalParent = utils.getElementOrDie(loader, parent, operation);
   const originalItems = [ originalParent ];
 
   const newParent = originalParent.clone();
   let newChild, newDescendents;
-  const newItems = [ newParent ];
 
   // clone JSXElements AND ALL DESCEDNENTS and give them new oids
   if (child instanceof JSXElement) {
     const descendents = child.getDescendentElements();
-    [newChild, ...newDescendents] = cloneAndGenerateNewOids(loader, [child, ...descendents]);
+    [newChild, ...newDescendents] = utils.cloneAndGenerateNewOids(loader, [child, ...descendents]);
   }
   else {
-    newChild = cloneOrDie(child, operation);
+    newChild = utils.cloneOrDie(child, operation);
   }
 
-  newItems.push(newChild, newDescendents);
-  addChildAtPositionOrDie(newParent, position, newChild, operation);
+  utils.addChildAtPositionOrDie(newParent, position, newChild, operation);
 
   const transactionOptions = {
     actionName: "Add Element",
     loader,
-    originalItems,
-    newItems,
+    originalItems: [ originalParent ],
+    newItems: [ newParent, newChild, newDescendents ],
     returnTransaction
   }
 
@@ -297,10 +295,10 @@ export function removeElement({
   context, element: _element,
   operation = "removeElement", returnTransaction
 }) {
-  const loader = getLoaderOrDie(context, operation);
-  const element = getElementOrDie(loader, _element, operation);
-  const parent = getElementOrDie(loader, element._parent, operation);
-  const position = getElementPositionOrDie(parent, element, operation);
+  const loader = utils.getLoaderOrDie(context, operation);
+  const element = utils.getElementOrDie(loader, _element, operation);
+  const parent = utils.getElementOrDie(loader, element._parent, operation);
+  const position = utils.getElementPositionOrDie(parent, element, operation);
 
   const removeChildOptions = {
     actionName: "Remove Element",
@@ -322,14 +320,14 @@ export function removeChildAtPosition({
   context, parent, position,
   operation = "removeChildAtPosition", returnTransaction
 }) {
-  const loader = getLoaderOrDie(context, operation);
+  const loader = utils.getLoaderOrDie(context, operation);
 
-  const originalParent = getElementOrDie(loader, parent, operation);
-  const originalChild = getChildAtPositionOrDie(loader, originalParent, position, operation);
-  const originalDescendents = getDescendentElements(originalChild);
+  const originalParent = utils.getElementOrDie(loader, parent, operation);
+  const originalChild = utils.getChildAtPositionOrDie(loader, originalParent, position, operation);
+  const originalDescendents = utils.getDescendentElements(originalChild);
 
   const newParent = originalParent.clone();
-  removeChildAtPositionOrDie(newParent, position);
+  utils.removeChildAtPositionOrDie(newParent, position);
 
   const transactionOptions = {
     actionName: "Remove Element",
@@ -372,148 +370,6 @@ export function removeElements({
 
 
 //////////////////////////////
-//  Utility functions to manipulate JSXElements
-//////////////////////////////
-
-
-function setChildAtPositionOrDie(parent, position, child, operation) {
-  dieIfOutOfRange(app, operation, parent._children, position);
-  _setChildAtPosition(parent, position, child);
-}
-
-function addChildAtPositionOrDie(parent, position, child, operation) {
-  if (!parent._children) parent._children = [];
-  if (position === null) {
-    position = parent._children.length;
-  } else {
-    dieIfOutOfRange(app, operation, parent._children, position, parent._children.length);
-  }
-  parent._children.splice(position, 0, undefined);
-  _setChildAtPosition(parent, position, child);
-}
-
-function _setChildAtPosition(parent, position, child) {
-  if (child instanceof JSXElement) {
-    parent._children[position] = child.getReference();
-    child._parent = parent.oid;
-  }
-  else {
-    parent._children[position] = child;
-  }
-}
-
-function removeChildAtPositionOrDie(parent, position, operation) {
-  dieIfOutOfRange(app, operation, parent._children, position);
-  parent._children.splice(position, 1);
-}
-
-// Generate new `oids` for all `elements`, assumed to be clones of JSXElements, thus OK to change.
-// Update `_parent` and `_children` as well, but doesn't worry about elements that weren't included.
-// NOTE: It's not really safe to use this with elements that arent' in the same tree,
-//       which we assume to be rooted at the first element.
-function cloneAndGenerateNewOids(loader, elements) {
-  // first make a map of { currentOid => [<originalElement> or <newOid>] }
-  const map = Object.assign({}, loader.oids);
-  const clones = elements.map(element => {
-    const clone = element.clone();
-    const oldOid = element.oid;
-    const newOid = JSXElement.getUniqueOid(map);
-    clone.attributes.oid = newOid;
-    map[oldOid] = newOid;
-  })
-
-  function getMappedOid(oldOid, errorMessage, element) {
-    const mapItem = map[oldOid];
-    if (!mapItem) {
-      if (errorMessage) console.warn(`ERROR: getMappedOid(${oid}): ${errorMessage} for element:`, element, " and map:", map);
-      return undefined;
-    }
-    if (typeof mapItem === "string") return mapItem;
-    return mapItem.oid;
-  }
-
-  // update the `_parent` and `_children` for each clone
-  clones.forEach(clone => {
-    clone._parent = getMappedOid(clone._parent, "parent oid not found", clone);
-    if (clone._children) clone._children.forEach(child, index => {
-      if (child instanceof OidRef) {
-        newOid = getMappedOid(child.oid, "child OidRef not found", child);
-        if (newOid) child[index] = new OidRef(newOid);
-      }
-    });
-  });
-
-  return clones;
-}
-
-function getDescendentElements(element) {
-  if (!(element instanceof JSXElement)) return [];
-  return element.getDescendentElements();
-}
-
-function getChildOid(child) {
-  if (typeof child === "string") return child;
-  if (child && (child instanceof OidRef || child instanceof JSXElement)) return child.oid;
-}
-
-//////////////////////////////
-//  Guards
-//////////////////////////////
-
-function getLoaderOrDie(pathOrController, operation) {
-  const loader = app.getLoader(pathOrController);
-  if (!loader) die(app, operation, pathOrController, "Couldn't get loader -- is this a valid path?");
-  return loader;
-}
-
-function getElementOrDie(loader, oid, operation) {
-  const element = loader.getElement(oid);
-  if (!element) die(app, operation, [loader, oid], "Element not found");
-  if (!(element instanceof JSXElement)) die(app, operation, [loader, oid, element], "Expected a JSXElement");
-  if (element.getElement !== loader.getElement) die(app, operation, [loader, oid, element], "Element doesn't belong to loader");
-  return element;
-}
-
-function getChildAtPositionOrDie(loader, parent, position, operation) {
-  dieIfOutOfRange(app, operation, parent._children, position);
-  const child = parent._children[position];
-  if (child instanceof OidRef) return loader.getElement(child);
-  return child;
-}
-
-// If `child` is a `JSXElement`, return a clone.
-// If an `OidRef` or `null`, throw.
-// Otherwise return the `child` passed in (assuming its a lieral or something else unclonable).
-function cloneOrDie(child, operation) {
-// TODO: don't allow "" ???
-  if (child == null) die(app, operation, child, "Child must not be null");
-  if (child instanceof OidRef) die(app, operation, child, "Child must not be an OidRef");
-  if (child instanceof JSXElement) return child.clone();
-//TODO: use generic `clone()` ???
-  return child;
-}
-
-
-function getElementPositionOrDie(parent, element, operation) {
-console.info(parent, element);
-  const position = parent.getChildPosition(element);
-  if (position === -1) die(app, "removeElement", arguments, "Child not found in parent. ???");
-  return position;
-}
-
-function getOptionsOrDie(options, operation, keys) {
-  if (!options) die(app, operation, options, "Required options object not passed");
-  return keys.map(key => {
-    if (!(key in options)) {
-      if (key === "operation") return operation;
-      die(app, operation, [options, key], `Required option '${key}' not passed`);
-    }
-    return options[key];
-  });
-}
-
-
-//////////////////////////////
 //  Utility functions to manipulate Loaders
 //////////////////////////////
 
@@ -538,6 +394,10 @@ function removeElementsFromLoader(loader, elements) {
 console.log("removing", elements, "from", loader);
   elements.forEach(element => {
     if (element instanceof JSXElement) delete loader.oids[element.oid];
+    // recurse for arrays
+    else if (Array.isArray(element)) {
+      removeElementsFromLoader(loader, element);
+    }
   })
   loader.onComponentChanged();
   return elements;
@@ -561,8 +421,8 @@ console.log("removing", elements, "from", loader);
 //
 // NOTE: don't call this directly, use one of the `setElementProp()` calls.
 function _changeElementTransaction({ context, element, transformer, actionName, returnTransaction, operation }) {
-  const loader = getLoaderOrDie(context, operation);
-  const original = getElementOrDie(loader, element, operation);
+  const loader = utils.getLoaderOrDie(context, operation);
+  const original = utils.getElementOrDie(loader, element, operation);
 
   const clone = transformer(original.clone(), loader);
   function redo() { return addElementsToLoader(loader, [clone]); }
@@ -584,6 +444,8 @@ function _changeElementTransaction({ context, element, transformer, actionName, 
 //
 // TODO: how will we return the things that have been added for selection?
 function _changeElementsTransaction({ loader, originalItems = [], newItems = [], actionName, returnTransaction }) {
+console.info("original", originalItems);
+console.info("new", newItems);
   function redo() {
     removeElementsFromLoader(loader, originalItems);
     return addElementsToLoader(loader, newItems);

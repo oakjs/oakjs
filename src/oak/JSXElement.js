@@ -37,7 +37,7 @@ export default class JSXElement {
   static getUniqueOid(oidMap) {
     let oid;
     while (!oid || oidMap[oid]) {
-      oid = this.getRandomId();
+      oid = ids.generateRandomId();
     }
     return oid;
   }
@@ -325,7 +325,7 @@ export default class JSXElement {
   //////////////////////////////
 
   // Parse a `.jsxe` file's code.
-  static parse(code, options) {
+  static parse(code, options = {}) {
     if (!options.oids) options.oids = {};
 
     const parser = new JSXElementParser();
@@ -350,7 +350,7 @@ export default class JSXElement {
 //////////////////////////////
 
 export class JSXElementParser extends AcornParser {
-  parse(code, options) {
+  parse(code, options = {}) {
     const root = super.parse(code, options);
     if (options.itemProps) Object.assign(root, options.itemProps);
     return root;
