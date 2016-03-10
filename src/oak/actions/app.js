@@ -65,12 +65,12 @@ export function removeFromSelection(options = {}) {
 
 export function clearSelection(options = {}) {
   const {
-    operation = "clearSelection", returnTransaction
+    returnTransaction
   } = options;
 
   setSelection({
+    actionName: "Clear Selection",
     selection: [],
-    operation,
     returnTransaction
   });
 }

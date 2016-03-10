@@ -168,7 +168,10 @@ export function moveChildAtPosition({
   const loader = utils.getLoaderOrDie(context, operation);
 
   const originalSourceParent = utils.getElementOrDie(loader, sourceParent, operation);
-  const originalTargetParent = utils.getElementOrDie(loader, targetParent, operation);
+  // if no target specified, they're moving within the source parent
+  const originalTargetParent = targetParent
+                             ? utils.getElementOrDie(loader, targetParent, operation)
+                             : originalSourceParent;
   const originalChild = utils.getChildAtPositionOrDie(loader, originalSourceParent, sourcePosition, operation);
 
   const sameParent = (originalSourceParent === originalTargetParent);
