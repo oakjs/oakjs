@@ -381,7 +381,7 @@ console.log("adding", elements, "to", loader);
       loader.oids[element.oid] = element;
     }
     // recurse for arrays
-    else if (Array.isArray(element)) {
+    else if (Array.isArray(element) && element.length) {
       addElementsToLoader(loader, element);
     }
     // ignore everything else
@@ -395,7 +395,7 @@ console.log("removing", elements, "from", loader);
   elements.forEach(element => {
     if (element instanceof JSXElement) delete loader.oids[element.oid];
     // recurse for arrays
-    else if (Array.isArray(element)) {
+    else if (Array.isArray(element) && element.length) {
       removeElementsFromLoader(loader, element);
     }
   })
