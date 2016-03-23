@@ -1,0 +1,12 @@
+#EditorToolbar {
+  background-color: #333;
+
+}
+
+#EditorToolbar .ui.button {
+  color: white;
+}
+
+#EditorToolbar .ui.active.button {
+  color: lightblue;
+}

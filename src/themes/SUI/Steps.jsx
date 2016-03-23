@@ -32,7 +32,7 @@ SUISteps.propTypes = {
 
   appearance: PropTypes.string,   // "stackable", "tablet stackable"
   size: PropTypes.string,         // "small", "medium", "large"
-  ordered: PropTypes.string,
+  ordered: PropTypes.bool,
   vertical: PropTypes.bool,
   quantity: PropTypes.number,
 };

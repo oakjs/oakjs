@@ -29,6 +29,7 @@ export default class OakCard extends OakComponent {
   get stack() { return this.controller.stack }
   get type() { return this.controller.type; }
 
+// DEPRECATED?
   static get route() { return this.controller.route }
 
   //////////////////////////////

@@ -68,8 +68,11 @@ class App {
     app.undoQueue.redo();
   }
 
+  get canUndo() { return app.undoQueue.canUndo }
+  get canRedo() { return app.undoQueue.canRedo }
+
   // Force update of the entire app, including any changed props in card/stack/project
-  @debounce(50)
+  @debounce(0)
   updateSoon() {
     if (app._appRoute) app._appRoute.setState({});
   }
@@ -129,6 +132,28 @@ class App {
 
     return undefined;
   }
+
+
+  // Given an oid, return the component that it corresponds to.
+  getComponentForOid(oid) {
+    if (!oid) return undefined;
+
+    if (this.card) {
+      const component = this.card.getComponentForOid(oid);
+      if (component) return component;
+    }
+
+    if (this.stack) {
+      const component = this.stack.getComponentForOid(oid);
+      if (component) return component;
+    }
+
+    if (this.project) {
+      const component = this.project.getComponentForOid(oid);
+      if (component) return component;
+    }
+  }
+
 
   //////////////////////////////
   //  Projects!

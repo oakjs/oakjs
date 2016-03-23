@@ -37,7 +37,7 @@ export default class JSXElement {
   static getUniqueOid(oidMap) {
     let oid;
     while (!oid || oidMap[oid]) {
-      oid = ids.generateRandomId();
+      oid = this.getRandomOid();
     }
     return oid;
   }

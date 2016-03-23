@@ -1,6 +1,7 @@
 /* inverted + styled */
+.ui.transparent.buttons .ui.button,
 .ui.transparent.button {
   background: transparent !important;
   border-color: transparent !important;
+  box-shadow: none !important;
 }
-

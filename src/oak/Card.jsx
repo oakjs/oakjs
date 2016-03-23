@@ -38,7 +38,7 @@ export default class Card extends ComponentController {
   // TODO: dynamic components
   get components() { return this.stack.components }
 
-  get component() { if (app.card === this) return app._cardComponent }
+  get component() { if (app.card === this) return app.cardComponent }
 
   //////////////////////////////
   //  Initialization / Loading / Saving

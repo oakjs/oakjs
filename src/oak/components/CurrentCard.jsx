@@ -7,19 +7,19 @@ export default class CurrentCard extends React.Component {
   }
 
   componentDidMount() {
-    app._cardComponent = this.refs.card;
+    app.cardComponent = this.refs.card;
   }
 
   componentDidUpdate() {
-    app._cardComponent = this.refs.card;
+    app.cardComponent = this.refs.card;
   }
 
   componentWillUpdate() {
-    delete app._cardComponent;
+    delete app.cardComponent;
   }
 
   componentWillUnmount() {
-    delete app._cardComponent;
+    delete app.cardComponent;
   }
 
   render() {

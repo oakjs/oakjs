@@ -29,6 +29,40 @@ export default class OakComponent extends React.Component {
   };
 
   //////////////////////////////
+  // Component Lifecycle
+  //////////////////////////////
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentDidUpdate() {
+    this._isMounted = true;
+  }
+
+  componentWillUpdate() {
+    this._isMounted = false;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+
+  //////////////////////////////
+  // Manipulating rendered elements
+  //////////////////////////////
+
+	// Return one our `ref`s DOM node as a jQuery vector.
+	// If you don't pass a `ref` string, we'll get the root node.
+	// NOTE: this is not very react-y...
+	$ref(refName) {
+		const ref = (refName ? this.refs[refName] : this);
+		if (!ref || !this._isMounted) return $();
+		return $(ReactDOM.findDOMNode(ref));
+	}
+
+  //////////////////////////////
   // Rendering
   //////////////////////////////
 

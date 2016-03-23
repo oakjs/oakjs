@@ -475,7 +475,7 @@ console.info("new", newItems);
 //
 // NOTE: don't call this directly.
 function _mapElementsTransaction({ list, getItemTransaction, actionName, returnTransaction }) {
-  const transaction = UndoQueue.mapTransactions(list, getTransaction, actionName);
+  const transaction = UndoQueue.mapTransactions(list, getItemTransaction, actionName);
 
   if (returnTransaction) return transaction;
   return app.undoQueue.addTransaction(transaction);

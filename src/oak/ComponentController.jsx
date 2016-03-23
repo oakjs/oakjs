@@ -58,11 +58,19 @@ export default class ComponentController extends Loadable() {
     if (this.component) app.updateSoon();
   }
 
-
   get Component() { return this.componentLoader.Component }
 
+  // Given a component `type` name, return the component class it corresponds to.
   getComponentForType(type, errorMessage) {
     return this.app.getComponentForType(type, errorMessage, this.components);
+  }
+
+  // Return the component DEFINITION for the specified `oid`.
+  getComponentForOid(oid) {
+    return oid
+        && this.componentLoader
+        && this.componentLoader.oids
+        && this.componentLoader.oids[oid];
   }
 
   //////////////////////////////

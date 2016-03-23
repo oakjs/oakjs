@@ -6,6 +6,8 @@ export Eventful from "./Eventful";
 export Loadable from "./Loadable";
 export LoadableIndex from "./LoadableIndex";
 export Mutable from "./Mutable";
+export Point from "./Point";
+export Rect from "./Rect";
 export Savable from "./Savable";
 export UndoQueue from "./UndoQueue";
 

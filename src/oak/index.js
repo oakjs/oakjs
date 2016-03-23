@@ -18,6 +18,10 @@ export components from "./components";
 // Test stuff
 export parserTest from "./parserTest";
 
+// app extensions for editing
+import _events from "./events";
+import _editor from "./editor";
+
 
 // assign everything we've loaded to the oak singleton
 Object.assign(oak, exports);

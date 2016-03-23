@@ -37,7 +37,7 @@ export default class Stack extends ComponentController {
   // TODO: dynamic components
   get components() { return this.project.components }
 
-  get component() { if (app.stack === this) return app._stackComponent }
+  get component() { if (app.stack === this) return app.stackComponent }
 
   //////////////////////////////
   //  Cards

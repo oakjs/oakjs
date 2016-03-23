@@ -5,9 +5,7 @@
       <div oid="GIboFkjD">
         JSX Test Card!
       </div>
-      <Button icon="heart" oid="oiBgbSMB">
-        Love It!
-      </Button>
+      <Button title="Love It!" icon="heart" oid="oiBgbSMB" />
     </Segment>
   </Container>
 </OakCard>
