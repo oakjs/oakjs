@@ -6,6 +6,7 @@
     "acorn.js",
     "babel.min.js",
     "babel-helpers.js",
+    "fetch.js",
     "jquery.js",
     "react.js",
     "react-dom.js",
