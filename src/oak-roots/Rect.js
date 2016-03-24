@@ -38,6 +38,14 @@ export default class Rect {
   //  Math-y stuff
   //////////////////////////////
 
+  equals(rect) {
+    if (!rect) return false;
+    return this.left === rect.left
+        && this.top === rect.top
+        && this.width === rect.width
+        && this.height === rect.height;
+  }
+
   // Return a NEW `Rect` converted to integers.
   integerize() {
     return new Rect(
@@ -96,6 +104,14 @@ export default class Rect {
     const top = Math.min(point1.y, point2.y);
     const bottom = Math.max(point1.y, point2.y);
     return new Rect(left, top, right-left, bottom-top);
+  }
+
+  //////////////////////////////
+  //  Debug
+  //////////////////////////////
+
+  toString() {
+    return `{l:${this.left}, t:${this.top}, w:${this.width}, h:${this.height}}`;
   }
 
 }

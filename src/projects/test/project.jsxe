@@ -1,4 +1,5 @@
 <OakProject id="test" title="test">
   <EditorToolbar/>
   <CurrentStack/>
+  <SelectionOverlay/>
 </OakProject>

@@ -1,4 +1,7 @@
-// Menu of cards in the current stack.
+//////////////////////////////
+// Sample editor toolbar
+//////////////////////////////
+
 import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
@@ -40,6 +43,7 @@ export default class EditorToolbar extends OakComponent {
           <c.Button onClick={this.addButton} icon="large plus"/>
           <c.Button onClick={this.moveText} icon="large move"/>
         </c.Buttons>
+        <input/>
       </c.Menu>
     );
   }

@@ -6,6 +6,7 @@
 //////////////////////////////
 
 import { debounce } from "oak-roots/util/decorators";
+import elements from "oak-roots/util/elements";
 import global from "oak-roots/util/global";
 import LoadableIndex from "oak-roots/LoadableIndex";
 import Registry from "oak-roots/Registry";
@@ -14,6 +15,7 @@ import UndoQueue from "oak-roots/UndoQueue";
 import actions from "./actions";
 import api from "./api";
 import Card from "./Card";
+import OakEvent from "./OakEvent";
 import Project from "./Project";
 import Stack from "./Stack";
 import ComponentLoader from "./ComponentLoader";
@@ -50,11 +52,48 @@ class App {
     // App state.
     // NOTE: NEVER update this directly, use `app.action.setState()` or some sugary variant thereof.
     this.state = {
-      editing: false,
+      editing: true,
       selection: undefined
     }
 
   }
+
+
+  //////////////////////////////
+  //  Browser event data
+  //////////////////////////////
+
+  // Set the current event.
+  // TODO: is this a trigger ????
+  setEvent(oakEvent, browserEvent) {
+    oakEvent._browserEvent = browserEvent;
+    app.event = oakEvent;
+    oakEvent._log();
+  }
+
+  getRectForOid(oid) {
+    const element = document.querySelector(`[data-oid='${oid}']`);
+    return elements.offsetRect(element);
+  }
+
+  getOidRects() {
+    if (!this.projectComponent) return undefined;
+    console.time("oidRects");
+    //TODO: somehow we want to know the root element on the page so don't include toolbars...
+    const oidElements = document.querySelectorAll("[data-oid]");
+    const rects = [];
+    let i = -1, element;
+    while (element = oidElements[++i]) {
+      rects[i] = elements.offsetRect(element);
+      rects[i].oid = element.getAttribute("data-oid");
+    }
+    console.timeEnd("oidRects");
+
+    if (!this._renderCache) this._renderCache = {};
+    this._renderCache.oidRects = rects;
+    return rects;
+  }
+
 
   //////////////////////////////
   //  Actions / Undo / State / etc

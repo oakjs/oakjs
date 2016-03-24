@@ -17,6 +17,7 @@ export OakComponent from "./OakComponent";
 export OakProject from "./OakProject";
 export OakStack from "./OakStack";
 export Spacer from "./Spacer";
+export SelectionOverlay from "./SelectionOverlay";
 export StackMenu from "./StackMenu";
 export Stub from "./Stub";
 

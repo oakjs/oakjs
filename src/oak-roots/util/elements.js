@@ -9,6 +9,7 @@
 import Rect from "../Rect";
 
 // Return the viewport rect -- relative to the VIEWPORT, NOT including scrolling.
+// TODO: scale???
 export function viewportRect(element) {
   if (!element) return new Rect();
   const rect = element.getBoundingClientRect();
@@ -16,8 +17,10 @@ export function viewportRect(element) {
 }
 
 // Return the OFFSET rect -- relative to the DOCUMENT, INCLUDING scrolling.
+// TODO: scale???
 export function offsetRect(element) {
   if (!element) return new Rect();
+console.info(element);
   const clientRect = element.getBoundingClientRect();
   return new Rect(
     clientRect.left + window.scrollX,
