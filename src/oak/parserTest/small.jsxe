@@ -3,18 +3,15 @@
   <div {...spread} a {...spread} />
   <div a {...spread} b />
   <div {...spread} {...spread} />
-  <PageSidebar/>
-  <Page>
-    <PageTitle title="Label">
-      A label displays content classification
-    </PageTitle>
+  <PageTitle title="Label">
+    A label displays content classification
+  </PageTitle>
 
-    <PageSection title="Content">
+  <PageSection title="Content">
 
-      <Example title="Text">
-        <Label content="Label with content attribute"/>
-        <Label>Label with inline content</Label>
-      </Example>
-    </PageSection>
-  </Page>
+    <Example title="Text">
+      <Label content="Label with content attribute"/>
+      <Label>Label with inline content</Label>
+    </Example>
+  </PageSection>
 </Card>
