@@ -16,7 +16,7 @@ export default class AppRoute extends React.Component {
   static childContextTypes = {
     app: PropTypes.any,
     project: PropTypes.any,
-    stack: PropTypes.any,
+    section: PropTypes.any,
     card: PropTypes.any,
     components: PropTypes.any
   };
@@ -25,7 +25,7 @@ export default class AppRoute extends React.Component {
     return {
       app,
       project: app.project,
-      stack: app.stack,
+      section: app.section,
       card: app.card,
       components: (app.card ? app.card.components : app.components)
     };

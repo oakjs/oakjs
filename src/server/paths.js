@@ -42,7 +42,7 @@ export class projectPaths {
   get jsxe() { return projectPath(this.project, "project.jsxe") }
   get css() { return projectPath(this.project, "project.css") }
   get script() { return projectPath(this.project, "project.js") }
-  get stackIndex() { return projectPath(this.project, "stacks.json") }
+  get sectionIndex() { return projectPath(this.project, "sections.json") }
   get bundleFile() { return bundlePath("projects", `${this.project}.bundle.json`) }
 }
 
@@ -55,30 +55,30 @@ export function projectPath(project, filename = "") {
 }
 
 //////////////////////////////
-//  Paths for stacks
+//  Paths for sections
 //////////////////////////////
 
 // Lightweight object which vends paths
-//  eg:   const path = paths.stack(<projectId>, <stackId>).jsxePath;
-export class stackPaths {
-  constructor(project, stack) {
+//  eg:   const path = paths.section(<projectId>, <sectionId>).jsxePath;
+export class sectionPaths {
+  constructor(project, section) {
     this.project = dieIfInvalidId(project);
-    this.stack = dieIfInvalidId(stack);
+    this.section = dieIfInvalidId(section);
   }
-  get jsxe() { return stackPath(this.project, this.stack, "stack.jsxe") }
-  get css() { return stackPath(this.project, this.stack, "stack.css") }
-  get script() { return stackPath(this.project, this.stack, "stack.js") }
-  get cardIndex() { return stackPath(this.project, this.stack, "cards.json") }
-  get bundleFile() { return bundlePath("projects", this.project, `${this.stack}.bundle.json`) }
+  get jsxe() { return sectionPath(this.project, this.section, "section.jsxe") }
+  get css() { return sectionPath(this.project, this.section, "section.css") }
+  get script() { return sectionPath(this.project, this.section, "section.js") }
+  get cardIndex() { return sectionPath(this.project, this.section, "cards.json") }
+  get bundleFile() { return bundlePath("projects", this.project, `${this.section}.bundle.json`) }
 }
 
 
-// Return the path for a stack file.
-// Default is to return the `stack.jsx` file, pass a different `fileName` for something else.
-// If you want the path to the stack's directory, pass `fileName=""`.
-export function stackPath(project, stack, filename = "") {
-  const stackPath = fsPath.join(stack, filename);
-  return projectPath(project, stackPath);
+// Return the path for a section file.
+// Default is to return the `section.jsx` file, pass a different `fileName` for something else.
+// If you want the path to the section's directory, pass `fileName=""`.
+export function sectionPath(project, section, filename = "") {
+  const sectionPath = fsPath.join(section, filename);
+  return projectPath(project, sectionPath);
 }
 
 //////////////////////////////
@@ -86,24 +86,24 @@ export function stackPath(project, stack, filename = "") {
 //////////////////////////////
 
 // Lightweight object which vends paths
-//  eg:   const path = paths.card(<projectId>, <stackId>, <cardId>).jsxePath;
+//  eg:   const path = paths.card(<projectId>, <sectionId>, <cardId>).jsxePath;
 export class cardPaths {
-  constructor(project, stack, card) {
+  constructor(project, section, card) {
     this.project = dieIfInvalidId(project);
-    this.stack = dieIfInvalidId(stack);
+    this.section = dieIfInvalidId(section);
     this.card = dieIfInvalidId(card);
   }
-  get jsxe() { return cardPath(this.project, this.stack, this.card, "card.jsxe") }
-  get css() { return cardPath(this.project, this.stack, this.card, "card.css") }
-  get script() { return cardPath(this.project, this.stack, this.card, "card.js") }
-  get bundleFile() { return bundlePath("projects", this.project, this.stack, `${this.card}.bundle.json`) }
+  get jsxe() { return cardPath(this.project, this.section, this.card, "card.jsxe") }
+  get css() { return cardPath(this.project, this.section, this.card, "card.css") }
+  get script() { return cardPath(this.project, this.section, this.card, "card.js") }
+  get bundleFile() { return bundlePath("projects", this.project, this.section, `${this.card}.bundle.json`) }
 }
 
 // Return the path for a card file.
 // Default is to return the card's `.jsx` file, pass a different `filename` for something else.
-export function cardPath(project, stack, card, filename="") {
+export function cardPath(project, section, card, filename="") {
   const cardPath = fsPath.join(card, filename);
-  return stackPath(project, stack, cardPath);
+  return sectionPath(project, section, cardPath);
 }
 
 

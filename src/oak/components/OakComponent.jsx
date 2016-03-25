@@ -23,7 +23,7 @@ export default class OakComponent extends React.Component {
   static contextTypes = {
     app: React.PropTypes.any,
     project: React.PropTypes.any,
-    stack: React.PropTypes.any,
+    section: React.PropTypes.any,
     card: React.PropTypes.any,
     components: React.PropTypes.any,
   };

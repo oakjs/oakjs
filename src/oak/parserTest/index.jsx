@@ -3,7 +3,6 @@ import JSXElement from "oak/JSXElement";
 // Load some sample parser files
 export smallTest from "raw!./small.jsxe";
 export bigTest from "raw!./big.jsxe";
-export stack from "raw!./stack.jsxe";
 export card from "raw!./card.jsxe";
 
 export function timeAcornParse(code) {

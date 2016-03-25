@@ -3,7 +3,7 @@
 //
 //  <CardMenuItem>:  MenuItem which shows a card link.
 //
-//  TODO: if no slashes, stay in the current stack...
+//  TODO: if no slashes, stay in the current section...
 //
 //////////////////////////////
 

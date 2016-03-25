@@ -39,21 +39,21 @@ export default class Project extends ComponentController {
 
 
   //////////////////////////////
-  //  Stacks
+  //  Sections
   //////////////////////////////
 
-  get stackIndex() { return this.app.getStackIndex(this.path) }
+  get sectionIndex() { return this.app.getSectionIndex(this.path) }
 
-  get stacks() { return this.stackIndex.items }
-  get stackIds() { return this.stackIndex.itemIds }
-  get stackMap() { return this.stackIndex.itemMap }
+  get sections() { return this.sectionIndex.items }
+  get sectionIds() { return this.sectionIndex.itemIds }
+  get sectionMap() { return this.sectionIndex.itemMap }
 
-  getStack(stackIdentifier) {
-    return this.stackIndex.getItem(stackIdentifier);
+  getSection(sectionIdentifier) {
+    return this.sectionIndex.getItem(sectionIdentifier);
   }
 
-  loadStack(stackIdentifier) {
-    return this.stackIndex.loadItem(stackIdentifier);
+  loadSection(sectionIdentifier) {
+    return this.sectionIndex.loadItem(sectionIdentifier);
   }
 
 
@@ -65,7 +65,7 @@ export default class Project extends ComponentController {
 
   loadData() {
     return Promise.all([
-        this.stackIndex.load(),
+        this.sectionIndex.load(),
         this.componentLoader.load(),
       ])
       .then(() => this );

@@ -6,19 +6,19 @@ import CurrentProject from "./CurrentProject";
 export default class CardRoute extends AppRoute {
   render() {
     // default to first item if id not specified
-    let { projectId = 0, stackId = 0, cardId = 0} = this.props.params;
+    let { projectId = 0, sectionId = 0, cardId = 0} = this.props.params;
 
-    console.warn("CardRoute: ", projectId, stackId, cardId);
+    console.warn("CardRoute: ", projectId, sectionId, cardId);
 
-    const card = app.getCard(projectId, stackId, cardId);
+    const card = app.getCard(projectId, sectionId, cardId);
     if (card && card.isLoaded) {
       app.card = card;
-      app.stack = card.stack;
+      app.section = card.section;
       app.project = card.project;
     }
     else {
       if (!card || !card.isLoading) {
-        app.loadCard(projectId, stackId, cardId)
+        app.loadCard(projectId, sectionId, cardId)
           .then( card => {
             if (this._isMounted) {
               console.log("loaded card, updating ");
@@ -27,7 +27,7 @@ export default class CardRoute extends AppRoute {
           })
 //           .catch(e => {
 //             console.error(e);
-//             console.log(`Card ${projectId}/${stackId}/${cardId} not found!!!`);
+//             console.log(`Card ${projectId}/${sectionId}/${cardId} not found!!!`);
 //           });
       }
     }

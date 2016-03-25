@@ -8,7 +8,7 @@ export ComponentLoader from "./ComponentLoader";
 export JSXElement from "./JSXElement";
 export OakEvent from "./OakEvent";
 export Project from "./Project";
-export Stack from "./Stack";
+export Section from "./Section";
 
 // utilities
 export roots from "oak-roots";

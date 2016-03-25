@@ -17,12 +17,12 @@ import api from "./api";
 import Card from "./Card";
 import OakEvent from "./OakEvent";
 import Project from "./Project";
-import Stack from "./Stack";
+import Section from "./Section";
 import ComponentLoader from "./ComponentLoader";
 
 import OakCard from "./components/OakCard";
 import OakProject from "./components/OakProject";
-import OakStack from "./components/OakStack";
+import OakSection from "./components/OakSection";
 
 import SUIComponents from "themes/SUI/components";
 import oakComponents from "./components";
@@ -119,7 +119,7 @@ class App {
   get canUndo() { return app.undoQueue.canUndo }
   get canRedo() { return app.undoQueue.canRedo }
 
-  // Force update of the entire app, including any changed props in card/stack/project
+  // Force update of the entire app, including any changed props in card/section/project
   @debounce(0)
   updateSoon() {
     if (app._appRoute) app._appRoute.setState({});
@@ -141,9 +141,9 @@ class App {
     }
   }
 
-  // Return URL for card, stack or project
-  getCardRoute(projectId, stackId = 0, cardId = 0) {
-    return `/project/${projectId}/${stackId}/${cardId}`;
+  // Return URL for card, section or project
+  getCardRoute(projectId, sectionId = 0, cardId = 0) {
+    return `/project/${projectId}/${sectionId}/${cardId}`;
   }
 
 
@@ -191,8 +191,8 @@ class App {
       if (component) return component;
     }
 
-    if (this.stack) {
-      const component = this.stack.getComponentForOid(oid);
+    if (this.section) {
+      const component = this.section.getComponentForOid(oid);
       if (component) return component;
     }
 
@@ -238,32 +238,32 @@ class App {
   }
 
   //////////////////////////////
-  //  Stacks!
+  //  Sections!
   //////////////////////////////
 
-  showStack(projectIdentifier, stackIdentifier) {
-    const route = this.getCardRoute(projectIdentifier, stackIdentifier);
+  showSection(projectIdentifier, sectionIdentifier) {
+    const route = this.getCardRoute(projectIdentifier, sectionIdentifier);
     app.goTo(route);
   }
 
-  getStack(projectIdentifier, stackIdentifier) {
+  getSection(projectIdentifier, sectionIdentifier) {
     const project = this.getProject(projectIdentifier);
-    if (project) return project.getStack(stackIdentifier);
+    if (project) return project.getSection(sectionIdentifier);
   }
 
-  loadStack(projectIdentifier, stackIdentifier) {
-    const stack = this.getStack(projectIdentifier, stackIdentifier);
-    if (stack) return stack.load();
+  loadSection(projectIdentifier, sectionIdentifier) {
+    const section = this.getSection(projectIdentifier, sectionIdentifier);
+    if (section) return section.load();
 
     return this.loadProject(projectIdentifier)
       .then( project => {
-        return project.loadStack(stackIdentifier);
+        return project.loadSection(sectionIdentifier);
       })
 //       .catch(error => {
-//         console.group(`Error loading stack ${projectIdentifier}/${stackIdentifier}:`);
+//         console.group(`Error loading section ${projectIdentifier}/${sectionIdentifier}:`);
 //         console.error(error);
 //         console.groupEnd();
-//         throw new ReferenceError("Couldn't load stack");
+//         throw new ReferenceError("Couldn't load section");
 //       });
   }
 
@@ -272,26 +272,26 @@ class App {
   //  Cards!
   //////////////////////////////
 
-  showCard(projectIdentifier, stackIdentifier, cardIdentifier) {
-    const route = this.getCardRoute(projectIdentifier, stackIdentifier, cardIdentifier);
+  showCard(projectIdentifier, sectionIdentifier, cardIdentifier) {
+    const route = this.getCardRoute(projectIdentifier, sectionIdentifier, cardIdentifier);
     app.goTo(route);
   }
 
-  getCard(projectIdentifier, stackIdentifier, cardIdentifier) {
-    const stack = this.getStack(projectIdentifier, stackIdentifier);
-    if (stack) return stack.getCard(cardIdentifier);
+  getCard(projectIdentifier, sectionIdentifier, cardIdentifier) {
+    const section = this.getSection(projectIdentifier, sectionIdentifier);
+    if (section) return section.getCard(cardIdentifier);
   }
 
-  loadCard(projectIdentifier, stackIdentifier, cardIdentifier) {
-    const card = this.getCard(projectIdentifier, stackIdentifier, cardIdentifier);
+  loadCard(projectIdentifier, sectionIdentifier, cardIdentifier) {
+    const card = this.getCard(projectIdentifier, sectionIdentifier, cardIdentifier);
     if (card) return card.load();
 
-    return this.loadStack(projectIdentifier, stackIdentifier)
-      .then( stack => {
-        return stack.loadCard(cardIdentifier);
+    return this.loadSection(projectIdentifier, sectionIdentifier)
+      .then( section => {
+        return section.loadCard(cardIdentifier);
       })
 //       .catch(error => {
-//         console.group(`Error loading card ${projectIdentifier}/${stackIdentifier}/${cardIdentifier}:`);
+//         console.group(`Error loading card ${projectIdentifier}/${sectionIdentifier}/${cardIdentifier}:`);
 //         console.error(error);
 //         console.groupEnd();
 //         throw new ReferenceError("Couldn't load card");
@@ -341,23 +341,23 @@ class App {
   }
 
 
-  // Return the stack index singleton for a specific project.
-  getStackIndex(projectPath) {
-    return this._getFromRegistry("STACK-INDEX:", projectPath, this._makeStackIndex)
+  // Return the section index singleton for a specific project.
+  getSectionIndex(projectPath) {
+    return this._getFromRegistry("STACK-INDEX:", projectPath, this._makeSectionIndex)
   }
 
-  // Create a stack index on demand.
-  // DO NOT CALL THIS!  Use `app.getStackIndex()` instead.
-  _makeStackIndex(projectPath) {
+  // Create a section index on demand.
+  // DO NOT CALL THIS!  Use `app.getSectionIndex()` instead.
+  _makeSectionIndex(projectPath) {
     const projectId = projectPath;
     return new LoadableIndex({
-      itemType: "stack",
+      itemType: "section",
       loadIndex: () => {
-        return api.loadStackIndex(projectPath);
+        return api.loadSectionIndex(projectPath);
       },
-      createItem: (stackId, props) => {
-        return new Stack({
-          stackId,
+      createItem: (sectionId, props) => {
+        return new Section({
+          sectionId,
           projectId,
           ...props,
           app: this,
@@ -367,24 +367,24 @@ class App {
   }
 
 
-  // Return the card index singleton for a specific stack.
-  getCardIndex(stackPath) {
-    return this._getFromRegistry("CARD-INDEX:", stackPath, this._makeCardIndex)
+  // Return the card index singleton for a specific section.
+  getCardIndex(sectionPath) {
+    return this._getFromRegistry("CARD-INDEX:", sectionPath, this._makeCardIndex)
   }
 
   // Create a card index on demand.
   // DO NOT CALL THIS!  Use `app.getCardIndex()` instead.
-  _makeCardIndex(stackPath) {
-    const [ projectId, stackId ] = stackPath.split("/");
+  _makeCardIndex(sectionPath) {
+    const [ projectId, sectionId ] = sectionPath.split("/");
     return new LoadableIndex({
       itemType: "card",
       loadIndex: () => {
-        return api.loadCardIndex(stackPath);
+        return api.loadCardIndex(sectionPath);
       },
       createItem: (cardId, props) => {
         return new Card({
           cardId,
-          stackId,
+          sectionId,
           projectId,
           ...props,
           app: this,
@@ -409,9 +409,9 @@ class App {
 
     const path = this.getPath(pathOrController);
     if (!path) return;
-    const [ projectId, stackId, cardId ] = path.split("/");
+    const [ projectId, sectionId, cardId ] = path.split("/");
     if (cardId) return app.getCardLoader(pathOrController, makeIfNecessary);
-    if (stackId) return app.getStackLoader(pathOrController, makeIfNecessary);
+    if (sectionId) return app.getSectionLoader(pathOrController, makeIfNecessary);
     return app.getProjectLoader(pathOrController, makeIfNecessary);
   }
 
@@ -432,20 +432,20 @@ class App {
     });
   }
 
-  // Return the singleton loader for some stack.
-  getStackLoader(stack, makeIfNecessary) {
-    const makeLoader = makeIfNecessary && stack instanceof Stack && this._makeStackLoader;
-    return this._getFromRegistry("STACK-LOADER:", stack, makeLoader);
+  // Return the singleton loader for some section.
+  getSectionLoader(section, makeIfNecessary) {
+    const makeLoader = makeIfNecessary && section instanceof Section && this._makeSectionLoader;
+    return this._getFromRegistry("STACK-LOADER:", section, makeLoader);
   }
 
-  // Create a stack loader on demand.
-  // DO NOT CALL THIS!  Use `app.getStackLoader()` instead.
-  _makeStackLoader(stack) {
+  // Create a section loader on demand.
+  // DO NOT CALL THIS!  Use `app.getSectionLoader()` instead.
+  _makeSectionLoader(section) {
     return new ComponentLoader({
-      type: "Stack",
-      path: stack.path,
-      controller: stack,
-      SuperConstructor: OakStack
+      type: "Section",
+      path: section.path,
+      controller: section,
+      SuperConstructor: OakSection
     });
   }
 

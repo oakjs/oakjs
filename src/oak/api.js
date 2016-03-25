@@ -103,14 +103,14 @@ oak.api = new API({
     return this.loadIndex(url, undefined, );
   },
 
-  loadStackIndex(projectPath) {
-    const url = `/api/project/${projectPath}/stackIndex`;
-    const errorMessage = "Error loading stack index";
+  loadSectionIndex(projectPath) {
+    const url = `/api/project/${projectPath}/sectionIndex`;
+    const errorMessage = "Error loading section index";
     return this.loadIndex(url, undefined, errorMessage);
   },
 
-  loadCardIndex(stackPath) {
-    const url = `/api/stack/${stackPath}/cardIndex`;
+  loadCardIndex(sectionPath) {
+    const url = `/api/section/${sectionPath}/cardIndex`;
     const errorMessage = "Error loading card index";
     return this.loadIndex(url, undefined, errorMessage);
   },

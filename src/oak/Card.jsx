@@ -9,7 +9,7 @@ import ComponentController from "./ComponentController";
 
 export default class Card extends ComponentController {
   constructor(props) {
-    dieIfMissing(props, "new Card", ["app", "cardId", "stackId", "projectId"]);
+    dieIfMissing(props, "new Card", ["app", "cardId", "sectionId", "projectId"]);
     super(props);
   }
 
@@ -21,10 +21,10 @@ export default class Card extends ComponentController {
   //////////////////////////////
 
   get id() { return this.cardId }
-  get path() { return `${this.projectId}/${this.stackId}/${this.cardId}` }
+  get path() { return `${this.projectId}/${this.sectionId}/${this.cardId}` }
 
   get project() { return this.app.getProject(this.projectId) }
-  get stack() { return this.app.getStack(this.projectId, this.stackId) }
+  get section() { return this.app.getSection(this.projectId, this.sectionId) }
 
 
   //////////////////////////////
@@ -36,7 +36,7 @@ export default class Card extends ComponentController {
   }
 
   // TODO: dynamic components
-  get components() { return this.stack.components }
+  get components() { return this.section.components }
 
   get component() { if (app.card === this) return app.cardComponent }
 
@@ -44,7 +44,7 @@ export default class Card extends ComponentController {
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  get route() { return this.app.getCardRoute(this.projectId, this.stackId, this.cardId) }
+  get route() { return this.app.getCardRoute(this.projectId, this.sectionId, this.cardId) }
 
   loadData() {
     return this.componentLoader.load()
@@ -65,7 +65,7 @@ export class CardElement extends JSXElement {
     ...JSXElement.renderVars,
     card: "this",
     app: "card.app",
-    stack: "card.stack",
+    section: "card.section",
     project: "card.project",
     components: "card.components",
     data: "card.data"

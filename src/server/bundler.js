@@ -101,8 +101,8 @@ export function bundlePaths(paths, options = {}) {
 
 
 // Return all the data we need to display a card
-export function bundleCard({ projectId, stackId, cardId, force, response }) {
-  const cardPaths = new apiPaths.cardPaths(projectId, stackId, cardId);
+export function bundleCard({ projectId, sectionId, cardId, force, response }) {
+  const cardPaths = new apiPaths.cardPaths(projectId, sectionId, cardId);
   const pathMap = {
     jsxe:    cardPaths.jsxe,
     styles:  cardPaths.css,
@@ -120,21 +120,21 @@ export function bundleCard({ projectId, stackId, cardId, force, response }) {
   return bundlePathMap(pathMap, options);
 }
 
-// Return all the data we need to display a stack
-export function bundleStack({ projectId, stackId, force, response }) {
-  const stackPaths = new apiPaths.stackPaths(projectId, stackId);
+// Return all the data we need to display a section
+export function bundleSection({ projectId, sectionId, force, response }) {
+  const sectionPaths = new apiPaths.sectionPaths(projectId, sectionId);
   const pathMap = {
-    jsxe:    stackPaths.jsxe,
-    styles:  stackPaths.css,
-    script:  stackPaths.script
+    jsxe:    sectionPaths.jsxe,
+    styles:  sectionPaths.css,
+    script:  sectionPaths.script
   };
-  if (DEBUG) console.log(`bundleStack(${projectId}, ${stackId})`);
+  if (DEBUG) console.log(`bundleSection(${projectId}, ${sectionId})`);
 console.info(pathMap);
   const options = {
     debug: DEBUG,
     force,
     response,
-    bundleFile: stackPaths.bundleFile,
+    bundleFile: sectionPaths.bundleFile,
     optional: true,
     trusted: true,
   }

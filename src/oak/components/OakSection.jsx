@@ -3,10 +3,10 @@ import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
 
-// Import custom CSS for all stacks.
-import "./OakStack.css";
+// Import custom CSS for all sections.
+import "./OakSection.css";
 
-export default class OakStack extends OakComponent {
+export default class OakSection extends OakComponent {
   static propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,
@@ -32,7 +32,7 @@ export default class OakStack extends OakComponent {
   //////////////////////////////
 
   getClassName(props) {
-    return classNames("oak Stack", props.className);
+    return classNames("oak Section", props.className);
   }
 
 }

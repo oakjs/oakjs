@@ -1,5 +1,5 @@
 //////////////////////////////
-// Stack class
+// Section class
 //////////////////////////////
 
 import { proto } from "oak-roots/util/decorators";
@@ -7,22 +7,22 @@ import { dieIfMissing } from "oak-roots/util/die";
 
 import ComponentController from "./ComponentController";
 
-export default class Stack extends ComponentController {
+export default class Section extends ComponentController {
   constructor(props) {
     super(props);
-    dieIfMissing(this, "new Stack", ["app", "stackId", "projectId"]);
+    dieIfMissing(this, "new Section", ["app", "sectionId", "projectId"]);
   }
 
   @proto
-  type = "stack";
+  type = "section";
 
 
   //////////////////////////////
   //  Identity & Sugar
   //////////////////////////////
 
-  get id() { return this.stackId }
-  get path() { return `${this.projectId}/${this.stackId}` }
+  get id() { return this.sectionId }
+  get path() { return `${this.projectId}/${this.sectionId}` }
 
   get project() { return this.app.getProject(this.projectId) }
 
@@ -31,13 +31,13 @@ export default class Stack extends ComponentController {
   //////////////////////////////
 
   createComponentLoader() {
-    return this.app.getStackLoader(this, "MAKE");
+    return this.app.getSectionLoader(this, "MAKE");
   }
 
   // TODO: dynamic components
   get components() { return this.project.components }
 
-  get component() { if (app.stack === this) return app.stackComponent }
+  get component() { if (app.section === this) return app.sectionComponent }
 
   //////////////////////////////
   //  Cards
@@ -61,7 +61,7 @@ export default class Stack extends ComponentController {
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  static get route() { return this.app.getCardRoute(this.projectId, this.stackId) }
+  static get route() { return this.app.getCardRoute(this.projectId, this.sectionId) }
 
   loadData() {
     return Promise.all([
@@ -75,20 +75,20 @@ export default class Stack extends ComponentController {
 
 
 //////////////////////////////
-// StackElement class
+// SectionElement class
 //////////////////////////////
 
 import JSXElement from "./JSXElement";
 
-// Create a specialized `StackElement` and export it
-export class StackElement extends JSXElement {
+// Create a specialized `SectionElement` and export it
+export class SectionElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
-    stack: "this",
-    app: "stack.app",
-    project: "stack.project",
-    components: "stack.components",
-    data: "stack.data"
+    section: "this",
+    app: "section.app",
+    project: "section.project",
+    components: "section.components",
+    data: "section.data"
   }
   // Render out outer element as a div with only a few properties
   renderType = "div";
@@ -100,5 +100,5 @@ export class StackElement extends JSXElement {
   }
 }
 
-// Register it so `<OakStack>` elements in a jsxe will use `StackElement`.
-JSXElement.registerType("OakStack", StackElement);
+// Register it so `<OakSection>` elements in a jsxe will use `SectionElement`.
+JSXElement.registerType("OakSection", SectionElement);

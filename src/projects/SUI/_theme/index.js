@@ -1,4 +1,4 @@
-// custom stack components
+// custom section components
 
 
 import Bug from "./Bug.jsx"

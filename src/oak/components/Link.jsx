@@ -3,7 +3,7 @@
 //
 //  <Link>:  Wrapper for:
 //    - card link (props.card)
-//    - stack link (props.stack)
+//    - section link (props.section)
 //    - project link (props.project)
 //    - react router link (props.to)
 //    - arbitrary web link (props.href)
@@ -21,9 +21,9 @@ export function OakCardLink({ card, label, children, ...linkProps }={}, context)
   return <Link {...linkProps}>{contents}</Link>;
 }
 
-export function OakStackLink({ stack, label, children, ...linkProps }={}, context) {
-  linkProps.to = (typeof stack === "string" ? stack : stack.route);
-  const contents = (children || label || stack.title);
+export function OakSectionLink({ section, label, children, ...linkProps }={}, context) {
+  linkProps.to = (typeof section === "string" ? section : section.route);
+  const contents = (children || label || section.title);
   return <Link {...linkProps}>{contents}</Link>;
 }
 
@@ -44,7 +44,7 @@ export function OakAnchorLink({ label, children, ...anchorProps } = {}, context)
 
 function OakLink(props, context) {
   if (props.card) return OakCardLink(props, context);
-  if (props.stack) return OakStackLink(props, context);
+  if (props.section) return OakSectionLink(props, context);
   if (props.project) return OakProjectLink(props, context);
   if (props.to) return OakRouteLink(props, context);
   if (props.href) return OakAnchorLink(props, context);

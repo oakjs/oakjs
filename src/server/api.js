@@ -80,11 +80,11 @@ router.get("/app/:action",  (request, response) => {
 
 
 // Router for card read actions.
-router.get("/card/:projectId/:stackId/:cardId/:action",  (request, response) => {
-  const { action, projectId, stackId, cardId } = request.params;
-  const cardPaths = new apiPaths.cardPaths(projectId, stackId, cardId);
+router.get("/card/:projectId/:sectionId/:cardId/:action",  (request, response) => {
+  const { action, projectId, sectionId, cardId } = request.params;
+  const cardPaths = new apiPaths.cardPaths(projectId, sectionId, cardId);
   switch (action) {
-    case "card":    return bundler.bundleCard({ projectId, stackId, cardId, response, ...debugParams(request.query) });
+    case "card":    return bundler.bundleCard({ projectId, sectionId, cardId, response, ...debugParams(request.query) });
     case "jsxe":    return sendTextFile(request, response, cardPaths.jsxe);
     case "script":  return sendTextFile(request, response, cardPaths.script);
     case "styles":  return sendTextFile(request, response, cardPaths.css);
@@ -94,11 +94,11 @@ router.get("/card/:projectId/:stackId/:cardId/:action",  (request, response) => 
 
 // Router for card write actions.
 // NOTE: these all assume the `body` is plain text.
-router.post("/card/:projectId/:stackId/:cardId/:action", bodyTextParser, (request, response) => {
-  const { action, projectId, stackId, cardId } = request.params;
+router.post("/card/:projectId/:sectionId/:cardId/:action", bodyTextParser, (request, response) => {
+  const { action, projectId, sectionId, cardId } = request.params;
   const { body } = request;
 
-  const cardPaths = new apiPaths.cardPaths(projectId, stackId, cardId);
+  const cardPaths = new apiPaths.cardPaths(projectId, sectionId, cardId);
   switch (action) {
     case "jsxe":    return saveTextFile(request, response, cardPaths.jsxe, body);
     case "script":  return saveTextFile(request, response, cardPaths.script, body);
@@ -108,19 +108,19 @@ router.post("/card/:projectId/:stackId/:cardId/:action", bodyTextParser, (reques
 });
 
 
-// Router for stackId read actions.
-router.get("/stack/:projectId/:stackId/:action",  (request, response) => {
-  const { action, projectId, stackId } = request.params;
+// Router for sectionId read actions.
+router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
+  const { action, projectId, sectionId } = request.params;
 
-  const stackPaths = new apiPaths.stackPaths(projectId, stackId);
+  const sectionPaths = new apiPaths.sectionPaths(projectId, sectionId);
   switch (action) {
-    case "stack":       return bundler.bundleStack({ projectId, stackId, response, ...debugParams(request.query) });
-    case "jsxe":        return sendTextFile(request, response, stackPaths.jsxe);
-    case "script":      return sendTextFile(request, response, stackPaths.script);
-    case "styles":      return sendTextFile(request, response, stackPaths.css);
-    case "cardIndex":   return sendJSONFile(request, response, stackPaths.cardIndex);
+    case "section":       return bundler.bundleSection({ projectId, sectionId, response, ...debugParams(request.query) });
+    case "jsxe":        return sendTextFile(request, response, sectionPaths.jsxe);
+    case "script":      return sendTextFile(request, response, sectionPaths.script);
+    case "styles":      return sendTextFile(request, response, sectionPaths.css);
+    case "cardIndex":   return sendJSONFile(request, response, sectionPaths.cardIndex);
   }
-  throw new TypeError(`Stack API action '${action}' not defined.`);
+  throw new TypeError(`Section API action '${action}' not defined.`);
 });
 
 
@@ -134,7 +134,7 @@ router.get("/project/:projectId/:action",  (request, response) => {
     case "jsxe":        return sendTextFile(request, response, projectPaths.jsxe);
     case "script":      return sendTextFile(request, response, projectPaths.script);
     case "styles":      return sendTextFile(request, response, projectPaths.css);
-    case "stackIndex":  return sendJSONFile(request, response, projectPaths.stackIndex);
+    case "sectionIndex":  return sendJSONFile(request, response, projectPaths.sectionIndex);
   }
   throw new TypeError(`Project API action '${action}' not defined.`);
 });

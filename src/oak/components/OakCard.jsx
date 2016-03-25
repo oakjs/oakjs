@@ -15,7 +15,7 @@ export default class OakCard extends OakComponent {
     title: PropTypes.string,
   }
 
-  static get route() { return this.app.getCardRoute(this.project.id, this.stack.id, this.id) }
+  static get route() { return this.app.getCardRoute(this.project.id, this.section.id, this.id) }
 
   //////////////////////////////
   // Instance property sugar
@@ -26,7 +26,7 @@ export default class OakCard extends OakComponent {
   get app() { return this.controller.app }
   get id() { return this.controller.id }
   get project() { return this.controller.project }
-  get stack() { return this.controller.stack }
+  get section() { return this.controller.section }
   get type() { return this.controller.type; }
 
 // DEPRECATED?

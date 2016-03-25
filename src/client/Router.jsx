@@ -19,8 +19,8 @@ const routes = (
   <Route path="/" component={AppRoot}>
     <Route path="project" component={CardRoute} />
     <Route path="project/:projectId" component={CardRoute} />
-    <Route path="project/:projectId/:stackId" component={CardRoute} />
-    <Route path="project/:projectId/:stackId/:cardId" component={CardRoute} />
+    <Route path="project/:projectId/:sectionId" component={CardRoute} />
+    <Route path="project/:projectId/:sectionId/:cardId" component={CardRoute} />
   </Route>
 );
 
