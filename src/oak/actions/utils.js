@@ -112,8 +112,8 @@ export function getOidsOrDie(_things, operation) {
 //////////////////////////////
 
 export function getLoaderOrDie(context, operation) {
-  // default to the current card
-  if (context === undefined) context = app.card.componentLoader;
+  // default to the current page
+  if (context === undefined) context = app.page.componentLoader;
   const loader = app.getLoader(context);
   if (!loader) die(app, operation, context, "Couldn't get loader -- is this a valid path?");
   return loader;

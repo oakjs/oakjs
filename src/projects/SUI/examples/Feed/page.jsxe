@@ -1,0 +1,73 @@
+<OakPage id="Feed" title="Feed">
+  <PageTitle title="Feed">
+    A feed presents user activity chronologically.
+  </PageTitle>
+
+  <PageSection title="Types">
+
+    <Example title="Normal">
+      <Feed>
+        <FeedEvent meta={<a><i className="thumbs up icon"/>like</a>} date="Yesterday" author="Stevie" avatar={data.stevieAvatar} authorLink="/joe" summary="added you as a friend"/>
+        <FeedEvent meta={<a><i className="like icon"/>4 likes</a>} date="3:30pm" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images">
+          <div className="extra images">
+            <a><img src={data.image}/></a>
+            <a><img src={data.image}/></a>
+          </div>
+        </FeedEvent>
+        <FeedEvent meta={<a><i className="reply icon"/>reply</a>} date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="posted on his page">
+          <div className="extra text">
+            Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again. Even if we don't run extra laps that day, we surely will come back for more of the same another day soon.
+          </div>
+        </FeedEvent>
+      </Feed>
+    </Example>
+
+    <Example title="Header" hint="<Feed header='...'/>">
+      <Segment appearance="compact">
+        <Feed header='Your Feed'>
+          <FeedEvent meta={<a><i className="thumbs up icon"/>like</a>} date="Yesterday" author="Stevie" avatar={data.stevieAvatar} authorLink="/joe" summary="added you as a friend"/>
+          <FeedEvent meta={<a><i className="like icon"/>4 likes</a>} date="3:30pm" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images">
+            <div className="extra images">
+              <a><img src={data.image}/></a>
+              <a><img src={data.image}/></a>
+            </div>
+          </FeedEvent>
+          <FeedEvent meta={<a><i className="reply icon"/>reply</a>} date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="posted on his page">
+            <div className="extra text">
+              Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again. Even if we don't run extra laps that day, we surely will come back for more of the same another day soon.
+            </div>
+          </FeedEvent>
+        </Feed>
+      </Segment>
+    </Example>
+
+    <Example title="Sizes" hint="<Feed size='small'/>">
+      <Spacer/>
+      <Feed size='small' header='Followers activity' headerAppearance=''>
+        <FeedEvent author="Stevie" authorLink="/joe" summary="added you as a friend"/>
+        <FeedEvent author="Joe" authorLink="/joe" summary="added two new images"/>
+        <FeedEvent author="Elliot" authorLink="/elliot" summary="posted on his page"/>
+      </Feed>
+
+      <Spacer/>
+      <Divider/>
+      <Spacer/>
+
+      <Feed size='large'>
+        <FeedEvent meta={<a><i className="thumbs up icon"/>like</a>} date="Yesterday" author="Stevie" avatar={data.stevieAvatar} authorLink="/joe" summary="added you as a friend"/>
+        <FeedEvent meta={<a><i className="like icon"/>4 likes</a>} date="3:30pm" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images">
+          <div className="extra images">
+            <a><img src={data.image}/></a>
+            <a><img src={data.image}/></a>
+          </div>
+        </FeedEvent>
+        <FeedEvent meta={<a><i className="reply icon"/>reply</a>} date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="posted on his page">
+          <div className="extra text">
+            Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again. Even if we don't run extra laps that day, we surely will come back for more of the same another day soon.
+          </div>
+        </FeedEvent>
+      </Feed>
+    </Example>
+
+  </PageSection>
+</OakPage>

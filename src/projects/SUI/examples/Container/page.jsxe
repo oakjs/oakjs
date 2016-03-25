@@ -1,0 +1,88 @@
+<OakPage id="Container" title="Container">
+  <PageTitle title="Container">
+    <p>Containers limit content to a maximum width.
+    <br/>Make this window very wide to see the effect.</p>
+  </PageTitle>
+
+  <PageSection title="Types">
+
+    <Example title="Standard Container">
+      <Container>
+        <Header>Header</Header>
+        <LoremIpsum/>
+      </Container>
+    </Example>
+
+    <Example title="Text Container" hint="<Container appearance='text'/>">
+      <Container appearance="text">
+        <Header>Header</Header>
+        <LoremIpsum/>
+      </Container>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="Variations">
+
+    <Example title="Left | Center | Right Aligned" hint="<Container align='left'/>">
+      <Container align="left">
+        Left Aligned
+      </Container>
+
+      <Container align="center">
+        Center Aligned
+      </Container>
+
+      <Container align="right">
+        Right Aligned
+      </Container>
+    </Example>
+
+    <Example title="Justified" hint="<Container align='justified'/>">
+      <Container align="justified">
+        <LoremIpsum/>
+      </Container>
+    </Example>
+
+    <Example title="Fluid" hint="<Container appearance='fluid'/>">
+      <Container appearance="fluid">
+        <Header>Header</Header>
+        <LoremIpsum/>
+      </Container>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="Combos">
+
+    <Example title="Containers + Grids" hint="<Container appearance='four column grid'>">
+      <Container appearance="four column grid">
+       <div className="column"><LoremIpsum/></div>
+       <div className="column"><LoremIpsum/></div>
+       <div className="column"><LoremIpsum/></div>
+       <div className="column"><LoremIpsum/></div>
+      </Container>
+    </Example>
+
+
+    <Example title="Centering Menu in app header" hint="<Menu appearance='attached stackable'><Container/></Menu>">
+      <Menu appearance="attached stackable">
+        <Container>
+          <MenuItem icon="home" label="Home"/>
+          <MenuItem icon="grid layout" label="Browse"/>
+          <MenuItem icon="mail" label="Messages"/>
+
+          <MenuItem align="right" icon="settings" label="Settings"/>
+        </Container>
+      </Menu>
+    </Example>
+
+
+    <Example title="Containers and Segments" hint="<Segment appearance='...container'/>">
+      <Segment appearance="raised very padded text container">
+        <Header>Header</Header>
+        <LoremIpsum/>
+      </Segment>
+    </Example>
+  </PageSection>
+</OakPage>

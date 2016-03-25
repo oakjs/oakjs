@@ -1,0 +1,187 @@
+<OakPage id="Progress" title="Progress">
+  <PageTitle title="Progress">
+    A progress bar shows the progression of a task
+  </PageTitle>
+
+  <PageSection title="Types">
+
+    <Example title="Standard">
+      <Progress value={3} total={4} activeText="Uploading Files" showProgress/>
+    </Example>
+
+    <Example title="Indicating" hint="<Progress appearance='indicating'/>">
+      <Progress appearance="indicating" value={3} total={4} activeText="Uploading Files" showProgress/>
+    </Example>
+
+    <Example title="Attached" hint="<Progress appearance='top attached'/>">
+      <Segment>
+        <Progress appearance="top attached" value={2} total={4}/>
+        <LoremIpsum/>
+        <Progress appearance="bottom attached" value={2} total={4}/>
+      </Segment>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="Content">
+
+    <Example title="Bar">
+      <Progress value={1} total={4}/>
+    </Example>
+
+    <Example title="Progress" hint="<Progress showProgress/>">
+      <Progress value={3} total={4} showProgress/>
+    </Example>
+
+    <Example title="Percentage Label" hint="<Progress showProgress percentText='...'/>">
+      <Progress ref="percentage" value={10} total={40} showProgress percentText='{percent}% completed'/>
+      <Buttons>
+        <Button onClick={()=> page.refs.percentage.decrement()} icon="minus"/>
+        <Button onClick={()=> page.refs.percentage.increment()} icon="plus"/>
+      </Buttons>
+    </Example>
+
+    <Example title="Ratio Label" hint="<Progress showProgress label='ratio' ratioText='...'/>">
+      <Progress ref="ratio" value={10} total={40} showProgress label='ratio' ratioText="{value} of {total} files uploaded"/>
+      <Buttons>
+        <Button onClick={()=> page.refs.ratio.decrement()} icon="minus"/>
+        <Button onClick={()=> page.refs.ratio.increment()} icon="plus"/>
+      </Buttons>
+    </Example>
+
+    <Example title="Label" hint="<Progress activeText='...' successText='...'/>">
+      <Progress ref="label" value={1} total={4}
+        activeText="Uploading file {value} of {total}"
+        successText="All files uploaded"
+        warningText="We're experiencing network difficulties, please stand by..."
+        errorText="You ran out of space to upload files."
+        />
+      <Buttons>
+        <Button onClick={()=> page.refs.label.decrement()} icon="minus"/>
+        <Button onClick={()=> page.refs.label.increment()} icon="plus"/>
+      </Buttons>
+      <Spacer inline/>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="States">
+    <Grid columns={2}>
+      <Column>
+        <Example title="Disabled" hint="<Progress disabled/>">
+          <Progress disabled value={2} total={4}
+            activeText="Uploading file {value} of {total}"
+            />
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Success" hint="<Progress state='success' successText='...'/>">
+          <Progress state='success' value={4} total={4} showProgress
+            activeText="Uploading file {value} of {total}"
+            successText="All files uploaded"
+            />
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Warning" hint="<Progress state='warning' warningText='...'/>">
+          <Progress state='warning' value={4} total={4}
+            warningText="We're experiencing network difficulties, please stand by..."
+            />
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Error" hint="<Progress state='error' errorText='...'/>">
+          <Progress state='error' value={4} total={4}
+            errorText="Sorry, you ran out of space."
+            />
+        </Example>
+      </Column>
+
+    </Grid>
+  </PageSection>
+
+  <PageSection title="States">
+    <Example title="All states (look at console)" hint="<Progress onChange='...'/>">
+      <Progress ref="states" value={0} total={4}
+        onChange={()=>console.warn("onChange() fired")}
+        onSuccess={()=>console.warn("onSuccess() fired")}
+        onActive={()=>console.warn("onActive() fired")}
+        onError={()=>console.warn("onError() fired")}
+        onWarning={()=>console.warn("onWarning() fired")}
+        />
+      <Buttons>
+        <Button onClick={()=> page.refs.states.decrement()} icon="minus"/>
+        <Button onClick={()=> page.refs.states.increment()} icon="plus"/>
+      </Buttons>
+      <Todo>How to do onError and onWarning?</Todo>
+    </Example>
+  </PageSection>
+
+
+  <PageSection title="Appearance">
+    <Grid columns={2}>
+      <Column>
+        <Example title="Inverted" hint="<Progress appearance='inverted'/>">
+          <Segment appearance="inverted">
+            <Progress appearance="inverted" value={2} total={4} activeText="Uploading file {value} of {total}" showProgress/>
+            <Progress appearance="inverted" value={4} total={4} successText="Success" showProgress/>
+            <Progress appearance="inverted" state="warning" value={2} total={4} warningText="Warning" showProgress/>
+            <Progress appearance="inverted" state="error" value={4} total={4} errorText="Error" showProgress/>
+          </Segment>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Sizes" hint="<Progress size='small'/>">
+          <Progress size="tiny" activeText="Tiny" value={2} total={4}/>
+          <Progress size="small" activeText="Small" value={2} total={4}/>
+          <Progress size="medium" activeText="Medium (default size)" value={2} total={4}/>
+          <Progress size="large" activeText="Large" value={2} total={4}/>
+          <Progress size="big" activeText="Big" value={2} total={4}/>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Colors" hint="<Progress color='red'/>">
+          <Progress color="red" activeText="Red" value={2} total={15}/>
+          <Progress color="orange" activeText="Orange" value={3} total={15}/>
+          <Progress color="yellow" activeText="Yellow" value={4} total={15}/>
+          <Progress color="olive" activeText="Olive" value={5} total={15}/>
+          <Progress color="green" activeText="Green" value={6} total={15}/>
+          <Progress color="teal" activeText="Teal" value={7} total={15}/>
+          <Progress color="blue" activeText="Blue" value={8} total={15}/>
+          <Progress color="violet" activeText="Violet" value={9} total={15}/>
+          <Progress color="purple" activeText="Purple" value={10} total={15}/>
+          <Progress color="pink" activeText="Pink" value={11} total={15}/>
+          <Progress color="brown" activeText="Brown" value={12} total={15}/>
+          <Progress color="grey" activeText="Grey" value={13} total={15}/>
+          <Progress color="black" activeText="Black" value={14} total={15}/>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Inverted Colors" hint="<Progress appearance='inverted' color='red'/>">
+          <Segment appearance="inverted">
+            <Progress appearance='inverted' color="red" activeText="Red" value={2} total={15}/>
+            <Progress appearance='inverted' color="orange" activeText="Orange" value={3} total={15}/>
+            <Progress appearance='inverted' color="yellow" activeText="Yellow" value={4} total={15}/>
+            <Progress appearance='inverted' color="olive" activeText="Olive" value={5} total={15}/>
+            <Progress appearance='inverted' color="green" activeText="Green" value={6} total={15}/>
+            <Progress appearance='inverted' color="teal" activeText="Teal" value={7} total={15}/>
+            <Progress appearance='inverted' color="blue" activeText="Blue" value={8} total={15}/>
+            <Progress appearance='inverted' color="violet" activeText="Violet" value={9} total={15}/>
+            <Progress appearance='inverted' color="purple" activeText="Purple" value={10} total={15}/>
+            <Progress appearance='inverted' color="pink" activeText="Pink" value={11} total={15}/>
+            <Progress appearance='inverted' color="brown" activeText="Brown" value={12} total={15}/>
+            <Progress appearance='inverted' color="grey" activeText="Grey" value={13} total={15}/>
+            <Progress appearance='inverted' color="black" activeText="Black" value={14} total={15}/>
+          </Segment>
+        </Example>
+      </Column>
+
+    </Grid>
+  </PageSection>
+</OakPage>

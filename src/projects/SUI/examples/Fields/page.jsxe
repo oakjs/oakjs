@@ -1,0 +1,130 @@
+<OakPage id="Fields" title="Fields">
+  <PageTitle title="Fields">
+    A set of fields can appear grouped together
+    <Info>Note that Fields will only display properly if inside a Form.</Info>
+  </PageTitle>
+
+  <PageSection title="Content">
+
+    <Example title="Simple">
+      <Form>
+        <Fields>
+          <Field type="text" label="First Name"/>
+          <Field type="text" label="Middle Name"/>
+          <Field type="text" label="Last Name"/>
+        </Fields>
+      </Form>
+    </Example>
+
+    <Example title="Label attribute">
+      <Form>
+        <Fields label="Name">
+          <Field type="text" placeholder="First Name"/>
+          <Field type="text" placeholder="Middle Name"/>
+          <Field type="text" placeholder="Last Name"/>
+        </Fields>
+      </Form>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="States">
+
+    <Example title="Hidden" hint="<Fields hidden/>">
+      <Form>
+        <Fields hidden label="Enter your name:">
+          <Field type="text" label="First Name"/>
+          <Field type="text" label="Middle Name"/>
+          <Field type="text" label="Last Name"/>
+        </Fields>
+      </Form>
+    </Example>
+
+    <Example title="Disabled" hint="<Fields disabled/>">
+      <Form>
+        <Fields disabled label="Enter your name:">
+          <Field type="text" label="First Name"/>
+          <Field type="text" label="Middle Name"/>
+          <Field type="text" label="Last Name"/>
+        </Fields>
+      </Form>
+    </Example>
+
+    <Example title="Read-only" hint="<Fields readony/>">
+      <Form>
+        <Fields readonly label="Enter your name:">
+          <Field type="text" label="First Name"/>
+          <Field type="text" label="Middle Name"/>
+          <Field type="text" label="Last Name"/>
+        </Fields>
+      </Form>
+    </Example>
+
+    <Example title="Error" hint="<Fields error/>">
+      <Form>
+        <Fields error label="Enter your name:">
+          <Field type="text" label="First Name"/>
+          <Field type="text" label="Middle Name"/>
+          <Field type="text" label="Last Name"/>
+        </Fields>
+      </Form>
+    </Example>
+  </PageSection>
+
+
+  <PageSection title="Appearance">
+
+    <Example title="Evenly Divided" hint="<Fields count={3}/>">
+      <Form>
+        <Fields count={3}>
+          <Field type="text" label="First Name"/>
+          <Field type="text" label="Middle Name"/>
+          <Field type="text" label="Last Name"/>
+        </Fields>
+      </Form>
+    </Example>
+
+    <Example title="Equal Width" hint="<Fields appearance='equal width'/>">
+      <Form>
+        <Fields appearance="equal width">
+          <Field type="text" label="Username"/>
+          <Field type="password" label="Password"/>
+        </Fields>
+        <Fields appearance="equal width">
+          <Field type="text" label="First Name"/>
+          <Field type="text" label="Middle Name"/>
+          <Field type="text" label="Last Name"/>
+        </Fields>
+      </Form>
+    </Example>
+
+    <Example title="Grouped" hint="<Fields appearance='grouped'/>">
+      <Form>
+        <Fields appearance="grouped" label="Favorite Fruit">
+          <Field type="radio" name="fruit" rightLabel="Apples"/>
+          <Field type="radio" name="fruit" rightLabel="Oranges"/>
+          <Field type="radio" name="fruit" rightLabel="Pears"/>
+          <Field type="radio" name="fruit" rightLabel="Grapefruit"/>
+        </Fields>
+      </Form>
+    </Example>
+
+    <Example title="Inline" hint="<Fields inline/>">
+      <Form>
+        <Fields inline label="Phone Number">
+          <Field type="text" columns={2}/>
+          <Field type="text" columns={2}/>
+          <Field type="text" columns={3}/>
+        </Fields>
+
+        <Fields inline label="Favorite Fruit">
+          <Field type="radio" name="fruit" rightLabel="Apples"/>
+          <Field type="radio" name="fruit" rightLabel="Oranges"/>
+          <Field type="radio" name="fruit" rightLabel="Pears"/>
+          <Field type="radio" name="fruit" rightLabel="Grapefruit"/>
+        </Fields>
+      </Form>
+    </Example>
+
+  </PageSection>
+</OakPage>

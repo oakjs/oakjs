@@ -68,7 +68,7 @@ export class sectionPaths {
   get jsxe() { return sectionPath(this.project, this.section, "section.jsxe") }
   get css() { return sectionPath(this.project, this.section, "section.css") }
   get script() { return sectionPath(this.project, this.section, "section.js") }
-  get cardIndex() { return sectionPath(this.project, this.section, "cards.json") }
+  get pageIndex() { return sectionPath(this.project, this.section, "pages.json") }
   get bundleFile() { return bundlePath("projects", this.project, `${this.section}.bundle.json`) }
 }
 
@@ -82,28 +82,28 @@ export function sectionPath(project, section, filename = "") {
 }
 
 //////////////////////////////
-//  Paths for cards
+//  Paths for pages
 //////////////////////////////
 
 // Lightweight object which vends paths
-//  eg:   const path = paths.card(<projectId>, <sectionId>, <cardId>).jsxePath;
-export class cardPaths {
-  constructor(project, section, card) {
+//  eg:   const path = paths.page(<projectId>, <sectionId>, <pageId>).jsxePath;
+export class pagePaths {
+  constructor(project, section, page) {
     this.project = dieIfInvalidId(project);
     this.section = dieIfInvalidId(section);
-    this.card = dieIfInvalidId(card);
+    this.page = dieIfInvalidId(page);
   }
-  get jsxe() { return cardPath(this.project, this.section, this.card, "card.jsxe") }
-  get css() { return cardPath(this.project, this.section, this.card, "card.css") }
-  get script() { return cardPath(this.project, this.section, this.card, "card.js") }
-  get bundleFile() { return bundlePath("projects", this.project, this.section, `${this.card}.bundle.json`) }
+  get jsxe() { return pagePath(this.project, this.section, this.page, "page.jsxe") }
+  get css() { return pagePath(this.project, this.section, this.page, "page.css") }
+  get script() { return pagePath(this.project, this.section, this.page, "page.js") }
+  get bundleFile() { return bundlePath("projects", this.project, this.section, `${this.page}.bundle.json`) }
 }
 
-// Return the path for a card file.
-// Default is to return the card's `.jsx` file, pass a different `filename` for something else.
-export function cardPath(project, section, card, filename="") {
-  const cardPath = fsPath.join(card, filename);
-  return sectionPath(project, section, cardPath);
+// Return the path for a page file.
+// Default is to return the page's `.jsx` file, pass a different `filename` for something else.
+export function pagePath(project, section, page, filename="") {
+  const pagePath = fsPath.join(page, filename);
+  return sectionPath(project, section, pagePath);
 }
 
 

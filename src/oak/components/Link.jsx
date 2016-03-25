@@ -2,7 +2,7 @@
 //////////////////////////////
 //
 //  <Link>:  Wrapper for:
-//    - card link (props.card)
+//    - page link (props.page)
 //    - section link (props.section)
 //    - project link (props.project)
 //    - react router link (props.to)
@@ -15,9 +15,9 @@ import { Link } from "react-router";
 import Stub from "./Stub";
 
 
-export function OakCardLink({ card, label, children, ...linkProps }={}, context) {
-  linkProps.to = (typeof card === "string" ? card : card.route);
-  const contents = (children || label || card.title);
+export function OakPageLink({ page, label, children, ...linkProps }={}, context) {
+  linkProps.to = (typeof page === "string" ? page : page.route);
+  const contents = (children || label || page.title);
   return <Link {...linkProps}>{contents}</Link>;
 }
 
@@ -43,7 +43,7 @@ export function OakAnchorLink({ label, children, ...anchorProps } = {}, context)
 
 
 function OakLink(props, context) {
-  if (props.card) return OakCardLink(props, context);
+  if (props.page) return OakPageLink(props, context);
   if (props.section) return OakSectionLink(props, context);
   if (props.project) return OakProjectLink(props, context);
   if (props.to) return OakRouteLink(props, context);

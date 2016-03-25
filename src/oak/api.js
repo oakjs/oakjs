@@ -109,9 +109,9 @@ oak.api = new API({
     return this.loadIndex(url, undefined, errorMessage);
   },
 
-  loadCardIndex(sectionPath) {
-    const url = `/api/section/${sectionPath}/cardIndex`;
-    const errorMessage = "Error loading card index";
+  loadPageIndex(sectionPath) {
+    const url = `/api/section/${sectionPath}/pageIndex`;
+    const errorMessage = "Error loading page index";
     return this.loadIndex(url, undefined, errorMessage);
   },
 

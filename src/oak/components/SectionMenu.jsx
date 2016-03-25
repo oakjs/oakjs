@@ -1,4 +1,4 @@
-// Menu of cards in the current section.
+// Menu of pages in the current section.
 import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
@@ -11,7 +11,7 @@ function SectionMenu(props, context) {
   const menuProps = Object.assign({}, props);
   menuProps.className = classNames("SectionMenu", props.className);
 
-  const menuItems = section.cards.map(card => <c.CardMenuItem key={card.path} card={card}/>);
+  const menuItems = section.pages.map(page => <c.PageMenuItem key={page.path} page={page}/>);
   return React.createElement(c.Menu, menuProps, menuItems);
 }
 

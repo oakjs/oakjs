@@ -1,0 +1,95 @@
+<OakPage id="Divider" title="Divider">
+  <PageTitle title="Divider">
+    A divider visually segments content into groups.
+  </PageTitle>
+
+  <PageSection title="Types">
+
+    <Example title="Standard">
+      <Segment>
+        <LoremIpsum short/>
+        <Divider/>
+        <LoremIpsum short/>
+      </Segment>
+    </Example>
+
+    <Example title="Vertical" hint="<Divider vertical>OR</Divider>">
+      <Grid columns={3} appearance="very relaxed">
+        <Column>
+          <LoremIpsum short/>
+        </Column>
+        <Divider vertical>Or</Divider>
+        <Column>
+          <LoremIpsum short/>
+        </Column>
+        <Divider vertical>Or</Divider>
+        <Column>
+          <LoremIpsum short/>
+        </Column>
+      </Grid>
+    </Example>
+
+    <Example title="Horizontal" hint="<Divider horizontal>...text...</Divider>">
+      <Segment>
+        <LoremIpsum short/>
+        <Divider horizontal>And yet...</Divider>
+        <LoremIpsum short/>
+      </Segment>
+    </Example>
+
+    <Example title="Horizontal header" hint="<Divider horizontal header size='large'>...text...</Divider>">
+      <Segment>
+        <LoremIpsum short/>
+        <Divider horizontal header size="large">And yet...</Divider>
+        <LoremIpsum short/>
+      </Segment>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="Variations">
+
+    <Example title="Fitted" hint="<Divider appearance='fitted'/>">
+      <Segment>
+        <LoremIpsum short/>
+        <Divider appearance="fitted"/>
+        <LoremIpsum short/>
+      </Segment>
+    </Example>
+
+    <Example title="Section" hint="<Divider appearance='section'/>">
+      <Segment>
+        <LoremIpsum short/>
+        <Divider appearance="section"/>
+        <LoremIpsum short/>
+      </Segment>
+    </Example>
+
+    <Example title="Hidden" hint="<Divider appearance='hidden'/>">
+      <Segment>
+        <LoremIpsum short/>
+        <Divider appearance="hidden"/>
+        <LoremIpsum short/>
+      </Segment>
+    </Example>
+
+    <Example title="Clearing" hint="<Divider clearing/>  (Note: 'clearing' is true by default.)">
+      <Segment>
+        <Header floated="right">Floating Header</Header>
+        <Divider/>
+        <LoremIpsum short/>
+      </Segment>
+    </Example>
+
+    <Example title="Inverted" hint="<Divider apperance='inverted'/>">
+      <Segment appearance="inverted">
+        <LoremIpsum short/>
+        <Divider appearance="inverted"/>
+        <LoremIpsum short/>
+        <Divider horizontal appearance="inverted">Horizontal</Divider>
+        <LoremIpsum short/>
+      </Segment>
+    </Example>
+
+  </PageSection>
+</OakPage>

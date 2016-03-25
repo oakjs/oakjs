@@ -100,20 +100,20 @@ export function bundlePaths(paths, options = {}) {
 }
 
 
-// Return all the data we need to display a card
-export function bundleCard({ projectId, sectionId, cardId, force, response }) {
-  const cardPaths = new apiPaths.cardPaths(projectId, sectionId, cardId);
+// Return all the data we need to display a page
+export function bundlePage({ projectId, sectionId, pageId, force, response }) {
+  const pagePaths = new apiPaths.pagePaths(projectId, sectionId, pageId);
   const pathMap = {
-    jsxe:    cardPaths.jsxe,
-    styles:  cardPaths.css,
-    script:  cardPaths.script,
+    jsxe:    pagePaths.jsxe,
+    styles:  pagePaths.css,
+    script:  pagePaths.script,
   };
 
   const options = {
     debug: DEBUG,
     force,
     response,
-    bundleFile: cardPaths.bundleFile,
+    bundleFile: pagePaths.bundleFile,
     optional: true,
     trusted: true,
   }

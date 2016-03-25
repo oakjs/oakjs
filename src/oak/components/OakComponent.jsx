@@ -24,7 +24,7 @@ export default class OakComponent extends React.Component {
     app: React.PropTypes.any,
     project: React.PropTypes.any,
     section: React.PropTypes.any,
-    card: React.PropTypes.any,
+    page: React.PropTypes.any,
     components: React.PropTypes.any,
   };
 

@@ -75,36 +75,36 @@ router.get("/app/:action",  (request, response) => {
 
 
 //////////////////////////////
-// Card bits
+// Page bits
 //////////////////////////////
 
 
-// Router for card read actions.
-router.get("/card/:projectId/:sectionId/:cardId/:action",  (request, response) => {
-  const { action, projectId, sectionId, cardId } = request.params;
-  const cardPaths = new apiPaths.cardPaths(projectId, sectionId, cardId);
+// Router for page read actions.
+router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) => {
+  const { action, projectId, sectionId, pageId } = request.params;
+  const pagePaths = new apiPaths.pagePaths(projectId, sectionId, pageId);
   switch (action) {
-    case "card":    return bundler.bundleCard({ projectId, sectionId, cardId, response, ...debugParams(request.query) });
-    case "jsxe":    return sendTextFile(request, response, cardPaths.jsxe);
-    case "script":  return sendTextFile(request, response, cardPaths.script);
-    case "styles":  return sendTextFile(request, response, cardPaths.css);
+    case "page":    return bundler.bundlePage({ projectId, sectionId, pageId, response, ...debugParams(request.query) });
+    case "jsxe":    return sendTextFile(request, response, pagePaths.jsxe);
+    case "script":  return sendTextFile(request, response, pagePaths.script);
+    case "styles":  return sendTextFile(request, response, pagePaths.css);
   }
-  throw new TypeError(`Card API action ${action} not defined.`);
+  throw new TypeError(`Page API action ${action} not defined.`);
 });
 
-// Router for card write actions.
+// Router for page write actions.
 // NOTE: these all assume the `body` is plain text.
-router.post("/card/:projectId/:sectionId/:cardId/:action", bodyTextParser, (request, response) => {
-  const { action, projectId, sectionId, cardId } = request.params;
+router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (request, response) => {
+  const { action, projectId, sectionId, pageId } = request.params;
   const { body } = request;
 
-  const cardPaths = new apiPaths.cardPaths(projectId, sectionId, cardId);
+  const pagePaths = new apiPaths.pagePaths(projectId, sectionId, pageId);
   switch (action) {
-    case "jsxe":    return saveTextFile(request, response, cardPaths.jsxe, body);
-    case "script":  return saveTextFile(request, response, cardPaths.script, body);
-    case "styles":  return saveTextFile(request, response, cardPaths.css, body);
+    case "jsxe":    return saveTextFile(request, response, pagePaths.jsxe, body);
+    case "script":  return saveTextFile(request, response, pagePaths.script, body);
+    case "styles":  return saveTextFile(request, response, pagePaths.css, body);
   }
-  throw new TypeError(`Card API action '${action}' not defined.`);
+  throw new TypeError(`Page API action '${action}' not defined.`);
 });
 
 
@@ -118,7 +118,7 @@ router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
     case "jsxe":        return sendTextFile(request, response, sectionPaths.jsxe);
     case "script":      return sendTextFile(request, response, sectionPaths.script);
     case "styles":      return sendTextFile(request, response, sectionPaths.css);
-    case "cardIndex":   return sendJSONFile(request, response, sectionPaths.cardIndex);
+    case "pageIndex":   return sendJSONFile(request, response, sectionPaths.pageIndex);
   }
   throw new TypeError(`Section API action '${action}' not defined.`);
 });

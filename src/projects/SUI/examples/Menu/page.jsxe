@@ -1,0 +1,293 @@
+<OakPage id="Menu" title="Menu">
+  <PageTitle title="Menu">
+    A menu displays grouped navigation actions
+  </PageTitle>
+
+  <PageSection title="Content">
+
+    <Example title="Inline menu items">
+      <Menu>
+        <MenuHeader>News</MenuHeader>
+        <MenuItem active>Editorials</MenuItem>
+        <MenuItem>Reviews</MenuItem>
+        <MenuItem>Events</MenuItem>
+      </Menu>
+    </Example>
+
+    <Example title="Items attribute with MenuItems">
+      <Menu items={data.simpleItems}/>
+    </Example>
+
+    <Example title="Items attribute with array strings">
+      <Menu items={["#News", "Editorials", "Reviews", "Events"]}/>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="Types">
+
+    <Example title="Normal">
+      <Menu items={data.simpleItems}/>
+      <Menu items={data.homeToLogoutItems}/>
+    </Example>
+
+    <Example title="Secondary" hint="<Menu appearance='secondary'/>">
+      <Menu appearance="secondary" items={data.homeToLogoutItems}/>
+    </Example>
+
+    <Example title="Pointing" hint="<Menu appearance='pointing'/>">
+      <Menu appearance="pointing" items={data.homeToLogoutItems}/>
+
+      <Spacer/>
+      <Label color="teal" pointing="down">Secondary pointing</Label>
+      <Menu appearance="secondary pointing" items={data.homeToLogoutItems}/>
+    </Example>
+
+    <Example title="Tabular" hint="<Menu appearance='tabular'/>">
+      <Menu appearance="tabular" items={data.topTabItems}/>
+
+      <Spacer/>
+      <Label color="teal" pointing="down">bottom tabular</Label>
+      <Menu appearance="bottom tabular" items={data.topTabItems}/>
+
+      <Grid columns={2}>
+        <Column>
+          <Label color="teal" pointing="down">vertical left tabular</Label>
+          <Menu appearance="vertical left tabular" items={data.topTabItems}/>
+        </Column>
+
+        <Column>
+          <Label color="teal" pointing="down">vertical right tabular</Label>
+          <Menu appearance="vertical right tabular" items={data.topTabItems}/>
+        </Column>
+      </Grid>
+    </Example>
+
+    <Example title="Pagination" hint="<Menu appearance='pagination'/>">
+      <Menu appearance="pagination" items={data.paginationItems}/>
+    </Example>
+
+    <Example title="Text" hint="<Menu appearance='text'/>">
+      <Menu appearance="text" items={data.textItems}/>
+    </Example>
+
+    <Example title="Icons only" hint="<Menu appearance='icon'/>">
+      <Menu appearance='icon compact' items={data.iconItems}/>
+    </Example>
+
+    <Example title="Labeled icon" hint="<Menu appearance='labeled icon'/>">
+      <Menu appearance='labeled icon compact' items={data.labeledIconItems}/>
+    </Example>
+
+    <Example title="Vertical" hint="<Menu appearance='vertical'/>">
+      <Grid columns={3}>
+        <Column>
+          <Label color="teal" pointing="down">Vertical</Label>
+          <Menu appearance="vertical" items={data.verticalItems}/>
+        </Column>
+
+        <Column>
+          <Label color="teal" pointing="down">Vertical Pointing</Label>
+          <Menu appearance="vertical pointing" items={data.verticalItems}/>
+        </Column>
+
+        <Column>
+          <Label color="teal" pointing="down">Vertical Tabular</Label>
+          <Menu appearance="vertical tabular" items={data.verticalItems}/>
+        </Column>
+
+        <Column>
+          <Label color="teal" pointing="down">Secondary Vertical</Label>
+          <Menu appearance="secondary vertical" items={data.verticalItems}/>
+        </Column>
+
+        <Column>
+           <Label color="teal" pointing="down">Secondary Vertical Pointing</Label>
+           <Menu appearance="secondary vertical pointing" items={data.verticalItems}/>
+        </Column>
+
+        <Column>
+          <Label color="teal" pointing="down">Vertical Text</Label>
+          <Menu appearance="vertical text" items={data.verticalItems}/>
+        </Column>
+      </Grid>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="Appearance">
+
+    <Example title="Fluid" hint="<Menu appearance='fluid'/>">
+      <Menu appearance="vertical fluid" items={data.simpleItems}/>
+    </Example>
+
+    <Example title="Compact" hint="<Menu appearance='compact'/>">
+      <Menu appearance="compact" items={data.simpleItems}/>
+    </Example>
+
+    <Example title="Evenly divided" hint="<Menu itemCount={4}/>">
+      <Menu itemCount={4} items={data.simpleItems}/>
+    </Example>
+
+    <Example title="Pointing" hint="<Menu appearance='pointing'/>">
+      <Menu appearance='pointing vertical' items={data.labeledIconItems}/>
+      <Bug>
+        <a Xhref="http://semantic-ui.com/collections/menu.html#evenly-divided" target="_blank">SUI example</a> for
+        this works, why doesn't ours?
+      </Bug>
+    </Example>
+
+    <Example title="Attached" hint="<Menu appearance='top attached'/>">
+      <Menu appearance="top attached" items={data.simpleItems}/>
+      <Segment appearance="attached">
+        <LoremIpsum short/>
+      </Segment>
+      <Menu appearance="bottom attached" items={data.simpleItems}/>
+
+      <Label color="teal" pointing="down">secondary attached</Label>
+      <Menu appearance="secondary top attached" items={data.simpleItems}/>
+      <Segment appearance="attached">
+        <LoremIpsum short/>
+      </Segment>
+      <Menu appearance="secondary bottom attached" items={data.simpleItems}/>
+
+      <Label color="teal" pointing="down">pointing attached</Label>
+      <Menu appearance="pointing top attached" items={data.simpleItems}/>
+      <Segment appearance="bottom attached">
+        <LoremIpsum short/>
+      </Segment>
+
+      <Label color="teal" pointing="down">tabular attached</Label>
+      <Menu appearance="tabular attached" items={data.simpleItems}/>
+      <Segment appearance="bottom attached">
+        <LoremIpsum short/>
+      </Segment>
+
+      <Segment appearance="top attached">
+        <LoremIpsum short/>
+      </Segment>
+      <Menu appearance="tabular bottom attached" items={data.simpleItems}/>
+
+    </Example>
+
+    <Example title="Inverted" hint="<Menu appearance='inverted'/>">
+      <Menu appearance="inverted" items={data.homeToLogoutItems}/>
+
+      <Spacer/>
+      <Label color="teal" pointing="down">inverted pointing</Label>
+      <Menu appearance="inverted pointing" items={data.homeToLogoutItems}/>
+
+      <Spacer/>
+      <Label color="teal" pointing="down">inverted pagination</Label>
+      <Spacer tiny/>
+      <Menu appearance="inverted pagination" items={data.paginationItems}/>
+
+      <Spacer/>
+      <Label color="teal" pointing="down">inverted secondary (inside segment)</Label>
+      <Segment appearance="inverted">
+        <Menu appearance="inverted secondary" items={data.homeToLogoutItems}/>
+      </Segment>
+      <Label color="teal" pointing="down">inverted secondary pointing (inside segment)</Label>
+      <Segment appearance="inverted">
+        <Menu appearance="inverted secondary pointing" items={data.homeToLogoutItems}/>
+      </Segment>
+      <Label color="teal" pointing="down">inverted tabular (inside segment)</Label>
+      <Segment appearance="inverted">
+        <Menu appearance="inverted tabular" items={data.topTabItems}/>
+      </Segment>
+    </Example>
+
+    <Spacer/>
+    <Grid columns={3}>
+      <Column>
+        <Label color="teal" pointing="down">inverted vertical pointing</Label>
+        <Menu appearance="inverted vertical" items={data.verticalItems}/>
+      </Column>
+
+      <Column>
+        <Label color="teal" pointing="down">inverted vertical pointing</Label>
+        <Menu appearance="inverted vertical pointing" items={data.verticalItems}/>
+      </Column>
+
+      <Column>
+        <Label color="teal" pointing="down">inverted vertical tabular (inside segment)</Label>
+        <Segment appearance="inverted compact">
+          <Menu appearance="inverted vertical tabular" items={data.verticalItems}/>
+        </Segment>
+        <Bug>SUI rendering bug???</Bug>
+      </Column>
+
+      <Column>
+        <Label color="teal" pointing="down">inverted secondary vertical (inside segment)</Label>
+        <Segment appearance="inverted compact">
+          <Menu appearance="inverted secondary vertical" items={data.verticalItems}/>
+        </Segment>
+      </Column>
+
+      <Column>
+        <Label color="teal" pointing="down">inverted secondary vertical pointing (in segment)</Label>
+        <Segment appearance="inverted compact">
+          <Menu appearance="inverted secondary vertical pointing" items={data.verticalItems}/>
+        </Segment>
+      </Column>
+
+      <Column>
+        <Label color="teal" pointing="down">inverted vertical text (inside segment)</Label>
+        <Segment appearance="inverted compact">
+          <Menu appearance="inverted vertical text" items={data.verticalItems}/>
+        </Segment>
+        <Bug>Active item is not well highlighted</Bug>
+      </Column>
+    </Grid>
+
+    <Example title="Colored" hint="<Menu color='red'/>">
+      <Grid columns={2}>
+        <Column>
+          <Menu color="red" itemCount={4} items={data.simpleItems}/>
+          <Menu color="orange" itemCount={4} items={data.simpleItems}/>
+          <Menu color="yellow" itemCount={4} items={data.simpleItems}/>
+          <Menu color="olive" itemCount={4} items={data.simpleItems}/>
+          <Menu color="green" itemCount={4} items={data.simpleItems}/>
+          <Menu color="teal" itemCount={4} items={data.simpleItems}/>
+          <Menu color="blue" itemCount={4} items={data.simpleItems}/>
+          <Menu color="violet" itemCount={4} items={data.simpleItems}/>
+          <Menu color="purple" itemCount={4} items={data.simpleItems}/>
+          <Menu color="pink" itemCount={4} items={data.simpleItems}/>
+          <Menu color="brown" itemCount={4} items={data.simpleItems}/>
+          <Menu color="grey" itemCount={4} items={data.simpleItems}/>
+        </Column>
+        <Column>
+          <Menu color="inverted red" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted orange" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted yellow" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted olive" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted green" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted teal" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted blue" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted violet" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted purple" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted pink" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted brown" itemCount={4} items={data.simpleItems}/>
+          <Menu color="inverted grey" itemCount={4} items={data.simpleItems}/>
+        </Column>
+      </Grid>
+    </Example>
+
+    <Example title="Sizes" hint="<Menu size='large'/>">
+      <Label color="teal" pointing="down">small</Label>
+      <Menu size='small' items={data.homeToLogoutItems}/>
+
+      <Label color="teal" pointing="down">medium (default size)</Label>
+      <Menu size='medium' items={data.homeToLogoutItems}/>
+
+      <Label color="teal" pointing="down">large</Label>
+      <Menu size='default' items={data.homeToLogoutItems}/>
+    </Example>
+
+    <Example title="Stackable" hint="<Menu appearance='stackable'/>">
+      <Menu appearance="stackable" items={data.homeToLogoutItems}/>
+      <Info>Stackable isn't super capable here...</Info>
+    </Example>
+
+  </PageSection>
+</OakPage>

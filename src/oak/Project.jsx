@@ -61,7 +61,7 @@ export default class Project extends ComponentController {
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  static get route() { return this.app.getCardRoute(this.projectId) }
+  static get route() { return this.app.getPageRoute(this.projectId) }
 
   loadData() {
     return Promise.all([

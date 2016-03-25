@@ -2,11 +2,11 @@ import oak from "./oak";
 
 export api from "./api";
 export app from "./app";
-export Card from "./Card";
 export ComponentController from "./ComponentController";
 export ComponentLoader from "./ComponentLoader";
 export JSXElement from "./JSXElement";
 export OakEvent from "./OakEvent";
+export Page from "./Page";
 export Project from "./Project";
 export Section from "./Section";
 

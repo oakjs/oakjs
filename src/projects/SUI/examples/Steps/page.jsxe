@@ -1,0 +1,112 @@
+<OakPage id="Steps" title="Steps">
+  <PageTitle title="Steps">
+    Steps show the completion status of an activity in a series of activities.
+  </PageTitle>
+
+  <PageSection title="Types">
+
+    <Example title="Single Step">
+      <Steps>
+        <Step description="Shipping"/>
+      </Steps>
+    </Example>
+
+    <Example title="Steps">
+      <Steps>
+        <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
+        <Step icon="payment" active title="Billing" description="Enter billing information"/>
+        <Step icon="info" title="Confirm Order"/>
+      </Steps>
+    </Example>
+
+    <Example title="Ordered" hint="<Steps ordered/>">
+      <Steps ordered>
+        <Step completed title="Shipping" description="Choose your shipping options"/>
+        <Step active title="Billing" description="Enter billing information"/>
+        <Step title="Confirm Order"/>
+      </Steps>
+    </Example>
+
+    <Example title="Vertical" hint="<Steps vertical/>">
+      <Steps vertical>
+        <Step completed icon="truck" title="Shipping" description="Choose your shipping options"/>
+        <Step icon="payment" active title="Billing" description="Enter billing information"/>
+        <Step icon="info" title="Confirm Order"/>
+      </Steps>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="Appearance">
+
+    <Example title="Fluid" hint="<Steps appearance='fluid'/>">
+      <Grid columns={2}>
+        <Column>
+          <Steps vertical appearance="fluid">
+            <Step completed icon="soccer" title="Step 1" description="Collect Underpants"/>
+            <Step icon="help" active title="Step 2" description="???"/>
+            <Step icon="dollar" title="Step 3" description="Profit!"/>
+          </Steps>
+        </Column>
+
+        <Column>
+          <Segment>The steps on the left take up the whole column</Segment>
+        </Column>
+      </Grid>
+    </Example>
+
+    <Example title="Evenly divided" hint="<Steps quantity={4}/>">
+      <Steps quantity={4}>
+        <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
+        <Step icon="payment" active title="Billing" description="Enter billing information"/>
+        <Step icon="info" title="Confirm Order"/>
+      </Steps>
+
+    </Example>
+
+    <Example title="Stackable" hint="<Steps appearance='tablet stackable'/>">
+      <Steps appearance="tablet stackable">
+        <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
+        <Step icon="payment" active title="Billing" description="Enter billing information"/>
+        <Step icon="info" title="Confirm Order"/>
+      </Steps>
+    </Example>
+
+    <Example title="Attached" hint="<Steps appearance='top attached'/>">
+      <Steps appearance="top attached" quantity={3}>
+        <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
+        <Step icon="payment" active title="Billing" description="Enter billing information"/>
+        <Step icon="info" title="Confirm Order"/>
+      </Steps>
+      <Segment appearance="attached">
+        <LoremIpsum/>
+      </Segment>
+      <Steps appearance="bottom attached" quantity={3}>
+        <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
+        <Step icon="payment" active title="Billing" description="Enter billing information"/>
+        <Step icon="info" title="Confirm Order"/>
+      </Steps>
+    </Example>
+
+    <Example title="Sizes" hint="<Steps size='small'/> or <Steps size='large'/>">
+      <Steps size='small'>
+        <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
+        <Step icon="payment" active title="Billing" description="Enter billing information"/>
+        <Step icon="info" title="Confirm Order"/>
+      </Steps>
+
+      <Steps size='medium'>
+        <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
+        <Step icon="payment" active title="Billing" description="Enter billing information"/>
+        <Step icon="info" title="Confirm Order"/>
+      </Steps>
+
+      <Steps size='large'>
+        <Step icon="truck" title="Shipping" description="Choose your shipping options"/>
+        <Step icon="payment" active title="Billing" description="Enter billing information"/>
+        <Step icon="info" title="Confirm Order"/>
+      </Steps>
+    </Example>
+
+  </PageSection>
+</OakPage>

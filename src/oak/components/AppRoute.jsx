@@ -2,7 +2,7 @@
 //  AppRoute abstract class
 //
 //  Make all routes in the application descend from this so:
-//  1) We will pass app/card/components/ etc down to all rendered components via context
+//  1) We will pass app/page/components/ etc down to all rendered components via context
 //  2) `App._appRoute` gets set so we can refresh the screen when something changes.
 //////////////////////////////
 
@@ -17,7 +17,7 @@ export default class AppRoute extends React.Component {
     app: PropTypes.any,
     project: PropTypes.any,
     section: PropTypes.any,
-    card: PropTypes.any,
+    page: PropTypes.any,
     components: PropTypes.any
   };
 
@@ -26,8 +26,8 @@ export default class AppRoute extends React.Component {
       app,
       project: app.project,
       section: app.section,
-      card: app.card,
-      components: (app.card ? app.card.components : app.components)
+      page: app.page,
+      components: (app.page ? app.page.components : app.components)
     };
   }
 

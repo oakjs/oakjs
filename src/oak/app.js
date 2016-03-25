@@ -14,13 +14,13 @@ import UndoQueue from "oak-roots/UndoQueue";
 
 import actions from "./actions";
 import api from "./api";
-import Card from "./Card";
+import Page from "./Page";
 import OakEvent from "./OakEvent";
 import Project from "./Project";
 import Section from "./Section";
 import ComponentLoader from "./ComponentLoader";
 
-import OakCard from "./components/OakCard";
+import OakPage from "./components/OakPage";
 import OakProject from "./components/OakProject";
 import OakSection from "./components/OakSection";
 
@@ -119,7 +119,7 @@ class App {
   get canUndo() { return app.undoQueue.canUndo }
   get canRedo() { return app.undoQueue.canRedo }
 
-  // Force update of the entire app, including any changed props in card/section/project
+  // Force update of the entire app, including any changed props in page/section/project
   @debounce(0)
   updateSoon() {
     if (app._appRoute) app._appRoute.setState({});
@@ -141,9 +141,9 @@ class App {
     }
   }
 
-  // Return URL for card, section or project
-  getCardRoute(projectId, sectionId = 0, cardId = 0) {
-    return `/project/${projectId}/${sectionId}/${cardId}`;
+  // Return URL for page, section or project
+  getPageRoute(projectId, sectionId = 0, pageId = 0) {
+    return `/project/${projectId}/${sectionId}/${pageId}`;
   }
 
 
@@ -186,8 +186,8 @@ class App {
   getComponentForOid(oid) {
     if (!oid) return undefined;
 
-    if (this.card) {
-      const component = this.card.getComponentForOid(oid);
+    if (this.page) {
+      const component = this.page.getComponentForOid(oid);
       if (component) return component;
     }
 
@@ -213,7 +213,7 @@ class App {
   get projectMap() { return this.projectIndex.itemMap }
 
   showProject(projectIdentifier) {
-    const route = this.getCardRoute(projectIdentifier);
+    const route = this.getPageRoute(projectIdentifier);
     app.goTo(route);
   }
 
@@ -242,7 +242,7 @@ class App {
   //////////////////////////////
 
   showSection(projectIdentifier, sectionIdentifier) {
-    const route = this.getCardRoute(projectIdentifier, sectionIdentifier);
+    const route = this.getPageRoute(projectIdentifier, sectionIdentifier);
     app.goTo(route);
   }
 
@@ -269,32 +269,32 @@ class App {
 
 
   //////////////////////////////
-  //  Cards!
+  //  Pages!
   //////////////////////////////
 
-  showCard(projectIdentifier, sectionIdentifier, cardIdentifier) {
-    const route = this.getCardRoute(projectIdentifier, sectionIdentifier, cardIdentifier);
+  showPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
+    const route = this.getPageRoute(projectIdentifier, sectionIdentifier, pageIdentifier);
     app.goTo(route);
   }
 
-  getCard(projectIdentifier, sectionIdentifier, cardIdentifier) {
+  getPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
     const section = this.getSection(projectIdentifier, sectionIdentifier);
-    if (section) return section.getCard(cardIdentifier);
+    if (section) return section.getPage(pageIdentifier);
   }
 
-  loadCard(projectIdentifier, sectionIdentifier, cardIdentifier) {
-    const card = this.getCard(projectIdentifier, sectionIdentifier, cardIdentifier);
-    if (card) return card.load();
+  loadPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
+    const page = this.getPage(projectIdentifier, sectionIdentifier, pageIdentifier);
+    if (page) return page.load();
 
     return this.loadSection(projectIdentifier, sectionIdentifier)
       .then( section => {
-        return section.loadCard(cardIdentifier);
+        return section.loadPage(pageIdentifier);
       })
 //       .catch(error => {
-//         console.group(`Error loading card ${projectIdentifier}/${sectionIdentifier}/${cardIdentifier}:`);
+//         console.group(`Error loading page ${projectIdentifier}/${sectionIdentifier}/${pageIdentifier}:`);
 //         console.error(error);
 //         console.groupEnd();
-//         throw new ReferenceError("Couldn't load card");
+//         throw new ReferenceError("Couldn't load page");
 //       });
   }
 
@@ -367,23 +367,23 @@ class App {
   }
 
 
-  // Return the card index singleton for a specific section.
-  getCardIndex(sectionPath) {
-    return this._getFromRegistry("CARD-INDEX:", sectionPath, this._makeCardIndex)
+  // Return the page index singleton for a specific section.
+  getPageIndex(sectionPath) {
+    return this._getFromRegistry("CARD-INDEX:", sectionPath, this._makePageIndex)
   }
 
-  // Create a card index on demand.
-  // DO NOT CALL THIS!  Use `app.getCardIndex()` instead.
-  _makeCardIndex(sectionPath) {
+  // Create a page index on demand.
+  // DO NOT CALL THIS!  Use `app.getPageIndex()` instead.
+  _makePageIndex(sectionPath) {
     const [ projectId, sectionId ] = sectionPath.split("/");
     return new LoadableIndex({
-      itemType: "card",
+      itemType: "page",
       loadIndex: () => {
-        return api.loadCardIndex(sectionPath);
+        return api.loadPageIndex(sectionPath);
       },
-      createItem: (cardId, props) => {
-        return new Card({
-          cardId,
+      createItem: (pageId, props) => {
+        return new Page({
+          pageId,
           sectionId,
           projectId,
           ...props,
@@ -409,8 +409,8 @@ class App {
 
     const path = this.getPath(pathOrController);
     if (!path) return;
-    const [ projectId, sectionId, cardId ] = path.split("/");
-    if (cardId) return app.getCardLoader(pathOrController, makeIfNecessary);
+    const [ projectId, sectionId, pageId ] = path.split("/");
+    if (pageId) return app.getPageLoader(pathOrController, makeIfNecessary);
     if (sectionId) return app.getSectionLoader(pathOrController, makeIfNecessary);
     return app.getProjectLoader(pathOrController, makeIfNecessary);
   }
@@ -449,20 +449,20 @@ class App {
     });
   }
 
-  // Return the singleton loader for some card.
-  getCardLoader(card, makeIfNecessary) {
-    const makeLoader = makeIfNecessary && card instanceof Card && this._makeCardLoader;
-    return this._getFromRegistry("CARD-LOADER:", card, makeLoader);
+  // Return the singleton loader for some page.
+  getPageLoader(page, makeIfNecessary) {
+    const makeLoader = makeIfNecessary && page instanceof Page && this._makePageLoader;
+    return this._getFromRegistry("CARD-LOADER:", page, makeLoader);
   }
 
-  // Create a card loader on demand.
-  // DO NOT CALL THIS!  Use `app.getCardLoader()` instead.
-  _makeCardLoader(card) {
+  // Create a page loader on demand.
+  // DO NOT CALL THIS!  Use `app.getPageLoader()` instead.
+  _makePageLoader(page) {
     return new ComponentLoader({
-      type: "Card",
-      path: card.path,
-      controller: card,
-      SuperConstructor: OakCard
+      type: "Page",
+      path: page.path,
+      controller: page,
+      SuperConstructor: OakPage
     });
   }
 

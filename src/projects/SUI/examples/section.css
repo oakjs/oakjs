@@ -7,7 +7,7 @@
   overflow-x: hidden;
 }
 
-#SUI #examples .oak.Card {
+#SUI #examples .oak.Page {
   margin-right: 150px;
   transform: translate3d(150px, 0px, 0px);
 }

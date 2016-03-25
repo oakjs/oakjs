@@ -1,0 +1,39 @@
+<OakPage id="Submenu" title="Submenu">
+  <PageTitle title="Submenu">
+    A Submenu shows a nested menu
+  </PageTitle>
+
+  <PageSection title="Content">
+
+    <Example title="Inline contents">
+      <Menu appearance="vertical">
+        <MenuItem>A normal item</MenuItem>
+        <Submenu>
+          More Stuff
+          <MenuHeader icon="newspaper">Breaking News</MenuHeader>
+          <MenuItem icon="comment outline">Editorials</MenuItem>
+          <MenuItem active icon="film">Movie Reviews</MenuItem>
+          <MenuItem icon="calendar">Current Events</MenuItem>
+        </Submenu>
+        <MenuItem>Another normal item</MenuItem>
+      </Menu>
+    </Example>
+
+    <Example title="Items as MenuItem Elements">
+      <Menu appearance="vertical">
+        <MenuItem>A normal item</MenuItem>
+        <Submenu label="More Stuff" items={data.simpleItems}/>
+        <MenuItem>Another normal item</MenuItem>
+      </Menu>
+    </Example>
+
+    <Example title="Items as Strings">
+      <Menu appearance="vertical">
+        <MenuItem>A normal item</MenuItem>
+        <Submenu label="More Stuff" items={["Breaking News", "Editorials", "Movie Reviews", "Current Events"]}/>
+        <MenuItem>Another normal item</MenuItem>
+      </Menu>
+    </Example>
+
+  </PageSection>
+</OakPage>

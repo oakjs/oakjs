@@ -1,0 +1,127 @@
+<OakPage id="Reveal" title="Reveal">
+  <PageTitle title="Reveal">
+    A reveal displays additional content in place of previous content when activated.
+    <Todo>
+      <li>Make this programmatic so we can activate dynamically.</li>
+      <li>3-d Flip reveal for cards?</li>
+    </Todo>
+  </PageTitle>
+
+  <PageSection title="Effects">
+
+    <Example title="Fade" hint="<Reveal effect='fade'/>">
+      <Reveal>
+        <Image src={data.squareImage} size="small"/>
+        <Image src={data.joeAvatar} size="small"/>
+      </Reveal>
+
+      <Spacer inline/>
+
+      <Reveal appearance="small image">
+        <img className="visible content" src={data.squareImage}/>
+        <img className="hidden content" src={data.joeAvatar}/>
+      </Reveal>
+    </Example>
+
+    <Example title="Move" hint="<Reveal effect='move right'/>">
+      <Reveal appearance="small image" effect="move">
+        <Image src={data.squareImage} size="small"/>
+        <Image src={data.joeAvatar} size="small"/>
+      </Reveal>
+
+      <Spacer inline/>
+      <Reveal appearance="small image" effect="move right">
+        <Image src={data.squareImage} size="small"/>
+        <Image src={data.joeAvatar} size="small"/>
+      </Reveal>
+
+      <Spacer inline/>
+      <Reveal appearance="circular small image" effect="move up">
+        <img className="visible content" src={data.squareImage}/>
+        <img className="hidden content" src={data.joeAvatar}/>
+      </Reveal>
+
+      <Spacer inline/>
+      <Reveal appearance="circular small image" effect="move down">
+        <img className="visible content" src={data.squareImage}/>
+        <img className="visible content" src={data.joeAvatar}/>
+      </Reveal>
+
+    </Example>
+
+    <Example title="Rotate" hint="<Reveal effect='rotate left'/>">
+      <Reveal appearance="small image" effect="rotate left">
+        <Image src={data.squareImage} size="small"/>
+        <Image src={data.joeAvatar} size="small"/>
+      </Reveal>
+
+      <Spacer inline/>
+      <Reveal appearance="small image" effect="rotate">
+        <Image src={data.squareImage} size="small"/>
+        <Image src={data.joeAvatar} size="small"/>
+      </Reveal>
+
+      <Spacer inline/>
+      <Reveal appearance="circular small image" effect="rotate left">
+        <img className="visible content" src={data.squareImage}/>
+        <img className="hidden content" src={data.joeAvatar}/>
+      </Reveal>
+
+      <Spacer inline/>
+      <Reveal appearance="circular small image" effect="rotate">
+        <img className="visible content" src={data.squareImage}/>
+        <img className="visible content" src={data.joeAvatar}/>
+      </Reveal>
+    </Example>
+
+  </PageSection>
+
+  <PageSection title="States">
+    <Grid columns={2}>
+      <Column>
+        <Example title="Active" hint="<Reveal active/>">
+          <Reveal appearance="small image" active>
+            <img src={data.squareImage}/>
+            <img src={data.joeAvatar}/>
+          </Reveal>
+          <Info><b>active</b> reveals always show their content</Info>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Disabled" hint="<Reveal disabled/>">
+          <Reveal appearance="small image" disabled>
+            <img src={data.squareImage}/>
+            <img src={data.joeAvatar}/>
+          </Reveal>
+          <Info><b>disabled</b> reveals don't have a visual effect when hovered.</Info>
+        </Example>
+      </Column>
+    </Grid>
+
+  </PageSection>
+
+  <PageSection title="Speeds">
+    <Grid columns={2}>
+      <Column>
+        <Example title="Instant" hint="<Reveal effect='instant fade'/>">
+          <Reveal effect='instant fade' appearance="small image">
+            <img src={data.squareImage}/>
+            <img src={data.joeAvatar}/>
+          </Reveal>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Normal (for contrast)">
+          <Reveal effect='fade' appearance="small image">
+            <img src={data.squareImage}/>
+            <img src={data.joeAvatar}/>
+          </Reveal>
+        </Example>
+      </Column>
+    </Grid>
+    <Bug>There doesn't appear to be a significant difference in an instant reveal</Bug>
+
+  </PageSection>
+</OakPage>

@@ -40,32 +40,32 @@ export default class Section extends ComponentController {
   get component() { if (app.section === this) return app.sectionComponent }
 
   //////////////////////////////
-  //  Cards
+  //  Pages
   //////////////////////////////
 
-  get cardIndex() { return this.app.getCardIndex(this.path) }
+  get pageIndex() { return this.app.getPageIndex(this.path) }
 
-  get cards() { return this.cardIndex.items }
-  get cardIds() { return this.cardIndex.itemIds }
-  get cardMap() { return this.cardIndex.itemMap }
+  get pages() { return this.pageIndex.items }
+  get pageIds() { return this.pageIndex.itemIds }
+  get pageMap() { return this.pageIndex.itemMap }
 
-  getCard(cardIdentifier) {
-    return this.cardIndex.getItem(cardIdentifier);
+  getPage(pageIdentifier) {
+    return this.pageIndex.getItem(pageIdentifier);
   }
 
-  loadCard(cardIdentifier) {
-    return this.cardIndex.loadItem(cardIdentifier);
+  loadPage(pageIdentifier) {
+    return this.pageIndex.loadItem(pageIdentifier);
   }
 
   //////////////////////////////
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  static get route() { return this.app.getCardRoute(this.projectId, this.sectionId) }
+  static get route() { return this.app.getPageRoute(this.projectId, this.sectionId) }
 
   loadData() {
     return Promise.all([
-        this.cardIndex.load(),
+        this.pageIndex.load(),
         this.componentLoader.load()
       ])
       .then(() => this );

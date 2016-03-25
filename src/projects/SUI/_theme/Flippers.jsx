@@ -1,6 +1,6 @@
 export default class Flippers extends oak.components.OakComponent {
   render() {
-    const { components:c, card } = this.context;
+    const { components:c, page } = this.context;
 
     // id of the thing we're enabling/disabling
     const { "for":ref } = this.props;
@@ -9,20 +9,20 @@ export default class Flippers extends oak.components.OakComponent {
       <div>
         <c.Spacer/>
         <c.Buttons appearance="icon">
-          <c.Button icon="arrow left" onClick={()=>card.refs[ref].flipLeft()}/>
-          <c.Button icon="arrow right" onClick={()=>card.refs[ref].flipRight()}/>
+          <c.Button icon="arrow left" onClick={()=>page.refs[ref].flipLeft()}/>
+          <c.Button icon="arrow right" onClick={()=>page.refs[ref].flipRight()}/>
         </c.Buttons>
 
         <c.Spacer inline/>
         <c.Buttons appearance="icon">
-          <c.Button icon="arrow up" onClick={()=>card.refs[ref].flipUp()}/>
-          <c.Button icon="arrow down" onClick={()=>card.refs[ref].flipDown()}/>
+          <c.Button icon="arrow up" onClick={()=>page.refs[ref].flipUp()}/>
+          <c.Button icon="arrow down" onClick={()=>page.refs[ref].flipDown()}/>
         </c.Buttons>
 
         <c.Spacer inline/>
         <c.Buttons appearance="icon">
-          <c.Button icon="retweet" onClick={()=>card.refs[ref].flipOver()}/>
-          <c.Button icon="flipped retweet" onClick={()=>card.refs[ref].flipBack()}/>
+          <c.Button icon="retweet" onClick={()=>page.refs[ref].flipOver()}/>
+          <c.Button icon="flipped retweet" onClick={()=>page.refs[ref].flipBack()}/>
         </c.Buttons>
       </div>
     );

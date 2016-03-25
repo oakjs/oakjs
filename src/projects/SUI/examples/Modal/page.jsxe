@@ -1,0 +1,94 @@
+<OakPage id="Modal" title="Modal">
+  <PageTitle title="Modal">
+    A modal displays content that temporarily blocks interactions with the main view of a site
+    <Todo>
+      <ul>
+        <li>Test events</li>
+      </ul>
+    </Todo>
+  </PageTitle>
+
+  <PageSection title="Content">
+
+    <Grid columns={2}>
+      <Column>
+        <Example title="Inline Content">
+          <Modal ref="inline">
+            <div className="header">Inline Header</div>
+            <div className="content">
+              <LoremIpsum/>
+            </div>
+            <div className="actions">
+              <Button className="approve">OK</Button>
+              <Button className="cancel">Cancel</Button>
+            </div>
+          </Modal>
+          <Button onClick={()=> page.refs.inline.show()}>Show Modal</Button>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Header, Content, Actions Attributes">
+          <Modal ref="attributes" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <Button onClick={()=> page.refs.attributes.show()}>Show Modal</Button>
+        </Example>
+      </Column>
+
+    </Grid>
+  </PageSection>
+
+  <PageSection title="Appearance">
+
+    <Grid columns={2}>
+      <Column>
+        <Example title="Basic" hint="<Modal appearance='basic'/>">
+          <Modal ref="basic" appearance="basic" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <Button onClick={()=> page.refs.basic.show()}>Show Modal</Button>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Size" hint="<Modal size='large'/>">
+          <Modal ref="small" size="small" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <Button onClick={()=> page.refs.small.show()}>Show Small Modal</Button>
+
+          <Modal ref="large" size="large" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <Button onClick={()=> page.refs.large.show()}>Show Large Modal</Button>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Full Screen" hint="<Modal appearance='fullscreen'/>">
+          <Modal ref="fullscreen" appearance="fullscreen" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <Button onClick={()=> page.refs.fullscreen.show()}>Show Modal</Button>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Transitions" hint="<Modal transition='horizontal flip'/>">
+          <Modal ref="transition" header="Transition Tester" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <Button onClick={()=> page.refs.transition.setModuleProps({transition:"horizontal flip"}).show()}>Horizontal Flip</Button>
+          <Button onClick={()=> page.refs.transition.setModuleProps({transition:"vertical flip"}).show()}>Vertical Flip</Button>
+          <Spacer/>
+          <Button onClick={()=> page.refs.transition.setModuleProps({transition:"fade up"}).show()}>Fade Up</Button>
+          <Button onClick={()=> page.refs.transition.setModuleProps({transition:"fade"}).show()}>Fade</Button>
+          <Spacer/>
+          <Button onClick={()=> page.refs.transition.setModuleProps({transition:"scale"}).show()}>Scale</Button>
+        </Example>
+      </Column>
+
+      <Column>
+        <Example title="Dimmer Appearance" hint="<Modal inverted blurring/>">
+          <Modal ref="inverted" inverted header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <Button onClick={()=> page.refs.inverted.show()}>Show Inverted Modal</Button>
+          <Bug>Oak bug: ??? Inverted setting doesn't seem to work. ??? </Bug>
+          <Spacer/>
+          <Modal ref="blurring" blurring header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <Button onClick={()=> page.refs.blurring.show()}>Show Blurring Modal</Button>
+          <Bug>SUI Bug: Once any blurring modal has been shown, all other modals will be blurring until page reload.</Bug>
+        </Example>
+      </Column>
+
+    </Grid>
+  </PageSection>
+</OakPage>

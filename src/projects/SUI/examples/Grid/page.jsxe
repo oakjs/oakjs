@@ -1,0 +1,416 @@
+<OakPage id="Grid" title="Grid">
+  <PageTitle title="Grid">
+    A grid is used to harmonize negative space in a layout
+  </PageTitle>
+
+  <PageSection title="Types">
+
+    <Example title="Basic Grid">
+      <Grid>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+      </Grid>
+    </Example>
+
+    <Example title="Column Count" hint="<Grid columns={4}/>">
+      <Grid columns={4}>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+      </Grid>
+
+      <Grid columns={7}>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+        <Column><Button appearance="fluid"/></Column>
+      </Grid>
+    </Example>
+
+    <Example title="Divided" hint="<Grid appearance='divided'><Row/><Row/>...</Grid>">
+      <Grid appearance="divided" columns={3}>
+        <Row>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+        </Row>
+        <Row>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+        </Row>
+      </Grid>
+    </Example>
+
+    <Example title="Vertically Divided" hint="<Grid appearance='vertically divided'><Row/><Row/>...</Grid>">
+      <Grid appearance="vertically divided">
+        <Row columns={2}>
+          <Column><LoremIpsum short/></Column>
+          <Column><LoremIpsum short/></Column>
+        </Row>
+        <Row columns={3}>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+        </Row>
+      </Grid>
+    </Example>
+
+    <Example title="Celled" hint="<Grid appearance='celled'><Row/><Row/>...</Grid>">
+      <Grid appearance="celled">
+        <Row>
+          <Column width={4}><LoremIpsum tiny/></Column>
+          <Column width={12}><LoremIpsum short/></Column>
+        </Row>
+        <Row columns={4}>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+        </Row>
+      </Grid>
+    </Example>
+
+    <Example title="Internally Celled" hint="<Grid appearance='internally celled'><Row/><Row/>...</Grid>">
+      <Grid appearance="internally celled">
+        <Row>
+          <Column width={4}><LoremIpsum tiny/></Column>
+          <Column width={12}><LoremIpsum short/></Column>
+        </Row>
+        <Row columns={4}>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+          <Column><LoremIpsum tiny/></Column>
+        </Row>
+      </Grid>
+    </Example>
+
+    <Example title="Padding" hint="<Grid appearance='padded'/>">
+      <Subheader>No Padding</Subheader>
+      <div style={{border: "1px solid #eee"}}>
+        <Grid columns={2}>
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+        </Grid>
+      </div>
+
+      <Spacer/>
+      <Subheader>Padded</Subheader>
+      <div style={{border: "1px solid #eee"}}>
+        <Grid columns={2} appearance="padded">
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+        </Grid>
+      </div>
+
+      <Spacer/>
+      <Subheader>Horizontally Padded</Subheader>
+      <div style={{border: "1px solid #eee"}}>
+        <Grid columns={2} appearance="horizontally padded">
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+        </Grid>
+      </div>
+
+      <Spacer/>
+      <Subheader>Vertically Padded</Subheader>
+      <div style={{border: "1px solid #eee"}}>
+        <Grid columns={2} appearance="vertically padded">
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+        </Grid>
+      </div>
+    </Example>
+
+    <Example title="Relaxed" hint="<Grid appearance='relaxed'/>">
+      <Subheader>Normal</Subheader>
+      <Grid columns={4}>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+      </Grid>
+
+      <Spacer/>
+      <Subheader>Relaxed</Subheader>
+      <Grid columns={4} appearance="relaxed">
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+      </Grid>
+
+      <Spacer/>
+      <Subheader>Very Relaxed</Subheader>
+      <Grid columns={4} appearance="very relaxed">
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+      </Grid>
+    </Example>
+
+    <Example title="Equal Width" hint="<Grid appearance='equal width'/>">
+      <Grid appearance="equal width">
+          <Column width={4}><Segment/></Column>
+          <Column><Segment/></Column>
+          <Column width={4}><Segment/></Column>
+      </Grid>
+
+      <Grid appearance="equal width">
+        <Row>
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+        </Row>
+        <Row>
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+        </Row>
+      </Grid>
+    </Example>
+
+    <Example title="Streched" hint="<Grid><Row appearance='stretched'/></Grid>">
+      <Grid columns={3} appearance="equal width">
+        <Row appearance="stretched">
+          <Column><Segment/></Column>
+          <Column><Segment/><Segment/></Column>
+          <Column><Segment/><Segment/><Segment/></Column>
+        </Row>
+      </Grid>
+    </Example>
+
+    <Example title="Colored" hint="<Grid><column color='red'/></Grid>">
+      <Info>Coloring rows or columns requires a <b>padded</b> grid.</Info>
+      <Grid columns={5} appearance="padded">
+        <Column color='red'>Red</Column>
+        <Column color='orange'>orange</Column>
+        <Column color='yellow'>yellow</Column>
+        <Column color='olive'>olive</Column>
+        <Column color='green'>green</Column>
+        <Column color='teal'>teal</Column>
+        <Column color='blue'>blue</Column>
+        <Column color='violet'>violet</Column>
+        <Column color='purple'>purple</Column>
+        <Column color='pink'>pink</Column>
+        <Column color='brown'>brown</Column>
+        <Column color='grey'>grey</Column>
+        <Column color='black'>black</Column>
+      </Grid>
+
+      <Spacer/>
+      <Grid appearance="padded">
+        <Row color='red'><Column>Red</Column></Row>
+        <Row color='orange'><Column>Orange</Column></Row>
+        <Row color='yellow'><Column>Yellow</Column></Row>
+      </Grid>
+    </Example>
+
+    <Example title="Centered" hint="<Grid appearance='centered'/></Grid>">
+      <Grid columns={2} appearance="centered">
+        <Column><Segment/></Column>
+        <Row columns={4} appearance="centered">
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+          <Column><Segment/></Column>
+        </Row>
+      </Grid>
+    </Example>
+
+    <Example title="Grid Text Alignment" hint="<Grid align='center'/></Grid>">
+      <Grid columns={3} align='left'>
+        <Column><Segment>Left</Segment></Column>
+        <Column><Segment>Left</Segment></Column>
+        <Column><Segment>Left</Segment></Column>
+      </Grid>
+
+      <Grid columns={3} align='center'>
+        <Column><Segment>Center</Segment></Column>
+        <Column><Segment>Center</Segment></Column>
+        <Column><Segment>Center</Segment></Column>
+      </Grid>
+
+      <Grid columns={3} align='right'>
+        <Column><Segment>Right</Segment></Column>
+        <Column><Segment>Right</Segment></Column>
+        <Column><Segment>Right</Segment></Column>
+      </Grid>
+
+    </Example>
+
+    <Example title="Row Text Alignment" hint="<Grid><Row align='center'/></Grid>">
+      <Grid columns={3}>
+        <Row align="left">
+          <Column><Segment>Left</Segment></Column>
+          <Column><Segment>Left</Segment></Column>
+          <Column><Segment>Left</Segment></Column>
+        </Row>
+
+        <Row align="center">
+          <Column><Segment>Center</Segment></Column>
+          <Column><Segment>Center</Segment></Column>
+          <Column><Segment>Center</Segment></Column>
+        </Row>
+
+        <Row align="right">
+          <Column><Segment>Right</Segment></Column>
+          <Column><Segment>Right</Segment></Column>
+          <Column><Segment>Right</Segment></Column>
+        </Row>
+
+        <Row columns={2} align="justified">
+          <Column><LoremIpsum short/></Column>
+          <Column><LoremIpsum short/></Column>
+        </Row>
+      </Grid>
+
+    </Example>
+
+    <Example title="Column Text Alignment" hint="<Grid><Column align='left'/></Grid>">
+      <Grid columns={4}>
+        <Column align='left'><Segment>Left</Segment></Column>
+        <Column align='center'><Segment>Center</Segment></Column>
+        <Column align='right'><Segment>Right</Segment></Column>
+        <Column align='justified'><LoremIpsum tiny/></Column>
+      </Grid>
+
+    </Example>
+
+    <Example title="Vertical Alignment" hint="<Grid align='middle'/>">
+      <Subheader>align = top</Subheader>
+      <Grid columns={4} align='top' appearance="centered">
+        <Column><Segment/></Column>
+        <Column><Segment/><Segment/></Column>
+        <Column><Segment/></Column>
+      </Grid>
+
+      <Divider/>
+      <Subheader>align = middle</Subheader>
+      <Grid columns={4} align='middle' appearance="centered">
+        <Column><Segment/></Column>
+        <Column><Segment/><Segment/></Column>
+        <Column><Segment/></Column>
+      </Grid>
+
+      <Divider/>
+      <Subheader>align = bottom</Subheader>
+      <Grid columns={4} align='bottom' appearance="centered">
+        <Column><Segment/></Column>
+        <Column><Segment/><Segment/></Column>
+        <Column><Segment/></Column>
+      </Grid>
+
+    </Example>
+  </PageSection>
+
+
+  <PageSection title="Responsive design">
+    <Info>Resize your browser to a small width to see these effects</Info>
+
+    <Example title="Doubling" hint="<Grid appearance='doubling'/>">
+      <Grid columns={5} appearance="doubling">
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+      </Grid>
+    </Example>
+
+    <Example title="Stackable" hint="<Grid appearance='stackable'/>">
+      <Grid columns={2} appearance="stackable">
+        <Column><Segment/></Column>
+        <Column><Segment/></Column>
+      </Grid>
+    </Example>
+
+    <Example title="Reversed" hint="<Grid appearance='tablet reversed'/>">
+      <Subheader>computer reversed</Subheader>
+      <Grid columns={4} appearance="equal width computer reversed">
+        <Row>
+          <Column>1st</Column>
+          <Column>2nd</Column>
+          <Column>3nd</Column>
+          <Column>4th</Column>
+        </Row>
+      </Grid>
+
+      <Divider/>
+      <Subheader>tablet reversed</Subheader>
+      <Grid columns={4} appearance="equal width tablet reversed">
+        <Row>
+          <Column>1st</Column>
+          <Column>2nd</Column>
+          <Column>3nd</Column>
+          <Column>4th</Column>
+        </Row>
+      </Grid>
+
+      <Divider/>
+      <Subheader>mobile reversed</Subheader>
+      <Grid columns={4} appearance="equal width mobile reversed">
+        <Row>
+          <Column>1st</Column>
+          <Column>2nd</Column>
+          <Column>3nd</Column>
+          <Column>4th</Column>
+        </Row>
+      </Grid>
+    </Example>
+
+    <Example title="Device visibility" hint="<Grid><Row appearance='computer only'/></Grid>">
+      <Grid>
+        <Row columns={2} appearance="large screen only">
+          <Column><Segment>Large Screen Only</Segment></Column>
+          <Column><Segment>Large Screen Only</Segment></Column>
+        </Row>
+
+        <Row columns={2} appearance="computer only">
+          <Column><Segment>Computer Only</Segment></Column>
+          <Column><Segment>Computer Only</Segment></Column>
+        </Row>
+
+        <Row columns={2} appearance="tablet only">
+          <Column><Segment>Tablet Only</Segment></Column>
+          <Column><Segment>Tablet Only</Segment></Column>
+        </Row>
+
+        <Row columns={2} appearance="mobile only">
+          <Column><Segment>Mobile Only</Segment></Column>
+          <Column><Segment>Mobile Only</Segment></Column>
+        </Row>
+
+        <Row appearance="equal width">
+          <Column appearance="large screen only"><Segment>Mobile Only</Segment></Column>
+          <Column appearance="computer only"><Segment>Computer Only</Segment></Column>
+          <Column appearance="tablet only"><Segment>Tablet Only</Segment></Column>
+          <Column appearance="mobile only"><Segment>Mobile Only</Segment></Column>
+          <Column><Segment>All screens</Segment></Column>
+        </Row>
+      </Grid>
+    </Example>
+
+
+  </PageSection>
+</OakPage>

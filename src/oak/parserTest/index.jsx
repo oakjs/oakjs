@@ -3,7 +3,7 @@ import JSXElement from "oak/JSXElement";
 // Load some sample parser files
 export smallTest from "raw!./small.jsxe";
 export bigTest from "raw!./big.jsxe";
-export card from "raw!./card.jsxe";
+export page from "raw!./page.jsxe";
 
 export function timeAcornParse(code) {
 	const message = "Acorn parsing: "+code.substr(0,30)+"...";
