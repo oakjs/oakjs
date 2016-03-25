@@ -16,7 +16,7 @@ import { useQueries, createHistory } from "history";
 const history = useQueries(createHistory)();
 
 const routes = (
-  <Route path="/" component={AppRoot}>
+  <Route path="/" component={PageRoute}>
     <Route path="project" component={PageRoute} />
     <Route path="project/:projectId" component={PageRoute} />
     <Route path="project/:projectId/:sectionId" component={PageRoute} />

@@ -14,8 +14,8 @@ import UndoQueue from "oak-roots/UndoQueue";
 
 import actions from "./actions";
 import api from "./api";
-import Page from "./Page";
 import OakEvent from "./OakEvent";
+import Page from "./Page";
 import Project from "./Project";
 import Section from "./Section";
 import ComponentLoader from "./ComponentLoader";
