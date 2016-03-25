@@ -12,6 +12,9 @@ import React, { PropTypes } from "react";
 import app from "../app";
 
 export default class AppRoute extends React.Component {
+  static contextTypes = {
+    router: PropTypes.any
+  }
 
   static childContextTypes = {
     app: PropTypes.any,
@@ -31,6 +34,10 @@ export default class AppRoute extends React.Component {
     };
   }
 
+  componentWillMount() {
+    app.router = this.context.router;
+  }
+
   componentDidMount() {
     app._appRoute = this;
     this._isMounted = true;
@@ -47,6 +54,7 @@ export default class AppRoute extends React.Component {
   }
 
   componentWillUnmount() {
+    delete app.router;
     delete app._appRoute;
     this._isMounted = false;
   }

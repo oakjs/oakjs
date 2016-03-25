@@ -8,7 +8,6 @@
 import React, { PropTypes } from "react";
 import { Router, Route } from "react-router";
 
-import AppRoot from "oak/components/AppRoot";
 import PageRoute from "oak/components/PageRoute";
 
 // Set up History.

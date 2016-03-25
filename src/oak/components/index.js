@@ -1,5 +1,5 @@
 // Components which can be used in a page.
-export AppRoot from "./AppRoot";
+export AppRoute from "./AppRoute";
 export Columns from "./Columns";
 export CurrentPage from "./CurrentPage";
 export CurrentProject from "./CurrentProject";
@@ -15,6 +15,7 @@ export OakComponent from "./OakComponent";
 export OakPage from "./OakPage";
 export OakProject from "./OakProject";
 export OakSection from "./OakSection";
+export PageRoute from "./PageRoute";
 export PageMenuItem from "./PageMenuItem";
 export * from "./Resizer";
 export * from "./SelectionOverlay";
