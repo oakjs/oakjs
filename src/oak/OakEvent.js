@@ -116,6 +116,7 @@ export default class OakEvent {
   }
 
   // Return the `oid` of the closest element with a `data-oid` attribute to the `target` element.
+// REFACTOR: MOVE INTO EDITOR?
   static _getClosestOid(target) {
     if (target) {
       const oidTarget = roots.elements.closestMatching(target, "[data-oid]");

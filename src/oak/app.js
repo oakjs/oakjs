@@ -53,7 +53,7 @@ class App {
     // NOTE: NEVER update this directly, use `app.action.setState()` or some sugary variant thereof.
     this.state = {
       editing: true,
-      selection: undefined
+      selection: Object.freeze([])
     }
 
   }
@@ -71,11 +71,20 @@ class App {
     oakEvent._log();
   }
 
+// REFACTOR: MOVE INTO EDITOR?
+  // Return the currently selected elements (as a list of `oid`s).
+  // NOTE: this is a FROZEN array!
+  get selection() {
+    return this.state.selection;
+  }
+
+// REFACTOR: MOVE INTO EDITOR?
   getRectForOid(oid) {
     const element = document.querySelector(`[data-oid='${oid}']`);
     return elements.offsetRect(element);
   }
 
+// REFACTOR: MOVE INTO EDITOR?
   getOidRects() {
     if (!this.projectComponent) return undefined;
     console.time("oidRects");

@@ -16,6 +16,8 @@ export OakCard from "./OakCard";
 export OakComponent from "./OakComponent";
 export OakProject from "./OakProject";
 export OakStack from "./OakStack";
+export * from "./Resizer";
+export * from "./SelectionOverlay";
 export Spacer from "./Spacer";
 export SelectionOverlay from "./SelectionOverlay";
 export StackMenu from "./StackMenu";
