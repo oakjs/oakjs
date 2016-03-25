@@ -42,7 +42,7 @@ export class projectPaths {
   get jsxe() { return projectPath(this.project, "project.jsxe") }
   get css() { return projectPath(this.project, "project.css") }
   get script() { return projectPath(this.project, "project.js") }
-  get stackIndex() { return projectPath(this.project, fsPath.join("stacks", "stacks.json")) }
+  get stackIndex() { return projectPath(this.project, "stacks.json") }
   get bundleFile() { return bundlePath("projects", `${this.project}.bundle.json`) }
 }
 
@@ -68,7 +68,7 @@ export class stackPaths {
   get jsxe() { return stackPath(this.project, this.stack, "stack.jsxe") }
   get css() { return stackPath(this.project, this.stack, "stack.css") }
   get script() { return stackPath(this.project, this.stack, "stack.js") }
-  get cardIndex() { return stackPath(this.project, this.stack, fsPath.join("cards", "cards.json")) }
+  get cardIndex() { return stackPath(this.project, this.stack, "cards.json") }
   get bundleFile() { return bundlePath("projects", this.project, `${this.stack}.bundle.json`) }
 }
 
@@ -77,7 +77,7 @@ export class stackPaths {
 // Default is to return the `stack.jsx` file, pass a different `fileName` for something else.
 // If you want the path to the stack's directory, pass `fileName=""`.
 export function stackPath(project, stack, filename = "") {
-  const stackPath = fsPath.join("stacks", stack, filename);
+  const stackPath = fsPath.join(stack, filename);
   return projectPath(project, stackPath);
 }
 
@@ -102,7 +102,7 @@ export class cardPaths {
 // Return the path for a card file.
 // Default is to return the card's `.jsx` file, pass a different `filename` for something else.
 export function cardPath(project, stack, card, filename="") {
-  const cardPath = fsPath.join("cards", card, filename);
+  const cardPath = fsPath.join(card, filename);
   return stackPath(project, stack, cardPath);
 }
 
@@ -151,7 +151,7 @@ export function hasPrefix(path, ...prefixes) {
 }
 
 export function isLegalClientPath(path) {
-  return isValidPath(path) && hasPrefix(path, "public/", "projects/", "theme/");
+  return isValidPath(path) && hasPrefix(path, "public/", "projects/", "_theme/");
 }
 
 

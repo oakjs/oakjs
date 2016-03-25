@@ -13,7 +13,7 @@ import ReactDOM from "react-dom";
 import oak from "oak";
 
 // load theme
-import themeComponents from "projects/SUI/theme";
+import themeComponents from "projects/SUI/_theme";
 
 //import SUI from "themes/SUI";
 import Router from "./Router";
