@@ -18,6 +18,8 @@ export OakPage from "./OakPage";
 export OakProject from "./OakProject";
 export OakSection from "./OakSection";
 export PageMenuItem from "./PageMenuItem";
+export ProjectMenu from "./ProjectMenu";
+export ProjectMenuItem from "./ProjectMenuItem";
 export * from "./Resizer";
 export * from "./SelectionOverlay";
 export Spacer from "./Spacer";

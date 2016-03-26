@@ -12,7 +12,7 @@ import { classNames } from "oak-roots/util/react";
 
 import Stub from "./Stub";
 
-function OakPageMenuItem(props, context) {
+function PageMenuItem(props, context) {
   if (!props.page || !context.components) return null;
 
   const { page, label, children, ...extraProps } = props;
@@ -32,13 +32,13 @@ function OakPageMenuItem(props, context) {
 }
 
 // Pull context in so we can get components from the page.
-OakPageMenuItem.contextTypes = {
+PageMenuItem.contextTypes = {
   components: PropTypes.any,
   page: PropTypes.any,
   router: PropTypes.any
 };
 
 // Add render function so we hot reload.
-OakPageMenuItem.render = Function.prototype;
+PageMenuItem.render = Function.prototype;
 
-export default OakPageMenuItem;
+export default PageMenuItem;

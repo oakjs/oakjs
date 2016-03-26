@@ -6,20 +6,23 @@
 
 
 import React, { PropTypes } from "react";
-import { Router, Route } from "react-router";
+import { Router, Route, IndexRoute } from "react-router";
 
-import PageRoute from "./PageRoute";
+import UIRoute from "./UIRoute";
 
 // Set up History.
 import { useQueries, createHistory } from "history";
 const history = useQueries(createHistory)();
 
 const routes = (
-  <Route path="/" component={PageRoute}>
-    <Route path="project" component={PageRoute} />
-    <Route path="project/:projectId" component={PageRoute} />
-    <Route path="project/:projectId/:sectionId" component={PageRoute} />
-    <Route path="project/:projectId/:sectionId/:pageId" component={PageRoute} />
+  <Route path="/">
+    <Route path="project" component={UIRoute} appProjectId={0} appSectionId={0} appPageId={0} />
+    <Route path="project/:appProjectId" component={UIRoute} appSectionId={0} appPageId={0} />
+    <Route path="project/:appProjectId/:appSectionId" component={UIRoute} appPageId={0} />
+    <Route path="project/:appProjectId/:appSectionId/:appPageId" component={UIRoute} />
+
+    <IndexRoute component={UIRoute} uiPageId="projectSelector" />
+    <Route path="*" component={UIRoute} uiPageId="projectSelector" />
   </Route>
 );
 

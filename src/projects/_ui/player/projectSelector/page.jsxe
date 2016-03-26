@@ -1,0 +1,9 @@
+<OakPage id="projectSelector">
+  <br/>
+  <Container>
+    <Segment>
+      <Header>Choose a project:</Header>
+      <ProjectMenu appearance="vertical"/>
+    </Segment>
+  </Container>
+</OakPage>

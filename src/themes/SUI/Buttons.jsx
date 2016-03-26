@@ -38,7 +38,6 @@ export default class SUIButtons extends SUIComponent {
       ...elementProps
     } = this.props;
 
-    console.warn(visible, color);
     if (!visible) return null;
 
     elementProps.className = classNames(

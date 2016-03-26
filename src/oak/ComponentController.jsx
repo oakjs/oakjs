@@ -20,6 +20,9 @@ export default class ComponentController extends Loadable() {
   @proto
   type = "component";
 
+  // "private" things are findable, but don't show up in menus, etc
+  get isPrivate() { return this.id.startsWith("_") }
+
   //////////////////////////////
   //  Component Sugar
   //////////////////////////////
