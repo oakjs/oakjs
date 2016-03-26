@@ -1,7 +1,6 @@
 import React, { PropTypes } from "react";
-import Stub from "./Stub";
 
-export default class CurrentSection extends React.Component {
+export default class AppSection extends React.Component {
   static contextTypes = {
     app: PropTypes.any,
   }

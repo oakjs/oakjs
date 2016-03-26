@@ -1,29 +1,28 @@
 import React, { PropTypes } from "react";
-import Stub from "./Stub";
 
-export default class CurrentPage extends React.Component {
+export default class UIPage extends React.Component {
   static contextTypes = {
     app: PropTypes.any,
   }
 
   componentDidMount() {
-    app.pageComponent = this.refs.page;
+    app.ui.pageComponent = this.refs.page;
   }
 
   componentDidUpdate() {
-    app.pageComponent = this.refs.page;
+    app.ui.pageComponent = this.refs.page;
   }
 
   componentWillUpdate() {
-    delete app.pageComponent;
+    delete app.ui.pageComponent;
   }
 
   componentWillUnmount() {
-    delete app.pageComponent;
+    delete app.ui.pageComponent;
   }
 
   render() {
-    const page = this.context.app.page;
+    const page = this.context.app.ui.page;
     if (!page) return false;
     return React.createElement(page.Component, { ref: "page" });
   }

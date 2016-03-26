@@ -1,29 +1,28 @@
 import React, { PropTypes } from "react";
-import Stub from "./Stub";
 
-export default class CurrentProject extends React.Component {
+export default class AppProject extends React.Component {
   static contextTypes = {
     app: PropTypes.any,
   }
 
   componentDidMount() {
-    app.projectComponent = this.refs.project;
+    app.ui.projectComponent = this.refs.project;
   }
 
   componentDidUpdate() {
-    app.projectComponent = this.refs.project;
+    app.ui.projectComponent = this.refs.project;
   }
 
   componentWillUpdate() {
-    delete app.projectComponent;
+    delete app.ui.projectComponent;
   }
 
   componentWillUnmount() {
-    delete app.projectComponent;
+    delete app.ui.projectComponent;
   }
 
   render() {
-    const project = this.context.app.project;
+    const project = this.context.app.ui.project;
     if (!project) return false;
     return React.createElement(project.Component, { ref: "project" });
   }

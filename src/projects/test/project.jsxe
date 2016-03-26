@@ -1,5 +1,5 @@
 <OakProject id="test" title="test">
   <EditorToolbar/>
-  <CurrentSection/>
+  <AppSection/>
   <SelectionOverlay/>
 </OakProject>

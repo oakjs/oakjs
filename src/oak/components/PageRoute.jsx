@@ -1,7 +1,7 @@
 import app from "../app";
 
 import AppRoute from "./AppRoute";
-import CurrentProject from "./CurrentProject";
+import AppProject from "./AppProject";
 
 export default class PageRoute extends AppRoute {
   render() {
@@ -33,7 +33,7 @@ export default class PageRoute extends AppRoute {
     }
     // if we're currently showing a page, keep that visible until we load
     if (app.page && app.page.project) {
-      return React.createElement(CurrentProject);
+      return React.createElement(AppProject);
     }
     // otherwise return fals to tell react not to render yet.
     else {
