@@ -40,17 +40,23 @@ class App {
       throw new ReferenceError(message);
     }
 
+    // Set app.actions to all defined global actions.
+    Object.defineProperty(this, "actions", { value: actions });
+
+    // Initialize app state from `localStorage`.
+    this._initState();
+
+    // `app.ui` is the player/editor ui
+    this.ui = {};
+
+    // Registry of loaded projects/sections/pages/etc
     this.registry = new Registry();
 
+    // Create the global undoQueue
     this.undoQueue = new UndoQueue();
 
     // load the project index to start with since that's the first thing we'll need
     this.projectIndex.load();
-
-    // set app.actions to all defined global actions
-    Object.defineProperty(this, "actions", { value: actions });
-
-    this._initState();
   }
 
 
@@ -60,6 +66,7 @@ class App {
 
   // Set the current event.
   // TODO: is this a trigger ????
+  // REFACTOR:  this pattern is not clear...
   setEvent(oakEvent, browserEvent) {
     oakEvent._browserEvent = browserEvent;
     app.event = oakEvent;
