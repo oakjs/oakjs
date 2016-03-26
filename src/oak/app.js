@@ -46,8 +46,8 @@ class App {
     // Initialize app state from `localStorage`.
     this._initState();
 
-    // `app.ui` is the player/editor ui
-    this.ui = {};
+    // `app.runner` is the player/editor ui root
+    this.runner = {};
 
     // Registry of loaded projects/sections/pages/etc
     this.registry = new Registry();

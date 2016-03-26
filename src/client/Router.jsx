@@ -21,8 +21,8 @@ const routes = (
     <Route path="project/:appProjectId/:appSectionId" component={UIRoute} appPageId={0} />
     <Route path="project/:appProjectId/:appSectionId/:appPageId" component={UIRoute} />
 
-    <IndexRoute component={UIRoute} uiPageId="projectSelector" />
-    <Route path="*" component={UIRoute} uiPageId="projectSelector" />
+    <IndexRoute component={UIRoute} runnerPageId="projectSelector" />
+    <Route path="*" component={UIRoute} runnerPageId="projectSelector" />
   </Route>
 );
 

@@ -6,23 +6,23 @@ export default class CurrentProject extends React.Component {
   }
 
   componentDidMount() {
-    app.ui.projectComponent = this.refs.project;
+    app.runner.projectComponent = this.refs.project;
   }
 
   componentDidUpdate() {
-    app.ui.projectComponent = this.refs.project;
+    app.runner.projectComponent = this.refs.project;
   }
 
   componentWillUpdate() {
-    delete app.ui.projectComponent;
+    delete app.runner.projectComponent;
   }
 
   componentWillUnmount() {
-    delete app.ui.projectComponent;
+    delete app.runner.projectComponent;
   }
 
   render() {
-    const project = this.context.app.ui.project;
+    const project = this.context.app.runner.project;
     if (!project) return false;
     return React.createElement(project.Component, { ref: "project" });
   }

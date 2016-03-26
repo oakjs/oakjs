@@ -21,29 +21,29 @@ export default class UIRoute extends AppRoute {
     //
     // attempt to load the UI Page
     //
-    const { uiProjectId = "_ui", uiSectionId = "player", uiPageId = "runner" } = params;
-    const uiPage = app.getPage(uiProjectId, uiSectionId, uiPageId);
+    const { runnerProjectId = "_runner", runnerSectionId = "player", runnerPageId = "runner" } = params;
+    const runnerPage = app.getPage(runnerProjectId, runnerSectionId, runnerPageId);
     // if we got a loaded page:
-    if (uiPage && uiPage.isLoaded) {
-      // assign it to `app.ui.page` so we'll show it below
-      app.ui.page = uiPage;
-      app.ui.section = uiPage.section;
-      app.ui.project = uiPage.project;
+    if (runnerPage && runnerPage.isLoaded) {
+      // assign it to `app.runner.page` so we'll show it below
+      app.runner.page = runnerPage;
+      app.runner.section = runnerPage.section;
+      app.runner.project = runnerPage.project;
     }
     else {
       // Otherwise if we didn't get a page, or the page hasn't started loading yet
-      if (!uiPage || !uiPage.isLoading) {
+      if (!runnerPage || !runnerPage.isLoading) {
         // load it and then redraw
-        app.loadPage(uiProjectId, uiSectionId, uiPageId)
+        app.loadPage(runnerProjectId, runnerSectionId, runnerPageId)
           .then( page => {
             if (this._isMounted) {
-              console.log("loaded ui page, updating ");
+              console.log("loaded runner page, updating ");
               this.forceUpdate();
             }
           })
 //           .catch(e => {
 //             console.error(e);
-//             console.log(`Page ${uiProjectId}/${uiSectionId}/${uiPageId} not found!!!`);
+//             console.log(`Page ${runnerProjectId}/${runnerSectionId}/${runnerPageId} not found!!!`);
 //           });
       }
     }
@@ -56,7 +56,7 @@ export default class UIRoute extends AppRoute {
     const appSectionId = _normalizeInt(params.appSectionId);
     const appPageId = _normalizeInt(params.appPageId);
 
-    if (uiPage && appProjectId !== undefined) {
+    if (runnerPage && appProjectId !== undefined) {
       const appPage = app.getPage(appProjectId, appSectionId, appPageId);
       // if we got a loaded page
       if (appPage && appPage.isLoaded) {
@@ -85,7 +85,7 @@ export default class UIRoute extends AppRoute {
     }
 
     // if we're currently showing a page, keep that visible until we load
-    if (app.ui.page && app.ui.page.project) {
+    if (app.runner.page && app.runner.page.project) {
       return React.createElement(RunnerProject, params);
     }
     // otherwise return `false` to tell react not to render yet.

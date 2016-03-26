@@ -7,23 +7,23 @@ export default class RunnerSection extends React.Component {
   }
 
   componentDidMount() {
-    app.ui.sectionComponent = this.refs.section;
+    app.runner.sectionComponent = this.refs.section;
   }
 
   componentDidUpdate() {
-    app.ui.sectionComponent = this.refs.section;
+    app.runner.sectionComponent = this.refs.section;
   }
 
   componentWillUpdate() {
-    delete app.ui.sectionComponent;
+    delete app.runner.sectionComponent;
   }
 
   componentWillUnmount() {
-    delete app.ui.sectionComponent;
+    delete app.runner.sectionComponent;
   }
 
   render() {
-    const section = this.context.app.ui.section;
+    const section = this.context.app.runner.section;
     if (!section) return false;
     return React.createElement(section.Component, { ref: "section" });
   }
