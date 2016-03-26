@@ -5,6 +5,7 @@
 //  TODO: instantiation pattern?
 //////////////////////////////
 
+import browser from "oak-roots/util/browser";
 import { debounce } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
 import global from "oak-roots/util/global";
@@ -49,13 +50,7 @@ class App {
     // set app.actions to all defined global actions
     Object.defineProperty(this, "actions", { value: actions });
 
-    // App state.
-    // NOTE: NEVER update this directly, use `app.action.setState()` or some sugary variant thereof.
-    this.state = {
-      editing: true,
-      selection: Object.freeze([])
-    }
-
+    this.initState();
   }
 
 
@@ -105,7 +100,7 @@ class App {
 
 
   //////////////////////////////
-  //  Actions / Undo / State / etc
+  //  Actions / Undo / State / preferences / etc
   //////////////////////////////
 
   undo() {
@@ -123,6 +118,48 @@ class App {
   @debounce(0)
   updateSoon() {
     if (app._appRoute) app._appRoute.setState({});
+  }
+
+
+  //////////////////////////////
+  //  App State
+  //////////////////////////////
+
+  // Initialize app state.
+  initState() {
+    // App state, which we store in localStorage and reload when reloading the page.
+    // NOTE: NEVER update this directly, use `app.action.setState()` or some sugary variant thereof.
+    this.state = this.preference("app.state") || {};
+    // default selection and freeze it so it doesn't get modified here
+    if (!this.state.selection) this.state.selection = [];
+    Object.freeze(this.state.selection);
+
+    // freeze app state
+    Object.freeze(this.state);
+  }
+
+  // Set app state in an undo-able way.
+  setState(deltas) {
+    app.actions.setState({ state: deltas });
+  }
+
+
+  //////////////////////////////
+  //  App preferences (how is this different than state?)
+  //////////////////////////////
+
+  // Get/set/clear a JSON-stringified 'preference' stored in `localStorage`.
+  // Specfy:
+  //  - `key` only to get a value,
+  //  - `key, `value`, to set a preference value.
+  //  - `key, null` to clear a value.
+  preference(...args) {
+    if (!typeof args[0] === "string") {
+      console.warn(`app.preference(${args}): first argument must be a string`);
+      return undefined;
+    }
+    args[0] = "-oak-" + args[0];
+    return browser.preference(...args);
   }
 
 

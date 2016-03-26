@@ -165,6 +165,9 @@ export function setAppState(options = {}) {
   const originalState = app.state;
   const newState = Object.assign({}, originalState, stateDeltas);
 
+  // Freeze app state so it can't be modified without going through this routine
+  Object.freeze(newState);
+
   function redo() {
     app.state = newState;
     app.updateSoon();
