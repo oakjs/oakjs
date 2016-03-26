@@ -565,13 +565,11 @@ export default class OakEvent {
   //////////////////////////////
 
   // Add events here to suppress automatic log of their events
-  static SUPPRESS_LOG = {
-    mousemove: true
-  }
+  static LOG_EVENTS = {}
 
   // Log this event the console.
-  _log() {
-    if (OakEvent.SUPPRESS_LOG[this.type]) return;
+  _log(force) {
+    if (!OakEvent.LOG_EVENTS[this.type] || !force) return;
 
     // actual object properties
     const values = Object.keys(this).map( key => {
