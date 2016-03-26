@@ -3,5 +3,5 @@
     <MenuHeader>Components</MenuHeader>
     <SectionMenu appearance="inverted vertical"/>
   </Menu>
-  <AppPage/>
+  <CurrentPage/>
 </OakSection>

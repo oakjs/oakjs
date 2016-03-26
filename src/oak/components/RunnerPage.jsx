@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react";
 
-export default class UIPage extends React.Component {
+export default class RunnerPage extends React.Component {
   static contextTypes = {
     app: PropTypes.any,
   }

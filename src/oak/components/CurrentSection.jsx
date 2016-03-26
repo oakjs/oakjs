@@ -1,12 +1,12 @@
 //////////////////////////////
-//  AppSection component
+//  CurrentSection component
 //  - Renders the current `app.section` ComponentController
 //  - sets `app.sectionComponent` to the rendered component.
 //////////////////////////////
 
 import React, { PropTypes } from "react";
 
-export default class AppSection extends React.Component {
+export default class CurrentSection extends React.Component {
   static contextTypes = {
     app: PropTypes.any,
   }

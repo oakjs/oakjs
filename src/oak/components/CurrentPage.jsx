@@ -1,12 +1,12 @@
 //////////////////////////////
-//  AppPage component
+//  CurrentPage component
 //  - Renders the current `app.page` ComponentController
 //  - sets `app.pageComponent` to the rendered component.
 //////////////////////////////
 
 import React, { PropTypes } from "react";
 
-export default class AppPage extends React.Component {
+export default class CurrentPage extends React.Component {
   static contextTypes = {
     app: PropTypes.any,
   }

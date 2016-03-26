@@ -1,11 +1,8 @@
 // Components which can be used in a page.
-export AppPage from "./AppPage";
-export AppProject from "./AppProject";
-export AppSection from "./AppSection";
 export Columns from "./Columns";
-export AppPage from "./AppPage";
-export AppProject from "./AppProject";
-export AppSection from "./AppSection";
+export CurrentPage from "./CurrentPage";
+export CurrentProject from "./CurrentProject";
+export CurrentSection from "./CurrentSection";
 export EditorToolbar from "./EditorToolbar";
 export Link from "./Link";
 export { OakPageLink as PageLink } from "./Link";
@@ -21,14 +18,14 @@ export PageMenuItem from "./PageMenuItem";
 export ProjectMenu from "./ProjectMenu";
 export ProjectMenuItem from "./ProjectMenuItem";
 export * from "./Resizer";
+export RunnerPage from "./RunnerPage";
+export RunnerProject from "./RunnerProject";
+export RunnerSection from "./RunnerSection";
 export * from "./SelectionOverlay";
 export Spacer from "./Spacer";
 export SelectionOverlay from "./SelectionOverlay";
 export SectionMenu from "./SectionMenu";
 export Stub from "./Stub";
-export UIPage from "./UIPage";
-export UIProject from "./UIProject";
-export UISection from "./UISection";
 
 //export constants from "./constants";
 

@@ -1,4 +1,4 @@
 <OakPage id="runner">
   <EditorToolbar/>
-  <AppProject/>
+  <CurrentProject/>
 </OakPage>

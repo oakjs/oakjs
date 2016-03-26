@@ -1,6 +1,6 @@
 import React, { PropTypes } from "react";
 
-export default class AppProject extends React.Component {
+export default class CurrentProject extends React.Component {
   static contextTypes = {
     app: PropTypes.any,
   }

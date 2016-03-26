@@ -1,5 +1,5 @@
 import app from "oak/app";
-import UIProject from "oak/components/UIProject";
+import RunnerProject from "oak/components/RunnerProject";
 
 import AppRoute from "./AppRoute";
 
@@ -60,7 +60,7 @@ export default class UIRoute extends AppRoute {
       const appPage = app.getPage(appProjectId, appSectionId, appPageId);
       // if we got a loaded page
       if (appPage && appPage.isLoaded) {
-        // assign it to `app.page` so `<AppPage>` will show it
+        // assign it to `app.page` so `<CurrentPage>` will show it
         app.page = appPage;
         app.section = appPage.section;
         app.project = appPage.project;
@@ -86,7 +86,7 @@ export default class UIRoute extends AppRoute {
 
     // if we're currently showing a page, keep that visible until we load
     if (app.ui.page && app.ui.page.project) {
-      return React.createElement(UIProject, params);
+      return React.createElement(RunnerProject, params);
     }
     // otherwise return `false` to tell react not to render yet.
     else {

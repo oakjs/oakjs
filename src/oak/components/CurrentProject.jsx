@@ -1,12 +1,12 @@
 //////////////////////////////
-//  AppProject component
+//  CurrentProject component
 //  - Renders the current `app.project` ComponentController
 //  - sets `app.projectComponent` to the rendered component.
 //////////////////////////////
 
 import React, { PropTypes } from "react";
 
-export default class AppProject extends React.Component {
+export default class CurrentProject extends React.Component {
   static contextTypes = {
     app: PropTypes.any,
   }
