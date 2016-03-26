@@ -1,3 +1,9 @@
+//////////////////////////////
+//  AppSection component
+//  - Renders the current `app.section` ComponentController
+//  - sets `app.sectionComponent` to the rendered component.
+//////////////////////////////
+
 import React, { PropTypes } from "react";
 
 export default class AppSection extends React.Component {

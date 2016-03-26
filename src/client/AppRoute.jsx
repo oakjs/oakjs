@@ -9,7 +9,7 @@
 
 import React, { PropTypes } from "react";
 
-import app from "../app";
+import app from "oak/app";
 
 export default class AppRoute extends React.Component {
   static contextTypes = {

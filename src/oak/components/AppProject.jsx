@@ -1,3 +1,9 @@
+//////////////////////////////
+//  AppProject component
+//  - Renders the current `app.project` ComponentController
+//  - sets `app.projectComponent` to the rendered component.
+//////////////////////////////
+
 import React, { PropTypes } from "react";
 
 export default class AppProject extends React.Component {

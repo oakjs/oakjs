@@ -1,7 +1,7 @@
-import app from "../app";
+import app from "oak/app";
+import AppProject from "oak/components/AppProject";
 
 import AppRoute from "./AppRoute";
-import AppProject from "./AppProject";
 
 export default class PageRoute extends AppRoute {
   render() {
@@ -35,7 +35,7 @@ export default class PageRoute extends AppRoute {
     if (app.page && app.page.project) {
       return React.createElement(AppProject);
     }
-    // otherwise return fals to tell react not to render yet.
+    // otherwise return `false` to tell react not to render yet.
     else {
       return false;
     }

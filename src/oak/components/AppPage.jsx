@@ -1,3 +1,9 @@
+//////////////////////////////
+//  AppPage component
+//  - Renders the current `app.page` ComponentController
+//  - sets `app.pageComponent` to the rendered component.
+//////////////////////////////
+
 import React, { PropTypes } from "react";
 
 export default class AppPage extends React.Component {
