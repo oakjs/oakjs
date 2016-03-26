@@ -1,5 +1,5 @@
 {
-  "SUI": { "title": "Semantic UI" },
   "test": { "title": "test" },
-  "editor": { "title": "oakJS Editor" }
+  "SUI": { "title": "Semantic UI" },
+  "ui": { "title": "OakJS Editor UI" }
 }
