@@ -169,13 +169,11 @@ export function setAppState(options = {}) {
   Object.freeze(newState);
 
   function redo() {
-    app.state = newState;
-    app.updateSoon();
+    app._saveState(newState);
   }
 
   function undo() {
-    app.state = originalState;
-    app.updateSoon();
+    app._saveState(originalState);
   }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });

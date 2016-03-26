@@ -6,4 +6,5 @@ export global from "./global";
 export ids from "./ids";
 export object from "./object";
 export path from "./path";
+export preference from "./preference";
 export react from "./react";

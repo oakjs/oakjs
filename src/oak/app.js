@@ -5,7 +5,7 @@
 //  TODO: instantiation pattern?
 //////////////////////////////
 
-import browser from "oak-roots/util/browser";
+import { preference } from "oak-roots/util/preference";
 import { debounce } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
 import global from "oak-roots/util/global";
@@ -50,7 +50,7 @@ class App {
     // set app.actions to all defined global actions
     Object.defineProperty(this, "actions", { value: actions });
 
-    this.initState();
+    this._initState();
   }
 
 
@@ -125,24 +125,33 @@ class App {
   //  App State
   //////////////////////////////
 
-  // Initialize app state.
-  initState() {
-    // App state, which we store in localStorage and reload when reloading the page.
-    // NOTE: NEVER update this directly, use `app.action.setState()` or some sugary variant thereof.
-    this.state = this.preference("app.state") || {};
-    // default selection and freeze it so it doesn't get modified here
-    if (!this.state.selection) this.state.selection = [];
-    Object.freeze(this.state.selection);
-
-    // freeze app state
-    Object.freeze(this.state);
-  }
-
   // Set app state in an undo-able way.
   setState(deltas) {
-    app.actions.setState({ state: deltas });
+    app.actions.setAppState({ state: deltas });
   }
 
+  // Initialize app state.
+  // DON'T CALL THIS, it will be called automatically when the app is constructed.
+  _initState() {
+    // App state, which we store in localStorage and reload when reloading the page.
+    // NOTE: NEVER update this directly, use `app.action.setState()` or some sugary variant thereof.
+    const savedState = this.preference("app.state") || { editing: false };
+
+    // default selection and freeze it so it doesn't get modified here
+    if (!savedState.selection) savedState.selection = [];
+    Object.freeze(savedState.selection);
+
+    // save and freeze app state
+    this.state = Object.freeze(savedState);
+  }
+
+  // Set current state and save in localStorage.
+  // DON'T CALL THIS, `setState()` will call it for you.
+  _saveState(newState) {
+    this.state = Object.freeze(newState);
+    this.preference("app.state", this.state);
+    this.updateSoon();
+  }
 
   //////////////////////////////
   //  App preferences (how is this different than state?)
@@ -159,7 +168,7 @@ class App {
       return undefined;
     }
     args[0] = "-oak-" + args[0];
-    return browser.preference(...args);
+    return preference(...args);
   }
 
 
