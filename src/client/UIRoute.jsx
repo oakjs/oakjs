@@ -21,7 +21,7 @@ export default class UIRoute extends AppRoute {
     //
     // attempt to load the UI Page
     //
-    const { runnerProjectId = "_runner", runnerSectionId = "player", runnerPageId = "runner" } = params;
+    const { runnerProjectId = "_runner", runnerSectionId = "player", runnerPageId = "showPage" } = params;
     const runnerPage = app.getPage(runnerProjectId, runnerSectionId, runnerPageId);
     // if we got a loaded page:
     if (runnerPage && runnerPage.isLoaded) {

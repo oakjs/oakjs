@@ -1,0 +1,5 @@
+<OakPage id="runner">
+  <EditorToolbar ref="editorToolbar"/>
+  <CurrentProject/>
+  <SelectionOverlay ref="selectionOverlay"/>
+</OakPage>
