@@ -6,19 +6,19 @@ export default class RunnerPage extends React.Component {
   }
 
   componentDidMount() {
-    app.runner.pageComponent = this.refs.page;
+    app.runner._pageComponent = this.refs.page;
   }
 
   componentDidUpdate() {
-    app.runner.pageComponent = this.refs.page;
+    app.runner._pageComponent = this.refs.page;
   }
 
   componentWillUpdate() {
-    delete app.runner.pageComponent;
+    delete app.runner._pageComponent;
   }
 
   componentWillUnmount() {
-    delete app.runner.pageComponent;
+    delete app.runner._pageComponent;
   }
 
   render() {

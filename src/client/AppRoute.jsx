@@ -35,7 +35,7 @@ export default class AppRoute extends React.Component {
   }
 
   componentWillMount() {
-    app.router = this.context.router;
+    app._router = this.context.router;
   }
 
   componentDidMount() {
@@ -54,7 +54,7 @@ export default class AppRoute extends React.Component {
   }
 
   componentWillUnmount() {
-    delete app.router;
+    delete app._router;
     delete app._appRoute;
     this._isMounted = false;
   }

@@ -1,7 +1,7 @@
 //////////////////////////////
 //  CurrentSection component
 //  - Renders the current `app.section` ComponentController
-//  - sets `app.sectionComponent` to the rendered component.
+//  - sets `app._sectionComponent` to the rendered component.
 //////////////////////////////
 
 import React, { PropTypes } from "react";
@@ -12,19 +12,19 @@ export default class CurrentSection extends React.Component {
   }
 
   componentDidMount() {
-    app.sectionComponent = this.refs.section;
+    app._sectionComponent = this.refs.section;
   }
 
   componentDidUpdate() {
-    app.sectionComponent = this.refs.section;
+    app._sectionComponent = this.refs.section;
   }
 
   componentWillUpdate() {
-    delete app.sectionComponent;
+    delete app._sectionComponent;
   }
 
   componentWillUnmount() {
-    delete app.sectionComponent;
+    delete app._sectionComponent;
   }
 
   render() {

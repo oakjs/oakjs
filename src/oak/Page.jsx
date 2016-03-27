@@ -38,7 +38,7 @@ export default class Page extends ComponentController {
   // TODO: dynamic components
   get components() { return this.section.components }
 
-  get component() { if (app.page === this) return app.pageComponent }
+  get component() { if (app.page === this) return app._pageComponent }
 
   //////////////////////////////
   //  Initialization / Loading / Saving

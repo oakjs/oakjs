@@ -37,7 +37,7 @@ export default class Section extends ComponentController {
   // TODO: dynamic components
   get components() { return this.project.components }
 
-  get component() { if (app.section === this) return app.sectionComponent }
+  get component() { if (app.section === this) return app._sectionComponent }
 
   //////////////////////////////
   //  Pages

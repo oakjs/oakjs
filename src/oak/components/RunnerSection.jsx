@@ -7,19 +7,19 @@ export default class RunnerSection extends React.Component {
   }
 
   componentDidMount() {
-    app.runner.sectionComponent = this.refs.section;
+    app.runner._sectionComponent = this.refs.section;
   }
 
   componentDidUpdate() {
-    app.runner.sectionComponent = this.refs.section;
+    app.runner._sectionComponent = this.refs.section;
   }
 
   componentWillUpdate() {
-    delete app.runner.sectionComponent;
+    delete app.runner._sectionComponent;
   }
 
   componentWillUnmount() {
-    delete app.runner.sectionComponent;
+    delete app.runner._sectionComponent;
   }
 
   render() {

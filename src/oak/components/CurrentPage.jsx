@@ -1,7 +1,7 @@
 //////////////////////////////
 //  CurrentPage component
 //  - Renders the current `app.page` ComponentController
-//  - sets `app.pageComponent` to the rendered component.
+//  - sets `app._pageComponent` to the rendered component.
 //////////////////////////////
 
 import React, { PropTypes } from "react";
@@ -12,19 +12,19 @@ export default class CurrentPage extends React.Component {
   }
 
   componentDidMount() {
-    app.pageComponent = this.refs.page;
+    app._pageComponent = this.refs.page;
   }
 
   componentDidUpdate() {
-    app.pageComponent = this.refs.page;
+    app._pageComponent = this.refs.page;
   }
 
   componentWillUpdate() {
-    delete app.pageComponent;
+    delete app._pageComponent;
   }
 
   componentWillUnmount() {
-    delete app.pageComponent;
+    delete app._pageComponent;
   }
 
   render() {

@@ -1,7 +1,7 @@
 //////////////////////////////
 //  CurrentProject component
 //  - Renders the current `app.project` ComponentController
-//  - sets `app.projectComponent` to the rendered component.
+//  - sets `app._projectComponent` to the rendered component.
 //////////////////////////////
 
 import React, { PropTypes } from "react";
@@ -12,19 +12,19 @@ export default class CurrentProject extends React.Component {
   }
 
   componentDidMount() {
-    app.projectComponent = this.refs.project;
+    app._projectComponent = this.refs.project;
   }
 
   componentDidUpdate() {
-    app.projectComponent = this.refs.project;
+    app._projectComponent = this.refs.project;
   }
 
   componentWillUpdate() {
-    delete app.projectComponent;
+    delete app._projectComponent;
   }
 
   componentWillUnmount() {
-    delete app.projectComponent;
+    delete app._projectComponent;
   }
 
   render() {

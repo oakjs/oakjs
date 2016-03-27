@@ -35,7 +35,7 @@ export default class Project extends ComponentController {
   // TODO: dynamic components
   get components() { return this.app.getProjectTheme(this.projectId) }
 
-  get component() { if (app.project === this) return app.projectComponent }
+  get component() { if (app.project === this) return app._projectComponent }
 
 
   //////////////////////////////

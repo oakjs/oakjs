@@ -88,7 +88,7 @@ class App {
 
 // REFACTOR: MOVE INTO EDITOR?
   getOidRects() {
-    if (!this.projectComponent) return undefined;
+    if (!this._projectComponent) return undefined;
     console.time("oidRects");
     //TODO: somehow we want to know the root element on the page so don't include toolbars...
     const oidElements = document.querySelectorAll("[data-oid]");
@@ -184,13 +184,13 @@ class App {
   //////////////////////////////
 
   goTo(route, replace) {
-    if (!app.router) throw new TypeError(`app.goTo(${route}): app.router is not set`);
+    if (!app._router) throw new TypeError(`app.goTo(${route}): app._router is not set`);
 
-    if (replace || app.router.isActive(route)) {
-      app.router.replace(route);
+    if (replace || app._router.isActive(route)) {
+      app._router.replace(route);
     }
     else {
-      app.router.push(route);
+      app._router.push(route);
     }
   }
 
