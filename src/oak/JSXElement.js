@@ -120,7 +120,7 @@ export default class JSXElement {
     const output = [];
     const options = {}
 
-    output.push("console.log('Rendering: ',this);");
+//    output.push("console.log('Rendering: ',this);");
 //    output.push("console.dir(this.context);");
 //    output.push("console.groupEnd();");
 

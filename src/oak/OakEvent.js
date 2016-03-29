@@ -625,7 +625,7 @@ export default class OakEvent {
   //////////////////////////////
 
   static initialize() {
-    console.info("initializing events");
+//    console.info("initializing events");
 
     // mouse event capture
     document.addEventListener("mousemove", OakEvent._captureMouseMove, true);

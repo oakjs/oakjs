@@ -16,7 +16,7 @@ export default class UIRoute extends AppRoute {
 
     // get params from the URL and extra stuff stuck directly on the <Route> object
     const params = Object.assign({}, this.props.params, this.props.route);
-    console.dir(params);
+//    console.dir(params);
 
     //
     // attempt to load the UI Page

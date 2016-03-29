@@ -1,16 +1,8 @@
 import oak from "./oak.js";
 
-export api from "./api";
-export ComponentController from "./ComponentController";
-export ComponentLoader from "./ComponentLoader";
-export JSXElement from "./JSXElement";
-export OakEvent from "./OakEvent";
-export Page from "./Page";
-export Project from "./Project";
-export Section from "./Section";
-
-// utilities
 export roots from "oak-roots";
+export api from "./api";
+export classes from "./classes";
 
 // Test stuff
 //export parserTest from "./parserTest";

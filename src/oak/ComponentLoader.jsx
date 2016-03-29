@@ -153,7 +153,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
 
   onStylesChanged(newStyles, oldStyles) {
     if (oldStyles) this.dirty();
-    console.info(`Updating ${this.type} styles`);
+//    console.info(`Updating ${this.type} styles`);
 //    console.warn("TODO: use less to convert to scoped styles");
     if (newStyles) {
       browser.createStylesheet(newStyles, this.stylesheetId)
@@ -185,7 +185,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   _createComponent() {
     let Constructor;
     const componentName = this.getConstructorName();
-console.info("creating component ",componentName);
+//console.info("creating component ",componentName);
     try {
       // if we have a jsxElement, create the classs and set its renderMethod
       if (this.jsxElement) {
