@@ -6,12 +6,12 @@
 import { die,  } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
-import app from "../app";
+import oak from "../oak";
 
 import utils from "./utils";
 
 //////////////////////////////
-//  Manipulating app state
+//  Manipulating oak state
 //////////////////////////////
 
 export function startEditing(options) {
@@ -36,7 +36,7 @@ export function addToSelection(options) {
     operation = "addToSelection", returnTransaction
   } = options;
 
-  const selection = app.selection;
+  const selection = oak.selection;
   // make sure we don't add something twice
   const oidsToAdd = utils.getOidsOrDie(elements, operation)
     .filter( oid => !selection.includes(oid) );
@@ -57,7 +57,7 @@ export function removeFromSelection(options = {}) {
     operation = "removeFromSelection", returnTransaction
   } = options;
 
-  const selection = app.selection;
+  const selection = oak.selection;
   // remove anything that's not currently in the selection
   const oidsToRemove = utils.getOidsOrDie(elements, operation)
     .filter( oid => selection.includes(oid) );
@@ -82,7 +82,7 @@ export function toggleSelection(options = {}) {
   if (oids.length === 0) return;
 
   // remove all `oids` if the first item is in the selection
-  const selection = app.selection;
+  const selection = oak.selection;
   if (selection.includes(oids[0])) {
     return removeFromSelection({
       elements: oids,
@@ -149,7 +149,7 @@ function _setSelection(options = {}) {
 
 
 //////////////////////////////
-//  Generic app state manipulators
+//  Generic oak state manipulators
 //  Consider making a specific sugar function instead of calling directly.
 //////////////////////////////
 
@@ -157,28 +157,28 @@ function _setSelection(options = {}) {
 export function setAppState(options = {}) {
   const {
     state: stateDeltas,
-    actionName = "Set app state", returnTransaction
+    actionName = "Set oak state", returnTransaction
   } = options;
 
-  if (stateDeltas == null) die(app, "setAppState", arguments, "`options.state` must be provided.");
+  if (stateDeltas == null) die(oak, "setAppState", arguments, "`options.state` must be provided.");
 
-  const originalState = app.state;
+  const originalState = oak.state;
   const newState = Object.assign({}, originalState, stateDeltas);
 
-  // Freeze app state so it can't be modified without going through this routine
+  // Freeze oak state so it can't be modified without going through this routine
   Object.freeze(newState);
 
   function redo() {
-    app._saveState(newState);
+    oak._saveState(newState);
   }
 
   function undo() {
-    app._saveState(originalState);
+    oak._saveState(originalState);
   }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
   if (returnTransaction) return transaction;
-  return app.undoQueue.addTransaction(transaction);
+  return oak.undoQueue.addTransaction(transaction);
 }
 
 

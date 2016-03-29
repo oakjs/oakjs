@@ -9,7 +9,7 @@ import ComponentController from "./ComponentController";
 
 export default class Page extends ComponentController {
   constructor(props) {
-    dieIfMissing(props, "new Page", ["app", "pageId", "sectionId", "projectId"]);
+    dieIfMissing(props, "new Page", ["oak", "pageId", "sectionId", "projectId"]);
     super(props);
   }
 
@@ -23,8 +23,8 @@ export default class Page extends ComponentController {
   get id() { return this.pageId }
   get path() { return `${this.projectId}/${this.sectionId}/${this.pageId}` }
 
-  get project() { return this.app.getProject(this.projectId) }
-  get section() { return this.app.getSection(this.projectId, this.sectionId) }
+  get project() { return this.oak.getProject(this.projectId) }
+  get section() { return this.oak.getSection(this.projectId, this.sectionId) }
 
 
   //////////////////////////////
@@ -32,19 +32,19 @@ export default class Page extends ComponentController {
   //////////////////////////////
 
   createComponentLoader() {
-    return this.app.getPageLoader(this, "MAKE");
+    return this.oak.getPageLoader(this, "MAKE");
   }
 
   // TODO: dynamic components
   get components() { return this.section.components }
 
-  get component() { if (app.page === this) return app._pageComponent }
+  get component() { if (oak.page === this) return oak._pageComponent }
 
   //////////////////////////////
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  get route() { return this.app.getPageRoute(this.projectId, this.sectionId, this.pageId) }
+  get route() { return this.oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
 
   loadData() {
     return this.componentLoader.load()
@@ -64,7 +64,7 @@ export class PageElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
     page: "this",
-    app: "page.app",
+    oak: "page.oak",
     section: "page.section",
     project: "page.project",
     components: "page.components",

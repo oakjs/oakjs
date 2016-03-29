@@ -12,33 +12,33 @@ import "./EditorToolbar.css";
 
 export default class EditorToolbar extends OakComponent {
   removeButton() {
-    app.actions.removeElement({element:"oiBgbSMB" });
+    oak.actions.removeElement({element:"oiBgbSMB" });
   }
 
   addButton() {
     const buttonToAdd = JSXElement.parse("<Button icon='smile'>Love it even more!</Button>");
-    app.actions.addChildToElement({ parent: "ftEkGCjX", child: buttonToAdd });
+    oak.actions.addChildToElement({ parent: "ftEkGCjX", child: buttonToAdd });
   }
 
   moveText() {
-    app.actions.moveElement({ element: "GIboFkjD", targetParent: "arZsBgMa" });
+    oak.actions.moveElement({ element: "GIboFkjD", targetParent: "arZsBgMa" });
   }
 
   render() {
-    const { app, components: c } = this.context;
+    const { oak, components: c } = this.context;
     return (
       <c.Menu id="EditorToolbar" appearance="attached">
         <c.Buttons appearance="transparent">
-          <c.Button onClick={app.actions.stopEditing} icon="large pointing up" active={!app.state.editing}/>
-          <c.Button onClick={app.actions.startEditing} icon="large configure" active={app.state.editing}/>
+          <c.Button onClick={oak.actions.stopEditing} icon="large pointing up" active={!oak.state.editing}/>
+          <c.Button onClick={oak.actions.startEditing} icon="large configure" active={oak.state.editing}/>
           <c.Spacer inline/>
         </c.Buttons>
         <c.Buttons appearance="transparent">
-          <c.Button onClick={app.undo} icon="large undo" disabled={!app.canUndo}/>
-          <c.Button onClick={app.redo} icon="large repeat" disabled={!app.canRedo}/>
+          <c.Button onClick={oak.undo} icon="large undo" disabled={!oak.canUndo}/>
+          <c.Button onClick={oak.redo} icon="large repeat" disabled={!oak.canRedo}/>
           <c.Spacer inline/>
         </c.Buttons>
-        <c.Buttons appearance="transparent" visible={app.state.editing} color="red">
+        <c.Buttons appearance="transparent" visible={oak.state.editing} color="red">
           <c.Button onClick={this.removeButton} icon="large remove"/>
           <c.Button onClick={this.addButton} icon="large plus"/>
           <c.Button onClick={this.moveText} icon="large move"/>

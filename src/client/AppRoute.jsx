@@ -2,14 +2,14 @@
 //  AppRoute abstract class
 //
 //  Make all routes in the application descend from this so:
-//  1) We will pass app/page/components/ etc down to all rendered components via context
+//  1) We will pass oak/page/components/ etc down to all rendered components via context
 //  2) `App._appRoute` gets set so we can refresh the screen when something changes.
 //////////////////////////////
 
 
 import React, { PropTypes } from "react";
 
-import app from "oak/app";
+import oak from "oak/oak";
 
 export default class AppRoute extends React.Component {
   static contextTypes = {
@@ -17,7 +17,7 @@ export default class AppRoute extends React.Component {
   }
 
   static childContextTypes = {
-    app: PropTypes.any,
+    oak: PropTypes.any,
     project: PropTypes.any,
     section: PropTypes.any,
     page: PropTypes.any,
@@ -26,36 +26,36 @@ export default class AppRoute extends React.Component {
 
   getChildContext() {
     return {
-      app,
-      project: app.project,
-      section: app.section,
-      page: app.page,
-      components: (app.page ? app.page.components : app.components)
+      oak,
+      project: oak.project,
+      section: oak.section,
+      page: oak.page,
+      components: (oak.page ? oak.page.components : oak.components)
     };
   }
 
   componentWillMount() {
-    app._router = this.context.router;
+    oak._router = this.context.router;
   }
 
   componentDidMount() {
-    app._appRoute = this;
+    oak._appRoute = this;
     this._isMounted = true;
   }
 
   componentWillUpdate() {
-    delete app._appRoute;
+    delete oak._appRoute;
     this._isMounted = false;
   }
 
   componentDidUpdate() {
-    app._appRoute = this;
+    oak._appRoute = this;
     this._isMounted = true;
   }
 
   componentWillUnmount() {
-    delete app._router;
-    delete app._appRoute;
+    delete oak._router;
+    delete oak._appRoute;
     this._isMounted = false;
   }
 }

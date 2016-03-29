@@ -5,7 +5,7 @@
 import { die } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
-import app from "../app";
+import oak from "../oak";
 import JSXElement, { OidRef } from "../JSXElement";
 
 import utils from "./utils";
@@ -29,7 +29,7 @@ export function setElementProp(options) {
     operation = "setElementProp", returnTransaction
   } = options;
 
-  if (typeof key !== "string") die(app, operation, options, "`options.key` must be a string");
+  if (typeof key !== "string") die(oak, operation, options, "`options.key` must be a string");
 
   const transactionOptions = {
     actionName: "Set Property",
@@ -59,7 +59,7 @@ export function setElementProps({
   context, element, deltas,
   operation = "setElementProps", returnTransaction
 }) {
-  if (deltas == null) die(app, operation, options, "`options.deltas` must be an object");
+  if (deltas == null) die(oak, operation, options, "`options.deltas` must be an object");
 
   const transactionOptions = {
     actionName: "Set Properties",
@@ -89,7 +89,7 @@ export function resetElementProps({
   context, element, props,
   operation = "setElementProps", returnTransaction
 }) {
-  if (deltas == null) die(app, operation, options, "`options.deltas` must be an object");
+  if (deltas == null) die(oak, operation, options, "`options.deltas` must be an object");
 
   const transactionOptions = {
     actionName: "Set Properties",
@@ -251,8 +251,8 @@ export function addChildToElement({
   context, parent, position, child,
   operation = "addChildToElement", returnTransaction
 }) {
-  if (child == null) die(app, operation, child, "Child must not be null");
-  if (child instanceof OidRef) die(app, operation, child, "Child must not be an OidRef");
+  if (child == null) die(oak, operation, child, "Child must not be null");
+  if (child instanceof OidRef) die(oak, operation, child, "Child must not be an OidRef");
 
   const loader = utils.getLoaderOrDie(context, operation);
 
@@ -420,7 +420,7 @@ console.log("removing", elements, "from", loader);
 //  We'll call `transformer(<clone-of-element>)`.
 //
 // If `returnTransaction` is truthy, we'll return the transaction created.
-// If not, we'll add it to the `app.undoQueue`, which will execute it immeditately.
+// If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
 //
 // NOTE: don't call this directly, use one of the `setElementProp()` calls.
 function _changeElementTransaction({ context, element, transformer, actionName, returnTransaction, operation }) {
@@ -434,14 +434,14 @@ function _changeElementTransaction({ context, element, transformer, actionName, 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
 
   if (returnTransaction) return transaction;
-  return app.undoQueue.addTransaction(transaction);
+  return oak.undoQueue.addTransaction(transaction);
 }
 
 
 // Create a transaction for one of our `[add|move|remove]Element*()` calls.
 //
 // If `returnTransaction` is truthy, we'll return the transaction created.
-// If not, we'll add it to the `app.undoQueue`, which will execute it immeditately.
+// If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
 //
 // NOTE: don't call this directly, use one of the `setElementProp()` calls.
 //
@@ -462,7 +462,7 @@ console.info("new", newItems);
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
 
   if (returnTransaction) return transaction;
-  return app.undoQueue.addTransaction(transaction);
+  return oak.undoQueue.addTransaction(transaction);
 }
 
 
@@ -471,14 +471,14 @@ console.info("new", newItems);
 //  gathering all subTransactions returned into a single transaction.
 //
 // If `returnTransaction` is truthy, we'll return the transaction created.
-// If not, we'll add it to the `app.undoQueue`, which will execute it immeditately.
+// If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
 //
 // NOTE: don't call this directly.
 function _mapElementsTransaction({ list, getItemTransaction, actionName, returnTransaction }) {
   const transaction = UndoQueue.mapTransactions(list, getItemTransaction, actionName);
 
   if (returnTransaction) return transaction;
-  return app.undoQueue.addTransaction(transaction);
+  return oak.undoQueue.addTransaction(transaction);
 }
 
 

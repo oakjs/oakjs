@@ -1,34 +1,34 @@
 //////////////////////////////
 //  CurrentProject component
-//  - Renders the current `app.project` ComponentController
-//  - sets `app._projectComponent` to the rendered component.
+//  - Renders the current `oak.project` ComponentController
+//  - sets `oak._projectComponent` to the rendered component.
 //////////////////////////////
 
 import React, { PropTypes } from "react";
 
 export default class CurrentProject extends React.Component {
   static contextTypes = {
-    app: PropTypes.any,
+    oak: PropTypes.any,
   }
 
   componentDidMount() {
-    app._projectComponent = this.refs.project;
+    oak._projectComponent = this.refs.project;
   }
 
   componentDidUpdate() {
-    app._projectComponent = this.refs.project;
+    oak._projectComponent = this.refs.project;
   }
 
   componentWillUpdate() {
-    delete app._projectComponent;
+    delete oak._projectComponent;
   }
 
   componentWillUnmount() {
-    delete app._projectComponent;
+    delete oak._projectComponent;
   }
 
   render() {
-    const project = this.context.app.project;
+    const project = this.context.oak.project;
     if (!project) return false;
     return React.createElement(project.Component, { ref: "project" });
   }

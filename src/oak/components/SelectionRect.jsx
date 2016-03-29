@@ -15,7 +15,7 @@ export default class SelectionRect extends OakComponent {
   onClick(event) {}
 
   render() {
-    const { app } = this.context;
+    const { oak } = this.context;
     const { oid, rect } = this.props;
 
     if (!rect) return null;

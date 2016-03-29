@@ -42,26 +42,26 @@ export default class SelectionOverlay extends OakComponent {
 
   @autobind
   onClick(event) {
-    const oid = app.event._downOid;
+    const oid = oak.event._downOid;
 
     // if shift is down,
-    if (app.event.shiftKey) {
+    if (oak.event.shiftKey) {
       // toggle selection of the element if there is one
-      if (oid) app.actions.toggleSelection({ elements: oid });
+      if (oid) oak.actions.toggleSelection({ elements: oid });
     }
     // if nothing under the mouse, clear selection
     else if (!oid) {
-      app.actions.clearSelection();
+      oak.actions.clearSelection();
     }
     // otherwise select just the oid
     else {
-      app.actions.setSelection({ elements: oid });
+      oak.actions.setSelection({ elements: oid });
     }
   }
 
   // Update selection due to an event (scroll, zoom, etc).
   _updateSelection() {
-    if (this._isMounted && app.selection && app.selection.length) this.forceUpdate();
+    if (this._isMounted && oak.selection && oak.selection.length) this.forceUpdate();
   }
 
   renderSelection(selection) {
@@ -69,7 +69,7 @@ export default class SelectionOverlay extends OakComponent {
 
     // create selection rects for everything in the selection
     const elements = selection.map( (oid, index) => {
-      const rect = app.getRectForOid(oid);
+      const rect = oak.getRectForOid(oid);
       if (!rect || rect.isEmpty) return undefined;
 
       // add to the list of rects
@@ -86,12 +86,12 @@ export default class SelectionOverlay extends OakComponent {
   }
 
   render() {
-    const { app } = this.context;
-    if (!app.state.editing) return null;
+    const { oak } = this.context;
+    if (!oak.state.editing) return null;
 
     return (
       <div id="SelectionOverlay" onClick={this.onClick}>
-        { this.renderSelection(app.selection) }
+        { this.renderSelection(oak.selection) }
       </div>
     );
   }

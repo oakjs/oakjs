@@ -22,7 +22,7 @@ export default class OakProject extends OakComponent {
 
   get controller() { return this.constructor.controller }
 
-  get app() { return this.controller.app }
+  get oak() { return this.controller.oak }
   get id() { return this.controller.id }
   get type() { return this.controller.type; }
 

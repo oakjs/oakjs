@@ -13,7 +13,7 @@ import JSXElement, { OidRef } from "../JSXElement";
 
 
 export function setChildAtPositionOrDie(parent, position, child, operation) {
-  dieIfOutOfRange(app, operation, parent._children, position);
+  dieIfOutOfRange(oak, operation, parent._children, position);
   _setChildAtPosition(parent, position, child);
 }
 
@@ -22,7 +22,7 @@ export function addChildAtPositionOrDie(parent, position, child, operation) {
   if (position == null) {
     position = parent._children.length;
   } else {
-    dieIfOutOfRange(app, operation, parent._children, position, parent._children.length);
+    dieIfOutOfRange(oak, operation, parent._children, position, parent._children.length);
   }
   parent._children.splice(position, 0, undefined);
   _setChildAtPosition(parent, position, child);
@@ -39,7 +39,7 @@ function _setChildAtPosition(parent, position, child) {
 }
 
 export function removeChildAtPositionOrDie(parent, position, operation) {
-  dieIfOutOfRange(app, operation, parent._children, position);
+  dieIfOutOfRange(oak, operation, parent._children, position);
   parent._children.splice(position, 1);
 }
 
@@ -95,12 +95,12 @@ export function getDescendentElements(element) {
 export function getOidOrDie(thing, operation) {
   if (typeof thing === "string") return thing;
   if (thing && (thing instanceof OidRef || thing instanceof JSXElement)) return thing.oid;
-  die(app, operation, thing, "Can't figure out oid!");
+  die(oak, operation, thing, "Can't figure out oid!");
 }
 
 export function getOidsOrDie(_things, operation) {
   if (!_things || _things.length === 0) {
-    die(app, operation, _things, "You must provide at least one item");
+    die(oak, operation, _things, "You must provide at least one item");
   }
   const things = Array.isArray(_things) ? _things : [_things];
   return things.map(thing => getOidOrDie(thing, operation));
@@ -113,22 +113,22 @@ export function getOidsOrDie(_things, operation) {
 
 export function getLoaderOrDie(context, operation) {
   // default to the current page
-  if (context === undefined) context = app.page.componentLoader;
-  const loader = app.getLoader(context);
-  if (!loader) die(app, operation, context, "Couldn't get loader -- is this a valid path?");
+  if (context === undefined) context = oak.page.componentLoader;
+  const loader = oak.getLoader(context);
+  if (!loader) die(oak, operation, context, "Couldn't get loader -- is this a valid path?");
   return loader;
 }
 
 export function getElementOrDie(loader, oid, operation) {
   const element = loader.getElement(oid);
-  if (!element) die(app, operation, [loader, oid], "Element not found");
-  if (!(element instanceof JSXElement)) die(app, operation, [loader, oid, element], "Expected a JSXElement");
-  if (element.getElement !== loader.getElement) die(app, operation, [loader, oid, element], "Element doesn't belong to loader");
+  if (!element) die(oak, operation, [loader, oid], "Element not found");
+  if (!(element instanceof JSXElement)) die(oak, operation, [loader, oid, element], "Expected a JSXElement");
+  if (element.getElement !== loader.getElement) die(oak, operation, [loader, oid, element], "Element doesn't belong to loader");
   return element;
 }
 
 export function getChildAtPositionOrDie(loader, parent, position, operation) {
-  dieIfOutOfRange(app, operation, parent._children, position);
+  dieIfOutOfRange(oak, operation, parent._children, position);
   const child = parent._children[position];
   if (child instanceof OidRef) return loader.getElement(child);
   return child;
@@ -139,8 +139,8 @@ export function getChildAtPositionOrDie(loader, parent, position, operation) {
 // Otherwise return the `child` passed in (assuming its a lieral or something else unclonable).
 export function cloneOrDie(child, operation) {
 // TODO: don't allow "" ???
-  if (child == null) die(app, operation, child, "Child must not be null");
-  if (child instanceof OidRef) die(app, operation, child, "Child must not be an OidRef");
+  if (child == null) die(oak, operation, child, "Child must not be null");
+  if (child instanceof OidRef) die(oak, operation, child, "Child must not be an OidRef");
   if (child instanceof JSXElement) return child.clone();
 //TODO: use generic `clone()` ???
   return child;
@@ -149,7 +149,7 @@ export function cloneOrDie(child, operation) {
 
 export function getElementPositionOrDie(parent, element, operation) {
   const position = parent.getChildPosition(element);
-  if (position === -1) die(app, "removeElement", arguments, "Child not found in parent. ???");
+  if (position === -1) die(oak, "removeElement", arguments, "Child not found in parent. ???");
   return position;
 }
 

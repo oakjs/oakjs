@@ -10,7 +10,7 @@ import ComponentController from "./ComponentController";
 export default class Project extends ComponentController {
   constructor(props) {
     super(props);
-    dieIfMissing(this, "new Project", ["app", "projectId"]);
+    dieIfMissing(this, "new Project", ["oak", "projectId"]);
   }
 
   @proto
@@ -29,20 +29,20 @@ export default class Project extends ComponentController {
   //////////////////////////////
 
   createComponentLoader() {
-    return this.app.getProjectLoader(this, "MAKE");
+    return this.oak.getProjectLoader(this, "MAKE");
   }
 
   // TODO: dynamic components
-  get components() { return this.app.getProjectTheme(this.projectId) }
+  get components() { return this.oak.getProjectTheme(this.projectId) }
 
-  get component() { if (app.project === this) return app._projectComponent }
+  get component() { if (oak.project === this) return oak._projectComponent }
 
 
   //////////////////////////////
   //  Sections
   //////////////////////////////
 
-  get sectionIndex() { return this.app.getSectionIndex(this.path) }
+  get sectionIndex() { return this.oak.getSectionIndex(this.path) }
 
   get sections() { return this.sectionIndex.items }
   get sectionIds() { return this.sectionIndex.itemIds }
@@ -61,7 +61,7 @@ export default class Project extends ComponentController {
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  get route() { return this.app.getPageRoute(this.projectId) }
+  get route() { return this.oak.getPageRoute(this.projectId) }
 
   loadData() {
     return Promise.all([
@@ -84,7 +84,7 @@ export class ProjectElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
     project: "this",
-    app: "project.app",
+    oak: "project.oak",
     components: "project.components",
     data: "project.data"
   }

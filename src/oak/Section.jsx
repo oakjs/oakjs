@@ -10,7 +10,7 @@ import ComponentController from "./ComponentController";
 export default class Section extends ComponentController {
   constructor(props) {
     super(props);
-    dieIfMissing(this, "new Section", ["app", "sectionId", "projectId"]);
+    dieIfMissing(this, "new Section", ["oak", "sectionId", "projectId"]);
   }
 
   @proto
@@ -24,26 +24,26 @@ export default class Section extends ComponentController {
   get id() { return this.sectionId }
   get path() { return `${this.projectId}/${this.sectionId}` }
 
-  get project() { return this.app.getProject(this.projectId) }
+  get project() { return this.oak.getProject(this.projectId) }
 
   //////////////////////////////
   //  Components
   //////////////////////////////
 
   createComponentLoader() {
-    return this.app.getSectionLoader(this, "MAKE");
+    return this.oak.getSectionLoader(this, "MAKE");
   }
 
   // TODO: dynamic components
   get components() { return this.project.components }
 
-  get component() { if (app.section === this) return app._sectionComponent }
+  get component() { if (oak.section === this) return oak._sectionComponent }
 
   //////////////////////////////
   //  Pages
   //////////////////////////////
 
-  get pageIndex() { return this.app.getPageIndex(this.path) }
+  get pageIndex() { return this.oak.getPageIndex(this.path) }
 
   get pages() { return this.pageIndex.items }
   get pageIds() { return this.pageIndex.itemIds }
@@ -61,7 +61,7 @@ export default class Section extends ComponentController {
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  static get route() { return this.app.getPageRoute(this.projectId, this.sectionId) }
+  static get route() { return this.oak.getPageRoute(this.projectId, this.sectionId) }
 
   loadData() {
     return Promise.all([
@@ -85,7 +85,7 @@ export class SectionElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
     section: "this",
-    app: "section.app",
+    oak: "section.oak",
     project: "section.project",
     components: "section.components",
     data: "section.data"

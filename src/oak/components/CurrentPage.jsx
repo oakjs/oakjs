@@ -1,34 +1,34 @@
 //////////////////////////////
 //  CurrentPage component
-//  - Renders the current `app.page` ComponentController
-//  - sets `app._pageComponent` to the rendered component.
+//  - Renders the current `oak.page` ComponentController
+//  - sets `oak._pageComponent` to the rendered component.
 //////////////////////////////
 
 import React, { PropTypes } from "react";
 
 export default class CurrentPage extends React.Component {
   static contextTypes = {
-    app: PropTypes.any,
+    oak: PropTypes.any,
   }
 
   componentDidMount() {
-    app._pageComponent = this.refs.page;
+    oak._pageComponent = this.refs.page;
   }
 
   componentDidUpdate() {
-    app._pageComponent = this.refs.page;
+    oak._pageComponent = this.refs.page;
   }
 
   componentWillUpdate() {
-    delete app._pageComponent;
+    delete oak._pageComponent;
   }
 
   componentWillUnmount() {
-    delete app._pageComponent;
+    delete oak._pageComponent;
   }
 
   render() {
-    const page = this.context.app.page;
+    const page = this.context.oak.page;
     if (!page) return false;
     return React.createElement(page.Component, { ref: "page" });
   }

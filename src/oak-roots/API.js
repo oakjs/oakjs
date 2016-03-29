@@ -1,9 +1,9 @@
 //////////////////////////////
 //  API class
 //
-//  Create an instance of this and add all of your app-specific methods to it.
+//  Create an instance of this and add all of your oak-specific methods to it.
 //
-//  e.g.  FILE: app/api.js:
+//  e.g.  FILE: oak/api.js:
 //          import API from "/util/API"
 //          export default api = API({
 //            fetchMyText(params) { return this.getText(`/api/some/path/${params.filename}/`) },
@@ -12,13 +12,13 @@
 //          }
 //
 //        FILE: some/other/file.js:
-//          import api from "./app/api"
+//          import api from "./oak/api"
 //          ...
 //          api.fetchMyText({ filename: "someFile.txt" });  << Returns a promise
 //
 //  You can also define API methods on the fly:
 //        FILE: yet/another/file.js:
-//          import api from "./app/api"
+//          import api from "./oak/api"
 //          ...
 //          api.doSomethingElse = function(params) { return this.get(`/some/path/blah`) }
 //
