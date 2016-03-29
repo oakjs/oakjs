@@ -83,7 +83,7 @@ class App {
 // REFACTOR: MOVE INTO EDITOR?
   getRectForOid(oid) {
     const element = document.querySelector(`[data-oid='${oid}']`);
-    return elements.offsetRect(element);
+    return elements.clientRect(element);
   }
 
 // REFACTOR: MOVE INTO EDITOR?
@@ -95,7 +95,7 @@ class App {
     const rects = [];
     let i = -1, element;
     while (element = oidElements[++i]) {
-      rects[i] = elements.offsetRect(element);
+      rects[i] = elements.clientRect(element);
       rects[i].oid = element.getAttribute("data-oid");
     }
     console.timeEnd("oidRects");
