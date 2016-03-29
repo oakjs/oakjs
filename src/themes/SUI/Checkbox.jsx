@@ -205,17 +205,16 @@ class SUICheckbox extends SUIModuleComponent {
 
     const elements = new ElementBuffer({
       props : {
+      ...this.getUnknownProps(),
         id,
         style,
         className: [className, "ui", appearance,
                     { hidden, disabled, "read-only": readonly, error },
                     this.getTypeClass()
                    ]
-      }
+      },
     });
-
     const inputProps = {
-      ...this.getUnknownProps(),
       type: "checkbox",
     }
     if (disabled) inputProps.disabled = true;
