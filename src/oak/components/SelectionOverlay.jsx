@@ -18,6 +18,28 @@ export default class SelectionOverlay extends OakComponent {
     super(...arguments);
   }
 
+  componentDidMount() {
+    super.componentDidMount();
+    $(document).on("scroll", this.onScroll);
+    $(document).on("zoom", this.onZoom);
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    $(document).off("scroll", this.onScroll);
+    $(document).on("zoom", this.onZoom);
+  }
+
+  @autobind
+  onScroll(event) {
+    this._updateSelection();
+  }
+
+  @autobind
+  onZoom(event) {
+    this._updateSelection();
+  }
+
   @autobind
   onClick(event) {
     const oid = app.event._downOid;
@@ -35,6 +57,11 @@ export default class SelectionOverlay extends OakComponent {
     else {
       app.actions.setSelection({ elements: oid });
     }
+  }
+
+  // Update selection due to an event (scroll, zoom, etc).
+  _updateSelection() {
+    if (this._isMounted && app.selection && app.selection.length) this.forceUpdate();
   }
 
   renderSelection(selection) {

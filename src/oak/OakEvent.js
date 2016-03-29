@@ -13,10 +13,10 @@
 //
 //////////////////////////////
 
-import app from "./app";
-
 import Point from "oak-roots/Point";
 import Rect from "oak-roots/Rect";
+
+import app from "./app";
 
 export default class OakEvent {
 
@@ -559,6 +559,30 @@ export default class OakEvent {
   }
 
 
+  //////////////////////////////
+  //  Window zoom
+  //////////////////////////////
+
+  // Return the `devicePixelRatio` of the current screen.
+  // NOTE: this is notoriously unreliable, we just use it to detect if the zoom changes.
+  static get devicePixelRatio() {
+    return window.devicePixelRatio || 1;
+  }
+
+  static get zoom() {
+    return 1 / OakEvent.devicePixelRatio;
+  }
+
+  static _checkWindowZoom() {
+    const oldValue = OakEvent.__devicePixelRatio;
+    const newValue = OakEvent.devicePixelRatio;
+
+    if (oldValue !== newValue) {
+      OakEvent.__devicePixelRatio = newValue;
+      $(document).trigger("zoom");
+    }
+  }
+
 
   //////////////////////////////
   //  Debug
@@ -615,6 +639,9 @@ export default class OakEvent {
     // window focus event capture
     window.addEventListener("focus", OakEvent._captureFocus, true);
     window.addEventListener("blur", OakEvent._captureBlur, true);
+
+    // set a timer to attempt to detect devicePixelRatio changes
+    setInterval(OakEvent._checkWindowZoom, 150);
 
     // Create a new empty event to start.
     app.setEvent( new OakEvent({ type: "init" }) );
