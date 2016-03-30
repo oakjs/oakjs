@@ -29,7 +29,7 @@ export default class Project extends ComponentController {
   //////////////////////////////
 
   createComponentLoader() {
-    return this.oak.getProjectLoader(this, "MAKE");
+    return this.oak.loader.getProjectLoader(this, "MAKE");
   }
 
   // TODO: dynamic components
@@ -42,7 +42,7 @@ export default class Project extends ComponentController {
   //  Sections
   //////////////////////////////
 
-  get sectionIndex() { return this.oak.getSectionIndex(this.path) }
+  get sectionIndex() { return this.oak.loader.getSectionIndex(this.path) }
 
   get sections() { return this.sectionIndex.items }
   get sectionIds() { return this.sectionIndex.itemIds }

@@ -31,7 +31,7 @@ export default class Section extends ComponentController {
   //////////////////////////////
 
   createComponentLoader() {
-    return this.oak.getSectionLoader(this, "MAKE");
+    return this.oak.loader.getSectionLoader(this, "MAKE");
   }
 
   // TODO: dynamic components
@@ -43,7 +43,7 @@ export default class Section extends ComponentController {
   //  Pages
   //////////////////////////////
 
-  get pageIndex() { return this.oak.getPageIndex(this.path) }
+  get pageIndex() { return this.oak.loader.getPageIndex(this.path) }
 
   get pages() { return this.pageIndex.items }
   get pageIds() { return this.pageIndex.itemIds }

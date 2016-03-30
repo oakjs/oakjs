@@ -32,7 +32,7 @@ export default class Page extends ComponentController {
   //////////////////////////////
 
   createComponentLoader() {
-    return this.oak.getPageLoader(this, "MAKE");
+    return this.oak.loader.getPageLoader(this, "MAKE");
   }
 
   // TODO: dynamic components

@@ -9,21 +9,11 @@ import { preference } from "oak-roots/util/preference";
 import { debounce } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
 import global from "oak-roots/util/global";
-import LoadableIndex from "oak-roots/LoadableIndex";
-import Registry from "oak-roots/Registry";
 import UndoQueue from "oak-roots/UndoQueue";
 
 import actions from "./actions";
-import api from "./api";
 import OakEvent from "./OakEvent";
-import Page from "./Page";
-import Project from "./Project";
-import Section from "./Section";
-import ComponentLoader from "./ComponentLoader";
-
-import OakPage from "./components/OakPage";
-import OakProject from "./components/OakProject";
-import OakSection from "./components/OakSection";
+import ProjectLoader from "./ProjectLoader";
 
 import SUIComponents from "themes/SUI/components";
 import oakComponents from "./components";
@@ -49,13 +39,10 @@ class OakJS {
     this.runner = {};
 
     // Registry of loaded projects/sections/pages/etc
-    this.registry = new Registry();
+    this.loader = new ProjectLoader(this);
 
     // Create the global undoQueue
     this.undoQueue = new UndoQueue();
-
-    // load the project index to start with since that's the first thing we'll need
-    this.projectIndex.load();
   }
 
 
@@ -201,22 +188,62 @@ class OakJS {
     throw new TypeError(`oak.getPageRoute(${projectId}, ${sectionId}, ${pageId}): invalid params`);
   }
 
+  get projects() { return this.projectIndex.items }
+
+  showProject(projectIdentifier) {
+    const route = this.getPageRoute(projectIdentifier);
+    oak.goTo(route);
+  }
+
+  showSection(projectIdentifier, sectionIdentifier) {
+    const route = this.getPageRoute(projectIdentifier, sectionIdentifier);
+    oak.goTo(route);
+  }
+
+  showPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
+    const route = this.getPageRoute(projectIdentifier, sectionIdentifier, pageIdentifier);
+    oak.goTo(route);
+  }
+
+
 
   //////////////////////////////
   //  Components
   //////////////////////////////
 
+  // All known projects.
+  get projects() {
+    return this.loader.projectIndex.items
+  }
+
+  // Get a project by id
+  getProject(projectId) {
+    return this.loader.getProject(projectId)
+  }
+
+  // Return a section by id
+  getSection(projectId, sectionId) {
+    return this.loader.getSection(projectId, sectionId)
+  }
+
+  // Return a page by id
+  getPage(projectId, sectionId, pageId) {
+    return this.loader.getPage(projectId, sectionId, pageId)
+  }
+
   // All known components
   // TODO: this should really be dynamic...
   components = Object.assign({}, SUIComponents, oakComponents)
 
-  static __PROJECT_THEMES__ = {};
+  // Define a theme-ful of `components` for a `project`.
   setProjectTheme(projectId, components) {
-    this.constructor.__PROJECT_THEMES__[projectId] = components;
+    const themes = this.__PROJECT_THEMES__ || (this.__PROJECT_THEMES__ = {});
+    themes[projectId] = components;
   }
 
+  // Return theme components defined for a `project`.
   getProjectTheme(projectId) {
-    return this.constructor.__PROJECT_THEMES__[projectId] || this.components;
+    return oak.__PROJECT_THEMES__[projectId] || this.components;
   }
 
   getComponentForType(type, errorMessage, components = this.components) {
@@ -257,269 +284,6 @@ class OakJS {
     }
   }
 
-
-  //////////////////////////////
-  //  Projects!
-  //////////////////////////////
-
-  get projectIndex() { return this.getProjectIndex() }
-  get projects() { return this.projectIndex.items }
-  get projectIds() { return this.projectIndex.itemIds }
-  get projectMap() { return this.projectIndex.itemMap }
-
-  showProject(projectIdentifier) {
-    const route = this.getPageRoute(projectIdentifier);
-    oak.goTo(route);
-  }
-
-  // Return a project, but only if it has already been loaded.
-  // Returns `undefined` if the project is not found or it hasn't been loaded yet.
-  // Use `oak.loadProject()` if you want to ensure that a project is loaded.
-  getProject(projectIdentifier) {
-    return this.projectIndex.getItem(projectIdentifier);
-  }
-
-  // Return a promise which resolves with a loaded project.
-  // If project is not found, the promise will reject.
-  // You can specify string id or numeric index.
-  loadProject(projectIdentifier) {
-    return this.projectIndex.loadItem(projectIdentifier)
-//       .catch(error => {
-//         console.group(`Error loading project ${projectIdentifier}:`);
-//         console.error(error);
-//         console.groupEnd();
-//         throw new ReferenceError("Couldn't load project");
-//       });
-  }
-
-  //////////////////////////////
-  //  Sections!
-  //////////////////////////////
-
-  showSection(projectIdentifier, sectionIdentifier) {
-    const route = this.getPageRoute(projectIdentifier, sectionIdentifier);
-    oak.goTo(route);
-  }
-
-  getSection(projectIdentifier, sectionIdentifier) {
-    const project = this.getProject(projectIdentifier);
-    if (project) return project.getSection(sectionIdentifier);
-  }
-
-  loadSection(projectIdentifier, sectionIdentifier) {
-    const section = this.getSection(projectIdentifier, sectionIdentifier);
-    if (section) return section.load();
-
-    return this.loadProject(projectIdentifier)
-      .then( project => {
-        return project.loadSection(sectionIdentifier);
-      })
-//       .catch(error => {
-//         console.group(`Error loading section ${projectIdentifier}/${sectionIdentifier}:`);
-//         console.error(error);
-//         console.groupEnd();
-//         throw new ReferenceError("Couldn't load section");
-//       });
-  }
-
-
-  //////////////////////////////
-  //  Pages!
-  //////////////////////////////
-
-  showPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
-    const route = this.getPageRoute(projectIdentifier, sectionIdentifier, pageIdentifier);
-    oak.goTo(route);
-  }
-
-  getPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
-    const section = this.getSection(projectIdentifier, sectionIdentifier);
-    if (section) return section.getPage(pageIdentifier);
-  }
-
-  loadPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
-    const page = this.getPage(projectIdentifier, sectionIdentifier, pageIdentifier);
-    if (page) return page.load();
-
-    return this.loadSection(projectIdentifier, sectionIdentifier)
-      .then( section => {
-        return section.loadPage(pageIdentifier);
-      })
-//       .catch(error => {
-//         console.group(`Error loading page ${projectIdentifier}/${sectionIdentifier}/${pageIdentifier}:`);
-//         console.error(error);
-//         console.groupEnd();
-//         throw new ReferenceError("Couldn't load page");
-//       });
-  }
-
-
-
-
-  //////////////////////////////
-  //  Indexes
-  //////////////////////////////
-
-  _getFromRegistry(typePrefix, pathOrController, creatorFunction) {
-    const registryPath = typePrefix + (typeof pathOrController === "string" ? pathOrController : pathOrController.path);
-    let item = this.registry.get(registryPath);
-    if (!item && creatorFunction) {
-      item = creatorFunction.call(this, pathOrController);
-      item.oak = this;
-      item._registryPath = registryPath;
-      this.registry.add(item, registryPath);
-    }
-    return item;
-  }
-
-  // Return the one and only project index singleton.
-  getProjectIndex() {
-    return this._getFromRegistry("PROJECTS:", "", this._makeProjectIndex);
-  }
-
-  // Create the project index on demand.
-  // DO NOT CALL THIS!  Use `oak.getProjectIndex()` instead.
-  _makeProjectIndex() {
-    return new LoadableIndex({
-      itemType: "project",
-      loadIndex: () => {
-        return api.loadProjectIndex();
-      },
-      createItem: (projectId, props) => {
-        return new Project({
-          projectId,
-          ...props,
-          oak: this,
-        });
-      },
-    });
-  }
-
-
-  // Return the section index singleton for a specific project.
-  getSectionIndex(projectPath) {
-    return this._getFromRegistry("STACK-INDEX:", projectPath, this._makeSectionIndex)
-  }
-
-  // Create a section index on demand.
-  // DO NOT CALL THIS!  Use `oak.getSectionIndex()` instead.
-  _makeSectionIndex(projectPath) {
-    const projectId = projectPath;
-    return new LoadableIndex({
-      itemType: "section",
-      loadIndex: () => {
-        return api.loadSectionIndex(projectPath);
-      },
-      createItem: (sectionId, props) => {
-        return new Section({
-          sectionId,
-          projectId,
-          ...props,
-          oak: this,
-        });
-      }
-    });
-  }
-
-
-  // Return the page index singleton for a specific section.
-  getPageIndex(sectionPath) {
-    return this._getFromRegistry("CARD-INDEX:", sectionPath, this._makePageIndex)
-  }
-
-  // Create a page index on demand.
-  // DO NOT CALL THIS!  Use `oak.getPageIndex()` instead.
-  _makePageIndex(sectionPath) {
-    const [ projectId, sectionId ] = sectionPath.split("/");
-    return new LoadableIndex({
-      itemType: "page",
-      loadIndex: () => {
-        return api.loadPageIndex(sectionPath);
-      },
-      createItem: (pageId, props) => {
-        return new Page({
-          pageId,
-          sectionId,
-          projectId,
-          ...props,
-          oak: this,
-        });
-      }
-    });
-  }
-
-
-  //////////////////////////////
-  //  Loaders
-  //////////////////////////////
-
-  getPath(pathOrController) {
-    if (typeof pathOrController === "string") return pathOrController;
-    if (pathOrController && pathOrController.path) return pathOrController.path;
-    console.warn(`oak.getPath(${pathOrController}): cant figure out path`);
-  }
-
-  getLoader(pathOrController, makeIfNecessary) {
-    if (pathOrController instanceof ComponentLoader) return pathOrController;
-
-    const path = this.getPath(pathOrController);
-    if (!path) return;
-    const [ projectId, sectionId, pageId ] = path.split("/");
-    if (pageId) return oak.getPageLoader(pathOrController, makeIfNecessary);
-    if (sectionId) return oak.getSectionLoader(pathOrController, makeIfNecessary);
-    return oak.getProjectLoader(pathOrController, makeIfNecessary);
-  }
-
-  // Return the singleton loader for some project.
-  getProjectLoader(project, makeIfNecessary) {
-    const makeLoader = makeIfNecessary && project instanceof Project && this._makeProjectLoader;
-    return this._getFromRegistry("PROJECT-LOADER:", project, makeLoader);
-  }
-
-  // Create a project loader on demand.
-  // DO NOT CALL THIS!  Use `oak.getProjectLoader()` instead.
-  _makeProjectLoader(project) {
-    return new ComponentLoader({
-      type: "Project",
-      path: project.path,
-      controller: project,
-      SuperConstructor: OakProject
-    });
-  }
-
-  // Return the singleton loader for some section.
-  getSectionLoader(section, makeIfNecessary) {
-    const makeLoader = makeIfNecessary && section instanceof Section && this._makeSectionLoader;
-    return this._getFromRegistry("STACK-LOADER:", section, makeLoader);
-  }
-
-  // Create a section loader on demand.
-  // DO NOT CALL THIS!  Use `oak.getSectionLoader()` instead.
-  _makeSectionLoader(section) {
-    return new ComponentLoader({
-      type: "Section",
-      path: section.path,
-      controller: section,
-      SuperConstructor: OakSection
-    });
-  }
-
-  // Return the singleton loader for some page.
-  getPageLoader(page, makeIfNecessary) {
-    const makeLoader = makeIfNecessary && page instanceof Page && this._makePageLoader;
-    return this._getFromRegistry("CARD-LOADER:", page, makeLoader);
-  }
-
-  // Create a page loader on demand.
-  // DO NOT CALL THIS!  Use `oak.getPageLoader()` instead.
-  _makePageLoader(page) {
-    return new ComponentLoader({
-      type: "Page",
-      path: page.path,
-      controller: page,
-      SuperConstructor: OakPage
-    });
-  }
 
 }
 
