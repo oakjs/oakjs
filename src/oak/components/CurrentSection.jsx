@@ -30,6 +30,6 @@ export default class CurrentSection extends React.Component {
   render() {
     const section = this.context.oak.section;
     if (!section) return false;
-    return React.createElement(section.Component, { ref: "section" });
+    return React.createElement(section.Component, { ref: "section", className:"current" });
   }
 }

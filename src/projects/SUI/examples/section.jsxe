@@ -1,7 +1,9 @@
 <OakSection id="examples" title="Examples">
-  <Menu id="PageSidebar" appearance="inverted attached vertical">
-    <MenuHeader>Components</MenuHeader>
-    <SectionMenu appearance="inverted vertical"/>
-  </Menu>
+  <div id="PageSidebar">
+    <Menu id="PageSidebarMenu" appearance="inverted attached vertical">
+      <MenuHeader>Components</MenuHeader>
+      <SectionMenu appearance="inverted vertical"/>
+    </Menu>
+  </div>
   <CurrentPage/>
 </OakSection>

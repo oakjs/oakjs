@@ -33,6 +33,6 @@ export default class OakProject extends OakComponent {
   //////////////////////////////
 
   getClassName(props) {
-    return classNames("oak Project", props.className)
+    return classNames("oak", this.props.className, "Project");
   }
 }

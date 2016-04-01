@@ -24,6 +24,6 @@ export default class CurrentProject extends React.Component {
   render() {
     const project = this.context.oak.runner.project;
     if (!project) return false;
-    return React.createElement(project.Component, { ref: "project" });
+    return React.createElement(project.Component, { ref: "project", className:"runner" });
   }
 }

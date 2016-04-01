@@ -30,7 +30,7 @@ export default class CurrentPage extends React.Component {
   render() {
     const page = this.context.oak.page;
     if (!page) return false;
-    return React.createElement(page.Component, { ref: "page" });
+    return React.createElement(page.Component, { ref: "page", className:"current" });
   }
 }
 

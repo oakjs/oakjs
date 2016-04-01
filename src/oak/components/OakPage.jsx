@@ -88,7 +88,7 @@ export default class OakPage extends OakComponent {
   //////////////////////////////
 
   getClassName() {
-    return classNames("oak Page", this.props.className);
+    return classNames("oak", this.props.className, "Page");
   }
 
 }

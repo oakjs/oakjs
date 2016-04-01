@@ -1,13 +1,14 @@
-#SUI #examples #PageSidebar {
-  position:fixed;
-  left:0; width: 150px;
-  top:40px; height: calc(100% - 40px);
-  background-color: #1b1c1d;
-  overflow-y: auto;
-  overflow-x: hidden;
+#SUI #examples {
+  display: flex;
+  flex-direction: row;
 }
 
-#SUI #examples .oak.Page {
-  margin-right: 150px;
-  transform: translate3d(150px, 0px, 0px);
+#SUI #examples #PageSidebar {
+  width: 150px;
+  flex: 0 0 auto;
+}
+
+#SUI #examples .oak.current.Page {
+  flex: 1 0 auto;
+  min-width: 0;
 }

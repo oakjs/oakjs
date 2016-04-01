@@ -32,7 +32,7 @@ export default class OakSection extends OakComponent {
   //////////////////////////////
 
   getClassName(props) {
-    return classNames("oak Section", props.className);
+    return classNames("oak", this.props.className, "Section");
   }
 
 }
