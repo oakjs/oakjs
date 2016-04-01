@@ -47,14 +47,14 @@ export default class ComponentController extends Loadable() {
   //////////////////////////////
 
   initComponentLoader() {
-    this.componentLoader = this.createComponentLoader();
+    this.componentLoader = this.getComponentLoader();
 
     // watch componentChanged to update our element
     this.componentLoader.on("componentChanged", () => this.onComponentChanged() );
   }
 
-  createComponentLoader() {
-    throw new TypeError(`You must override ${this}.createComponentLoader()`);
+  getComponentLoader() {
+    throw new TypeError(`You must override ${this}.getComponentLoader()`);
   }
 
   onComponentChanged() {

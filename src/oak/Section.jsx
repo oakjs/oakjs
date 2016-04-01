@@ -30,7 +30,7 @@ export default class Section extends ComponentController {
   //  Components
   //////////////////////////////
 
-  createComponentLoader() {
+  getComponentLoader() {
     return this.oak.loader.getSectionLoader(this, "MAKE");
   }
 

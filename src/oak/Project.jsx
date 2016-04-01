@@ -28,7 +28,7 @@ export default class Project extends ComponentController {
   //  Components
   //////////////////////////////
 
-  createComponentLoader() {
+  getComponentLoader() {
     return this.oak.loader.getProjectLoader(this, "MAKE");
   }
 

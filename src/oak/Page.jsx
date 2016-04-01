@@ -31,7 +31,7 @@ export default class Page extends ComponentController {
   //  Components
   //////////////////////////////
 
-  createComponentLoader() {
+  getComponentLoader() {
     return this.oak.loader.getPageLoader(this, "MAKE");
   }
 
