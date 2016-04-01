@@ -268,13 +268,15 @@ class OakJS {
   //  Oid => Component => Oid
   //////////////////////////////
 
-  // Given an oid, return the component that it corresponds to.
-  getComponentForOid(oid, EDIT_CONTEXT_ONLY) {
-    if (!oid) return undefined;
+  // Return the JSXElement `Component` for an `oid`,
+  // but only for components which are editable.
+  getEditableComponentForOid(oid) {
+    return this.getComponentForOid(oid, [ this.editContext ]);
+  }
 
-    const controllers = EDIT_CONTEXT_ONLY
-                      ? [ this.editContext ]
-                      : [ this.page, this.section, this.project ];
+  // Given an oid, return the component that it corresponds to.
+  getComponentForOid(oid, controllers = [ this.page, this.section, this.project ]) {
+    if (!oid) return undefined;
 
     for (let controller of controllers) {
       if (controller) {
@@ -311,7 +313,7 @@ class OakJS {
   }
 
   // Return a map of `{ oid => clientRect }` for ALL `oid` elements on the page.
-  // TODO: this is relatively slow, although I'm not sure how to optimize.
+  // TODO: this is relatively slow, although it's not clear how to optimize more than this.
   // DEPRECATED
   getOidRects() {
     if (!this._projectComponent) return undefined;
@@ -325,9 +327,6 @@ class OakJS {
       rects[i].oid = element.getAttribute("data-oid");
     }
     console.timeEnd("oidRects");
-
-    if (!this._renderCache) this._renderCache = {};
-    this._renderCache.oidRects = rects;
     return rects;
   }
 

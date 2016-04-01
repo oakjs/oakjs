@@ -116,11 +116,17 @@ export default class OakEvent {
   }
 
   // Return the `oid` of the closest element with a `data-oid` attribute to the `target` element.
-// REFACTOR: MOVE INTO EDITOR?
+  // NOTE: only returns elements in the current `oak.editContext`.
   static _getClosestOid(target) {
-    if (target) {
-      const oidTarget = roots.elements.closestMatching(target, "[data-oid]");
-      if (oidTarget) return oidTarget.getAttribute("data-oid");
+    if (!target) return undefined;
+
+    const oidTarget = roots.elements.closestMatching(target, "[data-oid]");
+    if (!oidTarget) return undefined;
+
+    const oid = oidTarget.getAttribute("data-oid");
+    if (oak.state.editContext) {
+      const component = oak.getEditableComponentForOid(oid);
+      if (component) return oid;
     }
     return undefined;
   }
