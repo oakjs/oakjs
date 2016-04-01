@@ -16,6 +16,7 @@ export default class SelectionOverlay extends OakComponent {
 
   constructor() {
     super(...arguments);
+    this.state = {};
   }
 
   componentDidMount() {
@@ -41,6 +42,16 @@ export default class SelectionOverlay extends OakComponent {
   }
 
   @autobind
+  onMouseMove(event) {
+    if (!this._isMounted) return;
+
+    const oid = oak.event._mouseOid;
+    if (oid !== this.state.mouseOid) {
+      this.setState({ mouseOid: oid });
+    }
+  }
+
+  @autobind
   onClick(event) {
     const oid = oak.event._downOid;
 
@@ -61,7 +72,9 @@ export default class SelectionOverlay extends OakComponent {
 
   // Update selection due to an event (scroll, zoom, etc).
   _updateSelection() {
-    if (this._isMounted && oak.selection && oak.selection.length) this.forceUpdate();
+    if (this._isMounted && this.state.mouseOid || (oak.selection && oak.selection.length)) {
+      this.forceUpdate();
+    }
   }
 
   renderSelection(selection) {
@@ -85,12 +98,27 @@ export default class SelectionOverlay extends OakComponent {
     return elements;
   }
 
+  renderMouseOid(oid) {
+    if (!oid) return;
+    const rect = oak.getRectForOid(oid);
+    if (!rect || rect.isEmpty) return null;
+
+    return <SelectionRect key="mouseover" oid={oid} rect={rect}/>
+  }
+
   render() {
     const { oak } = this.context;
     if (!oak.state.editing) return null;
 
+    const props = {
+      id: "SelectionOverlay",
+      onClick: this.onClick,
+      onMouseMove: this.onMouseMove
+    }
+
     return (
-      <div id="SelectionOverlay" onClick={this.onClick}>
+      <div {...props}>
+        { this.renderMouseOid(this.state.mouseOid) }
         { this.renderSelection(oak.selection) }
       </div>
     );
