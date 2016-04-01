@@ -64,8 +64,8 @@ export default class ComponentController extends Loadable() {
   get Component() { return this.componentLoader.Component }
 
   // Given a component `type` name, return the component class it corresponds to.
-  getComponentForType(type, errorMessage) {
-    return this.oak.getComponentForType(type, errorMessage, this.components);
+  getThemeComponentForType(type, errorMessage) {
+    return this.oak.getThemeComponentForType(type, errorMessage, this.components);
   }
 
   // Return the component DEFINITION for the specified `oid`.
