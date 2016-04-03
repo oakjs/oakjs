@@ -1,8 +1,9 @@
 <OakSection id="examples" title="Examples">
   <div id="PageSidebar">
-    <Menu id="PageSidebarMenu" appearance="inverted attached vertical">
+    <Menu id="PageSidebarMenu" appearance="inverted attached vertical sticky">
       <MenuHeader>Components</MenuHeader>
       <SectionMenu appearance="inverted vertical"/>
+      <Spacer large/>
     </Menu>
   </div>
   <CurrentPage/>
