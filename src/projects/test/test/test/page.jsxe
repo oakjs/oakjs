@@ -6,6 +6,7 @@
         JSX Test Card!
       </div>
       <Button title="Love It!" icon="heart" oid="oiBgbSMB" />
+      <Checkbox label="Yahh"/>
     </Segment>
   </Container>
 </OakPage>

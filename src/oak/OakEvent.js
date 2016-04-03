@@ -6,17 +6,17 @@
 //  so we can report on the current state of things regardless of whether
 //  processing is happening within an event or not.
 //
-//  Access `app.event.*` to figure out the current state of the world, eg:
-//    - app.event.button
-//    - app.event.mouseLoc
+//  Access `oak.event.*` to figure out the current state of the world, eg:
+//    - oak.event.button
+//    - oak.event.mouseLoc
 //  etc.
 //
 //////////////////////////////
 
-import app from "./app";
-
 import Point from "oak-roots/Point";
 import Rect from "oak-roots/Rect";
+
+import oak from "./oak";
 
 export default class OakEvent {
 
@@ -102,7 +102,7 @@ export default class OakEvent {
 
   // Editable component under the mouse
   get mouseComponent() {
-    return app.getComponentForOid(this._mouseOid);
+    return oak.getComponentForOid(this._mouseOid);
   }
 
   // OID Element under the mouse when mouse went down
@@ -112,15 +112,21 @@ export default class OakEvent {
 
   // Editable component where the mouse went down.
   get downComponent() {
-    return app.getComponentForOid(this._downOid);
+    return oak.getComponentForOid(this._downOid);
   }
 
   // Return the `oid` of the closest element with a `data-oid` attribute to the `target` element.
-// REFACTOR: MOVE INTO EDITOR?
+  // NOTE: only returns elements in the current `oak.editContext`.
   static _getClosestOid(target) {
-    if (target) {
-      const oidTarget = roots.elements.closestMatching(target, "[data-oid]");
-      if (oidTarget) return oidTarget.getAttribute("data-oid");
+    if (!target) return undefined;
+
+    const oidTarget = roots.elements.closestMatching(target, "[data-oid]");
+    if (!oidTarget) return undefined;
+
+    const oid = oidTarget.getAttribute("data-oid");
+    if (oak.state.editContext) {
+      const component = oak.getEditableComponentForOid(oid);
+      if (component) return oid;
     }
     return undefined;
   }
@@ -135,14 +141,14 @@ export default class OakEvent {
 
   static _captureMouseMove(event) {
     const mouseLoc = new Point(event.pageX, event.pageY);
-    const lastMouseLoc = app.event.mouseLoc;
+    const lastMouseLoc = oak.event.mouseLoc;
 
     // Only run the event if the mouse has actually moved.
     // This works around a bug in Chrome Mac where it fires `mousemove` repeatedly
     //  because we're manipulating the DOM in `_getMouseTarget()`.
     if (mouseLoc.equals(lastMouseLoc)) return;
 
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "mousemove",
 
       // Current position of the mouse.
@@ -164,7 +170,7 @@ export default class OakEvent {
       }
     }
 
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
   }
 
 
@@ -181,7 +187,7 @@ export default class OakEvent {
   }
 
   static _captureLeftButtonDown(event) {
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "mousedown",
       // Location where the mouse went down.
       downLoc: new Point(event.pageX, event.pageY),
@@ -189,18 +195,18 @@ export default class OakEvent {
       downTarget: OakEvent._getMouseTarget(event),
     });
 
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
   }
 
 
   static _captureRightButtonDown(event) {
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "contextmenu",
       // DOM element that's the target for the menu.
       menuTarget: OakEvent._getMouseTarget(event),
     });
 
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
   }
 
   static _captureWheelButtonDown(event) {
@@ -213,16 +219,16 @@ export default class OakEvent {
   //////////////////////////////
 
   static _captureMouseUp(event) {
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "mouseup"
     });
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
 
     // clear mousedown data on a timeout so we remember it during this event
     setTimeout(function() {
-      const oakEvent = app.event.clone({ type: "_mouseup" });
+      const oakEvent = oak.event.clone({ type: "_mouseup" });
       oakEvent._clearMouseData();
-      app.setEvent(oakEvent);
+      oak.setEvent(oakEvent);
     }, 0);
   }
 
@@ -294,7 +300,7 @@ export default class OakEvent {
     const key = OakEvent.keyForEvent(event);
     const keyId = event.code;
 
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "keydown",
       key,
       keyId
@@ -306,22 +312,22 @@ export default class OakEvent {
       oakEvent._addToKeyMap(key, keyId);
 
       // If the command-key is down:
-      if (app.event.keys.Meta) {
+      if (oak.event.keys.Meta) {
         //  If they're typing another key
         //  turn that other key off on an immediate timeout.
         //  This works around bugs on FF Mac (at least) where we don't get a key up
         //  event for some command keys, which causes `keys` and `keyIds` to be off.
         if (!["Meta","Shift","Alt","Control"].includes(key)) {
           setTimeout(function() {
-            const oakEvent = app.event.clone({ type: "_keyup" });
+            const oakEvent = oak.event.clone({ type: "_keyup" });
             oakEvent._removeFromKeyMap(key, keyId);
-            app.setEvent(oakEvent);
+            oak.setEvent(oakEvent);
           }, 0);
         }
       }
     }
 
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
 
   // DEBUG
   //  event.preventDefault();
@@ -335,7 +341,7 @@ export default class OakEvent {
     const key = OakEvent.keyForEvent(event);
     const keyId = event.code;
 
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "keyup",
       key,
       keyId
@@ -344,13 +350,13 @@ export default class OakEvent {
     // remove from key maps immediately so we can detect the current state
     oakEvent._removeFromKeyMap(key, keyId);
 
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
 
     // clear current key data on a timeout so we remember it during this event
     setTimeout(function() {
-      const oakEvent = app.event.clone({ type: "_keyup" });
+      const oakEvent = oak.event.clone({ type: "_keyup" });
       oakEvent._clearKeyData();
-      app.setEvent(oakEvent);
+      oak.setEvent(oakEvent);
     }, 0);
   }
 
@@ -368,7 +374,7 @@ export default class OakEvent {
   //  Global key maps
   //
   //  You can access these maps to figure out ALL the keys that are currently down.
-  //  Access as:  `app.event.keys.Meta` or `app.event.keyIds.KeyA`
+  //  Access as:  `oak.event.keys.Meta` or `oak.event.keyIds.KeyA`
   //
   //  NOTE: do NOT modify these maps directly!!!
   //////////////////////////////
@@ -498,18 +504,18 @@ export default class OakEvent {
   // console.dir(event);
   // console.groupEnd();
 
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "windowFocus"
     });
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
   }
 
   static _elementFocus(event) {
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "focus",
       focused: event.target
     });
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
   }
 
 
@@ -532,7 +538,7 @@ export default class OakEvent {
   // console.dir(event);
   // console.groupEnd();
 
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "windowBlur"
     });
 
@@ -541,23 +547,47 @@ export default class OakEvent {
     oakEvent._clearKeyMap();
     oakEvent._clearKeyData();
 
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
   }
 
   static _elementBlur(event) {
-    const oakEvent = app.event.clone({
+    const oakEvent = oak.event.clone({
       type: "blur"
     });
-    app.setEvent(oakEvent, event);
+    oak.setEvent(oakEvent, event);
 
     // clear focused data on a timeout so we remember it during this event
     setTimeout(function() {
-      const oakEvent = app.event.clone({ type: "_blur" });
+      const oakEvent = oak.event.clone({ type: "_blur" });
       delete oakEvent.focused;
-      app.setEvent(oakEvent);
+      oak.setEvent(oakEvent);
     }, 0);
   }
 
+
+  //////////////////////////////
+  //  Window zoom
+  //////////////////////////////
+
+  // Return the `devicePixelRatio` of the current screen.
+  // NOTE: this is notoriously unreliable, we just use it to detect if the zoom changes.
+  static get devicePixelRatio() {
+    return window.devicePixelRatio || 1;
+  }
+
+  static get zoom() {
+    return 1 / OakEvent.devicePixelRatio;
+  }
+
+  static _checkWindowZoom() {
+    const oldValue = OakEvent.__devicePixelRatio;
+    const newValue = OakEvent.devicePixelRatio;
+
+    if (oldValue !== newValue) {
+      OakEvent.__devicePixelRatio = newValue;
+      $(document).trigger("zoom");
+    }
+  }
 
 
   //////////////////////////////
@@ -601,7 +631,7 @@ export default class OakEvent {
   //////////////////////////////
 
   static initialize() {
-    console.info("initializing events");
+//    console.info("initializing events");
 
     // mouse event capture
     document.addEventListener("mousemove", OakEvent._captureMouseMove, true);
@@ -616,8 +646,11 @@ export default class OakEvent {
     window.addEventListener("focus", OakEvent._captureFocus, true);
     window.addEventListener("blur", OakEvent._captureBlur, true);
 
+    // set a timer to attempt to detect devicePixelRatio changes
+    setInterval(OakEvent._checkWindowZoom, 150);
+
     // Create a new empty event to start.
-    app.setEvent( new OakEvent({ type: "init" }) );
+    oak.setEvent( new OakEvent({ type: "init" }) );
   }
 
 

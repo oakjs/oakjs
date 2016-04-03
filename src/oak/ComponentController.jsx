@@ -47,25 +47,25 @@ export default class ComponentController extends Loadable() {
   //////////////////////////////
 
   initComponentLoader() {
-    this.componentLoader = this.createComponentLoader();
+    this.componentLoader = this.getComponentLoader();
 
     // watch componentChanged to update our element
     this.componentLoader.on("componentChanged", () => this.onComponentChanged() );
   }
 
-  createComponentLoader() {
-    throw new TypeError(`You must override ${this}.createComponentLoader()`);
+  getComponentLoader() {
+    throw new TypeError(`You must override ${this}.getComponentLoader()`);
   }
 
   onComponentChanged() {
-    if (this.component) this.app.updateSoon();
+    if (this.component) this.oak.updateSoon();
   }
 
   get Component() { return this.componentLoader.Component }
 
   // Given a component `type` name, return the component class it corresponds to.
-  getComponentForType(type, errorMessage) {
-    return this.app.getComponentForType(type, errorMessage, this.components);
+  getThemeComponentForType(type, errorMessage) {
+    return this.oak.getThemeComponentForType(type, errorMessage, this.components);
   }
 
   // Return the component DEFINITION for the specified `oid`.

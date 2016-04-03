@@ -65,7 +65,7 @@
     </Example>
 
 
-    <Example title="Centering Menu in app header" hint="<Menu appearance='attached stackable'><Container/></Menu>">
+    <Example title="Centering Menu in oak header" hint="<Menu appearance='attached stackable'><Container/></Menu>">
       <Menu appearance="attached stackable">
         <Container>
           <MenuItem icon="home" label="Home"/>

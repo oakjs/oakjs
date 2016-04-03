@@ -8,28 +8,14 @@
 
 import Rect from "../Rect";
 
-// Return the viewport rect -- relative to the VIEWPORT, NOT including scrolling.
-// Returns `undefined` if element doesn't exist.
-// TODO: scale???
-export function viewportRect(element) {
-  if (!element) return undefined;
-  const rect = element.getBoundingClientRect();
-  return new Rect(rect.left, rect.top, rect.width, rect.height);
-}
 
 // Return the OFFSET rect -- relative to the DOCUMENT, INCLUDING scrolling.
 // Returns `undefined` if element doesn't exist.
 // TODO: scale???
-export function offsetRect(element) {
+export function clientRect(element) {
   if (!element) return undefined;
-
-  const clientRect = element.getBoundingClientRect();
-  return new Rect(
-    clientRect.left + window.scrollX,
-    clientRect.top + window.scrollY,
-    clientRect.width,
-    clientRect.height
-  );
+  const rect = element.getBoundingClientRect();
+  return new Rect(rect.left, rect.top, rect.width, rect.height);
 }
 
 // Return `true` if the specified `element` matches the `selector`.

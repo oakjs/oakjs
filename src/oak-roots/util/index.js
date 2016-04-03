@@ -1,6 +1,7 @@
 export babel from "./babel";
 export browser from "./browser";
 export decorators from "./decorators";
+export die from "./die";
 export elements from "./elements";
 export global from "./global";
 export ids from "./ids";

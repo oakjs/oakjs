@@ -1,4 +1,4 @@
-import app from "oak/app";
+import oak from "oak/oak";
 import RunnerProject from "oak/components/RunnerProject";
 
 import AppRoute from "./AppRoute";
@@ -16,25 +16,25 @@ export default class UIRoute extends AppRoute {
 
     // get params from the URL and extra stuff stuck directly on the <Route> object
     const params = Object.assign({}, this.props.params, this.props.route);
-    console.dir(params);
+//    console.dir(params);
 
     //
     // attempt to load the UI Page
     //
     const { runnerProjectId = "_runner", runnerSectionId = "player", runnerPageId = "showPage" } = params;
-    const runnerPage = app.getPage(runnerProjectId, runnerSectionId, runnerPageId);
+    const runnerPage = oak.getPage(runnerProjectId, runnerSectionId, runnerPageId);
     // if we got a loaded page:
     if (runnerPage && runnerPage.isLoaded) {
-      // assign it to `app.runner.page` so we'll show it below
-      app.runner.page = runnerPage;
-      app.runner.section = runnerPage.section;
-      app.runner.project = runnerPage.project;
+      // assign it to `oak.runner.page` so we'll show it below
+      oak.runner.page = runnerPage;
+      oak.runner.section = runnerPage.section;
+      oak.runner.project = runnerPage.project;
     }
     else {
       // Otherwise if we didn't get a page, or the page hasn't started loading yet
       if (!runnerPage || !runnerPage.isLoading) {
         // load it and then redraw
-        app.loadPage(runnerProjectId, runnerSectionId, runnerPageId)
+        oak.loader.loadPage(runnerProjectId, runnerSectionId, runnerPageId)
           .then( page => {
             if (this._isMounted) {
               console.log("loaded runner page, updating ");
@@ -57,22 +57,22 @@ export default class UIRoute extends AppRoute {
     const appPageId = _normalizeInt(params.appPageId);
 
     if (runnerPage && appProjectId !== undefined) {
-      const appPage = app.getPage(appProjectId, appSectionId, appPageId);
+      const appPage = oak.getPage(appProjectId, appSectionId, appPageId);
       // if we got a loaded page
       if (appPage && appPage.isLoaded) {
-        // assign it to `app.page` so `<CurrentPage>` will show it
-        app.page = appPage;
-        app.section = appPage.section;
-        app.project = appPage.project;
+        // assign it to `oak.page` so `<CurrentPage>` will show it
+        oak.page = appPage;
+        oak.section = appPage.section;
+        oak.project = appPage.project;
       }
       else {
         // Otherwise if we didn't get a page, or the page hasn't started loading yet
         if (!appPage || !appPage.isLoading) {
           // load it and then redraw
-          app.loadPage(appProjectId, appSectionId, appPageId)
+          oak.loader.loadPage(appProjectId, appSectionId, appPageId)
             .then( page => {
               if (this._isMounted) {
-                console.log("loaded app page, updating ");
+                console.log("loaded oak page, updating ");
                 this.forceUpdate();
               }
             })
@@ -85,7 +85,7 @@ export default class UIRoute extends AppRoute {
     }
 
     // if we're currently showing a page, keep that visible until we load
-    if (app.runner.page && app.runner.page.project) {
+    if (oak.runner.page && oak.runner.page.project) {
       return React.createElement(RunnerProject, params);
     }
     // otherwise return `false` to tell react not to render yet.

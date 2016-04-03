@@ -63,8 +63,8 @@ function debugParams(query) {
 //////////////////////////////
 
 
-// Router for app actions.
-router.get("/app/:action",  (request, response) => {
+// Router for oak actions.
+router.get("/oak/:action",  (request, response) => {
   const { action } = request.params;
   const appPaths = new apiPaths.appPaths();
   switch (action) {

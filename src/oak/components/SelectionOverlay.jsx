@@ -16,24 +16,64 @@ export default class SelectionOverlay extends OakComponent {
 
   constructor() {
     super(...arguments);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    super.componentDidMount();
+    $(document).on("scroll", this.onScroll);
+    $(document).on("zoom", this.onZoom);
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    $(document).off("scroll", this.onScroll);
+    $(document).on("zoom", this.onZoom);
+  }
+
+  @autobind
+  onScroll(event) {
+    this._updateSelection();
+  }
+
+  @autobind
+  onZoom(event) {
+    this._updateSelection();
+  }
+
+  @autobind
+  onMouseMove(event) {
+    if (!this._isMounted) return;
+
+    const oid = oak.event._mouseOid;
+    if (oid !== this.state.mouseOid) {
+      this.setState({ mouseOid: oid });
+    }
   }
 
   @autobind
   onClick(event) {
-    const oid = app.event._downOid;
+    const oid = oak.event._downOid;
 
     // if shift is down,
-    if (app.event.shiftKey) {
+    if (oak.event.shiftKey) {
       // toggle selection of the element if there is one
-      if (oid) app.actions.toggleSelection({ elements: oid });
+      if (oid) oak.actions.toggleSelection({ elements: oid });
     }
     // if nothing under the mouse, clear selection
     else if (!oid) {
-      app.actions.clearSelection();
+      oak.actions.clearSelection();
     }
     // otherwise select just the oid
     else {
-      app.actions.setSelection({ elements: oid });
+      oak.actions.setSelection({ elements: oid });
+    }
+  }
+
+  // Update selection due to an event (scroll, zoom, etc).
+  _updateSelection() {
+    if (this._isMounted && this.state.mouseOid || (oak.selection && oak.selection.length)) {
+      this.forceUpdate();
     }
   }
 
@@ -42,7 +82,7 @@ export default class SelectionOverlay extends OakComponent {
 
     // create selection rects for everything in the selection
     const elements = selection.map( (oid, index) => {
-      const rect = app.getRectForOid(oid);
+      const rect = oak.getRectForOid(oid);
       if (!rect || rect.isEmpty) return undefined;
 
       // add to the list of rects
@@ -58,13 +98,28 @@ export default class SelectionOverlay extends OakComponent {
     return elements;
   }
 
+  renderMouseOid(oid) {
+    if (!oid) return;
+    const rect = oak.getRectForOid(oid);
+    if (!rect || rect.isEmpty) return null;
+
+    return <SelectionRect key="mouseover" oid={oid} rect={rect}/>
+  }
+
   render() {
-    const { app } = this.context;
-    if (!app.state.editing) return null;
+    const { oak } = this.context;
+    if (!oak.state.editing) return null;
+
+    const props = {
+      id: "SelectionOverlay",
+      onClick: this.onClick,
+      onMouseMove: this.onMouseMove
+    }
 
     return (
-      <div id="SelectionOverlay" onClick={this.onClick}>
-        { this.renderSelection(app.selection) }
+      <div {...props}>
+        { this.renderMouseOid(this.state.mouseOid) }
+        { this.renderSelection(oak.selection) }
       </div>
     );
   }

@@ -22,7 +22,7 @@ export default class OakProject extends OakComponent {
 
   get controller() { return this.constructor.controller }
 
-  get app() { return this.controller.app }
+  get oak() { return this.controller.oak }
   get id() { return this.controller.id }
   get type() { return this.controller.type; }
 
@@ -33,6 +33,6 @@ export default class OakProject extends OakComponent {
   //////////////////////////////
 
   getClassName(props) {
-    return classNames("oak Project", props.className)
+    return classNames("oak", this.props.className, "Project");
   }
 }

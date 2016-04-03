@@ -120,7 +120,7 @@ export default class JSXElement {
     const output = [];
     const options = {}
 
-    output.push("console.log('Rendering: ',this);");
+//    output.push("console.log('Rendering: ',this);");
 //    output.push("console.dir(this.context);");
 //    output.push("console.groupEnd();");
 
@@ -413,7 +413,7 @@ export class JSXElementParser extends AcornParser {
 
 export class OidRef {
   constructor(oid) {
-    if (typeof oid !== "string" || !oid) die(app, "new OidRef", oid, "Invalid oid!");
+    if (typeof oid !== "string" || !oid) die(OidRef, "new OidRef", oid, "Invalid oid!");
     // define the oid property non-changeable
     Object.defineProperty(this, "oid", { value: oid, enumerable: true });
   }

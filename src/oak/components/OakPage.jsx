@@ -15,7 +15,7 @@ export default class OakPage extends OakComponent {
     title: PropTypes.string,
   }
 
-  static get route() { return this.app.getPageRoute(this.project.id, this.section.id, this.id) }
+  static get route() { return this.oak.getPageRoute(this.project.id, this.section.id, this.id) }
 
   //////////////////////////////
   // Instance property sugar
@@ -23,7 +23,7 @@ export default class OakPage extends OakComponent {
 
   get controller() { return this.constructor.controller }
 
-  get app() { return this.controller.app }
+  get oak() { return this.controller.oak }
   get id() { return this.controller.id }
   get project() { return this.controller.project }
   get section() { return this.controller.section }
@@ -88,7 +88,7 @@ export default class OakPage extends OakComponent {
   //////////////////////////////
 
   getClassName() {
-    return classNames("oak Page", this.props.className);
+    return classNames("oak", this.props.className, "Page");
   }
 
 }

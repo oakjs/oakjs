@@ -4,10 +4,9 @@
 
 import API from "oak-roots/API";
 
-import oak from "./oak";
 import JSXElement from "./JSXElement";
 
-oak.api = new API({
+export default new API({
 
   //////////////////////////////
   // Component bundles
@@ -98,7 +97,7 @@ oak.api = new API({
   //////////////////////////////
 
   loadProjectIndex() {
-    const url = `/api/app/projectIndex`;
+    const url = `/api/oak/projectIndex`;
     const errorMessage = "Error loading project index";
     return this.loadIndex(url, undefined, );
   },
@@ -130,5 +129,3 @@ oak.api = new API({
 
 
 });
-
-export default oak.api;

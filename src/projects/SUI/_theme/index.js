@@ -15,7 +15,7 @@ import PageSection from "./PageSection.jsx"
 import Todo from "./Todo.jsx"
 import Warning from "./Warning.jsx"
 
-app.setProjectTheme("SUI", {
+oak.setProjectTheme("SUI", {
   ...SUI.components,
 
   ...oak.components,
