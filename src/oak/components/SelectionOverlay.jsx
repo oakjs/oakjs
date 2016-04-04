@@ -2,7 +2,7 @@
 // Overlay which shows/manages selection
 //////////////////////////////
 
-import { autobind } from "oak-roots/util/decorators";
+import { autobind, throttle } from "oak-roots/util/decorators";
 import Rect from "oak-roots/Rect";
 
 import OakComponent from "./OakComponent";
@@ -23,12 +23,14 @@ export default class SelectionOverlay extends OakComponent {
     super.componentDidMount();
     $(document).on("scroll", this.onScroll);
     $(document).on("zoom", this.onZoom);
+    $(window).on("resize", this.onResize);
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
     $(document).off("scroll", this.onScroll);
-    $(document).on("zoom", this.onZoom);
+    $(document).off("zoom", this.onZoom);
+    $(window).off("resize", this.onResize);
   }
 
   @autobind
@@ -38,6 +40,11 @@ export default class SelectionOverlay extends OakComponent {
 
   @autobind
   onZoom(event) {
+    this._updateSelection();
+  }
+
+  @autobind
+  onResize(event) {
     this._updateSelection();
   }
 
@@ -71,6 +78,7 @@ export default class SelectionOverlay extends OakComponent {
   }
 
   // Update selection due to an event (scroll, zoom, etc).
+  @throttle(10)
   _updateSelection() {
     if (this._isMounted && this.state.mouseOid || (oak.selection && oak.selection.length)) {
       this.forceUpdate();
