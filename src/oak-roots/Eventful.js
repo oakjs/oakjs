@@ -7,6 +7,9 @@ import CustomEvent from "./CustomEvent";
 export default function Eventful(Constructor = Object) {
 
   return class Eventful extends Constructor {
+    // Set to true on your instance to log events
+    _debugEvents = false;
+
     // Register to receive a notification for an event.
     //
     // Your handler will be called as:
@@ -15,7 +18,7 @@ export default function Eventful(Constructor = Object) {
     //
     // NOTE: we will NOT register the same handler twice for the same event.
     on(eventType, handler) {
-      const handlers = this._getEventHandlers(eventType, "CREATE");
+      const handlers = _getEventHandlers(this, eventType, "CREATE");
       if (!handlers.includes(handler)) handlers.push(handler);
     }
 
@@ -23,7 +26,7 @@ export default function Eventful(Constructor = Object) {
     // If `handler` is undefined, we'll remove ALL notifications for that event.
     // Otherwise we'll just remove the specified handler.
     off(eventType, handler) {
-      const handlers = this._getEventHandlers(eventType)
+      const handlers = _getEventHandlers(this, eventType)
       if (handler === undefined) {
         handlers.splice(0, handlers.length);
       }
@@ -36,12 +39,10 @@ export default function Eventful(Constructor = Object) {
     // Fire a handler for an event exactly once, then unregister it.
     once(eventType, handler) {
       const wrappedHandler = (event, ...args) => {
-        try {
-          handler(event, ...args);
-        }
-        finally {
-          this.off(handler);
-        }
+        // remove event first, in case `handler` `throw`s
+        this.off(eventType, handler);
+        // call handler as normal
+        handler(event, ...args);
       }
       this.on(eventType, wrappedHandler);
     }
@@ -51,66 +52,70 @@ export default function Eventful(Constructor = Object) {
     // If a handler throws an error, we'll keep going.
     // TODO: `return false` to stop?
     trigger(eventType, ...args) {
-      const event = this._createEventObject(eventType);
-      this._handleEvent(event, args);
+      if (this._debugEvents) console.log(`EVENT: ${eventType} for ${this}:`, args);
+
+      const event = _createEventObject(this, eventType);
+      _handleEvent(this, event, args);
       // if we have a parent who knows how to handle events, bubble!
-      if (event.bubbles && this.parent && this.parent._handleEvent && !event.isPropagationStopped()) {
-        this.parent._handleEvent(event, args);
+      if (event.bubbles && !event.isPropagationStopped() && this.parent && this.parent.trigger) {
+        _handleEvent(this.parent, event, args);
       }
       return event;
-    }
-
-    // Internal method to handle all event handlers for a given `event`
-    // Respects `event.stopPropagation()` calls.
-    // NOTE: you should not use this, use `trigger` instead.
-    _handleEvent(event, args) {
-      const handlers = this._getEventHandlers(event.type);
-//console.info(this, "_handleEvent", event, " args", args, "handlers", handlers);
-      if (handlers && handlers.length) {
-        if (event._setCurrentTarget) event._setCurrentTarget(this);
-        handlers.forEach(handler => {
-          try {
-            if (event.isPropagationStopped()) return;
-//console.info(this, "_handleEvent", event.type, " calling\n", handler+"");
-            handler(event, ...args);
-          }
-          catch (e) {
-            if (this._debugEvents) {
-              console.error(`Error handling event ${event.type}: `, e);
-              console.trace();
-            }
-            // stop further bubbling or default if something goes wrong
-            event.stopPropagation();
-            event.preventDefault();
-          }
-        });
-      }
-    }
-
-    // Return specified event handlers for a given `event`.
-    // You can pass an event type string or an event object (we'll look at `event.type`).
-    // Pass a truthy `createIfNecessary`
-    _getEventHandlers(event, createIfNecessary) {
-      const type = (typeof event === "string" ? event : event && event.type);
-      if (this.__handlers && this.__handlers[type]) return this.__handlers[type];
-      if (type && createIfNecessary) {
-        if (!this.hasOwnProperty("__handlers")) Object.defineProperty(this, "__handlers", { value: {} });
-        return (this.__handlers[type] = []);
-      }
-    }
-
-    // Create a `CustomEvent` object given an `eventType` and some `detail` object.
-    // Sets the `target` to this object.
-    //
-    // You can pass any `props` if you're doing something tricky,
-    // eg: `detail` or `bubbbles` or `cancelable` or a different `target`.
-    _createEventObject(eventType, props) {
-      const eventProps = {
-        target: this,
-        ...props,
-      }
-      return new CustomEvent(eventType, eventProps);
     }
   }
 
 }
+
+
+
+// Internal method to handle all event handlers for a given `event`
+// Respects `event.stopPropagation()` calls.
+function _handleEvent(eventful, event, args) {
+  const handlers = _getEventHandlers(eventful, event.type);
+//console.info(eventful, "_handleEvent", event, " args", args, "handlers", handlers);
+  if (handlers && handlers.length) {
+    if (event._setCurrentTarget) event._setCurrentTarget(eventful);
+    handlers.forEach(handler => {
+      try {
+        if (event.isPropagationStopped()) return;
+//console.info(eventful, "_handleEvent", event.type, " calling\n", handler+"");
+        handler(event, ...args);
+      }
+      catch (e) {
+        if (eventful._debugEvents) {
+          console.error(`Error handling event ${event.type}: `, e);
+          console.trace();
+        }
+        // stop further bubbling or default if something goes wrong
+        event.stopPropagation();
+        event.preventDefault();
+      }
+    });
+  }
+}
+
+// Return specified event handlers for a given `event`.
+// You can pass an event type string or an event object (we'll look at `event.type`).
+// Pass a truthy `createIfNecessary`
+function _getEventHandlers(eventful, event, createIfNecessary) {
+  const type = (typeof event === "string" ? event : event && event.type);
+  if (eventful.__handlers && eventful.__handlers[type]) return eventful.__handlers[type];
+  if (type && createIfNecessary) {
+    if (!eventful.hasOwnProperty("__handlers")) Object.defineProperty(eventful, "__handlers", { value: {} });
+    return (eventful.__handlers[type] = []);
+  }
+}
+
+// Create a `CustomEvent` object given an `eventType` and some `detail` object.
+// Sets the `target` to the eventful object.
+//
+// You can pass any `props` if you're doing something tricky,
+// eg: `detail` or `bubbbles` or `cancelable` or a different `target`.
+function _createEventObject(eventful, eventType, props) {
+  const eventProps = {
+    target: eventful,
+    ...props,
+  }
+  return new CustomEvent(eventType, eventProps);
+}
+

@@ -62,6 +62,16 @@ export default class Point {
     return Point.delta(this, point);
   }
 
+  // Add another point to us.
+  add(point) {
+    return Point.add(this, point);
+  }
+
+  // Return the inverse of this point
+  invert() {
+    return Point.invert(this);
+  }
+
   // Size of this point if treated as a vector.
   get size() {
     return Math.max( Math.abs(this.x), Math.abs(this.y) );
@@ -72,8 +82,18 @@ export default class Point {
   //////////////////////////////
 
   // Return a new point which represents the delta between two points.
-  static delta(point1, point2) {
+  static delta(point1 = new Point(), point2 = new Point()) {
     return new Point(point1.x - point2.x, point1.y - point2.y);
+  }
+
+  // Return a new point which adds the two points together.
+  static add(point1 = new Point(), point2 = new Point()) {
+    return new Point(point1.x + point2.x, point1.y + point2.y);
+  }
+
+  // Return the inverse of this point
+  static invert(point = new Point()) {
+    return new Point( -point.x, -point.y);
   }
 
   // Treating a point as a `delta`, translate into a direction object
@@ -90,7 +110,6 @@ export default class Point {
 
     return direction;
   }
-
 
   //////////////////////////////
   //  Debug

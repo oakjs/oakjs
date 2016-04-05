@@ -41,6 +41,10 @@ export default class ComponentController extends Loadable() {
   // Refs come from our instantiated component
   get refs() { return this.component ? this.component.refs : {} }
 
+  get oid() {
+    const props = this.props;
+    return props && (props.oid || props["data-oid"]);
+  }
 
   //////////////////////////////
   //  Components

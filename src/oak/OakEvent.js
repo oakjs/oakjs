@@ -8,7 +8,7 @@
 //
 //  Access `oak.event.*` to figure out the current state of the world, eg:
 //    - oak.event.button
-//    - oak.event.mouseLoc
+//    - oak.event.pageLoc
 //  etc.
 //
 //////////////////////////////
@@ -20,21 +20,50 @@ import oak from "./oak";
 
 export default class OakEvent {
 
-//   button which is currently down:  `undefined`, `"left"` `"wheel"` or `"right"`
-//   button = undefined;
+//  Window geometry:
+//    NOTE: these ARE NOT affected by window zoom!
+//    - windowSize      Current size of the window
+//    - scrollLoc       Current <body> scroll
 //
-//   current mouse coordinate
-//   mouseLoc = new Point(0, 0);
+//  Current mouse coordinates:
+//    NOTE: these ARE affected by window zoom!
+//    - pageLoc         Current mouse coordinate WITH SCROLL
+//    - clientLoc       Current mouse coordinate WITHOUT SCROLL
+//    - mouseTarget     Current element under the mouse (NOT including <SelectionOverlay>)
 //
-//   place mouse last went down (only defined if it is currently down)
-//   downLoc = undefined;
+//  Delta between mouse moves:
+//    - moveDelta   	  Delta between this mouse move and the last one
+//    - moveDirection   Direction of last mouse move, eg: `{ top, left }`.
 //
-//   delta since last move event
-//   moveDelta = new Point(0, 0);
+//  Mouse Button
+//    NOTE: only "left" mouse button is fully supported, see `_captureMouseDown()`
+//    - button          If mouse down:  "left", "right" or "wheel"
+//    - anyButtonDown   `true` if any mouse button is down.
+//    - leftButtonDown  `true` if "left" mouse button is down.
 //
-//   map of keys which are currently down
-//   keys = {};
-//   keyIds = {};
+//  Mouse down / dragging:
+//    - downPageLoc     Mousedown coordinate WITH SCROLL
+//    - isDragging      Has a drag been initiated?  (MouseDown + mouse move required)
+//    - downTarget      If left mouse down: Element underneath the mouse on mousedown.
+//    - dragDelta       If left mouse down: Delta between mouseDown and current mouse position.
+//    - dragDirection   If left mouse down: Direction of movement since mousedown.
+//    - dragPageRect    If left mouse down: Rectangle from mouseDown to current position INCLUDING SCROLL.
+//    - dragClientRect  If left mouse down: Rectangle from mouseDown to current position WITHOUT SCROLL.
+//
+//  Context Menu:
+//    - menuTarget      If right mouse down: Element underneath the mouse on mousedown.
+//
+//  Keyboard
+//    NOTE: The `CapsLock` key is not included in `keys` or `keyIds` as it's not reliable.
+//    - keys            Map of all NAMES of all keys currently down, eg: `{ Shift, A }`
+//    - keyIds          Map of all IDS of all keys currently down, eg: `{ ShiftLeft, KeyA }`
+//    - altKey          `true` if the `Alt` key is down.
+//    - metaKey         `true` if the `Meta` or `OS` key is down.
+//    - shiftKey        `true` if the `Shift` key is down.
+//    - controlKey      `true` if the `Control` key is down.
+//
+//    - optionKey       Macintosh alias for `altKey`.
+//    - commandKey      Macintosh alias for `metaKey`.
 
 
   constructor(props) {
@@ -50,33 +79,59 @@ export default class OakEvent {
 
 
   //////////////////////////////
-  // Movement sugar
+  // Window geometry
   //////////////////////////////
 
-  // Delta since last move
-  get moveDelta() {
-    return this._lastMouseLoc && this.mouseLoc.delta(this._lastMouseLoc);
+  // Return the current `<body>` scroll as a `Point`.
+  // NOTE: this is NOT affected by body zoom!
+  get scrollLoc() { return OakEvent.scrollLoc }
+  static get scrollLoc() {
+    return new Point(window.scrollX, window.scrollY);
   }
+
+  // Return the window INNER size as a `Point`.
+  // NOTE: this is NOT affected by body zoom!
+  get windowSize() { return OakEvent.windowSize }
+  static get windowSize() {
+    return new Point(window.innerWidth, window.innerHeight);
+  }
+
+
+
+  //////////////////////////////
+  // Movement sugar
+  //////////////////////////////
 
   // Direction of last move.
   get moveDirection() {
     return this.moveDelta && this.moveDelta.direction;
   }
 
+
   //////////////////////////////
-  // Dragging sugar
+  // Button sugar
   //////////////////////////////
+
+  // Is ANY button down?
+  // NOTE: This is not totally reliable yet, but use it and hopefully we'll figure it out.
+  get anyButtonDown() {
+    return this.button !== undefined;
+  }
 
   // Is the LEFT button down.
   // NOTE: NOT true if the right button is down.
   get leftButtonDown() {
-    return !!this.downLoc;
+    return this.button === "left";
   }
+
+  //////////////////////////////
+  // Dragging sugar
+  //////////////////////////////
 
   // Delta between current mouse location and last mouse down event.
   // Returns `undefined` if mouse is not down.
   get dragDelta() {
-    return this.downLoc && this.mouseLoc.delta(this.downLoc);
+    return this.downPageLoc && this.pageLoc.delta(this.downPageLoc);
   }
 
   // Direction of drag.
@@ -85,10 +140,19 @@ export default class OakEvent {
     return this.dragDelta && this.dragDelta.direction;
   }
 
-  // (Sorted) rectangle for current drag.
+  // (Sorted) rectangle for current drag INCLUDING BODY SCROLL.
   // Returns `undefined` if mouse is not down.
-  get dragRect() {
-    return Rect.rectFromPoints(this.downLoc, this.mouseLoc);
+  get dragPageRect() {
+    if (!this.downPageLoc) return undefined;
+    return Rect.rectFromPoints(this.downPageLoc, this.pageLoc);
+  }
+
+  // (Sorted) rectangle for current drag NOT INCLUDING BODY SCROLL.
+  // Returns `undefined` if mouse is not down.
+  // NOTE: not accurate if window is zoomed while the mouse is down...
+  get dragClientRect() {
+    const pageRect = this.dragPageRect;
+    if (pageRect) return pageRect.offset(OakEvent.scrollLoc.invert());
   }
 
   //////////////////////////////
@@ -139,34 +203,44 @@ export default class OakEvent {
 
   static MOUSE_DRAG_MIN_SIZE = 5;
 
+  // Return mouse position for some `MouseEvent`.
+  // - `pageLoc` DOES include <body> scroll
+  // - `clientLoc` DOES NOT include <body> scroll (window geometry only)
+  static getPageLoc(mouseEvent) { return new Point(mouseEvent.pageX, mouseEvent.pageY) }
+  static getClientLoc(mouseEvent) { return new Point(mouseEvent.clientX, mouseEvent.clientY) }
+
+
   static _captureMouseMove(event) {
-    const mouseLoc = new Point(event.pageX, event.pageY);
-    const lastMouseLoc = oak.event.mouseLoc;
+    // Current mouse position INCLUDING SCROLL
+    const pageLoc = OakEvent.getPageLoc(event);
+
+    // Delta since last move
+    const moveDelta = pageLoc.delta(oak.event.pageLoc);
 
     // Only run the event if the mouse has actually moved.
     // This works around a bug in Chrome Mac where it fires `mousemove` repeatedly
     //  because we're manipulating the DOM in `_getMouseTarget()`.
-    if (mouseLoc.equals(lastMouseLoc)) return;
+    if (moveDelta.isOrigin) return;
 
     const oakEvent = oak.event.clone({
       type: "mousemove",
 
       // Current position of the mouse.
-      mouseLoc,
+      pageLoc,
+      clientLoc: OakEvent.getClientLoc(event),
 
-      // Position of the mouse last time.
-      _lastMouseLoc: lastMouseLoc,
+      // delta since last move
+      moveDelta,
 
       // Current DOM element under the mouse.
       mouseTarget: OakEvent._getMouseTarget(event),
-
     });
 
     // If the mouse is down for the primary mouse button:
     if (oakEvent.leftButtonDown) {
       // Start "isDragging" if mouse has moved at least 5 pixels since mousedown.
-      if (oakEvent.downLoc && !oakEvent.isDragging) {
-        oakEvent.isDragging = (oakEvent.downLoc.size > OakEvent.MOUSE_DRAG_MIN_SIZE);
+      if (!oakEvent.isDragging && oakEvent.dragDelta) {
+        oakEvent.isDragging = (oakEvent.dragDelta.size > OakEvent.MOUSE_DRAG_MIN_SIZE);
       }
     }
 
@@ -179,40 +253,47 @@ export default class OakEvent {
   //////////////////////////////
 
   static _captureMouseDown(event) {
+    // Capture mouse position no matter which button went down.
+    // Necessary because a scroll or resize might have changed the logical position.
+    const oakEvent = oak.event.clone({
+      pageLoc: OakEvent.getPageLoc(event),
+      clientLoc: OakEvent.getPageLoc(event)
+    });
+
+    // element under the mouse
+    const target = OakEvent._getMouseTarget(event);
+
     // Do different things based on which button was pressed.
     const button = OakEvent._getMouseButton(event);
-    if (button === "left") return OakEvent._captureLeftButtonDown(event);
-    if (button === "right") return OakEvent._captureRightButtonDown(event);
-    if (button === "wheel") return OakEvent._captureWheelButtonDown(event);
-  }
-
-  static _captureLeftButtonDown(event) {
-    const oakEvent = oak.event.clone({
-      type: "mousedown",
-      // Location where the mouse went down.
-      downLoc: new Point(event.pageX, event.pageY),
-      // Current DOM element under the mouse
-      downTarget: OakEvent._getMouseTarget(event),
-    });
-
-    oak.setEvent(oakEvent, event);
-  }
-
-
-  static _captureRightButtonDown(event) {
-    const oakEvent = oak.event.clone({
-      type: "contextmenu",
-      // DOM element that's the target for the menu.
-      menuTarget: OakEvent._getMouseTarget(event),
-    });
+    if (button === "left") {
+      oakEvent.type = "mousedown";
+      oakEvent.downPageLoc = oakEvent.pageLoc;
+      oakEvent.downTarget = target;
+      oakEvent.button = button;
+    }
+    else if (button === "right") {
+      oakEvent.type = "contextmenu";
+      oakEvent.menuTarget = target;
+      // NOTE: We can't reliably know when the right mouse button goes UP,
+      //       so we do NOT record the button name.
+      // oakEvent.button = button;
+    }
+    else {
+      console.error(`OakEvent._captureMouseDown( { button:${event.button} }): button not (yet) supported`, event);
+      return;
+    }
 
     oak.setEvent(oakEvent, event);
   }
 
-  static _captureWheelButtonDown(event) {
-    console.error("Wheel button not supported");
+  // Clear event data set on mouseDown.
+  _clearMouseDownData() {
+    delete this.button;
+    delete this.downPageLoc;
+    delete this.downTarget;
+    delete this.isDragging;
+    delete this.menuTarget;
   }
-
 
   //////////////////////////////
   //  Mouse Up Event
@@ -227,9 +308,97 @@ export default class OakEvent {
     // clear mousedown data on a timeout so we remember it during this event
     setTimeout(function() {
       const oakEvent = oak.event.clone({ type: "_mouseup" });
-      oakEvent._clearMouseData();
+      oakEvent._clearMouseDownData();
       oak.setEvent(oakEvent);
     }, 0);
+  }
+
+
+  //////////////////////////////
+  //  Dragging support
+  //////////////////////////////
+
+  // Initialize a set of drag handlers from a `mouseDown` event:
+  //  - `onStart` will be called once when they actually start moving
+  //  - `onDrag` will be called on mousemove while dragging
+  //  - `onStop` will be called once when the mouse goes up IF we were dragging.
+  //  - `onNoDrag` will be called once when the mouse goes up IF we were NOT dragging.
+  //
+  //  - if `preventDefault` is truthy, we'll `event.preventDefault()` for mouse down / move / up.
+  //  - if `stopPropagation` is truthy, we'll `event.stopPropagation()` for mouse down / move / up.
+  //
+  // You can pass functions, or the string name of an event to trigger on `oak`.
+  initDragHandlers(event, options) {
+    let { flag, onStart, onDrag, onStop, onNoDrag, preventDefault, stopPropagation } = options;
+
+    // default handlers in case we were passed strings or handlers weren't passed
+    onStart = OakEvent._defaultDragHandler(onStart);
+    onDrag = OakEvent._defaultDragHandler(onDrag);
+    onStop = OakEvent._defaultDragHandler(onStop);
+    onNoDrag = OakEvent._defaultDragHandler(onNoDrag);
+
+    const onMouseMove = (event) => {
+      // forget it if they haven't dragged the minimum number of pixels
+      if (!oak.event.isDragging) return;
+
+      // If we haven't started dragging
+      if (!OakEvent._handlingDrag) {
+        if (flag) oak.event[flag] = true;
+
+        OakEvent._handlingDrag = true;
+        // call dragStart first
+        onStart(event);
+      }
+
+      // call onDrag each time
+      onDrag(event);
+
+      // stop propagation on current event if specified
+      if (preventDefault) event.preventDefault();
+      if (stopPropagation) event.stopPropagation();
+    }
+
+    const onMouseUp = (event) => {
+      // turn handlers off FIRST
+      $(document).off("mousemove", onMouseMove);
+      $(document).off("mouseup", onMouseUp);
+
+      if (OakEvent._handlingDrag) {
+        delete OakEvent._handlingDrag;
+        onStop(event);
+      }
+      else {
+        onNoDrag(event);
+      }
+
+      if (flag) delete oak.event[flag];
+
+      // stop propagation on current event if specified
+      if (preventDefault) event.preventDefault();
+      if (stopPropagation) event.stopPropagation();
+    }
+
+    // watch mousemove and mouseup with the handlers above
+    $(document).on("mousemove", onMouseMove);
+    $(document).on("mouseup", onMouseUp);
+
+    // stop propagation on current event if specified
+    if (preventDefault) event.preventDefault();
+    if (stopPropagation) event.stopPropagation();
+  }
+
+  static _defaultDragHandler(handler) {
+    // if a function, just use that
+    if (typeof handler === "function") return handler;
+
+    // if a string, call that
+    if (typeof handler === "string") {
+      return function(...args) {
+        oak.trigger(handler, ...args);
+      }
+    }
+    // return no-op function
+    return Function.prototype;
   }
 
 
@@ -263,12 +432,6 @@ export default class OakEvent {
     return target;
   }
 
-  _clearMouseData() {
-    delete this.button;
-    delete this.downLoc;
-    delete this.downTarget;
-    delete this.isDragging;
-  }
 
 
 
@@ -311,7 +474,7 @@ export default class OakEvent {
     if (key !== "CapsLock") {
       oakEvent._addToKeyMap(key, keyId);
 
-      // If the command-key is down:
+      // If the meta/command-key is down:
       if (oak.event.keys.Meta) {
         //  If they're typing another key
         //  turn that other key off on an immediate timeout.
@@ -358,11 +521,6 @@ export default class OakEvent {
       oakEvent._clearKeyData();
       oak.setEvent(oakEvent);
     }, 0);
-  }
-
-  _setKeyData() {
-    delete this.key;
-    delete this.keyId;
   }
 
   _clearKeyData() {
@@ -569,26 +727,33 @@ export default class OakEvent {
   //  Window zoom
   //////////////////////////////
 
-  // Return the `devicePixelRatio` of the current screen.
+  // Delay after which we check for `zoom` events.
+  static CHECK_ZOOM_DELAY = 150;
+
+  // Return the current `devicePixelRatio` of the window.
   // NOTE: this is notoriously unreliable, we just use it to detect if the zoom changes.
+  get devicePixelRatio() { return OakEvent.devicePixelRatio }
   static get devicePixelRatio() {
     return window.devicePixelRatio || 1;
   }
 
+  // Return the current `zoom` of the window.
+  // NOTE: this is notoriously unreliable, we just use it to detect if the zoom changes.
+  get zoom() { return OakEvent.zoom }
   static get zoom() {
     return 1 / OakEvent.devicePixelRatio;
   }
 
-  static _checkWindowZoom() {
-    const oldValue = OakEvent.__devicePixelRatio;
-    const newValue = OakEvent.devicePixelRatio;
+  // Capture window `resize` event.
+  static _captureRezize(event) {}
 
-    if (oldValue !== newValue) {
-      OakEvent.__devicePixelRatio = newValue;
-      $(document).trigger("zoom");
-    }
+  // Capture document `zoom` event (which we generate -- see `initializeEvents()`.
+  static _captureZoom(event) {}
+
+  // Capture document `scroll` event.
+  static _captureScroll(event) {
+//TODO: adjust `pageLoc` for the scroll if mouse is down?
   }
-
 
   //////////////////////////////
   //  Debug
@@ -615,7 +780,7 @@ export default class OakEvent {
 
     // mouse specials
     if (this.isDragging) {
-      values.push("dragRect:"+this.dragRect);
+      values.push("dragPageRect:"+this.dragPageRect);
     }
 
     // key specials
@@ -630,7 +795,8 @@ export default class OakEvent {
   //  Static initializer, called on document.ready
   //////////////////////////////
 
-  static initialize() {
+
+  static initializeEvents() {
 //    console.info("initializing events");
 
     // mouse event capture
@@ -646,8 +812,23 @@ export default class OakEvent {
     window.addEventListener("focus", OakEvent._captureFocus, true);
     window.addEventListener("blur", OakEvent._captureBlur, true);
 
+    // Window geometry event capture
+    document.addEventListener("scroll", OakEvent._captureScroll, true);
+    document.addEventListener("zoom", OakEvent._captureZoom, true);
+    window.addEventListener("resize", OakEvent._captureResize, true);
+
     // set a timer to attempt to detect devicePixelRatio changes
-    setInterval(OakEvent._checkWindowZoom, 150);
+    // which we'll use to fire a "zoom" event
+    let _lastDevicePixelRatio = OakEvent.devicePixelRatio;
+    function _checkWindowZoom() {
+      if (OakEvent.devicePixelRatio !== _lastDevicePixelRatio) {
+        _lastDevicePixelRatio = OakEvent.devicePixelRatio;
+//TODO: watch document or oak???
+        $(document).trigger("zoom");
+        oak.trigger("zoom");
+      }
+    }
+    setInterval(_checkWindowZoom, OakEvent.CHECK_ZOOM_DELAY);
 
     // Create a new empty event to start.
     oak.setEvent( new OakEvent({ type: "init" }) );
@@ -657,4 +838,5 @@ export default class OakEvent {
 } // end class OakEvent
 
 
-$(document).ready( OakEvent.initialize );
+// Fire our `initializeEvents` method when the document is ready.
+$(document).ready( OakEvent.initializeEvents );

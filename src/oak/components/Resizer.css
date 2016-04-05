@@ -1,25 +1,5 @@
 .oak.Resizer {
   position:fixed;
   border:1px solid blue;
+  z-index:2;
 }
-
-.oak.ResizeHandle {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border: 1px solid blue;
-  background-color:white;
-}
-
-.oak.ResizeHandle.tl {   left: -5px;  top: -5px;  }
-.oak.ResizeHandle.t  {   left: calc(50% - 5px);   top: -5px;  }
-.oak.ResizeHandle.tr {   right: -5px; top: -5px;  }
-
-.oak.ResizeHandle.l  {   left: -5px;  top: calc(50% - 5px);  }
-.oak.ResizeHandle.r  {   right: -5px; top: calc(50% - 5px);  }
-
-.oak.ResizeHandle.bl {   left: -5px;  bottom: -5px;  }
-.oak.ResizeHandle.b  {   left: calc(50% - 5px);   bottom: -5px;  }
-.oak.ResizeHandle.br {   right: -5px; bottom: -5px;  }
-
-

@@ -8,19 +8,17 @@ import OakComponent from "./OakComponent";
 
 import "./SelectionRect.css";
 
-
-export default class SelectionRect extends OakComponent {
-
-  @autobind
-  onClick(event) {}
-
+export default class SelectionRect extends React.Component {
   render() {
-    const { oak } = this.context;
-    const { oid, rect } = this.props;
+    const { type, rect, oid, onMouseDown } = this.props;
 
-    if (!rect) return null;
+    const rectProps = {
+      className: `oak ${type} SelectionRect`,
+      style: rect,
+      onMouseDown
+    }
     return (
-      <div className="oak SelectionRect" data-for-oid={oid} style={rect} onClick={this.onClick}/>
+      <div {...rectProps}/>
     )
   }
 }

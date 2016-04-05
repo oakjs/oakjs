@@ -50,6 +50,14 @@ export default class OakComponent extends React.Component {
 
 
   //////////////////////////////
+  // Set state on a short delay
+  //////////////////////////////
+  setStateSoon(newState, delay = 0) {
+    setTimeout( () => this.setState(newState), delay);
+  }
+
+
+  //////////////////////////////
   // Manipulating rendered elements
   //////////////////////////////
 

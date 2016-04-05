@@ -5,6 +5,7 @@
 //  TODO: instantiation pattern?
 //////////////////////////////
 
+import Eventful from "oak-roots/Eventful";
 import { preference } from "oak-roots/util/preference";
 import { debounce } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
@@ -20,8 +21,13 @@ import oakComponents from "./components";
 
 let oak;
 
-class OakJS {
+class OakJS extends Eventful(Object) {
+
+  _debugEvents = true;
+
   constructor() {
+    super();
+
     // There can be only one!
     if (global.oak) {
       const message = "Second instance of `oak` created.  BAD!!!";
@@ -330,6 +336,12 @@ class OakJS {
     return rects;
   }
 
+  //////////////////////////////
+  //  Debug
+  //////////////////////////////
+  toString() {
+    return "[oak]";
+  }
 
 }
 

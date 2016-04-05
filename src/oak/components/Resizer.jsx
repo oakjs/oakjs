@@ -1,47 +1,23 @@
 //////////////////////////////
-// Overlay which shows/manages selection
+// Resizer which allows you to drag selected elements
 //////////////////////////////
+
+import React, { PropTypes } from "react";
 
 import { autobind } from "oak-roots/util/decorators";
 
-import OakComponent from "./OakComponent";
+import oak from "../oak";
+import ResizeHandle from "./ResizeHandle";
 
 import "./Resizer.css";
 
-
-export class Resizer extends OakComponent {
-
-  @autobind
-  onClick(event) {}
-
+export default class Resizer extends React.Component {
   render() {
-    const { rect } = this.props;
+    const { rect, onMouseDown, children } = this.props;
     return (
-      <div className="oak Resizer" style={rect} onClick={this.onClick}>
-        <ResizeHandle side="tl"/>
-        <ResizeHandle side="t"/>
-        <ResizeHandle side="tr"/>
-
-        <ResizeHandle side="l"/>
-        <ResizeHandle side="r"/>
-
-        <ResizeHandle side="bl"/>
-        <ResizeHandle side="b"/>
-        <ResizeHandle side="br"/>
+      <div className="oak Resizer" style={rect} onMouseDown={onMouseDown}>
+        { children }
       </div>
     )
   }
 }
-
-export class ResizeHandle extends OakComponent {
-  render() {
-    const { side } = this.props;
-    return (
-      <div className={`oak ResizeHandle ${side}`} />
-    )
-  }
-}
-
-
-// Export all as a bundle.
-export default Object.assign({}, exports);

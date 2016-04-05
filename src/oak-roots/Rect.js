@@ -73,6 +73,11 @@ export default class Rect {
         && (rect.bottom >= this.bottom);
   }
 
+  // Offset this rect by some `point`.
+  offset(point) {
+    return Rect.offset(this, point);
+  }
+
   //////////////////////////////
   //  Static math-y functions
   //////////////////////////////
@@ -105,6 +110,12 @@ export default class Rect {
     const bottom = Math.max(point1.y, point2.y);
     return new Rect(left, top, right-left, bottom-top);
   }
+
+  // Offset a rect by some `point`.
+  static offset(rect, point) {
+    return new Rect(rect.left + point.x, rect.top + point.y, rect.width, rect.height);
+  }
+
 
   //////////////////////////////
   //  Debug
