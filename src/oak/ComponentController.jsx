@@ -76,13 +76,17 @@ export default class ComponentController extends Loadable() {
     return this.oak.getThemeComponentForType(type, errorMessage, this.components);
   }
 
+//DEPRECATE?
+  get oids() {
+    return this.componentLoader && this.componentLoader.oids
+  }
+
   // Return the component DEFINITION for the specified `oid`.
   getComponentForOid(oid) {
-    return oid
-        && this.componentLoader
-        && this.componentLoader.oids
-        && this.componentLoader.oids[oid];
+    const oids = this.oids;
+    return oid && oids && oids[oid];
   }
+
 
   //////////////////////////////
   //  Loading
