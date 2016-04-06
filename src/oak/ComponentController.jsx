@@ -4,7 +4,7 @@
 
 import Loadable from "oak-roots/Loadable";
 import LoadableIndex from "oak-roots/LoadableIndex";
-import { proto, debounce } from "oak-roots/util/decorators";
+import { proto, throttle } from "oak-roots/util/decorators";
 
 import ComponentLoader from "./ComponentLoader";
 
@@ -36,7 +36,11 @@ export default class ComponentController extends Loadable() {
   }
 
   // State comes from our instantiated component
-  get state() { return this.component ? this.component.state : {} }
+  get state() { return this.component && this.component.state }
+  setState(state) { if (this.component) this.component.setState(state) }
+  forceUpdate() { if (this.component) this.component.forceUpdate() }
+  @throttle(1)
+  updateSoon(){ this.forceUpdate() }
 
   // Refs come from our instantiated component
   get refs() { return this.component ? this.component.refs : {} }
