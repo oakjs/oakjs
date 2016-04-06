@@ -69,7 +69,7 @@ export class PageElement extends JSXElement {
     section: "context.section",
     project: "context.project",
     components: "context.components",
-    data: "(page && page.data) || {}"
+    data: "this.data || {}"
   }
   // Render out outer element as a div with only a few properties
   renderType = "div";

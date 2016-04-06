@@ -39,6 +39,7 @@ export default class OakPage extends OakComponent {
   constructor() {
     super(...arguments);
 
+//TODO: data should come from controller ????
     this.state = {};
     this.data = this.getInitialData(this.context);
   }
