@@ -5,6 +5,16 @@ export default class CurrentProject extends React.Component {
     oak: PropTypes.any,
   }
 
+  static childContextTypes = {
+    _controller: PropTypes.any,
+  }
+
+  getChildContext() {
+    return {
+      _controller: oak.runner.project
+    }
+  }
+
   componentDidMount() {
     oak.runner._projectComponent = this.refs.project;
   }

@@ -63,12 +63,13 @@ import JSXElement from "./JSXElement";
 export class PageElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
-    page: "this",
-    oak: "page.oak",
-    section: "page.section",
-    project: "page.project",
-    components: "page.components",
-    data: "page.data"
+    oak: "context.oak",
+    _controller: "context._controller",
+    page: "context.page",
+    section: "context.section",
+    project: "context.project",
+    components: "context.components",
+    data: "(page && page.data) || {}"
   }
   // Render out outer element as a div with only a few properties
   renderType = "div";

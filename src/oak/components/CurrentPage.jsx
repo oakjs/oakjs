@@ -11,6 +11,16 @@ export default class CurrentPage extends React.Component {
     oak: PropTypes.any,
   }
 
+  static childContextTypes = {
+    _controller: PropTypes.any,
+  }
+
+  getChildContext() {
+    return {
+      _controller: oak.page
+    }
+  }
+
   componentDidMount() {
     oak._pageComponent = this.refs.page;
   }

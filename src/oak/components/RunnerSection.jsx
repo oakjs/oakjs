@@ -6,6 +6,16 @@ export default class RunnerSection extends React.Component {
     oak: PropTypes.any,
   }
 
+  static childContextTypes = {
+    _controller: PropTypes.any,
+  }
+
+  getChildContext() {
+    return {
+      _controller: oak.runner.section
+    }
+  }
+
   componentDidMount() {
     oak.runner._sectionComponent = this.refs.section;
   }

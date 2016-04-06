@@ -11,6 +11,17 @@ export default class CurrentSection extends React.Component {
     oak: PropTypes.any,
   }
 
+  static childContextTypes = {
+    _controller: PropTypes.any,
+  }
+
+  getChildContext() {
+    return {
+      _controller: oak.section
+    }
+  }
+
+
   componentDidMount() {
     oak._sectionComponent = this.refs.section;
   }

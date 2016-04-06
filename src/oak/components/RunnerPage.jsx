@@ -5,6 +5,16 @@ export default class RunnerPage extends React.Component {
     oak: PropTypes.any,
   }
 
+  static childContextTypes = {
+    _controller: PropTypes.any,
+  }
+
+  getChildContext() {
+    return {
+      _controller: oak.runner.page
+    }
+  }
+
   componentDidMount() {
     oak.runner._pageComponent = this.refs.page;
   }

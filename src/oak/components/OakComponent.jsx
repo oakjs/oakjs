@@ -21,6 +21,7 @@ export default class OakComponent extends React.Component {
 
   // Pull context in so we can get components and other juicy stuffs.
   static contextTypes = {
+    _controller: React.PropTypes.any,
     oak: React.PropTypes.any,
     project: React.PropTypes.any,
     section: React.PropTypes.any,
@@ -48,15 +49,6 @@ export default class OakComponent extends React.Component {
     this._isMounted = false;
   }
 
-
-  //////////////////////////////
-  // Set state on a short delay
-  //////////////////////////////
-  setStateSoon(newState, delay = 0) {
-    setTimeout( () => this.setState(newState), delay);
-  }
-
-
   //////////////////////////////
   // Manipulating rendered elements
   //////////////////////////////
@@ -65,8 +57,9 @@ export default class OakComponent extends React.Component {
 	// If you don't pass a `ref` string, we'll get the root node.
 	// NOTE: this is not very react-y...
 	$ref(refName) {
+		if (!this._isMounted) return $();
 		const ref = (refName ? this.refs[refName] : this);
-		if (!ref || !this._isMounted) return $();
+		if (!ref) return $();
 		return $(ReactDOM.findDOMNode(ref));
 	}
 

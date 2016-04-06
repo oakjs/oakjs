@@ -83,10 +83,13 @@ import JSXElement from "./JSXElement";
 export class ProjectElement extends JSXElement {
   static renderVars = {
     ...JSXElement.renderVars,
-    project: "this",
-    oak: "project.oak",
-    components: "project.components",
-    data: "project.data"
+    _controller: "context._controller",
+    oak: "context.oak",
+    page: "context.page",
+    section: "context.section",
+    project: "context.project",
+    components: "context.components",
+    data: "(project && project.data) || {}"
   }
 
   // Render out outer element as a div with only a few properties
