@@ -114,7 +114,7 @@ export default class SelectionOverlay extends OakComponent {
     if (!this.state.dragSelecting) return;
     const props = {
       onDragStop: this.onDragSelectStop,
-      onDragCancel: this.onDragSelectStop
+      onDragCancel: this.onDragSelectCancel
     }
     return <DragSelectRect {...props} />
   }
@@ -123,6 +123,7 @@ export default class SelectionOverlay extends OakComponent {
   // Start drawing a <DragSelectRect> when the mouse goes down.
   startDragSelecting = (event) => {
     this.setState({ dragSelecting: true });
+    event.preventDefault();
     event.stopPropagation();
     return;
   }
@@ -134,10 +135,18 @@ export default class SelectionOverlay extends OakComponent {
     // Select the intersecting elements
     if (selection && selection.length > 0) {
       oak.actions.setSelection({ elements: selection });
+      this.setState({ dragSelecting: false });
     }
     else {
-      oak.actions.clearSelection();
+      this.onDragSelectCancel();
     }
+  }
+
+  // Callback when drag-selection completes:
+  //  `selection` is the list of `oids` which were intersected.
+  //  `selectionRects` is the list of clientRects for those oids.
+  onDragSelectCancel = (selection, rects) => {
+    oak.actions.clearSelection();
     this.setState({ dragSelecting: false });
   }
 

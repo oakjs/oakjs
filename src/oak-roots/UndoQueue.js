@@ -228,7 +228,7 @@ export class UndoTransaction {
     }
     this.committed = true;
 // TODO: try....
-console.log("executing", this);
+//console.log("executing", this);
     if (execute) this.redo();
 //    this.queue._addAndCommitTransaction(this);
   }
