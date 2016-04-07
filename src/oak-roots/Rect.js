@@ -69,8 +69,8 @@ export default class Rect {
     if (!rect) return false;
     return (this.right >= rect.left)
         && (rect.right >= this.left)
-        && (this.bottom >= rect.bottom)
-        && (rect.bottom >= this.bottom);
+        && (this.bottom >= rect.top)
+        && (rect.bottom >= this.top);
   }
 
   // Offset this rect by some `point`.

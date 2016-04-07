@@ -319,38 +319,49 @@ export default class OakEvent {
   //////////////////////////////
 
   // Initialize a set of drag handlers from a `mouseDown` event:
-  //  - `onStart` will be called once when they actually start moving
+  //  - `onDragStart` will be called once when they actually start moving
   //  - `onDrag` will be called on mousemove while dragging
-  //  - `onStop` will be called once when the mouse goes up IF we were dragging.
-  //  - `onNoDrag` will be called once when the mouse goes up IF we were NOT dragging.
+  //  - `onDragStop` will be called once when the mouse goes up IF we were dragging.
+  //  - `onDragCancel` will be called once when the mouse goes up IF we were NOT dragging.
   //
   //  - if `preventDefault` is truthy, we'll `event.preventDefault()` for mouse down / move / up.
   //  - if `stopPropagation` is truthy, we'll `event.stopPropagation()` for mouse down / move / up.
   //
   // You can pass functions, or the string name of an event to trigger on `oak`.
-  initDragHandlers(event, options) {
-    let { flag, onStart, onDrag, onStop, onNoDrag, preventDefault, stopPropagation } = options;
+//TODO: If we can update mouseLoc on scroll/resize, generate additional drag events
+//TODO: When cursor is in bottom of page, auto-scroll ???
+  initDragHandlers(options) {
+    let {
+      event,          // mouseDown event
+      flag,           // `oak.event[flag]` will be `true` when we're doing this interaction
+      onDragStart, onDrag, onDragStop, onDragCancel,                // mouse event handlers
+      preventDefault = true, stopPropagation = true     // don't pass events by default
+    } = options;
 
     // default handlers in case we were passed strings or handlers weren't passed
-    onStart = OakEvent._defaultDragHandler(onStart);
+    onDragStart = OakEvent._defaultDragHandler(onDragStart);
     onDrag = OakEvent._defaultDragHandler(onDrag);
-    onStop = OakEvent._defaultDragHandler(onStop);
-    onNoDrag = OakEvent._defaultDragHandler(onNoDrag);
+    onDragStop = OakEvent._defaultDragHandler(onDragStop);
+    onDragCancel = OakEvent._defaultDragHandler(onDragCancel);
 
+    // Flag which will be true while we're actually dragging
+    let _handlingDrag = false;
     const onMouseMove = (event) => {
       // forget it if they haven't dragged the minimum number of pixels
       if (!oak.event.isDragging) return;
 
       // If we haven't started dragging
-      if (!OakEvent._handlingDrag) {
+      if (!_handlingDrag) {
         if (flag) oak.event[flag] = true;
 
-        OakEvent._handlingDrag = true;
+        _handlingDrag = true;
         // call dragStart first
-        onStart(event);
+      // TODO: try...catch
+        onDragStart(event);
       }
 
       // call onDrag each time
+      // TODO: try...catch
       onDrag(event);
 
       // stop propagation on current event if specified
@@ -362,13 +373,16 @@ export default class OakEvent {
       // turn handlers off FIRST
       $(document).off("mousemove", onMouseMove);
       $(document).off("mouseup", onMouseUp);
+//      $(document).off("scroll", onMouseMove);
+//      $(document).off("zoom", onMouseMove);
+//      $(window).off("resize", onMouseMove);
 
-      if (OakEvent._handlingDrag) {
-        delete OakEvent._handlingDrag;
-        onStop(event);
+      // TODO: try...catch
+      if (_handlingDrag) {
+        onDragStop(event);
       }
       else {
-        onNoDrag(event);
+        onDragCancel(event);
       }
 
       if (flag) delete oak.event[flag];
@@ -382,9 +396,14 @@ export default class OakEvent {
     $(document).on("mousemove", onMouseMove);
     $(document).on("mouseup", onMouseUp);
 
+    // watch window geometry methods
+//    $(document).on("scroll", onMouseMove);
+//    $(document).on("zoom", onMouseMove);
+//    $(window).on("resize", onMouseMove);
+
     // stop propagation on current event if specified
-    if (preventDefault) event.preventDefault();
-    if (stopPropagation) event.stopPropagation();
+    if (event && preventDefault) event.preventDefault();
+    if (event && stopPropagation) event.stopPropagation();
   }
 
   static _defaultDragHandler(handler) {
@@ -398,7 +417,7 @@ export default class OakEvent {
       }
     }
     // return no-op function
-    return Function.prototype;
+    return function(){};
   }
 
 
@@ -752,6 +771,7 @@ export default class OakEvent {
 
   // Capture document `scroll` event.
   static _captureScroll(event) {
+console.info(event.pageY);
 //TODO: adjust `pageLoc` for the scroll if mouse is down?
   }
 

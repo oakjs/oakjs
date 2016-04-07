@@ -318,23 +318,53 @@ class OakJS extends Eventful(Object) {
     return elements.clientRect(element);
   }
 
-  // Return a map of `{ oid => clientRect }` for ALL `oid` elements on the page.
-  // TODO: this is relatively slow, although it's not clear how to optimize more than this.
-  // DEPRECATED
-  getOidRects() {
+  // Return a map of `{ oids, rects }` for all `oid` elements on the page.
+  //
+  // Pass an `onlyOids` map to restrict to only those elements.
+  // Pass an `intersectingClientRect` to restrict to only oids which intersect that rect.
+  getOidRects(onlyOids, intersectingClientRect) {
     if (!this._projectComponent) return undefined;
-    console.time("oidRects");
+//    console.time("oidRects");
     //TODO: somehow we want to know the root element on the page so don't include toolbars...
     const oidElements = document.querySelectorAll("[data-oid]");
+    const oids = [];
     const rects = [];
     let i = -1, element;
     while (element = oidElements[++i]) {
-      rects[i] = elements.clientRect(element);
-      rects[i].oid = element.getAttribute("data-oid");
+      const oid = element.getAttribute("data-oid");
+
+      // skip if not in the `onlyOids` map
+      if (onlyOids && onlyOids[oid] === undefined) continue;
+
+      // skip if doesn't intersect the `intersectingClientRect`
+      const rect = elements.clientRect(element);
+      if (intersectingClientRect && !intersectingClientRect.intersects(rect)) continue;
+
+      // ok, add to our lists
+      oids.push(oid);
+      rects.push(rect);
     }
-    console.timeEnd("oidRects");
-    return rects;
+//    console.timeEnd("oidRects");
+    return { oids, rects };
   }
+
+  // Return a map of `{ oids, rects }` for all `oid` elements on the specified `context`.
+  getOidRectsForContext(context, intersectingClientRect, includeContextRoot = false) {
+    const { oids, rects } = this.getOidRects(context.oids, intersectingClientRect);
+
+    // Remove the context root oid if specified
+    if (!includeContextRoot) {
+      const index = oids.indexOf(context.oid);
+      if (index !== -1) {
+        oids.splice(index, 1);
+        rects.splice(index, 1);
+      }
+    }
+
+    return { oids, rects };
+  }
+
+  // Return a map of `oid => clientRect }` for all `oid` elements owned by the current `editContext`
 
   //////////////////////////////
   //  Debug

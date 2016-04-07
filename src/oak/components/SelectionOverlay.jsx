@@ -6,6 +6,7 @@ import { autobind, throttle } from "oak-roots/util/decorators";
 import Rect from "oak-roots/Rect";
 
 
+import DragSelectRect from "./DragSelectRect";
 import OakComponent from "./OakComponent";
 import SelectionRect from "./SelectionRect";
 import Resizer from "./Resizer";
@@ -128,7 +129,7 @@ console.info("normal onMouseDown", oid);
 
     // if no oid, clear selection and return
     if (!oid || oid == this) {
-      this.onBackgroundDown(event);
+      this.startDragSelecting(event);
     }
     else {
       this.onSelectionRectDown(event);
@@ -136,38 +137,40 @@ console.info("normal onMouseDown", oid);
   }
 
   //////////////////////////////
-  //  Mouse events on something other than a component element
-  //  (including the card itself)
+  //  Drag selection
   //////////////////////////////
-  onBackgroundDown(event) {
-console.info("onBackgroundDown");
-    oak.actions.clearSelection();
-    oak.event.initDragHandlers(event, {
-      flag: "dragSelecting",
-      onStart: this.onBackgroundDragStart,
-      onDrag: this.onBackgroundDrag,
-      onStop: this.onBackgroundDragStop,
-      onNoDrag: this.onBackgroundNoDrag,
-      preventDefault: true,
-      stopPropagation: true
-    });
+
+  renderDragSelectRect() {
+    if (!this.state.dragSelecting) return;
+    const props = {
+      onDragStop: this.onDragSelectStop,
+      onDragCancel: this.onDragSelectStop
+    }
+    return <DragSelectRect {...props} />
   }
 
-  @autobind
-  onBackgroundDragStart(event) {}
 
-  @autobind
-  onBackgroundDrag(event) {
-    this._updateDragSelectRect();
+  // Start drawing a <DragSelectRect> when the mouse goes down.
+  startDragSelecting = (event) => {
+    this.setState({ dragSelecting: true });
+    event.stopPropagation();
+    return;
   }
 
-  @autobind
-  onBackgroundDragStop(event) {
-    this._clearDragSelectRect();
+  // Callback when drag-selection completes:
+  //  `selection` is the list of `oids` which were intersected.
+  //  `selectionRects` is the list of clientRects for those oids.
+  onDragSelectStop = (selection, rects) => {
+    // Select the intersecting elements
+    if (selection && selection.length > 0) {
+      oak.actions.setSelection({ elements: selection });
+    }
+    else {
+      oak.actions.clearSelection();
+    }
+    this.setState({ dragSelecting: false });
   }
 
-  @autobind
-  onBackgroundNoDrag(event) {}
 
   //////////////////////////////
   //  Mouse events in <SelectionRect> children
@@ -177,7 +180,7 @@ console.info("onBackgroundDown");
   onSelectionRectDown(event) {
     const oid = oak.event._downOid;
     if (!oid || oak.editContext && oak.editContext.oid === oid) {
-      return this.onBackgroundDown(event);
+      return this.startDragSelecting(event);
     }
 console.info("onSelectionRectDown", oid);
     // if shift is down,
@@ -192,13 +195,12 @@ console.info("onSelectionRectDown", oid);
     }
 
     if (oak.selection.length) {
-      oak.event.initDragHandlers(event, {
-        onStart: "dragStart",
+      oak.event.initDragHandlers({
+        event,
+        onDragStart: "dragStart",
 //        onDrag: "drag",
-        onStop: "dragStop",
-        onNoDrag: this.onSelectionRectUp,
-        preventDefault: true,
-        stopPropagation: true
+        onDragStop: "dragStop",
+        onDragCancel: this.onSelectionRectUp
       });
     }
   }
@@ -219,12 +221,11 @@ console.info("onSelectionRectDown", oid);
 
   @autobind
   onResizeHandleDown(event, handle) {
-    oak.event.initDragHandlers(event, {
-      onStart: (event) => oak.trigger("resizeStart", event, handle),
+    oak.event.initDragHandlers({
+      event,
+      onDragStart: (event) => oak.trigger("resizeStart", event, handle),
 //      onDrag: (event) => oak.trigger("resize", event, handle),
-      onStop: (event) => oak.trigger("resizeStop", event, handle),
-      stopPropagation: true,
-      preventDefault: true,
+      onDragStop: (event) => oak.trigger("resizeStop", event, handle),
     });
   }
 
@@ -264,7 +265,7 @@ console.info("onSelectionRectDown", oid);
     }
   }
 
-  renderSelection(selection) {
+  renderSelectionRects(selection) {
     // Gather all the rects so we know how big to make the `<Resizer>`.
     const rects = [];
     const selectionRects = selection.map( oid => this.renderSelectionRect(oid, "selection", rects) )
@@ -322,6 +323,17 @@ console.info("onSelectionRectDown", oid);
     return <ResizeHandle {...handleProps} />;
   }
 
+  renderHoverElement() {
+    if (this.state.dragSelecting) return;
+    return <SelectionRect ref="hover" type="hover" onMouseDown={this.onSelectionRectDown}/>;
+  }
+
+  renderSelection() {
+    if (this.state.dragSelecting) return;
+    return this.renderSelectionRects(oak.selection);
+  }
+
+
   render() {
     const { oak } = this.context;
     if (!oak.state.editing) return null;
@@ -334,9 +346,9 @@ console.info("onSelectionRectDown", oid);
 
     return (
       <div {...props}>
-        { <SelectionRect ref="hover" type="hover" onMouseDown={this.onSelectionRectDown}/> }
-        { this.renderSelection(oak.selection) }
-        { <SelectionRect ref="dragSelect" type="dragSelect" /> }
+        { this.renderHoverElement() }
+        { this.renderSelection() }
+        { this.renderDragSelectRect() }
       </div>
     );
   }
