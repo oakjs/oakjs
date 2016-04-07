@@ -2,7 +2,7 @@
 // Overlay which shows/manages selection
 //////////////////////////////
 
-import { autobind, throttle } from "oak-roots/util/decorators";
+import { throttle } from "oak-roots/util/decorators";
 import Rect from "oak-roots/Rect";
 
 
@@ -10,7 +10,6 @@ import DragSelectRect from "./DragSelectRect";
 import OakComponent from "./OakComponent";
 import SelectionRect from "./SelectionRect";
 import Resizer from "./Resizer";
-import ResizeHandle from "./ResizeHandle";
 
 import "./SelectionOverlay.css";
 
@@ -42,18 +41,15 @@ export default class SelectionOverlay extends OakComponent {
   // and update selection rectangles
   //////////////////////////////
 
-  @autobind
-  onScroll(event) {
+  onScroll = (event) => {
     this._updateSelectionRects();
   }
 
-  @autobind
-  onZoom(event) {
+  onZoom = (event) => {
     this._updateSelectionRects();
   }
 
-  @autobind
-  onResize(event) {
+  onResize = (event) => {
     this._updateSelectionRects();
   }
 
@@ -101,23 +97,13 @@ export default class SelectionOverlay extends OakComponent {
   // Mouse events which manipulate selection
   //////////////////////////////
 
-  @autobind
-  onMouseMove(event) {
+  onMouseMove = (event) => {
     this._updateHoverRect(event);
   }
 
-  @autobind
-  onMouseDown(event) {
-    const oid = oak.event._downOid;
-console.info("normal onMouseDown", oid);
-
-    // if no oid, clear selection and return
-    if (!oid || oid == this) {
-      this.startDragSelecting(event);
-    }
-    else {
-      this.onSelectionRectDown(event);
-    }
+  // Mouse down on overlay itself
+  onMouseDown = (event) => {
+    this.startDragSelecting(event);
   }
 
   //////////////////////////////
@@ -157,16 +143,16 @@ console.info("normal onMouseDown", oid);
 
 
   //////////////////////////////
-  //  Mouse events in <SelectionRect> children
+  //  Mouse events in <SelectionRect> children (including the hover element)
   //////////////////////////////
 
-  @autobind
-  onSelectionRectDown(event) {
+  onSelectionDown = (event) => {
+    // if they went down on the editContext root element, start drag selecting
     const oid = oak.event._downOid;
     if (!oid || oak.editContext && oak.editContext.oid === oid) {
       return this.startDragSelecting(event);
     }
-console.info("onSelectionRectDown", oid);
+console.info("onSelectionDown", oid);
     // if shift is down,
 // TODO: verify that we can multi-select...
     if (oak.event.shiftKey) {
@@ -178,6 +164,7 @@ console.info("onSelectionRectDown", oid);
       oak.actions.setSelection({ elements: oid });
     }
 
+    // If anything is selected, start dragging
     if (oak.selection.length) {
       oak.event.initDragHandlers({
         event,
@@ -189,9 +176,8 @@ console.info("onSelectionRectDown", oid);
     }
   }
 
-  @autobind
   // mouse went up on selectionRect WITHOUT dragging
-  onSelectionRectUp(event) {
+  onSelectionRectUp = (event) => {
     const oid = oak.event._downOid;
     console.info("onSelectionRectUp", oid);
     if (oid && !oak.event.shiftKey && oak.selection.length > 1) {
@@ -203,8 +189,7 @@ console.info("onSelectionRectDown", oid);
   //  Mouse events in a <ResizeHandle> child
   //////////////////////////////
 
-  @autobind
-  onResizeHandleDown(event, handle) {
+  onResizeHandleDown = (event, handle) => {
     oak.event.initDragHandlers({
       event,
       onDragStart: (event) => oak.trigger("resizeStart", event, handle),
@@ -214,107 +199,25 @@ console.info("onSelectionRectDown", oid);
   }
 
 
-
   //////////////////////////////
   //  Rendering
   //////////////////////////////
 
-
-  // Return the list of resizer handles we should show for the current selection.
-  // TODO: don't show handles that don't apply!!!
-  getResizeHandleNamesForSelection(selection, rect) {
-    const canResizeWidth = true;
-    const canResizeHeight = true;
-
-    if (!canResizeWidth && !canResizeWidth) return [];
-
-    const isNarrow = rect.width < 60;
-    const isShort = rect.height < 60;
-
-    if (canResizeWidth && canResizeHeight) {
-      if (isNarrow && isShort) return ["br"];
-      if (isNarrow) return ["t", "b", "r"];
-      if (isShort) return ["l", "r", "b"];
-      return ["tl", "tr", "bl", "br", "t", "l", "b", "r"]
-    }
-
-    if (canResizeWidth) {
-      if (isNarrow) return ["r"];
-      return ["l", "r"];
-    }
-
-    if (canResizeHeight) {
-      if (isShort) return ["b"];
-      return ["t", "b"];
-    }
-  }
-
-  renderSelectionRects(selection) {
-    // Gather all the rects so we know how big to make the `<Resizer>`.
-    const rects = [];
-    const selectionRects = selection.map( oid => this.renderSelectionRect(oid, "selection", rects) )
-      .filter(Boolean);
-
-    // if no rects returned, forget it
-    if (selectionRects.length === 0) return null;
-
-    // Render the `<Resizer>` which appears OVER the `<SelectionRect>`s
-    const containingRect = Rect.containingRect(rects);
-    return this.renderResizer(selection, selectionRects, containingRect);
-  }
-
-  // Render an `oid` as a `<SelectionRect>`.
-  // If you pass a `rects` array, we'll add the rect of the element to it.
-  renderSelectionRect(oid, type, rects) {
-    const rect = oak.getRectForOid(oid);
-    if (!rect || rect.isEmpty) return null;
-
-    if (rects) rects.push(rect);
-
-    const rectProps = {
-      key: oid,
-      type,
-      oid,
-      rect,
-      onMouseDown: this.onSelectionRectDown
-    }
-    return <SelectionRect {...rectProps} />;
-  }
-
-  renderResizer(selection, selectionRects, rect) {
-    const handleNames = this.getResizeHandleNamesForSelection(selection, rect);
-    const resizeHandles = handleNames.map( handle => this.renderResizeHandle(handle) );
-
-    const resizerProps = {
-      ref: "resizer",
-      rect,
-    }
-    return (
-      <Resizer {...resizerProps}>
-        { selectionRects }
-        { <SelectionRect type="resizer" rect={rect} /> }
-        { resizeHandles }
-      </Resizer>
-    );
-  }
-
-  renderResizeHandle(handle) {
-    const handleProps = {
-      key: handle,
-      handle,
-      onMouseDown: (event) => this.onResizeHandleDown(event, handle)
-    }
-    return <ResizeHandle {...handleProps} />;
-  }
-
   renderHoverElement() {
     if (this.state.dragSelecting) return;
-    return <SelectionRect ref="hover" type="hover" onMouseDown={this.onSelectionRectDown}/>;
+    return <SelectionRect ref="hover" type="hover" onMouseDown={this.onSelectionDown}/>;
   }
 
   renderSelection() {
     if (this.state.dragSelecting) return;
-    return this.renderSelectionRects(oak.selection);
+    const props = {
+      selection: oak.selection,
+      canResizeWidth: true,     // TODO
+      canResizeHeight: true,    // TODO
+      onSelectionDown: this.onSelectionDown,
+      onHandleDown: this.onResizeHandleDown
+    }
+    return <Resizer {...props} />;
   }
 
 

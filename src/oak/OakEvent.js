@@ -232,18 +232,21 @@ export default class OakEvent {
       // delta since last move
       moveDelta,
 
-      // Current DOM element under the mouse.
+      // Current DOM element under the mouse NOT including the selection overlay.
       mouseTarget: OakEvent._getMouseTarget(event),
+
+      // Current DOM element under the mouse including the selection overlay
+      target: event.target
     });
 
     // If the mouse is down for the primary mouse button:
     if (oakEvent.leftButtonDown) {
       // Start "isDragging" if mouse has moved at least 5 pixels since mousedown.
       if (!oakEvent.isDragging && oakEvent.dragDelta) {
+// TODO: generate an event?
         oakEvent.isDragging = (oakEvent.dragDelta.size > OakEvent.MOUSE_DRAG_MIN_SIZE);
       }
     }
-
     oak.setEvent(oakEvent, event);
   }
 
@@ -253,27 +256,29 @@ export default class OakEvent {
   //////////////////////////////
 
   static _captureMouseDown(event) {
+    // element under the mouse NOT including the selection overlay
+    const mouseTarget = OakEvent._getMouseTarget(event);
+
     // Capture mouse position no matter which button went down.
     // Necessary because a scroll or resize might have changed the logical position.
     const oakEvent = oak.event.clone({
       pageLoc: OakEvent.getPageLoc(event),
-      clientLoc: OakEvent.getPageLoc(event)
+      clientLoc: OakEvent.getPageLoc(event),
+      mouseTarget,
+      target: event.target
     });
-
-    // element under the mouse
-    const target = OakEvent._getMouseTarget(event);
 
     // Do different things based on which button was pressed.
     const button = OakEvent._getMouseButton(event);
     if (button === "left") {
       oakEvent.type = "mousedown";
       oakEvent.downPageLoc = oakEvent.pageLoc;
-      oakEvent.downTarget = target;
+      oakEvent.downTarget = mouseTarget;
       oakEvent.button = button;
     }
     else if (button === "right") {
       oakEvent.type = "contextmenu";
-      oakEvent.menuTarget = target;
+      oakEvent.menuTarget = mouseTarget;
       // NOTE: We can't reliably know when the right mouse button goes UP,
       //       so we do NOT record the button name.
       // oakEvent.button = button;
@@ -373,7 +378,7 @@ export default class OakEvent {
       // turn handlers off FIRST
       $(document).off("mousemove", onMouseMove);
       $(document).off("mouseup", onMouseUp);
-//      $(document).off("scroll", onMouseMove);
+      $(document).off("scroll", onMouseMove);
 //      $(document).off("zoom", onMouseMove);
 //      $(window).off("resize", onMouseMove);
 
@@ -397,7 +402,7 @@ export default class OakEvent {
     $(document).on("mouseup", onMouseUp);
 
     // watch window geometry methods
-//    $(document).on("scroll", onMouseMove);
+    $(document).on("scroll", onMouseMove);
 //    $(document).on("zoom", onMouseMove);
 //    $(window).on("resize", onMouseMove);
 
@@ -771,7 +776,20 @@ export default class OakEvent {
 
   // Capture document `scroll` event.
   static _captureScroll(event) {
-//TODO: adjust `pageLoc` for the scroll if mouse is down?
+    const lastScroll = OakEvent.__lastScrollLoc;
+    const scroll = OakEvent.__lastScrollLoc = OakEvent.scrollLoc;
+
+    const oakEvent = oak.event.clone({
+      type: "scroll"
+    });
+
+    // update the pageLoc based on the scroll delta, if we can
+    if (lastScroll) {
+      const delta = scroll.delta(lastScroll);
+      if (oak.event.pageLoc) oakEvent.pageLoc = oak.event.pageLoc.add(delta);
+    }
+
+    oak.setEvent(oakEvent, event);
   }
 
   //////////////////////////////
