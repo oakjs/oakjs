@@ -68,8 +68,6 @@ export default class SelectionOverlay extends OakComponent {
     }
 
     this._clearHoverRect();
-
-    this._updateDragSelectRect()
   }
 
   // NOTE: we set hover rectangle manually rather than fully redrawing
@@ -88,20 +86,6 @@ export default class SelectionOverlay extends OakComponent {
 
   _clearHoverRect() {
     this._moveRect("hover");
-  }
-
-  @throttle(1)
-  _updateDragSelectRect() {
-    if (oak.event.dragSelecting) {
-      this._moveRect("dragSelect", oak.event.dragClientRect);
-    }
-    else {
-      this._clearDragSelectRect();
-    }
-  }
-
-  _clearDragSelectRect() {
-    this._moveRect("dragSelect");
   }
 
   _moveRect(ref, rect) {

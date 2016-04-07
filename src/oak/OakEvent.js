@@ -771,7 +771,6 @@ export default class OakEvent {
 
   // Capture document `scroll` event.
   static _captureScroll(event) {
-console.info(event.pageY);
 //TODO: adjust `pageLoc` for the scroll if mouse is down?
   }
 
