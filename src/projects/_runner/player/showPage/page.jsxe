@@ -1,4 +1,4 @@
-<OakPage id="runner">
+<OakPage id="runner" data-editing={oak.state.editing}>
   <EditorToolbar ref="editorToolbar"/>
   <CurrentProject/>
   <SelectionOverlay ref="selectionOverlay"/>

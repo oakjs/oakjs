@@ -1,5 +1,7 @@
 import React, { PropTypes } from "react";
 
+import "./RunnerProject.css";
+
 export default class CurrentProject extends React.Component {
   static contextTypes = {
     oak: PropTypes.any,

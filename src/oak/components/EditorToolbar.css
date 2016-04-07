@@ -1,4 +1,13 @@
+/* Container for the toolbar: this takes up space to push the body down
+  so the -fixed bit below doesn't overlap the body. */
 #EditorToolbar {
+  position:relative;
+  height:40px;
+  margin: 0;
+  z-index:10000;
+}
+
+#EditorToolbar-fixed {
   position:fixed;
   left:0; top:0; width:100%; height:40px;
   background-color: #333;
@@ -7,14 +16,11 @@
   z-index:10000;
 }
 
+
 #EditorToolbar .ui.button {
   color: white;
 }
 
 #EditorToolbar .ui.active.button {
   color: lightblue;
-}
-
-.oak.current.Project {
-  margin-top:40px;
 }
