@@ -86,7 +86,7 @@ export default class DragSelectRect extends React.Component {
   renderSelectionRects() {
     const rects = this.state.selectionRects || [];
     return rects.map( (rect, index) => {
-      return <SelectionRect key={index} type="selection" rect={rect}/>
+      return <SelectionRect key={index} type="dragSelection" rect={rect}/>
     });
   }
 
