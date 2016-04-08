@@ -364,7 +364,20 @@ class OakJS extends Eventful(Object) {
     return { oids, rects };
   }
 
-  // Return a map of `oid => clientRect }` for all `oid` elements owned by the current `editContext`
+  // Return a clone of an oid component's element.
+  // Returns `undefined` if the element can't be found.
+  cloneOid(oid) {
+    const element = document.querySelector(`[data-oid='${oid}']`);
+    if (!element) return undefined;
+    return element.cloneNode(true);
+  }
+
+  // Return a list cloned elements for a list of `oids`.
+  cloneOids(oids) {
+    if (!oids) return [];
+    return oids.map(oid => oak.cloneOid(oid)).filter(Boolean);
+  }
+
 
   //////////////////////////////
   //  Debug
