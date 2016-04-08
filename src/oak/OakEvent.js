@@ -29,11 +29,9 @@ export default class OakEvent {
 //    NOTE: these ARE affected by window zoom!
 //    - pageLoc         Current mouse coordinate WITH SCROLL
 //    - clientLoc       Current mouse coordinate WITHOUT SCROLL
+//    - target          Current element under the mouse (including <SelectionOverlay>)
 //    - mouseTarget     Current element under the mouse (NOT including <SelectionOverlay>)
-//
-//  Delta between mouse moves:
-//    - moveDelta   	  Delta between this mouse move and the last one
-//    - moveDirection   Direction of last mouse move, eg: `{ top, left }`.
+//    - mouseComponent  Current JSXElement under the mouse (NOT including <SelectionOverlay>)
 //
 //  Mouse Button
 //    NOTE: only "left" mouse button is fully supported, see `_captureMouseDown()`
@@ -71,9 +69,9 @@ export default class OakEvent {
   }
 
   // Return a clone of this event.
-  clone(props) {
+  clone(...props) {
     const clone = new OakEvent(this);
-    if (props) Object.assign(clone, props);
+    props.forEach( props => Object.assign(clone, props) );
     return clone;
   }
 
@@ -94,17 +92,6 @@ export default class OakEvent {
   get windowSize() { return OakEvent.windowSize }
   static get windowSize() {
     return new Point(window.innerWidth, window.innerHeight);
-  }
-
-
-
-  //////////////////////////////
-  // Movement sugar
-  //////////////////////////////
-
-  // Direction of last move.
-  get moveDirection() {
-    return this.moveDelta && this.moveDelta.direction;
   }
 
 
@@ -211,33 +198,10 @@ export default class OakEvent {
 
 
   static _captureMouseMove(event) {
-    // Current mouse position INCLUDING SCROLL
-    const pageLoc = OakEvent.getPageLoc(event);
+    const mouseInfo = OakEvent._getMouseInfo(event, "SKIP_IF_NO_MOVE");
+    if (!mouseInfo) return;
 
-    // Delta since last move
-    const moveDelta = pageLoc.delta(oak.event.pageLoc);
-
-    // Only run the event if the mouse has actually moved.
-    // This works around a bug in Chrome Mac where it fires `mousemove` repeatedly
-    //  because we're manipulating the DOM in `_getMouseTarget()`.
-    if (moveDelta.isOrigin) return;
-
-    const oakEvent = oak.event.clone({
-      type: "mousemove",
-
-      // Current position of the mouse.
-      pageLoc,
-      clientLoc: OakEvent.getClientLoc(event),
-
-      // delta since last move
-      moveDelta,
-
-      // Current DOM element under the mouse NOT including the selection overlay.
-      mouseTarget: OakEvent._getMouseTarget(event),
-
-      // Current DOM element under the mouse including the selection overlay
-      target: event.target
-    });
+    const oakEvent = oak.event.clone({ type: "mousemove" }, mouseInfo)
 
     // If the mouse is down for the primary mouse button:
     if (oakEvent.leftButtonDown) {
@@ -250,35 +214,31 @@ export default class OakEvent {
     oak.setEvent(oakEvent, event);
   }
 
-
   //////////////////////////////
   //  Mouse Down Event
   //////////////////////////////
 
   static _captureMouseDown(event) {
-    // element under the mouse NOT including the selection overlay
-    const mouseTarget = OakEvent._getMouseTarget(event);
+    const mouseInfo = OakEvent._getMouseInfo(event);
+    if (!mouseInfo) return;
 
     // Capture mouse position no matter which button went down.
     // Necessary because a scroll or resize might have changed the logical position.
-    const oakEvent = oak.event.clone({
-      pageLoc: OakEvent.getPageLoc(event),
-      clientLoc: OakEvent.getPageLoc(event),
-      mouseTarget,
-      target: event.target
-    });
+    const oakEvent = oak.event.clone(mouseInfo);
+    // clear mouseDown data (shouldn't need to, but...)
+    oakEvent._clearMouseDownData();
 
     // Do different things based on which button was pressed.
     const button = OakEvent._getMouseButton(event);
     if (button === "left") {
       oakEvent.type = "mousedown";
       oakEvent.downPageLoc = oakEvent.pageLoc;
-      oakEvent.downTarget = mouseTarget;
+      oakEvent.downTarget = mouseInfo.mouseTarget;
       oakEvent.button = button;
     }
     else if (button === "right") {
       oakEvent.type = "contextmenu";
-      oakEvent.menuTarget = mouseTarget;
+      oakEvent.menuTarget = mouseInfo.mouseTarget;
       // NOTE: We can't reliably know when the right mouse button goes UP,
       //       so we do NOT record the button name.
       // oakEvent.button = button;
@@ -391,9 +351,6 @@ export default class OakEvent {
       if (preventDefault) event.preventDefault();
       if (stopPropagation) event.stopPropagation();
 
-      // unset flag
-      if (flag) delete oak.event[flag];
-
       const dragInfo = _draggingStarted ? getDragInfo(event) : undefined;
 
       // if they never started dragging, call `onDragCancel`
@@ -405,6 +362,9 @@ export default class OakEvent {
       // call `onDragStop` whether dragging happened or not
       // TODO:  try...catch
       onDragStop(event, dragInfo);
+
+      // unset flag AFTER onDragStop
+      if (flag) delete oak.event[flag];
     }
 
     // watch mousemove and mouseup with the handlers above
@@ -447,8 +407,36 @@ export default class OakEvent {
     return undefined;
   }
 
+  // Return info about the mouse position / etc
+  //  - pageLoc     Current mouse position INCLUDING SCROLL
+  //  - clientLoc   Current mouse position NOT INCLUDING SCROLL
+  //  - target      Element under the mouse
+  //  - mouseTarget Element under the mouse IGNORING the <SelectionOverlay>
+  //
+  // NOTE:  If this is a mouseMove and there was no actual movement,
+  //        we return `undefined` immediately.  This works around a bug
+  //        in Chrome Mac which fires `mousemove` repeatedly because we're
+  //        manipulating the DOM in `_getNonSelectionOverlayTarget()`.
+  //
+  static _getMouseInfo(event) {
+    const info = {
+      pageLoc: OakEvent.getPageLoc(event),
+      clientLoc: OakEvent.getClientLoc(event),
+      target: event.target,
+    }
+
+    // See "Chrome Mac Bug" above.
+    if (event.type === "mousemove") {
+      const moveDelta = info.pageLoc.delta(oak.event.pageLoc);
+      if (moveDelta.isOrigin) return undefined;
+    }
+
+    info.mouseTarget = OakEvent._getNonSelectionOverlayTarget(event);
+    return info;
+  }
+
   // Return the target under the mouse NOT including the selection layer
-  static _getMouseTarget(event) {
+  static _getNonSelectionOverlayTarget(event) {
     const selectionOverlay = document.querySelector("#SelectionOverlay");
 
     if (!selectionOverlay) return event.target;

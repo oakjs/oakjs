@@ -6,6 +6,8 @@
 //
 //////////////////////////////
 
+import Point from "./Point";
+
 export default class Rect {
   // Initialize with `left`, `top`, `width`, `height`
   constructor(left, top, width, height) {
@@ -22,6 +24,11 @@ export default class Rect {
   //////////////////////////////
   // Syntactic sugar
   //////////////////////////////
+
+  get point() {
+    return new Point(this.left, this.top);
+  }
+
   get right() {
     return this.left + this.width;
   }
@@ -32,6 +39,20 @@ export default class Rect {
 
   get isEmpty() {
     return this.width === 0 && this.height === 0;
+  }
+
+  // Return as a CSS compatible object
+  get style() {
+    return {
+      left: this.left + "px",
+      top: this.top + "px",
+      width: this.width + "px",
+      height: this.height + "px",
+    }
+  }
+
+  get size() {
+    return { width: this.width, height: this.height }
   }
 
   //////////////////////////////

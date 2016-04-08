@@ -311,11 +311,22 @@ class OakJS extends Eventful(Object) {
     }
   }
 
+  getElementForOid(oid) {
+    return document.querySelector(`[data-oid='${oid}']`);
+  }
+
+  getElementsForOids(oids = []) {
+    return oids.map( oid => this.getElementForOid(oid)).filter(Boolean);
+  }
 
   // Given an `oid`, return the `clientRect` for it as currently rendered.
   getRectForOid(oid) {
-    const element = document.querySelector(`[data-oid='${oid}']`);
+    const element = this.getElementForOid(oid);
     return elements.clientRect(element);
+  }
+
+  getRectsForOids(oids = []) {
+    return oids.map( oid => this.getElementForOid(oid)).filter(Boolean);
   }
 
   // Return a map of `{ oids, rects }` for all `oid` elements on the page.

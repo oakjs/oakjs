@@ -7,6 +7,7 @@
 //////////////////////////////
 
 import Rect from "../Rect";
+import Point from "../Point";
 
 
 // Return the OFFSET rect -- relative to the DOCUMENT, INCLUDING scrolling.
@@ -39,6 +40,37 @@ export function closestMatching(element, selector) {
     ancestor = ancestor.parentElement;
   }
   return undefined;
+}
+
+
+// Given a set of elements:
+//  - `clone()` each and stick inside a wrapper which positions it relative to
+//  - an outerWrapper which is sized to the clientRect which encompasses the elements.
+// Returns the `outerWrapper`.
+export function getDragPreviewForElements(elements) {
+  const rects = elements.map(element => clientRect(element));
+  const outerRect = Rect.containingRect(rects);
+
+  const $outerWrapper = $("<div style='position:relative'/>");
+  $outerWrapper.css({ width: outerRect.width, height: outerRect.height });
+
+  const outerOffset = outerRect.point.invert();
+  elements.forEach( (element, index) => {
+    const $wrapper = $("<div style='position:absolute'/>");
+    const wrapperRect = rects[index].offset(outerOffset);
+
+    $wrapper.css(wrapperRect);
+    $wrapper.append( element.cloneNode(true) );
+
+    $outerWrapper.append( $wrapper );
+  });
+
+  return {
+    element: $outerWrapper[0],
+    clientRect: outerRect,
+    size: outerRect.size,
+    offset: oak.event.clientLoc.subtract(outerRect.point)
+  }
 }
 
 

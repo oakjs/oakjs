@@ -14,15 +14,14 @@ import SelectionRect from "./SelectionRect";
 
 export default class DragSelectRect extends React.Component {
   static propTypes = {
-    // Optional: Return the `clientRect` for the current mouse position.
+    // Return the `clientRect` for the current mouse position.
     getDragRect: PropTypes.func,
 
-    // Optional: Return `{ selection, selectionRects }` for the specified `clientRect`
+    // Return `{ selection, selectionRects }` for the specified `clientRect`
     getSelectionForRect: PropTypes.func,
 
-    // Optional callbacks for drag events
-    //  All will be called as:
-    //    `callback(event, { selection, selectionRects })`
+    // Callbacks for drag events, called as:
+    //  `callback(event, { selection, selectionRects })`
     onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
     onDragCancel: PropTypes.func,
@@ -109,7 +108,7 @@ export default class DragSelectRect extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="oak DragSelectRect">
         { this.renderSelectionRects() }
         { this.renderDragSelectRect() }
       </div>

@@ -3,9 +3,12 @@
 //////////////////////////////
 
 import { throttle } from "oak-roots/util/decorators";
+import Point from "oak-roots/Point";
 import Rect from "oak-roots/Rect";
 
+import { getDragPreviewForElements } from "oak-roots/util/elements";
 
+import DragMovePreview from "./DragMovePreview";
 import DragSelectRect from "./DragSelectRect";
 import OakComponent from "./OakComponent";
 import SelectionRect from "./SelectionRect";
@@ -108,34 +111,6 @@ export default class SelectionOverlay extends OakComponent {
   }
 
   //////////////////////////////
-  //  Drag selection
-  //////////////////////////////
-
-  // Start drawing a <DragSelectRect> when the mouse goes down.
-  startDragSelecting = () => {
-    this.setState({ dragSelecting: true });
-  }
-
-  renderDragSelectRect() {
-    if (!this.state.dragSelecting) return;
-    return <DragSelectRect onDragStop={this.stopDragSelecting} />
-  }
-
-  // Callback when drag-selection completes:
-  //  `event` is the mouseup event
-  //  `selection` is the list of `oids` which were intersected.
-  //  `selectionRects` is the list of `clientRect`s for those oids.
-  stopDragSelecting = (event, { selection, selectionRects } = {}) => {
-    if (selection && selection.length) {
-      oak.actions.setSelection({ elements: selection});
-    }
-    else {
-      oak.actions.clearSelection();
-    }
-    this.setState({ dragSelecting: false });
-  }
-
-  //////////////////////////////
   //  Mouse events in <SelectionRect> children (including the hover element)
   //////////////////////////////
 
@@ -145,10 +120,11 @@ export default class SelectionOverlay extends OakComponent {
     if (!oid || oak.editContext && oak.editContext.oid === oid) {
       return this.startDragSelecting(event);
     }
-console.info("onSelectionDown", oid);
+//console.info("onSelectionDown", oid);
     // if command/meta down
     if (oak.event.commandKey) {
       event.stopPropagation();
+      event.preventDefault();
       this.startDragSelecting();
       return;
 
@@ -166,7 +142,8 @@ console.info("onSelectionDown", oid);
     // If anything is selected, start dragging
     if (oak.selection.length) {
       event.stopPropagation();
-      this.startMovingSelection();
+      event.preventDefault();
+      this.startDragMoving();
     }
   }
 
@@ -179,25 +156,91 @@ console.info("onSelectionDown", oid);
     }
   }
 
+
   //////////////////////////////
-  //  Drag Move Preview
+  //  Drag selection
   //////////////////////////////
+
+  // Start drawing a <DragSelectRect> when the mouse goes down.
+  startDragSelecting = () => {
+    this.setState({ dragSelecting: true });
+  }
+
+  renderDragSelectRect() {
+    if (!this.state.dragSelecting) return;
+    return <DragSelectRect onDragStop={this.onDragSelectionStop} />
+  }
+
+  // Callback when drag-selection completes:
+  //  `event` is the mouseup event
+  //  `selection` is the list of `oids` which were intersected.
+  //  `selectionRects` is the list of `clientRect`s for those oids.
+  onDragSelectionStop = (event, { selection, selectionRects } = {}) => {
+    if (selection && selection.length) {
+      oak.actions.setSelection({ elements: selection});
+    }
+    else {
+      oak.actions.clearSelection();
+    }
+    this.setState({ dragSelecting: false });
+  }
+
+
+  //////////////////////////////
+  //  Drag Move
+  //////////////////////////////
+
+  startDragMoving(event) {
+    const elements = oak.getElementsForOids(oak.selection);
+    if (elements.length === 0) {
+      console.warn("SelectionOverlay.startDragMoving(): no elements found for selection!");
+      return;
+    }
+
+    this.setState({
+      dragMoving: true,
+      dragMovePreview: getDragPreviewForElements(elements)
+    });
+  }
 
   renderDragMovePreview() {
+    if (!this.state.dragMoving) return;
 
+    const preview = this.state.dragMovePreview;
+
+    const props = {
+      offset: preview.offset,
+      size: preview.size,
+      preview: preview.element,
+
+      onDragStart: this.onDragMoveStart,
+      onDrag: this.onDragMove,
+      onDragCancel: this.onDragMoveCancel,
+      onDragStop: this.onDragMoveStop,
+    }
+    return <DragMovePreview {...props} />
+  }
+
+  onDragMoveStart = (event, info) => {
+console.log("startDragMoving", info);
 
   }
 
-  startMovingSelection(event) {
-    this.setState
-    oak.event.initDragHandlers({
-      event,
-      onDragStart: "dragStart",
-//        onDrag: "drag",
-      onDragStop: "dragStop",
-      onDragCancel: this.onSelectionRectUp
-    });
+  onDragMove = (event, info) => {
 
+  }
+
+  onDragMoveCancel = (event, info) => {
+
+  }
+
+  onDragMoveStop = (event, info) => {
+console.log("stopDragMoving", info);
+    this.setState({
+      dragMoving: false,
+      dragMoveOffset: undefined,
+      dragMoveElements: undefined
+    });
   }
 
 
@@ -225,7 +268,7 @@ console.info("onSelectionDown", oid);
   }
 
   renderSelection() {
-    if (this.state.dragSelecting) return;
+    if (this.state.dragSelecting || this.state.dragMoving) return;
     const props = {
       selection: oak.selection,
       canResizeWidth: true,     // TODO

@@ -67,6 +67,11 @@ export default class Point {
     return Point.add(this, point);
   }
 
+  // Subtract another point from us.
+  subtract(point) {
+    return Point.subtract(this, point);
+  }
+
   // Return the inverse of this point
   invert() {
     return Point.invert(this);
@@ -75,6 +80,11 @@ export default class Point {
   // Size of this point if treated as a vector.
   get size() {
     return Math.max( Math.abs(this.x), Math.abs(this.y) );
+  }
+
+  // Return this point as a css `style` compatible object.
+  get style() {
+    return { left: this.x, top: this.y };
   }
 
   //////////////////////////////
@@ -89,6 +99,11 @@ export default class Point {
   // Return a new point which adds the two points together.
   static add(point1 = new Point(), point2 = new Point()) {
     return new Point(point1.x + point2.x, point1.y + point2.y);
+  }
+
+  // Return a new point which subtracts the second point from the first.
+  static subtract(point1 = new Point(), point2 = new Point()) {
+    return new Point(point1.x - point2.x, point1.y - point2.y);
   }
 
   // Return the inverse of this point
