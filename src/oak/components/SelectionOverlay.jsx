@@ -103,53 +103,37 @@ export default class SelectionOverlay extends OakComponent {
 
   // Mouse down on overlay itself
   onMouseDown = (event) => {
-    this.startDragSelecting(event);
+    event.stopPropagation();
+    this.startDragSelecting();
   }
 
   //////////////////////////////
   //  Drag selection
   //////////////////////////////
 
+  // Start drawing a <DragSelectRect> when the mouse goes down.
+  startDragSelecting = () => {
+    this.setState({ dragSelecting: true });
+  }
+
   renderDragSelectRect() {
     if (!this.state.dragSelecting) return;
-    const props = {
-      onDragStop: this.onDragSelectStop,
-      onDragCancel: this.onDragSelectCancel
-    }
-    return <DragSelectRect {...props} />
-  }
-
-
-  // Start drawing a <DragSelectRect> when the mouse goes down.
-  startDragSelecting = (event) => {
-    this.setState({ dragSelecting: true });
-    event.preventDefault();
-    event.stopPropagation();
-    return;
+    return <DragSelectRect onDragStop={this.stopDragSelecting} />
   }
 
   // Callback when drag-selection completes:
+  //  `event` is the mouseup event
   //  `selection` is the list of `oids` which were intersected.
-  //  `selectionRects` is the list of clientRects for those oids.
-  onDragSelectStop = (selection, rects) => {
-    // Select the intersecting elements
-    if (selection && selection.length > 0) {
-      oak.actions.setSelection({ elements: selection });
-      this.setState({ dragSelecting: false });
+  //  `selectionRects` is the list of `clientRect`s for those oids.
+  stopDragSelecting = (event, { selection, selectionRects } = {}) => {
+    if (selection && selection.length) {
+      oak.actions.setSelection({ elements: selection});
     }
     else {
-      this.onDragSelectCancel();
+      oak.actions.clearSelection();
     }
-  }
-
-  // Callback when drag-selection completes:
-  //  `selection` is the list of `oids` which were intersected.
-  //  `selectionRects` is the list of clientRects for those oids.
-  onDragSelectCancel = (selection, rects) => {
-    oak.actions.clearSelection();
     this.setState({ dragSelecting: false });
   }
-
 
   //////////////////////////////
   //  Mouse events in <SelectionRect> children (including the hover element)
@@ -162,9 +146,15 @@ export default class SelectionOverlay extends OakComponent {
       return this.startDragSelecting(event);
     }
 console.info("onSelectionDown", oid);
+    // if command/meta down
+    if (oak.event.commandKey) {
+      event.stopPropagation();
+      this.startDragSelecting();
+      return;
+
     // if shift is down,
 // TODO: verify that we can multi-select...
-    if (oak.event.shiftKey) {
+    } else if (oak.event.shiftKey) {
       // toggle selection of the element if there is one
       if (oid) oak.actions.toggleSelection({ elements: oid });
     }
@@ -175,13 +165,8 @@ console.info("onSelectionDown", oid);
 
     // If anything is selected, start dragging
     if (oak.selection.length) {
-      oak.event.initDragHandlers({
-        event,
-        onDragStart: "dragStart",
-//        onDrag: "drag",
-        onDragStop: "dragStop",
-        onDragCancel: this.onSelectionRectUp
-      });
+      event.stopPropagation();
+      this.startMovingSelection();
     }
   }
 
@@ -193,6 +178,28 @@ console.info("onSelectionDown", oid);
       oak.actions.setSelection({ elements: oid });
     }
   }
+
+  //////////////////////////////
+  //  Drag Move Preview
+  //////////////////////////////
+
+  renderDragMovePreview() {
+
+
+  }
+
+  startMovingSelection(event) {
+    this.setState
+    oak.event.initDragHandlers({
+      event,
+      onDragStart: "dragStart",
+//        onDrag: "drag",
+      onDragStop: "dragStop",
+      onDragCancel: this.onSelectionRectUp
+    });
+
+  }
+
 
   //////////////////////////////
   //  Mouse events in a <ResizeHandle> child
@@ -245,6 +252,7 @@ console.info("onSelectionDown", oid);
         { this.renderHoverElement() }
         { this.renderSelection() }
         { this.renderDragSelectRect() }
+        { this.renderDragMovePreview() }
       </div>
     );
   }

@@ -21,10 +21,12 @@ export default class DragSelectRect extends React.Component {
     getSelectionForRect: PropTypes.func,
 
     // Optional callbacks for drag events
+    //  All will be called as:
+    //    `callback(event, { selection, selectionRects })`
     onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
-    onDragStop: PropTypes.func,
     onDragCancel: PropTypes.func,
+    onDragStop: PropTypes.func,
   }
 
   constructor() {
@@ -33,23 +35,27 @@ export default class DragSelectRect extends React.Component {
   }
 
   componentDidMount() {
-    const _updateAndCall = (callbackName) => {
-      const callback = this.props[callbackName];
-      return (event) => {
-        this.updateSelection();
-        if (callback) callback(this.state.selection, this.state.selectionRects);
-      };
-    }
+    this.startDragging();
+  }
 
+  //////////////////////////////
+  // Drag event handlers
+  //////////////////////////////
+  startDragging() {
     // Start watching drag when mounted
     oak.event.initDragHandlers({
       flag: "dragSelecting",
-      onDragStart: _updateAndCall("onDragStart"),
-      onDrag: _updateAndCall("onDrag"),
-      onDragStop: _updateAndCall("onDragStop"),
-      onDragCancel: _updateAndCall("onDragCancel"),
+      onDragStart: this.props.onDragStart,
+      onDrag: this.props.onDrag,
+      onDragCancel: this.props.onDragCancel,
+      onDragStop: this.props.onDragStop,
+      getDragInfo: this.updateSelection
     });
   }
+
+  //////////////////////////////
+  // Drag geometry and selection
+  //////////////////////////////
 
   // Return the `clientRect` for the current drag.
   // Defaults to `oak.event.dragClientRect`.
@@ -74,14 +80,20 @@ export default class DragSelectRect extends React.Component {
     return { selection: oids, selectionRects: rects };
   }
 
+
   // Update our `state.selection` and `state.selectionRects` based on current geometry.
-  updateSelection() {
+  updateSelection = () => {
     const rect = this.getDragRect();
     const state = rect
                 ? this.getSelectionForRect(rect)
                 : { selection: null, selectionRects: null };
     this.setState(state);
+    return state;
   }
+
+  //////////////////////////////
+  // Rendering
+  //////////////////////////////
 
   renderSelectionRects() {
     const rects = this.state.selectionRects || [];
