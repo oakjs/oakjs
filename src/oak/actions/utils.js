@@ -111,9 +111,7 @@ export function getOidsOrDie(_things, operation) {
 //  Guards
 //////////////////////////////
 
-export function getLoaderOrDie(context, operation) {
-  // default to the current page
-  if (context === undefined) context = oak.page.componentLoader;
+export function getLoaderOrDie(context = oak.editContext, operation) {
   const loader = oak.loader.getLoader(context);
   if (!loader) die(oak, operation, context, "Couldn't get loader -- is this a valid path?");
   return loader;

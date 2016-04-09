@@ -12,7 +12,7 @@ import "./EditorToolbar.css";
 
 export default class EditorToolbar extends OakComponent {
   removeButton() {
-    oak.actions.removeElement({element:"oiBgbSMB" });
+    oak.actions.removeElements();
   }
 
   addButton() {

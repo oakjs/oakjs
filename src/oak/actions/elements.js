@@ -3,7 +3,7 @@
 //////////////////////////////
 
 import { die } from "oak-roots/util/die";
-import { UndoTransaction } from "oak-roots/UndoQueue";
+import UndoQueue, { UndoTransaction } from "oak-roots/UndoQueue";
 
 import oak from "../oak";
 import JSXElement, { OidRef } from "../JSXElement";
@@ -19,8 +19,8 @@ import utils from "./utils";
 // Set `prop[key]` of `element` to `value`.
 // You can specify an `oid` string, an `OidRef` or a `JSXElement`.
 //
-// Required options:  `context`, `element`, `key`, `value`
-// Optional options:  `returnTransaction`, `operation`
+// Required options:  `element`, `key`, `value`
+// Optional options:  `context`, `returnTransaction`, `operation`
 //
 // NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
 export function setElementProp(options) {
@@ -51,8 +51,8 @@ export function setElementProp(options) {
 // Change a map of prop `deltas` of an `element`.
 // You can specify an `oid` string, an `OidRef` or a `JSXElement`.
 //
-// Required options:  `context`, `element`, `deltas`
-// Optional options:  `returnTransaction`, `operation`
+// Required options:  `element`, `deltas`
+// Optional options:  `context`, `returnTransaction`, `operation`
 //
 // NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
 export function setElementProps({
@@ -81,8 +81,8 @@ export function setElementProps({
 // Change all props of `element` to new `props` passed in.
 // You can specify an `oid` string, an `OidRef` or a `JSXElement`.
 //
-// Required options:  `context`, `element`, `props`
-// Optional options:  `returnTransaction`, `operation`
+// Required options:  `element`, `props`
+// Optional options:  `context`, `returnTransaction`, `operation`
 //
 // NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
 export function resetElementProps({
@@ -118,8 +118,8 @@ export function resetElementProps({
 // Move a single `element` to new `targetParent` at `targetPosition`,
 //  pushing other elements out of the way.
 //
-// Required options:  `context`, `element`, `targetParent`, `targetPosition`
-// Optional options:  `returnTransaction`, `operation`
+// Required options:  `element`, `targetParent`, `targetPosition`
+// Optional options:  `context`, `returnTransaction`, `operation`
 //
 // You can specify an `oid` string, an `OidRef` or a `JSXElement`.
 //
@@ -151,8 +151,8 @@ export function moveElement({
 
 // Move item at `sourcePosition` in `sourceParent` to `targetPosition` in `targetParent`
 //
-// Required options:  `context`, `sourceParent`, `sourcePosition`, `targetParent`, `targetPosition`,
-// Optional options:  `returnTransaction`, `operation`
+// Required options:  `sourceParent`, `sourcePosition`, `targetParent`, `targetPosition`,
+// Optional options:  `context`, `returnTransaction`, `operation`
 //
 // NOTE: `sourceParent` MAY be the same as `targetParent`.
 //
@@ -201,8 +201,8 @@ export function moveChildAtPosition({
 // Move a bunch of `elements` to new `targetParent` at `targetPosition`,
 //  pushing other elements out of the way.
 //
-// Required options:  `context`, `elements`, `targetParent`, `targetPosition`
-// Optional options:  `returnTransaction`, `operation`
+// Required options:  `elements`, `targetParent`, `targetPosition`
+// Optional options:  `context`, `returnTransaction`, `operation`
 //
 // You can specify an `oid` string, an `OidRef` or a `JSXElement`.
 //
@@ -241,8 +241,8 @@ export function moveElements({
 
 // Add `child` and all descendents to `parent` at `position`, pushing other things out of the way.
 //
-// Required options:  `context`, `parent`, `position`, `child`
-// Optional options:  `returnTransaction`, `operation`
+// Required options:  `parent`, `position`, `child`
+// Optional options:  `context`, `returnTransaction`, `operation`
 //
 // NOTE: This routine CHANGES THE OIDS of the `child` and all descendents.
 //        If you're moving a node within the same tree and don't want to change oids,
@@ -286,11 +286,40 @@ export function addChildToElement({
 
 
 
+//////////////////////////////
+//  Adding children to some context
+//////////////////////////////
+
+// Remove child at `position` from `parent`.
+// NOTE: also removes all descendent elements!
+export function removeChildAtPosition({
+  context, parent, position,
+  operation = "removeChildAtPosition", returnTransaction
+}) {
+  const loader = utils.getLoaderOrDie(context, operation);
+
+  const originalParent = utils.getElementOrDie(loader, parent, operation);
+  const originalChild = utils.getChildAtPositionOrDie(loader, originalParent, position, operation);
+  const originalDescendents = utils.getDescendentElements(originalChild);
+
+  const newParent = originalParent.clone();
+  utils.removeChildAtPositionOrDie(newParent, position);
+
+  const transactionOptions = {
+    actionName: "Remove Element",
+    loader,
+    originalItems: [ originalChild, originalDescendents, originalParent ],
+    newItems: [ newParent ],
+    returnTransaction
+  }
+
+  return _changeElementsTransaction(transactionOptions);
+}
 
 // Remove a `element` passed as `oid` string, `OidRef` or by reference from the `context`.
 //
-// Required options:  `context`, `element`
-// Optional options:  `returnTransaction`, `operation`
+// Required options:  `element`
+// Optional options:  `context`, `returnTransaction`, `operation`
 //
 // NOTE: You cannot reliably use this to remove a non-element child,
 //       use `removeChildAtPosition()` instead.
@@ -316,44 +345,16 @@ export function removeElement({
 }
 
 
-
-// Remove child at `position` from `parent`.
-// NOTE: also removes all descendent elements!
-export function removeChildAtPosition({
-  context, parent, position,
-  operation = "removeChildAtPosition", returnTransaction
-}) {
-  const loader = utils.getLoaderOrDie(context, operation);
-
-  const originalParent = utils.getElementOrDie(loader, parent, operation);
-  const originalChild = utils.getChildAtPositionOrDie(loader, originalParent, position, operation);
-  const originalDescendents = utils.getDescendentElements(originalChild);
-
-  const newParent = originalParent.clone();
-  utils.removeChildAtPositionOrDie(newParent, position);
-
-  const transactionOptions = {
-    actionName: "Remove Element",
-    loader,
-    originalItems: [ originalChild, originalDescendents, originalParent ],
-    newItems: [ newParent ],
-  }
-
-  return _changeElementsTransaction(transactionOptions);
-}
-
-
-// Remove a `element` passed as `oid` string, `OidRef` or by reference from the `context`.
+// Remove list of `elements` passed as `oid` string, `OidRef` or by reference from the `context`.
 //
-// Required options:  `context`, `elements`
-// Optional options:  `returnTransaction`, `operation`
+// Optional options:  `context`, `elements`, `returnTransaction`, `operation`
 //
-// NOTE: You cannot reliably use this to remove a non-element children,
+// NOTE: You cannot reliably use this to remove non-element children,
 //       use `removeChildrenAtPositions()` instead.
 export function removeElements({
-  context, elements,
+  context, elements = oak.selection,
   operation = "removeElements", returnTransaction
-}) {
+} = {}) {
   const transactionOptions = {
     actionName: "Remove Elements",
     list: elements,
@@ -423,7 +424,11 @@ console.log("removing", elements, "from", loader);
 // If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
 //
 // NOTE: don't call this directly, use one of the `setElementProp()` calls.
-function _changeElementTransaction({ context, element, transformer, actionName, returnTransaction, operation }) {
+function _changeElementTransaction({
+  context, element,
+  transformer,
+  actionName, returnTransaction, operation
+}) {
   const loader = utils.getLoaderOrDie(context, operation);
   const original = utils.getElementOrDie(loader, element, operation);
 
@@ -446,7 +451,10 @@ function _changeElementTransaction({ context, element, transformer, actionName, 
 // NOTE: don't call this directly, use one of the `setElementProp()` calls.
 //
 // TODO: how will we return the things that have been added for selection?
-function _changeElementsTransaction({ loader, originalItems = [], newItems = [], actionName, returnTransaction }) {
+function _changeElementsTransaction({
+  loader, originalItems = [], newItems = [],
+  actionName, returnTransaction
+}) {
 console.info("original", originalItems);
 console.info("new", newItems);
   function redo() {
@@ -475,7 +483,7 @@ console.info("new", newItems);
 //
 // NOTE: don't call this directly.
 function _mapElementsTransaction({ list, getItemTransaction, actionName, returnTransaction }) {
-  const transaction = UndoQueue.mapTransactions(list, getItemTransaction, actionName);
+  const transaction = UndoQueue.mapTransactions(list, getItemTransaction, actionName, returnTransaction);
 
   if (returnTransaction) return transaction;
   return oak.undoQueue.addTransaction(transaction);

@@ -96,12 +96,6 @@ class OakJS extends Eventful(Object) {
   //  State syntactic sugar
   //////////////////////////////
 
-  // Return the currently selected elements (as a list of `oid`s).
-  // NOTE: this is a FROZEN array!
-  get selection() {
-    return this.state.selection;
-  }
-
   // Return the `ComponentController` for the current `appState.editContext`,
   //  a `page`, `section` or `project`.
   // Returns `undefined` if the specified context is not found.
@@ -113,6 +107,24 @@ class OakJS extends Eventful(Object) {
     }
     console.warn(`oak.editContext(): state ${this.state.editContext} not understood`);
     return undefined;
+  }
+
+  // Return the currently selected elements (as a list of `oid`s).
+  // NOTE: this is a FROZEN array!
+  get selection() {
+    return this.state.selection;
+  }
+
+  // Return the HTML elements which correspond to the selection.
+  // TODO: this could get out of sync with `selection` and `selectedComponents`
+  get selectedElements() {
+    return this.selection.map( oid => this.getElementForOid(oid) ).filter(Boolean);
+  }
+
+  // Return the `JSXElement`s which correspond to the selection.
+  // TODO: this could get out of sync with `selection` and `selectedElements`
+  get selectedComponents() {
+    return this.selection.map( oid => this.getEditableComponentForOid(oid) ).filter(Boolean);
   }
 
   //////////////////////////////
@@ -315,18 +327,10 @@ class OakJS extends Eventful(Object) {
     return document.querySelector(`[data-oid='${oid}']`);
   }
 
-  getElementsForOids(oids = []) {
-    return oids.map( oid => this.getElementForOid(oid)).filter(Boolean);
-  }
-
   // Given an `oid`, return the `clientRect` for it as currently rendered.
   getRectForOid(oid) {
     const element = this.getElementForOid(oid);
     return elements.clientRect(element);
-  }
-
-  getRectsForOids(oids = []) {
-    return oids.map( oid => this.getElementForOid(oid)).filter(Boolean);
   }
 
   // Return a map of `{ oids, rects }` for all `oid` elements on the page.

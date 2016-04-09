@@ -191,13 +191,15 @@ export default class SelectionOverlay extends OakComponent {
   //////////////////////////////
 
   startDragMoving(event) {
-    const elements = oak.getElementsForOids(oak.selection);
+    const elements = oak.selectedElements;
     if (elements.length === 0) {
       console.warn("SelectionOverlay.startDragMoving(): no elements found for selection!");
       return;
     }
 
     this.setState({
+      dragSelection: oak.selection,
+      dragComponents: oak.selectedComponents,
       dragMoving: true,
       dragMovePreview: getDragPreviewForElements(elements)
     });
