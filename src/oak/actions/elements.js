@@ -122,7 +122,7 @@ export function resetElementProps({
 //  pushing other elements out of the way.
 //
 // Required options:  `element`, `targetParent`, `targetPosition`
-// Optional options:  `context`, `returnTransaction`, `operation`
+// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
 // You can specify an `oid` string, an `OidRef` or a `JSXElement`.
 //
@@ -145,7 +145,8 @@ export function moveElement({
     targetParent,
     targetPosition,
     operation,
-    returnTransaction
+    returnTransaction,
+    deltas
   }
 
   // delegate to `moveChildAtPosition()` to actually do the move
@@ -155,7 +156,7 @@ export function moveElement({
 // Move item at `sourcePosition` in `sourceParent` to `targetPosition` in `targetParent`
 //
 // Required options:  `sourceParent`, `sourcePosition`, `targetParent`, `targetPosition`,
-// Optional options:  `context`, `returnTransaction`, `operation`
+// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
 // NOTE: `sourceParent` MAY be the same as `targetParent`.
 //
@@ -206,7 +207,7 @@ export function moveChildAtPosition({
 //  pushing other elements out of the way.
 //
 // Required options:  `elements`, `targetParent`, `targetPosition`
-// Optional options:  `context`, `returnTransaction`, `operation`
+// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
 // You can specify an `oid` string, an `OidRef` or a `JSXElement`.
 //
@@ -214,7 +215,7 @@ export function moveChildAtPosition({
 //       use `moveChildrenAtPosition()` instead.
 export function moveElements({
   context, elements, targetParent, targetPosition,
-  operation = "moveElements", returnTransaction
+  operation = "moveElements", returnTransaction, deltas = {}
 }) {
 
   const transactionOptions = {
@@ -227,7 +228,8 @@ export function moveElements({
         targetParent,
         targetPosition: targetPosition + index,
         operation,
-        returnTransaction: true
+        returnTransaction: true,
+        deltas
       });
     }
   }
@@ -246,7 +248,7 @@ export function moveElements({
 // Add `child` and all descendents to `parent` at `position`, pushing other things out of the way.
 //
 // Required options:  `parent`, `position`, `child`
-// Optional options:  `context`, `returnTransaction`, `operation`
+// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
 // NOTE: This routine CHANGES THE OIDS of the `child` and all descendents.
 //        If you're moving a node within the same tree and don't want to change oids,
@@ -268,6 +270,7 @@ export function addChildToElement({
 
   // clone JSXElements AND ALL DESCEDNENTS and give them new oids
   if (child instanceof JSXElement) {
+//TODO: deltas???
     const descendents = child.getDescendentElements();
     [newChild, ...newDescendents] = utils.cloneAndGenerateNewOids(loader, [child, ...descendents]);
   }
@@ -289,6 +292,35 @@ export function addChildToElement({
   return _changeElementsTransaction(transactionOptions);
 }
 
+// Add list of `children` and all descendents to `parent` at `position`,
+// pushing other things out of the way.
+//
+// Required options:  `parent`, `position`, `child`
+// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
+//
+// NOTE: You cannot reliably use this to remove non-element children,
+//       use `removeChildrenAtPositions()` instead.
+export function addChildrenToElement({
+  context, parent, position, children,
+  operation = "addChildrenToElement", returnTransaction, deltas
+} = {}) {
+  const transactionOptions = {
+    actionName: "Add Elements",
+    list: elements,
+    getItemTransaction: (child, index) => {
+      return addChildToElement({
+        context,
+        parent,
+        position: position + index,
+        child,
+        operation,
+        returnTransaction: true,
+        deltas
+      })
+    }
+  }
+  return _mapElementsTransaction(transactionOptions);
+}
 
 
 //////////////////////////////
@@ -325,7 +357,7 @@ export function removeChildAtPosition({
 // Remove a `element` passed as `oid` string, `OidRef` or by reference from the `context`.
 //
 // Required options:  `element`
-// Optional options:  `context`, `returnTransaction`, `operation`
+// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
 // NOTE: You cannot reliably use this to remove a non-element child,
 //       use `removeChildAtPosition()` instead.
@@ -353,8 +385,9 @@ export function removeElement({
 
 
 // Remove list of `elements` passed as `oid` string, `OidRef` or by reference from the `context`.
+// Defaults to removing the `oak.selection`.
 //
-// Optional options:  `context`, `elements`, `returnTransaction`, `operation`
+// Optional options:  `context`, `elements`, `returnTransaction`, `operation`, `deltas`
 //
 // NOTE: You cannot reliably use this to remove non-element children,
 //       use `removeChildrenAtPositions()` instead.
