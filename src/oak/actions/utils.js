@@ -117,7 +117,17 @@ export function getLoaderOrDie(context = oak.editContext, operation) {
   return loader;
 }
 
-export function getElementOrDie(loader, oid, operation) {
+// Given a `loader`, return the element for specifeid
+export function getElementOrDie(loader, _oid, operation, deltas) {
+  // Normalize `_oid` to a string.
+  const oid = JSXElement.getOid(_oid);
+  if (!oid) die(oak, operation, [loader, _oid], "Invalid oid");
+
+  // if they passed a list of existing deltas, check that first
+  if (deltas && deltas[oid]) {
+    return deltas[oid];
+  }
+
   const element = loader.getElement(oid);
   if (!element) die(oak, operation, [loader, oid], "Element not found");
   if (!(element instanceof JSXElement)) die(oak, operation, [loader, oid, element], "Expected a JSXElement");
@@ -132,6 +142,13 @@ export function getChildAtPositionOrDie(loader, parent, position, operation) {
   return child;
 }
 
+export function getElementPositionOrDie(parent, element, operation) {
+  const position = parent.getChildPosition(element);
+  if (position === -1) die(oak, "removeElement", arguments, "Child not found in parent. ???");
+  return position;
+}
+
+
 // If `child` is a `JSXElement`, return a clone.
 // If an `OidRef` or `null`, throw.
 // Otherwise return the `child` passed in (assuming its a lieral or something else unclonable).
@@ -145,11 +162,7 @@ export function cloneOrDie(child, operation) {
 }
 
 
-export function getElementPositionOrDie(parent, element, operation) {
-  const position = parent.getChildPosition(element);
-  if (position === -1) die(oak, "removeElement", arguments, "Child not found in parent. ???");
-  return position;
-}
+
 
 
 

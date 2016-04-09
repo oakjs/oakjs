@@ -11,6 +11,9 @@ import JSXElement, { OidRef } from "../JSXElement";
 import utils from "./utils";
 
 
+// Set to `true` to debug adding/removing elements
+const DEBUG = false;
+
 //////////////////////////////
 //  Manipulating element properties
 //////////////////////////////
@@ -44,7 +47,7 @@ export function setElementProp(options) {
       return clone
     },
   }
-  return _changeElementTransaction(transactionOptions);
+  return _changeElementPropsTransaction(transactionOptions);
 }
 
 
@@ -73,7 +76,7 @@ export function setElementProps({
       return clone;
     },
   }
-  return _changeElementTransaction(transactionOptions);
+  return _changeElementPropsTransaction(transactionOptions);
 }
 
 
@@ -103,7 +106,7 @@ export function resetElementProps({
       return clone;
     },
   }
-  return _changeElementTransaction(transactionOptions);
+  return _changeElementPropsTransaction(transactionOptions);
 }
 
 
@@ -127,11 +130,11 @@ export function resetElementProps({
 //       use `moveChildAtPosition()` instead.
 export function moveElement({
   context, element: _element, targetParent, targetPosition,
-  operation = "moveElement", returnTransaction
+  operation = "moveElement", returnTransaction, deltas
 }) {
   const loader = utils.getLoaderOrDie(context, operation);
-  const element = utils.getElementOrDie(loader, _element, operation);
-  const sourceParent = utils.getElementOrDie(loader, element._parent, operation);
+  const element = utils.getElementOrDie(loader, _element, operation, deltas);
+  const sourceParent = utils.getElementOrDie(loader, element._parent, operation, deltas);
   const sourcePosition = utils.getElementPositionOrDie(sourceParent, element, operation);
 
   const moveChildOptions = {
@@ -162,15 +165,15 @@ export function moveElement({
 //       manipulating element descendents or changing oids...
 export function moveChildAtPosition({
   context, sourceParent, sourcePosition, targetParent, targetPosition:_targetPosition,
-  operation = "moveChildAtPosition", returnTransaction
+  operation = "moveChildAtPosition", returnTransaction, deltas
 }) {
 
   const loader = utils.getLoaderOrDie(context, operation);
 
-  const originalSourceParent = utils.getElementOrDie(loader, sourceParent, operation);
+  const originalSourceParent = utils.getElementOrDie(loader, sourceParent, operation, deltas);
   // if no target specified, they're moving within the source parent
   const originalTargetParent = targetParent
-                             ? utils.getElementOrDie(loader, targetParent, operation)
+                             ? utils.getElementOrDie(loader, targetParent, operation, deltas)
                              : originalSourceParent;
   const originalChild = utils.getChildAtPositionOrDie(loader, originalSourceParent, sourcePosition, operation);
 
@@ -191,7 +194,8 @@ export function moveChildAtPosition({
     loader,
     originalItems: [originalChild, originalTargetParent, originalSourceParent],
     newItems: [newChild, newSourceParent, newTargetParent],
-    returnTransaction
+    returnTransaction,
+    deltas
   }
   return _changeElementsTransaction(transactionOptions);
 }
@@ -249,14 +253,14 @@ export function moveElements({
 //        use `moveElement()` instead.
 export function addChildToElement({
   context, parent, position, child,
-  operation = "addChildToElement", returnTransaction
+  operation = "addChildToElement", returnTransaction, deltas
 }) {
   if (child == null) die(oak, operation, child, "Child must not be null");
   if (child instanceof OidRef) die(oak, operation, child, "Child must not be an OidRef");
 
   const loader = utils.getLoaderOrDie(context, operation);
 
-  const originalParent = utils.getElementOrDie(loader, parent, operation);
+  const originalParent = utils.getElementOrDie(loader, parent, operation, deltas);
   const originalItems = [ originalParent ];
 
   const newParent = originalParent.clone();
@@ -278,7 +282,8 @@ export function addChildToElement({
     loader,
     originalItems: [ originalParent ],
     newItems: [ newParent, newChild, newDescendents ],
-    returnTransaction
+    returnTransaction,
+    deltas
   }
 
   return _changeElementsTransaction(transactionOptions);
@@ -287,19 +292,19 @@ export function addChildToElement({
 
 
 //////////////////////////////
-//  Adding children to some context
+//  Removing children to some context
 //////////////////////////////
 
 // Remove child at `position` from `parent`.
 // NOTE: also removes all descendent elements!
 export function removeChildAtPosition({
   context, parent, position,
-  operation = "removeChildAtPosition", returnTransaction
+  operation = "removeChildAtPosition", returnTransaction, deltas
 }) {
   const loader = utils.getLoaderOrDie(context, operation);
 
-  const originalParent = utils.getElementOrDie(loader, parent, operation);
-  const originalChild = utils.getChildAtPositionOrDie(loader, originalParent, position, operation);
+  const originalParent = utils.getElementOrDie(loader, parent, operation, deltas);
+  const originalChild = utils.getChildAtPositionOrDie(loader, originalParent, position, operation, deltas);
   const originalDescendents = utils.getDescendentElements(originalChild);
 
   const newParent = originalParent.clone();
@@ -310,7 +315,8 @@ export function removeChildAtPosition({
     loader,
     originalItems: [ originalChild, originalDescendents, originalParent ],
     newItems: [ newParent ],
-    returnTransaction
+    returnTransaction,
+    deltas
   }
 
   return _changeElementsTransaction(transactionOptions);
@@ -325,11 +331,11 @@ export function removeChildAtPosition({
 //       use `removeChildAtPosition()` instead.
 export function removeElement({
   context, element: _element,
-  operation = "removeElement", returnTransaction
+  operation = "removeElement", returnTransaction, deltas
 }) {
   const loader = utils.getLoaderOrDie(context, operation);
-  const element = utils.getElementOrDie(loader, _element, operation);
-  const parent = utils.getElementOrDie(loader, element._parent, operation);
+  const element = utils.getElementOrDie(loader, _element, operation, deltas);
+  const parent = utils.getElementOrDie(loader, element._parent, operation, deltas);
   const position = utils.getElementPositionOrDie(parent, element, operation);
 
   const removeChildOptions = {
@@ -338,7 +344,8 @@ export function removeElement({
     element,
     parent,
     position,
-    returnTransaction
+    returnTransaction,
+    deltas
   }
 
   return removeChildAtPosition(removeChildOptions);
@@ -353,7 +360,7 @@ export function removeElement({
 //       use `removeChildrenAtPositions()` instead.
 export function removeElements({
   context, elements = oak.selection,
-  operation = "removeElements", returnTransaction
+  operation = "removeElements", returnTransaction, deltas = {}
 } = {}) {
   const transactionOptions = {
     actionName: "Remove Elements",
@@ -363,7 +370,8 @@ export function removeElements({
         context,
         element,
         operation,
-        returnTransaction: true
+        returnTransaction: true,
+        deltas
       })
     }
   }
@@ -378,7 +386,7 @@ export function removeElements({
 //////////////////////////////
 
 function addElementsToLoader(loader, elements) {
-console.log("adding", elements, "to", loader);
+if (DEBUG) console.log("adding", elements, "to", loader);
   elements.forEach(element => {
     if (element instanceof JSXElement) {
       element.getElement = loader.getElement;
@@ -395,7 +403,7 @@ console.log("adding", elements, "to", loader);
 }
 
 function removeElementsFromLoader(loader, elements) {
-console.log("removing", elements, "from", loader);
+if (DEBUG) console.log("removing", elements, "from", loader);
   elements.forEach(element => {
     if (element instanceof JSXElement) delete loader.oids[element.oid];
     // recurse for arrays
@@ -414,7 +422,7 @@ console.log("removing", elements, "from", loader);
 //////////////////////////////
 
 
-// Create a transaction for a transformation of a single element which MUST NOT:
+// Create a transaction for a transformation of props of a single element which MUST NOT:
 //  - affect `_children`
 //  - affect `_parent`
 //
@@ -424,13 +432,13 @@ console.log("removing", elements, "from", loader);
 // If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
 //
 // NOTE: don't call this directly, use one of the `setElementProp()` calls.
-function _changeElementTransaction({
+function _changeElementPropsTransaction({
   context, element,
   transformer,
-  actionName, returnTransaction, operation
+  actionName, returnTransaction, operation, deltas
 }) {
   const loader = utils.getLoaderOrDie(context, operation);
-  const original = utils.getElementOrDie(loader, element, operation);
+  const original = utils.getElementOrDie(loader, element, operation, deltas);
 
   const clone = transformer(original.clone(), loader);
   function redo() { return addElementsToLoader(loader, [clone]); }
@@ -453,10 +461,17 @@ function _changeElementTransaction({
 // TODO: how will we return the things that have been added for selection?
 function _changeElementsTransaction({
   loader, originalItems = [], newItems = [],
-  actionName, returnTransaction
+  actionName, returnTransaction, deltas
 }) {
-console.info("original", originalItems);
-console.info("new", newItems);
+if (DEBUG) console.info("original", originalItems);
+if (DEBUG) console.info("new", newItems);
+
+  // Add the new items to the deltas if specified
+  // This allows us to pick up changes within the same transaction.
+  if (deltas) {
+    newItems.forEach( item => { if (item.oid) deltas[item.oid] = item });
+  }
+
   function redo() {
     removeElementsFromLoader(loader, originalItems);
     return addElementsToLoader(loader, newItems);

@@ -95,6 +95,13 @@ export default class JSXElement {
     return this.getElement(this._parent);
   }
 
+  // Given a JSXElement, OidRef or `oid` string, return an oid string.
+  // Returns `undefined` if none of the above.
+  static getOid(thing) {
+    if (typeof thing === "string") return thing;
+    if (thing.oid) return thing;
+    return undefined;
+  }
 
   //////////////////////////////
   //  Render method

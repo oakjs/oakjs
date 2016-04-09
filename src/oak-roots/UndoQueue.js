@@ -294,10 +294,14 @@ export class UndoTransaction {
     this.addUndoActions(transaction.undoActions);
   }
 
-// NOTE: add undos in REVERSE order???
   addTransactions(transactions) {
+    // Add redo actions in NORMAL order
     transactions.forEach(transaction => {
       this.addRedoActions(transaction.redoActions);
+    });
+
+    // Add undo actions in REVERSE order
+    transactions.reverse().forEach(transaction => {
       this.addUndoActions(transaction.undoActions);
     });
   }
