@@ -198,9 +198,9 @@ export default class SelectionOverlay extends OakComponent {
     }
 
     this.setState({
+      dragMoving: true,
       dragSelection: oak.selection,
       dragComponents: oak.selectedComponents,
-      dragMoving: true,
       dragMovePreview: getDragPreviewForElements(elements)
     });
   }
@@ -225,23 +225,35 @@ export default class SelectionOverlay extends OakComponent {
 
   onDragMoveStart = (event, info) => {
 console.log("startDragMoving", info);
-
+//    oak.actions.removeElements(oak.selection);
   }
 
   onDragMove = (event, info) => {
+    try {
+//      oak.actions.removeElements({ elements: this.state.dragSelection });
+    }
+    catch (e) {}
 
+    const selection = this.state.dragSelection;
+    if (info.target) {
+      try {
+        if (selection.includes(info.target)) return;
+console.info("moving ",selection, " into ", info.target);
+        oak.actions.moveElement({ parent: info.target, element: selection[0] });
+      } catch (e) {}
+    }
   }
 
   onDragMoveCancel = (event, info) => {
-
   }
 
   onDragMoveStop = (event, info) => {
 console.log("stopDragMoving", info);
     this.setState({
       dragMoving: false,
-      dragMoveOffset: undefined,
-      dragMoveElements: undefined
+      dragSelection: undefined,
+      dragComponents: undefined,
+      dragMovePreview: undefined
     });
   }
 

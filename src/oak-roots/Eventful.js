@@ -8,7 +8,7 @@ export default function Eventful(Constructor = Object) {
 
   return class Eventful extends Constructor {
     // Set to true on your instance to log events
-    _debugEvents = false;
+//    _debugEvents = false;
 
     // Register to receive a notification for an event.
     //

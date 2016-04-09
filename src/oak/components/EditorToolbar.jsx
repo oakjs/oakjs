@@ -16,12 +16,12 @@ export default class EditorToolbar extends OakComponent {
   }
 
   addButton() {
-    const buttonToAdd = JSXElement.parse("<Button icon='smile'>Love it even more!</Button>");
-    oak.actions.addChildToElement({ parent: "ftEkGCjX", child: buttonToAdd });
+    const toAdd = [JSXElement.parse("<Button icon='smile'>Love it even more!</Button>")];
+    oak.actions.addChildrenToElement({ parent: "ftEkGCjX", children: toAdd });
   }
 
   moveText() {
-    oak.actions.moveElement({ element: "GIboFkjD", targetParent: "arZsBgMa" });
+    oak.actions.moveElements({ elements: ["GIboFkjD"], parent: "arZsBgMa" });
   }
 
   render() {

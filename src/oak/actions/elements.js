@@ -118,10 +118,10 @@ export function resetElementProps({
 
 
 
-// Move a single `element` to new `targetParent` at `targetPosition`,
+// Move a single `element` to new `parent` at `position`,
 //  pushing other elements out of the way.
 //
-// Required options:  `element`, `targetParent`, `targetPosition`
+// Required options:  `element`, `parent`, `position`
 // Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
 // You can specify an `oid` string, an `OidRef` or a `JSXElement`.
@@ -129,7 +129,7 @@ export function resetElementProps({
 // NOTE: You cannot reliably use this to move a non-element child,
 //       use `moveChildAtPosition()` instead.
 export function moveElement({
-  context, element: _element, targetParent, targetPosition,
+  context, element: _element, parent, position,
   operation = "moveElement", returnTransaction, deltas
 }) {
   const loader = utils.getLoaderOrDie(context, operation);
@@ -142,8 +142,8 @@ export function moveElement({
     element,
     sourceParent,
     sourcePosition,
-    targetParent,
-    targetPosition,
+    parent,
+    position,
     operation,
     returnTransaction,
     deltas
@@ -153,19 +153,19 @@ export function moveElement({
   return moveChildAtPosition(moveChildOptions);
 }
 
-// Move item at `sourcePosition` in `sourceParent` to `targetPosition` in `targetParent`
+// Move item at `sourcePosition` in `sourceParent` to `position` in `parent`
 //
-// Required options:  `sourceParent`, `sourcePosition`, `targetParent`, `targetPosition`,
+// Required options:  `sourceParent`, `sourcePosition`, `parent`, `position`,
 // Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
-// NOTE: `sourceParent` MAY be the same as `targetParent`.
+// NOTE: `sourceParent` MAY be the same as `parent`.
 //
-// NOTE: `sourceParent` and `targetParent` MUST be in the same `context`.
+// NOTE: `sourceParent` and `parent` MUST be in the same `context`.
 //
 // NOTE: This method is called out specially because we don't have to worry about
 //       manipulating element descendents or changing oids...
 export function moveChildAtPosition({
-  context, sourceParent, sourcePosition, targetParent, targetPosition:_targetPosition,
+  context, sourceParent, sourcePosition, parent, position:_position,
   operation = "moveChildAtPosition", returnTransaction, deltas
 }) {
 
@@ -173,8 +173,8 @@ export function moveChildAtPosition({
 
   const originalSourceParent = utils.getElementOrDie(loader, sourceParent, operation, deltas);
   // if no target specified, they're moving within the source parent
-  const originalTargetParent = targetParent
-                             ? utils.getElementOrDie(loader, targetParent, operation, deltas)
+  const originalTargetParent = parent
+                             ? utils.getElementOrDie(loader, parent, operation, deltas)
                              : originalSourceParent;
   const originalChild = utils.getChildAtPositionOrDie(loader, originalSourceParent, sourcePosition, operation);
 
@@ -182,13 +182,13 @@ export function moveChildAtPosition({
 
   const newSourceParent = originalSourceParent.clone();
   const newTargetParent = (sameParent ? newSourceParent : originalTargetParent.clone());
-  const targetPosition = (_targetPosition !== undefined ? _targetPosition : newTargetParent.childCount);
+  const position = (_position !== undefined ? _position : newTargetParent.childCount);
   const newChild = utils.cloneOrDie(originalChild, operation);
 
   // if we're adding to the same parent, position may change because of the delete
-  const deleteDelta = (sameParent && (targetPosition > sourcePosition)) ? -1 : 0;
+  const deleteDelta = (sameParent && (position > sourcePosition)) ? -1 : 0;
   utils.removeChildAtPositionOrDie(newSourceParent, sourcePosition);
-  utils.addChildAtPositionOrDie(newTargetParent, targetPosition + deleteDelta, newChild, operation);
+  utils.addChildAtPositionOrDie(newTargetParent, position + deleteDelta, newChild, operation);
 
   const transactionOptions = {
     actionName: "Move Element",
@@ -203,10 +203,10 @@ export function moveChildAtPosition({
 
 
 
-// Move a bunch of `elements` to new `targetParent` at `targetPosition`,
+// Move a bunch of `elements` to new `parent` at `position`,
 //  pushing other elements out of the way.
 //
-// Required options:  `elements`, `targetParent`, `targetPosition`
+// Required options:  `elements`, `parent`, `position`
 // Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
 // You can specify an `oid` string, an `OidRef` or a `JSXElement`.
@@ -214,19 +214,19 @@ export function moveChildAtPosition({
 // NOTE: You cannot reliably use this to move a non-element child,
 //       use `moveChildrenAtPosition()` instead.
 export function moveElements({
-  context, elements, targetParent, targetPosition,
+  context, elements, parent, position,
   operation = "moveElements", returnTransaction, deltas = {}
 }) {
 
   const transactionOptions = {
     actionName: "Move Elements",
-    list: elements,
+    list: elements.reverse(),
     getItemTransaction: (element, index) => {
       return moveElement({
         context,
         element,
-        targetParent,
-        targetPosition: targetPosition + index,
+        parent,
+        position,
         operation,
         returnTransaction: true,
         deltas
@@ -306,12 +306,13 @@ export function addChildrenToElement({
 } = {}) {
   const transactionOptions = {
     actionName: "Add Elements",
-    list: elements,
+    // reverse children so we're adding each at `position`
+    list: children.reverse(),
     getItemTransaction: (child, index) => {
       return addChildToElement({
         context,
         parent,
-        position: position + index,
+        position: position,
         child,
         operation,
         returnTransaction: true,

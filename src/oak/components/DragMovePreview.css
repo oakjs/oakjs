@@ -1,6 +1,6 @@
 .oak.DragMovePreview {
   position: fixed;
-//  opacity: .25;
+  opacity: .25;
   cursor: grabbing;
   left:-1000px; top:-1000px;
   min-width:10px; min-height:10px;
