@@ -39,6 +39,11 @@ export default class Point {
     return Point.getDirection(this);
   }
 
+  // Return this point as a `{ top, left }`, eg for use as CSS `style` values.
+  get style() {
+    return { left: this.x, top: this.y };
+  }
+
   //////////////////////////////
   //  Math-y stuff
   //////////////////////////////
@@ -80,11 +85,6 @@ export default class Point {
   // Size of this point if treated as a vector.
   get size() {
     return Math.max( Math.abs(this.x), Math.abs(this.y) );
-  }
-
-  // Return this point as a css `style` compatible object.
-  get style() {
-    return { left: this.x, top: this.y };
   }
 
   //////////////////////////////

@@ -51,25 +51,36 @@ export function getDragPreviewForElements(elements) {
   const rects = elements.map(element => clientRect(element));
   const outerRect = Rect.containingRect(rects);
 
-  const $outerWrapper = $("<div style='position:relative'/>");
+  const $outerWrapper = $("<div class='oak DragMovePreviewWrapper'/>");
   $outerWrapper.css({ width: outerRect.width, height: outerRect.height });
 
-  const outerOffset = outerRect.point.invert();
+  const outerOffset = outerRect.topLeft.invert();
   elements.forEach( (element, index) => {
-    const $wrapper = $("<div style='position:absolute'/>");
-    const wrapperRect = rects[index].offset(outerOffset);
+    // Create an item itemWrapper, offset from the outerWrapper
+    const $itemWrapper = $("<div class='oak DragMovePreviewItemWrapper'/>");
+    const itemWrapperRect = rects[index].offset(outerOffset);
+    $itemWrapper.css(itemWrapperRect.style);
 
-    $wrapper.css(wrapperRect);
-    $wrapper.append( element.cloneNode(true) );
+    // clone the node and clear its margin
+    // TODO: check this in IE -- may need "!important" ?
+    const clone = element.cloneNode(true);
+    clone.style.setProperty("margin", "0", "important");
 
-    $outerWrapper.append( $wrapper );
+    // add the clone to the itemWrapper
+    $itemWrapper.append( clone );
+
+    // add the itemWrapper to the preview
+    $outerWrapper.append( $itemWrapper );
   });
+
+  // add outline above itemWrappers which prevents mouse interaction
+  $outerWrapper.append($("<div class='oak DragMovePreviewOutline'/>"));
 
   return {
     element: $outerWrapper[0],
     clientRect: outerRect,
     size: outerRect.size,
-    offset: oak.event.clientLoc.subtract(outerRect.point)
+    offset: oak.event.clientLoc.subtract(outerRect.topLeft)
   }
 }
 

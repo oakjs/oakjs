@@ -1,8 +1,25 @@
 .oak.DragMovePreview {
-  position: absolute;
-  border:1px solid black;
-  opacity: .25;
+  position: fixed;
+//  opacity: .25;
   cursor: grabbing;
   left:-1000px; top:-1000px;
   min-width:10px; min-height:10px;
+}
+
+/* Wrapper around all preview items */
+.oak.DragMovePreviewWrapper {
+  position:absolute;
+}
+
+/* Wrapper around each preview item */
+.oak.DragMovePreviewItemWrapper {
+  position:absolute;
+}
+
+/* Outline which covers all preview items to prevent mouse effects */
+.oak.DragMovePreviewOutline {
+  position:absolute;
+  left:0; top:0; right:0; bottom:0;
+  border:1px solid blue;
+  z-index:1000000000;
 }

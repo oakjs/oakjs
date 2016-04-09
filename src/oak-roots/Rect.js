@@ -25,7 +25,7 @@ export default class Rect {
   // Syntactic sugar
   //////////////////////////////
 
-  get point() {
+  get topLeft() {
     return new Point(this.left, this.top);
   }
 

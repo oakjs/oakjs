@@ -62,10 +62,11 @@ export default class DragMovePreview extends OakComponent {
   }
 
   onDragStart = (event, info) => {
+    // Empty the preview container
     const $container = this.$ref();
     $container.empty();
 
-    // ingest the preview
+    // Ingest the preview inside the container
     const { preview } = this.props;
     if (preview) $container.append(preview);
 
@@ -75,12 +76,10 @@ export default class DragMovePreview extends OakComponent {
   onDrag = (event, info) => {
     const $container = this.$ref();
 
-    const { offset, size } = this.props;
+    // offset the container according to the mouse
+    const { offset } = this.props;
     const offsetMousePoint = oak.event.clientLoc.subtract(offset);
     $container.css(offsetMousePoint.style);
-    $container.css(size);
-
-console.info($container.html());
 
     if (this.props.onDrag) this.props.onDrag(event, info);
   }
