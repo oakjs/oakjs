@@ -78,7 +78,7 @@ export function cloneAndGenerateNewOids(loader, elements) {
     if (clone._parent) clone._parent = getMappedOid(clone._parent, "parent oid not found", clone);
     if (clone._children) clone._children.forEach( (child, index) => {
       if (child instanceof OidRef) {
-        newOid = getMappedOid(child.oid, "child OidRef not found", child);
+        const newOid = getMappedOid(child.oid, "child OidRef not found", child);
         if (newOid) child[index] = new OidRef(newOid);
       }
     });

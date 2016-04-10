@@ -254,7 +254,7 @@ export function moveElements({
 //        If you're moving a node within the same tree and don't want to change oids,
 //        use `moveElement()` instead.
 export function addChildToElement({
-  context, parent, position, child,
+  context, parent, position, child, keepOids,
   operation = "addChildToElement", returnTransaction, deltas
 }) {
   if (child == null) die(oak, operation, child, "Child must not be null");
@@ -272,7 +272,12 @@ export function addChildToElement({
   if (child instanceof JSXElement) {
 //TODO: deltas???
     const descendents = child.getDescendentElements();
-    [newChild, ...newDescendents] = utils.cloneAndGenerateNewOids(loader, [child, ...descendents]);
+    if (keepOids) {
+      newChild = utils.cloneOrDie(child, operation);
+      newDescendents = descendents.map( descendent => utils.cloneOrDie(descendent, operation) );
+    } else {
+      [newChild, ...newDescendents] = utils.cloneAndGenerateNewOids(loader, [child, ...descendents]);
+    }
   }
   else {
     newChild = utils.cloneOrDie(child, operation);
@@ -301,7 +306,7 @@ export function addChildToElement({
 // NOTE: You cannot reliably use this to remove non-element children,
 //       use `removeChildrenAtPositions()` instead.
 export function addChildrenToElement({
-  context, parent, position, children,
+  context, parent, position, children, keepOids,
   operation = "addChildrenToElement", returnTransaction, deltas
 } = {}) {
   const transactionOptions = {
@@ -314,6 +319,7 @@ export function addChildrenToElement({
         parent,
         position: position,
         child,
+        keepOids,
         operation,
         returnTransaction: true,
         deltas

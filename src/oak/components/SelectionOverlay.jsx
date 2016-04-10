@@ -197,55 +197,85 @@ export default class SelectionOverlay extends OakComponent {
       return;
     }
 
+    // clone the elements for the preview here, so we only do it once per drag
+    const preview = getDragPreviewForElements(elements);
+
     this.setState({
       dragMoving: true,
       dragSelection: oak.selection,
       dragComponents: oak.selectedComponents,
-      dragMovePreview: getDragPreviewForElements(elements)
+      dropParent: undefined,
+      dropPosition: undefined,
+      dragMoveProps: {
+        offset: preview.offset,
+        size: preview.size,
+        preview: preview.element,
+        onDragStart: this.onDragMoveStart,
+        onDrag: this.onDragMove,
+        onDragCancel: this.onDragMoveCancel,
+        onDragStop: this.onDragMoveStop,
+      }
     });
   }
 
+  // NOTE: called repeatedly, don't do anything expensive in here...
   renderDragMovePreview() {
     if (!this.state.dragMoving) return;
-
-    const preview = this.state.dragMovePreview;
-
-    const props = {
-      offset: preview.offset,
-      size: preview.size,
-      preview: preview.element,
-
-      onDragStart: this.onDragMoveStart,
-      onDrag: this.onDragMove,
-      onDragCancel: this.onDragMoveCancel,
-      onDragStop: this.onDragMoveStop,
-    }
-    return <DragMovePreview {...props} />
+    return <DragMovePreview {...this.state.dragMoveProps} />
   }
 
   onDragMoveStart = (event, info) => {
 console.log("startDragMoving", info);
-//    oak.actions.removeElements(oak.selection);
+// TODO: if option down, drag a clone
+    oak.actions.removeElements(oak.selection);
   }
 
+  // `info.target` is the `oid` of the target parent if there is one
   onDragMove = (event, info) => {
-    try {
-//      oak.actions.removeElements({ elements: this.state.dragSelection });
-    }
-    catch (e) {}
+    const { dropParent, dropPosition } = this.state;
+    const { parent: newParent, position: newPosition } = this.getDropPositionForTarget(info.target);
 
-    const selection = this.state.dragSelection;
-    if (info.target) {
-      try {
-        if (selection.includes(info.target)) return;
-console.info("moving ",selection, " into ", info.target);
-        oak.actions.moveElement({ parent: info.target, element: selection[0] });
-      } catch (e) {}
+    // Forget it if no change
+    if (newParent === dropParent && newPosition === dropPosition) return;
+
+//console.info(newParent, dropParent, newPosition, dropPosition);
+
+    // if we're already on-screen, undo to go back to state where we're missing
+    if (dropParent) oak.undo();
+
+    if (newParent) {
+      oak.actions.addChildrenToElement({
+        parent: newParent,
+        position: newPosition,
+        children: this.state.dragComponents,
+        keepOids: true
+      });
     }
+
+    this.setState({ dropParent: newParent, dropPosition: newPosition });
   }
 
-  onDragMoveCancel = (event, info) => {
+  // Given a possible `dropTarget` `oid`, figure out where we should actually drop.
+  // Returns `{ dropTarget, position }` or `undefined`.
+  // TODO: examine dragees and droppees and only allow legal things
+  // TODO: position relative to other elements
+  getDropPositionForTarget(dropTarget) {
+    if (!dropTarget) return {};
+
+    const { dragSelection, dropParent, dropPosition } = this.state;
+
+    // If dropping on one of the dragees, return the current dropParent
+    if (dropTarget && dragSelection.includes(dropTarget)) {
+//console.log("inside");
+      return { parent: dropParent, position: dropPosition };
+    }
+
+    // TODO: check drop types, etc
+
+    return { parent: dropTarget, position: undefined };
   }
+
+  onDragMoveCancel = (event, info) => {}
 
   onDragMoveStop = (event, info) => {
 console.log("stopDragMoving", info);
@@ -253,7 +283,9 @@ console.log("stopDragMoving", info);
       dragMoving: false,
       dragSelection: undefined,
       dragComponents: undefined,
-      dragMovePreview: undefined
+      dropParent: undefined,
+      dropPosition: undefined,
+      dragMoveProps: undefined
     });
   }
 
