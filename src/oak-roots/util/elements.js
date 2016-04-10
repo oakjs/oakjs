@@ -76,6 +76,9 @@ export function getDragPreviewForElements(elements) {
   // add outline above itemWrappers which prevents mouse interaction
   $outerWrapper.append($("<div class='oak DragMovePreviewOutline'/>"));
 
+  // remove reacty bits
+  $outerWrapper.find("[data-reactid]").removeAttr("data-reactid");
+
   return {
     element: $outerWrapper[0],
     clientRect: outerRect,
