@@ -11,6 +11,9 @@
 //    - oak.event.pageLoc
 //  etc.
 //
+//  TODO: make generic (roots only?)
+//  TODO: rename EventMonitor ?
+//
 //////////////////////////////
 
 import Point from "oak-roots/Point";
@@ -287,8 +290,8 @@ export default class OakEvent {
   //  - `onDragStart` will be called once when they actually start moving
   //  - `onDrag` will be called on mousemove while dragging
   //  - `onDragCancel` will be called once when the mouse goes up IF we never started dragging.
-  //  - `onDragStop` will be called once when the mouse goes up whether we were dragging or not.
-  //    - NOTE:  `onDragCancel` and `onDragStop` may BOTH be called
+  //  - `onDragEnd` will be called once when the mouse goes up whether we were dragging or not.
+  //    - NOTE:  `onDragCancel` and `onDragEnd` may BOTH be called
   //
   //  - if `preventDefault` is truthy, we'll `event.preventDefault()` for mouse down / move / up.
   //  - if `stopPropagation` is truthy, we'll `event.stopPropagation()` for mouse down / move / up.
@@ -296,11 +299,12 @@ export default class OakEvent {
   // You can pass functions, or the string name of an event to trigger on `oak`.
 //TODO: If we can update mouseLoc on scroll/resize, generate additional drag events
 //TODO: When cursor is in bottom of page, auto-scroll ???
+//TODO: return a promise which resolve/rejects so you can just watch that?
   initDragHandlers(options) {
     let {
       event,          // optional: mouseDown event
       flag,           // optional: `oak.event[flag]` will be `true` when we're doing this interaction
-      onDragStart, onDrag, onDragStop, onDragCancel,    // optional: mouse event handlers
+      onDragStart, onDrag, onDragEnd, onDragCancel,    // optional: mouse event handlers
       getDragInfo,                                      // optional: handler to get `info` object when dragging
       preventDefault = true, stopPropagation = true     // don't pass events by default
       //
@@ -309,7 +313,7 @@ export default class OakEvent {
     // default handlers in case we were passed strings or handlers weren't passed
     onDragStart = OakEvent._defaultHandler(onDragStart);
     onDrag = OakEvent._defaultHandler(onDrag);
-    onDragStop = OakEvent._defaultHandler(onDragStop);
+    onDragEnd = OakEvent._defaultHandler(onDragEnd);
     onDragCancel = OakEvent._defaultHandler(onDragCancel);
     getDragInfo = OakEvent._defaultHandler(getDragInfo);
 
@@ -359,11 +363,11 @@ export default class OakEvent {
         onDragCancel(event, dragInfo);
       }
 
-      // call `onDragStop` whether dragging happened or not
+      // call `onDragEnd` whether dragging happened or not
       // TODO:  try...catch
-      onDragStop(event, dragInfo);
+      onDragEnd(event, dragInfo);
 
-      // unset flag AFTER onDragStop
+      // unset flag AFTER onDragEnd
       if (flag) delete oak.event[flag];
     }
 

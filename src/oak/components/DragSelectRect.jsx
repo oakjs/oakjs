@@ -25,7 +25,7 @@ export default class DragSelectRect extends React.Component {
     onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
     onDragCancel: PropTypes.func,
-    onDragStop: PropTypes.func,
+    onDragEnd: PropTypes.func,
   }
 
   constructor() {
@@ -47,7 +47,7 @@ export default class DragSelectRect extends React.Component {
       onDragStart: this.props.onDragStart,
       onDrag: this.props.onDrag,
       onDragCancel: this.props.onDragCancel,
-      onDragStop: this.props.onDragStop,
+      onDragEnd: this.props.onDragEnd,
       getDragInfo: this.updateSelection
     });
   }

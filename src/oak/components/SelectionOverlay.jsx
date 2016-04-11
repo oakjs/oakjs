@@ -168,14 +168,14 @@ export default class SelectionOverlay extends OakComponent {
 
   renderDragSelectRect() {
     if (!this.state.dragSelecting) return;
-    return <DragSelectRect onDragStop={this.onDragSelectionStop} />
+    return <DragSelectRect onDragEnd={this.onDragSelectionEnd} />
   }
 
   // Callback when drag-selection completes:
   //  `event` is the mouseup event
   //  `selection` is the list of `oids` which were intersected.
   //  `selectionRects` is the list of `clientRect`s for those oids.
-  onDragSelectionStop = (event, { selection, selectionRects } = {}) => {
+  onDragSelectionEnd = (event, { selection, selectionRects } = {}) => {
     if (selection && selection.length) {
       oak.actions.setSelection({ elements: selection});
     }
@@ -213,7 +213,7 @@ export default class SelectionOverlay extends OakComponent {
         onDragStart: this.onDragMoveStart,
         onDrag: this.onDragMove,
         onDragCancel: this.onDragMoveCancel,
-        onDragStop: this.onDragMoveStop,
+        onDragEnd: this.onDragMoveEnd,
       }
     });
   }
@@ -277,8 +277,8 @@ console.log("startDragMoving", info);
 
   onDragMoveCancel = (event, info) => {}
 
-  onDragMoveStop = (event, info) => {
-console.log("stopDragMoving", info);
+  onDragMoveEnd = (event, info) => {
+console.log("dragMoveEnd", info);
     this.setState({
       dragMoving: false,
       dragSelection: undefined,
@@ -299,7 +299,7 @@ console.log("stopDragMoving", info);
       event,
       onDragStart: (event) => oak.trigger("resizeStart", event, handle),
 //      onDrag: (event) => oak.trigger("resize", event, handle),
-      onDragStop: (event) => oak.trigger("resizeStop", event, handle),
+      onDragEnd: (event) => oak.trigger("resizeEnd", event, handle),
     });
   }
 

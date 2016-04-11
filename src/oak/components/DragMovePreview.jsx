@@ -28,7 +28,7 @@ export default class DragMovePreview extends OakComponent {
     onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
     onDragCancel: PropTypes.func,
-    onDragStop: PropTypes.func,
+    onDragEnd: PropTypes.func,
   }
 
   static defaultProps = {
@@ -56,7 +56,7 @@ export default class DragMovePreview extends OakComponent {
       onDragStart: this.onDragStart,
       onDrag: this.onDrag,
       onDragCancel: this.onDragCancel,
-      onDragStop: this.onDragStop,
+      onDragEnd: this.onDragEnd,
       getDragInfo: this.updateTarget
     });
   }
@@ -88,8 +88,8 @@ export default class DragMovePreview extends OakComponent {
     if (this.props.onDragCancel) this.props.onDragCancel(event, info);
   }
 
-  onDragStop = (event, info) => {
-    if (this.props.onDragStop) this.props.onDragStop(event, info);
+  onDragEnd = (event, info) => {
+    if (this.props.onDragEnd) this.props.onDragEnd(event, info);
   }
 
   //////////////////////////////
