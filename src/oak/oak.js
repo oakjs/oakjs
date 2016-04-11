@@ -16,7 +16,6 @@ import actions from "./actions";
 import OakEvent from "./OakEvent";
 import ProjectLoader from "./ProjectLoader";
 
-import SUIComponents from "themes/SUI/components";
 import oakComponents from "./components";
 
 let oak;
@@ -250,7 +249,7 @@ class OakJS extends Eventful(Object) {
 
   // All known components
   // TODO: this should really be dynamic...
-  components = Object.assign({}, SUIComponents, oakComponents)
+  components = Object.assign({}, oakComponents)
 
   // Define a theme-ful of `components` for a `project`.
   setProjectTheme(projectId, components) {
@@ -270,7 +269,7 @@ class OakJS extends Eventful(Object) {
 
     if (typeof type === "string") {
       // if all lower case, it's an HTML element -- just return it
-      if (type.toLowerCase() === type) return type;//React.DOM[type];
+      if (type.toLowerCase() === type) return type;
 
       // return it if we can find it in our `components`
       if (components[type]) return components[type];
@@ -281,6 +280,10 @@ class OakJS extends Eventful(Object) {
     return undefined;
   }
 
+  getComponentConstructorForOid(oid) {
+    const component = this.getComponentForOid(oid);
+    if (component) return this.getComponentConstructorForType(component.type);
+  }
 
   //////////////////////////////
   //  Oid => Component => Oid

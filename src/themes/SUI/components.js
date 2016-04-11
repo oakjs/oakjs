@@ -17,7 +17,7 @@
 //////////////////////////////
 
 // Import Semantic-UI CSS and JS
-//console.warn("TODO: figure out how to include semanticUI in themes/SUI/index.js");
+//console.warn("TODO: figure out how to include semanticUI CSS in themes/SUI/index.js");
 //import "semantic-ui-css/semantic.css";
 //import "semantic-ui-css/semantic.js";
 

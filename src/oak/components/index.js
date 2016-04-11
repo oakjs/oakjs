@@ -28,8 +28,9 @@ export SelectionOverlay from "./SelectionOverlay";
 export SectionMenu from "./SectionMenu";
 export Stub from "./Stub";
 
-//export constants from "./constants";
-
+// Adapted SUI components
+// TODO: this should be dynamic...
+import SUIComponents from "./theme/SUI";
 
 // Export all as a map
-export default Object.assign({}, exports);
+export default Object.assign({}, SUIComponents, exports);
