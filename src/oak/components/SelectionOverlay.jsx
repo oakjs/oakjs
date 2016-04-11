@@ -143,9 +143,7 @@ export default class SelectionOverlay extends OakComponent {
 
     // If anything is selected, start dragging
     if (oak.selection.length) {
-      event.stopPropagation();
-      event.preventDefault();
-      this.startDragMoving();
+      this.startDragMoving(event);
     }
   }
 
@@ -164,7 +162,11 @@ export default class SelectionOverlay extends OakComponent {
   //////////////////////////////
 
   // Start drawing a <DragSelectRect> when the mouse goes down.
-  startDragSelecting = () => {
+  startDragSelecting = (event) => {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
     this.setState({ dragSelecting: true });
   }
 
@@ -197,6 +199,11 @@ export default class SelectionOverlay extends OakComponent {
     if (elements.length === 0) {
       console.warn("SelectionOverlay.startDragMoving(): no elements found for selection!");
       return;
+    }
+
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
     }
 
     // clone the elements for the preview here, so we only do it once per drag

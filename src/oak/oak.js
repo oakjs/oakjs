@@ -17,6 +17,7 @@ import OakEvent from "./OakEvent";
 import ProjectLoader from "./ProjectLoader";
 
 import oakComponents from "./components";
+import HTML_EDITOR_SETTINGS from "./components/theme/html";
 
 let oak;
 
@@ -283,6 +284,23 @@ class OakJS extends Eventful(Object) {
   getComponentConstructorForOid(oid) {
     const component = this.getComponentForOid(oid);
     if (component) return this.getComponentConstructorForType(component.type);
+  }
+
+  static DEFAULT_EDITOR_SETTINGS = { draggable: true, droppable: false };
+
+  getEditSettingsForType(type) {
+    const constructor = this.getComponentConstructorForType(type);
+    if (!constructor) return;
+
+    if (typeof constructor === "string") {
+      if (HTML_EDITOR_SETTINGS[type]) return HTML_EDITOR_SETTINGS[type];
+      console.warn(`oak.getEditSettingsForType(${type}): cant find html type!`);
+    }
+    else {
+      if (constructor.editor) return constructor.editor;
+      console.warn(`oak.getEditSettingsForType(${type}): cant find 'editor' settings for type!`);
+    }
+    return DEFAULT_EDITOR_SETTINGS;
   }
 
   //////////////////////////////

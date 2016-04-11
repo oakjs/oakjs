@@ -6,7 +6,7 @@ import components from "themes/SUI/components";
 export default components;
 
 // Components which are only draggable
-oakify({ draggable: true },
+oakify({ draggable: true, droppable: false },
   "Ad", "Button", "Breadcrumb", "Card", "Checkbox", "Comment", "Conditional", "CountryMap",
   "FeedEvent", "Field", "Flag", "Icon", "Image", "Input", "Item", "Label", "ListItem", "Loader",
   "MenuHeader", "MenuItem", "Meta", "Nag", "RadioButton", "Side", "Statistic", "Step",
