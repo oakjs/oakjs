@@ -40,3 +40,6 @@ OakColumns.propTypes = {
 };
 
 OakColumns.defaultProps = {}
+
+// Oak editor prefs
+OakColumns.oak = { draggable: true, droppable: true };

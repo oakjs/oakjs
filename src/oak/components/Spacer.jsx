@@ -29,6 +29,9 @@ export default function OakSpacer(props) {
   return <div {...spacerProps}/>;
 }
 
+// Oak editor prefs
+OakSpacer.editor = { draggable: true, droppable: false };
+
 OakSpacer.propTypes = {
   className: PropTypes.string,
   appearance: PropTypes.string,

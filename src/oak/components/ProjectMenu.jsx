@@ -22,7 +22,12 @@ ProjectMenu.contextTypes = {
   section: PropTypes.any
 };
 
+  // Oak editor prefs
+ProjectMenu.editor = { draggable: true, droppable: true };
+
+
 // Add render function so we hot reload.
 ProjectMenu.render = Function.prototype;
+
 
 export default ProjectMenu;

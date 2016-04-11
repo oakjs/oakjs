@@ -18,6 +18,8 @@ import "./SelectionOverlay.css";
 
 
 export default class SelectionOverlay extends OakComponent {
+  // Oak editor prefs
+  static editor = { draggable: false, droppable: false };
 
   constructor() {
     super(...arguments);

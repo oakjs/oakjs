@@ -7,6 +7,9 @@
 import React, { PropTypes } from "react";
 
 export default class CurrentSection extends React.Component {
+  // Oak editor prefs
+  static editor = { draggable: false, droppable: true };
+
   static contextTypes = {
     oak: PropTypes.any,
   }

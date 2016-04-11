@@ -11,6 +11,9 @@ import OakComponent from "./OakComponent";
 import "./EditorToolbar.css";
 
 export default class EditorToolbar extends OakComponent {
+  // Oak editor prefs
+  static editor = { draggable: false, droppable: true };
+
   removeButton() {
     oak.actions.removeElements();
   }

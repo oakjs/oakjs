@@ -2,7 +2,10 @@ import React, { PropTypes } from "react";
 
 import "./RunnerProject.css";
 
-export default class CurrentProject extends React.Component {
+export default class RunnerProject extends React.Component {
+  // Oak editor prefs
+  static editor = { draggable: false, droppable: true };
+
   static contextTypes = {
     oak: PropTypes.any,
   }

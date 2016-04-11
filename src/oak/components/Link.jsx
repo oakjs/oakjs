@@ -55,3 +55,6 @@ function OakLink(props, context) {
 OakLink.render = Function.prototype;
 
 export default OakLink;
+
+// Set oak editor prefs
+Object.keys(exports).forEach( key => exports[key].editor = { draggable: true, droppable: false } );

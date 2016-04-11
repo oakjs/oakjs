@@ -50,7 +50,7 @@ oakify({ draggable:true, droppable: true, dropTypes:["Tab", "Tabbar"] }, "Tabs")
 function oakify(props, ...keys) {
   keys.forEach(key => {
     const Component = components[key];
-    if (!Component.oak) Component.oak = {};
-    Object.assign(Component.oak, props);
+    if (!Component.editor) Component.editor = {};
+    Object.assign(Component.editor, props);
   })
 }

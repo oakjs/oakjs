@@ -12,3 +12,6 @@ export default function ResizeHandle(props) {
     <div className={`oak ResizeHandle ${handle}`} onMouseDown={onMouseDown}/>
   )
 }
+
+// Oak editor prefs
+ResizeHandle.editor = { draggable: false, droppable: false };

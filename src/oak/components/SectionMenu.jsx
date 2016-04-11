@@ -15,6 +15,9 @@ function SectionMenu(props, context) {
   return React.createElement(c.Menu, menuProps, menuItems);
 }
 
+// Oak editor prefs
+SectionMenu.editor = { draggable: true, droppable: true };
+
 // Pull context in so we can get components and pointer to the current section.
 SectionMenu.contextTypes = {
   components: PropTypes.any,

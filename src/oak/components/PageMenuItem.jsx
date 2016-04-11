@@ -10,8 +10,6 @@
 import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
-import Stub from "./Stub";
-
 function PageMenuItem(props, context) {
   if (!props.page || !context.components) return null;
 
@@ -30,6 +28,9 @@ function PageMenuItem(props, context) {
     </MenuItem>
   );
 }
+
+// Oak editor prefs
+PageMenuItem.editor = { draggable: true, droppable: false };
 
 // Pull context in so we can get components from the page.
 PageMenuItem.contextTypes = {

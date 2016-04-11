@@ -13,6 +13,9 @@ import ResizeHandle from "./ResizeHandle";
 import "./Resizer.css";
 
 export default class Resizer extends React.Component {
+  // Oak editor prefs
+  static editor = { draggable: false, droppable: false };
+
   static propTypes = {
     selection: PropTypes.any,
     canResizeWidth: PropTypes.bool,

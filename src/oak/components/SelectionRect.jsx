@@ -22,3 +22,7 @@ export default class SelectionRect extends React.Component {
     )
   }
 }
+
+// Oak editor prefs
+SelectionRect.editor = { draggable: false, droppable: false };
+

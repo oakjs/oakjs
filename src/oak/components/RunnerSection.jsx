@@ -2,6 +2,9 @@ import React, { PropTypes } from "react";
 import Stub from "./Stub";
 
 export default class RunnerSection extends React.Component {
+  // Oak editor prefs
+  static editor = { draggable: false, droppable: true };
+
   static contextTypes = {
     oak: PropTypes.any,
   }
