@@ -27,7 +27,6 @@ export default class DragMovePreview extends OakComponent {
     //    `callback(event, { target })`
     onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
-    onDragCancel: PropTypes.func,
     onDragEnd: PropTypes.func,
   }
 
@@ -55,7 +54,6 @@ export default class DragMovePreview extends OakComponent {
       flag: "dragMoving",
       onDragStart: this.onDragStart,
       onDrag: this.onDrag,
-      onDragCancel: this.onDragCancel,
       onDragEnd: this.onDragEnd,
       getDragInfo: this.updateTarget
     });
@@ -82,10 +80,6 @@ export default class DragMovePreview extends OakComponent {
     $container.css(offsetMousePoint.style);
 
     if (this.props.onDrag) this.props.onDrag(event, info);
-  }
-
-  onDragCancel = (event, info) => {
-    if (this.props.onDragCancel) this.props.onDragCancel(event, info);
   }
 
   onDragEnd = (event, info) => {

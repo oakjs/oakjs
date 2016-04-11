@@ -289,9 +289,7 @@ export default class OakEvent {
   // Initialize a set of drag handlers from a `mouseDown` event:
   //  - `onDragStart` will be called once when they actually start moving
   //  - `onDrag` will be called on mousemove while dragging
-  //  - `onDragCancel` will be called once when the mouse goes up IF we never started dragging.
   //  - `onDragEnd` will be called once when the mouse goes up whether we were dragging or not.
-  //    - NOTE:  `onDragCancel` and `onDragEnd` may BOTH be called
   //
   //  - if `preventDefault` is truthy, we'll `event.preventDefault()` for mouse down / move / up.
   //  - if `stopPropagation` is truthy, we'll `event.stopPropagation()` for mouse down / move / up.
@@ -304,7 +302,7 @@ export default class OakEvent {
     let {
       event,          // optional: mouseDown event
       flag,           // optional: `oak.event[flag]` will be `true` when we're doing this interaction
-      onDragStart, onDrag, onDragEnd, onDragCancel,    // optional: mouse event handlers
+      onDragStart, onDrag, onDragEnd,    // optional: mouse event handlers
       getDragInfo,                                      // optional: handler to get `info` object when dragging
       preventDefault = true, stopPropagation = true     // don't pass events by default
       //
@@ -314,7 +312,6 @@ export default class OakEvent {
     onDragStart = OakEvent._defaultHandler(onDragStart);
     onDrag = OakEvent._defaultHandler(onDrag);
     onDragEnd = OakEvent._defaultHandler(onDragEnd);
-    onDragCancel = OakEvent._defaultHandler(onDragCancel);
     getDragInfo = OakEvent._defaultHandler(getDragInfo);
 
     // Flag which will be true while we're actually dragging
@@ -356,12 +353,6 @@ export default class OakEvent {
       if (stopPropagation) event.stopPropagation();
 
       const dragInfo = _draggingStarted ? getDragInfo(event) : undefined;
-
-      // if they never started dragging, call `onDragCancel`
-      if (!_draggingStarted) {
-        // TODO:  try...catch
-        onDragCancel(event, dragInfo);
-      }
 
       // call `onDragEnd` whether dragging happened or not
       // TODO:  try...catch

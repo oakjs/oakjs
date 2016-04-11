@@ -212,7 +212,6 @@ export default class SelectionOverlay extends OakComponent {
         preview: preview.element,
         onDragStart: this.onDragMoveStart,
         onDrag: this.onDragMove,
-        onDragCancel: this.onDragMoveCancel,
         onDragEnd: this.onDragMoveEnd,
       }
     });
@@ -274,8 +273,6 @@ console.log("startDragMoving", info);
 
     return { parent: dropTarget, position: undefined };
   }
-
-  onDragMoveCancel = (event, info) => {}
 
   onDragMoveEnd = (event, info) => {
 console.log("dragMoveEnd", info);
