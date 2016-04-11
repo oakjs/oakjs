@@ -68,15 +68,15 @@ export default class OakComponent extends React.Component {
   //////////////////////////////
 
   // Return a component... TODOC
-  getThemeComponentForType(type) {
+  getComponentConstructorForType(type) {
     if (typeof type === "function") return type;
 
     let component = type;
     if (this.controller) {
-      component = this.controller.getThemeComponentForType(type);
+      component = this.controller.getComponentConstructorForType(type);
     }
     if (!component) {
-      console.warn(`${this}.getThemeComponentForType(${type}): cant find component, returning <Stub/>`);
+      console.warn(`${this}.getComponentConstructorForType(${type}): cant find component, returning <Stub/>`);
       component = Stub;
     }
     return component;
@@ -84,8 +84,8 @@ export default class OakComponent extends React.Component {
 
   // Create an element, using our controller's `components` as necessary.
   createElement(type, props, ...children) {
-    const component = this.getThemeComponentForType(type);
-    return React.createElement(component, props, ...children);
+    const Component = this.getComponentConstructorForType(type);
+    return React.createElement(Component, props, ...children);
   }
 
   // Override to add class name bits to all subclasses.

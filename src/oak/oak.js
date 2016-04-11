@@ -264,13 +264,13 @@ class OakJS extends Eventful(Object) {
   }
 
   // Given a string `type` from a JSXE, return the `Component` class it corresponds to.
-  getThemeComponentForType(type, errorMessage, components = this.components) {
+  getComponentConstructorForType(type, errorMessage, components = this.components) {
     // return non-string component immediately
     if (type && typeof type !== "string") return type;
 
     if (typeof type === "string") {
       // if all lower case, it's an HTML element -- just return it
-      if (type.toLowerCase() === type) return type;
+      if (type.toLowerCase() === type) return type;//React.DOM[type];
 
       // return it if we can find it in our `components`
       if (components[type]) return components[type];
