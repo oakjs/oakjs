@@ -18,9 +18,6 @@ import "./SelectionOverlay.css";
 
 
 export default class SelectionOverlay extends OakComponent {
-  // Oak editor prefs
-  static editor = { draggable: false, droppable: false };
-
   constructor() {
     super(...arguments);
     this.state = {};
@@ -201,6 +198,8 @@ export default class SelectionOverlay extends OakComponent {
       return;
     }
 
+// TODO: ignore non-draggable things
+
     if (event) {
       event.stopPropagation();
       event.preventDefault();
@@ -216,9 +215,9 @@ export default class SelectionOverlay extends OakComponent {
       dropParent: undefined,
       dropPosition: undefined,
       dragMoveProps: {
+        preview: preview.element,
         offset: preview.offset,
         size: preview.size,
-        preview: preview.element,
         onDragStart: this.onDragMoveStart,
         onDrag: this.onDragMove,
         onDragEnd: this.onDragMoveEnd,
@@ -261,6 +260,28 @@ console.log("startDragMoving", info);
     }
 
     this.setState({ dropParent: newParent, dropPosition: newPosition });
+  }
+
+  // Return the `JSXElement` for the first parent which can accept drop of `children` JSXElements.
+  // Returns `undefined` if no droppable parent found.
+  getDropParent(parentOid, children) {
+    let parent = oak.editContext.getComponentForOid(parentOid);
+    if (!parent) {
+      console.warn(`getDropParent(${parentId}): parent not found`);
+      return;
+    }
+    const childTypes = children.map( child => child.type );
+    while (parent) {
+      const { droppable, dropTypes } = oak.getEditSettingsForType(parent.type);
+      if (droppable && !dropTypes || childTypes.every( childType => dropTypes.includes(childType) )) {
+
+      }
+    }
+    return undefined;
+  }
+
+  canDrop(parentInfo, childrenInfo) {
+    const { droppable, dropTypes } = parentInfo;
   }
 
   // Given a possible `dropTarget` `oid`, figure out where we should actually drop.
@@ -352,3 +373,7 @@ console.log("dragMoveEnd", info);
     );
   }
 }
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: false, droppable: false }, SelectionOverlay);

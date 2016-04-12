@@ -16,9 +16,6 @@ import OakComponent from "./OakComponent";
 import "./DragMovePreview.css";
 
 export default class DragMovePreview extends OakComponent {
-  // Oak editor prefs
-  static editor = { draggable: false, droppable: false };
-
   static propTypes = {
     preview: PropTypes.any,       // Drag preview elements -- clone of the thing that's being moved.
                                   // Should have an outer element which is sized according to CLIENT RECTs
@@ -117,3 +114,7 @@ export default class DragMovePreview extends OakComponent {
     );
   }
 }
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: false, droppable: false }, DragMovePreview);

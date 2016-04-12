@@ -7,9 +7,6 @@
 import React, { PropTypes } from "react";
 
 export default class CurrentSection extends React.Component {
-  // Oak editor prefs
-  static editor = { draggable: false, droppable: true };
-
   static contextTypes = {
     oak: PropTypes.any,
   }
@@ -47,3 +44,7 @@ export default class CurrentSection extends React.Component {
     return React.createElement(section.Component, { ref: "section", className:"current" });
   }
 }
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: false, droppable: true }, CurrentSection);

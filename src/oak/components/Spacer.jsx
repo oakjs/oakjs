@@ -9,7 +9,7 @@ import { classNames } from "oak-roots/util/react";
 
 import "./Spacer.css";
 
-export default function OakSpacer(props) {
+export default function Spacer(props) {
   const {
     className,
     appearance, size, width, height,
@@ -29,10 +29,7 @@ export default function OakSpacer(props) {
   return <div {...spacerProps}/>;
 }
 
-// Oak editor prefs
-OakSpacer.editor = { draggable: true, droppable: false };
-
-OakSpacer.propTypes = {
+Spacer.propTypes = {
   className: PropTypes.string,
   appearance: PropTypes.string,
   size: PropTypes.string,
@@ -41,6 +38,10 @@ OakSpacer.propTypes = {
   height: PropTypes.number
 };
 
-OakSpacer.defaultProps = {
+Spacer.defaultProps = {
   size: "medium"
 }
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: true, droppable: false }, Spacer);

@@ -13,9 +13,6 @@ import oak from "../oak";
 import SelectionRect from "./SelectionRect";
 
 export default class DragSelectRect extends React.Component {
-  // Oak editor prefs
-  static editor = { draggable: false, droppable: false };
-
   static propTypes = {
     // Return the `clientRect` for the current mouse position.
     getDragRect: PropTypes.func,
@@ -116,3 +113,7 @@ export default class DragSelectRect extends React.Component {
     );
   }
 }
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: false, droppable: false }, DragSelectRect);

@@ -2,11 +2,15 @@
 //  Adapt SUI components to work with oak editor
 //////////////////////////////
 
+
 import components from "themes/SUI/components";
 export default components;
 
+// Oak editor prefs
+import { editifyMap } from "../../EditorProps";
+
 // Components which are only draggable
-oakify({ draggable: true, droppable: false },
+editifyMap(components, { draggable: true, droppable: false },
   "Ad", "Button", "Breadcrumb", "Card", "Checkbox", "Comment", "Conditional", "CountryMap",
   "FeedEvent", "Field", "Flag", "Icon", "Image", "Input", "Item", "Label", "ListItem", "Loader",
   "MenuHeader", "MenuItem", "Meta", "Nag", "RadioButton", "Side", "Statistic", "Step",
@@ -15,7 +19,7 @@ oakify({ draggable: true, droppable: false },
 
 
 // Components which can accept anything dragged on them
-oakify({ draggable:true, droppable: true },
+editifyMap(components, { draggable:true, droppable: true },
   "Accordion", "Column", "Content", "Container",
   "Description", "Dimmer", "Divider", "Dropdown",
   "Embed", "Form", "Grid", "Header",
@@ -27,30 +31,19 @@ oakify({ draggable:true, droppable: true },
 );
 
 // Components which can accept only certain things dragged on them
-oakify({ draggable:true, droppable: true, dropTypes:["Button"] }, "Buttons");
-oakify({ draggable:true, droppable: true, dropTypes:["Card"] }, "Cards");
-oakify({ draggable:true, droppable: true, dropTypes:["Comment"] }, "Comments");
-oakify({ draggable:true, droppable: true, dropTypes:["FeedEvent"] }, "Feed");
-oakify({ draggable:true, droppable: true, dropTypes:["Field"] }, "Fields");
-oakify({ draggable:true, droppable: true, dropTypes:["Images"] }, "Images");
-oakify({ draggable:true, droppable: true, dropTypes:["Item"] }, "Items");
-oakify({ draggable:true, droppable: true, dropTypes:["Label"] }, "Labels");
-oakify({ draggable:true, droppable: true, dropTypes:["ListItem"] }, "List");
-oakify({ draggable:true, droppable: true, dropTypes:["RadioButton"] }, "RadioGroup");
-oakify({ draggable:true, droppable: true, dropTypes:["Segment"] }, "Segments");
-oakify({ draggable:true, droppable: true, dropTypes:["Side"] }, "Shape");
-oakify({ draggable:true, droppable: true, dropTypes:["Statistic"] }, "Statistics");
-oakify({ draggable:true, droppable: true, dropTypes:["Step"] }, "Steps");
-oakify({ draggable:true, droppable: true, dropTypes:["Tab", "Tabbar"] }, "Tabs");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Button" }, "Buttons");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Card" }, "Cards");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Comment" }, "Comments");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "FeedEvent" }, "Feed");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Field" }, "Fields");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Images" }, "Images");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Item" }, "Items");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Label" }, "Labels");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "ListItem" }, "List");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "RadioButton" }, "RadioGroup");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Segment" }, "Segments");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Side" }, "Shape");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Statistic" }, "Statistics");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Step" }, "Steps");
+editifyMap(components, { draggable:true, droppable: true, dropTypes: "Tab,Tabbar" }, "Tabs");
 
-
-//////////////////////////////
-//  Utility
-//////////////////////////////
-function oakify(props, ...keys) {
-  keys.forEach(key => {
-    const Component = components[key];
-    if (!Component.editor) Component.editor = {};
-    Object.assign(Component.editor, props);
-  })
-}

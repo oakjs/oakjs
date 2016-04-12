@@ -54,7 +54,8 @@ function OakLink(props, context) {
 // Add render function so we hot reload.
 OakLink.render = Function.prototype;
 
-export default OakLink;
+// Oak editor prefs
+import { editifyMap } from "../EditorProps";
+editifyMap({ draggable: true, droppable: false }, exports);
 
-// Set oak editor prefs
-Object.keys(exports).forEach( key => exports[key].editor = { draggable: true, droppable: false } );
+export default OakLink;

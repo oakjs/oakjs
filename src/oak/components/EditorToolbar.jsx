@@ -11,9 +11,6 @@ import OakComponent from "./OakComponent";
 import "./EditorToolbar.css";
 
 export default class EditorToolbar extends OakComponent {
-  // Oak editor prefs
-  static editor = { draggable: false, droppable: true };
-
   removeButton() {
     oak.actions.removeElements();
   }
@@ -52,3 +49,8 @@ export default class EditorToolbar extends OakComponent {
     );
   }
 }
+
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: false, droppable: true }, EditorToolbar);

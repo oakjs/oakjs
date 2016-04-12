@@ -29,9 +29,6 @@ function ProjectMenuItem(props, context) {
   );
 }
 
-// Oak editor prefs
-ProjectMenuItem.editor = { draggable: true, droppable: false };
-
 // Pull context in so we can get components from the page.
 ProjectMenuItem.contextTypes = {
   components: PropTypes.any,
@@ -43,3 +40,7 @@ ProjectMenuItem.contextTypes = {
 ProjectMenuItem.render = Function.prototype;
 
 export default ProjectMenuItem;
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: true, droppable: false }, ProjectMenuItem);

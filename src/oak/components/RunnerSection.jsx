@@ -2,9 +2,6 @@ import React, { PropTypes } from "react";
 import Stub from "./Stub";
 
 export default class RunnerSection extends React.Component {
-  // Oak editor prefs
-  static editor = { draggable: false, droppable: true };
-
   static contextTypes = {
     oak: PropTypes.any,
   }
@@ -41,3 +38,7 @@ export default class RunnerSection extends React.Component {
     return React.createElement(section.Component, { ref: "section", className:"runner" });
   }
 }
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: false, droppable: true }, RunnerSection);

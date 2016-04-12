@@ -7,10 +7,7 @@ import OakComponent from "./OakComponent";
 import "./OakProject.css";
 
 export default class OakProject extends OakComponent {
-  // Oak editor prefs
-  static editor = { draggable: false, droppable: true };
-
-  static defaultProps = {}
+//  static defaultProps = {}
 
   static propTypes = {
     id: PropTypes.string,
@@ -39,3 +36,7 @@ export default class OakProject extends OakComponent {
     return classNames("oak", this.props.className, "Project");
   }
 }
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: false, droppable: true }, OakProject);

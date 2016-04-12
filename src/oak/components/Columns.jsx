@@ -13,7 +13,7 @@ import { classNames } from "oak-roots/util/react";
 import { getNameForNumber } from "./constants";
 import "./Columns.css";
 
-export default function OakColumns(props) {
+export default function Columns(props) {
   const {
     id, className, style,
     children,
@@ -30,7 +30,7 @@ export default function OakColumns(props) {
   return <div {...elementProps}>{children}</div>;
 }
 
-OakColumns.propTypes = {
+Columns.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
@@ -39,7 +39,8 @@ OakColumns.propTypes = {
   count: PropTypes.number,
 };
 
-OakColumns.defaultProps = {}
+Columns.defaultProps = {}
 
 // Oak editor prefs
-OakColumns.oak = { draggable: true, droppable: true };
+import { editify } from "../EditorProps";
+editify({ draggable: true, droppable: true }, Columns);

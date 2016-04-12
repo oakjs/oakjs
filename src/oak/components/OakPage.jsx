@@ -10,9 +10,6 @@ import OakComponent from "./OakComponent";
 import "./OakPage.css";
 
 export default class OakPage extends OakComponent {
-  // Oak editor prefs
-  static editor = { draggable: false, droppable: true };
-
   static propTypes = {
     ...OakComponent.propTypes,
     title: PropTypes.string,
@@ -96,3 +93,7 @@ export default class OakPage extends OakComponent {
   }
 
 }
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: false, droppable: true }, OakPage);

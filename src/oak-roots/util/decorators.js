@@ -31,8 +31,8 @@ export function proto(target, key, descriptor) {
   // NOTE: Different versions of babel (or different stages?) differ in what's passed in as `target`
   const prototype = (target.prototype || target.constructor.prototype);
 
-  // assign the value to the prototype non-enumerable, non-writable, non-configurable
-  Object.defineProperty(prototype, key, { value });
+  // assign the value to the prototype non-enumerable, non-configurable, but writable so subclasses can override
+  Object.defineProperty(prototype, key, { value, writable: true });
 
   // return an empty descriptor to cancel assigning to the class
   return {}

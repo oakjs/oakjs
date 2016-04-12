@@ -4,6 +4,7 @@
 
 export ComponentController from "./ComponentController";
 export ComponentLoader from "./ComponentLoader";
+export EditorProps from "./EditorProps";
 export JSXElement from "./JSXElement";
 export OakEvent from "./OakEvent";
 export Page from "./Page";

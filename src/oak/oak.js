@@ -297,8 +297,8 @@ class OakJS extends Eventful(Object) {
       console.warn(`oak.getEditSettingsForType(${type}): cant find html type!`);
     }
     else {
-      if (constructor.editor) return constructor.editor;
-      console.warn(`oak.getEditSettingsForType(${type}): cant find 'editor' settings for type!`);
+      if (constructor.editProps) return constructor.editProps;
+      console.warn(`oak.getEditSettingsForType(${type}): cant find 'editProps' settings for type!`);
     }
     return DEFAULT_EDITOR_SETTINGS;
   }

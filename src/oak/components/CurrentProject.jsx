@@ -9,9 +9,6 @@ import React, { PropTypes } from "react";
 import "./CurrentProject.css";
 
 export default class CurrentProject extends React.Component {
-  // Oak editor prefs
-  static editor = { draggable: false, droppable: true };
-
   static contextTypes = {
     oak: PropTypes.any,
   }
@@ -48,3 +45,7 @@ export default class CurrentProject extends React.Component {
     return React.createElement(project.Component, { ref: "project", className:"current" });
   }
 }
+
+// Oak editor prefs
+import { editify } from "../EditorProps";
+editify({ draggable: false, droppable: true }, CurrentProject);
