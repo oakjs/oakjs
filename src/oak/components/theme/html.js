@@ -2,6 +2,7 @@
 //  Editor defaults for HTML elements
 //
 //  TODO: SVG elements???
+//  TODO: See https://github.com/facebook/react/blob/master/src/renderers/dom/client/validateDOMNesting.js
 //
 //////////////////////////////
 
