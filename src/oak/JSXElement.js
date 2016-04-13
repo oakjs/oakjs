@@ -112,7 +112,7 @@ export default class JSXElement {
   //////////////////////////////
 
   // Return the on-screen HTML element for this JSXElement
-  get element() {
+  get renderedElement() {
     return oak.getElementForOid(this.oid);
   }
 

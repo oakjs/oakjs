@@ -207,7 +207,7 @@ export default class SelectionOverlay extends OakComponent {
     }
 
     // get the DOM elements which correspond to those components
-    const elements = components.map( component => component.element );
+    const elements = components.map( component => component.renderedElement );
 
     // clone the elements for the preview here, so we only do it once per drag
     const preview = getDragPreviewForElements(elements);
