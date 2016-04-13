@@ -192,26 +192,30 @@ export default class SelectionOverlay extends OakComponent {
   //////////////////////////////
 
   startDragMoving(event) {
-    const elements = oak.selectedElements;
-    if (elements.length === 0) {
-      console.warn("SelectionOverlay.startDragMoving(): no elements found for selection!");
+    // Get all of the draggable components
+    const components = oak.selectedComponents
+      .filter(component => component.canDrag());
+
+    if (components.length === 0) {
+      console.warn("SelectionOverlay.startDragMoving(): no draggable elements found in selection!");
       return;
     }
-
-// TODO: ignore non-draggable things
 
     if (event) {
       event.stopPropagation();
       event.preventDefault();
     }
 
+    // get the DOM elements which correspond to those components
+    const elements = components.map( component => component.element );
+
     // clone the elements for the preview here, so we only do it once per drag
     const preview = getDragPreviewForElements(elements);
 
     this.setState({
       dragMoving: true,
-      dragSelection: oak.selection,
-      dragComponents: oak.selectedComponents,
+      dragComponents: components,
+      dragSelection: components.map( component => component.oid ),
       dropParent: undefined,
       dropPosition: undefined,
       dragMoveProps: {
@@ -221,6 +225,7 @@ export default class SelectionOverlay extends OakComponent {
         onDragStart: this.onDragMoveStart,
         onDrag: this.onDragMove,
         onDragEnd: this.onDragMoveEnd,
+        getTarget: (event) => oak.event.mouseComponent
       }
     });
   }
@@ -240,68 +245,37 @@ console.log("startDragMoving", info);
   // `info.target` is the `oid` of the target parent if there is one
   onDragMove = (event, info) => {
     const { dropParent, dropPosition } = this.state;
-    const { parent: newParent, position: newPosition } = this.getDropPositionForTarget(info.target);
+    const { parent, position } = this.getDropTarget(info.target) || {};
 
     // Forget it if no change
-    if (newParent === dropParent && newPosition === dropPosition) return;
+    if (parent === dropParent && position === dropPosition) return;
 
-//console.info(newParent, dropParent, newPosition, dropPosition);
+console.info(parent, dropParent, position, dropPosition);
 
     // if we're already on-screen, undo to go back to state where we're missing
     if (dropParent) oak.undo();
 
-    if (newParent) {
+    if (parent) {
       oak.actions.addChildrenToElement({
-        parent: newParent,
-        position: newPosition,
+        parent,
+        position,
         children: this.state.dragComponents,
         keepOids: true
       });
     }
 
-    this.setState({ dropParent: newParent, dropPosition: newPosition });
+    this.setState({ dropParent: parent, dropPosition: position });
   }
 
-  // Return the `JSXElement` for the first parent which can accept drop of `children` JSXElements.
-  // Returns `undefined` if no droppable parent found.
-  getDropParent(parentOid, children) {
-    let parent = oak.editContext.getComponentForOid(parentOid);
-    if (!parent) {
-      console.warn(`getDropParent(${parentId}): parent not found`);
-      return;
-    }
-    const childTypes = children.map( child => child.type );
+  getDropTarget(mouseComponent) {
+    if (!mouseComponent) return undefined;
+
+    const components = this.state.dragComponents;
+    let parent = mouseComponent;
     while (parent) {
-      const { droppable, dropTypes } = oak.getEditSettingsForType(parent.type);
-      if (droppable && !dropTypes || childTypes.every( childType => dropTypes.includes(childType) )) {
-
-      }
+      if (parent.canDrop(components)) return { parent: parent.oid };
+      parent = parent.parent;
     }
-    return undefined;
-  }
-
-  canDrop(parentInfo, childrenInfo) {
-    const { droppable, dropTypes } = parentInfo;
-  }
-
-  // Given a possible `dropTarget` `oid`, figure out where we should actually drop.
-  // Returns `{ dropTarget, position }` or `undefined`.
-  // TODO: examine dragees and droppees and only allow legal things
-  // TODO: position relative to other elements
-  getDropPositionForTarget(dropTarget) {
-    if (!dropTarget) return {};
-
-    const { dragSelection, dropParent, dropPosition } = this.state;
-
-    // If dropping on one of the dragees, return the current dropParent
-    if (dropTarget && dragSelection.includes(dropTarget)) {
-//console.log("inside");
-      return { parent: dropParent, position: dropPosition };
-    }
-
-    // TODO: check drop types, etc
-
-    return { parent: dropTarget, position: undefined };
   }
 
   onDragMoveEnd = (event, info) => {

@@ -52,13 +52,17 @@ export default class JSXElement {
     return undefined;
   }
 
-  getChildPosition(child) {
-    if (!this._children) return -1;
-    if (child && child.oid) {
-      return this._children.findIndex( next => next.oid === child.oid );
-    }
-    return this._children.indexOf(child);
+  // Given a JSXElement, OidRef or `oid` string, return an oid string.
+  // Returns `undefined` if none of the above.
+  static getOid(thing) {
+    if (typeof thing === "string") return thing;
+    if (thing.oid) return thing;
+    return undefined;
   }
+
+  //////////////////////////////
+  //  Children
+  //////////////////////////////
 
   get children() {
     if (!this._children) return undefined;
@@ -75,6 +79,14 @@ export default class JSXElement {
 
   get childCount() {
     return (this.children ? this.children.length : 0);
+  }
+
+  getChildPosition(child) {
+    if (!this._children) return -1;
+    if (child && child.oid) {
+      return this._children.findIndex( next => next.oid === child.oid );
+    }
+    return this._children.indexOf(child);
   }
 
   // Return an arry of of our descendants who are `JSXElement`s
@@ -95,12 +107,29 @@ export default class JSXElement {
     return this.getElement(this._parent);
   }
 
-  // Given a JSXElement, OidRef or `oid` string, return an oid string.
-  // Returns `undefined` if none of the above.
-  static getOid(thing) {
-    if (typeof thing === "string") return thing;
-    if (thing.oid) return thing;
-    return undefined;
+  //////////////////////////////
+  //  Edit settings  (NOTE: this is highly oak specific)
+  //////////////////////////////
+
+  // Return the component constructor class or string type for an html element.
+  get componentConstructor() {
+    return oak.getComponentConstructorForType(this.type);
+  }
+
+  get editorProps() {
+    return oak.getEditorProps(this.componentConstructor);
+  }
+
+  get element() {
+    return oak.getElementForOid(this.oid);
+  }
+
+  canDrag() {
+    return this.editorProps.canDrag;
+  }
+
+  canDrop(elements) {
+    return this.editorProps.canDrop(elements);
   }
 
   //////////////////////////////
