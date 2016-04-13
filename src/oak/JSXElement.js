@@ -17,7 +17,8 @@ export default class JSXElement {
     if (props) Object.assign(this, props);
   }
 
-  // Clone this element, including making clones of `props` and `_children` if defined.
+  // Clone this element, including `newProps`. if defined.
+  // NOTE: does NOT clone children... ???
   clone(newProps) {
     const Constructor = this.constructor;
     const props = Object.assign(objectUtil.cloneProperties(this), newProps);
@@ -44,15 +45,7 @@ export default class JSXElement {
 
   get oid() { return this.props && this.props.oid }
 
-  getReference() { return new OidRef(this.oid) }
-
-  // Return an item specified by oid.
-  // NOTE: this will generally be overridden on each instance during parse....
-  getElement(oid) {
-    return undefined;
-  }
-
-  // Given a JSXElement, OidRef or `oid` string, return an oid string.
+  // Given a JSXElement, `oid` string, return an oid string.
   // Returns `undefined` if none of the above.
   static getOid(thing) {
     if (typeof thing === "string") return thing;
@@ -64,33 +57,21 @@ export default class JSXElement {
   //  Children
   //////////////////////////////
 
-  get children() {
-    if (!this._children) return undefined;
-    return this._children.map( child => {
-      // look up any OidRefs
-      if (child instanceof OidRef) {
-        const item = this.getElement(child.oid);
-        if (!item) console.info("missing child: ",child.oid, " in ", this);
-        return item;
-      }
-      return child;
-    });
-  }
-
   get childCount() {
     return (this.children ? this.children.length : 0);
   }
 
   getChildPosition(child) {
-    if (!this._children) return -1;
+    if (!this.children) return -1;
     if (child && child.oid) {
-      return this._children.findIndex( next => next.oid === child.oid );
+      return this.children.findIndex( next => next.oid === child.oid );
     }
-    return this._children.indexOf(child);
+    return this.children.indexOf(child);
   }
 
   // Return an arry of of our descendants who are `JSXElement`s
-  //  (looking up `OidRef`s and ignoring everything else).
+  //  (ignoring everything else).
+//DEPRECATED
   getDescendentElements(descendents = []) {
     const children = this.children;
     if (children) {
@@ -101,10 +82,6 @@ export default class JSXElement {
       });
     }
     return descendents;
-  }
-
-  get parent() {
-    return this.getElement(this._parent);
   }
 
   //////////////////////////////
@@ -421,37 +398,13 @@ export class JSXElementParser extends AcornParser {
     return props;
   }
 
-  // Assign children to _children since we do the child lookup thing
-  parseChildren(parent, astChildren, code, options) {
-    let children = this._parseChildren(parent, astChildren, code, options);
-    if (!children || children.length === 0) return;
-    parent._children = children;
-  }
-
   parseChild(parent, astElement, code, options) {
     const child = super.parseChild(parent, astElement, code, options);
     if (child instanceof JSXElement) {
       // have children point back to their parent
       if (parent.oid) child._parent = parent.oid;
-      // if we have an oid, we'll pull this child from the `oids` map rather than embedding it
-      if (child.oid) {
-        return new OidRef(child.oid, options.itemProps);
-      }
     }
     return child;
   }
 
-}
-
-
-//////////////////////////////
-//  OidRef class for encapsulating references to other elements
-//////////////////////////////
-
-export class OidRef {
-  constructor(oid) {
-    if (typeof oid !== "string" || !oid) die(OidRef, "new OidRef", oid, "Invalid oid!");
-    // define the oid property non-changeable
-    Object.defineProperty(this, "oid", { value: oid, enumerable: true });
-  }
 }

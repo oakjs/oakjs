@@ -4,7 +4,7 @@
 
 import { die, dieIfMissing, dieIfOutOfRange } from "oak-roots/util/die";
 
-import JSXElement, { OidRef } from "../JSXElement";
+import JSXElement from "../JSXElement";
 
 
 //////////////////////////////
@@ -12,39 +12,31 @@ import JSXElement, { OidRef } from "../JSXElement";
 //////////////////////////////
 
 
-export function setChildAtPositionOrDie(parent, position, child, operation) {
-  dieIfOutOfRange(oak, operation, parent._children, position);
-  _setChildAtPosition(parent, position, child);
-}
-
 export function addChildAtPositionOrDie(parent, position, child, operation) {
-  if (!parent._children) parent._children = [];
+  if (!parent.children) parent.children = [];
   if (position == null) {
-    position = parent._children.length;
+    position = parent.children.length;
   } else {
-    dieIfOutOfRange(oak, operation, parent._children, position, parent._children.length);
+    dieIfOutOfRange(oak, operation, parent.children, position, parent.children.length);
   }
-  parent._children.splice(position, 0, undefined);
+  parent.children.splice(position, 0, undefined);
   _setChildAtPosition(parent, position, child);
 }
 
 function _setChildAtPosition(parent, position, child) {
+  parent.children[position] = child;
   if (child instanceof JSXElement) {
-    parent._children[position] = child.getReference();
     child._parent = parent.oid;
-  }
-  else {
-    parent._children[position] = child;
   }
 }
 
 export function removeChildAtPositionOrDie(parent, position, operation) {
-  dieIfOutOfRange(oak, operation, parent._children, position);
-  parent._children.splice(position, 1);
+  dieIfOutOfRange(oak, operation, parent.children, position);
+  parent.children.splice(position, 1);
 }
 
 // Generate new `oids` for all `elements`, assumed to be clones of JSXElements, thus OK to change.
-// Update `_parent` and `_children` as well, but doesn't worry about elements that weren't included.
+// Update `_parent` and `children` as well, but doesn't worry about elements that weren't included.
 // NOTE: It's not really safe to use this with elements that arent' in the same tree,
 //       which we assume to be rooted at the first element.
 export function cloneAndGenerateNewOids(loader, elements) {
@@ -73,14 +65,11 @@ export function cloneAndGenerateNewOids(loader, elements) {
     return mapItem.oid;
   }
 
-  // update the `_parent` and `_children` for each clone
+  // update the `_parent` and `children` for each clone
   clones.forEach(clone => {
     if (clone._parent) clone._parent = getMappedOid(clone._parent, "parent oid not found", clone);
-    if (clone._children) clone._children.forEach( (child, index) => {
-      if (child instanceof OidRef) {
-        const newOid = getMappedOid(child.oid, "child OidRef not found", child);
-        if (newOid) child[index] = new OidRef(newOid);
-      }
+    if (clone.children) clone.children.forEach( (child, index) => {
+console.warn("TODO: update children");
     });
   });
 
@@ -94,7 +83,7 @@ export function getDescendentElements(element) {
 
 export function getOidOrDie(thing, operation) {
   if (typeof thing === "string") return thing;
-  if (thing && (thing instanceof OidRef || thing instanceof JSXElement)) return thing.oid;
+  if (thing instanceof JSXElement) return thing.oid;
   die(oak, operation, thing, "Can't figure out oid!");
 }
 
@@ -131,15 +120,12 @@ export function getElementOrDie(loader, _oid, operation, deltas) {
   const element = loader.getElement(oid);
   if (!element) die(oak, operation, [loader, oid], "Element not found");
   if (!(element instanceof JSXElement)) die(oak, operation, [loader, oid, element], "Expected a JSXElement");
-  if (element.getElement !== loader.getElement) die(oak, operation, [loader, oid, element], "Element doesn't belong to loader");
   return element;
 }
 
 export function getChildAtPositionOrDie(loader, parent, position, operation) {
-  dieIfOutOfRange(oak, operation, parent._children, position);
-  const child = parent._children[position];
-  if (child instanceof OidRef) return loader.getElement(child);
-  return child;
+  dieIfOutOfRange(oak, operation, parent.children, position);
+  return parent.children[position];
 }
 
 export function getElementPositionOrDie(parent, element, operation) {
@@ -150,12 +136,11 @@ export function getElementPositionOrDie(parent, element, operation) {
 
 
 // If `child` is a `JSXElement`, return a clone.
-// If an `OidRef` or `null`, throw.
+// If `null`, throw.
 // Otherwise return the `child` passed in (assuming its a lieral or something else unclonable).
 export function cloneOrDie(child, operation) {
 // TODO: don't allow "" ???
   if (child == null) die(oak, operation, child, "Child must not be null");
-  if (child instanceof OidRef) die(oak, operation, child, "Child must not be an OidRef");
   if (child instanceof JSXElement) return child.clone();
 //TODO: use generic `clone()` ???
   return child;

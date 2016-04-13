@@ -20,7 +20,7 @@ import { generateRandomId, normalizeIdentifier } from "oak-roots/util/ids";
 import { dieIfMissing } from "oak-roots/util/die";
 
 import api from "./api";
-import JSXElement, { JSXElementParser, OidRef } from "./JSXElement";
+import JSXElement from "./JSXElement";
 
 import Stub from "./components/Stub";
 
@@ -52,10 +52,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
         if (bundle.jsxe) {
           try {
             const options = {
-              oids: {},
-              itemProps : {
-                getElement: this.getElement
-              }
+              oids: {}
             };
             // parse the jsxElement
             const jsxElement = JSXElement.parse(bundle.jsxe, options);
@@ -90,15 +87,15 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   @autobind
   getElement(oid) {
     if (oid instanceof JSXElement) return oid;
-    if (!this.oids) return undefined;
-    return (oid instanceof OidRef ? this.oids[oid.oid] : this.oids[oid]);
+    if (!oid || !this.oids) return undefined;
+    return this.oids[oid];
   }
 
-  // Does this laoder contains some element?
+  // Does this laoder contain some element?
   // You can pass:
   //  - an `oid` string
-  //  - an `OidRef`, or
   //  - a `JSXElement`.
+//DEPRECATED?
   contains(oidOrChild) {
     if (this.oids) return false;
     const oid = typeof oidOrChild === "string"

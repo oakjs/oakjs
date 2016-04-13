@@ -6,7 +6,7 @@ import { die } from "oak-roots/util/die";
 import UndoQueue, { UndoTransaction } from "oak-roots/UndoQueue";
 
 import oak from "../oak";
-import JSXElement, { OidRef } from "../JSXElement";
+import JSXElement from "../JSXElement";
 
 import utils from "./utils";
 
@@ -20,12 +20,12 @@ const DEBUG = false;
 
 
 // Set `prop[key]` of `element` to `value`.
-// You can specify an `oid` string, an `OidRef` or a `JSXElement`.
+// You can specify an `oid` string or a `JSXElement`.
 //
 // Required options:  `element`, `key`, `value`
 // Optional options:  `context`, `returnTransaction`, `operation`
 //
-// NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
+// NOTE: throws if `element` is not found in `context`.
 export function setElementProp(options) {
   const {
     context, element, key, value,
@@ -52,12 +52,12 @@ export function setElementProp(options) {
 
 
 // Change a map of prop `deltas` of an `element`.
-// You can specify an `oid` string, an `OidRef` or a `JSXElement`.
+// You can specify an `oid` string or a `JSXElement`.
 //
 // Required options:  `element`, `deltas`
 // Optional options:  `context`, `returnTransaction`, `operation`
 //
-// NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
+// NOTE: throws if `element` is not found in `context`.
 export function setElementProps({
   context, element, deltas,
   operation = "setElementProps", returnTransaction
@@ -82,12 +82,12 @@ export function setElementProps({
 
 
 // Change all props of `element` to new `props` passed in.
-// You can specify an `oid` string, an `OidRef` or a `JSXElement`.
+// You can specify an `oid` string or a `JSXElement`.
 //
 // Required options:  `element`, `props`
 // Optional options:  `context`, `returnTransaction`, `operation`
 //
-// NOTE: throws if `oid` or `OidRef` `element` is not found in `context`.
+// NOTE: throws if `element` is not found in `context`.
 export function resetElementProps({
   context, element, props,
   operation = "setElementProps", returnTransaction
@@ -124,7 +124,7 @@ export function resetElementProps({
 // Required options:  `element`, `parent`, `position`
 // Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
-// You can specify an `oid` string, an `OidRef` or a `JSXElement`.
+// You can specify an `oid` string or a `JSXElement`.
 //
 // NOTE: You cannot reliably use this to move a non-element child,
 //       use `moveChildAtPosition()` instead.
@@ -209,7 +209,7 @@ export function moveChildAtPosition({
 // Required options:  `elements`, `parent`, `position`
 // Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
 //
-// You can specify an `oid` string, an `OidRef` or a `JSXElement`.
+// You can specify an `oid` string or a `JSXElement`.
 //
 // NOTE: You cannot reliably use this to move a non-element child,
 //       use `moveChildrenAtPosition()` instead.
@@ -259,7 +259,6 @@ export function addChildToElement({
   operation = "addChildToElement", returnTransaction, deltas
 }) {
   if (child == null) die(oak, operation, child, "Child must not be null");
-  if (child instanceof OidRef) die(oak, operation, child, "Child must not be an OidRef");
 
   const loader = utils.getLoaderOrDie(context, operation);
 
@@ -359,7 +358,7 @@ export function removeChildAtPosition({
   return _changeElementsTransaction(transactionOptions);
 }
 
-// Remove a `element` passed as `oid` string, `OidRef` or by reference from the `context`.
+// Remove a `element` passed as `oid` string or by reference from the `context`.
 //
 // Required options:  `element`
 // Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
@@ -389,7 +388,7 @@ export function removeElement({
 }
 
 
-// Remove list of `elements` passed as `oid` string, `OidRef` or by reference from the `context`.
+// Remove list of `elements` passed as `oid` string or by reference from the `context`.
 // Defaults to removing the `oak.selection`.
 //
 // Optional options:  `context`, `elements`, `returnTransaction`, `operation`, `deltas`
@@ -427,7 +426,6 @@ function _addElementsToLoader(loader, elements) {
 if (DEBUG) console.log("adding", elements, "to", loader);
   elements.forEach(element => {
     if (element instanceof JSXElement) {
-      element.getElement = loader.getElement;
       loader.oids[element.oid] = element;
     }
     // recurse for arrays
@@ -461,7 +459,7 @@ if (DEBUG) console.log("removing", elements, "from", loader);
 
 
 // Create a transaction for a transformation of props of a single element which MUST NOT:
-//  - affect `_children`
+//  - affect `children`
 //  - affect `_parent`
 //
 //  We'll call `transformer(<clone-of-element>)`.
