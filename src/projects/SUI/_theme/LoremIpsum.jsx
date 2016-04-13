@@ -42,3 +42,7 @@ export default class LoremIpsum extends oak.components.OakComponent {
     return <div id={id} style={style} className={className}>{getLoremText(this.props)}</div>;
   }
 }
+
+
+import { editify } from "oak/EditorProps";
+editify({ droppable: false }, LoremIpsum);

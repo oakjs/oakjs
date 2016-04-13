@@ -52,16 +52,16 @@ export default class EditorProps {
   //  Dropppable stuff
   //////////////////////////////
   @proto
-  droppable = false;
+  droppable = true;   // TODO: ???
 
-  // Can `children` JSXElements be dropped on us?
+  // Can `elements` JSXElements be dropped on us?
   // Subclasses likely want to defer to this to start...
   // TODO: scope for parent?
-  canDrop(children) {
-    if (!this.droppable || !children || !children.length) return false;
-    // return true if children's dragTypes are compatible with our dropTypes
+  canDrop(elements) {
+    if (!this.droppable || !elements || !elements.length) return false;
+    // return true if elements's dragTypes are compatible with our dropTypes
     if (!this.dropTypes) return true;
-    return children.every( child => this.dropTypes.includes(child.dragType) )
+    return elements.every( element => this.dropTypes.includes(element.editorProps.dragType) )
   }
 }
 

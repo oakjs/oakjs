@@ -11,3 +11,7 @@ export default class Cropper extends oak.components.OakComponent {
     );
   }
 }
+
+
+import { editify } from "oak/EditorProps";
+editify({ droppable: true }, Cropper);

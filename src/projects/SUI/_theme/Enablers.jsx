@@ -53,3 +53,7 @@ export default class Enablers extends oak.components.OakComponent {
     return elements.render();
   }
 }
+
+
+import { editify } from "oak/EditorProps";
+editify({ droppable: false }, Enablers);

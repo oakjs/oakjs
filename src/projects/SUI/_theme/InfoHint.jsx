@@ -9,3 +9,7 @@ export default class InfoHint extends oak.components.OakComponent {
     );
   }
 }
+
+
+import { editify } from "oak/EditorProps";
+editify({ droppable: false }, InfoHint);

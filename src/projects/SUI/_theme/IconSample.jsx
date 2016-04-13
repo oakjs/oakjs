@@ -11,3 +11,7 @@ export default class IconSample extends oak.components.OakComponent {
     );
   }
 }
+
+
+import { editify } from "oak/EditorProps";
+editify({ droppable: false }, IconSample);

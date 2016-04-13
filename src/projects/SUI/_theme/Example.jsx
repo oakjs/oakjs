@@ -28,3 +28,7 @@ export default class Example extends oak.components.OakComponent {
     );
   }
 }
+
+
+import { editify } from "oak/EditorProps";
+editify({ droppable: true }, Example);

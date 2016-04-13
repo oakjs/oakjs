@@ -13,6 +13,7 @@ import global from "oak-roots/util/global";
 import UndoQueue from "oak-roots/UndoQueue";
 
 import actions from "./actions";
+import EditorProps from "./EditorProps";
 import OakEvent from "./OakEvent";
 import ProjectLoader from "./ProjectLoader";
 
@@ -286,21 +287,17 @@ class OakJS extends Eventful(Object) {
     if (component) return this.getComponentConstructorForType(component.type);
   }
 
-  static DEFAULT_EDITOR_SETTINGS = { draggable: true, droppable: false };
-
-  getEditSettingsForType(type) {
-    const constructor = this.getComponentConstructorForType(type);
-    if (!constructor) return;
-
+// DEPREACTE???
+  getEditorProps(constructor) {
     if (typeof constructor === "string") {
-      if (HTML_EDITOR_SETTINGS[type]) return HTML_EDITOR_SETTINGS[type];
-      console.warn(`oak.getEditSettingsForType(${type}): cant find html type!`);
+      if (HTML_EDITOR_SETTINGS[constructor]) return HTML_EDITOR_SETTINGS[constructor];
+      console.warn(`oak.getEditorProps(${constructor}): cant find html type!`);
     }
-    else {
+    else if (constructor) {
       if (constructor.editProps) return constructor.editProps;
-      console.warn(`oak.getEditSettingsForType(${type}): cant find 'editProps' settings for type!`);
+      console.warn(`oak.getEditorProps(${constructor}): cant find 'editProps' settings for type!`);
     }
-    return DEFAULT_EDITOR_SETTINGS;
+    return new EditorProps();
   }
 
   //////////////////////////////
@@ -316,6 +313,7 @@ class OakJS extends Eventful(Object) {
   // Given an oid, return the component that it corresponds to.
   getComponentForOid(oid, controllers = [ this.page, this.section, this.project ]) {
     if (!oid) return undefined;
+    if (!Array.isArray(controllers)) controllers = [controllers];
 
     for (let controller of controllers) {
       if (controller) {

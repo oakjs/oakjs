@@ -28,3 +28,7 @@ export default class Flippers extends oak.components.OakComponent {
     );
   }
 }
+
+
+import { editify } from "oak/EditorProps";
+editify({ droppable: false }, Flippers);

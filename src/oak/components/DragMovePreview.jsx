@@ -90,8 +90,8 @@ export default class DragMovePreview extends OakComponent {
   // Drag geometry and selection
   //////////////////////////////
 
-  getTarget = () => {
-    if (this.props.getTarget) return this.props.getTarget();
+  getTarget = (event) => {
+    if (this.props.getTarget) return this.props.getTarget(event);
     return oak.event._mouseOid;
   }
 
