@@ -220,7 +220,8 @@ export function moveElements({
 
   const transactionOptions = {
     actionName: "Move Elements",
-    list: elements.reverse(),
+    // reverse the list so we're putting them all at the same position
+    list: elements.concat().reverse(),
     getItemTransaction: (element, index) => {
       return moveElement({
         context,
@@ -271,7 +272,7 @@ export function addChildToElement({
   // clone JSXElements AND ALL DESCEDNENTS and give them new oids
   if (child instanceof JSXElement) {
 //TODO: deltas???
-    const descendents = child.getDescendentElements();
+    const descendents = child.getDescendentElements([], deltas);
     if (keepOids) {
       newChild = utils.cloneOrDie(child, operation);
       newDescendents = descendents.map( descendent => utils.cloneOrDie(descendent, operation) );
@@ -300,11 +301,8 @@ export function addChildToElement({
 // Add list of `children` and all descendents to `parent` at `position`,
 // pushing other things out of the way.
 //
-// Required options:  `parent`, `position`, `child`
-// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
-//
-// NOTE: You cannot reliably use this to remove non-element children,
-//       use `removeChildrenAtPositions()` instead.
+// Required options:  `parent`, `position`, `children`
+// Optional options:  `context`, `returnTransaction`, `operation`, `keepOids`, `deltas`
 export function addChildrenToElement({
   context, parent, position, children, keepOids,
   operation = "addChildrenToElement", returnTransaction, deltas
@@ -312,7 +310,7 @@ export function addChildrenToElement({
   const transactionOptions = {
     actionName: "Add Elements",
     // reverse children so we're adding each at `position`
-    list: children.reverse(),
+    list: children.concat().reverse(),
     getItemTransaction: (child, index) => {
       return addChildToElement({
         context,
@@ -331,7 +329,7 @@ export function addChildrenToElement({
 
 
 //////////////////////////////
-//  Removing children to some context
+//  Removing children from some context
 //////////////////////////////
 
 // Remove child at `position` from `parent`.
@@ -425,7 +423,7 @@ export function removeElements({
 //  Utility functions to manipulate Loaders
 //////////////////////////////
 
-function addElementsToLoader(loader, elements) {
+function _addElementsToLoader(loader, elements) {
 if (DEBUG) console.log("adding", elements, "to", loader);
   elements.forEach(element => {
     if (element instanceof JSXElement) {
@@ -434,7 +432,7 @@ if (DEBUG) console.log("adding", elements, "to", loader);
     }
     // recurse for arrays
     else if (Array.isArray(element) && element.length) {
-      addElementsToLoader(loader, element);
+      _addElementsToLoader(loader, element);
     }
     // ignore everything else
   })
@@ -442,13 +440,13 @@ if (DEBUG) console.log("adding", elements, "to", loader);
   return elements;
 }
 
-function removeElementsFromLoader(loader, elements) {
+function _removeElementsFromLoader(loader, elements) {
 if (DEBUG) console.log("removing", elements, "from", loader);
   elements.forEach(element => {
     if (element instanceof JSXElement) delete loader.oids[element.oid];
     // recurse for arrays
     else if (Array.isArray(element) && element.length) {
-      removeElementsFromLoader(loader, element);
+      _removeElementsFromLoader(loader, element);
     }
   })
   loader.onComponentChanged();
@@ -481,8 +479,8 @@ function _changeElementPropsTransaction({
   const original = utils.getElementOrDie(loader, element, operation, deltas);
 
   const clone = transformer(original.clone(), loader);
-  function redo() { return addElementsToLoader(loader, [clone]); }
-  function undo() { return addElementsToLoader(loader, [original]); }
+  function redo() { return _addElementsToLoader(loader, [clone]); }
+  function undo() { return _addElementsToLoader(loader, [original]); }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
 
@@ -503,9 +501,6 @@ function _changeElementsTransaction({
   loader, originalItems = [], newItems = [],
   actionName, returnTransaction, deltas
 }) {
-if (DEBUG) console.info("original", originalItems);
-if (DEBUG) console.info("new", newItems);
-
   // Add the new items to the deltas if specified
   // This allows us to pick up changes within the same transaction.
   if (deltas) {
@@ -513,13 +508,24 @@ if (DEBUG) console.info("new", newItems);
   }
 
   function redo() {
-    removeElementsFromLoader(loader, originalItems);
-    return addElementsToLoader(loader, newItems);
+const DEBUG = true;
+if (DEBUG) console.group("redo ",actionName);
+if (DEBUG) console.info("removing", originalItems);
+if (DEBUG) console.info("adding", newItems);
+if (DEBUG) console.groupEnd();
+
+    _removeElementsFromLoader(loader, originalItems);
+    return _addElementsToLoader(loader, newItems);
   }
 
   function undo() {
-    removeElementsFromLoader(loader, newItems);
-    return addElementsToLoader(loader, originalItems);
+const DEBUG = true;
+if (DEBUG) console.group("undo ",actionName);
+if (DEBUG) console.info("removing", newItems);
+if (DEBUG) console.info("adding", originalItems);
+if (DEBUG) console.groupEnd();
+    _removeElementsFromLoader(loader, newItems);
+    return _addElementsToLoader(loader, originalItems);
   }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });

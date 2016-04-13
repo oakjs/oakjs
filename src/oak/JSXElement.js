@@ -111,6 +111,11 @@ export default class JSXElement {
   //  Edit settings  (NOTE: this is highly oak specific)
   //////////////////////////////
 
+  // Return the on-screen HTML element for this JSXElement
+  get element() {
+    return oak.getElementForOid(this.oid);
+  }
+
   // Return the component constructor class or string type for an html element.
   get componentConstructor() {
     return oak.getComponentConstructorForType(this.type);
@@ -118,10 +123,6 @@ export default class JSXElement {
 
   get editorProps() {
     return oak.getEditorProps(this.componentConstructor);
-  }
-
-  get element() {
-    return oak.getElementForOid(this.oid);
   }
 
   canDrag() {

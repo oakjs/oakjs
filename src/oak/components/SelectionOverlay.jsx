@@ -239,7 +239,7 @@ export default class SelectionOverlay extends OakComponent {
   onDragMoveStart = (event, info) => {
 console.log("startDragMoving", info);
 // TODO: if option down, drag a clone
-    oak.actions.removeElements(oak.selection);
+    oak.actions.removeElements(oak.dragComponents);
   }
 
   // `info.target` is the `oid` of the target parent if there is one
@@ -249,10 +249,9 @@ console.log("startDragMoving", info);
 
     // Forget it if no change
     if (parent === dropParent && position === dropPosition) return;
+//console.info(parent, dropParent, position, dropPosition);
 
-console.info(parent, dropParent, position, dropPosition);
-
-    // if we're already on-screen, undo to go back to state where we're missing
+    // if we're already on-screen, undo to remove elements added before
     if (dropParent) oak.undo();
 
     if (parent) {

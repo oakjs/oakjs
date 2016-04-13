@@ -5,28 +5,28 @@
 //
 //////////////////////////////
 
-import { proto  } from "oak-roots/util/decorators";
+import { proto } from "oak-roots/util/decorators";
 
 
 // DRAG PROPERTIES / METHODS
-// 	draggable:		// false = not draggable (eg: draggable by default)
-// 	dragType:  		// undefined = class name, string = explicit type
-// 	canDrag(),		// can this instance be dragged right now?  params? scope?
+// 	draggable:		    // false = not draggable (eg: draggable by default)
+// 	dragType:  		    // string = explicit type
+// 	canDrag(),		    // can this instance be dragged right now?  params? scope?
 // 	getDragPreview(),	// return custom html elements for drag preview
 // 	onDragStart(),		// fired when dragging actually starts
-// 	onDragMove(),	// fired on drag move
-// 	onDragEnd(),		// fired when dragging completes (if it started at all)
+// 	onDragMove(),	    // fired on drag move
+// 	onDragEnd(),		  // fired when dragging completes (if it started at all)
 
 // POSSIBLE DROP PROPERTIES / METHODS
-// 	droppable		// true = droppable
-// 	dropTypes:		// undefined = anything, string or string list = explicit types
-// 	dropMode:		// “flow”, “positioned” etc
-// 	canDrop(),		// can the current draggable(s) drop on this instance right now?  params? scope?
+// 	droppable		      // true = droppable
+// 	dropTypes:		    // undefined = anything, string or string list = explicit types
+// 	dropMode:		      // “flow”, “positioned” etc
+// 	canDrop(),		    // can the current draggable(s) drop on this instance right now?  params? scope?
 // 	getDropInfo(),		// return drop info (eg: position, etc).  params? scope?
-// 	onDragEnter(),	// draggable enter drop target (ignoring nesting)
-// 	onDragOver(),		// moved when within this drop target?
-// 	onDragLeave(),	// draggable exit drop target (ignoring nesting)
-// 	onDrop()			// dropped inside
+// 	onDragEnter(),	  // draggable enter drop target (ignoring nesting)
+// 	onDragOver(),		  // moved when within this drop target?
+// 	onDragLeave(),	  // draggable exit drop target (ignoring nesting)
+// 	onDrop()			    // dropped inside
 
 
 export default class EditorProps {
