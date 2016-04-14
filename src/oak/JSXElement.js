@@ -10,7 +10,7 @@ import ids from "oak-roots/util/ids";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
-import JSXElementParser from "./JSXElementParser";
+import JSXParser from "./JSXParser";
 
 
 export default class JSXElement {
@@ -29,22 +29,6 @@ export default class JSXElement {
   //////////////////////////////
   //  Identification via `oid`
   //////////////////////////////
-
-  // Return a random `oid` for an element.
-//DEPRECATED
-  static getRandomOid() {
-    return ids.generateRandomId();
-  }
-
-  // Return an unique `oid` which is not already contained in `oidMap`.
-//DEPRECATED
-  static getUniqueOid(oidMap) {
-    let oid;
-    while (!oid || oidMap[oid]) {
-      oid = this.getRandomOid();
-    }
-    return oid;
-  }
 
   get oid() { return this.props && this.props.oid }
 

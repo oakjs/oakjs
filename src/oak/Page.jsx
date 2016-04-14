@@ -82,5 +82,5 @@ export class PageElement extends JSXElement {
 }
 
 // Register it so `<Page>` elements in a jsxe will use `PageElement`.
-import JSXElementParser from "./JSXElementParser";
-JSXElementParser.registerType("OakPage", PageElement);
+import JSXParser from "./JSXParser";
+JSXParser.registerType("OakPage", PageElement);

@@ -6,26 +6,22 @@ import AcornParser from "oak-roots/AcornParser";
 import ids from "oak-roots/util/ids";
 
 import JSXElement from "./JSXElement";
+import JSXFragment from "./JSXFragment";
 
-export default class JSXElementParser extends AcornParser {
+export default class JSXParser extends AcornParser {
   //////////////////////////////
   // Parsing Registry
   // Add classses which you want to have ALWAYS instantiate as a certain type of JSXElement
-  //  as:  `JSXElementParser.registerType("YourTypeName", YourSubclass);`
+  //  as:  `JSXParser.registerType("YourTypeName", YourSubclass);`
   //////////////////////////////
 
   static TYPE_REGISTRY = {};
   static registerType(type, constructor) {
-    JSXElementParser.TYPE_REGISTRY[type] = constructor;
-  }
-
-  // Return a random `oid` for an element.
-  getRandomOid() {
-    return ids.generateRandomId();
+    JSXParser.TYPE_REGISTRY[type] = constructor;
   }
 
   getElementConstructor(type) {
-    return JSXElementParser.TYPE_REGISTRY[type] || JSXElement;
+    return JSXParser.TYPE_REGISTRY[type] || JSXElement;
   }
 
   // Add a unique-ish `oid` property to all nodes as we parse node props.
@@ -35,7 +31,7 @@ export default class JSXElementParser extends AcornParser {
 
     // make sure we've got an oid that's unique within options.oids
     while (!props.oid || (props.oid in options.oids)) {
-      props.oid = (options.getRandomOid ? options.getRandomOid() : this.getRandomOid() );
+      props.oid = (options.getRandomOid ? options.getRandomOid() : JSXFragment.getRandomOid() );
     }
     // point to the element by oid for later
     options.oids[props.oid] = element;

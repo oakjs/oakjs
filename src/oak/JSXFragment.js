@@ -6,7 +6,7 @@ import { die, dieIfOutOfRange } from "oak-roots/util/die";
 
 import ids from "oak-roots/util/ids";
 
-import JSXElementParser from "./JSXElementParser";
+import JSXParser from "./JSXParser";
 
 
 export default class JSXFragment {
@@ -31,7 +31,7 @@ export default class JSXFragment {
   static parse(code, props) {
     const fragment = new JSXFragment(props);
 
-    const parser = new JSXElementParser();
+    const parser = new JSXParser();
     fragment.root = parser.parse(code, {
       oids: fragment.oids,
       getRandomOid: fragment.getUniqueOid.bind(fragment)
@@ -241,7 +241,11 @@ export default class JSXFragment {
 
   // Return a random `oid` for an element.
   getRandomOid() {
-    return this.oidPrefix + ids.generateRandomId();
+    return this.oidPrefix + JSXFragment.getRandomOid();
+  }
+
+  static getRandomOid() {
+    return ids.generateRandomId();
   }
 
 

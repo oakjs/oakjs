@@ -85,24 +85,6 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
     return this.oids[oid];
   }
 
-  // Does this laoder contain some element?
-  // You can pass:
-  //  - an `oid` string
-  //  - a `JSXElement`.
-//DEPRECATED?
-  contains(oidOrChild) {
-    if (this.oids) return false;
-    const oid = typeof oidOrChild === "string"
-              ? oidOrChild
-              : oid && oid.oid;
-    return !!this.oids[oidOrChild];
-  }
-
-  getUniqueOid() {
-    dieIfMissing(this, "getUniqueId", ["oids"]);
-    return JSXElement.getUniqueId(this.oids);
-  }
-
 
   //////////////////////////////
   //  Mutation

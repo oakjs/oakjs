@@ -59,7 +59,7 @@ export function clearPrefs(prefix, skipDebugPrefs) {
   if (prefix == null) prefix = "";
   for (var key in global.localStorage) {
     if (key.startsWith(prefix)) {
-      if (skipDebugPrefs && key.contains("__debug__")) continue;
+      if (skipDebugPrefs && key.includes("__debug__")) continue;
       console.info("Clearing preference ",key);
       removeFromLocalStorage(key);
     }
