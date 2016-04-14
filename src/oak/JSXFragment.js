@@ -4,19 +4,38 @@
 
 import { die, dieIfOutOfRange } from "oak-roots/util/die";
 
+import ids from "oak-roots/util/ids";
+
 
 export default class JSXFragment {
 
-  constructor(root, oids, props) {
+  // Create a new JSXFragment.
+  //  - `props` are arbitrary properties
+  //  - `root` is a JSXElement
+  //  - `oids` is a map of oids contained in `roots`
+  constructor(props, root, oids) {
+    this.props = Object.assign({}, props);
     this.root = root;
     this.oids = Object.assign({}, oids);
-    this.props = Object.assign({}, props);
   }
 
   // Clone this JSXFragment
   // NOTE: we'll clone the `oids`, but all of the elements we point to will be the same.
   clone() {
-    return new JSXFragment(this.root, this.oids, this.props);
+    return new JSXFragment(this.props, this.root, this.oids);
+  }
+
+  // Parse some JSX `code`, returning a new `JSXFragment`.
+  static parse(code, props) {
+    const fragment = new JSXFragment(props);
+
+    const parser = new JSXElementParser();
+    fragment.root = parser.parse(code, {
+      oids: fragment.oids,
+      getRandomOid: fragment.getUniqueOid.bind(fragment)
+    });
+
+    return fragment;
   }
 
   //////////////////////////////
@@ -130,9 +149,11 @@ export default class JSXFragment {
   // Remove the element at `position` of `parent`.
   // Returns the element removed.
   // NOTE: modifies this fragment IN PLACE including our `oids` map.
-  remove(parent, position) {
+  remove(_parent, position) {
+    const parent = this.getElementOrDie(_parent);
+    dieIfOutOfRange(this, "remove", parent.children, position);
+
     const parentClone = this._cloneElementAndParents(parent);
-    dieIfOutOfRange(this, "remove", parentClone.children, position);
 
     // pull out the element
     const element = parentClone.children.splice(position, 1);
@@ -144,6 +165,21 @@ export default class JSXFragment {
     return element;
   }
 
+  // Remove a single element (specified by `oid` or `element` pointer).
+  // NOTE: modifies this fragment IN PLACE including our `oids` map.
+  removeElement(_element) {
+    const element = this.getElementOrDie(_element);
+    const parent = this.getParentOrDie(element._parent);
+    const index = parent.indexOf(element);
+    return this.remove(parent, index);
+  }
+
+  // Remove a set of `elements` and their descendents.
+  // Returns the elements removed.
+  // NOTE: modifies this fragment IN PLACE including our `oids` map.
+  removeElements(elements) {
+    return elements.map( this.removeElement.bind(this) );
+  }
 
   //////////////////////////////
   //  Cloning / duplicating elements
@@ -178,7 +214,8 @@ export default class JSXFragment {
     if (!(element instanceof JSXElement)) return clone;
 
     clone._parent = parentOid;
-    clone.oid = this.getUniqueOid();
+    if (!clone.props) clone.props = {};
+    clone.props.oid = this.getUniqueOid();
 
     if (clone.children) {
       clone.children = clone.children.map( child => this.duplicate(child, clone.oid) );

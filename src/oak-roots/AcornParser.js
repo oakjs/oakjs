@@ -5,7 +5,7 @@
 export default class AcornParser {
   static ElementConstructor = Object;
 
-  parse(code, options) {
+  parse(code, options = {}) {
     const ast = acorn.parse(code);
     return this.parseElement(ast, code, options);
   }

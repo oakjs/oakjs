@@ -102,5 +102,6 @@ export class ProjectElement extends JSXElement {
   }
 }
 
-// Register it so `<OakProject>` elements in a jsxe will use `ProjectElement`.
-JSXElement.registerType("OakProject", ProjectElement);
+// Register it so `<Project>` elements in a jsxe will use `ProjectElement`.
+import JSXElementParser from "./JSXElementParser";
+JSXElementParser.registerType("OakProject", ProjectElement);

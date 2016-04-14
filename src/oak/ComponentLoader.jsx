@@ -16,7 +16,7 @@ import Savable from "oak-roots/Savable";
 import babel from "oak-roots/util/babel";
 import browser from "oak-roots/util/browser";
 import { autobind } from "oak-roots/util/decorators";
-import { generateRandomId, normalizeIdentifier } from "oak-roots/util/ids";
+import ids from "oak-roots/util/ids";
 import { dieIfMissing } from "oak-roots/util/die";
 
 import api from "./api";
@@ -146,7 +146,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   //  Stylesheet
   //////////////////////////////
 
-  get stylesheetId() { return normalizeIdentifier(this.path) }
+  get stylesheetId() { return ids.normalizeIdentifier(this.path) }
 
   onStylesChanged(newStyles, oldStyles) {
     if (oldStyles) this.dirty();

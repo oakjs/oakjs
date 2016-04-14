@@ -3,7 +3,6 @@
 //////////////////////////////
 "use strict"
 
-import AcornParser from "oak-roots/AcornParser";
 import Mutable from "oak-roots/Mutable";
 
 import { die, dieIfOutOfRange } from "oak-roots/util/die";
@@ -11,6 +10,8 @@ import ids from "oak-roots/util/ids";
 import objectUtil from "oak-roots/util/object";
 
 import api from "./api";
+import JSXElementParser from "./JSXElementParser";
+
 
 export default class JSXElement {
   constructor(props) {
@@ -30,11 +31,13 @@ export default class JSXElement {
   //////////////////////////////
 
   // Return a random `oid` for an element.
+//DEPRECATED
   static getRandomOid() {
     return ids.generateRandomId();
   }
 
   // Return an unique `oid` which is not already contained in `oidMap`.
+//DEPRECATED
   static getUniqueOid(oidMap) {
     let oid;
     while (!oid || oidMap[oid]) {
@@ -44,10 +47,10 @@ export default class JSXElement {
   }
 
   get oid() { return this.props && this.props.oid }
-  set oid(oid) { if (!this.props) this.props = {}; this.props.oid = oid; }
 
   // Given a JSXElement, `oid` string, return an oid string.
   // Returns `undefined` if none of the above.
+//DEPRECATED ?
   static getOid(thing) {
     if (typeof thing === "string") return thing;
     if (thing.oid) return thing;
@@ -323,23 +326,12 @@ export default class JSXElement {
     return "\n" + childExpressions.join("\n")
   }
 
-
-  //////////////////////////////
-  // Parsing Registry
-  // Add classses which you want to have ALWAYS instantiate as a certain type of JSXElement
-  //  as:  `JSXElement.registerType("YourTypeName", YourSubclass);`
-  //////////////////////////////
-
-  static TYPE_REGISTRY = {};
-  static registerType(type, constructor) {
-    JSXElement.TYPE_REGISTRY[type] = constructor;
-  }
-
   //////////////////////////////
   // Parsing
   //////////////////////////////
 
   // Parse a `.jsxe` file's code.
+//DEPRECATED ?
   static parse(code, options = {}) {
     if (!options.oids) options.oids = {};
 
@@ -353,6 +345,7 @@ export default class JSXElement {
   // Load a `.jsxe` file from the server and parse it.
   // Returns a `Promise` which resolves with the root element
   // or rejects with an error message.
+//DEPRECATED ?
   static load(path) {
     return api.getText(path)
       .then(code => {
@@ -361,39 +354,3 @@ export default class JSXElement {
   }
 }
 
-
-
-//////////////////////////////
-// Specialized JSXElement Parser
-//////////////////////////////
-
-export class JSXElementParser extends AcornParser {
-  getElementConstructor(type) {
-    return JSXElement.TYPE_REGISTRY[type] || JSXElement;
-  }
-
-  // Add a unique-ish `oid` property to all nodes as we parse node props.
-  // NOTE: this will then be saved with the node...
-  parseProps(element, astElement, code, options) {
-    const props = super.parseProps(element, astElement, code, options) || {};
-
-    // make sure we've got an oid that's unique within options.oids
-    while (!props.oid || (props.oid in options.oids)) {
-      props.oid = JSXElement.getRandomOid();
-    }
-    // point to the element by oid for later
-    options.oids[props.oid] = element;
-
-    return props;
-  }
-
-  parseChild(parent, astElement, code, options) {
-    const child = super.parseChild(parent, astElement, code, options);
-    if (child instanceof JSXElement) {
-      // have children point back to their parent
-      if (parent.oid) child._parent = parent.oid;
-    }
-    return child;
-  }
-
-}
