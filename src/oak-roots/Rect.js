@@ -78,6 +78,11 @@ export default class Rect {
   }
 
   // Returns `true` if this rect contains point at `x`, `y`.
+  containsPoint(point) {
+    return this.contains(point.x, point.y);
+  }
+
+  // Returns `true` if this rect contains point at `x`, `y`.
   contains(x, y) {
     return x >= this.left
         && x <= this.right

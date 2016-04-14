@@ -46,7 +46,7 @@ export default class JSXFragment {
   //////////////////////////////
 
   // Return a single element specified by `oid` or by reference to a `JSXElement`.
-  get(elementOrOid) {
+  getElement(elementOrOid) {
     if (elementOrOid instanceof JSXElement) return elementOrOid;
     return this.oids[elementOrOid];
   }

@@ -266,16 +266,38 @@ console.info(parent, dropParent, position, dropPosition);
     this.setState({ dropParent: parent, dropPosition: position });
   }
 
+  getElement(oid) {
+    return oak.editContext.jsxFragment.getElement(oid);
+  }
+
   getDropTarget(mouseComponent) {
+    const parent = this.getDropParent(mouseComponent);
+    if (!parent) return undefined;
+    // figure out which of the parent's children is under the mouse
+    if (parent.children) {
+      for (var position = 0; position < parent.children.length; position++) {
+        const child = parent.children[position];
+        if (child.oid) {
+          const rect = oak.getRectForOid(child.oid);
+//          console.log(child.oid, rect);
+          if (rect && rect.containsPoint(oak.event.clientLoc)) break;
+        }
+      }
+    }
+    return { parent: parent.oid, position };
+  }
+
+  getDropParent(mouseComponent) {
     if (!mouseComponent) return undefined;
 
     const { dragSelection, dragComponents } = this.state;
     let parent = mouseComponent;
     while (parent) {
-      if (parent.canDrop(dragComponents)) return { parent: parent.oid };
-      parent = parent.parent;
+      if (parent.canDrop(dragComponents)) return parent;
+      parent = this.getElement(parent._parent);
     }
   }
+
 
   onDragMoveEnd = (event, info) => {
 console.log("dragMoveEnd", info);
