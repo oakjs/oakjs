@@ -6,6 +6,8 @@ import { die, dieIfOutOfRange } from "oak-roots/util/die";
 
 import ids from "oak-roots/util/ids";
 
+import JSXElementParser from "./JSXElementParser";
+
 
 export default class JSXFragment {
 
@@ -54,7 +56,7 @@ export default class JSXFragment {
     if (elementOrOid instanceof JSXElement) return elementOrOid;
     const element = this.oids[elementOrOid];
     if (element) return element;
-    die(this, operation, args || [elementOrId], message || ("element "+elementOrId+" not found");
+    die(this, operation, args || [elementOrId], message || ("element "+elementOrId+" not found"));
     return undefined;
   }
 
@@ -223,10 +225,10 @@ export default class JSXFragment {
     return clone;
   }
 
-  // Return an unique `oid` which is not already contained in `oidMap`.
+  // Return an unique `oid` which is not already contained in our `oids`.
   getUniqueOid() {
     let oid;
-    while (!oid || oidMap[oid]) {
+    while (!oid || this.oids[oid]) {
       oid = this.getRandomOid();
     }
     return oid;
@@ -251,13 +253,13 @@ export default class JSXFragment {
   //  in preparation for modifying the element with impunity.
   // NOTE: modifies this fragment IN PLACE including our `oids` map.
   _cloneElementAndParents(elementOrId, operation = "_cloneElementAndParents") {
-    const element = this.getElementOrDie(elementOrId, operation));
+    const element = this.getElementOrDie(elementOrId, operation);
     const parents = this.getParentsOrDie(element);
 
     const clone = this.clone(element);
     this._addOid(clone);
 
-    const root = parents.reduce((child, parent, index) => {
+    const root = parents.reduce((child, parent) => {
       const index = parent.indexOf(child);
       if (index === -1) die(this, operation, [child, parent], "Child not found in parent");
 

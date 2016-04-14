@@ -4,7 +4,7 @@
 
 import API from "oak-roots/API";
 
-import JSXElement from "./JSXElement";
+import JSXFragment from "./JSXFragment";
 
 export default new API({
 
@@ -32,7 +32,7 @@ export default new API({
       .then(jsxe => {
         if (controller.controller && controller.controller.toString() === jsxe) return controller.controller;
         try {
-          return JSXElement.parse(jsxe);
+          return JSXFragment.parse(jsxe);
         }
         catch (e) {
           console.group(`Error parsing JSXE from ${controller.componentUrl}`);

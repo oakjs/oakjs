@@ -1,4 +1,4 @@
-import JSXElement from "oak/JSXElement";
+import JSXFragment from "oak/JSXFragment";
 
 // Load some sample parser files
 export smallTest from "raw!./small.jsxe";
@@ -17,9 +17,9 @@ export function timeAcornParse(code) {
 export function parse(code) {
 	const ast = timeAcornParse(code);
 	console.dir(ast);
-	const message = "JSXElement.parse()";
+	const message = "JSXFragment.parse()";
 	console.time(message)
-	const element = JSXElement.parse(code);
+	const element = JSXFragment.parse(code);
 	console.timeEnd(message)
 	return element;
 }

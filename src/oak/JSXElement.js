@@ -326,31 +326,5 @@ export default class JSXElement {
     return "\n" + childExpressions.join("\n")
   }
 
-  //////////////////////////////
-  // Parsing
-  //////////////////////////////
-
-  // Parse a `.jsxe` file's code.
-//DEPRECATED ?
-  static parse(code, options = {}) {
-    if (!options.oids) options.oids = {};
-
-    const parser = new JSXElementParser();
-    const rootElement = parser.parse(code, options);
-
-    rootElement.oids = options.oids;
-    return rootElement;
-  }
-
-  // Load a `.jsxe` file from the server and parse it.
-  // Returns a `Promise` which resolves with the root element
-  // or rejects with an error message.
-//DEPRECATED ?
-  static load(path) {
-    return api.getText(path)
-      .then(code => {
-        return this.parse(code);
-      });
-  }
 }
 

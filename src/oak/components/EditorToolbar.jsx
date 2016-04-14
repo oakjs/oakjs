@@ -5,7 +5,7 @@
 import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
-import JSXElement from "../JSXElement";
+import JSXFragment from "../JSXFragment";
 import OakComponent from "./OakComponent";
 
 import "./EditorToolbar.css";
@@ -16,7 +16,7 @@ export default class EditorToolbar extends OakComponent {
   }
 
   addButton() {
-    const toAdd = [JSXElement.parse("<Button icon='smile'>Love it even more!</Button>")];
+    const toAdd = [JSXFragment.parse("<Button icon='smile'>Love it even more!</Button>")].root;
     oak.actions.addChildrenToElement({ parent: "ftEkGCjX", children: toAdd });
   }
 

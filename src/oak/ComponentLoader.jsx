@@ -21,6 +21,7 @@ import { dieIfMissing } from "oak-roots/util/die";
 
 import api from "./api";
 import JSXElement from "./JSXElement";
+import JSXFragment from "./JSXFragment";
 
 import Stub from "./components/Stub";
 
@@ -41,7 +42,8 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
     if (this.styles) browser.removeStylesheet(this.stylesheetId);
   }
 
-  get jsxElement() { return this.oids && this.oids[this.rootOid] }
+  get jsxElement() { return this.jsxFragment.root }
+  get oids() { return this.jsxFragment.oids }
 
   //////////////////////////////
   //  Loading
@@ -51,16 +53,8 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
       .then(bundle => {
         if (bundle.jsxe) {
           try {
-            const options = {
-              oids: {}
-            };
-            // parse the jsxElement
-            const jsxElement = JSXElement.parse(bundle.jsxe, options);
-            // save the oid of the root element
-            bundle.rootOid = jsxElement.oid;
-            // save the oids so we can get the elements back.
-            bundle.oids = options.oids;
-
+            // parse the `jsxe` into a `JSXFragment`
+            bundle.jsxFragment = JSXFragment.parse(bundle.jsxe);
             // don't save the jsxe
             delete bundle.jsxe;
           }
@@ -122,8 +116,8 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
     // If any of our special bits changes, notify.
     // NOTE: we don't notify on the initial load!  (???)
     if (changes.index && old.index) this.onIndexChanged(changes.index, old.index);
-    if (changes.jsxElement || changes.script && (old.jsxElement || old.script)) {
-      this.onComponentChanged(changes.jsxElement, old.jsxElement);
+    if (changes.jsxFragment || changes.script && (old.jsxFragment || old.script)) {
+      this.onComponentChanged(changes.jsxFragment, old.jsxFragment);
     }
 
     // NOTE: we DO notify about style changes on the initial load
@@ -137,7 +131,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   onComponentChanged(newComponent, oldComponent) {
     this.resetCache();
     this.dirty();
-//    console.info("TODO: Instantiate jsxElement ", newComponent);
+//    console.info("TODO: Instantiate jsxFragment ", newComponent);
     this.trigger("componentChanged", newComponent, oldComponent);
   }
 
