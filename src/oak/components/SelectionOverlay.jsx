@@ -249,7 +249,7 @@ console.log("startDragMoving", info);
 
     // Forget it if no change
     if (parent === dropParent && position === dropPosition) return;
-//console.info(parent, dropParent, position, dropPosition);
+console.info(parent, dropParent, position, dropPosition);
 
     // if we're already on-screen, undo to remove elements added before
     if (dropParent) oak.undo();
@@ -269,10 +269,10 @@ console.log("startDragMoving", info);
   getDropTarget(mouseComponent) {
     if (!mouseComponent) return undefined;
 
-    const components = this.state.dragComponents;
+    const { dragSelection, dragComponents } = this.state;
     let parent = mouseComponent;
     while (parent) {
-      if (parent.canDrop(components)) return { parent: parent.oid };
+      if (parent.canDrop(dragComponents)) return { parent: parent.oid };
       parent = parent.parent;
     }
   }

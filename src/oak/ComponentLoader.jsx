@@ -160,8 +160,8 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
     const componentName = this.getConstructorName();
 //console.info("creating component ",componentName);
     try {
-      // if we have a jsxElement, create the classs and set its renderMethod
-      if (this.jsxElement) {
+      // if we have a jsxFragment, create the classs and set its renderMethod
+      if (this.jsxFragment) {
         // NOTE: we have to manually stick in a `render()` function here
         //       because React barfs if we try to set `render()` directly.
         let script = [
@@ -171,7 +171,7 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
         Constructor = babel.createClass(script, this.SuperConstructor, componentName);
 
         // Get the `__render` routine from the jsxElement
-        Constructor.prototype.__render = this.jsxElement.getRenderMethod();
+        Constructor.prototype.__render = this.jsxFragment.root.getRenderMethod();
 
         // make sure we've got a `createElement` routine since `_renderChildren` expects one.
         if (!Constructor.prototype.createElement) {

@@ -307,6 +307,41 @@ if (!element) debugger;
   //  Debug
   //////////////////////////////
 
+  debug() {
+    const report = this.checkOids();
+    const reportCount = (report.length ? `${report.length} problems found` : "no problems");
+    console.group(`${this} debug report: ${reportCount}`);
+    report.forEach( error => console.log(error) );
+    console.groupEnd();
+  }
+
+  // Check `oids` map and element `_parent` links.
+  checkOids() {
+    const report = [];
+
+    // Make sure all elements / parents are correctly pointed to by `oids`
+    const unfoundOids = Object.assign({}, this.oids);
+    this._forEachDescendant(this.root, (element) => {
+      if (!(element instanceof JSXElement)) return;
+
+      if (this.oids[element.oid] !== element) {
+        report.push(`${element} not found in oids`);
+      }
+      if (element._parent && !this.oids[element._parent]) {
+        report.push(`parent ${element._parent} of ${element} not found in oids`);
+      }
+      // remove the element from the unfoundOids list.
+      delete unfoundOids[element.oid];
+    });
+
+    // Notify about unfound oids.
+    Object.keys(unfoundOids).forEach( oid => {
+      report.push(`${unfoundOids[oid]} found in oids but not in tree`);
+    });
+
+    return report;
+  }
+
   toString() {
     return (this.root ? this.root.toString() : "<JSXFragment/>");
   }
