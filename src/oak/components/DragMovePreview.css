@@ -11,15 +11,16 @@
   position:absolute;
 }
 
-/* Wrapper around each preview item */
-.oak.DragMovePreviewItemWrapper {
-  position:absolute;
-}
-
-/* Outline which covers all preview items to prevent mouse effects */
-.oak.DragMovePreviewOutline {
+.oak.DragMovePreviewWrapper:after {
   position:absolute;
   left:0; top:0; right:0; bottom:0;
   border:1px solid blue;
   z-index:1000000000;
+  content:" ";
+}
+
+
+/* Wrapper around each preview item */
+.oak.DragMovePreviewItemWrapper {
+  position:absolute;
 }
