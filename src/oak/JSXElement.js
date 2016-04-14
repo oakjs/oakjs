@@ -18,7 +18,7 @@ export default class JSXElement {
   }
 
   // Clone this element, including `newProps`. if defined.
-  // NOTE: does NOT clone children... ???
+  // Clones the `children` array but does NOT clone the children themselves.
   clone(newProps) {
     const Constructor = this.constructor;
     const props = Object.assign(objectUtil.cloneProperties(this), newProps);
@@ -44,6 +44,7 @@ export default class JSXElement {
   }
 
   get oid() { return this.props && this.props.oid }
+  set oid(oid) { if (!this.props) this.props = {}; this.props.oid = oid; }
 
   // Given a JSXElement, `oid` string, return an oid string.
   // Returns `undefined` if none of the above.
@@ -343,7 +344,10 @@ export default class JSXElement {
     if (!options.oids) options.oids = {};
 
     const parser = new JSXElementParser();
-    return parser.parse(code, options);
+    const rootElement = parser.parse(code, options);
+
+    rootElement.oids = options.oids;
+    return rootElement;
   }
 
   // Load a `.jsxe` file from the server and parse it.
@@ -364,23 +368,8 @@ export default class JSXElement {
 //////////////////////////////
 
 export class JSXElementParser extends AcornParser {
-  parse(code, options = {}) {
-    const root = super.parse(code, options);
-    if (options.itemProps) Object.assign(root, options.itemProps);
-    return root;
-  }
-
   getElementConstructor(type) {
     return JSXElement.TYPE_REGISTRY[type] || JSXElement;
-  }
-
-  parseElement(astElement, code, options) {
-    const element = super.parseElement(astElement, code, options);
-    if (element instanceof JSXElement) {
-      // add any itemProps to the element
-      Object.assign(element, options.itemProps);
-    }
-    return element;
   }
 
   // Add a unique-ish `oid` property to all nodes as we parse node props.
