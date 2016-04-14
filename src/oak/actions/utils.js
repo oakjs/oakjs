@@ -129,7 +129,7 @@ export function getChildAtPositionOrDie(loader, parent, position, operation) {
 }
 
 export function getElementPositionOrDie(parent, element, operation) {
-  const position = parent.getChildPosition(element);
+  const position = parent.indexOf(element);
   if (position === -1) die(oak, "removeElement", arguments, "Child not found in parent. ???");
   return position;
 }

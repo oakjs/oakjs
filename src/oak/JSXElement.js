@@ -61,7 +61,7 @@ export default class JSXElement {
     return (this.children ? this.children.length : 0);
   }
 
-  getChildPosition(child) {
+  indexOf(child) {
     if (!this.children) return -1;
     if (child && child.oid) {
       return this.children.findIndex( next => next.oid === child.oid );
