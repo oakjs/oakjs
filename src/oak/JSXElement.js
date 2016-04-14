@@ -234,13 +234,13 @@ export default class JSXElement {
 
 
   //////////////////////////////
-  //  Output as a string
+  //  Output as a JSX string
   //////////////////////////////
 
   // Render this element as a string, close to the code we parsed it from.
   // NOTE: this will normalize the JSX to a canonical format, this is desired.
-	toString(indent = "", dontNest) {
-    const props = this._propsToString(indent);
+	toJSX(indent = "", dontNest) {
+    const props = this._propsToJSX(indent);
     const tagPrefix = indent + "<" + this.type + (props ? " "+props : "");
     if (this.selfClosing) {
       return tagPrefix + "/>";
@@ -248,17 +248,17 @@ export default class JSXElement {
 
     let children;
     if (dontNest) {
-      children = this._childrenToString("", dontNest);
+      children = this._childrenToJSX("", dontNest);
     }
     else {
-      children = this._childrenToString(indent+"  ");
+      children = this._childrenToJSX(indent+"  ");
       if (children) children += "\n" + indent;
     }
     return tagPrefix + ">" + ( children || "" ) + "</" + this.type + ">";
 	}
 
   // Convert our props to a JSX string.
-  _propsToString(indent, props = this.props) {
+  _propsToJSX(indent, props = this.props) {
     if (!props) return "";
     const results = [];
     for (let key in props) {
@@ -284,7 +284,7 @@ export default class JSXElement {
         results.push(`${key}={${value._code}}`);
       }
       else if (value instanceof JSXElement) {
-        results.push(`${key}={${value.toString("", "DONT_NEST")}}`);
+        results.push(`${key}={${value.toJSX("", "DONT_NEST")}}`);
       }
       // Otherwise wrap the value in curly braces and stringify it
       // This is non-optimal but will work for now.
@@ -297,18 +297,45 @@ export default class JSXElement {
 
   // Convert our children to a JSX string.
   // NOTE: if you have special stuff (eg: <script> etc) to output, override this.
-  _childrenToString(indent, dontNest) {
+  _childrenToJSX(indent, dontNest) {
     const children = this.children;
     if (!children || children.length === 0) return "";
 
     const childExpressions = children.map(child => {
       if (typeof child === "string") return indent + child;
-      return child.toString(indent);
+      return child.toJSX(indent);
     })
 
     if (dontNest) return childExpressions.join("");
     return "\n" + childExpressions.join("\n")
   }
 
+  //////////////////////////////
+  //  Debug
+  //////////////////////////////
+
+  // Return this element and children as a debug string
+  debug(indent = "") {
+    const tagPrefix = indent + "<" + this.type + (this.oid ? " "+this.oid : "");
+    if (this.selfClosing || !this.children || !this.children.length) {
+      return tagPrefix + "/>";
+    }
+
+    const childIndent = indent + "  ";
+    const children = this.children.map( child => {
+      if (child instanceof JSXElement) return child.debug(childIndent);
+      return childIndent + "...";
+    });
+    return tagPrefix + ">\n" + children.join("\n") + "\n" + indent + "</" + this.type + ">";
+  }
+
+
+  toString() {
+    let string = `<${this.type}`;
+    if (this.oid) string += ` ${this.oid}`;
+    return string + "/>";
+  }
+
 }
+
 

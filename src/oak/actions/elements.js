@@ -19,512 +19,154 @@ const DEBUG = false;
 //////////////////////////////
 
 
-// Set `prop[key]` of `element` to `value`.
-// You can specify an `oid` string or a `JSXElement`.
+// Change a map of prop `props` of one or more `elements`.
+// You can specify an `oid` string or a `JSXElement` or an array of same.
 //
-// Required options:  `element`, `key`, `value`
+// Required options:  `elements`, `props`
 // Optional options:  `context`, `returnTransaction`, `operation`
 //
-// NOTE: throws if `element` is not found in `context`.
-export function setElementProp(options) {
+// NOTE: throws if `elements` are not found in `context`.
+export function setElementProps(options) {
   const {
-    context, element, key, value,
-    operation = "setElementProp", returnTransaction
+   context, elements, props,
+    operation = "setElementProps", returnTransaction
   } = options;
 
-  if (typeof key !== "string") die(oak, operation, options, "`options.key` must be a string");
+  if (props == null) die(oak, operation, options, "`options.props` must be an object");
 
-  const transactionOptions = {
-    actionName: "Set Property",
-    context,
-    element,
-    key,
-    value,
-    operation,
-    returnTransaction,
-    transformer: (clone) => {
-      clone.props = Object.assign({}, clone.props, { [key]: value });
-      return clone
-    },
-  }
-  return _changeElementPropsTransaction(transactionOptions);
-}
-
-
-// Change a map of prop `deltas` of an `element`.
-// You can specify an `oid` string or a `JSXElement`.
-//
-// Required options:  `element`, `deltas`
-// Optional options:  `context`, `returnTransaction`, `operation`
-//
-// NOTE: throws if `element` is not found in `context`.
-export function setElementProps({
-  context, element, deltas,
-  operation = "setElementProps", returnTransaction
-}) {
-  if (deltas == null) die(oak, operation, options, "`options.deltas` must be an object");
-
-  const transactionOptions = {
+  return _changeElementTransaction({
     actionName: "Set Properties",
     context,
-    element,
-    deltas,
     operation,
     returnTransaction,
-    transformer: (clone) => {
-      clone.props = Object.assign({}, clone.props, options.deltas);
-      return clone;
+    transformer: (fragment) => {
+      fragment.setProps(props, elements);
     },
-  }
-  return _changeElementPropsTransaction(transactionOptions);
+  });
 }
 
 
 
-// Change all props of `element` to new `props` passed in.
+// Change all props of `elements` to new `props` passed in.
 // You can specify an `oid` string or a `JSXElement`.
 //
-// Required options:  `element`, `props`
+// Required options:  `elements`, `props`
 // Optional options:  `context`, `returnTransaction`, `operation`
 //
-// NOTE: throws if `element` is not found in `context`.
-export function resetElementProps({
-  context, element, props,
-  operation = "setElementProps", returnTransaction
-}) {
-  if (deltas == null) die(oak, operation, options, "`options.deltas` must be an object");
+// NOTE: throws if `elements` are not found in `context`.
+export function resetElementProps(options) {
+  const {
+    context, elements, props,
+    operation = "resetElementProps", returnTransaction
+  } = options;
 
-  const transactionOptions = {
+  if (props == null) die(oak, operation, options, "`options.props` must be an object");
+
+  return _changeElementTransaction({
     actionName: "Set Properties",
     context,
-    element,
-    deltas,
     operation,
     returnTransaction,
-    transformer: (clone) => {
-      clone.props = Object.assign({}, options.props);
-      return clone;
+    transformer: (fragment) => {
+      fragment.resetProps(props, elements);
     },
-  }
-  return _changeElementPropsTransaction(transactionOptions);
+  });
 }
-
 
 
 
 //////////////////////////////
-//  Moving elements in the same context
+//  Removing children
 //////////////////////////////
-
-
-
-// Move a single `element` to new `parent` at `position`,
-//  pushing other elements out of the way.
-//
-// Required options:  `element`, `parent`, `position`
-// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
-//
-// You can specify an `oid` string or a `JSXElement`.
-//
-// NOTE: You cannot reliably use this to move a non-element child,
-//       use `moveChildAtPosition()` instead.
-export function moveElement({
-  context, element: _element, parent, position,
-  operation = "moveElement", returnTransaction, deltas
-}) {
-  const loader = utils.getLoaderOrDie(context, operation);
-  const element = utils.getElementOrDie(loader, _element, operation, deltas);
-  const sourceParent = utils.getElementOrDie(loader, element._parent, operation, deltas);
-  const sourcePosition = utils.getElementPositionOrDie(sourceParent, element, operation);
-
-  const moveChildOptions = {
-    context: loader,
-    element,
-    sourceParent,
-    sourcePosition,
-    parent,
-    position,
-    operation,
-    returnTransaction,
-    deltas
-  }
-
-  // delegate to `moveChildAtPosition()` to actually do the move
-  return moveChildAtPosition(moveChildOptions);
-}
-
-// Move item at `sourcePosition` in `sourceParent` to `position` in `parent`
-//
-// Required options:  `sourceParent`, `sourcePosition`, `parent`, `position`,
-// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
-//
-// NOTE: `sourceParent` MAY be the same as `parent`.
-//
-// NOTE: `sourceParent` and `parent` MUST be in the same `context`.
-//
-// NOTE: This method is called out specially because we don't have to worry about
-//       manipulating element descendents or changing oids...
-export function moveChildAtPosition({
-  context, sourceParent, sourcePosition, parent, position:_position,
-  operation = "moveChildAtPosition", returnTransaction, deltas
-}) {
-
-  const loader = utils.getLoaderOrDie(context, operation);
-
-  const originalSourceParent = utils.getElementOrDie(loader, sourceParent, operation, deltas);
-  // if no target specified, they're moving within the source parent
-  const originalTargetParent = parent
-                             ? utils.getElementOrDie(loader, parent, operation, deltas)
-                             : originalSourceParent;
-  const originalChild = utils.getChildAtPositionOrDie(loader, originalSourceParent, sourcePosition, operation);
-
-  const sameParent = (originalSourceParent === originalTargetParent);
-
-  const newSourceParent = originalSourceParent.clone();
-  const newTargetParent = (sameParent ? newSourceParent : originalTargetParent.clone());
-  const position = (_position !== undefined ? _position : newTargetParent.childCount);
-  const newChild = utils.cloneOrDie(originalChild, operation);
-
-  // if we're adding to the same parent, position may change because of the delete
-  const deleteDelta = (sameParent && (position > sourcePosition)) ? -1 : 0;
-  utils.removeChildAtPositionOrDie(newSourceParent, sourcePosition);
-  utils.addChildAtPositionOrDie(newTargetParent, position + deleteDelta, newChild, operation);
-
-  const transactionOptions = {
-    actionName: "Move Element",
-    loader,
-    originalItems: [originalChild, originalTargetParent, originalSourceParent],
-    newItems: [newChild, newSourceParent, newTargetParent],
-    returnTransaction,
-    deltas
-  }
-  return _changeElementsTransaction(transactionOptions);
-}
-
-
-
-// Move a bunch of `elements` to new `parent` at `position`,
-//  pushing other elements out of the way.
-//
-// Required options:  `elements`, `parent`, `position`
-// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
-//
-// You can specify an `oid` string or a `JSXElement`.
-//
-// NOTE: You cannot reliably use this to move a non-element child,
-//       use `moveChildrenAtPosition()` instead.
-export function moveElements({
-  context, elements, parent, position,
-  operation = "moveElements", returnTransaction, deltas = {}
-}) {
-
-  const transactionOptions = {
-    actionName: "Move Elements",
-    // reverse the list so we're putting them all at the same position
-    list: elements.concat().reverse(),
-    getItemTransaction: (element, index) => {
-      return moveElement({
-        context,
-        element,
-        parent,
-        position,
-        operation,
-        returnTransaction: true,
-        deltas
-      });
-    }
-  }
-  return _mapElementsTransaction(transactionOptions);
-}
-
-
-
-
-
-//////////////////////////////
-//  Adding children to some context
-//////////////////////////////
-
-
-// Add `child` and all descendents to `parent` at `position`, pushing other things out of the way.
-//
-// Required options:  `parent`, `position`, `child`
-// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
-//
-// NOTE: This routine CHANGES THE OIDS of the `child` and all descendents.
-//        If you're moving a node within the same tree and don't want to change oids,
-//        use `moveElement()` instead.
-export function addChildToElement({
-  context, parent, position, child, keepOids,
-  operation = "addChildToElement", returnTransaction, deltas
-}) {
-  if (child == null) die(oak, operation, child, "Child must not be null");
-
-  const loader = utils.getLoaderOrDie(context, operation);
-
-  const originalParent = utils.getElementOrDie(loader, parent, operation, deltas);
-  const originalItems = [ originalParent ];
-
-  const newParent = originalParent.clone();
-  let newChild, newDescendents;
-
-  // clone JSXElements AND ALL DESCEDNENTS and give them new oids
-  if (child instanceof JSXElement) {
-//TODO: deltas???
-    const descendents = child.getDescendentElements([], deltas);
-    if (keepOids) {
-      newChild = utils.cloneOrDie(child, operation);
-      newDescendents = descendents.map( descendent => utils.cloneOrDie(descendent, operation) );
-    } else {
-      [newChild, ...newDescendents] = utils.cloneAndGenerateNewOids(loader, [child, ...descendents]);
-    }
-  }
-  else {
-    newChild = utils.cloneOrDie(child, operation);
-  }
-
-  utils.addChildAtPositionOrDie(newParent, position, newChild, operation);
-
-  const transactionOptions = {
-    actionName: "Add Element",
-    loader,
-    originalItems: [ originalParent ],
-    newItems: [ newParent, newChild, newDescendents ],
-    returnTransaction,
-    deltas
-  }
-
-  return _changeElementsTransaction(transactionOptions);
-}
-
-// Add list of `children` and all descendents to `parent` at `position`,
-// pushing other things out of the way.
-//
-// Required options:  `parent`, `position`, `children`
-// Optional options:  `context`, `returnTransaction`, `operation`, `keepOids`, `deltas`
-export function addChildrenToElement({
-  context, parent, position, children, keepOids,
-  operation = "addChildrenToElement", returnTransaction, deltas
-} = {}) {
-  const transactionOptions = {
-    actionName: "Add Elements",
-    // reverse children so we're adding each at `position`
-    list: children.concat().reverse(),
-    getItemTransaction: (child, index) => {
-      return addChildToElement({
-        context,
-        parent,
-        position: position,
-        child,
-        keepOids,
-        operation,
-        returnTransaction: true,
-        deltas
-      })
-    }
-  }
-  return _mapElementsTransaction(transactionOptions);
-}
-
-
-//////////////////////////////
-//  Removing children from some context
-//////////////////////////////
-
-// Remove child at `position` from `parent`.
-// NOTE: also removes all descendent elements!
-export function removeChildAtPosition({
-  context, parent, position,
-  operation = "removeChildAtPosition", returnTransaction, deltas
-}) {
-  const loader = utils.getLoaderOrDie(context, operation);
-
-  const originalParent = utils.getElementOrDie(loader, parent, operation, deltas);
-  const originalChild = utils.getChildAtPositionOrDie(loader, originalParent, position, operation, deltas);
-  const originalDescendents = utils.getDescendentElements(originalChild);
-
-  const newParent = originalParent.clone();
-  utils.removeChildAtPositionOrDie(newParent, position);
-
-  const transactionOptions = {
-    actionName: "Remove Element",
-    loader,
-    originalItems: [ originalChild, originalDescendents, originalParent ],
-    newItems: [ newParent ],
-    returnTransaction,
-    deltas
-  }
-
-  return _changeElementsTransaction(transactionOptions);
-}
-
-// Remove a `element` passed as `oid` string or by reference from the `context`.
-//
-// Required options:  `element`
-// Optional options:  `context`, `returnTransaction`, `operation`, `deltas`
-//
-// NOTE: You cannot reliably use this to remove a non-element child,
-//       use `removeChildAtPosition()` instead.
-export function removeElement({
-  context, element: _element,
-  operation = "removeElement", returnTransaction, deltas
-}) {
-  const loader = utils.getLoaderOrDie(context, operation);
-  const element = utils.getElementOrDie(loader, _element, operation, deltas);
-  const parent = utils.getElementOrDie(loader, element._parent, operation, deltas);
-  const position = utils.getElementPositionOrDie(parent, element, operation);
-
-  const removeChildOptions = {
-    actionName: "Remove Element",
-    context: loader,
-    element,
-    parent,
-    position,
-    returnTransaction,
-    deltas
-  }
-
-  return removeChildAtPosition(removeChildOptions);
-}
-
 
 // Remove list of `elements` passed as `oid` string or by reference from the `context`.
-// Defaults to removing the `oak.selection`.
 //
-// Optional options:  `context`, `elements`, `returnTransaction`, `operation`, `deltas`
+// Required options:  `elements`
+// Optional options:  `context`, `returnTransaction`, `operation`
 //
 // NOTE: You cannot reliably use this to remove non-element children,
 //       use `removeChildrenAtPositions()` instead.
-export function removeElements({
-  context, elements = oak.selection,
-  operation = "removeElements", returnTransaction, deltas = {}
-} = {}) {
-  const transactionOptions = {
+export function removeElements(options) {
+  const {
+    context, elements,
+    operation = "removeElements", returnTransaction
+  } = options;
+
+  if (elements == null) die(oak, operation, options, "`options.elements` must be an object or array");
+
+  return _changeElementTransaction({
     actionName: "Remove Elements",
-    list: elements,
-    getItemTransaction: (element, index) => {
-      return removeElement({
-        context,
-        element,
-        operation,
-        returnTransaction: true,
-        deltas
-      })
+    context,
+    operation,
+    returnTransaction,
+    transformer: (fragment) => {
+      fragment.removeElements(elements);
     }
-  }
-  return _mapElementsTransaction(transactionOptions);
+  });
 }
 
 
-
-
 //////////////////////////////
-//  Utility functions to manipulate Loaders
+//  Adding children
 //////////////////////////////
 
-function _addElementsToLoader(loader, elements) {
-if (DEBUG) console.log("adding", elements, "to", loader);
-  elements.forEach(element => {
-    if (element instanceof JSXElement) {
-      loader.oids[element.oid] = element;
-    }
-    // recurse for arrays
-    else if (Array.isArray(element) && element.length) {
-      _addElementsToLoader(loader, element);
-    }
-    // ignore everything else
-  })
-  loader.onComponentChanged();
-  return elements;
-}
 
-function _removeElementsFromLoader(loader, elements) {
-if (DEBUG) console.log("removing", elements, "from", loader);
-  elements.forEach(element => {
-    if (element instanceof JSXElement) delete loader.oids[element.oid];
-    // recurse for arrays
-    else if (Array.isArray(element) && element.length) {
-      _removeElementsFromLoader(loader, element);
+// Add list of `elements` and all descendents to `parent` at `position`,
+// pushing other things out of the way.
+//
+// NOTE: this does NOT clone or otherwise modify the elements!
+//
+// Required options:  `parent`, `position`, `elements`
+// Optional options:  `context`, `returnTransaction`, `operation`, `keepOids`
+export function addElements(options) {
+  const {
+    context, parent, position, elements,
+    operation = "addChildrenToElement", returnTransaction
+  } = options;
+
+  if (elements == null) die(oak, operation, options, "`options.elements` must be an object or array");
+
+  return _changeElementTransaction({
+    actionName: "Add Elements",
+    context,
+    operation,
+    returnTransaction,
+    transformer: (fragment) => {
+      fragment.add(parent, position, elements);
     }
-  })
-  loader.onComponentChanged();
-  return elements;
+  });
 }
 
 
 
 //////////////////////////////
-//  Undo action creators
+//  Generic manipulation
 //////////////////////////////
 
 
-// Create a transaction for a transformation of props of a single element which MUST NOT:
+// Create a transaction for a transformation of `props` of one or more elements which MUST NOT:
 //  - affect `children`
 //  - affect `_parent`
 //
-//  We'll call `transformer(<clone-of-element>)`.
+//  We'll call `options.transformer(jsxFragmentClone)`.
 //
 // If `returnTransaction` is truthy, we'll return the transaction created.
 // If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
 //
 // NOTE: don't call this directly, use one of the `setElementProp()` calls.
-function _changeElementPropsTransaction({
-  context, element,
-  transformer,
-  actionName, returnTransaction, operation, deltas
+function _changeElementTransaction({
+  context, transformer,
+  actionName, returnTransaction, operation
 }) {
   const loader = utils.getLoaderOrDie(context, operation);
-  const original = utils.getElementOrDie(loader, element, operation, deltas);
+  const originalFragment = loader.jsxFragment;
 
-  const clone = transformer(original.clone(), loader);
-  function redo() { return _addElementsToLoader(loader, [clone]); }
-  function undo() { return _addElementsToLoader(loader, [original]); }
+  // clone the original fragment and transform it
+  const newFragment = originalFragment.clone();
+  transformer(newFragment);
 
-  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
-}
-
-
-// Create a transaction for one of our `[add|move|remove]Element*()` calls.
-//
-// If `returnTransaction` is truthy, we'll return the transaction created.
-// If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
-//
-// NOTE: don't call this directly, use one of the `setElementProp()` calls.
-//
-// TODO: how will we return the things that have been added for selection?
-function _changeElementsTransaction({
-  loader, originalItems = [], newItems = [],
-  actionName, returnTransaction, deltas
-}) {
-  // Add the new items to the deltas if specified
-  // This allows us to pick up changes within the same transaction.
-  if (deltas) {
-    newItems.forEach( item => { if (item.oid) deltas[item.oid] = item });
-  }
-
-  function redo() {
-const DEBUG = true;
-if (DEBUG) console.group("redo ",actionName);
-if (DEBUG) console.info("removing", originalItems);
-if (DEBUG) console.info("adding", newItems);
-if (DEBUG) console.groupEnd();
-
-    _removeElementsFromLoader(loader, originalItems);
-    return _addElementsToLoader(loader, newItems);
-  }
-
-  function undo() {
-const DEBUG = true;
-if (DEBUG) console.group("undo ",actionName);
-if (DEBUG) console.info("removing", newItems);
-if (DEBUG) console.info("adding", originalItems);
-if (DEBUG) console.groupEnd();
-    _removeElementsFromLoader(loader, newItems);
-    return _addElementsToLoader(loader, originalItems);
-  }
+  function redo() { return _setLoaderFragment(loader, newFragment) }
+  function undo() { return _setLoaderFragment(loader, originalFragment) }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
 
@@ -532,22 +174,10 @@ if (DEBUG) console.groupEnd();
   return oak.undoQueue.addTransaction(transaction);
 }
 
-
-
-// Create a transaction which maps `getTransaction` over a `list`,
-//  gathering all subTransactions returned into a single transaction.
-//
-// If `returnTransaction` is truthy, we'll return the transaction created.
-// If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
-//
-// NOTE: don't call this directly.
-function _mapElementsTransaction({ list, getItemTransaction, actionName, returnTransaction }) {
-  const transaction = UndoQueue.mapTransactions(list, getItemTransaction, actionName, returnTransaction);
-
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
+function _setLoaderFragment(loader, fragment) {
+  loader.jsxFragment = fragment;
+  loader.onComponentChanged();
 }
-
 
 
 
@@ -555,3 +185,4 @@ function _mapElementsTransaction({ list, getItemTransaction, actionName, returnT
 
 // Export all as a lump
 export default Object.assign({}, exports);
+

@@ -12,12 +12,12 @@ import "./EditorToolbar.css";
 
 export default class EditorToolbar extends OakComponent {
   removeButton() {
-    oak.actions.removeElements();
+    oak.actions.removeElements({ elements: oak.selection });
   }
 
   addButton() {
-    const toAdd = [JSXFragment.parse("<Button icon='smile'>Love it even more!</Button>")].root;
-    oak.actions.addChildrenToElement({ parent: "ftEkGCjX", children: toAdd });
+    const button = JSXFragment.parse("<Button icon='smile'>Love it even more!</Button>").root;
+    oak.actions.addElements({ parent: "ftEkGCjX", elements: [button] });
   }
 
   moveText() {
