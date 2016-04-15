@@ -245,7 +245,7 @@ console.log("startDragMoving", info);
   // `info.target` is the `oid` of the target parent if there is one
   onDragMove = (event, info) => {
     const { dropParent, dropPosition } = this.state;
-    const { parent, position } = this.getDropTarget(info.target) || {};
+    const { parent, position, childRects } = this.getDropTarget(info.target) || {};
 
 console.info(parent, dropParent, position, dropPosition);
 
@@ -266,8 +266,12 @@ console.info(parent, dropParent, position, dropPosition);
       });
     }
 
-    const dropParentRect = parent && oak.getRectForOid(parent);
-    this.setState({ dropParent: parent, dropPosition: position, dropParentRect });
+    this.setState({
+      dropParent: parent,
+      dropPosition: position,
+      dropParentRect: parent && oak.getRectForOid(parent),
+      dropChildrenRects: childRects
+    });
   }
 
   getElement(oid) {
@@ -287,23 +291,37 @@ console.info(parent, dropParent, position, dropPosition);
   getDropTarget(mouseComponent) {
     const parent = this.getDropParent(mouseComponent);
     if (!parent) return undefined;
+    if (!parent.children) return { parent: parent.oid };
+
+    const childRects = this.getDropChildrenRects(parent);
+
 
     let position = -1;   // position in the list to add
     // figure out which of the parent's children is under the mouse
-    if (parent.children) {
-      const { dragSelection } = this.state;
-      for (var index = 0; index < parent.children.length; index++) {
-        const childOid = parent.children[index].oid;
-        // `position` ignores things we've added during the drag
-        if (!childOid || !dragSelection.includes(childOid)) position++;
-        if (childOid) {
-          const rect = oak.getRectForOid(childOid);
-          if (rect && rect.containsPoint(oak.event.clientLoc)) break;
-        }
+    const { dragSelection } = this.state;
+    for (var index = 0; index < parent.children.length; index++) {
+      const childOid = parent.children[index].oid;
+      // `position` ignores things we've added during the drag
+      if (!childOid || !dragSelection.includes(childOid)) position++;
+      if (childOid) {
+        const rect = oak.getRectForOid(childOid);
+        if (rect && rect.containsPoint(oak.event.clientLoc)) break;
       }
-      if (index === parent.children.length) position++;
     }
-    return { parent: parent.oid, position };
+    if (index === parent.children.length) position++;
+    return { parent: parent.oid, position, childRects };
+  }
+
+  // Return an array of `{ oid, index, rect }` for children of our dropParent.
+  getDropChildrenRects(dropParent) {
+    if (typeof dropParent === "string") dropParent = oak.getComponentForOid(dropParent);
+
+    if (!dropParent || !dropParent.children) return [];
+
+    return dropParent.children.map( (child, index) => {
+      if (!child.oid) return;
+      return { oid: child.oid, index, rect: oak.getRectForOid(child.oid) }
+    }).filter(Boolean);
   }
 
   // Figure out the drop parent, starting at the `mouseComponent`
@@ -370,9 +388,20 @@ console.log("dragMoveEnd", info);
     return <Resizer {...props} />;
   }
 
+  renderDropChildrenRects() {
+    const rects = this.getDropChildrenRects(this.state.dropParent);
+    return rects.map( ({ oid, index, rect }, rectIndex) => {
+      return <SelectionRect key={rectIndex} type="activeDropChild" rect={rect}>{index}</SelectionRect>
+    }).filter(Boolean);
+  }
+
   renderDropTargetRect() {
     const rect = this.state.dropParentRect;
-    if (rect) return <SelectionRect ref="dropTarget" type="activeDropTarget" rect={rect.outset(5)} />
+    if (!rect) return;
+
+    return [
+      <SelectionRect key="dropTarget" type="activeDropTarget" rect={rect.outset(5)}/>
+    ].concat(this.renderDropChildrenRects());
   }
 
 
