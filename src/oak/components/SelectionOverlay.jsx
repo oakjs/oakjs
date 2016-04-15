@@ -247,9 +247,10 @@ console.log("startDragMoving", info);
     const { dropParent, dropPosition } = this.state;
     const { parent, position } = this.getDropTarget(info.target) || {};
 
-    // Forget it if no change
-    if (parent === dropParent && position === dropPosition) return;
 console.info(parent, dropParent, position, dropPosition);
+
+    // Forget it if no change
+    if (parent === "NO_CHANGE" || (parent === dropParent && position === dropPosition)) return;
 
     // if we're already on-screen, undo to remove elements added before
     if (dropParent) oak.undo();
@@ -273,16 +274,21 @@ console.info(parent, dropParent, position, dropPosition);
   getDropTarget(mouseComponent) {
     const parent = this.getDropParent(mouseComponent);
     if (!parent) return undefined;
+
+    let position = -1;   // position in the list to add
     // figure out which of the parent's children is under the mouse
     if (parent.children) {
-      for (var position = 0; position < parent.children.length; position++) {
-        const child = parent.children[position];
-        if (child.oid) {
-          const rect = oak.getRectForOid(child.oid);
-//          console.log(child.oid, rect);
+      const { dragSelection } = this.state;
+      for (var index = 0; index < parent.children.length; index++) {
+        const childOid = parent.children[index].oid;
+        // `position` ignores things we've added during the drag
+        if (!childOid || !dragSelection.includes(childOid)) position++;
+        if (childOid) {
+          const rect = oak.getRectForOid(childOid);
           if (rect && rect.containsPoint(oak.event.clientLoc)) break;
         }
       }
+      if (index === parent.children.length) position++;
     }
     return { parent: parent.oid, position };
   }
@@ -290,7 +296,7 @@ console.info(parent, dropParent, position, dropPosition);
   getDropParent(mouseComponent) {
     if (!mouseComponent) return undefined;
 
-    const { dragSelection, dragComponents } = this.state;
+    const { dragComponents } = this.state;
     let parent = mouseComponent;
     while (parent) {
       if (parent.canDrop(dragComponents)) return parent;
