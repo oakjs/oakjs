@@ -104,6 +104,21 @@ export default class Rect {
     return Rect.offset(this, point);
   }
 
+  // Return a new rect inset a rect by a certain `delta` on all sides.
+  inset(delta = 0) {
+    return new Rect(
+      this.left + delta,
+      this.top + delta,
+      this.width - (delta*2),
+      this.height - (delta*2)
+    );
+  }
+
+  // Return a new rect outset a rect by a certain `delta` on all sides.
+  outset(delta = 0) {
+    return this.inset(-delta);
+  }
+
   //////////////////////////////
   //  Static math-y functions
   //////////////////////////////

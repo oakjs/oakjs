@@ -253,7 +253,9 @@ console.info(parent, dropParent, position, dropPosition);
     if (parent === "NO_CHANGE" || (parent === dropParent && position === dropPosition)) return;
 
     // if we're already on-screen, undo to remove elements added before
-    if (dropParent) oak.undo();
+    if (dropParent) {
+      oak.undo();
+    }
 
     if (parent) {
       oak.actions.addElements({
@@ -264,13 +266,24 @@ console.info(parent, dropParent, position, dropPosition);
       });
     }
 
-    this.setState({ dropParent: parent, dropPosition: position });
+    const dropParentRect = parent && oak.getRectForOid(parent);
+    this.setState({ dropParent: parent, dropPosition: position, dropParentRect });
   }
 
   getElement(oid) {
     return oak.editContext.jsxFragment.getElement(oid);
   }
 
+  // Return the `{ parent, position }` where drop should happen.
+  // `position` ignores the things being dragged so it's stable as the
+  //  `dragComponents` are added and removed.
+  //
+  // Algorithm:
+  //  - iterate through the `oid` children of the `dropParent`
+  //   - break children up into rows
+  //   - iterate through items in each row:
+  //    - if dropping on the "left side" of an element, drop before it
+  //    - if dropping on the "right side" or "after" an element, drop after it.
   getDropTarget(mouseComponent) {
     const parent = this.getDropParent(mouseComponent);
     if (!parent) return undefined;
@@ -293,6 +306,9 @@ console.info(parent, dropParent, position, dropPosition);
     return { parent: parent.oid, position };
   }
 
+  // Figure out the drop parent, starting at the `mouseComponent`
+  //  and going up until we find something that can accept the `dragComponents`.
+  // Returns `undefined` if no parent found.
   getDropParent(mouseComponent) {
     if (!mouseComponent) return undefined;
 
@@ -312,6 +328,7 @@ console.log("dragMoveEnd", info);
       dragSelection: undefined,
       dragComponents: undefined,
       dropParent: undefined,
+      dropParentRect: undefined,
       dropPosition: undefined,
       dragMoveProps: undefined
     });
@@ -353,6 +370,13 @@ console.log("dragMoveEnd", info);
     return <Resizer {...props} />;
   }
 
+  renderDropTargetRect() {
+    const rect = this.state.dropParentRect;
+    if (rect) return <SelectionRect ref="dropTarget" type="activeDropTarget" rect={rect.outset(5)} />
+  }
+
+
+
 
   render() {
     const { oak } = this.context;
@@ -370,6 +394,7 @@ console.log("dragMoveEnd", info);
         { this.renderSelection() }
         { this.renderDragSelectRect() }
         { this.renderDragMovePreview() }
+        { this.renderDropTargetRect() }
       </div>
     );
   }
