@@ -10,7 +10,7 @@ import "./SelectionRect.css";
 
 export default class SelectionRect extends React.Component {
   render() {
-    const { type, rect, oid, onMouseDown } = this.props;
+    const { type, rect, oid, children, onMouseDown } = this.props;
 
     const rectProps = {
       className: `oak ${type} SelectionRect`,
@@ -18,7 +18,7 @@ export default class SelectionRect extends React.Component {
       onMouseDown
     }
     return (
-      <div {...rectProps}/>
+      <div {...rectProps}>{children}</div>
     )
   }
 }

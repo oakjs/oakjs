@@ -29,7 +29,6 @@
       <Button icon="heart" label="1000">Like</Button>
       <Button icon="fork" label="1000" labelOn="left"/>
       <Button title="Like" icon="heart" label="1000" labelOn="left" labelAppearance="basic right pointing"/>
-      <Spacer/>
       <Button icon="heart" label="1000" color="red" labelAppearance="basic left pointing">Like</Button>
       <Button icon="fork" label="1000" appearance="basic" color="blue" labelAppearance="basic left pointing">Forks</Button>
     </Example>

@@ -215,7 +215,7 @@ export default class SelectionOverlay extends OakComponent {
     this.setState({
       dragMoving: true,
       dragComponents: components,
-      dragSelection: components.map( component => component.oid ),
+      dragOids: components.map( component => component.oid ),
       dropParent: undefined,
       dropPosition: undefined,
       dragMoveProps: {
@@ -312,13 +312,86 @@ console.info(parent, dropParent, position, dropPosition);
   // Return an array of `{ oid, position, rect }` for children of our dropParent.
   getDropChildrenRects(dropParent) {
     if (typeof dropParent === "string") dropParent = this.getElement(dropParent);
-    if (!dropParent || !dropParent.children) return undefined;
+    if (!dropParent || !dropParent.children && !dropParent.children.length) return undefined;
 
-// TODO: fix things up for selected elements
+    // divide into rows
+    const { dragOids } = this.state;
+    const parentRect = oak.getRectForOid(dropParent.oid);
+    const rows = [ [] ];
+    const tops = [ parentRect.top ];
+    let row = 0;
+    let lastLeft = 0;
+    let positionDelta = 0;
+
+    dropParent.children.forEach( (child, position) => {
+      const rect = child.oid && oak.getRectForOid(child.oid);
+      if (!rect) return;
+
+      if (lastLeft && rect.left < lastLeft) {
+        row++;
+        rows[row] = [];
+        lastLeft = 0;
+        tops[row] = rect.top;
+      }
+      else {
+        lastLeft = rect.left;
+        tops[row] = Math.min(rect.top, tops[row]);
+      }
+
+      if (dragOids.includes(child.oid)) positionDelta--;
+
+      rows[rows.length - 1].push( { oid: child.oid, position: position + positionDelta, rect: rect } );
+    })
+
+    tops[row+1] = parentRect.bottom;
+
+    // adjust tops and bottoms of all rects
+    rows.forEach( (row, rowIndex )=> {
+      const top = tops[rowIndex];
+      const height = tops[rowIndex + 1] - top;
+
+      row.forEach( (info, colIndex) => {
+        info.rect.top = top;
+        info.rect.height = height;
+      });
+    });
+
+    // adjust lefts and right of all rects and add a capper column at the end
+    rows.forEach( (row, rowIndex )=> {
+      let lastLeft = parentRect.left;
+
+      row.forEach( (info, colIndex) => {
+        const right = info.rect.left + ( info.rect.width * 2 / 3);
+        const left = (colIndex === 0 ? parentRect.left : info.rect.left);
+
+        info.rect.left = lastLeft;
+        info.rect.width = right - lastLeft;
+
+        lastLeft = info.rect.right;
+      });
+
+      // add another at the end
+      const lastOid = row[row.length - 1];
+      if (lastOid) {
+        const rect = lastOid.rect.clone();
+        rect.left = lastLeft;
+        rect.width = parentRect.width - lastLeft;
+        rows[rowIndex].push( { position: lastOid.position + 1, rect } );
+      }
+    });
+
+    return [].concat(...rows);
+
+
+    // divide into rows
+
     return dropParent.children.map( (child, position) => {
-      if (!child.oid) return;
-      const rect = oak.getRectForOid(child.oid);
-      if (rect) return { oid: child.oid, position, rect }
+      const rect = child.oid && oak.getRectForOid(child.oid);
+      if (!rect) return;
+
+      const adjustedRect = new Rect(parentRect.left, parentRect.top, rect.right - parentRect.left, rect.bottom - parentRect.top);
+console.info(adjustedRect);
+      return { oid: child.oid, position, rect: adjustedRect }
     }).filter(Boolean);
   }
 
@@ -343,7 +416,7 @@ console.info(parent, dropParent, position, dropPosition);
 console.log("dragMoveEnd", info);
     this.setState({
       dragMoving: false,
-      dragSelection: undefined,
+      dragOids: undefined,
       dragComponents: undefined,
       dropParent: undefined,
       dropParentRect: undefined,

@@ -17,6 +17,11 @@ export default class Rect {
     this.height = height || 0;
   }
 
+  // Construct a rect from left/top/right/bottom rather than width + height;
+  static fromSides(left, top, right, bottom) {
+    return new Rect(left, top, right-left, bottom-top);
+  }
+
   clone() {
     return new Rect(this.left, this.top, this.width, this.height);
   }
