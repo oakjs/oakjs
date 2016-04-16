@@ -358,13 +358,14 @@ console.info(parent, dropParent, position, dropPosition);
       rows[row].push( { oid: child.oid, position: position + positionDelta, rect: rect } );
     })
 
-    // split the difference between tops and bottoms
+    // split the difference between tops and bottoms and add padding to top/bottom
+    const ROW_PADDING = 5;
     const adjustedTops = tops.map( (top, rowIndex) => {
-      if (rowIndex === 0) return top;
+      if (rowIndex === 0) return top - ROW_PADDING;
       const bottom = bottoms[rowIndex - 1];
       return top + ((bottom - top) / 2);
     });
-    adjustedTops.push(bottoms[bottoms.length-1]);
+    adjustedTops.push(bottoms[bottoms.length-1] + ROW_PADDING);
 
     // adjust tops and bottoms of all rects
     rows.forEach( (row, rowIndex )=> {
@@ -391,7 +392,15 @@ console.info(parent, dropParent, position, dropPosition);
       }
     });
 
-    return [].concat(...rows);
+    // flatten
+    const rects = [].concat(...rows);
+
+    // add a row at the top above the start
+    const topRect = parentRect.clone({ bottom: adjustedTops[0], top: parentRect.top })
+    rects.unshift({ position:0, rect: topRect });
+
+
+    return rects;
   }
 
 
