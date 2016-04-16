@@ -309,6 +309,21 @@ console.info(parent, dropParent, position, dropPosition);
     }
   }
 
+  // Return the position (index) of the child we should drop BEFORE inside the `dropParent`.
+  getDropPosition(dropParent) {
+    if (!dropParent || !dropParent.children) return undefined;
+
+    const childRects = this.getDropChildrenRects(dropParent);
+    let i = -1, childRect;
+    while ((childRect = childRects[++i])) {
+      const { position, rect } = childRect;
+      if (rect.containsPoint(oak.event.clientLoc)) {
+        return position;
+      }
+    }
+    return dropParent.children.length;
+  }
+
   // Return an array of `{ oid, position, rect }` for children of our dropParent.
   getDropChildrenRects(dropParent) {
     if (typeof dropParent === "string") dropParent = this.getElement(dropParent);
@@ -318,7 +333,8 @@ console.info(parent, dropParent, position, dropPosition);
     const { dragOids } = this.state;
     const parentRect = oak.getRectForOid(dropParent.oid);
     const rows = [ [] ];
-    const tops = [ parentRect.top ];
+    const tops = [ ];
+    const bottoms = [ ];
     let row = 0;
     let lastLeft = 0;
     let positionDelta = 0;
@@ -331,28 +347,29 @@ console.info(parent, dropParent, position, dropPosition);
         row++;
         rows[row] = [];
         lastLeft = 0;
-        tops[row] = rect.top;
       }
       else {
         lastLeft = rect.left;
-        tops[row] = Math.min(rect.top, tops[row]);
       }
+      tops[row] = (tops[row] ? Math.min(tops[row], rect.top) : rect.top);
+      bottoms[row] = (bottoms[row] ? Math.max(bottoms[row], rect.bottom) : rect.bottom);
+//      if (dragOids.includes(child.oid)) positionDelta--;
 
-      if (dragOids.includes(child.oid)) positionDelta--;
-
-      rows[rows.length - 1].push( { oid: child.oid, position: position + positionDelta, rect: rect } );
+      rows[row].push( { oid: child.oid, position: position + positionDelta, rect: rect } );
     })
 
-    tops[row+1] = parentRect.bottom;
+    // split the difference between tops and bottoms
+    const adjustedTops = tops.map( (top, rowIndex) => {
+      if (rowIndex === 0) return top;
+      const bottom = bottoms[rowIndex - 1];
+      return top + ((bottom - top) / 2);
+    });
+    adjustedTops.push(bottoms[bottoms.length-1]);
 
     // adjust tops and bottoms of all rects
     rows.forEach( (row, rowIndex )=> {
-      const top = tops[rowIndex];
-      const height = tops[rowIndex + 1] - top;
-
       row.forEach( (info, colIndex) => {
-        info.rect.top = top;
-        info.rect.height = height;
+        info.rect.set({ top: adjustedTops[rowIndex], bottom: adjustedTops[rowIndex+1] });
       });
     });
 
@@ -362,54 +379,20 @@ console.info(parent, dropParent, position, dropPosition);
 
       row.forEach( (info, colIndex) => {
         const right = info.rect.left + ( info.rect.width * 2 / 3);
-        const left = (colIndex === 0 ? parentRect.left : info.rect.left);
-
-        info.rect.left = lastLeft;
-        info.rect.width = right - lastLeft;
-
+        info.rect.set({ left: lastLeft, right });
         lastLeft = info.rect.right;
       });
 
       // add another at the end
       const lastOid = row[row.length - 1];
       if (lastOid) {
-        const rect = lastOid.rect.clone();
-        rect.left = lastLeft;
-        rect.width = parentRect.width - lastLeft;
+        const rect = lastOid.rect.clone({ left: lastLeft, right: parentRect.right });
         rows[rowIndex].push( { position: lastOid.position + 1, rect } );
       }
     });
 
     return [].concat(...rows);
-
-
-    // divide into rows
-
-    return dropParent.children.map( (child, position) => {
-      const rect = child.oid && oak.getRectForOid(child.oid);
-      if (!rect) return;
-
-      const adjustedRect = new Rect(parentRect.left, parentRect.top, rect.right - parentRect.left, rect.bottom - parentRect.top);
-console.info(adjustedRect);
-      return { oid: child.oid, position, rect: adjustedRect }
-    }).filter(Boolean);
   }
-
-  // Return the position (index) of the child we should drop BEFORE inside the `dropParent`.
-  getDropPosition(dropParent) {
-    if (!dropParent || !dropParent.children) return undefined;
-
-    const childRects = this.getDropChildrenRects(dropParent);
-    let i = -1, childRect;
-    while ((childRect = childRects[++i])) {
-      const { oid, position, rect } = childRect;
-      if (rect.containsPoint(oak.event.clientLoc)) {
-        return position;
-      }
-    }
-    return dropParent.children.length;
-  }
-
 
 
   onDragMoveEnd = (event, info) => {

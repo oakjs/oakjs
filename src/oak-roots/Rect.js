@@ -17,13 +17,33 @@ export default class Rect {
     this.height = height || 0;
   }
 
-  // Construct a rect from left/top/right/bottom rather than width + height;
-  static fromSides(left, top, right, bottom) {
-    return new Rect(left, top, right-left, bottom-top);
+  // Return a clone of this rect.
+  // You can optionally pass a map of `props` and we'll set the new rect as in `set()`.
+  clone(props) {
+    const rect = new Rect(this.left, this.top, this.width, this.height);
+    if (props) rect.set(props);
+    return rect;
   }
 
-  clone() {
-    return new Rect(this.left, this.top, this.width, this.height);
+  // Update this rect IN PLACE with props as any of:
+  //  `{ left, top, width, height, right, bottom }`.
+  //
+  // NOTE: order is important:
+  //  - set `left` first before setting `right`, if you want to change the `width`
+  //  - set `right` first before setting `width`, if you want to change the `left`
+  set(props) {
+    for (let key in props) {
+      const value = (typeof props[key] === "number" ? props[key] : null) || 0;
+      switch(key) {
+        case "left": this.left = value; break;
+        case "top": this.top = value; break;
+        case "width": this.width = value; break;
+        case "height": this.height = value; break;
+        case "right": this.width = value - this.left; break;
+        case "bottom": this.height = value - this.top; break;
+      }
+    }
+    return this;
   }
 
   //////////////////////////////

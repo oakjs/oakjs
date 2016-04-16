@@ -60,8 +60,10 @@ export default class EditorProps {
   canDrop(elements) {
     if (!this.droppable || !elements || !elements.length) return false;
     // return true if elements's dragTypes are compatible with our dropTypes
-    if (!this.dropTypes) return true;
-    return elements.every( element => this.dropTypes.includes(element.editorProps.dragType) )
+    const dropTypes = this.dropTypes;
+    if (!dropTypes) return true;
+    const dragTypes = elements.map( element => element.dragType ).filter(Boolean);
+    return dragTypes.every( dragType => dropTypes.includes(dragType) && !dropTypes.includes("-"+dragType) );
   }
 }
 
