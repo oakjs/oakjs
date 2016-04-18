@@ -339,7 +339,7 @@ console.info(parent, dropParent, position, dropPosition);
     let lastLeft = 0;
     let positionDelta = 0;
 
-    dropParent.children.forEach( (child, position) => {
+    dropParent.children.forEach( (child, index) => {
       const rect = child.oid && oak.getRectForOid(child.oid);
       if (!rect) return;
 
@@ -353,9 +353,11 @@ console.info(parent, dropParent, position, dropPosition);
       }
       tops[row] = (tops[row] ? Math.min(tops[row], rect.top) : rect.top);
       bottoms[row] = (bottoms[row] ? Math.max(bottoms[row], rect.bottom) : rect.bottom);
-//      if (dragOids.includes(child.oid)) positionDelta--;
 
-      rows[row].push( { oid: child.oid, position: position + positionDelta, rect: rect } );
+      if (dragOids.includes(child.oid)) positionDelta--;
+      const position = Math.max(0, index + positionDelta);
+
+      rows[row].push( { oid: child.oid, position, rect } );
     })
 
     // split the difference between tops and bottoms and add padding to top/bottom
