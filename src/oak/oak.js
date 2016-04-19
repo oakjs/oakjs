@@ -383,8 +383,8 @@ class OakJS extends Eventful(Object) {
   }
 
   // Return a map of `{ oids, rects }` for all `oid` elements on the specified `context`.
-  getOidRectsForContext(context, intersectingClientRect, includeContextRoot = false) {
-    const { oids, rects } = this.getOidRects(context.oids, intersectingClientRect);
+  getOidRectsForContext(context = this.editContext, intersectingClientRect, includeContextRoot = false) {
+    const { oids, rects } = this.getOidRects(context.oids, intersectingClientRect) || {};
 
     // Remove the context root oid if specified
     if (!includeContextRoot) {

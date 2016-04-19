@@ -3,7 +3,6 @@
 //////////////////////////////
 
 import Loadable from "oak-roots/Loadable";
-import LoadableIndex from "oak-roots/LoadableIndex";
 import { proto, throttle } from "oak-roots/util/decorators";
 
 import ComponentLoader from "./ComponentLoader";

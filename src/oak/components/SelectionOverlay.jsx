@@ -224,8 +224,7 @@ export default class SelectionOverlay extends OakComponent {
         size: preview.size,
         onDragStart: this.onDragMoveStart,
         onDrag: this.onDragMove,
-        onDragEnd: this.onDragMoveEnd,
-        getTarget: (event) => oak.event.mouseComponent
+        onDragEnd: this.onDragMoveEnd
       }
     });
   }
@@ -245,12 +244,12 @@ console.log("startDragMoving", info);
   // `info.target` is the `oid` of the target parent if there is one
   onDragMove = (event, info) => {
     const { dropParent, dropPosition } = this.state;
-    const { parent, position } = this.getDropTarget(info.target) || {};
-
-console.info(parent, dropParent, position, dropPosition);
+    const { parent, position } = this.getDropTarget(oak.event.mouseComponent) || {};
 
     // Forget it if no change
     if (parent === "NO_CHANGE" || (parent === dropParent && position === dropPosition)) return;
+
+console.info(parent, dropParent, position, dropPosition);
 
     // if we're already on-screen, undo to remove elements added before
     if (dropParent) {
@@ -343,7 +342,7 @@ console.info(parent, dropParent, position, dropPosition);
       const rect = child.oid && oak.getRectForOid(child.oid);
       if (!rect) return;
 
-      if (lastLeft && rect.left < lastLeft) {
+      if (lastLeft && rect.left <= lastLeft) {
         row++;
         rows[row] = [];
         lastLeft = 0;
@@ -359,6 +358,8 @@ console.info(parent, dropParent, position, dropPosition);
 
       rows[row].push( { oid: child.oid, position, rect } );
     })
+
+//console.dir( rows.map( row => row.map( item => item.oid + ":" + item.rect.left ).join(",") ));
 
     // split the difference between tops and bottoms and add padding to top/bottom
     const ROW_PADDING = 5;
@@ -381,7 +382,7 @@ console.info(parent, dropParent, position, dropPosition);
       let lastLeft = parentRect.left;
 
       row.forEach( (info, colIndex) => {
-        const right = info.rect.left + ( info.rect.width * 2 / 3);
+        const right = info.rect.left + (info.rect.width / 2);
         info.rect.set({ left: lastLeft, right });
         lastLeft = info.rect.right;
       });
@@ -407,6 +408,12 @@ console.info(parent, dropParent, position, dropPosition);
 
 
   onDragMoveEnd = (event, info) => {
+  	// If we're moving, but there's nowhere to drop
+  	//	undo to go back to the original tree
+  	if (this.state.dragMoving && !this.state.dropParent) {
+  		oak.undo();
+  	}
+
 console.log("dragMoveEnd", info);
     this.setState({
       dragMoving: false,
