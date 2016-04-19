@@ -1,12 +1,19 @@
 <OakPage id="test" title="JSX Test Card" oid="b2esJKkH">
   <br/>
-  <Container oid="arZsBgMa">
-    <Segment oid="ftEkGCjX">
-      <div oid="GIboFkjD">
+  <Container oid="a">
+    <Segment oid="b">
+      <div oid="b1">
         JSX Test Card!
       </div>
-      <Button title="Love It!" icon="heart" oid="oiBgbSMB" />
-      <Checkbox label="Yahh"/>
+      <Button title="Love It!" icon="heart" oid="b2" />
+      <Checkbox label="Yahh" oid="b3"/>
+    </Segment>
+    <Segment oid="c">
+      <div oid="c1">
+        Test segment 2!
+      </div>
+      <Button title="Love It!" icon="heart" oid="c2" />
+      <Checkbox label="Yahh" oid="c3"/>
     </Segment>
   </Container>
 </OakPage>

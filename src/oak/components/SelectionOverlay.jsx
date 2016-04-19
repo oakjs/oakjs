@@ -236,7 +236,7 @@ export default class SelectionOverlay extends OakComponent {
   }
 
   onDragMoveStart = (event, info) => {
-console.log("startDragMoving", info);
+console.log("startDragMoving", info, this.state.dragComponents);
 // TODO: if option down, drag a clone
     oak.actions.removeElements({ elements: this.state.dragComponents });
   }

@@ -32,12 +32,14 @@ export default class JSXElement {
 
   get oid() { return this.props && this.props.oid }
 
+	get childOids() { return this.children && this.children.map(child => JSXElement.getOid(child) ) }
+
   // Given a JSXElement, `oid` string, return an oid string.
   // Returns `undefined` if none of the above.
 //DEPRECATED ?
   static getOid(thing) {
     if (typeof thing === "string") return thing;
-    if (thing.oid) return thing;
+    if (thing.oid) return thing.oid;
     return undefined;
   }
 
@@ -48,6 +50,7 @@ export default class JSXElement {
   get childCount() {
     return (this.children ? this.children.length : 0);
   }
+
 
   indexOf(child) {
     if (!this.children) return -1;
@@ -72,6 +75,14 @@ export default class JSXElement {
     return descendents;
   }
 
+	// Do we recursively contain some child oid?
+	// NOTE: includes this element!
+	contains(oid) {
+		if (this.oid === oid) return true;
+		if (!this.children) return false;
+		return this.children.some(child => child instanceof JSXElement && child.contains(oid) );
+	}
+
   //////////////////////////////
   //  Edit settings  (NOTE: this is highly oak specific)
   //////////////////////////////
@@ -91,11 +102,11 @@ export default class JSXElement {
   }
 
   canDrag() {
-    return this.editorProps.canDrag;
+    return this.editorProps.canDrag(this);
   }
 
   canDrop(elements) {
-    return this.editorProps.canDrop(elements);
+    return this.editorProps.canDrop(this, elements);
   }
 
   //////////////////////////////

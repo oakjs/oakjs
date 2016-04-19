@@ -153,7 +153,13 @@ export default class JSXFragment {
     const parentClone = this._cloneElementAndParents(parent);
 
     // pull out the element
-    const element = parentClone.children.splice(position, 1);
+    let element = parentClone.children.splice(position, 1)[0];
+
+    // clone and clear parent
+    if (element instanceof JSXElement) {
+    	element = element.clone();
+    	delete element._parent;
+    }
 
     // recursively remove all `oids` for element and its children
     this._removeOids(element);

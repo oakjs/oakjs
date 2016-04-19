@@ -43,7 +43,8 @@ export default class EditorProps {
   draggable = true;
 
   // Can this thing be dragged?
-  canDrag() {
+  // TODO: "locked" ?
+  canDrag(jsxElement) {
     return this.draggable;
   }
 
@@ -56,13 +57,16 @@ export default class EditorProps {
 
   // Can `elements` JSXElements be dropped on us?
   // Subclasses likely want to defer to this to start...
-  // TODO: scope for parent?
-  canDrop(elements) {
-    if (!this.droppable || !elements || !elements.length) return false;
-    // return true if elements's dragTypes are compatible with our dropTypes
+  canDrop(dropTarget, dragElements) {
+    if (!this.droppable || !dragElements || !dragElements.length) return false;
+
+    // dont' allow drop of dragElements on themselves or their children
+    if (dragElements.some(element => element.contains(dropTarget.oid))) return false;
+
+    // return true if dragElements's dragTypes are compatible with our dropTypes
     const dropTypes = this.dropTypes;
     if (!dropTypes) return true;
-    const dragTypes = elements.map( element => element.dragType ).filter(Boolean);
+    const dragTypes = dragElements.map( element => element.dragType ).filter(Boolean);
     return dragTypes.every( dragType => dropTypes.includes(dragType) && !dropTypes.includes("-"+dragType) );
   }
 }
