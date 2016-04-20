@@ -38,6 +38,10 @@ export default class SelectionOverlay extends OakComponent {
     $(window).off("resize", this.onResize);
   }
 
+  getElement(oid) {
+    return oak.editContext.jsxFragment.getElement(oid);
+  }
+
   //////////////////////////////
   // Window/document events which change browser geometry
   // and update selection rectangles
@@ -239,6 +243,7 @@ export default class SelectionOverlay extends OakComponent {
 console.log("startDragMoving", info, this.state.dragComponents);
 // TODO: if option down, drag a clone
     oak.actions.removeElements({ elements: this.state.dragComponents });
+    this.setState({ dragMoveStarted: true });
   }
 
   // `info.target` is the `oid` of the target parent if there is one
@@ -272,10 +277,6 @@ console.info(parent, dropParent, position, dropPosition);
     });
 
     oak.forceUpdate();
-  }
-
-  getElement(oid) {
-    return oak.editContext.jsxFragment.getElement(oid);
   }
 
   // Return the `{ parent, position }` where drop should happen.
@@ -443,15 +444,16 @@ console.info(parent, dropParent, position, dropPosition);
 
 
   onDragMoveEnd = (event, info) => {
-  	// If we're moving, but there's nowhere to drop
-  	//	undo to go back to the original tree
-  	if (this.state.dragMoving && !this.state.dropParent) {
+  	// If we've started moving, but there's nowhere to drop
+  	//	undo to go back to the original tree.
+  	if (this.state.dragMoveStarted && !this.state.dropParent) {
   		oak.undo();
   	}
 
 console.log("dragMoveEnd", info);
     this.setState({
       dragMoving: false,
+      dragMoveStarted: undefined,
       dragOids: undefined,
       dragComponents: undefined,
       dropParent: undefined,
@@ -498,7 +500,7 @@ console.log("dragMoveEnd", info);
   }
 
   renderDropChildrenRects() {
-  return null;
+return null;
     const rects = this.getDropChildrenRects(this.state.dropParent);
     if (!rects) return [];
 
