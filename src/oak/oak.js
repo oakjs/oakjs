@@ -158,11 +158,17 @@ class OakJS extends Eventful(Object) {
   get canRedo() { return oak.undoQueue.canRedo }
 
   // Force update of the entire oak, including any changed props in page/section/project
-  @debounce(0)
   updateSoon() {
-    if (oak._appRoute) oak._appRoute.setState({});
+    clearTimeout(oak._updateTimer);
+    oak._updateTimer = setTimeout(oak.forceUpdate, 0);
   }
 
+  forceUpdate() {
+    clearTimeout(oak._updateTimer);
+    if (!oak._appRoute) return;
+console.log("forceUpdate");
+    oak._appRoute.setState({});
+  }
 
   //////////////////////////////
   //  App preferences (how is this different than state?)
@@ -265,7 +271,9 @@ class OakJS extends Eventful(Object) {
   }
 
   // Given a string `type` from a JSXE, return the `Component` class it corresponds to.
-  getComponentConstructorForType(type, errorMessage, components = this.components) {
+  getComponentConstructorForType(type, errorMessage, components) {
+    if (!components) components = (this.editContext ? this.editContext.components : this.components);
+
     // return non-string component immediately
     if (type && typeof type !== "string") return type;
 
@@ -287,15 +295,15 @@ class OakJS extends Eventful(Object) {
     if (component) return this.getComponentConstructorForType(component.type);
   }
 
-// DEPREACTE???
+// DEPRECATE???
   getEditorProps(constructor) {
     if (typeof constructor === "string") {
       if (HTML_EDITOR_SETTINGS[constructor]) return HTML_EDITOR_SETTINGS[constructor];
       console.warn(`oak.getEditorProps(${constructor}): cant find html type!`);
     }
     else if (constructor) {
-      if (constructor.editProps) return constructor.editProps;
-      console.warn(`oak.getEditorProps(${constructor}): cant find 'editProps' settings for type!`);
+      if (constructor.editorProps) return constructor.editorProps;
+      console.warn(`oak.getEditorProps(${constructor}): cant find 'editorProps' settings for type!`);
     }
     return new EditorProps();
   }

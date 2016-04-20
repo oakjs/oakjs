@@ -270,6 +270,8 @@ console.info(parent, dropParent, position, dropPosition);
       dropPosition: position,
       dropParentRect: parent && oak.getRectForOid(parent)
     });
+
+    oak.forceUpdate();
   }
 
   getElement(oid) {

@@ -109,6 +109,14 @@ export default class JSXElement {
     return this.editorProps.canDrop(this, elements);
   }
 
+	get dragType() {
+    return this.editorProps.dragType;
+	}
+
+	get dropTypes() {
+    return this.editorProps.dropTypes;
+	}
+
   //////////////////////////////
   //  Render method
   //////////////////////////////

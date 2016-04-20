@@ -55,6 +55,9 @@ export default class EditorProps {
   @proto
   droppable = true;   // TODO: ???
 
+  @proto
+  nestable = true;   // TODO: ???
+
   // Can `elements` JSXElements be dropped on us?
   // Subclasses likely want to defer to this to start...
   canDrop(dropTarget, dragElements) {
@@ -62,6 +65,9 @@ export default class EditorProps {
 
     // dont' allow drop of dragElements on themselves or their children
     if (dragElements.some(element => element.contains(dropTarget.oid))) return false;
+
+    // check for nesting
+    if (!this.nestable && dragElements.some(element => element.type === dropTarget.dragType)) return false;
 
     // return true if dragElements's dragTypes are compatible with our dropTypes
     const dropTypes = this.dropTypes;
@@ -74,9 +80,9 @@ export default class EditorProps {
 
 // Make a thing editable
 export function editify(props, thing, dragType) {
-  thing.editProps = new EditorProps(props);
-  if (!thing.editProps.dragType) {
-    thing.editProps.dragType = dragType || thing.name;
+  thing.editorProps = new EditorProps(props);
+  if (!thing.editorProps.dragType) {
+    thing.editorProps.dragType = dragType || thing.name;
   }
 }
 
