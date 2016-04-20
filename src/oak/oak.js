@@ -166,7 +166,7 @@ class OakJS extends Eventful(Object) {
   forceUpdate() {
     clearTimeout(oak._updateTimer);
     if (!oak._appRoute) return;
-console.log("forceUpdate");
+console.log("oak.forceUpdate()");
     oak._appRoute.setState({});
   }
 
