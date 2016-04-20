@@ -332,36 +332,86 @@ console.info(parent, dropParent, position, dropPosition);
 
     // divide into rows
     const { dragOids } = this.state;
-    const parentRect = oak.getRectForOid(dropParent.oid);
-    const rows = [ [] ];
-    const tops = [ ];
-    const bottoms = [ ];
-    let row = 0;
-    let lastLeft = 0;
-    let positionDelta = 0;
 
-    dropParent.children.forEach( (child, index) => {
-      const rect = child.oid && oak.getRectForOid(child.oid);
+    // get oid/position/rect for all children
+    let positionDelta = 0;
+    const children = dropParent.children.map( (child, index) => {
+      const oid = child.oid;
+      const rect = oid && oak.getRectForOid(oid);
       if (!rect) return;
 
-      if (lastLeft && rect.left <= lastLeft) {
-        row++;
-        rows[row] = [];
-        lastLeft = 0;
-      }
-      else {
-        lastLeft = rect.left;
-      }
-      tops[row] = (tops[row] ? Math.min(tops[row], rect.top) : rect.top);
-      bottoms[row] = (bottoms[row] ? Math.max(bottoms[row], rect.bottom) : rect.bottom);
-
-      if (dragOids.includes(child.oid)) positionDelta--;
+      const insideSelection = dragOids.includes(oid);
+      if (insideSelection) positionDelta--;
       const position = Math.max(0, index + positionDelta);
 
-      rows[row].push( { oid: child.oid, position, rect } );
-    })
+      return { oid, position, rect };
+    }).filter(Boolean);
 
-//console.dir( rows.map( row => row.map( item => item.oid + ":" + item.rect.left ).join(",") ));
+    // divide into rows
+    const parentRect = oak.getRectForOid(dropParent.oid);
+    let rows = [ [] ];
+    let row = 0;
+    let rowEnd = parentRect.left;
+
+    children.forEach( (child, index) => {
+      // if we're beyond the end of the current row
+      if (rowEnd >= child.rect.left) {
+        // if there's exactly one thing in the row
+        // split it in half vertically
+        if (rows[row].length === 1) {
+          // make element half height
+          const element = rows[row][0];
+          element.rect.height = element.rect.height / 2;
+          // create clone and push it's top down
+          const clone = { oid: element.oid, position: child.position, rect: element.rect.clone() };
+          clone.rect.top += clone.rect.height;
+          row++;
+          rows[row] = [ clone ];
+        }
+
+        // next row
+        row++;
+        rows[row] = [];
+      }
+      rowEnd = child.rect.right;
+      rows[row].push(child);
+    })
+//console.dir( rows.map( row => row.map( item => item.oid + ":" + Math.floor(item.rect.left) ).join(",") ));
+
+    // remove empty rows
+    rows = rows.filter(row => row.length > 0);
+
+    // adjust lefts and right of all rects and add a capper column at the end
+    rows.forEach( (row, rowIndex)=> {
+      // if only one thing in the row, take up the whole width
+      if (row.length === 1) {
+        const info = row[0];
+        info.rect.set({left: parentRect.left, width: parentRect.width });
+      }
+      // if multiple in row,
+      // adjust lefts and right of all rects and add a capper column at the end
+      else {
+        let lastLeft = parentRect.left;
+
+        row.forEach( (info, colIndex) => {
+          // draw the line 1/2 way between the two elements
+          const right = info.rect.left + (info.rect.width / 2);
+          info.rect.set({ left: lastLeft, right });
+          lastLeft = info.rect.right;
+        });
+
+        // add another at the end
+        const lastOid = row[row.length - 1];
+        if (lastOid) {
+          const rect = lastOid.rect.clone({ left: lastLeft, right: parentRect.right });
+          rows[rowIndex].push( { position: lastOid.position + 1, rect } );
+        }
+      }
+    });
+
+
+    const tops = rows.map( row => Math.min(...row.map( cell => cell.rect.top) ) );
+    const bottoms = rows.map( row => Math.max(...row.map( cell => cell.rect.bottom) ) );
 
     // split the difference between tops and bottoms and add padding to top/bottom
     const ROW_PADDING = 5;
@@ -379,31 +429,14 @@ console.info(parent, dropParent, position, dropPosition);
       });
     });
 
-    // adjust lefts and right of all rects and add a capper column at the end
-    rows.forEach( (row, rowIndex )=> {
-      let lastLeft = parentRect.left;
-
-      row.forEach( (info, colIndex) => {
-        const right = info.rect.left + (info.rect.width / 2);
-        info.rect.set({ left: lastLeft, right });
-        lastLeft = info.rect.right;
-      });
-
-      // add another at the end
-      const lastOid = row[row.length - 1];
-      if (lastOid) {
-        const rect = lastOid.rect.clone({ left: lastLeft, right: parentRect.right });
-        rows[rowIndex].push( { position: lastOid.position + 1, rect } );
-      }
-    });
-
     // flatten
     const rects = [].concat(...rows);
 
     // add a row at the top above the start
-    const topRect = parentRect.clone({ bottom: adjustedTops[0], top: parentRect.top })
-    rects.unshift({ position:0, rect: topRect });
-
+    if (adjustedTops[0] > parentRect.top) {
+      const topRect = parentRect.clone({ bottom: adjustedTops[0], top: parentRect.top })
+      rects.unshift({ position:0, rect: topRect });
+    }
 
     return rects;
   }
@@ -465,6 +498,7 @@ console.log("dragMoveEnd", info);
   }
 
   renderDropChildrenRects() {
+  return null;
     const rects = this.getDropChildrenRects(this.state.dropParent);
     if (!rects) return [];
 
