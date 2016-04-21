@@ -8,7 +8,7 @@ import { classNames } from "oak-roots/util/react";
 import JSXFragment from "../JSXFragment";
 import OakComponent from "./OakComponent";
 
-import "./EditorToolbar.css";
+import "./EditorToolbar.less";
 
 export default class EditorToolbar extends OakComponent {
   removeButton() {

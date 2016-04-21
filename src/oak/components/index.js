@@ -1,4 +1,5 @@
 // Components which can be used in a page.
+export AppMenubar from "./AppMenubar";
 export Columns from "./Columns";
 export CurrentPage from "./CurrentPage";
 export CurrentProject from "./CurrentProject";

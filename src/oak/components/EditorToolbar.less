@@ -1,0 +1,32 @@
+/* Container for the toolbar: this takes up space to push the body down
+  so the -fixed bit below doesn't overlap the body. */
+#EditorToolbar {
+  position: relative;
+  height: 30px;
+  margin: 0;
+  z-index: 10000;
+  background-color: #333;
+}
+
+/* The toolbar itself is fixed, so it pops out of its container */
+#EditorToolbar-fixed {
+  position: fixed;
+  left: 0; top: 30px; width: 100%; height: 30px;
+  margin: 0;
+  z-index: 10000;
+  background-color: #333;
+  border-width: 0px;
+  border-bottom: 1px solid #222;
+  box-shadow: 0 2px 2px rgba(0,0,0,.3);
+
+  .ui.button {
+    color: white;
+    height: 30px;
+    padding: 9px 7px;
+  }
+
+  .ui.active.button {
+    color: lightblue;
+  }
+
+}

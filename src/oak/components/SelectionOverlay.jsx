@@ -526,7 +526,8 @@ return null;
     const props = {
       id: "SelectionOverlay",
       onMouseDown: this.onMouseDown,
-      onMouseMove: this.onMouseMove
+      onMouseMove: this.onMouseMove,
+      style: oak.getRectForOid(oak.editContext.oid)
     }
 
     return (

@@ -10,3 +10,7 @@
 .ui.menu .item {
   cursor: pointer;
 }
+
+.ui.menu .item.hidden {
+  display: none;
+}

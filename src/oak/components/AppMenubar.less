@@ -1,0 +1,49 @@
+/* Container for the menubar: this takes up space to push the body down
+  so the -fixed bit below doesn't overlap the body. */
+#AppMenubar {
+  position: relative;
+  height: 30px;
+  margin: 0;
+  z-index: 10001;  // must be above #EditorToolbar
+  background-color: #333;
+}
+
+/* The menubar itself is fixed, so it pops out of its container */
+#AppMenubar-fixed {
+  position: fixed;
+  left: 0; top: 0; width: 100%; height: 30px;
+  margin: 0;
+  padding: 0px 5px;
+  background-color: #333;
+  border-width: 0px;
+  border-bottom: 1px solid #222;
+
+
+  .ui.dropdown {
+    height: 30px;
+    padding: 5px 10px;
+    color: #eee;
+
+    .ui.menu {
+      background-color: #333;
+      padding-top: .4em;
+      padding-bottom: .6em;
+
+      .item {
+        background-color: transparent;
+        color: #eee;
+        padding: .35rem 1.5rem !important;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, .1);
+        }
+      }
+    }
+
+    & > .ui.menu {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+}

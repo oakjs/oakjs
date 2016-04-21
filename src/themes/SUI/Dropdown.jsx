@@ -213,7 +213,7 @@ class SUIDropdown extends SUIModuleComponent {
 
   render() {
     const {
-      id, className, style,
+      oid, id, className, style,
       type, selection, multiple, search,
       text, placeholder, icon, children,
       items, menuClassName, menuAppearance,
@@ -225,6 +225,7 @@ class SUIDropdown extends SUIModuleComponent {
 
     const elements = new ElementBuffer({
       props : {
+        "data-oid": oid,
         id,
         style,
         className: [className, "ui", appearance, getPointingClass(pointing),
@@ -255,10 +256,5 @@ class SUIDropdown extends SUIModuleComponent {
     return elements.render();
   }
 }
-
-// Install us to be created whenever a "Field" specifies `type=checkbox`
-import { registerFieldType } from "./Field";
-registerFieldType("checkbox", SUIDropdown);
-
 
 export default SUIDropdown;

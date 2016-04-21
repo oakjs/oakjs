@@ -22,7 +22,7 @@ function SUIMenuItem(props) {
     className,
     value, label = value, children,
     appearance, color, icon, image,
-    active, disabled, down,
+    active, hidden, disabled, down,
     href, onClick,
     // including id, style
     ...extraProps
@@ -34,7 +34,7 @@ function SUIMenuItem(props) {
     type: (href ? "a" : "div"),
     props: {
       ...extraProps,
-      className: [ className, appearance, color, { link: isLinkish, active, disabled, down }, "item"],
+      className: [ className, appearance, color, { link: isLinkish, active, hidden, disabled, down }, "item"],
       "data-value": value,
       "data-text": label,
       href,
