@@ -527,7 +527,7 @@ return null;
       id: "SelectionOverlay",
       onMouseDown: this.onMouseDown,
       onMouseMove: this.onMouseMove,
-      style: oak.getRectForOid(oak.editContext.oid)
+      style: oak.getRectForOid(oak.editContext && oak.editContext.oid)
     }
 
     return (
