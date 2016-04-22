@@ -1,5 +1,5 @@
 #SelectionOverlay {
   position:fixed;
   background-color:rgba(255,0,0,.1);
-  z-index:10000000;
+  z-index:9999;  /* must be below #AppMenubar */
 }

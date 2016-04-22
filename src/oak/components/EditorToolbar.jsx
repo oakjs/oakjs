@@ -30,19 +30,19 @@ export default class EditorToolbar extends OakComponent {
       <div id="EditorToolbar">
         <c.Menu id="EditorToolbar-fixed" appearance="attached">
           <c.Buttons appearance="transparent">
-            <c.Button onClick={oak.actions.stopEditing} icon="large pointing up" active={!oak.state.editing}/>
-            <c.Button onClick={oak.actions.startEditing} icon="large configure" active={oak.state.editing}/>
+            <c.Button onClick={oak.actions.stopEditing} icon="pointing up" active={!oak.state.editing}/>
+            <c.Button onClick={oak.actions.startEditing} icon="configure" active={oak.state.editing}/>
             <c.Spacer inline/>
           </c.Buttons>
           <c.Buttons appearance="transparent">
-            <c.Button onClick={oak.undo} icon="large undo" disabled={!oak.canUndo}/>
-            <c.Button onClick={oak.redo} icon="large repeat" disabled={!oak.canRedo}/>
+            <c.Button onClick={oak.undo} icon="undo" disabled={!oak.canUndo}/>
+            <c.Button onClick={oak.redo} icon="repeat" disabled={!oak.canRedo}/>
             <c.Spacer inline/>
           </c.Buttons>
           <c.Buttons appearance="transparent" visible={oak.state.editing} color="red">
-            <c.Button onClick={this.removeButton} icon="large remove"/>
-            <c.Button onClick={this.addButton} icon="large plus"/>
-            <c.Button onClick={this.moveText} icon="large move"/>
+            <c.Button onClick={this.removeButton} icon="remove"/>
+            <c.Button onClick={this.addButton} icon="plus"/>
+            <c.Button onClick={this.moveText} icon="move"/>
           </c.Buttons>
         </c.Menu>
       </div>
