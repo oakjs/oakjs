@@ -80,7 +80,7 @@ class SUIProgress extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   // Convert "xText" properties to `text:{}` for sending in to SUI.embed()
-  setModuleProps(props) {
+  setModuleProps(props = {}) {
     Object.keys(props).forEach( key => {
       if (!key.endsWith("Text")) return;
       if (!props.text) props.text = {};

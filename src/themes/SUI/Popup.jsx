@@ -139,8 +139,10 @@ class SUIPopup extends SUIModuleComponent {
   }
 
   setModuleProps(props) {
-    props.target = this.getTarget();
-    props.popup = this.$ref();
+    if (props) {
+      props.target = this.getTarget();
+      props.popup = this.$ref();
+    }
     super.setModuleProps(props);
   }
 

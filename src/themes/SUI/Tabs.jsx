@@ -142,7 +142,7 @@ class SUITabs extends SUIModuleComponent {
     return this.$ref().find(".tabular.menu .item").tab(...args);
   }
 
-  setModuleProps(props) {
+  setModuleProps(props = {}) {
     // if context isn't set, use our `$ref
     if (!props.context) props.context = this.$ref();
 

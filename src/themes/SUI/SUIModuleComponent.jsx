@@ -28,7 +28,7 @@ export default class SUIModuleComponent extends SUIComponent {
 
   componentDidUpdate(prevProps) {
     const deltas = this.getModuleDeltas(prevProps);
-    this.setModuleProps(deltas || {});
+    this.setModuleProps(deltas);
   }
 
   //////////////////////////////
@@ -54,7 +54,7 @@ export default class SUIModuleComponent extends SUIComponent {
   // NOTE: if you map logical prop names, this is the place to do it.
   // NOTE: you may modify `moduleProps` passed in to this function with impunity (they're a copy).
   setModuleProps(moduleProps) {
-    this.tellModule(moduleProps);
+    if (moduleProps) this.tellModule(moduleProps);
     return this;
   }
 

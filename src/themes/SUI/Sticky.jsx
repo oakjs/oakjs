@@ -79,6 +79,8 @@ class SUISticky extends SUIModuleComponent {
   }
 
   setModuleProps(props) {
+    if (!props) return this;
+
     // set module props after a short delay to let the rest of the page settle out
     window.requestAnimationFrame(() => {
       if (typeof props.context === "function") props.context = props.context();

@@ -66,7 +66,7 @@ class SUIEmbed extends SUIModuleComponent {
 
   // Convert "embedId" property to "id" for sending in to SUI.embed()
   setModuleProps(props) {
-    if (props.embedId) {
+    if (props && props.embedId) {
       props.id = props.embedId;
       delete props.embedId;
     }

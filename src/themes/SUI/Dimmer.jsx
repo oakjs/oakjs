@@ -90,10 +90,6 @@ const Dimmer = class SUIDimmer extends SUIModuleComponent {
     return this.$ref().dimmer(...args);
   }
 
-  setModuleProps(props) {
-    super.setModuleProps(props);
-  }
-
 
   //////////////////////////////
   // SUI Dimmer Module Behaviors

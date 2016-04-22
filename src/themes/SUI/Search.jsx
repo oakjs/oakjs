@@ -103,7 +103,7 @@ class SUISearch extends SUIModuleComponent {
     return this.$ref().search(...args);
   }
 
-  setModuleProps(props) {
+  setModuleProps(props = {}) {
     const { category } = this.props;
     if (!props.type && category) props.type = "category"
     super.setModuleProps(props);

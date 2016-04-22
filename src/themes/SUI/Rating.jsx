@@ -60,7 +60,7 @@ class SUIRating extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   // Convert "xText" properties to `text:{}` for sending in to SUI.embed()
-  setModuleProps(props) {
+  setModuleProps(props = {}) {
     if (props.rating) {
       props.initialRating = props.rating;
       delete props.rating;

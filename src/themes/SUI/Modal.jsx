@@ -123,11 +123,10 @@ class SUIModal extends SUIComponent {
     return knownProperties(props, this.constructor.moduleProps);
   }
 
-  setModuleProps(props = this.getModuleProps()) {
+  setModuleProps(props = {}) {
     // force detachable off or our rendering will mess up
     props.detachable = false;
-    this.tellModule(props);
-    return this;
+    return super.setModuleProps(props);
   }
 
   tellModule(...args) {
