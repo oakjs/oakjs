@@ -13,20 +13,20 @@ import "./AppMenubar.less";
 export default class AppMenubar extends OakComponent {
   render() {
     const { oak, components: c } = this.context;
-    const { Dropdown, Menu, MenuItem, Divider } = c;
+    const { Divider, Dropdown, Menu, MenuItem, Submenu } = c;
     return (
       <div id="AppMenubar">
         <div id="AppMenubar-fixed">
           <Dropdown text="OakJS" showArrow={false} action="hide">
             <Menu>
-              <MenuItem>About OakJS</MenuItem>
-              <MenuItem>Get Help</MenuItem>
+              <MenuItem disabled>About OakJS</MenuItem>
+              <MenuItem disabled>Get Help</MenuItem>
             </Menu>
           </Dropdown>
           <Dropdown text="File" showArrow={false} action="hide">
             <Menu>
               <MenuItem disabled>Open Project...</MenuItem>
-              <MenuItem icon="dropdown" disabled>Open Recent...</MenuItem>
+              <Submenu disabled>Open Recent...</Submenu>
               <MenuItem disabled>Close Project</MenuItem>
             </Menu>
           </Dropdown>
@@ -59,6 +59,7 @@ export default class AppMenubar extends OakComponent {
               <MenuItem disabled>Edit Section</MenuItem>
               <Divider/>
               <MenuItem disabled>Section Settings...</MenuItem>
+              <Submenu disabled>Jump to Section...</Submenu>
               <Divider/>
               <MenuItem disabled>New Section...</MenuItem>
               <MenuItem disabled>Duplicate Section...</MenuItem>
@@ -71,7 +72,7 @@ export default class AppMenubar extends OakComponent {
               <MenuItem hidden={!oak.state.editing} onClick={oak.actions.stopEditing}>Stop Editing Page</MenuItem>
               <Divider/>
               <MenuItem disabled>Page Settings...</MenuItem>
-              <MenuItem disabled icon="dropdown">Jump to Page</MenuItem>
+              <Submenu disabled>Jump to Page...</Submenu>
               <Divider/>
               <MenuItem disabled>New Page...</MenuItem>
               <MenuItem disabled>Duplicate Page...</MenuItem>

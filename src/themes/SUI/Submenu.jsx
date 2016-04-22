@@ -16,7 +16,7 @@ import { renderItems } from "./Menu";
 import "./Menu.css";
 
 function SUISubmenu(props, context) {
-  const {
+  let {
     label, items, children,
     className, appearance, disabled,
     // including id, style
@@ -30,16 +30,21 @@ function SUISubmenu(props, context) {
     }
   });
 
+  elements.appendIcon("dropdown");
+
   if (label) {
     elements.append(label);
+  }
+  else if (typeof children === "string") {
+    elements.appendWrapped("div", "text", children);
+    children = null;
   }
   // if first item in children is a string, use that as the label
   else if (children && children.length && typeof children[0] === "string") {
     const childLabel = children.shift();
-    elements.append(childLabel);
+    elements.appendWrapped("div", "text", childLabel);
   }
 
-  elements.appendIcon("dropdown");
 
   const menuItems = children || renderItems(items);
   if (!menuItems) console.warn("SubMenu.render(): neither children nor items returned anything", children, items);
