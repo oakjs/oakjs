@@ -88,7 +88,7 @@ export function resetElementProps(options) {
 //       use `removeChildrenAtPositions()` instead.
 export function removeElements(options) {
   const {
-    context, elements,
+    context, elements = oak.selectedComponents,
     operation = "removeElements", returnTransaction
   } = options;
 
