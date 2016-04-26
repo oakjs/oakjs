@@ -120,14 +120,7 @@ class OakJS extends Eventful(Object) {
     return this.state.selection;
   }
 
-  // Return the HTML elements which correspond to the selection.
-  // TODO: this could get out of sync with `selection` and `selectedComponents`
-  get selectedElements() {
-    return this.selection.map( oid => this.getElementForOid(oid) ).filter(Boolean);
-  }
-
   // Return the `JSXElement`s which correspond to the selection.
-  // TODO: this could get out of sync with `selection` and `selectedElements`
   get selectedComponents() {
     return this.selection.map( oid => this.getEditableComponentForOid(oid) ).filter(Boolean);
   }

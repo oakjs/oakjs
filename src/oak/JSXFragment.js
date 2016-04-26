@@ -86,6 +86,12 @@ export default class JSXFragment {
   }
 
 
+	// Given a list of elements or oids, return as a list of elements.
+	getElements(elementsOrOids = []) {
+		return elementsOrOids.map( elementOrOid => this.getElement(elementOrOid) )
+			.filter(Boolean);
+	}
+
   //////////////////////////////
   // Modify element properties
   //////////////////////////////
@@ -308,6 +314,18 @@ if (!element) debugger;
     this._forEachDescendant(element, (element) => this._removeOid(element));
   }
 
+
+	// Given a possibly mixed list of parents and their descendents as oids or elements, throw out children.
+	// Eg: after this call, nothing left in the list will be a descendent of anything else.
+	_removeDescendents(elements = []) {
+		if (elements.length === 0) return [];
+
+		const oids = elements.map( elementOrOid => JSXElement.getOid(elementOrOid) ).filter(Boolean);
+
+		return elements.filter( (element) => {
+			return !this.getParentsOrDie(element).some( parent => oids.includes(parent.oid) );
+		});
+	}
 
   //////////////////////////////
   //  Debug

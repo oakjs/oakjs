@@ -98,6 +98,7 @@ export function clearSelection(options = {}) {
   });
 }
 
+
 // Set the current selection to the set of `elements` passed in.
 export function setSelection(options = {}) {
   const {
@@ -106,6 +107,23 @@ export function setSelection(options = {}) {
   } = options;
 
   const selection = utils.getOidsOrDie(elements, operation);
+
+  return _setSelection({
+    selection,
+    operation,
+    returnTransaction,
+  });
+}
+
+
+// Select everything in the current editContext
+export function selectAll(options = {}) {
+  const {
+    context = oak.editContext,
+    operation = "selectAll", returnTransaction
+  } = options;
+
+  const selection = utils.getOidsOrDie(context.descendentOids, operation);
 
   return _setSelection({
     selection,

@@ -87,6 +87,13 @@ export default class ComponentController extends Loadable() {
     return oid && oids && oids[oid];
   }
 
+  // Return a list of oids of all of our descendents (not including this node)
+  get descendentOids() {
+    const oids = Object.keys(this.oids || {});
+    const index = oids.indexOf(this.oid);
+    if (index > -1) oids.splice(index, 1);
+    return oids;
+  }
 
   //////////////////////////////
   //  Loading
