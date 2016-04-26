@@ -102,7 +102,7 @@ export function removeElements(options) {
     transformer: (fragment) => {
       // remove the descendents of the elements or we'll get an error removing children
       const roots = fragment._removeDescendents(elements);
-      fragment.removeElements(elements);
+      fragment.removeElements(roots);
     }
   });
 }

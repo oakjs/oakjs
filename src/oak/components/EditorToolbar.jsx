@@ -11,19 +11,6 @@ import OakComponent from "./OakComponent";
 import "./EditorToolbar.less";
 
 export default class EditorToolbar extends OakComponent {
-  removeButton() {
-    oak.actions.removeElements({ elements: oak.selection });
-  }
-
-  addButton() {
-    const button = JSXFragment.parse("<Button icon='smile'>Love it even more!</Button>").root;
-    oak.actions.addElements({ parent: "ftEkGCjX", elements: [button] });
-  }
-
-  moveText() {
-    oak.actions.moveElements({ elements: ["GIboFkjD"], parent: "arZsBgMa" });
-  }
-
   render() {
     const { oak, components: c } = this.context;
     return (
@@ -39,10 +26,8 @@ export default class EditorToolbar extends OakComponent {
             <c.Button onClick={oak.redo} icon="repeat" disabled={!oak.canRedo}/>
             <c.Spacer inline/>
           </c.Buttons>
-          <c.Buttons appearance="transparent" visible={oak.state.editing} color="red">
-            <c.Button onClick={this.removeButton} icon="remove"/>
-            <c.Button onClick={this.addButton} icon="plus"/>
-            <c.Button onClick={this.moveText} icon="move"/>
+          <c.Buttons appearance="transparent" visible={oak.state.editing && !oak.nothingSelected} color="red">
+            <c.Button onClick={oak.actions.removeElements} icon="remove"/>
           </c.Buttons>
         </c.Menu>
       </div>
