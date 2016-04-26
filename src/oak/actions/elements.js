@@ -100,7 +100,6 @@ export function removeElements(options) {
     operation,
     returnTransaction,
     transformer: (fragment) => {
-//      fragment.removeElements(elements);
       // remove the descendents of the elements or we'll get an error removing children
       const roots = fragment._removeDescendents(elements);
       fragment.removeElements(elements);
@@ -135,7 +134,7 @@ export function addElements(options) {
     operation,
     returnTransaction,
     transformer: (fragment) => {
-      fragment.add(parent, position, roots);
+      fragment.add(parent, position, elements);
     }
   });
 }
