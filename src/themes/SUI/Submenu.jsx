@@ -47,8 +47,8 @@ function SUISubmenu(props, context) {
 
 
   const menuItems = children || renderItems(items);
-  if (!menuItems) console.warn("SubMenu.render(): neither children nor items returned anything", children, items);
-  elements.appendWrapped("div", "menu", menuItems);
+//  if (!menuItems) console.warn("SubMenu.render(): neither children nor items returned anything", children, items);
+  if (menuItems) elements.appendWrapped("div", "menu", menuItems);
 
   return elements.render();
 }

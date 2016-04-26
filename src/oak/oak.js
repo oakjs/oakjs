@@ -110,6 +110,10 @@ class OakJS extends Eventful(Object) {
     return undefined;
   }
 
+  get nothingSelected() {
+    return this.selection.length === 0;
+  }
+
   // Return the currently selected elements (as a list of `oid`s).
   // NOTE: this is a FROZEN array!
   get selection() {
