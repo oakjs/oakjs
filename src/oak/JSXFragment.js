@@ -213,6 +213,25 @@ if (!element) debugger;
     return clone;
   }
 
+	// Given a list of `elements`, clone them and replace all of `oid`s with unique oids.
+	// If `parent` is not empty, we'll set `element._parent`, if not specified we'll clear `_parent`.
+	// Returns the list of clones.
+	cloneAndUniqifyElement(element, parent) {
+		const clone = this.cloneElement(element);
+
+		if (clone instanceof JSXElement) {
+			clone.oid = this.getUniqueOid();
+			clone._parent = (parent ? parent.oid : undefined);
+			if (clone.children) clone.children = this.uniquifyOids(clone.children, clone);
+		}
+		return clone;
+	}
+
+	cloneAndUniqifyElements(elements = [], parent) {
+		return elements.map( element => this.cloneAndUniqifyElement(element, parent) );
+	}
+
+
   // Duplicate element and all of its descendants, giving them new `oids`.
   // You can pass a single element or an array and you'll get back the same.
   //
@@ -257,6 +276,14 @@ if (!element) debugger;
     return ids.generateRandomId();
   }
 
+  // Return an unique `oid` which is not already contained in our `oids`.
+  getUniqueOid() {
+    let oid;
+    while (!oid || this.oids[oid]) {
+      oid = this.getRandomOid();
+    }
+    return oid;
+  }
 
   //////////////////////////////
   //  Utility -- don't call these yourself!

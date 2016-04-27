@@ -265,8 +265,7 @@ console.info(parent, dropParent, position, dropPosition);
       oak.actions.addElements({
         parent,
         position,
-        elements: this.state.dragComponents,
-        keepOids: true
+        elements: this.state.dragComponents
       });
     }
 

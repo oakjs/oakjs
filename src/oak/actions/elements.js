@@ -119,10 +119,10 @@ export function removeElements(options) {
 // NOTE: this does NOT clone or otherwise modify the elements!
 //
 // Required options:  `parent`, `position`, `elements`
-// Optional options:  `context`, `returnTransaction`, `operation`, `keepOids`
+// Optional options:  `context`, `returnTransaction`, `operation`, `uniqify`
 export function addElements(options) {
   const {
-    context, parent, position, elements,
+    context, parent, position, elements, uniqify,
     operation = "addChildrenToElement", returnTransaction
   } = options;
 
@@ -134,7 +134,8 @@ export function addElements(options) {
     operation,
     returnTransaction,
     transformer: (fragment) => {
-      fragment.add(parent, position, elements);
+      const elementsToAdd = (uniqify ? fragment.cloneAndUniqifyElements(elements) : elements);
+      fragment.add(parent, position, elementsToAdd);
     }
   });
 }
@@ -146,16 +147,13 @@ export function addElements(options) {
 //////////////////////////////
 
 
-// Create a transaction for a transformation of `props` of one or more elements which MUST NOT:
-//  - affect `children`
-//  - affect `_parent`
-//
-//  We'll call `options.transformer(jsxFragmentClone)`.
+// Create a transaction for a transformation of `props` of one or more elements.
+//  We'll call `options.transformer(jsxFragmentClone)` to make the actual change.
 //
 // If `returnTransaction` is truthy, we'll return the transaction created.
 // If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
 //
-// NOTE: don't call this directly, use one of the `setElementProp()` calls.
+// NOTE: don't call this directly, use one of the `setElement*()` or `*Element()` calls.
 function _changeElementTransaction({
   context, transformer,
   actionName, returnTransaction, operation
