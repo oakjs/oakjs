@@ -110,6 +110,12 @@ class OakJS extends Eventful(Object) {
     return undefined;
   }
 
+  // DEBUG
+  // DEPRECATED
+  get fragment() {
+    return this.editContext.jsxFragment;
+  }
+
   get nothingSelected() {
     return this.selection.length === 0;
   }

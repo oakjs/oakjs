@@ -35,9 +35,9 @@ export default class AppMenubar extends OakComponent {
               <MenuItem onClick={oak.undo} disabled={!oak.canUndo}>Undo</MenuItem>
               <MenuItem onClick={oak.redo} disabled={!oak.canRedo}>Redo</MenuItem>
               <Divider/>
-              <MenuItem disabled={oak.nothingSelected}>Cut</MenuItem>
-              <MenuItem disabled={oak.nothingSelected}>Copy</MenuItem>
-              <MenuItem disabled={oak.nothingSelected}>Paste</MenuItem>
+              <MenuItem disabled={oak.nothingSelected} onClick={oak.actions.cutElements}>Cut</MenuItem>
+              <MenuItem disabled={oak.nothingSelected} onClick={oak.actions.copyElements}>Copy</MenuItem>
+              <MenuItem disabled={oak.nothingSelected} onClick={oak.actions.pasteElements}>Paste</MenuItem>
               <MenuItem disabled={oak.nothingSelected} onClick={oak.actions.removeElements}>Delete</MenuItem>
               <Divider/>
               <MenuItem onClick={oak.actions.selectAll}>Select All</MenuItem>

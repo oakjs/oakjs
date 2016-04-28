@@ -1,4 +1,5 @@
 export * from "./app";
+export * from "./clipboard";
 export * from "./elements";
 export * from "./resize";
 export * from "./selection";

@@ -210,7 +210,17 @@ export class UndoTransaction {
   constructor(props) {
     this.undoActions = [];
     this.redoActions = [];
-    Object.assign(this, props);
+    if (props) {
+      Object.keys(props).forEach( key => {
+        const value = props[key];
+        if (key === "transactions") {
+          this.addTransactions(value);
+        }
+        else {
+          this[key] = value;
+        }
+      });
+    }
   }
 
   // Default name for the transaction, WITHOUT the "undo" or "redo" bit.
@@ -295,6 +305,8 @@ export class UndoTransaction {
   }
 
   addTransactions(transactions) {
+    transactions = transactions.filter(Boolean);
+
     // Add redo actions in NORMAL order
     transactions.forEach(transaction => {
       this.addRedoActions(transaction.redoActions);

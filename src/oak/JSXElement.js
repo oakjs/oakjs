@@ -31,6 +31,10 @@ export default class JSXElement {
   //////////////////////////////
 
   get oid() { return this.props && this.props.oid }
+  set oid(oid) {
+  	if (!this.props) this.props = {};
+  	this.props.oid = oid;
+  }
 
 	get childOids() { return this.children && this.children.map(child => JSXElement.getOid(child) ) }
 

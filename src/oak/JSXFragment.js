@@ -1,5 +1,13 @@
 //////////////////////////////
 // JSXFragment class
+//
+//	This attempts to strike a balance between structural sharing and encapsulation.
+//
+//	Possible optimizations:
+//		- text / etc nodes are currently not JSXElements -- some logic would get cleaner if they were
+//		- JSXElements don't point directly to children (requires "remove" to yield a JSXFragment)
+//		- JSXElements hold their code and forget it on clone()
+//
 //////////////////////////////
 
 import { die, dieIfOutOfRange } from "oak-roots/util/die";
@@ -58,17 +66,16 @@ export default class JSXFragment {
     const element = this.oids[elementOrOid];
     if (element) return element;
     die(this, operation, args || [elementOrOid], message || ("element "+elementOrOid+" not found"));
-    return undefined;
   }
 
   // Given an `element` or an `oid` in this fragment,
   //  return its parent element, or `undefined` if no parent.
   // Throws if expected `element` or `parent` isn't found.
-  getParentOrDie(elementOrOid) {
-    const element = this.getElementOrDie(elementOrOid, "getParentOrDie");
+  getParentOrDie(elementOrOid, operation = "getParentOrDie") {
+    const element = this.getElementOrDie(elementOrOid, operation);
     const parentOid = element._parent;
     if (!parentOid) return undefined;
-    return this.getElementOrDie(parentOid, "getParentOrDie", [ element.oid, parentOid], "parent not found");
+    return this.getElementOrDie(parentOid, operation, [ element.oid, parentOid], "parent not found");
   }
 
   // Given an `element` or an `oid` in this fragment,
@@ -129,9 +136,12 @@ export default class JSXFragment {
   //////////////////////////////
 
 
-  // Add `elements` WITHOUT CLONING to `parent` at `position`.
-  // Returns an array of the elements added.
-  // NOTE: if you want to duplicate or clone elements, do it BEFORE calling this method!
+  // Add a clone of `elements` to `parent` at `position`.
+  // Attempts to keep the oids of `elements` and children,
+  //	but will generate new oids if oids are already present.
+  //
+  // Returns an array of the clones actually added.
+  //
   // NOTE: modifies this fragment IN PLACE including our `oids` map.
   add(parent, position, elements) {
     if (!elements.length) return [];
@@ -141,11 +151,27 @@ export default class JSXFragment {
 
     if (typeof position !== "number") position = parentClone.children.length;
 
+		const _cloneAndUniqify = (element, parentOid) => {
+			const clone = this.cloneElement(element);
+			if (clone instanceof JSXElement) {
+				clone._parent = parentOid;
+				if (clone instanceof JSXElement) {
+					// make sure clone has a unique oid within this fragment
+					clone.oid = this.getUniqueOid(clone.oid);
+					this._addOid(clone);
+					// recurse for children
+					if (clone.children) {
+						clone.children = clone.children.map( child => _cloneAndSetup(child, clone.oid) );
+					}
+				}
+			}
+			return clone;
+		};
+
     return elements.map( (element, index) => {
-      parentClone.children.splice(position + index, 0, element);
-      if (element instanceof JSXElement) element._parent = parentClone.oid;
-      this._addOids(element);
-      return element;
+    	const clone = _cloneAndUniqify(element, parentClone.oid);
+      parentClone.children.splice(position + index, 0, clone);
+      return clone;
     });
   }
 
@@ -180,6 +206,7 @@ export default class JSXFragment {
   removeElement(_element) {
     const element = this.getElementOrDie(_element);
     const parent = this.getParentOrDie(element);
+
     const index = parent.indexOf(element);
     return this.remove(parent, index);
   }
@@ -196,6 +223,7 @@ export default class JSXFragment {
   //////////////////////////////
 
   // Return a SHALLOW clone of the element (eg: children are the same objects).
+  // If `uniquify` is truthy, we'll generate a unique `oid` for the element within this fragment
   // NOTE: clone has no side effects on this fragment.
   cloneElement(element) {
 if (!element) debugger;
@@ -203,59 +231,10 @@ if (!element) debugger;
     return element.clone();
   }
 
-  // Return a clone of a single element and all of its descendants.
-  // NOTE: this has no side effects on this fragment.
-  deepCloneElement(element) {
-    const clone = this.cloneElement(element);
-    if (clone instanceof JSXElement && clone.children) {
-      clone.children = clone.children.map( child => this.deepCloneElement(child) );
-    }
-    return clone;
-  }
-
-	// Given a list of `elements`, clone them and replace all of `oid`s with unique oids.
-	// If `parent` is not empty, we'll set `element._parent`, if not specified we'll clear `_parent`.
-	// Returns the list of clones.
-	cloneAndUniqifyElement(element, parent) {
-		const clone = this.cloneElement(element);
-
-		if (clone instanceof JSXElement) {
-			clone.oid = this.getUniqueOid();
-			clone._parent = (parent ? parent.oid : undefined);
-			if (clone.children) clone.children = this.uniquifyOids(clone.children, clone);
-		}
-		return clone;
-	}
-
-	cloneAndUniqifyElements(elements = [], parent) {
-		return elements.map( element => this.cloneAndUniqifyElement(element, parent) );
-	}
-
-
-  // Duplicate element and all of its descendants, giving them new `oids`.
-  // You can pass a single element or an array and you'll get back the same.
-  //
-  // Pass the `parentOid` of the parent for the top-level element(s),
-  //  descendants will be set up correctly automatically.
-  //
-  // NOTE: this has no side effects on this fragment.
-  duplicate(element, parentOid) {
-    const clone = this.cloneElement(element);
-    if (!(element instanceof JSXElement)) return clone;
-
-    clone._parent = parentOid;
-    if (!clone.props) clone.props = {};
-    clone.props.oid = this.getUniqueOid();
-
-    if (clone.children) {
-      clone.children = clone.children.map( child => this.duplicate(child, clone.oid) );
-    }
-    return clone;
-  }
-
   // Return an unique `oid` which is not already contained in our `oids`.
-  getUniqueOid() {
-    let oid;
+  // If you already have an `oid` which may or may not be used,
+  //	pass that and if it IS already not in our `oids`, you'll get it back.
+  getUniqueOid(oid) {
     while (!oid || this.oids[oid]) {
       oid = this.getRandomOid();
     }
@@ -272,18 +251,13 @@ if (!element) debugger;
     return this.oidPrefix + JSXFragment.getRandomOid();
   }
 
+	// Base random id routine.
+	// The `8` below is a compromise between stupidly long IDs and chance of collisions.
+	// Adjust up if collisions are rampant.
   static getRandomOid() {
-    return ids.generateRandomId();
+    return ids.generateRandomId(8);
   }
 
-  // Return an unique `oid` which is not already contained in our `oids`.
-  getUniqueOid() {
-    let oid;
-    while (!oid || this.oids[oid]) {
-      oid = this.getRandomOid();
-    }
-    return oid;
-  }
 
   //////////////////////////////
   //  Utility -- don't call these yourself!
@@ -327,11 +301,6 @@ if (!element) debugger;
     if (element instanceof JSXElement) this.oids[element.oid] = element;
   }
 
-  // Recursively add the `oid` of an element and all of its children.
-  _addOids(element) {
-    this._forEachDescendant(element, (element) => this._addOid(element));
-  }
-
   _removeOid(element) {
     if (element instanceof JSXElement) delete this.oids[element.oid];
   }
@@ -340,7 +309,6 @@ if (!element) debugger;
   _removeOids(element) {
     this._forEachDescendant(element, (element) => this._removeOid(element));
   }
-
 
 	// Given a possibly mixed list of parents and their descendents as oids or elements, throw out children.
 	// Eg: after this call, nothing left in the list will be a descendent of anything else.
