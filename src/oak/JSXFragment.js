@@ -161,7 +161,7 @@ export default class JSXFragment {
 					this._addOid(clone);
 					// recurse for children
 					if (clone.children) {
-						clone.children = clone.children.map( child => _cloneAndSetup(child, clone.oid) );
+						clone.children = clone.children.map( child => _cloneAndUniqify(child, clone.oid) );
 					}
 				}
 			}
