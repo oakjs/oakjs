@@ -27,7 +27,7 @@ export default class Page extends ComponentController {
   get section() { return this.oak.getSection(this.projectId, this.sectionId) }
 
   // index of this page in its section
-  get index() { return this.section.pages.indexOf(this) }
+  get pageIndex() { return this.section.pages.indexOf(this) }
 
 
   //////////////////////////////

@@ -173,28 +173,11 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
   // Your subclass may want to override this to add additional stuff to the Constructor.
   _createComponent() {
     let Constructor;
-    const componentName = this.getConstructorName();
 //console.info("creating component ",componentName);
     try {
       // if we have a jsxFragment, create the classs and set its renderMethod
       if (this.jsxFragment) {
-        // NOTE: we have to manually stick in a `render()` function here
-        //       because React barfs if we try to set `render()` directly.
-        let script = [
-          this.script || "",
-          "render() { return this.__render() }"
-        ].join("\n");
-        Constructor = babel.createClass(script, this.SuperConstructor, componentName);
-
-        // Get the `__render` routine from the jsxElement
-        Constructor.prototype.__render = this.jsxFragment.root.getRenderMethod();
-
-        // make sure we've got a `createElement` routine since `_renderChildren` expects one.
-        if (!Constructor.prototype.createElement) {
-          Constructor.prototype.createElement = function(type, props, ...children) {
-            return React.createElement(type, props, ...children);
-          }
-        }
+        Constructor = this.jsxFragment.getComponent(this.getConstructorName(), this.SuperConstructor, this.script);
       }
       // otherwise if we have a `script`, assume it's a full ES2015 class expression (????)
       else if (this.jsx) {

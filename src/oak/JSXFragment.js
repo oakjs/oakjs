@@ -12,6 +12,7 @@
 
 import { die, dieIfOutOfRange } from "oak-roots/util/die";
 
+import babel from "oak-roots/util/babel";
 import ids from "oak-roots/util/ids";
 
 import JSXElement from "./JSXElement";
@@ -264,6 +265,38 @@ if (!element) debugger;
 	// Adjust up if collisions are rampant.
   static getRandomOid() {
     return ids.generateRandomId(8);
+  }
+
+
+  //  Return a React Component for the current state of this JSXFragment
+  getComponent(componentName, SuperConstructor, script) {
+    let Constructor;
+//console.info("creating component ",componentName);
+    try {
+			// NOTE: we have to manually stick in a `render()` function here
+			//       because React barfs if we try to set `render()` directly.
+			let classScript = [
+				script || "",
+				"render() { return this.__render() }"
+			].join("\n");
+			Constructor = babel.createClass(classScript, SuperConstructor, componentName);
+
+			// Get the `__render` routine from our root element
+			Constructor.prototype.__render = this.root.getRenderMethod();
+
+			// make sure we've got a `createElement` routine since `_renderChildren` expects one.
+			if (!Constructor.prototype.createElement) {
+				Constructor.prototype.createElement = function(type, props, ...children) {
+					return React.createElement(type, props, ...children);
+				}
+			}
+    }
+    catch (error) {
+      console.error("Error creating component constructor: ", error);
+      throw error;
+    }
+
+    return Constructor;
   }
 
 

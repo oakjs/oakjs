@@ -1,5 +1,7 @@
 //////////////////////////////
-// Project class
+//
+// Generic ComponentController class
+//
 //////////////////////////////
 
 import Loadable from "oak-roots/Loadable";
@@ -45,6 +47,7 @@ export default class ComponentController extends Savable(Loadable()) {
   // Refs come from our instantiated component
   get refs() { return this.component ? this.component.refs : {} }
 
+  // Oid of this component
   get oid() {
     const props = this.props;
     return props && (props.oid || props["data-oid"]);
