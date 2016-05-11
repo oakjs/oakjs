@@ -5,7 +5,6 @@
 //////////////////////////////
 
 
-import fsp from "fs-promise";
 import paths from "./paths";
 
 export default class Page {
@@ -45,23 +44,18 @@ export default class Page {
   //  Conside using the higher-level `save`, `delete`, etc routines instead.
   //
 
-  getJSXE() { return fsp.readFile(this.jsxePath, "utf8") }
-  getStyles() { return fsp.readFile(this.stylesPath, "utf8") }
-  getScript() { return fsp.readFile(this.scriptPath, "utf8") }
+  getJSXE() { return paths.getTextFile(this.jsxePath) }
+  getStyles() { return paths.getTextFile(this.stylesPath) }
+  getScript() { return paths.getTextFile(this.scriptPath) }
 
-  _saveFile(path, contents) {
-    // If there's anything to save, do so
-    if (contents) return fsp.outputFile(path, contents);
-    // Otherwise unlink file file, ignoring errors (eg: if the file isn't present)
-    return fsp.unlink(path).catch(Function.prototype);
-  }
-  saveJSXE(contents) { return this._saveFile(this.jsxePath, contents) }
-  saveStyles(contents) { return this._saveFile(this.stylesPath, contents) }
-  saveScript(contents) { return this._saveFile(this.scriptPath, contents) }
+  saveJSXE(contents) { return paths.saveOrDeleteFile(this.jsxePath, contents)}
+  saveStyles(contents) { return paths.saveOrDeleteFile(this.stylesPath, contents)}
+  saveScript(contents) { return paths.saveOrDeleteFile(this.scriptPath, contents)}
 
-  deleteJSXE() { return fsp.unlink(this.jsxePath) }
-  deleteStyles() { return fsp.unlink(this.stylesPath) }
-  deleteScript() { return fsp.unlink(this.scriptPath) }
+  // Ignore errors on delete (eg: if the file is not present)
+  deleteJSXE() { return paths.deleteFile(this.jsxePath)}
+  deleteStyles() { return paths.deleteFile(this.stylesPath)}
+  deleteScript() { return paths.deleteFile(this.scriptPath)}
 
 
   //
@@ -82,8 +76,9 @@ export default class Page {
 
   //  Save a page given a JSON blob with any of:  `{ jsxe, styles, script }`
   //  Does NOT manipulate section pageIndex.
+  //  NOTE: If you don't want to affect one of the above jsxe, etc, just don't include it.
+  //        If you do include a value and it's blank/undefined, we'll delete that file.
   save(json) {
-console.warn("saving", json);
     const promises = [];
     if ("jsxe" in json) promises.push(this.saveJSXE(json.jsxe));
     if ("styles" in json) promises.push(this.saveStyles(json.styles));
@@ -109,14 +104,15 @@ console.warn("saving", json);
   //  Rename this page.
   //  Updates section's pageIndex.
   rename(newPageId) {
+    // get a new Page object with newPageId to figure out it's path
     const newPage = new Page(this.projectId, this.sectionId, newPageId);
     const newPageRoot = newPage.rootPath;
 
     // move the folder first
-    return fsp.rename(this.rootPath, newPage.rootPath)
+    return paths.renameFile(this.rootPath, newPage.rootPath)
       // then update the section's pageIndex
       .then(() => {
-        this.section.renamePage(this.pageId, newPageId)
+        return this.section.renamePage(this.pageId, newPageId)
       })
       // then rename this object
       .then(() => {

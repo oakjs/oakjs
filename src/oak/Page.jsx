@@ -26,6 +26,9 @@ export default class Page extends ComponentController {
   get project() { return this.oak.getProject(this.projectId) }
   get section() { return this.oak.getSection(this.projectId, this.sectionId) }
 
+  // index of this page in its section
+  get index() { return this.section.pages.indexOf(this) }
+
 
   //////////////////////////////
   //  Components
@@ -38,6 +41,7 @@ export default class Page extends ComponentController {
   // TODO: dynamic components
   get components() { return this.section.components }
 
+  // REFACTOR: rename this?
   get component() { if (oak.page === this) return oak._pageComponent }
 
   //////////////////////////////

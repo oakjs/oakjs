@@ -1,13 +1,47 @@
 //////////////////////////////
-// Server-side project managment class
-// NOTE: instantiating a project is really lightweight
-//       so you can do so dynamically when servicing requests.
+// Server-side paths and generic file manipulation.
 //////////////////////////////
 
+import fsp from "fs-promise";
 import fsPath from "path";
-
 import config from './config';
 
+//////////////////////////////
+//  Generic save / delete / rename
+//  Use
+//////////////////////////////
+
+// Return a text file formatted in `utf8`.
+export function getTextFile(path) {
+  return fsp.readFile(path, "utf8");
+}
+
+// Save a file.
+export function saveFile(path, contents) {
+  return fsp.outputFile(path, contents);
+}
+
+// If `contents` is falsy, delete the file at `path` (if it exists).
+// Otherwise save `contents` to `path`.
+export function saveOrDeleteFile(path, contents) {
+  if (contents) return saveFile(path, contents);
+  return deleteExistingFile(path)
+}
+
+// Delete a file, rejecting if it doesn't exist.
+// Use `deleteExistingFile()` if you don't care whether it exists or not.
+export function deleteFile(path) {
+  return fsp.unlink(path);
+}
+
+// Delete a file, but return a resolved promise if the file doesn't actually exist.
+export function deleteExistingFile(path) {
+  return deleteFile(path).catch(Function.prototype);
+}
+
+export function renameFile(oldPath, newPath) {
+  return fsp.rename(oldPath, newPath);
+}
 
 //////////////////////////////
 //  Project Index
@@ -84,20 +118,6 @@ export function sectionPath(project, section, filename = "") {
 //////////////////////////////
 //  Paths for pages
 //////////////////////////////
-
-// Lightweight object which vends paths
-//  eg:   const path = paths.page(<projectId>, <sectionId>, <pageId>).jsxePath;
-export class pagePaths {
-  constructor(project, section, page) {
-    this.project = dieIfInvalidId(project);
-    this.section = dieIfInvalidId(section);
-    this.page = dieIfInvalidId(page);
-  }
-  get jsxe() { return pagePath(this.project, this.section, this.page, "page.jsxe") }
-  get css() { return pagePath(this.project, this.section, this.page, "page.css") }
-  get script() { return pagePath(this.project, this.section, this.page, "page.js") }
-  get bundleFile() { return bundlePath("projects", this.project, this.section, `${this.page}.bundle.json`) }
-}
 
 // Return the path for a page file.
 // Default is to return the page's `.jsx` file, pass a different `filename` for something else.
