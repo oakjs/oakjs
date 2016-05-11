@@ -51,8 +51,8 @@ export default class Page extends ComponentController {
             .then( () => this );
   }
 
-  saveData() {
-    return this.componentLoader.save()
+  saveData(force) {
+    return this.componentLoader.save(force)
             .then( () => this );
   }
 }

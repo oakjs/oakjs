@@ -68,9 +68,10 @@ export default class AppMenubar extends OakComponent {
           </Dropdown>
           <Dropdown text="Page" showArrow={false} action="hide">
             <Menu>
+              <MenuItem onClick={oak.actions.savePage}>Save Page...</MenuItem>
+              <Divider/>
               <MenuItem hidden={oak.state.editing} onClick={oak.actions.startEditing}>Edit Page</MenuItem>
               <MenuItem hidden={!oak.state.editing} onClick={oak.actions.stopEditing}>Stop Editing Page</MenuItem>
-              <Divider/>
               <MenuItem disabled>Page Settings...</MenuItem>
               <Submenu disabled>Jump to Page...</Submenu>
               <Divider/>

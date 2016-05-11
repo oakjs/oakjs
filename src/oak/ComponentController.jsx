@@ -3,12 +3,13 @@
 //////////////////////////////
 
 import Loadable from "oak-roots/Loadable";
+import Savable from "oak-roots/Savable";
 import { proto, throttle } from "oak-roots/util/decorators";
 
 import ComponentLoader from "./ComponentLoader";
 
 
-export default class ComponentController extends Loadable() {
+export default class ComponentController extends Savable(Loadable()) {
   constructor(props) {
     super();
     Object.assign(this, props);

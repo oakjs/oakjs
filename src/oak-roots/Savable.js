@@ -116,7 +116,7 @@ export default function Savable(Constructor = Object) {
           _setSaveState(this, { state: "saving", promise: savePromise });
           if (this.trigger) this.trigger("saving");
 
-          this.saveData()
+          this.saveData(force)
             // handle successful save
             .then(data => {
               this.saved(data);
