@@ -46,8 +46,6 @@ export default class Section extends ComponentController {
   get pageIndex() { return this.oak.loader.getPageIndex(this.path) }
 
   get pages() { return this.pageIndex.items }
-  get pageIds() { return this.pageIndex.itemIds }
-  get pageMap() { return this.pageIndex.itemMap }
 
   getPage(pageIdentifier) {
     return this.pageIndex.getItem(pageIdentifier);

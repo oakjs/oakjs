@@ -45,8 +45,6 @@ export default class Project extends ComponentController {
   get sectionIndex() { return this.oak.loader.getSectionIndex(this.path) }
 
   get sections() { return this.sectionIndex.items }
-  get sectionIds() { return this.sectionIndex.itemIds }
-  get sectionMap() { return this.sectionIndex.itemMap }
 
   getSection(sectionIdentifier) {
     return this.sectionIndex.getItem(sectionIdentifier);

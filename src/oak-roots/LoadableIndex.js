@@ -2,13 +2,17 @@
 //
 //  LoadableIndex class
 //
+//  Assumes that the `json` file is an array of items, each of which has an `id` parameter.
+//  This class works by dependency injection, you MUST pass the following routines on creation:
+//    - loadIndex()
+//    - createItem()
+//
 //////////////////////////////
 
 import { dieIfMissing } from "oak-roots/util/die";
 
 import Eventful from "oak-roots/Eventful";
 import Loadable from "oak-roots/Loadable";
-import Registry from "oak-roots/Registry";
 
 // REFACTOR:   Convert from JSON blobs to items when loading index?
 // REFACTOR:   Delta index and announce when things are added/removed/moved
@@ -19,80 +23,37 @@ export default class LoadableIndex extends Loadable() {
     super();
     Object.assign(this, props);
     dieIfMissing(this, "constructor", ["itemType", "createItem", "loadIndex"]);
-    this.registry = new Registry();
   }
 
-  // Return an array of all of our known item ids
-  // Returns an empty array if we haven't loaded.
-  get itemIds() { return (this.index && Object.keys(this.index)) || [] }
-
-  // Return an array of all of our items, creating them if necessary.
-  get items() {
-    return this.itemIds.map( itemId => this._getOrCreateItem(itemId) );
-  }
-
-  // Return a map of `{ itemId => item }` for all of our items, creating them if necessary
-  get itemMap() {
-    const itemMap = {};
-    this.itemIds.forEach( itemId => {
-      itemMap[itemId] = this._getOrCreateItem(itemId);
-    });
-    return itemMap;
-  }
-
-  // Given a string id or numeric index, return the `id`
-  //  but only if the item is known to us!
-  // NOTE: always returns `undefined` if we haven't loaded yet.
-  idForIdentifier(itemIdentifier) {
-    if (this.index) {
-      switch (typeof itemIdentifier) {
-        case "string":
-          return (this.index[itemIdentifier] ? itemIdentifier : undefined);
-        case "number":
-          return this.itemIds[itemIdentifier];
-        default:
-          console.error(`${this}.idForIdentifier(): identifier '${itemIdentifier}' not understood`);
-      }
-    }
-    return undefined;
-  }
-
-  // Return a item singleton for a project specified by id or index,
-  // but only if it's already loaded.
+  // Return a item singleton specified by string id or numeric index.
+  // If not found, returns `undefined`.
+  // Always returns `undefined` if we haven't already loaded.
   getItem(itemIdentifier) {
-    const itemId = this.idForIdentifier(itemIdentifier);
-    if (!itemId) return undefined;
-    return this.registry.get(itemId);
-  }
+    if (!this.isLoaded) return undefined;
 
-  // DO NOT CALL THIS!
-  _getOrCreateItem(itemId) {
-    let item = this.registry.get(itemId);
-    if (!item) {
-      item = this.createItem(itemId, this.index[itemId]);
-      this.registry.add(item, itemId);
+    if (typeof itemIdentifier === "string") {
+      return this._registry[itemIdentifier];
     }
-    return item;
+    else if (typeof itemIdentifier === "number") {
+      return this.items[itemIdentifier];
+    }
+
+    throw new TypeError(`${this}.getItem(${itemIdentifier}): identifier not understood`);
   }
 
   // Return a promise which makes an item and loads it.
   // NOTE: the promise resolves with the ITEM, not with the item's loaded data.
   // If you call with the same `itemIdentifier` later, you'll get the same object back.
   loadItem(itemIdentifier) {
-    const item = this.getItem(itemIdentifier);
-    if (item) return item.load().then(item => item);
-
-    return this.load()
-      .then( () => {
-        const itemId = this.idForIdentifier(itemIdentifier);
-        // Bail if we can't find the item in the index
-        if (!itemId) {
-          throw new ReferenceError(`${this.itemType} '${itemIdentifier}' not found`);
-        }
-
-        const item = this._getOrCreateItem(itemId);
-        return item.load().then(item => item);
-      });
+    if (this.isLoaded) {
+      const item = this.getItem(itemIdentifier);
+      if (item) return item.load().then(result => item);
+      return Promise.reject(`${this.itemType} '${itemIdentifier}' not found`);
+    }
+    else {
+      return this.load()
+        .then( () => this.loadItem(itemIdentifier) );
+    }
   }
 
   //////////////////////////////
@@ -100,9 +61,30 @@ export default class LoadableIndex extends Loadable() {
   //////////////////////////////
 
   loadData() {
+    // defer to the `loadIndex()` routine, injected when we were created.
     return this.loadIndex()
-    .then(index => {
-      this.index = index;
+    // we assume we get back an array of `{ id, ...props }`
+    .then(jsonItems => {
+console.warn(jsonItems);
+      // `_registry` is a map of `{ id => item }`
+      this._registry = {};
+
+//TODO: this won't keep the same obejcts on reload... :-(
+      // convert from jsonItems to actual items via injected `createItem()`
+      this.items = jsonItems.map(jsonItem => {
+        if (!jsonItem) return;
+        const { id, ...props } = jsonItem;
+
+        // re-use the same object we had before if there is one
+        if (this._registry[id]) {
+          // TODO:  This won't pick up changes from the jsonItem...
+          //        How to apply them generically?
+          return this._registry[id];
+        }
+        return (this._registry[id] = this.createItem(id, props));
+      }).filter(Boolean);
+
+      // return the index as the result of the load
       return this;
     });
   }
