@@ -65,7 +65,6 @@ export default class LoadableIndex extends Loadable() {
     return this.loadIndex()
     // we assume we get back an array of `{ id, ...props }`
     .then(jsonItems => {
-console.warn(jsonItems);
       // `_registry` is a map of `{ id => item }`
       this._registry = {};
 

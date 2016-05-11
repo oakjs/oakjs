@@ -76,7 +76,7 @@ export default class ProjectLoader extends Registry {
 
   // Return the section index singleton for a specific project.
   getSectionIndex(projectPath) {
-    return this._getFromRegistry("STACK-INDEX:", projectPath, this._makeSectionIndex)
+    return this._getFromRegistry("SECTION-INDEX:", projectPath, this._makeSectionIndex)
   }
 
   // Create a section index on demand.
@@ -102,7 +102,7 @@ export default class ProjectLoader extends Registry {
 
   // Return the page index singleton for a specific section.
   getPageIndex(sectionPath) {
-    return this._getFromRegistry("CARD-INDEX:", sectionPath, this._makePageIndex)
+    return this._getFromRegistry("PAGE-INDEX:", sectionPath, this._makePageIndex)
   }
 
   // Create a page index on demand.
@@ -169,7 +169,7 @@ export default class ProjectLoader extends Registry {
   // Return the singleton loader for some section.
   getSectionLoader(section, makeIfNecessary) {
     const makeLoader = makeIfNecessary && section instanceof Section && this._makeSectionLoader;
-    return this._getFromRegistry("STACK-LOADER:", section, makeLoader);
+    return this._getFromRegistry("SECTION-LOADER:", section, makeLoader);
   }
 
   // Create a section loader on demand.
@@ -186,7 +186,7 @@ export default class ProjectLoader extends Registry {
   // Return the singleton loader for some page.
   getPageLoader(page, makeIfNecessary) {
     const makeLoader = makeIfNecessary && page instanceof Page && this._makePageLoader;
-    return this._getFromRegistry("CARD-LOADER:", page, makeLoader);
+    return this._getFromRegistry("PAGE-LOADER:", page, makeLoader);
   }
 
   // Create a page loader on demand.
