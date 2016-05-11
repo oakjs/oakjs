@@ -8,7 +8,8 @@ import fsp from "fs-promise";
 import fsPath from "path";
 
 import bundler from "./bundler";
-import apiPaths from "./paths";
+import Page from "./Page";
+import paths from "./paths";
 import util from "./util";
 
 const router = express.Router();
@@ -66,7 +67,7 @@ function debugParams(query) {
 // Router for oak actions.
 router.get("/oak/:action",  (request, response) => {
   const { action } = request.params;
-  const appPaths = new apiPaths.appPaths();
+  const appPaths = new paths.appPaths();
   switch (action) {
     case "projectIndex":   return sendJSONFile(request, response, appPaths.projectIndex);
   }
@@ -78,43 +79,47 @@ router.get("/oak/:action",  (request, response) => {
 // Page bits
 //////////////////////////////
 
+function _sendPageBundle(page, request, response) {
+  return bundler.bundlePage({ page, response, ...debugParams(request.query) });
+}
 
 // Router for page read actions.
 router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
-  const pagePaths = new apiPaths.pagePaths(projectId, sectionId, pageId);
+  const page = new Page(projectId, sectionId, pageId);
   switch (action) {
-    case "page":    return bundler.bundlePage({ projectId, sectionId, pageId, response, ...debugParams(request.query) });
-    case "jsxe":    return sendTextFile(request, response, pagePaths.jsxe);
-    case "script":  return sendTextFile(request, response, pagePaths.script);
-    case "styles":  return sendTextFile(request, response, pagePaths.css);
+    case "page":    return _sendPageBundle(page, request, response);
+    case "jsxe":    return sendTextFile(request, response, page.jsxePath);
+    case "script":  return sendTextFile(request, response, page.scriptPath);
+    case "styles":  return sendTextFile(request, response, page.stylesPath);
   }
   throw new TypeError(`Page API action ${action} not defined.`);
 });
 
 // Router for page write actions.
-// NOTE: these all assume the `body` is plain text.
+// NOTE: these all assume the `body` is some form of plain text.
 router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const { body } = request;
 
-  const pagePaths = new apiPaths.pagePaths(projectId, sectionId, pageId);
+  const page = new Page(projectId, sectionId, pageId);
   switch (action) {
-    case "jsxe":    return saveTextFile(request, response, pagePaths.jsxe, body);
-    case "script":  return saveTextFile(request, response, pagePaths.script, body);
-    case "styles":  return saveTextFile(request, response, pagePaths.css, body);
+    // save page bits as JSON blob:  { jsxe, script, styles }
+    // returns the newly saved data
+    case "save":    return page.save(JSON.parse(body))
+                      .then( () => { return _sendPageBundle(page, request, response) })
   }
   throw new TypeError(`Page API action '${action}' not defined.`);
 });
 
 
-// Router for sectionId read actions.
+// Router for section read actions.
 router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
   const { action, projectId, sectionId } = request.params;
 
-  const sectionPaths = new apiPaths.sectionPaths(projectId, sectionId);
+  const sectionPaths = new paths.sectionPaths(projectId, sectionId);
   switch (action) {
-    case "section":       return bundler.bundleSection({ projectId, sectionId, response, ...debugParams(request.query) });
+    case "section":     return bundler.bundleSection({ projectId, sectionId, response, ...debugParams(request.query) });
     case "jsxe":        return sendTextFile(request, response, sectionPaths.jsxe);
     case "script":      return sendTextFile(request, response, sectionPaths.script);
     case "styles":      return sendTextFile(request, response, sectionPaths.css);
@@ -124,11 +129,11 @@ router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
 });
 
 
-// Router for projectId read actions.
+// Router for project read actions.
 router.get("/project/:projectId/:action",  (request, response) => {
   const { action, projectId } = request.params;
 
-  const projectPaths = new apiPaths.projectPaths(projectId);
+  const projectPaths = new paths.projectPaths(projectId);
   switch (action) {
     case "project":     return bundler.bundleProject({ projectId, response, ...debugParams(request.query) });
     case "jsxe":        return sendTextFile(request, response, projectPaths.jsxe);

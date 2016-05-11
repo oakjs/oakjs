@@ -69,8 +69,16 @@ export default class JSXFragment {
   }
 
   // Given an `element` or an `oid` in this fragment,
-  //  return its parent element, or `undefined` if no parent.
-  // Throws if expected `element` or `parent` isn't found.
+  //  return its parent element, or `undefined` if no element or no parent.
+  getParent(elementOrOid) {
+    const element = this.getElement(elementOrOid);
+    if (element && element._parent) return this.getElement(element._parent);
+    return undefined;
+  }
+
+  // Given an `element` or an `oid` in this fragment,
+  //  return its parent element,
+  // or throws if expected `element` or `parent` isn't found.
   getParentOrDie(elementOrOid, operation = "getParentOrDie") {
     const element = this.getElementOrDie(elementOrOid, operation);
     const parentOid = element._parent;
@@ -363,6 +371,10 @@ if (!element) debugger;
 
   toString() {
     return (this.root ? this.root.toString() : "<JSXFragment/>");
+  }
+
+  toJSX() {
+  	return this.root.toJSX();
   }
 
 }

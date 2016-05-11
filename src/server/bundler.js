@@ -101,19 +101,19 @@ export function bundlePaths(paths, options = {}) {
 
 
 // Return all the data we need to display a page
-export function bundlePage({ projectId, sectionId, pageId, force, response }) {
-  const pagePaths = new apiPaths.pagePaths(projectId, sectionId, pageId);
+// `page` is a server `Page` object.
+export function bundlePage({ page, force, response }) {
   const pathMap = {
-    jsxe:    pagePaths.jsxe,
-    styles:  pagePaths.css,
-    script:  pagePaths.script,
+    jsxe:    page.jsxePath,
+    styles:  page.stylesPath,
+    script:  page.scriptPath,
   };
 
   const options = {
     debug: DEBUG,
     force,
     response,
-    bundleFile: pagePaths.bundleFile,
+    bundleFile: page.bundlePath,
     optional: true,
     trusted: true,
   }

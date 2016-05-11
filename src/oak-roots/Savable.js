@@ -144,9 +144,9 @@ export default function Savable(Constructor = Object) {
     // Simulate results coming back from a server save.
     // NOTE: don't override this, override `onSaved` instead.
     saved(results) {
-      _setSavedState(this, { state: "saved", results });
+      _setSaveState(this, { state: "saved", results });
       this.onSaved(results);
-      if (this.trigger) this.trigger("saved", normalized);
+      if (this.trigger) this.trigger("saved", results);
       return results;
     }
 

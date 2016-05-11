@@ -6,16 +6,23 @@ import API from "oak-roots/API";
 
 import JSXFragment from "./JSXFragment";
 
+// TODO: do as a subclass so we get class definition semantics?
 export default new API({
 
   //////////////////////////////
   // Component bundles
   //////////////////////////////
 
-  loadComponentBundle(controller) {
+  loadComponentBundle(controller, fetchParams) {
     const url = `/api/${controller.type}/${controller.path}/${controller.type}`;
     const errorMessage = `Error loading ${controller.type} bundle`;
-    return this.getJSON(url, undefined, errorMessage);
+    return this.getJSON(url, fetchParams, errorMessage);
+  },
+
+  saveComponentBundle(controller, data, fetchParams) {
+    const url = `/api/${controller.type}/${controller.path}/save`;
+    const errorMessage = `Error saving ${controller.type} bundle`;
+    return this.post(url, JSON.stringify(data), fetchParams, errorMessage);
   },
 
 

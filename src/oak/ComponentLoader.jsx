@@ -75,6 +75,22 @@ export default class ComponentLoader extends Savable(Loadable(Mutable)) {
 
 
   //////////////////////////////
+  //  Saving
+  //////////////////////////////
+
+  saveData() {
+    const data = {
+      jsxe: this.jsxFragment.toJSX(),
+      script: this.script || "",
+      styles: this.styles || ""
+    }
+    console.warn("saving: ", data);
+//TODO: update data from returned bundle???
+    return api.saveComponentBundle(this, data);
+  }
+
+
+  //////////////////////////////
   //  Finding / manipulating elements
   //////////////////////////////
 

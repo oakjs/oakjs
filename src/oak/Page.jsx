@@ -50,6 +50,11 @@ export default class Page extends ComponentController {
     return this.componentLoader.load()
             .then( () => this );
   }
+
+  saveData() {
+    return this.componentLoader.save()
+            .then( () => this );
+  }
 }
 
 
