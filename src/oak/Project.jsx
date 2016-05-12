@@ -71,6 +71,7 @@ export default class Project extends ComponentController {
   // Create the sectionIndex on demand
   _makeIndex() {
     return new LoadableIndex({
+      useOneBasedNumbering: true,
       itemType: "section",
       indexProperties: {
         id: "id",

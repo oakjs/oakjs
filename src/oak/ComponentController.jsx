@@ -141,7 +141,6 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
   // Clear our cache when we're marked as dirty
   dirty(dirty) {
-console.warn("dirty", dirty);
     super.dirty(dirty);
     if (this.isDirty) {
       this.cache = {};

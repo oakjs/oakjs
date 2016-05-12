@@ -40,6 +40,7 @@ export default class ProjectRegistry extends Registry {
   // DO NOT CALL THIS!  Use `oak.registry.projectIndex` instead.
   _makeProjectIndex() {
     return new LoadableIndex({
+      useOneBasedNumbering: true,
       itemType: "project",
       loadData: () => {
         return api.loadProjectIndex();

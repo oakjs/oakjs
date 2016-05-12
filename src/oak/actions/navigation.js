@@ -15,7 +15,7 @@ import utils from "./utils";
 // Go to some `route`.
 // All other navigation should go through this one.
 // Ignored if current `page.route` is the same as `route` passed in.
-// NOTE: clear selection and restores on undo.
+// NOTE: clears selection and restores on undo.
 export function navigateTo(options) {
   const {
     route, replace = false,
@@ -32,8 +32,7 @@ export function navigateTo(options) {
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
 
   // if something is currently selected, clear selection (and restore on undo)
-  const oldSelection = oak.selection;
-  if (oldSelection.length) {
+  if (oak.selection.length) {
     const selectionTransaction = selection.clearSelection({ returnTransaction: true });
     transaction.addTransaction(selectionTransaction);
   }
