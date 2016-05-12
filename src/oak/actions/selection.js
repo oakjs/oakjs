@@ -7,7 +7,7 @@ import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import oak from "../oak";
 
-import { setAppState } from "./app";
+import app from "./app";
 import utils from "./utils";
 
 
@@ -145,7 +145,7 @@ function _setSelection(options = {}) {
   // Freeze the selection so it can't be modified accidentally
   Object.freeze(selection);
 
-  return setAppState({
+  return app.setAppState({
     actionName,
     state: { selection },
     operation,

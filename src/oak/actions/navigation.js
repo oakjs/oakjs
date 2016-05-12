@@ -8,10 +8,14 @@ import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import oak from "../oak";
 
+import selection from "./selection";
 import utils from "./utils";
 
 
 // Go to some `route`.
+// All other navigation should go through this one.
+// Ignored if current `page.route` is the same as `route` passed in.
+// NOTE: clear selection and restores on undo.
 export function navigateTo(options) {
   const {
     route, replace = false,
@@ -20,11 +24,20 @@ export function navigateTo(options) {
   if (!route) throw new TypeError(`oak.actions.navigateTo(): route not provided`);
 
   const currentRoute = oak.page && oak.page.route;
+  if (route === currentRoute) return;
 
-  function undo(){ return _navigateToRoute(currentRoute, replace) }
-  function redo(){ return _navigateToRoute(route, replace) }
+  function undo(){ return _navigateToRoute(currentRoute, replace, oldSelection) }
+  function redo(){ return _navigateToRoute(route, replace, []) }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
+
+  // if something is currently selected, clear selection (and restore on undo)
+  const oldSelection = oak.selection;
+  if (oldSelection.length) {
+    const selectionTransaction = selection.clearSelection({ returnTransaction: true });
+    transaction.addTransaction(selectionTransaction);
+  }
+
   if (returnTransaction) return transaction;
   return oak.undoQueue.addTransaction(transaction);
 }

@@ -40,9 +40,6 @@ export function setAppState(options = {}) {
   const originalState = oak.state;
   const newState = Object.assign({}, originalState, stateDeltas);
 
-  // Freeze oak state so it can't be modified without going through this routine
-  Object.freeze(newState);
-
   function redo() {
     oak._saveState(newState);
   }
