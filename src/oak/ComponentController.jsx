@@ -95,15 +95,18 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   //    - `styles` as CSS styles
   //    - `index` as a LoadableIndex
   loadData() {
-    return api.loadComponentBundle(this)
-      .then(bundle => {
-        this.cache = {};
-        if (bundle.jsxe) this._loadedJSXE(bundle.jsxe);
-        if (bundle.index) this._loadedIndex(bundle.index);
-        this._loadedScript(bundle.script);
-        this._loadedStyles(bundle.styles);
-        return bundle;
-      });
+    return api.loadComponentBundle(this);
+  }
+
+  onLoaded(bundle) {
+    this.cache = {};
+    if (bundle.jsxe) this._loadedJSXE(bundle.jsxe);
+    if (bundle.index) this._loadedIndex(bundle.index);
+    this._loadedScript(bundle.script);
+    this._loadedStyles(bundle.styles);
+
+    this.onComponentChanged();
+    return bundle;
   }
 
 
