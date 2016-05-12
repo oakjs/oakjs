@@ -8,7 +8,8 @@ import ids from "./ids";
 
 // Create a stylesheet and install it if we're in the browser.
 // If you pass an `id`, you can call this again to change the stylesheet later .
-// Returns `true` if we're in the browser and this works, otherwise returns `false`.
+// Returns `false` if we're not in a browser.
+// Otherwise returns the `id` (in case one was created).
 export function createStylesheet(styles, id = "STYLE-"+ids.generateRandomId()) {
   if (typeof $ === "undefined") return false;
 
@@ -21,6 +22,7 @@ export function createStylesheet(styles, id = "STYLE-"+ids.generateRandomId()) {
   else {
     $("head").append($sheet);
   }
+  return id;
 }
 
 // Remove a stylesheet specified by id.

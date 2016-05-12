@@ -15,7 +15,7 @@ import UndoQueue from "oak-roots/UndoQueue";
 import actions from "./actions";
 import EditorProps from "./EditorProps";
 import OakEvent from "./OakEvent";
-import ProjectLoader from "./ProjectLoader";
+import ProjectRegistry from "./ProjectRegistry";
 
 import oakComponents from "./components";
 import HTML_EDITOR_SETTINGS from "./components/theme/html";
@@ -45,11 +45,14 @@ class OakJS extends Eventful(Object) {
     // `oak.runner` is the player/editor ui root
     this.runner = {};
 
-    // Registry of loaded projects/sections/pages/etc
-    this.loader = new ProjectLoader(this);
-
     // Create the global undoQueue
     this.undoQueue = new UndoQueue();
+
+    // Registry of loaded projects/sections/pages/etc
+    this.registry = new ProjectRegistry(this);
+
+    // load the projectIndex singleton, since we have to do that before anything else
+    this.registry.projectIndex.load();
   }
 
 
@@ -240,22 +243,22 @@ console.log("oak.forceUpdate()");
 
   // All known projects.
   get projects() {
-    return this.loader.projectIndex.items
+    return this.registry.projectIndex.items
   }
 
   // Get a project by id
   getProject(projectId) {
-    return this.loader.getProject(projectId)
+    return this.registry.getProject(projectId)
   }
 
   // Return a section by id
   getSection(projectId, sectionId) {
-    return this.loader.getSection(projectId, sectionId)
+    return this.registry.getSection(projectId, sectionId)
   }
 
   // Return a page by id
   getPage(projectId, sectionId, pageId) {
-    return this.loader.getPage(projectId, sectionId, pageId)
+    return this.registry.getPage(projectId, sectionId, pageId)
   }
 
   // All known components

@@ -34,7 +34,7 @@ export default class UIRoute extends AppRoute {
       // Otherwise if we didn't get a page, or the page hasn't started loading yet
       if (!runnerPage || !runnerPage.isLoading) {
         // load it and then redraw
-        oak.loader.loadPage(runnerProjectId, runnerSectionId, runnerPageId)
+        oak.registry.loadPage(runnerProjectId, runnerSectionId, runnerPageId)
           .then( page => {
             if (this._isMounted) {
               console.log("loaded runner page, updating ");
@@ -69,7 +69,7 @@ export default class UIRoute extends AppRoute {
         // Otherwise if we didn't get a page, or the page hasn't started loading yet
         if (!appPage || !appPage.isLoading) {
           // load it and then redraw
-          oak.loader.loadPage(appProjectId, appSectionId, appPageId)
+          oak.registry.loadPage(appProjectId, appSectionId, appPageId)
             .then( page => {
               if (this._isMounted) {
                 console.log("loaded oak page, updating ");

@@ -5,6 +5,7 @@
 import { die, dieIfMissing, dieIfOutOfRange } from "oak-roots/util/die";
 import UndoQueue, { UndoTransaction } from "oak-roots/UndoQueue";
 
+import ComponentController from "../ComponentController";
 import JSXElement from "../JSXElement";
 
 export function getOidOrDie(thing, operation) {
@@ -26,15 +27,15 @@ export function getOidsOrDie(_things, operation) {
 //  Guards
 //////////////////////////////
 
-export function getLoaderOrDie(context = oak.editContext, operation) {
-  const loader = oak.loader.getLoader(context);
-  if (!loader) die(oak, operation, context, "Couldn't get loader -- is this a valid path?");
-  return loader;
+export function getControllerOrDie(context = oak.editContext, operation) {
+  if (context instanceof ComponentController) return context;
+  if (typeof context === "string") return ProjectRegistry.get(context);
+  die(oak, operation, context, "Couldn't get controller -- is this a valid path?");
 }
 
 export function getFragmentOrDie(context, operation) {
-  const loader = getLoaderOrDie(context, operation);
-  return loader.jsxFragment;
+  const controller = getControllerOrDie(context, operation);
+  return controller.jsxFragment;
 }
 
 
@@ -54,15 +55,15 @@ export function changeFragmentTransaction({
   context, transformer,
   actionName, returnTransaction
 }) {
-  const loader = getLoaderOrDie(context, actionName);
-  const originalFragment = loader.jsxFragment;
+  const controller = getControllerOrDie(context, actionName);
+  const originalFragment = controller.jsxFragment;
 
   // clone the original fragment and transform it
   const newFragment = originalFragment.clone();
   transformer(newFragment);
 
-  function redo() { return _setLoaderFragment(loader, newFragment) }
-  function undo() { return _setLoaderFragment(loader, originalFragment) }
+  function redo() { return _setControllerFragment(controller, newFragment) }
+  function undo() { return _setControllerFragment(controller, originalFragment) }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
 
@@ -70,9 +71,10 @@ export function changeFragmentTransaction({
   return oak.undoQueue.addTransaction(transaction);
 }
 
-function _setLoaderFragment(loader, fragment) {
-  loader.jsxFragment = fragment;
-  loader.onComponentChanged();
+function _setControllerFragment(controller, fragment) {
+  controller.jsxFragment = fragment;
+  controller.dirty(true);
+  controller.onComponentChanged();
 }
 
 

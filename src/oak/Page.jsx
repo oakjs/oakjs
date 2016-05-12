@@ -7,6 +7,8 @@ import { dieIfMissing } from "oak-roots/util/die";
 
 import ComponentController from "./ComponentController";
 
+import OakPage from "./components/OakPage";
+
 export default class Page extends ComponentController {
   constructor(props) {
     dieIfMissing(props, "new Page", ["oak", "pageId", "sectionId", "projectId"]);
@@ -15,6 +17,9 @@ export default class Page extends ComponentController {
 
   @proto
   type = "page";
+
+  @proto
+  ComponentSuperConstructor = OakPage;
 
   //////////////////////////////
   //  Identify & Sugar
@@ -34,10 +39,6 @@ export default class Page extends ComponentController {
   //  Components
   //////////////////////////////
 
-  getComponentLoader() {
-    return this.oak.loader.getPageLoader(this, "MAKE");
-  }
-
   // TODO: dynamic components
   get components() { return this.section.components }
 
@@ -50,15 +51,6 @@ export default class Page extends ComponentController {
 
   get route() { return this.oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
 
-  loadData() {
-    return this.componentLoader.load()
-            .then( () => this );
-  }
-
-  saveData(force) {
-    return this.componentLoader.save(force)
-            .then( () => this );
-  }
 }
 
 

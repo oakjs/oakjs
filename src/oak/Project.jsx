@@ -2,20 +2,33 @@
 // Project class
 //////////////////////////////
 
+import LoadableIndex from "oak-roots/LoadableIndex";
 import { proto } from "oak-roots/util/decorators";
 import { dieIfMissing } from "oak-roots/util/die";
 
+import api from "./api";
 import ComponentController from "./ComponentController";
+import Section from "./Section";
+
+import OakProject from "./components/OakProject";
 
 export default class Project extends ComponentController {
   constructor(props) {
     super(props);
     dieIfMissing(this, "new Project", ["oak", "projectId"]);
+    this._index = this._makeIndex();
+  }
+
+  // Given a projectId string (NOT an index), return the singleton Project for it.
+  static getProject(projectId) {
+    return
   }
 
   @proto
   type = "project";
 
+  @proto
+  ComponentSuperConstructor = OakProject;
 
   //////////////////////////////
   //  Identity & Sugar
@@ -28,10 +41,6 @@ export default class Project extends ComponentController {
   //  Components
   //////////////////////////////
 
-  getComponentLoader() {
-    return this.oak.loader.getProjectLoader(this, "MAKE");
-  }
-
   // TODO: dynamic components
   get components() { return this.oak.getProjectTheme(this.projectId) }
 
@@ -42,8 +51,7 @@ export default class Project extends ComponentController {
   //  Sections
   //////////////////////////////
 
-  get sectionIndex() { return this.oak.loader.getSectionIndex(this.path) }
-
+  get sectionIndex() { return this._index }
   get sections() { return this.sectionIndex.items }
 
   getSection(sectionIdentifier) {
@@ -61,14 +69,36 @@ export default class Project extends ComponentController {
 
   get route() { return this.oak.getPageRoute(this.projectId) }
 
-  loadData() {
-    return Promise.all([
-        this.sectionIndex.load(),
-        this.componentLoader.load(),
-      ])
-      .then(() => this );
-  }
+  // Create the sectionIndex on demand
+  _makeIndex() {
+    return new LoadableIndex({
+      itemType: "section",
+      indexProperties: {
+        id: "id",
+        title: "title"
+      },
+      loadData: () => {
+        return api.loadSectionIndex(this.projectId);
+      },
+      createItem: (sectionId, props) => {
+        // There can be only one.
+        const registryPath = `${this.projectId}/${sectionId}`;
+        let item = this.oak.registry.get(registryPath);
 
+        if (!item) {
+          item = new Section({
+            sectionId,
+            projectId: this.projectId,
+            ...props,
+            oak: this.oak,
+          });
+          this.oak.registry.add(item, registryPath);
+        }
+
+        return item;
+      }
+    });
+  }
 }
 
 //////////////////////////////
