@@ -58,8 +58,7 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   //  Components
   //////////////////////////////
 
-  // don't call more than once per MSEC
-  @throttle(1)
+  // Called when our component JSX, Script or Styles change.  Forces full page update.
   onComponentChanged() {
     if (this.component) this.oak.updateSoon();
   }
@@ -155,7 +154,7 @@ console.warn("dirty", dirty);
   //  JSXE
   //////////////////////////////
 
-  // Called when your JSXE is initially loaded.
+  // Called when your loaded bundle specifies "jsxe".
   _loadedJSXE(jsxe) {
     this.jsxFragment = JSXFragment.parse(jsxe);
   }
@@ -184,11 +183,14 @@ console.warn("dirty", dirty);
   //  Index
   //////////////////////////////
 
+  // Override to make the index for this type of thing.
+  // Depending on your logic, you may want to call this in your `constructor`
+  //  so the index is always available.
   _makeIndex() {
     console.warn("Your subclass must override `_makeIndex()`");
   }
 
-  // Call this routine if you have loaded styles that you want to show.
+  // Called when your loaded bundle specifies "index".
   _loadedIndex(indexJSON) {
     if (!this._index) this._index = this._makeIndex();
     this._index.loaded(indexJSON);
@@ -209,7 +211,7 @@ console.warn("dirty", dirty);
   //  Script
   //////////////////////////////
 
-  // Call this routine if you have loaded styles that you want to show.
+  // Called when your loaded bundle specifies "script".
   _loadedScript(script) {
     this._script = script;
   }
@@ -230,7 +232,7 @@ console.warn("dirty", dirty);
   //  Stylesheets
   //////////////////////////////
 
-  // Call this routine when you load styles that you want to show.
+  // Called when your loaded bundle specifies "styles".
   _loadedStyles(css) {
     if (!this.stylesheet) {
       if (css) {

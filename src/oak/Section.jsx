@@ -16,7 +16,6 @@ export default class Section extends ComponentController {
   constructor(props) {
     super(props);
     dieIfMissing(this, "new Section", ["oak", "sectionId", "projectId"]);
-    this._index = this._makeIndex();
   }
 
   @proto
@@ -47,7 +46,7 @@ export default class Section extends ComponentController {
   //  Pages
   //////////////////////////////
 
-  get pageIndex() { return this._index }
+  get pageIndex() { return this._index || (this._index = this._makeIndex()) }
 
   get pages() { return this.pageIndex.items }
 

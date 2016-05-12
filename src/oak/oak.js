@@ -164,6 +164,7 @@ class OakJS extends Eventful(Object) {
   get canRedo() { return oak.undoQueue.canRedo }
 
   // Force update of the entire oak, including any changed props in page/section/project
+//TODO: throttle?
   updateSoon() {
     clearTimeout(oak._updateTimer);
     oak._updateTimer = setTimeout(oak.forceUpdate, 0);

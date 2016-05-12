@@ -16,7 +16,6 @@ export default class Project extends ComponentController {
   constructor(props) {
     super(props);
     dieIfMissing(this, "new Project", ["oak", "projectId"]);
-    this._index = this._makeIndex();
   }
 
   // Given a projectId string (NOT an index), return the singleton Project for it.
@@ -51,7 +50,7 @@ export default class Project extends ComponentController {
   //  Sections
   //////////////////////////////
 
-  get sectionIndex() { return this._index }
+  get sectionIndex() { return this._index || (this._index = this._makeIndex()) }
   get sections() { return this.sectionIndex.items }
 
   getSection(sectionIdentifier) {
