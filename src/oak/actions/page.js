@@ -21,8 +21,8 @@ export function savePage() {
 }
 
 
-// Rename a page (eg: change it's id).
-export function renamePage(options) {
+// Change a page's id.
+export function changePageId(options = {}) {
   let {
     page = oak.page,    // page to change
     id: newId,          // new id for the page
@@ -31,8 +31,8 @@ export function renamePage(options) {
 
   if (typeof page === "string") page = oak.registry.getPage(...page.split("/"));
 
-  if (!page) die(oak, "actions.renamePage", [options], "you must specify options.page");
-  if (!newId) die(oak, "actions.renamePage", [options], "you must specify options.id");
+  if (!page) die(oak, "actions.changePageId", [options], "you must specify options.page");
+  if (!newId) die(oak, "actions.changePageId", [options], "you must specify options.id");
 
   const oldId = page.pageId;
 
@@ -40,8 +40,8 @@ export function renamePage(options) {
   const oldRoute = (page === oak.page ? oak.getPageRoute(page.projectId, page.sectionId, oldId) : undefined);
   const newRoute = (page === oak.page ? oak.getPageRoute(page.projectId, page.sectionId, newId) : undefined);
 
-  let undo = function() { return _renamePage(page, newId, oldId, oldRoute) };
-  let redo = function() { return _renamePage(page, oldId, newId, newRoute) };
+  function undo() { return _changePageId(page, oldId, oldRoute) };
+  function redo() { return _changePageId(page, newId, newRoute) };
 
   return new UndoTransaction({
     redoActions:[redo],
@@ -52,13 +52,15 @@ export function renamePage(options) {
 }
 
 // Internal routine to actually rename and possibly navigate
-function _renamePage(page, fromId, toId, route) {
-  return api.renameComponent(page, fromId, toId)
+function _changePageId(page, toId, route) {
+  const fromId = page.pageId;
+  return api.changeComponentId(page, toId)
     .then( () => {
       // update page
       page.pageId = toId;
       // update section pageIndex
       page.section.pageIndex.changeId(fromId, toId)
+console.info("page id changed, navigating to ", route);
       // navigate to route if provided
       if (route) utils.navigateToRoute(route, "REPLACE");
     });

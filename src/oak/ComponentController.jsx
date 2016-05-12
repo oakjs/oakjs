@@ -14,6 +14,9 @@ import ids from "oak-roots/util/ids";
 import api from "./api";
 import JSXFragment from "./JSXFragment";
 
+import Stub from "./components/Stub";
+
+
 export default class ComponentController extends Savable(Loadable(Eventful())) {
   constructor(props) {
     super();
@@ -165,7 +168,9 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
   // Return the Component class for our JSXE, etc.
   get Component() {
-    if (!this.isLoaded) return Stub;
+    if (this.cacheComponent) return this.cache.Component;
+
+    if (!this.isLoaded || !this.jsxFragment) return Stub;
 
     if (!this.cache.Component) {
       const classId = this.type + "_" +  ids.normalizeIdentifier(this.path);

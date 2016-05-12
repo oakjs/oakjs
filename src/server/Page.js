@@ -6,6 +6,7 @@
 
 
 import paths from "./paths";
+import Section from "./Section";
 
 export default class Page {
 
@@ -18,8 +19,12 @@ export default class Page {
   }
 
   //
-  //  Get Project and Section objects for this page
+  //  Syntactic sugar
   //
+  get path() {
+    return `${this.projectId}/${this.sectionId}/${this.pageId}`;
+  }
+
   get project() {
     return new Project(this.projectId);
   }
@@ -28,10 +33,10 @@ export default class Page {
     return new Section(this.projectId, this.sectionId);
   }
 
+
   //
   //  Server file paths
   //
-
   get rootPath() { return paths.pagePath(this.projectId, this.sectionId, this.pageId) }
   get jsxePath() { return paths.pagePath(this.projectId, this.sectionId, this.pageId, "page.jsxe") }
   get stylesPath() { return paths.pagePath(this.projectId, this.sectionId, this.pageId, "page.css") }
@@ -43,7 +48,6 @@ export default class Page {
   //  Load/Save/Delete the various bits.  All return a promise.
   //  Conside using the higher-level `save`, `delete`, etc routines instead.
   //
-
   getJSXE() { return paths.getTextFile(this.jsxePath) }
   getStyles() { return paths.getTextFile(this.stylesPath) }
   getScript() { return paths.getTextFile(this.scriptPath) }
@@ -69,6 +73,7 @@ export default class Page {
 
   // Create a page given a JSON blob and page index (defaults to the end of the section).
   //  `json` is the same as for `save()`.
+  // Returns a promise which yields with the index of the new page.
   create(json, index) {
     this.save(json)
       .then(this.section.addPage(this, index));
@@ -101,18 +106,19 @@ export default class Page {
         });
   }
 
-  //  Rename this page.
+  //  Change the id of this page.
   //  Updates section's pageIndex.
-  rename(newPageId) {
+  changeId(newPageId) {
     // get a new Page object with newPageId to figure out it's path
     const newPage = new Page(this.projectId, this.sectionId, newPageId);
     const newPageRoot = newPage.rootPath;
 
+    const section = this.section;
     // move the folder first
     return paths.renameFile(this.rootPath, newPage.rootPath)
       // then update the section's pageIndex
       .then(() => {
-        return this.section.renamePage(this.pageId, newPageId)
+        return section.changePageId(this.pageId, newPageId)
       })
       // then rename this object
       .then(() => {

@@ -27,10 +27,10 @@ export default new API({
     return this.post(url, JSON.stringify(data), fetchParams, errorMessage);
   },
 
-  // Rename (change id) of some ComponentController.
+  // Change id of some ComponentController (affects the disk).
   // NOTE: does not affect client indices...
-  renameComponent(controller, newId, fetchParams) {
-    const url = `/api/${controller.type}/${controller.path}/rename`;
+  changeComponentId(controller, newId, fetchParams) {
+    const url = `/api/${controller.type}/${controller.path}/changeId`;
     const errorMessage = `Error renaming ${controller.type} bundle`;
     const data = { newId };
     return this.post(url, JSON.stringify(data), fetchParams, errorMessage);

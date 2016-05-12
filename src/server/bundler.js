@@ -109,6 +109,7 @@ export function bundlePage({ page, force, response }) {
     script:  page.scriptPath,
   };
 
+  if (DEBUG) console.log(`bundlePage(${page.path})`);
   const options = {
     debug: DEBUG,
     force,
@@ -121,20 +122,19 @@ export function bundlePage({ page, force, response }) {
 }
 
 // Return all the data we need to display a section
-export function bundleSection({ projectId, sectionId, force, response }) {
-  const sectionPaths = new apiPaths.sectionPaths(projectId, sectionId);
+export function bundleSection({ section, force, response }) {
   const pathMap = {
-    jsxe:    sectionPaths.jsxe,
-    styles:  sectionPaths.css,
-    script:  sectionPaths.script,
-    index:   sectionPaths.pageIndex
+    jsxe:    section.jsxePath,
+    styles:  section.stylesPath,
+    script:  section.scriptPath,
+    index:   section.indexPath
   };
-  if (DEBUG) console.log(`bundleSection(${projectId}, ${sectionId})`);
+  if (DEBUG) console.log(`bundleSection(${section.path})`);
   const options = {
     debug: DEBUG,
     force,
     response,
-    bundleFile: sectionPaths.bundleFile,
+    bundleFile: section.bundlePath,
     optional: true,
     trusted: true,
   }

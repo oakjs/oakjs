@@ -10,6 +10,7 @@ import fsPath from "path";
 import bundler from "./bundler";
 import Page from "./Page";
 import paths from "./paths";
+import Section from "./Section";
 import util from "./util";
 
 const router = express.Router();
@@ -76,7 +77,7 @@ router.get("/oak/:action",  (request, response) => {
 
 
 //////////////////////////////
-// Page bits
+//  Page bits
 //////////////////////////////
 
 function _sendPageBundle(page, request, response) {
@@ -106,27 +107,46 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
   switch (action) {
     // save page bits as JSON blob:  { jsxe, script, styles }
     // returns the newly saved data
-    case "save":    return page.save(JSON.parse(body))
-                      .then( () => { return _sendPageBundle(page, request, response) })
+    case "save":      const pageData = JSON.parse(body);
+                      return page.save(pageData)
+                        .then( () => _sendPageBundle(page, request, response) );
+
+    case "changeId":  const params = JSON.parse(body);
+                      return page.changeId(params.newId)
+                        .then( () => sendJSONFile(request, response, page.section.indexPath) );
   }
   throw new TypeError(`Page API action '${action}' not defined.`);
 });
 
 
+
+//////////////////////////////
+//  Section bits
+//////////////////////////////
+
+function _sendSectionBundle(section, request, response) {
+  return bundler.bundleSection({ section, response, ...debugParams(request.query) });
+}
+
 // Router for section read actions.
 router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
   const { action, projectId, sectionId } = request.params;
-
-  const sectionPaths = new paths.sectionPaths(projectId, sectionId);
+  const section = new Section(projectId, sectionId);
   switch (action) {
-    case "section":     return bundler.bundleSection({ projectId, sectionId, response, ...debugParams(request.query) });
-    case "jsxe":        return sendTextFile(request, response, sectionPaths.jsxe);
-    case "script":      return sendTextFile(request, response, sectionPaths.script);
-    case "styles":      return sendTextFile(request, response, sectionPaths.css);
-    case "pageIndex":   return sendJSONFile(request, response, sectionPaths.pageIndex);
+    case "section":     return _sendSectionBundle(section, request, response);
+    case "jsxe":        return sendTextFile(request, response, section.jsxePath);
+    case "script":      return sendTextFile(request, response, section.scriptPath);
+    case "styles":      return sendTextFile(request, response, section.stylesPath);
+    case "pageIndex":   return sendJSONFile(request, response, section.indexPath);
   }
   throw new TypeError(`Section API action '${action}' not defined.`);
 });
+
+
+
+//////////////////////////////
+//  Project bits
+//////////////////////////////
 
 
 // Router for project read actions.
@@ -140,6 +160,7 @@ router.get("/project/:projectId/:action",  (request, response) => {
     case "script":      return sendTextFile(request, response, projectPaths.script);
     case "styles":      return sendTextFile(request, response, projectPaths.css);
     case "sectionIndex":  return sendJSONFile(request, response, projectPaths.sectionIndex);
+
   }
   throw new TypeError(`Project API action '${action}' not defined.`);
 });

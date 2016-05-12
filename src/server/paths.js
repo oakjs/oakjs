@@ -21,6 +21,11 @@ export function saveFile(path, contents) {
   return fsp.outputFile(path, contents);
 }
 
+// Save a JSON blob to a file.
+export function saveJSON(path, json) {
+  return fsp.outputFile(path, JSON.stringify(json, undefined, 2));
+}
+
 // If `contents` is falsy, delete the file at `path` (if it exists).
 // Otherwise save `contents` to `path`.
 export function saveOrDeleteFile(path, contents) {
