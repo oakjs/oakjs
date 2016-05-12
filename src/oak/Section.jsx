@@ -28,10 +28,17 @@ export default class Section extends ComponentController {
   //  Identity & Sugar
   //////////////////////////////
 
+
   get id() { return this.sectionId }
   get path() { return `${this.projectId}/${this.sectionId}` }
 
   get project() { return this.oak.getProject(this.projectId) }
+
+  // Index of this section in its project.
+  // NOTE: this index is 1-based!
+  get sectionIndex() { return this.project.sections.indexOf(this) + 1 }
+  get isFirstSection() { return this.sectionIndex === 1}
+  get isLastSection() { return this.sectionIndex = this.project.sections.length }
 
   //////////////////////////////
   //  Components
@@ -67,6 +74,7 @@ export default class Section extends ComponentController {
   // Create the pageIndex on demand.
   _makeIndex() {
     return new LoadableIndex({
+      useOneBasedNumbering: true,
       itemType: "page",
       loadData: () => {
         return api.loadPageIndex(this.path);

@@ -66,7 +66,6 @@ export function changeFragmentTransaction({
   function undo() { return _setControllerFragment(controller, originalFragment) }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-
   if (returnTransaction) return transaction;
   return oak.undoQueue.addTransaction(transaction);
 }

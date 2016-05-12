@@ -68,13 +68,17 @@ export default class AppMenubar extends OakComponent {
           </Dropdown>
           <Dropdown text="Page" showArrow={false} action="hide">
             <Menu>
-              <MenuItem onClick={oak.actions.savePage} disabled={oak.page && !oak.page.isDirty}>Save Page...</MenuItem>
+              <MenuItem onClick={oak.actions.showFirstPage} disabled={oak.page && oak.page.isFirstPage}>Show First Page</MenuItem>
+              <MenuItem onClick={oak.actions.showPreviousPage} disabled={oak.page && oak.page.isFirstPage}>Show Previous Page</MenuItem>
+              <MenuItem onClick={oak.actions.showNextPage} disabled={oak.page && oak.page.isLastPage}>Show Next Page</MenuItem>
+              <MenuItem onClick={oak.actions.showLastPage} disabled={oak.page && oak.page.isLastPage}>Show Last Page</MenuItem>
               <Divider/>
               <MenuItem hidden={oak.state.editing} onClick={oak.actions.startEditing}>Edit Page</MenuItem>
               <MenuItem hidden={!oak.state.editing} onClick={oak.actions.stopEditing}>Stop Editing Page</MenuItem>
               <MenuItem disabled>Page Settings...</MenuItem>
               <Submenu disabled>Jump to Page...</Submenu>
               <Divider/>
+              <MenuItem onClick={oak.actions.savePage} disabled={oak.page && !oak.page.isDirty}>Save Page...</MenuItem>
               <MenuItem disabled>New Page...</MenuItem>
               <MenuItem disabled>Duplicate Page...</MenuItem>
               <MenuItem disabled>Rearrange Pages...</MenuItem>

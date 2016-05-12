@@ -200,16 +200,7 @@ console.log("oak.forceUpdate()");
   //  Routing
   //////////////////////////////
 
-  goTo(route, replace) {
-    if (!oak._router) throw new TypeError(`oak.goTo(${route}): oak._router is not set`);
-
-    if (replace || oak._router.isActive(route)) {
-      oak._router.replace(route);
-    }
-    else {
-      oak._router.push(route);
-    }
-  }
+  get projects() { return this.projectIndex.items }
 
   // Return URL for page, section or project
   getPageRoute(projectId, sectionId, pageId) {
@@ -218,25 +209,6 @@ console.log("oak.forceUpdate()");
     if (projectId !== undefined) return `/project/${projectId}`;
     throw new TypeError(`oak.getPageRoute(${projectId}, ${sectionId}, ${pageId}): invalid params`);
   }
-
-  get projects() { return this.projectIndex.items }
-
-  showProject(projectIdentifier) {
-    const route = this.getPageRoute(projectIdentifier);
-    oak.goTo(route);
-  }
-
-  showSection(projectIdentifier, sectionIdentifier) {
-    const route = this.getPageRoute(projectIdentifier, sectionIdentifier);
-    oak.goTo(route);
-  }
-
-  showPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
-    const route = this.getPageRoute(projectIdentifier, sectionIdentifier, pageIdentifier);
-    oak.goTo(route);
-  }
-
-
 
   //////////////////////////////
   //  Components

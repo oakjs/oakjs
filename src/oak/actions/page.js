@@ -10,14 +10,24 @@ import oak from "../oak";
 
 import utils from "./utils";
 
-//////////////////////////////
-//  Manipulating page
-//////////////////////////////
 
 // Save the page to the server.
 // NOTE: this is currently not undoable.
 export function savePage() {
   return oak.page.save("FORCE");
+}
+
+
+export function getPageRoute(projectId, sectionId, pageId) {
+  if (pageId !== undefined) return `/project/${projectId}/${sectionId}/${pageId}`;
+  if (sectionId !== undefined) return `/project/${projectId}/${sectionId}`;
+  if (projectId !== undefined) return `/project/${projectId}`;
+  throw new TypeError(`oak.getPageRoute(${projectId}, ${sectionId}, ${pageId}): invalid params`);
+}
+
+// Show a particular page
+export function showPage({ projectId, sectionId, pageId }) {
+
 }
 
 
