@@ -49,7 +49,7 @@ export default function Savable(Constructor = Object) {
     //       If you want to ignore the dirty bit, override as:   `get isDirty() { return true }`
     //
     // Use `this.dirty()` to update our dirty state.
-    get isDirty() { return this.__saveState && this.__saveState.isDirty };
+    get isDirty() { return !!this.__saveState && !!this.__saveState.isDirty };
 
 
   //////////////////////////////
