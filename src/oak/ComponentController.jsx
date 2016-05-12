@@ -8,7 +8,7 @@ import Eventful from "oak-roots/Eventful";
 import Loadable from "oak-roots/Loadable";
 import Savable from "oak-roots/Savable";
 import Stylesheet from "oak-roots/Stylesheet";
-import { proto, throttle } from "oak-roots/util/decorators";
+import { autobind, proto, throttle } from "oak-roots/util/decorators";
 import ids from "oak-roots/util/ids";
 
 import api from "./api";
@@ -40,6 +40,8 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   get state() { return this.component && this.component.state }
   setState(state) { if (this.component) this.component.setState(state) }
   forceUpdate() { if (this.component) this.component.forceUpdate() }
+
+  // don't call more than once per MSEC
   @throttle(1)
   updateSoon(){ this.forceUpdate() }
 
@@ -56,6 +58,8 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   //  Components
   //////////////////////////////
 
+  // don't call more than once per MSEC
+  @throttle(1)
   onComponentChanged() {
     if (this.component) this.oak.updateSoon();
   }
@@ -119,7 +123,7 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   //    - `jsxe` as a JSXFragment
   //    - `script` as javascript for the JSXFragment
   //    - `styles` as CSS styles
-  // If your subclass has an index or something, add that to the data.
+  // If your subclass has an index or something, add that to the `super()`'s data.
   getDataToSave() {
     return {
       jsxe: this._getJSXEData(),
@@ -138,8 +142,12 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
   // Clear our cache when we're marked as dirty
   dirty(dirty) {
+console.warn("dirty", dirty);
     super.dirty(dirty);
-    this.cache = {};
+    if (this.isDirty) {
+      this.cache = {};
+      this.onComponentChanged();
+    }
   }
 
 
@@ -155,11 +163,6 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   // Return JSXE data to save.
   _getJSXEData() {
     if (this.jsxFragment) return this.jsxFragment.toJSX();
-  }
-
-  // Call this hwen you change your component.
-  updatedComponent() {
-    this.dirty();
   }
 
   // Return the Component class for our JSXE, etc.
