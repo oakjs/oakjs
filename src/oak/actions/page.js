@@ -18,18 +18,6 @@ export function savePage() {
 }
 
 
-export function getPageRoute(projectId, sectionId, pageId) {
-  if (pageId !== undefined) return `/project/${projectId}/${sectionId}/${pageId}`;
-  if (sectionId !== undefined) return `/project/${projectId}/${sectionId}`;
-  if (projectId !== undefined) return `/project/${projectId}`;
-  throw new TypeError(`oak.getPageRoute(${projectId}, ${sectionId}, ${pageId}): invalid params`);
-}
-
-// Show a particular page
-export function showPage({ projectId, sectionId, pageId }) {
-
-}
-
 
 
 // Export all as a lump
