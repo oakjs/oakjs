@@ -41,17 +41,20 @@ export function setAppState(options = {}) {
   const newState = Object.assign({}, originalState, stateDeltas);
 
   function redo() {
-    oak._saveState(newState);
+    utils.setAppState(newState);
   }
 
   function undo() {
-    oak._saveState(originalState);
+    utils.setAppState(originalState);
   }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
   if (returnTransaction) return transaction;
   return oak.undoQueue.addTransaction(transaction);
 }
+
+
+
 
 
 

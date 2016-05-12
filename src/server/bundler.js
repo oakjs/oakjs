@@ -130,7 +130,6 @@ export function bundleSection({ projectId, sectionId, force, response }) {
     index:   sectionPaths.pageIndex
   };
   if (DEBUG) console.log(`bundleSection(${projectId}, ${sectionId})`);
-console.info(pathMap);
   const options = {
     debug: DEBUG,
     force,
@@ -149,7 +148,7 @@ export function bundleProject({ projectId, force, response }) {
     jsxe:    projectPaths.jsxe,
     styles:  projectPaths.css,
     script:  projectPaths.script,
-    index:   sectionPaths.pageIndex
+    index:   projectPaths.sectionIndex
   };
 
   const options = {

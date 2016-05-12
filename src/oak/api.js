@@ -13,15 +13,26 @@ export default new API({
   // Component bundles
   //////////////////////////////
 
+  // Load a bundle for some ComponentController as a JSON blob.
   loadComponentBundle(controller, fetchParams) {
     const url = `/api/${controller.type}/${controller.path}/${controller.type}`;
     const errorMessage = `Error loading ${controller.type} bundle`;
     return this.getJSON(url, fetchParams, errorMessage);
   },
 
+  // Save `data` as a JSON blob for some ComponentController.
   saveComponentBundle(controller, data, fetchParams) {
     const url = `/api/${controller.type}/${controller.path}/save`;
     const errorMessage = `Error saving ${controller.type} bundle`;
+    return this.post(url, JSON.stringify(data), fetchParams, errorMessage);
+  },
+
+  // Rename (change id) of some ComponentController.
+  // NOTE: does not affect client indices...
+  renameComponent(controller, newId, fetchParams) {
+    const url = `/api/${controller.type}/${controller.path}/rename`;
+    const errorMessage = `Error renaming ${controller.type} bundle`;
+    const data = { newId };
     return this.post(url, JSON.stringify(data), fetchParams, errorMessage);
   },
 

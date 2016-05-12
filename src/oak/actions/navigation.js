@@ -26,17 +26,12 @@ export function navigateTo(options) {
   const currentRoute = oak.page && oak.page.route;
   if (route === currentRoute) return;
 
-  function undo(){ return _navigateToRoute(currentRoute, replace, oldSelection) }
-  function redo(){ return _navigateToRoute(route, replace, []) }
+  // clear selection upon navigation as well
+  const oldSelection = oak.selection;
+  function undo(){ return utils.navigateToRoute(currentRoute, replace, oldSelection) }
+  function redo(){ return utils.navigateToRoute(route, replace, []) }
 
   const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-
-  // if something is currently selected, clear selection (and restore on undo)
-  if (oak.selection.length) {
-    const selectionTransaction = selection.clearSelection({ returnTransaction: true });
-    transaction.addTransaction(selectionTransaction);
-  }
-
   if (returnTransaction) return transaction;
   return oak.undoQueue.addTransaction(transaction);
 }
@@ -115,8 +110,6 @@ function showRelativePage(delta, options) {
     throw new TypeError(`oak.actions.showRelativePage(${delta}): delta must be "FIRST", "LAST" or a number`);
   }
 
-  console.dir(props);
-
   return showPage(Object.assign(props, options));
 }
 
@@ -127,16 +120,3 @@ export function showNextPage(options) { return showRelativePage(1, options); }
 export function showLastPage(options) { return showRelativePage("LAST", options); }
 
 
-//////////////////////////////
-//  Utility functions to actually manipulate the state
-//////////////////////////////
-
-function _navigateToRoute(route, replace) {
-  if (!oak._router) throw new TypeError(`oak.actions._navigateToRoute(${route}): oak._router is not set`);
-  if (replace || oak._router.isActive(route)) {
-    oak._router.replace(route);
-  }
-  else {
-    oak._router.push(route);
-  }
-}

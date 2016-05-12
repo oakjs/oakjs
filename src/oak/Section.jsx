@@ -80,22 +80,14 @@ export default class Section extends ComponentController {
         return api.loadPageIndex(this.path);
       },
       createItem: (pageId, props) => {
-        // There can be only one.
-        const registryPath = `${this.projectId}/${this.sectionId}/${pageId}`;
-        let item = this.oak.registry.get(registryPath);
-
-        if (!item) {
-          item = new Page({
-            pageId,
-            sectionId: this.sectionId,
-            projectId: this.projectId,
-            ...props,
-            oak: this.oak,
-          });
-          this.oak.registry.add(item, registryPath);
-        }
-
-        return item;
+console.info("creating page ",pageId);
+        return new Page({
+          pageId,
+          sectionId: this.sectionId,
+          projectId: this.projectId,
+          ...props,
+          oak: this.oak,
+        });
       }
     });
   }

@@ -191,8 +191,10 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
   // Called when your loaded bundle specifies "index".
   _loadedIndex(indexJSON) {
+    if (!indexJSON) return;
+
     if (!this._index) this._index = this._makeIndex();
-    this._index.loaded(indexJSON);
+    this._index.loaded(JSON.parse(indexJSON));
   }
 
   // Return index data to save.

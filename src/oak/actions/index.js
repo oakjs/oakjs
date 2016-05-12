@@ -1,3 +1,5 @@
+// NOTE: we do NOT include "utils" here since they're not part of the public API.
+
 export * from "./app";
 export * from "./clipboard";
 export * from "./elements";

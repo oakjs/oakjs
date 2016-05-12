@@ -87,14 +87,6 @@ class OakJS extends Eventful(Object) {
     this.state = Object.freeze(savedState);
   }
 
-  // Set current state and save in localStorage.
-  // DON'T CALL THIS, `setState()` will call it for you.
-  _saveState(newState) {
-    this.state = Object.freeze(newState);
-    this.preference("appState", this.state);
-    this.updateSoon();
-  }
-
 
   //////////////////////////////
   //  State syntactic sugar

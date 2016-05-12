@@ -29,7 +29,7 @@ export function addToSelection(options) {
 
   if (oidsToAdd.length === 0) return;
 
-  return _setSelection({
+  return _setSelectionTransaction({
     selection: selection.concat(oidsToAdd),
     operation,
     returnTransaction
@@ -50,7 +50,7 @@ export function removeFromSelection(options = {}) {
 
   if (oidsToRemove.length === 0) return;
 
-  return _setSelection({
+  return _setSelectionTransaction({
     selection: selection.filter( oid => !oidsToRemove.includes(oid) ),
     operation,
     returnTransaction
@@ -91,7 +91,7 @@ export function clearSelection(options = {}) {
     returnTransaction
   } = options;
 
-  return _setSelection({
+  return _setSelectionTransaction({
     actionName: "Clear Selection",
     selection: [],
     returnTransaction
@@ -108,7 +108,7 @@ export function setSelection(options = {}) {
 
   const selection = utils.getOidsOrDie(elements, operation);
 
-  return _setSelection({
+  return _setSelectionTransaction({
     selection,
     operation,
     returnTransaction,
@@ -125,7 +125,7 @@ export function selectAll(options = {}) {
 
   const selection = utils.getOidsOrDie(context.descendentOids, operation);
 
-  return _setSelection({
+  return _setSelectionTransaction({
     selection,
     operation,
     returnTransaction,
@@ -133,25 +133,29 @@ export function selectAll(options = {}) {
 }
 
 // Internal function to change the selection assuming normalized `options.selection`.
-function _setSelection(options = {}) {
+function _setSelectionTransaction(options = {}) {
   const {
     selection = [],
-    operation = "_setSelection", returnTransaction, actionName = "Change Selection"
+    operation = "_setSelectionTransaction", returnTransaction, actionName = "Change Selection"
   } = options;
 
   // bail if selection is not actually changing
   if (selection && oak.selection && selection.join("") === oak.selection.join("")) return;
 
-  // Freeze the selection so it can't be modified accidentally
-  Object.freeze(selection);
+  const originalSelection = oak.selection;
+  function undo() { return utils.setSelection(originalSelection); }
+  function redo() { return utils.setSelection(selection); }
 
-  return app.setAppState({
-    actionName,
-    state: { selection },
-    operation,
-    returnTransaction,
-  });
+  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
+  if (returnTransaction) return transaction;
+  return oak.undoQueue.addTransaction(transaction);
 }
+
+
+//////////////////////////////
+//  Utility functions to change selection for use by transactions only
+//////////////////////////////
+
 
 
 // Export all as a lump

@@ -34,7 +34,7 @@ export function setElementProps(options) {
 
   if (props == null) die(oak, actionName, options, "`options.props` must be an object");
 
-  return utils.changeFragmentTransaction({
+  return changeFragmentTransaction({
     actionName,
     context,
     returnTransaction,
@@ -61,7 +61,7 @@ export function resetElementProps(options) {
 
   if (props == null) die(oak, actionName, options, "`options.props` must be an object");
 
-  return utils.changeFragmentTransaction({
+  return changeFragmentTransaction({
     actionName,
     context,
     returnTransaction,
@@ -92,7 +92,7 @@ export function removeElements(options) {
 
   if (!Array.isArray(elements)) die(oak, actionName, options, "`options.elements` must be an array");
 
-  return utils.changeFragmentTransaction({
+  return changeFragmentTransaction({
     actionName,
     context,
     returnTransaction,
@@ -125,7 +125,7 @@ export function addElements(options) {
 
   if (!Array.isArray(elements)) die(oak, actionName, options, "`options.elements` must be an array");
 
-  return utils.changeFragmentTransaction({
+  return changeFragmentTransaction({
     actionName,
     context,
     returnTransaction,
@@ -134,6 +134,47 @@ export function addElements(options) {
     }
   });
 }
+
+
+
+//////////////////////////////
+//  Generic JSXFragment manipulation
+//////////////////////////////
+
+
+// Create a transaction for a transformation of `props` of one or more elements.
+//  We'll call `options.transformer(jsxFragmentClone)` to make the actual change.
+//
+// If `returnTransaction` is truthy, we'll return the transaction created.
+// If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
+//
+// NOTE: don't call this directly, use one of the `setElement*()` or `*Element()` calls.
+export function changeFragmentTransaction({
+  context, transformer,
+  actionName, returnTransaction
+}) {
+  const controller = utils.getControllerOrDie(context, actionName);
+  const originalFragment = controller.jsxFragment;
+
+  // clone the original fragment and transform it
+  const newFragment = originalFragment.clone();
+  transformer(newFragment);
+
+  function redo() { return _setControllerFragment(controller, newFragment) }
+  function undo() { return _setControllerFragment(controller, originalFragment) }
+
+  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
+  if (returnTransaction) return transaction;
+  return oak.undoQueue.addTransaction(transaction);
+}
+
+function _setControllerFragment(controller, fragment) {
+  controller.jsxFragment = fragment;
+  controller.dirty(true);
+  controller.onComponentChanged();
+}
+
+
 
 
 // Export all as a lump

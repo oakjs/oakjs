@@ -119,6 +119,7 @@ export default class UndoQueue {
     else {
       this._addAndCommitTransaction(transaction, options);
     }
+    return transaction;
   }
 
 
@@ -255,6 +256,19 @@ export class UndoTransaction {
   redo() {
     this.redoActions.forEach(method => method())
   }
+
+// REFACTOR: I think the following will chain undo() routines if they return promises...
+//   undo() {
+//     return this.undoActions.reduce( (promise, method) => {
+//       return promise.then( Promise.resolve(method()) );
+//     }, Promise.resolve());
+//   }
+//
+//   redo() {
+//     return this.redoActions.reduce( (promise, method) => {
+//       return promise.then( Promise.resolve(method()) );
+//     }, Promise.resolve());
+//   }
 
 
   //////////////////////////////

@@ -46,21 +46,13 @@ export default class ProjectRegistry extends Registry {
         return api.loadProjectIndex();
       },
       createItem: (projectId, props) => {
-        // There can be only one.
-        const registryPath = projectId;
-        let item = this.get(registryPath);
-
-        if (!item) {
-          item = new Project({
-            projectId,
-            ...props,
-            oak: this.oak,
-          });
-          this.add(item, registryPath);
-        }
-
-        return item;
-      },
+        return new Project({
+          projectId,
+          ...props,
+          oak: this.oak,
+        });
+        this.add(item, registryPath);
+      }
     });
   }
 
@@ -83,17 +75,17 @@ export default class ProjectRegistry extends Registry {
   // Return a project, but only if it has already been loaded.
   // Returns `undefined` if the project is not found or it hasn't been loaded yet.
   // Use `oak.registry.loadProject()` if you want to ensure that a project is loaded.
-  getProject(projectIdentifier) {
-    return this.projectIndex.getItem(projectIdentifier);
+  getProject(projectId) {
+    return this.projectIndex.getItem(projectId);
   }
 
   // Return a promise which resolves with a loaded project.
   // If project is not found, the promise will reject.
   // You can specify string id or numeric index.
-  loadProject(projectIdentifier) {
-    return this.projectIndex.loadItem(projectIdentifier)
+  loadProject(projectId) {
+    return this.projectIndex.loadItem(projectId)
 //       .catch(error => {
-//         console.group(`Error loading project ${projectIdentifier}:`);
+//         console.group(`Error loading project ${projectId}:`);
 //         console.error(error);
 //         console.groupEnd();
 //         throw new ReferenceError("Couldn't load project");
@@ -104,21 +96,23 @@ export default class ProjectRegistry extends Registry {
   //  Sections!
   //////////////////////////////
 
-  getSection(projectIdentifier, sectionIdentifier) {
-    const project = this.getProject(projectIdentifier);
-    if (project) return project.getSection(sectionIdentifier);
+  getSection(projectId, sectionId) {
+    const project = this.getProject(projectId);
+    if (project) return project.getSection(sectionId);
   }
 
-  loadSection(projectIdentifier, sectionIdentifier) {
-    const section = this.getSection(projectIdentifier, sectionIdentifier);
+  loadSection(projectId, sectionId) {
+    const section = this.getSection(projectId, sectionId);
     if (section) return section.load();
 
-    return this.loadProject(projectIdentifier)
-      .then( project => {
-        return project.loadSection(sectionIdentifier);
+    return this.loadProject(projectId)
+      .then( () => {
+        const section = this.getSection(projectId, sectionId);
+        if (section) return section.load();
+        return Promise.reject(`Section ${sectionId} not found`);
       })
 //       .catch(error => {
-//         console.group(`Error loading section ${projectIdentifier}/${sectionIdentifier}:`);
+//         console.group(`Error loading section ${projectId}/${sectionId}:`);
 //         console.error(error);
 //         console.groupEnd();
 //         throw new ReferenceError("Couldn't load section");
@@ -130,21 +124,21 @@ export default class ProjectRegistry extends Registry {
   //  Pages!
   //////////////////////////////
 
-  getPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
-    const section = this.getSection(projectIdentifier, sectionIdentifier);
-    if (section) return section.getPage(pageIdentifier);
+  getPage(projectId, sectionId, pageId) {
+    const section = this.getSection(projectId, sectionId);
+    if (section) return section.getPage(pageId);
   }
 
-  loadPage(projectIdentifier, sectionIdentifier, pageIdentifier) {
-    const page = this.getPage(projectIdentifier, sectionIdentifier, pageIdentifier);
-    if (page) return page.load();
-
-    return this.loadSection(projectIdentifier, sectionIdentifier)
-      .then( section => {
-        return section.loadPage(pageIdentifier);
+  loadPage(projectId, sectionId, pageId) {
+console.info("loadPage", projectId, sectionId, pageId);
+    return this.loadSection(projectId, sectionId)
+      .then( () => {
+        const page = this.getPage(projectId, sectionId, pageId);
+        if (page) return page.load();
+        return Promise.reject(`Page ${pageId} not found`);
       })
 //       .catch(error => {
-//         console.group(`Error loading page ${projectIdentifier}/${sectionIdentifier}/${pageIdentifier}:`);
+//         console.group(`Error loading page ${projectId}/${sectionId}/${pageId}:`);
 //         console.error(error);
 //         console.groupEnd();
 //         throw new ReferenceError("Couldn't load page");

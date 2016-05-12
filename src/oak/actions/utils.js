@@ -1,5 +1,8 @@
 //////////////////////////////
 //  Utilities for dealing with elements
+//
+//  NOTE: These routines should not be called directly except by other actions.
+//        DO NOT include this file in `actions/index.js`
 //////////////////////////////
 
 import { die, dieIfMissing, dieIfOutOfRange } from "oak-roots/util/die";
@@ -39,41 +42,50 @@ export function getFragmentOrDie(context, operation) {
 }
 
 
+
+
 //////////////////////////////
-//  Generic JSXFragment manipulation
+//  Utility functions to change app state for use by transactions only
 //////////////////////////////
 
-
-// Create a transaction for a transformation of `props` of one or more elements.
-//  We'll call `options.transformer(jsxFragmentClone)` to make the actual change.
-//
-// If `returnTransaction` is truthy, we'll return the transaction created.
-// If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
-//
-// NOTE: don't call this directly, use one of the `setElement*()` or `*Element()` calls.
-export function changeFragmentTransaction({
-  context, transformer,
-  actionName, returnTransaction
-}) {
-  const controller = getControllerOrDie(context, actionName);
-  const originalFragment = controller.jsxFragment;
-
-  // clone the original fragment and transform it
-  const newFragment = originalFragment.clone();
-  transformer(newFragment);
-
-  function redo() { return _setControllerFragment(controller, newFragment) }
-  function undo() { return _setControllerFragment(controller, originalFragment) }
-
-  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
+// Return a new app state which applies deltas to the state
+export function changeAppState(deltas) {
+  const newState = Object.assign({}, oak.state, deltas);
+  return setAppState(newState);
 }
 
-function _setControllerFragment(controller, fragment) {
-  controller.jsxFragment = fragment;
-  controller.dirty(true);
-  controller.onComponentChanged();
+// Change app state directly (not in a transaction).
+export function setAppState(newState) {
+  oak.state = Object.freeze(newState);
+  oak.preference("appState", oak.state);
+  oak.updateSoon();
+  return oak.state;
+}
+
+
+//////////////////////////////
+//  Utility functions to change selection, for use by transactions only
+//////////////////////////////
+
+export function setSelection(selection = []) {
+  return changeAppState({ selection: selection });
+}
+
+
+//////////////////////////////
+//  Utility functions to navigate, for use by transactions only
+//////////////////////////////
+
+export function navigateToRoute(route, replace, selection) {
+  if (!oak._router) throw new TypeError(`oak.actions._navigateToRoute(${route}): oak._router is not set`);
+  if (replace || oak._router.isActive(route)) {
+    oak._router.replace(route);
+  }
+  else {
+    oak._router.push(route);
+  }
+  // update selection if new selection was passed in
+  if (selection !== undefined) setSelection(selection);
 }
 
 

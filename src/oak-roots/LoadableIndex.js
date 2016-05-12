@@ -64,11 +64,30 @@ export default class LoadableIndex extends Loadable() {
     }
   }
 
+  // Change the id of some item `fromId` `toId`.
+  // NOTE: does not change the INTERNAL id of the item... ????
+  // Returns the item so changed.  Throws if item is not found.
+  // Override in your subclass if there's more than one pointer to the object.
+  changeId(fromId, toId) {
+    if (!this.isLoaded) throw new TypeError(`${this}.changeId(${fromId}, ${toId}): index is not loaded`);
+
+    const item = this.getItem(fromId);
+    if (!item) throw new TypeError(`${this}.changeId(${fromId}): item not found`);
+
+    delete this._registry[fromId];
+    this._registry[toId] = item;
+
+    return item;
+  }
+
   //////////////////////////////
   //  Loading
   //////////////////////////////
 
   onLoaded(jsonItems) {
+    // Previous registry, so we'll re-use items
+    const oldRegistry = this._registry || {};
+
     // `_registry` is a map of `{ id => item }`
     this._registry = {};
 
@@ -77,17 +96,10 @@ export default class LoadableIndex extends Loadable() {
       if (!jsonItem) return;
       const { id, ...props } = jsonItem;
 
-      // re-use the same object we had before if there is one
-      if (this._registry[id]) {
-        // TODO:  This won't pick up changes from the jsonItem...
-        //        How to apply them generically?
-        return this._registry[id];
-      }
-      return (this._registry[id] = this.createItem(id, props));
+      let item = oldRegistry[id] || this.createItem(id, props);
+      this._registry[id] = item;
+      return item;
     }).filter(Boolean);
-
-    // return the index as the result of the load
-    return this;
   }
 
   unload() {
