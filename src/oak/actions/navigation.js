@@ -19,7 +19,7 @@ import utils from "./utils";
 export function navigateTo(options) {
   const {
     route, replace = false,
-    actionName = "Show Page", returnTransaction
+    actionName = "Show Page", autoExecute
   } = options;
   if (!route) throw new TypeError(`oak.actions.navigateTo(): route not provided`);
 
@@ -27,13 +27,16 @@ export function navigateTo(options) {
   if (route === currentRoute) return;
 
   // clear selection upon navigation as well
-  const oldSelection = oak.selection;
+  const oldSelection = [].concat(oak.selection);
   function undo(){ return utils.navigateToRoute(currentRoute, replace, oldSelection) }
   function redo(){ return utils.navigateToRoute(route, replace, []) }
 
-  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
+  return new UndoTransaction({
+    redoActions:[redo],
+    undoActions:[undo],
+    actionName,
+    autoExecute
+  });
 }
 
 
@@ -42,7 +45,7 @@ export function showProject(options) {
   const {
     project = oak.page && oak.page.projectId,
     replace = false,
-    actionName = "Show Project", returnTransaction
+    actionName = "Show Project", autoExecute
   } = options;
 
   if (!project) return;
@@ -51,7 +54,7 @@ export function showProject(options) {
     route: oak.getPageRoute(project),
     replace,
     actionName,
-    returnTransaction
+    autoExecute
   })
 }
 
@@ -61,7 +64,7 @@ export function showSection(options) {
     project = oak.page && oak.page.projectId,
     section = oak.page && oak.page.sectionId,
     replace = false,
-    actionName = "Show Section", returnTransaction
+    actionName = "Show Section", autoExecute
   } = options;
 
   if (!section) return;
@@ -70,7 +73,7 @@ export function showSection(options) {
     route: oak.getPageRoute(project, section),
     replace,
     actionName,
-    returnTransaction
+    autoExecute
   })
 }
 
@@ -81,7 +84,7 @@ export function showPage(options) {
     section = oak.page && oak.page.sectionId,
     page = oak.page && oak.page.pageId,
     replace = false,
-    actionName = "Show Page", returnTransaction
+    actionName = "Show Page", autoExecute
   } = options;
 
   if (!page) return;
@@ -90,11 +93,18 @@ export function showPage(options) {
     route: oak.getPageRoute(project, section, page),
     replace,
     actionName,
-    returnTransaction
+    autoExecute
   })
 }
 
-function showRelativePage(delta, options) {
+
+// Show first / previous / next / first / last page
+export function showFirstPage(options) { return _showRelativePage("FIRST", options); }
+export function showPreviousPage(options) { return _showRelativePage(-1, options); }
+export function showNextPage(options) { return _showRelativePage(1, options); }
+export function showLastPage(options) { return _showRelativePage("LAST", options); }
+
+function _showRelativePage(delta, options) {
   if (!oak.page) return;
 
   const props = {
@@ -112,11 +122,3 @@ function showRelativePage(delta, options) {
 
   return showPage(Object.assign(props, options));
 }
-
-// Show first / previous / next / first / last page
-export function showFirstPage(options) { return showRelativePage("FIRST", options); }
-export function showPreviousPage(options) { return showRelativePage(-1, options); }
-export function showNextPage(options) { return showRelativePage(1, options); }
-export function showLastPage(options) { return showRelativePage("LAST", options); }
-
-

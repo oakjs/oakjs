@@ -95,7 +95,7 @@ export default class UndoQueue {
   addActions(redoActions, undoActions, options = {}) {
     let commit = false;
     if (!this.transaction) {
-      this.transaction = this.startTransaction(options.name);
+      this.transaction = this.startTransaction(options.actionName);
       commit = true;
     }
 
@@ -140,7 +140,7 @@ export default class UndoQueue {
       return undefined;
     }
 
-    this.transaction = new UndoTransaction({ name:actionName, queue: this });
+    this.transaction = new UndoTransaction({ actionName, queue: this });
     return this.transaction;
   }
 
@@ -176,8 +176,8 @@ export default class UndoQueue {
 
   // Create a new transaction by mapping `method` over a `list`,
   //  assuming each return of method will return a sub-transaction.
-  static mapTransactions(list, method, name) {
-    const transaction = new UndoTransaction({name});
+  static mapTransactions(list, method, actionName) {
+    const transaction = new UndoTransaction({actionName});
 
     const subTransactions = list.map( (item, index, list) => method(item, index, list) );
     transaction.addTransactions(subTransactions);
@@ -208,25 +208,29 @@ export default class UndoQueue {
 //////////////////////////////
 
 export class UndoTransaction {
-  constructor(props) {
+  constructor(props = {}) {
     this.undoActions = [];
     this.redoActions = [];
-    if (props) {
-      Object.keys(props).forEach( key => {
-        const value = props[key];
-        if (key === "transactions") {
-          this.addTransactions(value);
-        }
-        else {
-          this[key] = value;
-        }
-      });
+
+    let { transactions, autoExecute = true, ...others } = props;
+
+    // get other properties first
+    Object.assign(this, others);
+
+    // assign transactions
+    if (transactions) this.addTransactions(value);
+
+    // autoExecute?
+    if (autoExecute) {
+      oak.undoQueue.addTransaction(this);
     }
+
+    return this;
   }
 
   // Default name for the transaction, WITHOUT the "undo" or "redo" bit.
   // Set this when constructing the transaction for a more informative UI.
-  name = "";
+  actionName = "";
 
   // Has this transaction been committed?
   committed = false;
@@ -338,12 +342,12 @@ export class UndoTransaction {
   //////////////////////////////
 
   get undoTitle() {
-    if (this.name) return `Undo ${this.name}`;
+    if (this.actionName) return `Undo ${this.actionName}`;
     return "Undo";
   }
 
   get redoTitle() {
-    if (this.name) return `Redo ${this.name}`;
+    if (this.actionName) return `Redo ${this.actionName}`;
     return "Redo";
   }
 

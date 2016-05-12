@@ -22,11 +22,11 @@ const DEBUG = false;
 // Copy `elements` into the `oak.clipboard`.
 // Default is to copy `oak.selection`.
 //
-// Optional options:  `elements`, `context`, `returnTransaction`, `actionName`
+// Optional options:  `elements`, `context`, `autoExecute`, `actionName`
 export function copyElements(options) {
   const {
    context, elements = oak.selectedComponents,
-    actionName = "Copy", returnTransaction
+    actionName = "Copy", autoExecute
   } = options;
 
   if (!Array.isArray(elements)) die(oak, actionName, options, "`options.elements` must be an array");
@@ -37,45 +37,46 @@ export function copyElements(options) {
   function redo() { oak.clipboard = newClipboard }
   function undo() { oak.clipboard = oldClipboard }
 
-  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
+  return new UndoTransaction({
+    redoActions:[redo],
+    undoActions:[undo],
+    actionName,
+    autoExecute
+  });
 }
 
 
 // Remove `elements` from `context` and place in `oak.clipboard`.
 // Default is to cut `oak.selection`.
 //
-// Optional options:  `elements`, `context`, `returnTransaction`, `actionName`
+// Optional options:  `elements`, `context`, `autoExecute`, `actionName`
 export function cutElements(options) {
   const {
    context, elements = oak.selectedComponents,
-    actionName = "Cut", returnTransaction
+    actionName = "Cut", autoExecute
   } = options;
 
   if (!Array.isArray(elements)) die(oak, actionName, options, "`options.elements` must be an array");
 
-  const transaction = new UndoTransaction({
-    name: "Cut",
+  return new UndoTransaction({
+    actionName: "Cut",
     transactions: [
-      copyElements({ context, elements, actionName, returnTransaction: true }),
-      actions.removeElements({ context, elements, actionName, returnTransaction: true }),
-      actions.clearSelection({ returnTransaction: true })
-    ]
+      copyElements({ context, elements, actionName, autoExecute: false }),
+      actions.removeElements({ context, elements, actionName, autoExecute: false }),
+      actions.clearSelection({ autoExecute: false })
+    ],
+    autoExecute
   });
-
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
 }
 
 
 // Paste `elements` from the `oak.clipboard` inside `parent` at `position`.
 // Required options:  `parent`, `position`
-// Optional options:  `context`, `returnTransaction`, `actionName`
+// Optional options:  `context`, `autoExecute`, `actionName`
 export function pasteElements(options) {
   const {
    context, position,
-    actionName = "Paste", returnTransaction
+    actionName = "Paste", autoExecute
   } = options;
 
   // pasting what's in the clipboard
@@ -99,7 +100,7 @@ export function pasteElements(options) {
     elements: oak.clipboard,
     actionName,
     autoSelect: true,
-    returnTransaction
+    autoExecute
   });
 }
 

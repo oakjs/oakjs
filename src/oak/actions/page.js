@@ -26,7 +26,7 @@ export function renamePage(options) {
   let {
     page = oak.page,    // page to change
     id: newId,          // new id for the page
-    actionName = "Rename Page", returnTransaction
+    actionName = "Rename Page", autoExecute
   } = options
 
   if (typeof page === "string") page = oak.registry.getPage(...page.split("/"));
@@ -43,9 +43,12 @@ export function renamePage(options) {
   let undo = function() { return _renamePage(page, newId, oldId, oldRoute) };
   let redo = function() { return _renamePage(page, oldId, newId, newRoute) };
 
-  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
+  return new UndoTransaction({
+    redoActions:[redo],
+    undoActions:[undo],
+    actionName,
+    autoExecute
+  });
 }
 
 // Internal routine to actually rename and possibly navigate
@@ -74,7 +77,7 @@ export function createPage(options) {
     jsxe,   // optional JSXE content
     script, // optional script content
     styles, // optional styles content
-    actionName = "New Page", returnTransaction
+    actionName = "New Page", autoExecute
   } = options;
 
   // TODO: verify that section/project exist?

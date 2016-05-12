@@ -56,6 +56,7 @@ export function changeAppState(deltas) {
 
 // Change app state directly (not in a transaction).
 export function setAppState(newState) {
+console.info("setAppState", newState);
   oak.state = Object.freeze(newState);
   oak.preference("appState", oak.state);
   oak.updateSoon();

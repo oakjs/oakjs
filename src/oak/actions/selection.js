@@ -19,7 +19,7 @@ import utils from "./utils";
 export function addToSelection(options) {
   const {
     elements,
-    operation = "addToSelection", returnTransaction
+    operation = "addToSelection", autoExecute = true
   } = options;
 
   const selection = oak.selection;
@@ -32,7 +32,7 @@ export function addToSelection(options) {
   return _setSelectionTransaction({
     selection: selection.concat(oidsToAdd),
     operation,
-    returnTransaction
+    autoExecute
   });
 }
 
@@ -40,7 +40,7 @@ export function addToSelection(options) {
 export function removeFromSelection(options = {}) {
   const {
     elements,
-    operation = "removeFromSelection", returnTransaction
+    operation = "removeFromSelection", autoExecute = true
   } = options;
 
   const selection = oak.selection;
@@ -53,7 +53,7 @@ export function removeFromSelection(options = {}) {
   return _setSelectionTransaction({
     selection: selection.filter( oid => !oidsToRemove.includes(oid) ),
     operation,
-    returnTransaction
+    autoExecute
   })
 }
 
@@ -61,7 +61,7 @@ export function removeFromSelection(options = {}) {
 export function toggleSelection(options = {}) {
   const {
     elements,
-    operation = "toggleSelection", returnTransaction
+    operation = "toggleSelection", autoExecute = true
   } = options;
 
   const oids = utils.getOidsOrDie(elements, operation);
@@ -73,14 +73,14 @@ export function toggleSelection(options = {}) {
     return removeFromSelection({
       elements: oids,
       operation,
-      returnTransaction
+      autoExecute
     })
   }
   // otherwise add to the selection
   return addToSelection({
     elements: oids,
     operation,
-    returnTransaction
+    autoExecute
   })
 }
 
@@ -88,13 +88,13 @@ export function toggleSelection(options = {}) {
 // Clear the current selection entirely.
 export function clearSelection(options = {}) {
   const {
-    returnTransaction
+    autoExecute = true
   } = options;
 
   return _setSelectionTransaction({
     actionName: "Clear Selection",
     selection: [],
-    returnTransaction
+    autoExecute
   });
 }
 
@@ -103,7 +103,7 @@ export function clearSelection(options = {}) {
 export function setSelection(options = {}) {
   const {
     elements,
-    operation = "setSelection", returnTransaction,
+    operation = "setSelection", autoExecute = true
   } = options;
 
   const selection = utils.getOidsOrDie(elements, operation);
@@ -111,7 +111,7 @@ export function setSelection(options = {}) {
   return _setSelectionTransaction({
     selection,
     operation,
-    returnTransaction,
+    autoExecute,
   });
 }
 
@@ -120,7 +120,7 @@ export function setSelection(options = {}) {
 export function selectAll(options = {}) {
   const {
     context = oak.editContext,
-    operation = "selectAll", returnTransaction
+    operation = "selectAll", autoExecute = true
   } = options;
 
   const selection = utils.getOidsOrDie(context.descendentOids, operation);
@@ -128,7 +128,7 @@ export function selectAll(options = {}) {
   return _setSelectionTransaction({
     selection,
     operation,
-    returnTransaction,
+    autoExecute,
   });
 }
 
@@ -136,7 +136,7 @@ export function selectAll(options = {}) {
 function _setSelectionTransaction(options = {}) {
   const {
     selection = [],
-    operation = "_setSelectionTransaction", returnTransaction, actionName = "Change Selection"
+    operation = "_setSelectionTransaction", autoExecute = true, actionName = "Change Selection"
   } = options;
 
   // bail if selection is not actually changing
@@ -146,9 +146,12 @@ function _setSelectionTransaction(options = {}) {
   function undo() { return utils.setSelection(originalSelection); }
   function redo() { return utils.setSelection(selection); }
 
-  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
+  return new UndoTransaction({
+    redoActions:[redo],
+    undoActions:[undo],
+    actionName,
+    autoExecute
+  });
 }
 
 

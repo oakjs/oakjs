@@ -23,13 +23,13 @@ const DEBUG = false;
 // You can specify an `oid` string or a `JSXElement` or an array of same.
 //
 // Required options:  `elements`, `props`
-// Optional options:  `context`, `returnTransaction`, `actionName`
+// Optional options:  `context`, `autoExecute`, `actionName`
 //
 // NOTE: throws if `elements` are not found in `context`.
 export function setElementProps(options) {
   const {
    context, elements, props,
-    actionName = "Set Properties", returnTransaction
+    actionName = "Set Properties", autoExecute
   } = options;
 
   if (props == null) die(oak, actionName, options, "`options.props` must be an object");
@@ -37,7 +37,7 @@ export function setElementProps(options) {
   return changeFragmentTransaction({
     actionName,
     context,
-    returnTransaction,
+    autoExecute,
     transformer: (fragment) => {
       fragment.setProps(props, elements);
     },
@@ -50,13 +50,13 @@ export function setElementProps(options) {
 // You can specify an `oid` string or a `JSXElement`.
 //
 // Required options:  `elements`, `props`
-// Optional options:  `context`, `returnTransaction`, `actionName`
+// Optional options:  `context`, `autoExecute`, `actionName`
 //
 // NOTE: throws if `elements` are not found in `context`.
 export function resetElementProps(options) {
   const {
     context, elements, props,
-    actionName = "Set Properties", returnTransaction
+    actionName = "Set Properties", autoExecute
   } = options;
 
   if (props == null) die(oak, actionName, options, "`options.props` must be an object");
@@ -64,7 +64,7 @@ export function resetElementProps(options) {
   return changeFragmentTransaction({
     actionName,
     context,
-    returnTransaction,
+    autoExecute,
     transformer: (fragment) => {
       fragment.resetProps(props, elements);
     },
@@ -80,14 +80,14 @@ export function resetElementProps(options) {
 // Remove list of `elements` passed as `oid` string or by reference from the `context`.
 //
 // Required options:  `elements`
-// Optional options:  `context`, `returnTransaction`, `actionName`
+// Optional options:  `context`, `autoExecute`, `actionName`
 //
 // NOTE: You cannot reliably use this to remove non-element children,
 //       use `removeChildrenAtPositions()` instead.
 export function removeElements(options) {
   const {
     context, elements = oak.selectedComponents,
-    actionName = "Delete Elements", returnTransaction
+    actionName = "Delete Elements", autoExecute
   } = options;
 
   if (!Array.isArray(elements)) die(oak, actionName, options, "`options.elements` must be an array");
@@ -95,7 +95,7 @@ export function removeElements(options) {
   return changeFragmentTransaction({
     actionName,
     context,
-    returnTransaction,
+    autoExecute,
     transformer: (fragment) => {
       // remove the descendents of the elements or we'll get an error removing children
       const roots = fragment._removeDescendents(elements);
@@ -116,11 +116,11 @@ export function removeElements(options) {
 // NOTE: this does NOT clone or otherwise modify the elements!
 //
 // Required options:  `parent`, `position`, `elements`
-// Optional options:  `context`, `returnTransaction`, `actionName`
+// Optional options:  `context`, `autoExecute`, `actionName`
 export function addElements(options) {
   const {
     context, parent, position, elements,
-    actionName = "Add Elements", returnTransaction
+    actionName = "Add Elements", autoExecute
   } = options;
 
   if (!Array.isArray(elements)) die(oak, actionName, options, "`options.elements` must be an array");
@@ -128,7 +128,7 @@ export function addElements(options) {
   return changeFragmentTransaction({
     actionName,
     context,
-    returnTransaction,
+    autoExecute,
     transformer: (fragment) => {
       fragment.add(parent, position, elements);
     }
@@ -145,13 +145,10 @@ export function addElements(options) {
 // Create a transaction for a transformation of `props` of one or more elements.
 //  We'll call `options.transformer(jsxFragmentClone)` to make the actual change.
 //
-// If `returnTransaction` is truthy, we'll return the transaction created.
-// If not, we'll add it to the `oak.undoQueue`, which will execute it immeditately.
-//
 // NOTE: don't call this directly, use one of the `setElement*()` or `*Element()` calls.
 export function changeFragmentTransaction({
   context, transformer,
-  actionName, returnTransaction
+  actionName, autoExecute
 }) {
   const controller = utils.getControllerOrDie(context, actionName);
   const originalFragment = controller.jsxFragment;
@@ -163,9 +160,12 @@ export function changeFragmentTransaction({
   function redo() { return _setControllerFragment(controller, newFragment) }
   function undo() { return _setControllerFragment(controller, originalFragment) }
 
-  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
+  return new UndoTransaction({
+    redoActions:[redo],
+    undoActions:[undo],
+    actionName,
+    autoExecute
+  });
 }
 
 function _setControllerFragment(controller, fragment) {

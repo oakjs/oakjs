@@ -32,7 +32,7 @@ export function stopEditing(options) {
 export function setAppState(options = {}) {
   const {
     state: stateDeltas,
-    actionName = "Set oak state", returnTransaction
+    actionName = "Set oak state", autoExecute
   } = options;
 
   if (stateDeltas == null) die(oak, "setAppState", arguments, "`options.state` must be provided.");
@@ -40,17 +40,16 @@ export function setAppState(options = {}) {
   const originalState = oak.state;
   const newState = Object.assign({}, originalState, stateDeltas);
 
-  function redo() {
-    utils.setAppState(newState);
-  }
+  function redo() { utils.setAppState(newState); }
 
-  function undo() {
-    utils.setAppState(originalState);
-  }
+  function undo() { utils.setAppState(originalState); }
 
-  const transaction = new UndoTransaction({ redoActions:[redo], undoActions:[undo], name: actionName });
-  if (returnTransaction) return transaction;
-  return oak.undoQueue.addTransaction(transaction);
+  return new UndoTransaction({
+    redoActions:[redo],
+    undoActions:[undo],
+    actionName,
+    autoExecute
+  });
 }
 
 
