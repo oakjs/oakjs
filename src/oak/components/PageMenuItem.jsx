@@ -20,7 +20,7 @@ function PageMenuItem(props, context) {
   extraProps.className = classNames("PageMenuItem", {active}, extraProps.className);
 
   const itemText = (children || label || page.title);
-  const handleClick = () => oak.goTo(page.route);
+  const handleClick = () => oak.actions.navigateTo({ route: page.route });
 
   return (
     <MenuItem {...extraProps} onClick={handleClick}>
