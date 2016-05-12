@@ -94,11 +94,10 @@ router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) =
     case "script":  return sendTextFile(request, response, page.scriptPath);
     case "styles":  return sendTextFile(request, response, page.stylesPath);
   }
-  throw new TypeError(`Page API action ${action} not defined.`);
+  throw new TypeError(`Page GET API action ${action} not defined.`);
 });
 
 // Router for page write actions.
-// NOTE: these all assume the `body` is some form of plain text.
 router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const { body } = request;
@@ -115,7 +114,7 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
                       return page.changeId(params.newId)
                         .then( () => sendJSONFile(request, response, page.section.indexPath) );
   }
-  throw new TypeError(`Page API action '${action}' not defined.`);
+  throw new TypeError(`Page POST API action '${action}' not defined.`);
 });
 
 
@@ -139,9 +138,28 @@ router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
     case "styles":      return sendTextFile(request, response, section.stylesPath);
     case "pageIndex":   return sendJSONFile(request, response, section.indexPath);
   }
-  throw new TypeError(`Section API action '${action}' not defined.`);
+  throw new TypeError(`Section GET API action '${action}' not defined.`);
 });
 
+// Router for page write actions.
+router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, response) => {
+  const { action, projectId, sectionId } = request.params;
+  const { body } = request;
+
+  const section = new Section(projectId, sectionId);
+  switch (action) {
+    // save section bits as JSON blob:  { jsxe, script, styles, index }
+    // returns the newly saved data
+    case "save":      const sectionData = JSON.parse(body);
+                      return section.save(sectionData)
+                        .then( () => _sendSectionBundle(section, request, response) );
+
+    case "changeId":  const params = JSON.parse(body);
+                      return section.changeId(params.newId)
+                        .then( () => sendJSONFile(request, response, section.section.indexPath) );
+  }
+  throw new TypeError(`Sectoin POST API action '${action}' not defined.`);
+});
 
 
 //////////////////////////////
@@ -162,7 +180,7 @@ router.get("/project/:projectId/:action",  (request, response) => {
     case "sectionIndex":  return sendJSONFile(request, response, projectPaths.sectionIndex);
 
   }
-  throw new TypeError(`Project API action '${action}' not defined.`);
+  throw new TypeError(`Project GET API action '${action}' not defined.`);
 });
 
 

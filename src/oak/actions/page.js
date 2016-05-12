@@ -55,11 +55,15 @@ export function changePageId(options = {}) {
 function _changePageId(page, toId, route) {
   const fromId = page.pageId;
   return api.changeComponentId(page, toId)
-    .then( () => {
+    // response returns the sectionIndex JSON data
+    .then( response => response.json() )
+    .then( pageIndexJSON => {
       // update page
       page.pageId = toId;
       // update section pageIndex
-      page.section.pageIndex.changeId(fromId, toId)
+      page.section.pageIndex.changeId(fromId, toId);
+      // update the pageIndex data AFTER the changeId call
+      page.section.pageIndex.loaded(pageIndexJSON);
 console.info("page id changed, navigating to ", route);
       // navigate to route if provided
       if (route) utils.navigateToRoute(route, "REPLACE");

@@ -6,6 +6,7 @@ export * from "./elements";
 export * from "./navigation";
 export * from "./page";
 export * from "./resize";
+export * from "./section";
 export * from "./selection";
 
 // Export all as a lump
