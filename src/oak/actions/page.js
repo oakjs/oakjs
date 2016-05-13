@@ -32,13 +32,23 @@ export function savePage() {
 // Change a page's id.
 export function changePageId(options = {}) {
   let {
-    path = oak.page && oak.page.path,    // Path for page to change
-    toId,                                // New id for the page
+    path = oak.page && oak.page.path,     // Path for page to change
+    toId,                                 // New id for the page
+    prompt = true,                        // If `true` and `toId` is not specified, we'll ask.
     actionName = "Rename Page", autoExecute
   } = options
   // check parameters
   if (typeof path !== "string") die(oak, "actions.changePageId", [options], "you must specify options.path");
-  if (!toId) die(oak, "actions.changePageId", [options], "you must specify options.id");
+
+  // try to get the page (it's ok if we can't)
+  const page = oak.getPage(path);
+
+  // if `toId` was not specified, prompt
+  if (!toId && prompt) {
+    toId = window.prompt("New name for page?", page && page.pageId);
+    if (!toId) return;
+  }
+  if (!toId) die(oak, "actions.changePageId", [options], "you must specify options.toId");
 
   const { projectId, sectionId, originalId } = path.split("/");
   const toPath = Page.getPath(projectId, sectionId, toId);
@@ -96,8 +106,9 @@ console.info("page id changed" + (navigate ? ", navigating..." : ""));
 
 export function deletePage(options = {}) {
   let {
-    page = oak.page,      // Page to delete as Page object or path.
-    confirm = false,      // If you pass true, we'll show a confirm dialog first.
+    page = oak.page,                // Page to delete as Page object or path.
+    confirm = !oak.event.optionKey, // If `true`, we'll show a confirm dialog before deleting.
+                                    // Default is to confirm unless the option key is down.
     actionName = "Delete Page", autoExecute
   } = options;
 
@@ -165,13 +176,14 @@ function _deletePage({ path, route }) {
 //  Add page.  Undoing removes the page.
 //////////////////////////////
 export function createPage(options = {}) {
-  const {
+  let {
     projectId = oak.page && oak.page.projectId,
     sectionId = oak.page && oak.page.sectionId,
-    pageId = JSXFragment.getRandomOid(),
+    pageId,
     title,            // optional: title for the page (DEFAULT???)
     data,             // optional: data object for page with `{ jsxe, script, styles }`
     position,         // optional: 1-based numeric position within the section, undefined = place at the end
+    prompt = true,    // optional: if true and title is not specified, we'll prompt for page title
     navigate = true,  // optional: if true, we'll navigate to the page after creation
     actionName = "New Page", autoExecute
   } = options;
@@ -179,6 +191,11 @@ export function createPage(options = {}) {
   // verify that project/section exist
   const section = oak.getSection(projectId, sectionId);
   if (!section) die(oak, "actions.createPage", [options], "project or section not found");
+
+  if (!title && prompt) {
+    title = window.prompt("Name for new page?", "Untitled page");
+    if (!title) return;
+  }
 
   const path = Page.getPath(projectId, sectionId, pageId);
   const currentRoute = (navigate ? oak.page && oak.page.route : undefined);

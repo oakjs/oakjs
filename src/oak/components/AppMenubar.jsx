@@ -79,7 +79,9 @@ export default class AppMenubar extends OakComponent {
               <Submenu disabled>Jump to Page...</Submenu>
               <Divider/>
               <MenuItem onClick={oak.actions.savePage} disabled={oak.page && !oak.page.isDirty}>Save Page...</MenuItem>
-              <MenuItem disabled>New Page...</MenuItem>
+              <MenuItem onClick={oak.actions.createPage}>New Page...</MenuItem>
+              <MenuItem onClick={oak.actions.deletePage}>Delete Page...</MenuItem>
+              <MenuItem onClick={oak.actions.changePageId}>Rename Page...</MenuItem>
               <MenuItem disabled>Duplicate Page...</MenuItem>
               <MenuItem disabled>Rearrange Pages...</MenuItem>
             </Menu>
