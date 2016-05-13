@@ -114,6 +114,9 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
                       return page.create(createData)
                         .then( () => _sendPageBundle(page, request, response) );
 
+    case "delete":    return page.delete()
+                        .then( () => sendJSONFile(request, response, page.section.indexPath) );
+
     // Change the id of the page, updating the section index.s
     case "changeId":  const params = JSON.parse(body);
                       return page.changeId(params.toId)

@@ -46,7 +46,7 @@ export default new API({
   deleteComponent({ type, path }, fetchParams) {
     const url = `/api/${type}/${path}/delete`;
     const errorMessage = `Error deleting ${type} bundle`;
-    return this.post(url, postData, fetchParams, errorMessage)
+    return this.post(url, "", fetchParams, errorMessage)
             .then( response => response.json() );
   },
 

@@ -89,20 +89,20 @@ console.info("page id changed" + (navigate ? ", navigating..." : ""));
 //  Remove page.  Undoing adds the page back.
 //////////////////////////////
 
-export function deletePage(options) {
+export function deletePage(options = {}) {
   let {
     page = oak.page,      // Page to delete as Page object or path.
     confirm = false,      // If you pass true, we'll show a confirm dialog first.
     actionName = "Delete Page", autoExecute
   } = options;
 
-  if (typeof page === "string") page = oak.registry.getPage(...page.split("/"));
+  if (typeof page === "string") page = oak.getPage(page);
   if (!page) die(oak, "actions.deletePage", [options], "you must specify options.page");
 
   // try to go to the page after, if that doesn't work, we're at the end, go to the one before
   // If we don't get anything, this is the only page in the section
 // TODO: can't delete only page in the section -- ask if they want to delete section?
-  const nextPage = page.section.getPage(position + 1) || page.section.getPage(position - 1);
+  const nextPage = page.section.getPage(page.position + 1) || page.section.getPage(page.position - 1);
 
   if (confirm) {
     // TODO: confirm with a nicer alert

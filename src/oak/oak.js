@@ -214,7 +214,7 @@ console.log("oak.forceUpdate()");
   // Get a project by projectId by path.
   // NOTE: you can pass a page path to this and it'll take just the first bit.
   getProject(projectId) {
-    if (typeof projectId !== "string") throw new TypeError(`oak.registry.getProject(${projectId}): projectId must be a string`);
+    if (typeof projectId !== "string") throw new TypeError(`oak.getProject(${projectId}): projectId must be a string`);
     // normalize to first bit in case they passed a path
     projectId = projectId.split("/")[0];
     return this.registry.getProject(projectId)
