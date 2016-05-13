@@ -160,7 +160,7 @@ export default class JSXFragment {
 
     if (typeof position !== "number") position = parentClone.children.length;
 
-		const _cloneAndUniqify = (element, parentOid) => {
+		const _cloneAndUniquify = (element, parentOid) => {
 			const clone = this.cloneElement(element);
 			if (clone instanceof JSXElement) {
 				clone._parent = parentOid;
@@ -170,7 +170,7 @@ export default class JSXFragment {
 					this._addOid(clone);
 					// recurse for children
 					if (clone.children) {
-						clone.children = clone.children.map( child => _cloneAndUniqify(child, clone.oid) );
+						clone.children = clone.children.map( child => _cloneAndUniquify(child, clone.oid) );
 					}
 				}
 			}
@@ -178,7 +178,7 @@ export default class JSXFragment {
 		};
 
     return elements.map( (element, index) => {
-    	const clone = _cloneAndUniqify(element, parentClone.oid);
+    	const clone = _cloneAndUniquify(element, parentClone.oid);
       parentClone.children.splice(position + index, 0, clone);
       return clone;
     });

@@ -3,6 +3,7 @@
 //////////////////////////////
 "use strict";
 
+import ids from "oak-roots/util/ids";
 import { die,  } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
@@ -177,12 +178,12 @@ function _deletePage({ path, route }) {
 //////////////////////////////
 export function createPage(options = {}) {
   let {
-    projectId = oak.page && oak.page.projectId,
+    projectId = oak.page && oak.page.projectId,   // default to current
     sectionId = oak.page && oak.page.sectionId,
     pageId,
     title,            // optional: title for the page (DEFAULT???)
     data,             // optional: data object for page with `{ jsxe, script, styles }`
-    position,         // optional: 1-based numeric position within the section, undefined = place at the end
+    position = oak.page && oak.page.position + 1, // optional: 1-based numeric position within the section, undefined = place after current page
     prompt = true,    // optional: if true and title is not specified, we'll prompt for page title
     navigate = true,  // optional: if true, we'll navigate to the page after creation
     actionName = "New Page", autoExecute
@@ -192,10 +193,18 @@ export function createPage(options = {}) {
   const section = oak.getSection(projectId, sectionId);
   if (!section) die(oak, "actions.createPage", [options], "project or section not found");
 
+  // prompt for title if necessary
   if (!title && prompt) {
-    title = window.prompt("Name for new page?", "Untitled page");
-    if (!title) return;
+    title = window.prompt("Name for new page?", "Untitled") || "";
   }
+
+  if (!pageId) {
+    if (title)  pageId = ids.normalizeIdentifier(title);
+    else        pageId = JSXFragment.getRandomOid();
+  }
+
+  // make sure pageId is unique within it's section
+  pageId = section.uniquifyPageId(pageId);
 
   const path = Page.getPath(projectId, sectionId, pageId);
   const currentRoute = (navigate ? oak.page && oak.page.route : undefined);
@@ -223,6 +232,7 @@ export function createPage(options = {}) {
   });
 }
 // Internal routine to actually create the page.
+// NOTE: it's up to you to make sure there's not already a page at `path`!
 // No parameter normalization or checking!
 function _createPage({ path, title, data, position, navigate }) {
   if (DEBUG) console.info(`_createPage({ path: ${path}, title: ${title}, data: ${data}, position: ${position}, navigate: ${navigate} })`);
@@ -253,6 +263,35 @@ function _createPage({ path, title, data, position, navigate }) {
       // 4. navigate if necessary
       if (navigate) utils.navigateToRoute(page.route, "REPLACE");
     });
+}
+
+
+//////////////////////////////
+//  Duplicate some page.  Undoing removes the page.
+//////////////////////////////
+export function duplicatePage(options = {}) {
+  let {
+    page = oak.page,                // default to current page
+    pageId = page && page.pageId,   // default to page's name, createPage will uniquify.
+    position = oak.page && oak.page.position + 1, // optional: 1-based numeric position within the section, undefined = place after current page
+    navigate = true,  // optional: if true, we'll navigate to the page after creation
+    actionName = "Duplicate Page", autoExecute
+  } = options;
+
+  if (!page) die(oak, "actions.duplicatePage", [options], "page not found");
+
+  return createPage({
+    projectId: page.projectId,
+    sectionId: page.sectionId,
+    pageId,
+    title: page.title,
+    data: page.getDataToSave(),
+    position,
+    navigate,
+    actionName,
+    autoExecute
+  });
+
 }
 
 // Export all as a lump

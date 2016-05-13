@@ -34,5 +34,20 @@ export function normalizeIdentifier(identifier, defaultIdentifier) {
 }
 
 
+const ENDING_NUMBER_PATTERN = /^(.*?)(\d*)$/;
+export function uniquifyId(id, otherIds) {
+  // if it's not in the list of `otherIds`, it's unique!
+  if (!otherIds.includes(id)) return id;
+
+  // otherwise tack a number onto the end
+  let [ match, prefix, numericSuffix ] = id.match(ENDING_NUMBER_PATTERN);
+
+  // convert numericSuffix to a number and increment, or go with "2"
+  const suffix = parseInt(numericSuffix, 10) + 1 || 2;
+
+  // recurse to make sure new id isn't in `otherIds`
+  return uniquifyId(prefix + suffix, otherIds);
+}
+
 // Export all as one map
 export default Object.assign({}, exports);

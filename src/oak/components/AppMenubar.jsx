@@ -82,7 +82,7 @@ export default class AppMenubar extends OakComponent {
               <MenuItem onClick={oak.actions.createPage}>New Page...</MenuItem>
               <MenuItem onClick={oak.actions.deletePage}>Delete Page...</MenuItem>
               <MenuItem onClick={oak.actions.changePageId}>Rename Page...</MenuItem>
-              <MenuItem disabled>Duplicate Page...</MenuItem>
+              <MenuItem onClick={oak.actions.duplicatePage}>Duplicate Page...</MenuItem>
               <MenuItem disabled>Rearrange Pages...</MenuItem>
             </Menu>
           </Dropdown>
