@@ -13,6 +13,9 @@ import oak from "../oak";
 
 import utils from "./utils";
 
+// set to `true` to log messages as actions proceed
+const DEBUG = true;
+
 
 // Save the page to the server.
 // NOTE: this is currently not undoable.
@@ -54,6 +57,7 @@ export function changePageId(options = {}) {
 // Internal routine to actually rename and possibly navigate.
 // No parameter normalization!
 function _changePageId({ path, toId, navigate }) {
+  if (DEBUG) console.info(`_createPage({ path: ${path}, toId: ${toId}, navigate: ${navigate}  })`);
   return api.changeComponentId({
       type: "page",
       path,
@@ -141,6 +145,7 @@ export function deletePage(options = {}) {
 // Internal routine to actually delete the page.
 // No parameter normalization or checking!
 function _deletePage({ path, route }) {
+  if (DEBUG) console.info(`_deletePage({ path: ${path}, route: ${route} })`);
   return api.deleteComponent({ type: "page", path })
     // response returns the sectionIndex JSON data
     .then( pageIndexJSON => {
@@ -203,6 +208,7 @@ export function createPage(options = {}) {
 // Internal routine to actually create the page.
 // No parameter normalization or checking!
 function _createPage({ path, title, data, position, navigate }) {
+  if (DEBUG) console.info(`_createPage({ path: ${path}, title: ${title}, data: ${data}, position: ${position}, navigate: ${navigate} })`);
   return api.createComponent({ type: "page", path, title, data, position })
     // returns json with:  `{ pageIndex, jsxe, styles, script }`
     .then( responseJSON => {
