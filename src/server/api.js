@@ -61,11 +61,9 @@ function debugParams(query) {
 
 
 //////////////////////////////
-// Projects index
+//  Oak actions
 //////////////////////////////
 
-
-// Router for oak actions.
 router.get("/oak/:action",  (request, response) => {
   const { action } = request.params;
   const appPaths = new paths.appPaths();
@@ -77,12 +75,8 @@ router.get("/oak/:action",  (request, response) => {
 
 
 //////////////////////////////
-//  Page bits
+//  Page actions
 //////////////////////////////
-
-function _sendPageBundle(page, request, response) {
-  return bundler.bundlePage({ page, response, ...debugParams(request.query) });
-}
 
 // Merge page bundle with section pageIndex and return both
 function _sendPageBundleAndSectionPageIndex(page, request, response) {
@@ -105,10 +99,10 @@ router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) =
   const { action, projectId, sectionId, pageId } = request.params;
   const page = new Page(projectId, sectionId, pageId);
   switch (action) {
-    case "bundle":  return _sendPageBundle(page, request, response);
-    case "jsxe":    return sendTextFile(request, response, page.jsxePath);
-    case "script":  return sendTextFile(request, response, page.scriptPath);
-    case "styles":  return sendTextFile(request, response, page.stylesPath);
+    case "bundle":  return page.getBundle(response, request.query.force !== "true");
+    case "jsxe":    return page.getJSXE(response);
+    case "script":  return page.getScript(response);
+    case "styles":  return page.getStyles(response);
   }
   throw new TypeError(`Page GET API action ${action} not defined.`);
 });
@@ -122,18 +116,21 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
   switch (action) {
     case "save":      const pageData = JSON.parse(body);
                       return page.save(pageData)
-                        .then( () => _sendPageBundle(page, request, response) );
+                        // return the page's bundle
+                        .then( () => page.getBundle(response) );
 
     case "create":    const createData = JSON.parse(body);
                       return page.create(createData)
-                        .then( () => _sendPageBundleAndSectionPageIndex(page, request, response) );
+                        .then( () => page.getBundleAndPageIndex(response) )
 
     case "delete":    return page.delete()
-                        .then( () => _sendSectionPageIndex(page.section, request, response) );
+                        // return the section index
+                        .then( () => page.section.getIndex(response) );
 
     case "changeId":  const params = JSON.parse(body);
                       return page.changeId(params.toId)
-                        .then( () => _sendSectionPageIndex(page.section, request, response) );
+                        // return the section index
+                        .then( () => page.section.getIndex(response) );
   }
   throw new TypeError(`Page POST API action '${action}' not defined.`);
 });
@@ -141,32 +138,24 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
 
 
 //////////////////////////////
-//  Section bits
+//  Section actions
 //////////////////////////////
 
-function _sendSectionBundle(section, request, response) {
-  return bundler.bundleSection({ section, response, ...debugParams(request.query) });
-}
-
-function _sendSectionPageIndex(section, request, response) {
-  return sendJSONFile(request, response, section.indexPath);
-}
-
-// Router for section read actions.
+// Section read actions.
 router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const section = new Section(projectId, sectionId);
   switch (action) {
-    case "bundle":      return _sendSectionBundle(section, request, response);
-    case "jsxe":        return sendTextFile(request, response, section.jsxePath);
-    case "script":      return sendTextFile(request, response, section.scriptPath);
-    case "styles":      return sendTextFile(request, response, section.stylesPath);
-    case "pages":       return sendJSONFile(request, response, section.indexPath);
+    case "bundle":  return section.getBundle(response, request.query.force !== "true");
+    case "jsxe":    return section.getJSXE(response);
+    case "script":  return section.getScript(response);
+    case "styles":  return section.getStyles(response);
+    case "pages":   return section.getIndex(response);
   }
   throw new TypeError(`Section GET API action '${action}' not defined.`);
 });
 
-// Router for page write actions.
+// Section write actions.
 router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const { body } = request;
@@ -177,7 +166,7 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
     // returns the newly saved data
     case "save":      const sectionData = JSON.parse(body);
                       return section.save(sectionData)
-                        .then( () => _sendSectionBundle(section, request, response) );
+                        .then( () => section.getBundle(response) )
 
     case "changeId":  const params = JSON.parse(body);
                       return section.changeId(params.toId)
@@ -188,11 +177,9 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
 
 
 //////////////////////////////
-//  Project bits
+//  Project actions
 //////////////////////////////
 
-
-// Router for project read actions.
 router.get("/project/:projectId/:action",  (request, response) => {
   const { action, projectId } = request.params;
 
@@ -229,7 +216,9 @@ router.get("/bundle", (request, response) => {
   bundler.bundle(options)
     .catch(error => {
       console.error(options.errorMessage, ":\n", error);
-      response.status(options.errorStatus).send(options.errorMessage);
+      response
+        .status(options.errorStatus)
+        .send(options.errorMessage);
     });
 });
 

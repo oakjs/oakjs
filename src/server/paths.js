@@ -11,9 +11,21 @@ import config from './config';
 //  Use
 //////////////////////////////
 
-// Return a text file formatted in `utf8`.
-export function getTextFile(path) {
+// Return a text file.
+// If you pass a `response`, we'll have the response send the file from the disk.
+// With no `response`, we'll return a promise which resolves with the file's contents.
+export function getTextFile(path, response, encoding = "text/plain") {
+  if (response) {
+    response.set("Content-Type", encoding);
+    return response.sendFile(path);
+  }
   return fsp.readFile(path, "utf8");
+}
+
+// Return a JSON file formatted.
+// Same semantics as `getTextFile()`
+export function getJSONFile(path, response, encoding = "application/json") {
+  return getTextFile(path, response, encoding);
 }
 
 // Save a file.

@@ -1,11 +1,15 @@
 //////////////////////////////
-// Server-side Oak Page managment class
+//  Server-side Oak Page managment class
+//  This implementation is geared toward simple file manipulation for express responses.
+//
 // NOTE: instantiating a project is really lightweight
 //       so you can do so dynamically when servicing requests.
 //////////////////////////////
 
 
+import bundler from "./bundler";
 import paths from "./paths";
+//import Project from "./Project";
 import Section from "./Section";
 
 export default class Page {
@@ -43,6 +47,29 @@ export default class Page {
   get stylesPath() { return paths.pagePath(this.projectId, this.sectionId, this.pageId, "page.css") }
   get scriptPath() { return paths.pagePath(this.projectId, this.sectionId, this.pageId, "page.js") }
   get bundlePath() { return paths.bundlePath("projects", this.projectId, this.sectionId, `${this.pageId}.bundle.json`) }
+
+
+  //
+  //  Load / return the various bits.
+  //  If you pass an express `response`, we'll write the contents to that.
+  //  Otherwise we return a promise with the file contents as a text string.
+  //
+
+  getBundle(response, force) { return bundler.bundlePage({ page: this, response, force }) }
+  getJSXE(response) { return paths.getTextFile(this.jsxePath, response) }
+  getStyles(response) { return paths.getTextFile(this.stylesPath, response) }
+  getScript(response) { return paths.getTextFile(this.scriptPath, response) }
+
+  // Special: get page bundle and it's section index together in one object.
+  getBundleAndPageIndex(response) {
+    return Promise.all([ this.getBundle(), this.section.getIndex() ])
+          .then( ([ page, pageIndex ]) => {
+            const bundle = { page, pageIndex };
+            if (response) return response.send(bundle);
+            return Promise.resolve( JSON.stringify(bundle) );
+         });
+  }
+
 
   //
   //  CRUD.  All return a promise.

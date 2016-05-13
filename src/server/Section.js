@@ -5,6 +5,7 @@
 //////////////////////////////
 
 
+import bundler from "./bundler";
 import ComponentIndex from "./ComponentIndex";
 import paths from "./paths";
 
@@ -42,35 +43,21 @@ export default class Section {
 
 
   //
-  //  Load/Save/Delete the various bits.  All return a promise.
-  //  Conside using the higher-level `save`, `delete`, etc routines instead.
+  //  Load / return the various bits.
+  //  If you pass an express `response`, we'll write the contents to that.
+  //  Otherwise we return a promise with the file contents.
   //
 
-  getJSXE() { return paths.getTextFile(this.jsxePath) }
-  getStyles() { return paths.getTextFile(this.stylesPath) }
-  getScript() { return paths.getTextFile(this.scriptPath) }
-  getIndex() { return paths.getTextFile(this.indexPath) }
-
-  saveJSXE(contents) { return paths.saveOrDeleteFile(this.jsxePath, contents)}
-  saveStyles(contents) { return paths.saveOrDeleteFile(this.stylesPath, contents)}
-  saveScript(contents) { return paths.saveOrDeleteFile(this.scriptPath, contents)}
-  saveIndex(contents) { return paths.saveOrDeleteFile(this.indexPath, contents)}
-
-  // Ignore errors on delete (eg: if the file is not present)
-  deleteJSXE() { return paths.deleteFile(this.jsxePath)}
-  deleteStyles() { return paths.deleteFile(this.stylesPath)}
-  deleteScript() { return paths.deleteFile(this.scriptPath)}
-  deleteIndex() { return paths.deleteFile(this.indexPath)}
+  getBundle(response, force) { return bundler.bundleSection({ section: this, response, force }) }
+  getJSXE(response) { return paths.getTextFile(this.jsxePath, response) }
+  getStyles(response) { return paths.getTextFile(this.stylesPath, response) }
+  getScript(response) { return paths.getTextFile(this.scriptPath, response) }
+  getIndex(response) { return paths.getJSONFile(this.indexPath, response) }
 
 
   //
   //  CRUD.  All return a promise.
   //
-
-  // Bundle up the page contents as a JSON blob and have the response return it.
-  bundle(response, { force } = {}) {
-    return bundler.bundleSection({ this, response, force });
-  }
 
   // Create a page given a JSON blob and page index (defaults to the end of the section).
   //  `json` is the same as for `save()`.
@@ -84,12 +71,12 @@ export default class Section {
   //  NOTE: If you don't want to affect one of the above jsxe, etc, just don't include it.
   //        If you do include a value and it's blank/undefined, we'll delete that file.
   save(json) {
-    const promises = [];
-    if ("jsxe" in json) promises.push(this.saveJSXE(json.jsxe));
-    if ("styles" in json) promises.push(this.saveStyles(json.styles));
-    if ("script" in json) promises.push(this.saveScript(json.script));
-    if ("index" in json) promises.push(this.saveIndex(json.index));
-    return Promise.all(promises);
+    return Promise.all([
+      "jsxe" in data && paths.saveOrDeleteFile(this.jsxePath, data.jsxe),
+      "styles" in data && paths.saveOrDeleteFile(this.stylesPath, data.styles),
+      "script" in data && paths.saveOrDeleteFile(this.scriptPath, data.script),
+      "index" in data && paths.saveOrDeleteFile(this.indexPath, data.index),
+    ]);
   }
 
   //  Delete this page.
@@ -100,10 +87,10 @@ export default class Section {
       .then(() => {
         // Remove the various files, `catch()`ing to ignoring errors (eg: if files are nor present)
         return Promise.all([
-            this.removeJSXE().catch(Function.prototype),
-            this.removeStyles().catch(Function.prototype),
-            this.removeScript().catch(Function.prototype),
-            this.removeIndex().catch(Function.prototype)
+            paths.deleteFile(this.jsxePath).catch(Function.prototype),
+            paths.deleteFile(this.stylesPath).catch(Function.prototype),
+            paths.deleteFile(this.scriptPath).catch(Function.prototype),
+            paths.deleteFile(this.indexPath).catch(Function.prototype)
           ]);
         });
   }
@@ -166,9 +153,7 @@ export default class Section {
   changePageId(oldPageId, newPageId) {
     return this.pageIndex.load()
       .then( () => {
-console.info("index loaded");
         this.pageIndex.changeId(oldPageId, newPageId);
-console.info("changed");
         return this.pageIndex.save();
       })
   }
