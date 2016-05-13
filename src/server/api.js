@@ -126,7 +126,7 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
 
     case "create":    const createData = JSON.parse(body);
                       return page.create(createData)
-                        .then( () => _sendSectionPageIndex(page.section, request, response) );
+                        .then( () => _sendPageBundleAndSectionPageIndex(page, request, response) );
 
     case "delete":    return page.delete()
                         .then( () => _sendSectionPageIndex(page.section, request, response) );
