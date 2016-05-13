@@ -84,6 +84,22 @@ function _sendPageBundle(page, request, response) {
   return bundler.bundlePage({ page, response, ...debugParams(request.query) });
 }
 
+// Merge page bundle with section pageIndex and return both
+function _sendPageBundleAndSectionPageIndex(page, request, response) {
+  return Promise.all([
+            bundler.bundlePage({ page }),
+            page.section.getIndex()
+          ])
+          .then( ([ bundleJSON, indexJSON ]) => {
+            // convert to objects and merge
+            const bundle = JSON.parse(bundleJSON);
+            bundle.pageIndex = JSON.parse(indexJSON);
+            // send the whole shmear back
+            response.send(bundle);
+         });
+}
+
+
 // Router for page read actions.
 router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
@@ -104,23 +120,20 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
 
   const page = new Page(projectId, sectionId, pageId);
   switch (action) {
-    // save page bits as JSON blob:  { jsxe, script, styles }
-    // returns the newly saved data
     case "save":      const pageData = JSON.parse(body);
                       return page.save(pageData)
                         .then( () => _sendPageBundle(page, request, response) );
 
     case "create":    const createData = JSON.parse(body);
                       return page.create(createData)
-                        .then( () => _sendPageBundle(page, request, response) );
+                        .then( () => _sendSectionPageIndex(page.section, request, response) );
 
     case "delete":    return page.delete()
-                        .then( () => sendJSONFile(request, response, page.section.indexPath) );
+                        .then( () => _sendSectionPageIndex(page.section, request, response) );
 
-    // Change the id of the page, updating the section index.s
     case "changeId":  const params = JSON.parse(body);
                       return page.changeId(params.toId)
-                        .then( () => sendJSONFile(request, response, page.section.indexPath) );
+                        .then( () => _sendSectionPageIndex(page.section, request, response) );
   }
   throw new TypeError(`Page POST API action '${action}' not defined.`);
 });
@@ -133,6 +146,10 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
 
 function _sendSectionBundle(section, request, response) {
   return bundler.bundleSection({ section, response, ...debugParams(request.query) });
+}
+
+function _sendSectionPageIndex(section, request, response) {
+  return sendJSONFile(request, response, section.indexPath);
 }
 
 // Router for section read actions.

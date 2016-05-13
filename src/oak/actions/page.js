@@ -63,8 +63,9 @@ function _changePageId({ path, toId, navigate }) {
     .then( pageIndexJSON => {
       const page = oak.getPage(path);
       if (!page) {
-        console.warn(`actions._getPageId(${path}): id changed but page not found`);
-        return;
+        // it's not necessarily an error if we can't find the page, just warn and continue
+        console.warn(`actions._changePageId(${path}): id changed but page not found`);
+        return Promise.resolve();
       }
       // NOTE: the order is important here!
       // 1: changeId() in the section pageIndex
@@ -158,7 +159,7 @@ function _deletePage({ path, route }) {
 //////////////////////////////
 //  Add page.  Undoing removes the page.
 //////////////////////////////
-export function createPage(options) {
+export function createPage(options = {}) {
   const {
     projectId = oak.page && oak.page.projectId,
     sectionId = oak.page && oak.page.sectionId,
@@ -174,7 +175,7 @@ export function createPage(options) {
   const section = oak.getSection(projectId, sectionId);
   if (!section) die(oak, "actions.createPage", [options], "project or section not found");
 
-  const path = Page.path(projectId, sectionId, pageId);
+  const path = Page.getPath(projectId, sectionId, pageId);
   const currentRoute = (navigate ? oak.page && oak.page.route : undefined);
 
   // get parameter data BEFORE creating transaction
@@ -203,7 +204,32 @@ export function createPage(options) {
 // No parameter normalization or checking!
 function _createPage({ path, title, data, position, navigate }) {
   return api.createComponent({ type: "page", path, title, data, position })
-    .then( responseJSON => console.warn(responseJSON) );
+    // returns json with:  `{ pageIndex, jsxe, styles, script }`
+    .then( responseJSON => {
+      const section = oak.getSection(path);
+      if (!section) {
+        // it's not necessarily an error if we can't find the page, just warn and continue
+        console.warn(`actions._createPage(${path}): server page created but section not found`);
+        return Promise.resolve();
+      }
+      // ORDER is important:
+      // 1. update the section's pageIndex
+      section.pageIndex.loaded(responseJSON.pageIndex);
+
+      // 2. get the new page
+      const page = oak.getPage(path);
+      if (!page) {
+        // this is an error -- we should be able to get the page now
+        console.error(`actions._createPage(${path}): server page created but client page not found`);
+        return Promise.resolve();
+      }
+
+      // 3. have the page update with the response data
+      page.loaded(responseJSON);
+
+      // 4. navigate if necessary
+      if (navigate) utils.navigateToRoute(page.route, "REPLACE");
+    });
 }
 
 // Export all as a lump

@@ -62,7 +62,7 @@ export default class Page {
       data.jsxe = `<OakPage id="${this.pageId}" title="${title}"/>`;
     }
 
-    this.save(data)
+    return this.save(data)
       .then(() => {
         const indexData = { id: this.pageId, title };
         return this.section.addPage(indexData, position)
