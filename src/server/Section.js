@@ -61,9 +61,23 @@ export default class Section {
 
   // Create a page given a JSON blob and page index (defaults to the end of the section).
   //  `json` is the same as for `save()`.
-  create(json, index) {
-    this.save(json)
-      .then(this.project.addSection(this, index));
+  create({ data = {}, title = this.sectionId, position } = {}) {
+    // Make sure we at least have a minimal JSXE file.
+    if (!data.jsxe) {
+      data.jsxe = `<OakSection id="${this.sectionId}" title="${title}"/>`;
+    }
+
+    return this.save(data)
+      // add to the project's sectionIndex
+      .then(() => {
+        const indexData = { id: this.sectionId, title };
+        return this.project.addSection(indexData, position)
+      })
+      // create a blank page and save it
+      .then(() => {
+        const page = new Page(this.projectId, this.sectionId, "Untitled");
+        return page.create();
+      })
   }
 
   //  Save a page given a JSON blob with any of:  `{ jsxe, styles, script }`
@@ -82,7 +96,7 @@ export default class Section {
   //  Delete this page.
   //  Removes the page from the project's sectionIndex.
   delete() {
-    // Remove from the page index first
+    // Remove from the section index first
     return this.project.removeSection(this)
       .then(() => {
         // Remove the various files, `catch()`ing to ignoring errors (eg: if files are nor present)
@@ -99,7 +113,7 @@ export default class Section {
   //  Updates projects's sectionIndex.
   changeId(newSectionId) {
     // get a new Section object with newSectionId to figure out it's path
-    const newSection = new Section(this.projectId, this.sectionId, newSectionId);
+    const newSection = new Section(this.projectId, newSectionId);
     const newSectionRoot = newSection.rootPath;
 
     // move the folder first
@@ -108,9 +122,9 @@ export default class Section {
       .then(() => {
         return this.project.changeSectionId(this.sectionId, newSectionId)
       })
-      // then rename this object
+      // then rename this object in place
       .then(() => {
-        this.sectionId = newSectionId;
+        return this.sectionId = newSectionId;
       })
   }
 

@@ -75,15 +75,10 @@ export default class Page {
   //  CRUD.  All return a promise.
   //
 
-  // Bundle up the page contents as a JSON blob and have the response return it.
-  bundle(response, { force } = {}) {
-    return bundler.bundlePage({ this, response, force });
-  }
-
   // Create a page given a JSON blob and page index (defaults to the end of the section).
   //  `data` is the same as for `save()`.
   // Returns a promise which yields with the index of the new page.
-  create({ data = {}, title = "Untitled Page", position }) {
+  create({ data = {}, title = this.pageId, position } = {}) {
     // Make sure we at least have a minimal JSXE file.
     if (!data.jsxe) {
       data.jsxe = `<OakPage id="${this.pageId}" title="${title}"/>`;
@@ -137,9 +132,9 @@ export default class Page {
       .then(() => {
         return section.changePageId(this.pageId, newPageId)
       })
-      // then rename this object
+      // then rename this object in place
       .then(() => {
-        this.pageId = newPageId;
+        return this.pageId = newPageId;
       })
   }
 

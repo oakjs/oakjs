@@ -116,7 +116,6 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
   switch (action) {
     case "save":      const pageData = JSON.parse(body);
                       return page.save(pageData)
-                        // return the page's bundle
                         .then( () => page.getBundle(response) );
 
     case "create":    const createData = JSON.parse(body);
@@ -124,12 +123,10 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
                         .then( () => page.getBundleAndPageIndex(response) )
 
     case "delete":    return page.delete()
-                        // return the section index
                         .then( () => page.section.getIndex(response) );
 
     case "changeId":  const params = JSON.parse(body);
                       return page.changeId(params.toId)
-                        // return the section index
                         .then( () => page.section.getIndex(response) );
   }
   throw new TypeError(`Page POST API action '${action}' not defined.`);
@@ -162,15 +159,20 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
 
   const section = new Section(projectId, sectionId);
   switch (action) {
-    // save section bits as JSON blob:  { jsxe, script, styles, index }
-    // returns the newly saved data
     case "save":      const sectionData = JSON.parse(body);
                       return section.save(sectionData)
-                        .then( () => section.getBundle(response) )
+                        .then( () => section.getBundle(response) );
+
+    case "create":    const createData = JSON.parse(body);
+                      return section.create(createData)
+                        .then( () => section.getBundleAndSectionIndex(response) )
+
+    case "delete":    return section.delete()
+                        .then( () => section.project.getIndex(response) );
 
     case "changeId":  const params = JSON.parse(body);
                       return section.changeId(params.toId)
-                        .then( () => sendJSONFile(request, response, section.section.indexPath) );
+                        .then( () => section.project.getIndex(response) );
   }
   throw new TypeError(`Sectoin POST API action '${action}' not defined.`);
 });
