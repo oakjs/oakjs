@@ -84,7 +84,7 @@ export default class LoadableIndex extends Loadable() {
   //  Loading
   //////////////////////////////
 
-  onLoaded(jsonItems) {
+  onLoaded(jsonItems = []) {
     // Previous registry, so we'll re-use items
     const oldRegistry = this._registry || {};
 
