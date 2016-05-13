@@ -211,18 +211,30 @@ console.log("oak.forceUpdate()");
     return this.registry.projectIndex.items
   }
 
-  // Get a project by id
+  // Get a project by projectId by path.
+  // NOTE: you can pass a page path to this and it'll take just the first bit.
   getProject(projectId) {
+    if (typeof projectId !== "string") throw new TypeError(`oak.registry.getProject(${projectId}): projectId must be a string`);
+    // normalize to first bit in case they passed a path
+    projectId = projectId.split("/")[0];
     return this.registry.getProject(projectId)
   }
 
-  // Return a section by id
+  // Return a section by projectId + sectionId strings or by single path string.
   getSection(projectId, sectionId) {
+    // If exactly one argument, assume it's a path.
+    if (arguments.length === 1 && typeof projectId === "string") {
+      [ projectId, sectionId ] = projectId.split("/");
+    }
     return this.registry.getSection(projectId, sectionId)
   }
 
   // Return a page by id
   getPage(projectId, sectionId, pageId) {
+    // If exactly one argument, assume it's a path.
+    if (arguments.length === 1 && typeof projectId === "string") {
+      [ projectId, sectionId, pageId] = projectId.split("/");
+    }
     return this.registry.getPage(projectId, sectionId, pageId)
   }
 

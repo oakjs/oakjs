@@ -110,8 +110,13 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
                       return page.save(pageData)
                         .then( () => _sendPageBundle(page, request, response) );
 
+    case "create":    const createData = JSON.parse(body);
+                      return page.create(createData)
+                        .then( () => _sendPageBundle(page, request, response) );
+
+    // Change the id of the page, updating the section index.s
     case "changeId":  const params = JSON.parse(body);
-                      return page.changeId(params.newId)
+                      return page.changeId(params.toId)
                         .then( () => sendJSONFile(request, response, page.section.indexPath) );
   }
   throw new TypeError(`Page POST API action '${action}' not defined.`);
@@ -155,7 +160,7 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
                         .then( () => _sendSectionBundle(section, request, response) );
 
     case "changeId":  const params = JSON.parse(body);
-                      return section.changeId(params.newId)
+                      return section.changeId(params.toId)
                         .then( () => sendJSONFile(request, response, section.section.indexPath) );
   }
   throw new TypeError(`Sectoin POST API action '${action}' not defined.`);

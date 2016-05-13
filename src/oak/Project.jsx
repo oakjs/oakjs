@@ -33,8 +33,10 @@ export default class Project extends ComponentController {
   //  Identity & Sugar
   //////////////////////////////
 
+  static getPath(projectId) { return projectId }
+
   get id() { return this.projectId }
-  get path() { return this.projectId }
+  get path() { return Project.getPath(this.projectId) }
 
   //////////////////////////////
   //  Components

@@ -1,35 +1,42 @@
-<OakPage id="Accordion" title="Accordion">
-  <PageTitle title="Accordion">
+<OakPage id="Accordion" title="Accordion" oid="O1jrNZ7G">
+  <PageTitle title="Accordion" oid="OTNUHaZr">
     An accordion allows users to toggle the display of sections of content
-    <Todo>How to auto-add dropdown icon?</Todo>
+    <Todo oid="CwAhPwNL">
+      How to auto-add dropdown icon?
+    </Todo>
   </PageTitle>
-
-  <PageSection title="Content">
-
-    <Grid columns={2}>
-      <Column>
-        <Example title="Inline Content">
-          <Accordion>
-            <Title appearance="active"><Icon icon="dropdown"/>What is a dog?</Title>
-            <Content appearance="active">
+  <PageSection title="Content" oid="mfpKZa5k">
+    <Grid columns={2} oid="rTL9IQfC">
+      <Column oid="tP6hr0uC">
+        <Example title="Inline Content" oid="CjlfLYJ2">
+          <Accordion oid="VCo0R5E6">
+            <Title appearance="active" oid="llc8OTrX">
+              <Icon icon="dropdown" oid="igTsdWnM"/>
+              What is a dog?
+            </Title>
+            <Content appearance="active" oid="dFm7lNor">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness,
               it can be found as a welcome guest in many households across the world.
             </Content>
-
-            <Title><Icon icon="dropdown"/>What kinds of dogs are there?</Title>
-            <Content>
+            <Title oid="vGC8AAKx">
+              <Icon icon="dropdown" oid="F1BhwwBF"/>
+              What kinds of dogs are there?
+            </Title>
+            <Content oid="KcBBabQO">
               There are many breeds of dogs. Each breed varies in size and temperament.
               Owners often select a breed of dog that they find to be compatible with their own
               lifestyle and desires from a companion.
             </Content>
-
-            <Title><Icon icon="dropdown"/>How do you acquire a dog?</Title>
-            <Content>
-              <p>
+            <Title oid="w0w6rvD5">
+              <Icon icon="dropdown" oid="vYiq0BbL"/>
+              How do you acquire a dog?
+            </Title>
+            <Content oid="CKiGstNB">
+              <p oid="ysTQhH2M">
                 Three common ways for a prospective owner to acquire a dog
                 is from pet shops, private owners, or shelters.
               </p>
-              <p>
+              <p oid="sUP4VWao">
                 A pet shop may be the most convenient way to buy a dog.
                 Buying a dog from a private owner allows you to assess the pedigree
                 and upbringing of your dog before choosing to take it home. Lastly,
@@ -37,19 +44,16 @@
                 may not find one so readily.
               </p>
             </Content>
-
           </Accordion>
         </Example>
       </Column>
-
-      <Column>
-        <Example title="Content from a Map">
-          <Accordion items={data.dogStringMap}/>
+      <Column oid="RkNXjUMn">
+        <Example title="Content from a Map" oid="SuTtPbvf">
+          <Accordion items={data.dogStringMap} oid="QRG6AmNu"/>
         </Example>
       </Column>
-
-      <Column>
-        <Example title="Content from Array of Elements">
+      <Column oid="ALblMCfg">
+        <Example title="Content from Array of Elements" oid="qTm2e3cC">
           <Accordion items={[
             data.whatIsADogTitle,
             data.whatIsADogContent,
@@ -57,102 +61,120 @@
             data.kindsOfDogsContent,
             data.acquiringADogTitle,
             data.acquiringADogContent,
-          ]}/>
+          ]} oid="IvuAvgTM"/>
         </Example>
       </Column>
-
-      <Column>
-        <Example title="Content from Array of Strings">
-          <Accordion items={data.dogStringArray}/>
+      <Column oid="cEVx5CB3">
+        <Example title="Content from Array of Strings" oid="VgZauCXb">
+          <Accordion items={data.dogStringArray} oid="rOHSSHP9"/>
         </Example>
       </Column>
     </Grid>
-
-      <Example title="Nested">
-        <Accordion id="nested" appearance="styled">
-          <Title><Icon icon="dropdown"/>Level 1</Title>
-          <Content>Welcome to level 1
-            <Accordion>
-              <Title><Icon icon="dropdown"/>Level 1A</Title>
-              <Content>Level 1A contents</Content>
-              <Title><Icon icon="dropdown"/>Level 1B</Title>
-              <Content>Level 1B contents</Content>
-            </Accordion>
+    <Example title="Nested" oid="CMfT51lf">
+      <Accordion id="nested" appearance="styled" oid="JEXASXa7">
+        <Title oid="JHRGshfu">
+          <Icon icon="dropdown" oid="B3mOnpPE"/>
+          Level 1
+        </Title>
+        <Content oid="Ol2rya7t">
+          Welcome to level 1
+          <Accordion oid="iCoEmZj6">
+            <Title oid="heCSR1Dp">
+              <Icon icon="dropdown" oid="HXcpdWPG"/>
+              Level 1A
+            </Title>
+            <Content oid="Eahpvgs2">
+              Level 1A contents
+            </Content>
+            <Title oid="Ii7yB9TI">
+              <Icon icon="dropdown" oid="RY7PyMJf"/>
+              Level 1B
+            </Title>
+            <Content oid="BrdfbsDH">
+              Level 1B contents
+            </Content>
+          </Accordion>
+        </Content>
+        <Title oid="g7e3Pmba">
+          <Icon icon="dropdown" oid="fFM790qZ"/>
+          Level 2
+        </Title>
+        <Content oid="T8guJ25N">
+          Welcome to level 2
+          <Title oid="pgyd6cwP">
+            <Icon icon="dropdown" oid="tJKcFuaK"/>
+            Level 2A
+          </Title>
+          <Content oid="a7oWmPAc">
+            Level 2A contents
           </Content>
-          <Title><Icon icon="dropdown"/>Level 2</Title>
-          <Content>
-            Welcome to level 2
-            <Title><Icon icon="dropdown"/>Level 2A</Title>
-            <Content>Level 2A contents</Content>
-            <Title><Icon icon="dropdown"/>Level 2B</Title>
-            <Content>Level 2B contents</Content>
+          <Title oid="N6bXG4aO">
+            <Icon icon="dropdown" oid="vfGGwUVZ"/>
+            Level 2B
+          </Title>
+          <Content oid="ZpWjFfAN">
+            Level 2B contents
           </Content>
-        </Accordion>
-      </Example>
-      <Bug>This is not working properly...  Do we have to further initialize the nested accordion?</Bug>
+        </Content>
+      </Accordion>
+    </Example>
+    <Bug oid="IaEvuM0F">
+      This is not working properly...  Do we have to further initialize the nested accordion?
+    </Bug>
   </PageSection>
-
-  <PageSection title="Settings">
-    <Example title="Non-collapsible" hint="<Accordion collapsible={false}/>">
-      <Accordion collapsible={false} appearance="styled" items={data.dogStringArray}/>
+  <PageSection title="Settings" oid="g4CSBGot">
+    <Example title="Non-collapsible" hint="<Accordion collapsible={false}/>" oid="qFHjckNM">
+      <Accordion collapsible={false} appearance="styled" items={data.dogStringArray} oid="gXmjoyAA"/>
     </Example>
-
-    <Example title="Non-exclusive" hint="<Accordion exlusive={false}/>">
-      <Accordion exclusive={false} appearance="styled" items={data.dogStringArray}/>
+    <Example title="Non-exclusive" hint="<Accordion exlusive={false}/>" oid="fKepyQFW">
+      <Accordion exclusive={false} appearance="styled" items={data.dogStringArray} oid="SX0ihMT2"/>
     </Example>
-
-    <Example title="Opening items at the start" hint="<Accordion open={0}/> or <Accordion exclusive={false} open={[0,1]}/>">
-      <Label pointing="down" color="teal">open = 0</Label>
-      <Accordion open={0} appearance="styled" items={data.dogStringArray}/>
-
-      <Spacer/>
-      <Label pointing="down" color="teal">open = [0, 1]</Label>
-      <Accordion exclusive={false} open={[0,1]} appearance="styled" items={data.dogStringArray}/>
+    <Example title="Opening items at the start" hint="<Accordion open={0}/> or <Accordion exclusive={false} open={[0,1]}/>" oid="S7UsN483">
+      <Label pointing="down" color="teal" oid="OPOv8kPa">
+        open = 0
+      </Label>
+      <Accordion open={0} appearance="styled" items={data.dogStringArray} oid="vPZJIjWj"/>
+      <Spacer oid="OZXeS6oF"/>
+      <Label pointing="down" color="teal" oid="yteQUECG">
+        open = [0, 1]
+      </Label>
+      <Accordion exclusive={false} open={[0,1]} appearance="styled" items={data.dogStringArray} oid="LxoYhFGn"/>
     </Example>
-
-    <Example title="Show on hover" hint="<Accordion on='mouseenter'/>">
-      <Accordion on="mouseenter" appearance="styled" items={data.dogStringArray}/>
+    <Example title="Show on hover" hint="<Accordion on='mouseenter'/>" oid="eWdsmIBm">
+      <Accordion on="mouseenter" appearance="styled" items={data.dogStringArray} oid="BXkKpw5R"/>
     </Example>
-
-    <Example title="Non-animated children" hint="<Accordion animateChildren={false}/>">
-      <Accordion animateChildren={false} appearance="styled" items={data.dogStringArray}/>
-      <Bug>This doesn't seem to work.  Are we doing it right?</Bug>
-    </Example>
-  </PageSection>
-
-  <PageSection title="Appearance">
-    <Example title="Styled" hint="<Accordion appearance='styled'/>">
-      <Accordion appearance="styled" items={data.dogStringArray}/>
-    </Example>
-
-    <Example title="Fluid" hint="<Accordion appearance='fluid'/>">
-      <Segment>
-        <Accordion appearance="styled fluid" items={data.dogStringArray}/>
-      </Segment>
-    </Example>
-
-    <Example title="Inverted (inside inverted segment)" hint="<Accordion appearance='inverted'/>">
-      <Segment appearance="inverted">
-        <Accordion appearance="inverted" items={data.dogStringArray}/>
-      </Segment>
-
-      <Spacer/>
-      <Label pointing="down" color="teal">Inverted styled</Label>
-      <Segment appearance="inverted compact unpadded">
-        <Accordion appearance="inverted styled" items={data.dogStringArray}/>
-      </Segment>
+    <Example title="Non-animated children" hint="<Accordion animateChildren={false}/>" oid="tHjV4u43">
+      <Accordion animateChildren={false} appearance="styled" items={data.dogStringArray} oid="J0iSmHyf"/>
+      <Bug oid="jRGed555">
+        This doesn't seem to work.  Are we doing it right?
+      </Bug>
     </Example>
   </PageSection>
-
-  <PageSection title="Events">
-    <Example title="All events (logged to console)" hint="<Accordion onChange={...} etc/>">
-      <Accordion appearance="styled" items={data.dogStringArray}
-        onOpening={()=> console.log("opening")}
-        onOpen={()=> console.log("open")}
-        onClosing={()=> console.log("closing")}
-        onClose={()=> console.log("close")}
-        onChange={()=> console.log("changed")}
-      />
+  <PageSection title="Appearance" oid="sj2dpfam">
+    <Example title="Styled" hint="<Accordion appearance='styled'/>" oid="pbOuOydX">
+      <Accordion appearance="styled" items={data.dogStringArray} oid="f3OGuSdg"/>
+    </Example>
+    <Example title="Fluid" hint="<Accordion appearance='fluid'/>" oid="iw30OtC4">
+      <Segment oid="ogBUARTe">
+        <Accordion appearance="styled fluid" items={data.dogStringArray} oid="NBu37qIw"/>
+      </Segment>
+    </Example>
+    <Example title="Inverted (inside inverted segment)" hint="<Accordion appearance='inverted'/>" oid="wEOW3HR2">
+      <Segment appearance="inverted" oid="EFZfu4GG">
+        <Accordion appearance="inverted" items={data.dogStringArray} oid="ldCixKYl"/>
+      </Segment>
+      <Spacer oid="Xn2CtfAK"/>
+      <Label pointing="down" color="teal" oid="kJpqZxia">
+        Inverted styled
+      </Label>
+      <Segment appearance="inverted compact unpadded" oid="bUNdtoyp">
+        <Accordion appearance="inverted styled" items={data.dogStringArray} oid="mP7C16FW"/>
+      </Segment>
+    </Example>
+  </PageSection>
+  <PageSection title="Events" oid="XjndiQAD">
+    <Example title="All events (logged to console)" hint="<Accordion onChange={...} etc/>" oid="lP9eH4o3">
+      <Accordion appearance="styled" items={data.dogStringArray} onOpening={()=> console.log("opening")} onOpen={()=> console.log("open")} onClosing={()=> console.log("closing")} onClose={()=> console.log("close")} onChange={()=> console.log("changed")} oid="uQ4maIr2"/>
     </Example>
   </PageSection>
 </OakPage>

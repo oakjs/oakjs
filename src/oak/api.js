@@ -14,26 +14,52 @@ export default new API({
   //////////////////////////////
 
   // Load a bundle for some ComponentController as a JSON blob.
-  loadComponentBundle(controller, fetchParams) {
-    const url = `/api/${controller.type}/${controller.path}/${controller.type}`;
-    const errorMessage = `Error loading ${controller.type} bundle`;
+  // No argument normalization.
+  loadComponentBundle({ type, path }, fetchParams) {
+    const url = `/api/${type}/${path}/${type}`;
+    const errorMessage = `Error loading ${type} ${path} bundle`;
     return this.getJSON(url, fetchParams, errorMessage);
   },
 
   // Save `data` as a JSON blob for some ComponentController.
-  saveComponentBundle(controller, data, fetchParams) {
-    const url = `/api/${controller.type}/${controller.path}/save`;
-    const errorMessage = `Error saving ${controller.type} bundle`;
-    return this.post(url, JSON.stringify(data), fetchParams, errorMessage);
+  // Response returns the component's bundle.
+  // No argument normalization.
+  saveComponentBundle({ type, path, data }, fetchParams) {
+    const url = `/api/${type}/${path}/save`;
+    const errorMessage = `Error saving ${type} ${path} bundle`;
+    return this.post(url, data, fetchParams, errorMessage)
+            .then( response => response.json() );
+  },
+
+  // Create a new component (Project, Section, Page)
+  // No argument normalization.
+  createComponent({ type, path, title, data, position }, fetchParams) {
+    const url = `/api/${type}/${path}/create`;
+    const postData = { title, data, position };
+    const errorMessage = `Error creating ${type} at ${path}`;
+    return this.post(url, postData, fetchParams, errorMessage)
+            .then( response => response.json() );
+  },
+
+  // Delete a component (Project, Section, Page)
+  // No argument normalization.
+  deleteComponent({ type, path }, fetchParams) {
+    const url = `/api/${type}/${path}/delete`;
+    const errorMessage = `Error deleting ${type} bundle`;
+    return this.post(url, postData, fetchParams, errorMessage)
+            .then( response => response.json() );
   },
 
   // Change id of some ComponentController (affects the disk).
+  // Response returns the parent index JSON data.
   // NOTE: does not affect client indices...
-  changeComponentId(controller, newId, fetchParams) {
-    const url = `/api/${controller.type}/${controller.path}/changeId`;
-    const errorMessage = `Error renaming ${controller.type} bundle`;
-    const data = { newId };
-    return this.post(url, JSON.stringify(data), fetchParams, errorMessage);
+  // No argument normalization.
+  changeComponentId({ type, path, toId }, fetchParams) {
+    const url = `/api/${type}/${path}/changeId`;
+    const postData = { toId };
+    const errorMessage = `Error changing id of ${type} ${path}`;
+    return this.post(url, postData, fetchParams, errorMessage)
+            .then( response => response.json() );
   },
 
 

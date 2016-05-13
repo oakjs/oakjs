@@ -28,17 +28,18 @@ export default class Section extends ComponentController {
   //  Identity & Sugar
   //////////////////////////////
 
+  static getPath(projectId, sectionId) { return `${projectId}/${sectionId}` }
 
   get id() { return this.sectionId }
-  get path() { return `${this.projectId}/${this.sectionId}` }
+  get path() { return Section.getPath(this.projectId, this.sectionId) }
 
   get project() { return this.oak.getProject(this.projectId) }
 
-  // Index of this section in its project.
+  // 1-based position (index) of this section in its project's `sections` list.
   // NOTE: this index is 1-based!
-  get sectionIndex() { return this.project.sections.indexOf(this) + 1 }
-  get isFirstSection() { return this.sectionIndex === 1}
-  get isLastSection() { return this.sectionIndex = this.project.sections.length }
+  get position() { return this.project.sections.indexOf(this) + 1 }
+  get isFirstSection() { return this.position === 1}
+  get isLastSection() { return this.position === this.project.sections.length }
 
   //////////////////////////////
   //  Components

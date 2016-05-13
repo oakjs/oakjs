@@ -101,7 +101,7 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   //    - `styles` as CSS styles
   //    - `index` as a LoadableIndex
   loadData() {
-    return api.loadComponentBundle(this);
+    return api.loadComponentBundle({ type: this.type, path: this.path });
   }
 
   onLoaded(bundle) {
@@ -139,7 +139,7 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
     const data = this.getDataToSave();
     console.warn("saving: ", data);
 //TODO: update data from returned bundle???
-    return api.saveComponentBundle(this, data);
+    return api.saveComponentBundle({ type: this.type, path: this.path, data });
   }
 
   // Clear our cache when we're marked as dirty

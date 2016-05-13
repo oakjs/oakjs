@@ -29,7 +29,7 @@ export function changeSectionId(options = {}) {
     actionName = "Rename Section", autoExecute
   } = options
 
-  if (typeof section === "string") section = oak.registry.getSection(...section.split("/"));
+  if (typeof section === "string") section = oak.getSection(section);
 
   if (!section) die(oak, "actions.changeSectionId", [options], "you must specify options.section");
   if (!newId) die(oak, "actions.changeSectionId", [options], "you must specify options.id");
@@ -54,7 +54,7 @@ export function changeSectionId(options = {}) {
 // Internal routine to actually rename and possibly navigate
 function _changeSectionId(section, toId, route) {
   const fromId = section.sectionId;
-  return api.changeComponentId(section, toId)
+  return api.changeComponentId({ type: "section", path: page.path, newId: toId })
     .then( () => {
       // update section
       section.sectionId = toId;

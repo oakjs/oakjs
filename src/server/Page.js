@@ -11,6 +11,7 @@ import Section from "./Section";
 export default class Page {
 
   // Construction will fail if you pass improper ids for `projectId`, `sectionId` or `pageId`.
+  // NOTE: does not verify that the page exists!
   constructor(projectId, sectionId, pageId, props) {
     this.projectId = paths.dieIfInvalidId(projectId);
     this.sectionId = paths.dieIfInvalidId(sectionId);
@@ -43,25 +44,6 @@ export default class Page {
   get scriptPath() { return paths.pagePath(this.projectId, this.sectionId, this.pageId, "page.js") }
   get bundlePath() { return paths.bundlePath("projects", this.projectId, this.sectionId, `${this.pageId}.bundle.json`) }
 
-
-  //
-  //  Load/Save/Delete the various bits.  All return a promise.
-  //  Conside using the higher-level `save`, `delete`, etc routines instead.
-  //
-  getJSXE() { return paths.getTextFile(this.jsxePath) }
-  getStyles() { return paths.getTextFile(this.stylesPath) }
-  getScript() { return paths.getTextFile(this.scriptPath) }
-
-  saveJSXE(contents) { return paths.saveOrDeleteFile(this.jsxePath, contents)}
-  saveStyles(contents) { return paths.saveOrDeleteFile(this.stylesPath, contents)}
-  saveScript(contents) { return paths.saveOrDeleteFile(this.scriptPath, contents)}
-
-  // Ignore errors on delete (eg: if the file is not present)
-  deleteJSXE() { return paths.deleteFile(this.jsxePath)}
-  deleteStyles() { return paths.deleteFile(this.stylesPath)}
-  deleteScript() { return paths.deleteFile(this.scriptPath)}
-
-
   //
   //  CRUD.  All return a promise.
   //
@@ -72,36 +54,44 @@ export default class Page {
   }
 
   // Create a page given a JSON blob and page index (defaults to the end of the section).
-  //  `json` is the same as for `save()`.
+  //  `data` is the same as for `save()`.
   // Returns a promise which yields with the index of the new page.
-  create(json, index) {
-    this.save(json)
-      .then(this.section.addPage(this, index));
+  create({ data = {}, title = "Untitled Page", position }) {
+    // Make sure we at least have a minimal JSXE file.
+    if (!data.jsxe) {
+      data.jsxe = `<OakPage id="${this.pageId}" title="${title}"/>`;
+    }
+
+    this.save(data)
+      .then(() => {
+        const indexData = { id: this.pageId, title };
+        return this.section.addPage(indexData, position)
+      });
   }
 
   //  Save a page given a JSON blob with any of:  `{ jsxe, styles, script }`
   //  Does NOT manipulate section pageIndex.
   //  NOTE: If you don't want to affect one of the above jsxe, etc, just don't include it.
   //        If you do include a value and it's blank/undefined, we'll delete that file.
-  save(json) {
-    const promises = [];
-    if ("jsxe" in json) promises.push(this.saveJSXE(json.jsxe));
-    if ("styles" in json) promises.push(this.saveStyles(json.styles));
-    if ("script" in json) promises.push(this.saveScript(json.script));
-    return Promise.all(promises);
+  save(data) {
+    return Promise.all([
+      "jsxe" in data && paths.saveOrDeleteFile(this.jsxePath, data.jsxe),
+      "styles" in data && paths.saveOrDeleteFile(this.stylesPath, data.styles),
+      "script" in data && paths.saveOrDeleteFile(this.scriptPath, data.script),
+    ])
   }
 
   //  Delete this page.
   //  Removes the page from the section's pageIndex.
   delete() {
     // Remove from the page index first
-    return this.section.removePage(this)
+    return this.section.removePage(this.pageId)
       .then(() => {
         // Remove the various files, `catch()`ing to ignoring errors (eg: if files are nor present)
         return Promise.all([
-            this.removeJSXE().catch(Function.prototype),
-            this.removeStyles().catch(Function.prototype),
-            this.removeScript().catch(Function.prototype)
+            paths.deleteFile(this.jsxePath).catch(Function.prototype),
+            paths.deleteFile(this.stylesPath).catch(Function.prototype),
+            paths.deleteFile(this.scriptPath).catch(Function.prototype)
           ]);
         });
   }

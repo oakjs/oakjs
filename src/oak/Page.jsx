@@ -25,17 +25,19 @@ export default class Page extends ComponentController {
   //  Identify & Sugar
   //////////////////////////////
 
+  static getPath(projectId, sectionId, pageId) { return `${projectId}/${sectionId}/${pageId}` }
+
   get id() { return this.pageId }
-  get path() { return `${this.projectId}/${this.sectionId}/${this.pageId}` }
+  get path() { return Page.getPath(this.projectId, this.sectionId, this.pageId) }
 
   get project() { return this.oak.getProject(this.projectId) }
   get section() { return this.oak.getSection(this.projectId, this.sectionId) }
 
-  // index of this page in its section
+  // 1-based position (index) of this page in its section's `pages` list
   // NOTE: this index is 1-based!
-  get pageIndex() { return this.section.pages.indexOf(this) + 1 }
-  get isFirstPage() { return this.pageIndex === 1 }
-  get isLastPage() { return this.pageIndex === this.section.pages.length }
+  get position() { return this.section.pages.indexOf(this) + 1 }
+  get isFirstPage() { return this.position === 1 }
+  get isLastPage() { return this.position === this.section.pages.length }
 
   //////////////////////////////
   //  Components

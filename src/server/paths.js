@@ -97,21 +97,6 @@ export function projectPath(project, filename = "") {
 //  Paths for sections
 //////////////////////////////
 
-// Lightweight object which vends paths
-//  eg:   const path = paths.section(<projectId>, <sectionId>).jsxePath;
-export class sectionPaths {
-  constructor(project, section) {
-    this.project = dieIfInvalidId(project);
-    this.section = dieIfInvalidId(section);
-  }
-  get jsxe() { return sectionPath(this.project, this.section, "section.jsxe") }
-  get css() { return sectionPath(this.project, this.section, "section.css") }
-  get script() { return sectionPath(this.project, this.section, "section.js") }
-  get pageIndex() { return sectionPath(this.project, this.section, "pages.json") }
-  get bundleFile() { return bundlePath("projects", this.project, `${this.section}.bundle.json`) }
-}
-
-
 // Return the path for a section file.
 // Default is to return the `section.jsx` file, pass a different `fileName` for something else.
 // If you want the path to the section's directory, pass `fileName=""`.
@@ -119,6 +104,7 @@ export function sectionPath(project, section, filename = "") {
   const sectionPath = fsPath.join(section, filename);
   return projectPath(project, sectionPath);
 }
+
 
 //////////////////////////////
 //  Paths for pages

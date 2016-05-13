@@ -110,7 +110,7 @@ function _showRelativePage(delta, options) {
   const props = {
     project: oak.project.projectId,
     section: oak.section.sectionId,
-    page: oak.page.pageIndex
+    page: oak.page.position
   };
 
   if (delta === "FIRST") props.page = 1;
