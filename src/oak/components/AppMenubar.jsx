@@ -44,6 +44,14 @@ export default class AppMenubar extends OakComponent {
               <MenuItem onClick={oak.actions.clearSelection} disabled={oak.nothingSelected}>Deselect All</MenuItem>
             </Menu>
           </Dropdown>
+          <Dropdown text="Go" showArrow={false} action="hide">
+            <Menu>
+              <MenuItem onClick={oak.actions.showFirstPage} disabled={oak.page && oak.page.isFirstPage}>Show First Page</MenuItem>
+              <MenuItem onClick={oak.actions.showPreviousPage} disabled={oak.page && oak.page.isFirstPage}>Show Previous Page</MenuItem>
+              <MenuItem onClick={oak.actions.showNextPage} disabled={oak.page && oak.page.isLastPage}>Show Next Page</MenuItem>
+              <MenuItem onClick={oak.actions.showLastPage} disabled={oak.page && oak.page.isLastPage}>Show Last Page</MenuItem>
+            </Menu>
+          </Dropdown>
           <Dropdown text="Project" showArrow={false} action="hide">
             <Menu>
               <MenuItem disabled>Edit Project</MenuItem>
@@ -59,7 +67,7 @@ export default class AppMenubar extends OakComponent {
               <MenuItem disabled>Edit Section</MenuItem>
               <Divider/>
               <MenuItem disabled>Section Settings...</MenuItem>
-              <Submenu disabled>Jump to Section...</Submenu>
+              <Submenu disabled>Jump to Section</Submenu>
               <Divider/>
               <MenuItem disabled>New Section...</MenuItem>
               <MenuItem disabled>Duplicate Section...</MenuItem>
@@ -68,15 +76,10 @@ export default class AppMenubar extends OakComponent {
           </Dropdown>
           <Dropdown text="Page" showArrow={false} action="hide">
             <Menu>
-              <MenuItem onClick={oak.actions.showFirstPage} disabled={oak.page && oak.page.isFirstPage}>Show First Page</MenuItem>
-              <MenuItem onClick={oak.actions.showPreviousPage} disabled={oak.page && oak.page.isFirstPage}>Show Previous Page</MenuItem>
-              <MenuItem onClick={oak.actions.showNextPage} disabled={oak.page && oak.page.isLastPage}>Show Next Page</MenuItem>
-              <MenuItem onClick={oak.actions.showLastPage} disabled={oak.page && oak.page.isLastPage}>Show Last Page</MenuItem>
-              <Divider/>
               <MenuItem hidden={oak.state.editing} onClick={oak.actions.startEditing}>Edit Page</MenuItem>
               <MenuItem hidden={!oak.state.editing} onClick={oak.actions.stopEditing}>Stop Editing Page</MenuItem>
               <MenuItem disabled>Page Settings...</MenuItem>
-              <Submenu disabled>Jump to Page...</Submenu>
+              <Submenu disabled>Jump to Page</Submenu>
               <Divider/>
               <MenuItem onClick={oak.actions.savePage} disabled={oak.page && !oak.page.isDirty}>Save Page...</MenuItem>
               <MenuItem onClick={oak.actions.createPage}>New Page...</MenuItem>
