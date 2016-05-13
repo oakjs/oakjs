@@ -70,9 +70,9 @@ router.get("/oak/:action",  (request, response) => {
   const { action } = request.params;
   const appPaths = new paths.appPaths();
   switch (action) {
-    case "projectIndex":   return sendJSONFile(request, response, appPaths.projectIndex);
+    case "projects":   return sendJSONFile(request, response, appPaths.projectIndex);
   }
-  throw new TypeError(`Projects API action ${action} not defined.`);
+  throw new TypeError(`Oak API action ${action} not defined.`);
 });
 
 
@@ -100,12 +100,12 @@ function _sendPageBundleAndSectionPageIndex(page, request, response) {
 }
 
 
-// Router for page read actions.
+// Page read actions.
 router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const page = new Page(projectId, sectionId, pageId);
   switch (action) {
-    case "page":    return _sendPageBundle(page, request, response);
+    case "bundle":  return _sendPageBundle(page, request, response);
     case "jsxe":    return sendTextFile(request, response, page.jsxePath);
     case "script":  return sendTextFile(request, response, page.scriptPath);
     case "styles":  return sendTextFile(request, response, page.stylesPath);
@@ -113,7 +113,7 @@ router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) =
   throw new TypeError(`Page GET API action ${action} not defined.`);
 });
 
-// Router for page write actions.
+// Page write actions.
 router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const { body } = request;
@@ -157,11 +157,11 @@ router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const section = new Section(projectId, sectionId);
   switch (action) {
-    case "section":     return _sendSectionBundle(section, request, response);
+    case "bundle":      return _sendSectionBundle(section, request, response);
     case "jsxe":        return sendTextFile(request, response, section.jsxePath);
     case "script":      return sendTextFile(request, response, section.scriptPath);
     case "styles":      return sendTextFile(request, response, section.stylesPath);
-    case "pageIndex":   return sendJSONFile(request, response, section.indexPath);
+    case "pages":       return sendJSONFile(request, response, section.indexPath);
   }
   throw new TypeError(`Section GET API action '${action}' not defined.`);
 });
@@ -198,11 +198,11 @@ router.get("/project/:projectId/:action",  (request, response) => {
 
   const projectPaths = new paths.projectPaths(projectId);
   switch (action) {
-    case "project":     return bundler.bundleProject({ projectId, response, ...debugParams(request.query) });
+    case "bundle":      return bundler.bundleProject({ projectId, response, ...debugParams(request.query) });
     case "jsxe":        return sendTextFile(request, response, projectPaths.jsxe);
     case "script":      return sendTextFile(request, response, projectPaths.script);
     case "styles":      return sendTextFile(request, response, projectPaths.css);
-    case "sectionIndex":  return sendJSONFile(request, response, projectPaths.sectionIndex);
+    case "sections":    return sendJSONFile(request, response, projectPaths.sectionIndex);
 
   }
   throw new TypeError(`Project GET API action '${action}' not defined.`);

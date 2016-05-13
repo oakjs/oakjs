@@ -16,7 +16,7 @@ export default new API({
   // Load a bundle for some ComponentController as a JSON blob.
   // No argument normalization.
   loadComponentBundle({ type, path }, fetchParams) {
-    const url = `/api/${type}/${path}/${type}`;
+    const url = `/api/${type}/${path}/bundle`;
     const errorMessage = `Error loading ${type} ${path} bundle`;
     return this.getJSON(url, fetchParams, errorMessage);
   },
@@ -143,27 +143,24 @@ export default new API({
   // Component Index files
   //////////////////////////////
 
-  loadProjectIndex() {
-    const url = `/api/oak/projectIndex`;
+  loadProjectIndex(fetchParams) {
+    const url = `/api/oak/projects`;
     const errorMessage = "Error loading project index";
-    return this.loadIndex(url, undefined, );
-  },
-
-  loadSectionIndex(projectPath) {
-    const url = `/api/project/${projectPath}/sectionIndex`;
-    const errorMessage = "Error loading section index";
-    return this.loadIndex(url, undefined, errorMessage);
-  },
-
-  loadPageIndex(sectionPath) {
-    const url = `/api/section/${sectionPath}/pageIndex`;
-    const errorMessage = "Error loading page index";
-    return this.loadIndex(url, undefined, errorMessage);
-  },
-
-  loadIndex(url, fetchParams={}, errorMessage = "Error loading index") {
     return this.getJSON(url, fetchParams, errorMessage);
   },
+
+  loadSectionIndex(projectPath, fetchParams) {
+    const url = `/api/project/${projectPath}/sections`;
+    const errorMessage = `Error loading section index for ${projectPath}`;
+    return this.getJSON(url, fetchParams, errorMessage);
+  },
+
+  loadPageIndex(sectionPath, fetchParams) {
+    const url = `/api/section/${sectionPath}/pages`;
+    const errorMessage = `Error loading page index for ${sectionPath}`;
+    return this.getJSON(url, fetchParams, errorMessage);
+  },
+
 
 //   saveIndex(url, errorMessage = "Error saving index", index) {
 //     return this.post(url, controller.index);
