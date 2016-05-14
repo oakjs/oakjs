@@ -104,20 +104,17 @@ export function deletePage(options = {}) {
     if (answer === false) return;
   }
 
-  // get the old page data for undo
-  const path = page.path;
-
   // Only navigate if we're on the same page
   const navigate = (page === oak.page);
 
   // get parameter data BEFORE creating transaction
   const deleteParams = {
-    path,
+    component: page,
     route: navigate && nextPage && nextPage.route
   }
 
   const createParams = {
-    path,
+    path: page.path,
     title: page.title,
     data: page.getDataToSave(),
     position: page.position,
@@ -125,28 +122,12 @@ export function deletePage(options = {}) {
   };
 
   return new UndoTransaction({
-    redoActions:[ () => _deletePage(deleteParams) ],
+    redoActions:[ () => utils.deleteComponent(deleteParams) ],
     undoActions:[ () => _createPage(createParams) ],
     actionName,
     autoExecute
   });
 }
-// Internal routine to actually delete the page.
-// No parameter normalization or checking!
-function _deletePage({ path, route }) {
-  if (DEBUG) console.info(`_deletePage({ path: ${path}, route: ${route} })`);
-  return api.deleteComponent({ type: "page", path })
-    // response returns the pageIndex JSON data
-    .then( pageIndexJSON => {
-      // update the section's pageIndex data, which should remove the page from the index
-      const section = oak.getSection(path);
-      if (section) section.pageIndex.loaded(pageIndexJSON);
-
-      // navigate
-      if (route) utils.navigateToRoute(route, "REPLACE");
-    });
-}
-
 
 
 

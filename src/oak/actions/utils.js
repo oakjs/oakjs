@@ -106,7 +106,7 @@ export function navigateToRoute(route, replace, selection) {
 //  Utility functions to manipulate components, for use by transactions only
 //////////////////////////////
 
-// Internal routine to actually rename a component and optionally navigate to a new route.
+// Rename a component and optionally navigate to a new route.
 // No parameter normalization!
 export function renameComponent({ component, newId, updateInstance, route }) {
   if (DEBUG) console.info(`renameComponent({ component: ${component}, newId: ${newId}, route: ${route}  })`);
@@ -128,14 +128,28 @@ export function renameComponent({ component, newId, updateInstance, route }) {
       component.parentIndex.loaded(parentIndexJSON);
 
 
-console.info("component id changed" + (route ? `, navigating to ${route}` : ""));
+console.info("component renamed" + (route ? `, navigating to ${route}` : ""));
       // navigate if desired
-      if (route) {
-        navigateToRoute(route, "REPLACE");
-      }
+      if (route) navigateToRoute(route, "REPLACE");
     });
 }
 
+
+// Delete a component and optionally navigate to a new route.
+// No parameter normalization!
+export function deleteComponent({ component, route }) {
+  if (DEBUG) console.info(`_deleteComponent({ component: ${component}, route: ${route} })`);
+  return api.deleteComponent({ type: component.type, path: component.path })
+    // response returns the parentIndex JSON data
+    .then( parentIndexJSON => {
+      // update the parentIndex data, which should remove the item from the index
+      component.parentIndex.loaded(parentIndexJSON);
+
+console.info("component deleted" + (route ? `, navigating to ${route}` : ""));
+      // navigate
+      if (route) navigateToRoute(route, "REPLACE");
+    });
+}
 
 
 // Export all in one go
