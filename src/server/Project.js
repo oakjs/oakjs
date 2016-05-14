@@ -54,7 +54,7 @@ export default class Project extends Component {
   }
 
   createBlankChild() {
-    return new Section(this.projectId, "main");
+    return new Section({ projectId: this.projectId, sectionId: "main" });
   }
 
 }
