@@ -34,10 +34,9 @@ export function savePage() {
 // Change a page's id.
 export function renamePage(options = {}) {
   let {
-    page = oak.page,                  // Page to change
-    newId,                            // New id for the page
-    prompt = !oak.event.optionKey,    // If `true`, we'll prompt for a new name if newId is not set.
-                                      // Default is to confirm unless the option key is down.
+    page = oak.page,        // Page to change
+    newId,                  // New id for the page
+    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
     actionName,
     autoExecute
   } = options
@@ -46,21 +45,11 @@ export function renamePage(options = {}) {
   if (typeof page === "string") page = oak.getPage(page);
   if (!page) die(oak, "actions.deletePage", [options], "you must specify options.page");
 
-  // if `newId` was not specified, prompt
-  if (!newId && prompt) {
-    newId = window.prompt("New name for page?", page.id);
-    if (!newId) return;
-  }
-
-  // default to unique'd pageId
-  // TODO: ideally we'd push this into renameComponentTransaction...
-  newId = page.section.uniquifyChildId(newId || pageId)
-
-  return component.renameComponentTransaction({
+  return component._renameComponentTransaction({
     component: page,
     newId,
     updateInstance: function(component, id) { component.pageId = id },
-    route: (page === oak.page) && oak.getPageRoute(page.projectId, page.sectionId, newId),
+    navigate: (page === oak.page),
     actionName,
     autoExecute
   });
@@ -83,7 +72,7 @@ export function deletePage(options = {}) {
   if (typeof page === "string") page = oak.getPage(page);
   if (!page) die(oak, "actions.deletePage", [options], "you must specify options.page");
 
-  return component.deleteComponentTransaction({
+  return component._deleteComponentTransaction({
     component: page,
     navigate: (page == oak.page),   // navigate if on current page
     confirm,
@@ -99,24 +88,26 @@ export function deletePage(options = {}) {
 //////////////////////////////
 export function createPage(options = {}) {
   let {
-    projectId = oak.page && oak.page.projectId,   // default to current
-    sectionId = oak.page && oak.page.sectionId,
+    projectId = oak.page && oak.page.projectId,   // default to current project...
+    sectionId = oak.page && oak.page.sectionId,   // ... and section
     pageId,
     title,            // optional: title for the page (DEFAULT???)
     data,             // optional: data object for page with `{ jsxe, script, styles }`
     position = oak.page && oak.page.position + 1, // optional: 1-based numeric position within the section, undefined = place after current page
     prompt = true,    // optional: if true and title is not specified, we'll prompt for page title
     navigate = true,  // optional: if true, we'll navigate to the page after creation
-    actionName = "New Page", autoExecute
+    actionName = "New Page",
+    autoExecute
   } = options;
 
-  // verify that project/section exist
+  // verify that project & section exist
   const section = oak.getSection(projectId, sectionId);
   if (!section) die(oak, "actions.createPage", [options], "project or section not found");
 
   // prompt for title if necessary
   if (!title && prompt) {
-    title = window.prompt("Name for new page?", "Untitled Page") || "Untitled Page";
+    title = window.prompt("Name for new ${component.type}?", "Untitled ${component.type}");
+    if (!title) return;
   }
 
   if (!pageId) {

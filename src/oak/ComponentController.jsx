@@ -38,6 +38,8 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   get parentIndex() { return this.parent && this.parent.childIndex }
   get childIndex() {}
   get childIds() { return this.childIndex && this.childIndex.items.map(item => item.id) }
+  get path() { return this.parent ?`${this.parent.path}/${this.id}` : this.id; }
+  getChildPath(childId) { return `${this.path}/${childId}` }
 
   // Given a possible childId, modify it (minmally) to make sure it's unique within our children
   uniquifyChildId(childId) { return ids.uniquifyId(childId, this.childIds) }

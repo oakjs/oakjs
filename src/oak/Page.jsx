@@ -25,7 +25,6 @@ export default class Page extends ComponentController {
   //  Standard Component Identity stuff
   //////////////////////////////
 
-  static getPath(projectId, sectionId, pageId) { return `${projectId}/${sectionId}/${pageId}` }
   static splitPath(path) {
     const split = path.split("/");
     return { projectId: split[0], sectionId: split[1], pageId: split[2] }
@@ -33,7 +32,6 @@ export default class Page extends ComponentController {
 
   get id() { return this.pageId }
   set id(id) { this.pageId = id }
-  get path() { return Page.getPath(this.projectId, this.sectionId, this.pageId) }
 
   get parent() { return this.section }
   get parentIndex() { return this.section.childIndex }

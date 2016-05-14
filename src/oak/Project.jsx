@@ -34,7 +34,6 @@ export default class Project extends ComponentController {
   //  Standard Component Identity stuff
   //////////////////////////////
 
-  static getPath(projectId) { return projectId }
   static splitPath(path) {
     const split = path.split("/");
     return { projectId: split[0] }
@@ -42,7 +41,6 @@ export default class Project extends ComponentController {
 
   get id() { return this.projectId }
   set id(id) { this.projectId = id }
-  get path() { return Project.getPath(this.projectId) }
 
   get parentIndex() { return this.oak.registry.projectIndex }
   get childIndex() { return this.sectionIndex }
