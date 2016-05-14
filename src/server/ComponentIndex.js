@@ -1,5 +1,7 @@
 //////////////////////////////
-// Simple server-side file for index of components.
+//  Simple server-side file for index of components.
+//
+//  All modifiers (add, remove, etc) will automaticaly `load()` as necessary.
 //////////////////////////////
 
 import paths from "./paths";
@@ -11,6 +13,8 @@ export default class ComponentIndex {
   }
 
   load() {
+    if (this.isLoaded) return Promise.resolve(this);
+
     if (!this.path) throw new TypeError("path not set for index");
     return paths.getTextFile(this.path)
       // if file doesn't exist, return an empty array string for the next step
@@ -18,6 +22,8 @@ export default class ComponentIndex {
       // then just remember the items
       .then( jsonText => {
         this.items = JSON.parse(jsonText);
+        this.isLoaded = true;
+        return this;
       })
   }
 
@@ -43,28 +49,52 @@ export default class ComponentIndex {
   // Add an `item` to our `items` at `index`, pushing other thigns out of the way.
   // Defaults to the end of the list.
   // Returns the index where the item was added.
-  add(item, index = this.items.length) {
-    this.items.splice(index, 0, item);
-    return index;
+  //
+  // If `save` is truthy, we'll save this file and return a promise with the index.
+  add(item, index = this.items.length, save) {
+    return this.load()
+      .then( () => {
+        this.items.splice(index, 0, item);
+        if (save) return this.save().then( () => index );
+        return index;
+      });
   }
 
   // Remove the item at `index`.
   // Returns the item removed.
-  remove(index) {
-    return this.items.splice(index, 1)[0];
+  //
+  // If `save` is truthy, we'll auto-save this file and return a promise with the item removed.
+  remove(index, save) {
+    return this.load()
+      .then( () => {
+        const item = this.items.splice(index, 1)[0];
+        if (save) return this.save().then( () => item );
+        return result;
+      });
   }
 
   // Remove an item specified by `id`.
-  removeById(id) {
-    const index = this.indexOfId(id);
-    if (index === -1) return [];
-    return this.remove(index);
+  //
+  // If `save` is truthy, we'll auto-save this file and return a promise with the item removed.
+  removeById(id, save) {
+    return this.load()
+      .then( () => {
+        const index = this.indexOfId(id);
+        if (index === -1) return [];
+        return this.remove(index, save);
+      });
   }
 
   // Change the id of some item.
-  changeId(oldId, newId) {
-    const item = this.get(oldId);
-    if (item) item.id = newId;
+  //
+  // If `save` is truthy, we'll auto-save this file.
+  changeId(oldId, newId, save) {
+    return this.load()
+      .then( () => {
+        const item = this.get(oldId);
+        if (item) item.id = newId;
+        if (save) return this.save();
+      });
   }
 
 }

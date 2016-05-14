@@ -9,7 +9,7 @@ import util from "./util";
 
 
 // Set to `true` to output debug messages during bundling
-export const DEBUG = true;
+export const DEBUG = false;
 
 // "Clever" bundle routine:
 //  - reads `options.inputFile` and adds that to the options
@@ -69,7 +69,7 @@ export function bundlePathMap(pathMap, options = {}) {
       .then( output => {
         // if we know the dates of the individual files, add it to the results
         if (options.modified) {
-          console.info("....Adding modififed dates to output");
+          if (options.debug) console.info("....Adding modififed dates to output");
           output.__modified = options.modified;
           output.__modified.__bundle = new Date();
         }
@@ -127,7 +127,7 @@ export function bundleSection({ section, force, response }) {
     jsxe:    section.jsxePath,
     styles:  section.stylesPath,
     script:  section.scriptPath,
-    index:   section.indexPath
+    index:   section.childIndexPath
   };
   if (DEBUG) console.log(`bundleSection(${section.path})`);
   const options = {

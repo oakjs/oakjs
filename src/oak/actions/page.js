@@ -237,8 +237,8 @@ export function createPage(options = {}) {
 function _createPage({ path, title, data, position, navigate }) {
   if (DEBUG) console.info(`_createPage({ path: ${path}, title: ${title}, data: ${data}, position: ${position}, navigate: ${navigate} })`);
   return api.createComponent({ type: "page", path, title, data, position })
-    // returns json with:  `{ pageIndex, jsxe, styles, script }`
-    .then( responseJSON => {
+    // returns json with:  `{ index, item }`
+    .then( ({ index: pageIndexData, item: pageData }) => {
       const section = oak.getSection(path);
       if (!section) {
         // it's not necessarily an error if we can't find the page, just warn and continue
@@ -247,7 +247,7 @@ function _createPage({ path, title, data, position, navigate }) {
       }
       // ORDER is important:
       // 1. update the section's pageIndex
-      section.pageIndex.loaded(responseJSON.pageIndex);
+      section.pageIndex.loaded(pageIndexData);
 
       // 2. get the new page
       const page = oak.getPage(path);
@@ -258,7 +258,7 @@ function _createPage({ path, title, data, position, navigate }) {
       }
 
       // 3. have the page update with the response data
-      page.loaded(responseJSON);
+      page.loaded(pageData);
 
       // 4. navigate if necessary
       if (navigate) utils.navigateToRoute(page.route, "REPLACE");

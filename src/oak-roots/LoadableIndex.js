@@ -85,6 +85,8 @@ export default class LoadableIndex extends Loadable() {
   //////////////////////////////
 
   onLoaded(jsonItems = []) {
+    if (typeof jsonItems === "string") jsonItems = JSON.parse(jsonItems);
+
     // Previous registry, so we'll re-use items
     const oldRegistry = this._registry || {};
 

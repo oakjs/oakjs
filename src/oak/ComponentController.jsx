@@ -105,6 +105,8 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   }
 
   onLoaded(bundle) {
+    if (typeof bundle === "string") bundle = JSON.parse(bundle);
+
     this.cache = {};
     if (bundle.jsxe) this._loadedJSXE(bundle.jsxe);
     if (bundle.index) this._loadedIndex(bundle.index);

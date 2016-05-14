@@ -82,7 +82,7 @@ router.get("/oak/:action",  (request, response) => {
 function _sendPageBundleAndSectionPageIndex(page, request, response) {
   return Promise.all([
             bundler.bundlePage({ page }),
-            page.section.getIndex()
+            page.section.getChildIndex()
           ])
           .then( ([ bundleJSON, indexJSON ]) => {
             // convert to objects and merge
@@ -97,7 +97,7 @@ function _sendPageBundleAndSectionPageIndex(page, request, response) {
 // Page read actions.
 router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
-  const page = new Page(projectId, sectionId, pageId);
+  const page = new Page({ projectId, sectionId, pageId });
   switch (action) {
     case "bundle":  return page.getBundle(response, request.query.force !== "true");
     case "jsxe":    return page.getJSXE(response);
@@ -112,7 +112,7 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
   const { action, projectId, sectionId, pageId } = request.params;
   const { body } = request;
 
-  const page = new Page(projectId, sectionId, pageId);
+  const page = new Page({ projectId, sectionId, pageId });
   switch (action) {
     case "save":      const pageData = JSON.parse(body);
                       return page.save(pageData)
@@ -120,14 +120,14 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
 
     case "create":    const createData = JSON.parse(body);
                       return page.create(createData)
-                        .then( () => page.getBundleAndPageIndex(response) )
+                        .then( () => page.getBundleAndParentIndex(response) )
 
     case "delete":    return page.delete()
-                        .then( () => page.section.getIndex(response) );
+                        .then( () => page.section.getChildIndex(response) );
 
     case "changeId":  const params = JSON.parse(body);
                       return page.changeId(params.toId)
-                        .then( () => page.section.getIndex(response) );
+                        .then( newPage => newPage.section.getChildIndex(response) );
   }
   throw new TypeError(`Page POST API action '${action}' not defined.`);
 });
@@ -141,13 +141,13 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
 // Section read actions.
 router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
   const { action, projectId, sectionId } = request.params;
-  const section = new Section(projectId, sectionId);
+  const section = new Section({ projectId, sectionId });
   switch (action) {
     case "bundle":  return section.getBundle(response, request.query.force !== "true");
     case "jsxe":    return section.getJSXE(response);
     case "script":  return section.getScript(response);
     case "styles":  return section.getStyles(response);
-    case "pages":   return section.getIndex(response);
+    case "pages":   return section.getChildIndex(response);
   }
   throw new TypeError(`Section GET API action '${action}' not defined.`);
 });
@@ -157,7 +157,7 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
   const { action, projectId, sectionId } = request.params;
   const { body } = request;
 
-  const section = new Section(projectId, sectionId);
+  const section = new Section({ projectId, sectionId });
   switch (action) {
     case "save":      const sectionData = JSON.parse(body);
                       return section.save(sectionData)
@@ -168,11 +168,11 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
                         .then( () => section.getBundleAndSectionIndex(response) )
 
     case "delete":    return section.delete()
-                        .then( () => section.project.getIndex(response) );
+                        .then( () => section.project.getChildIndex(response) );
 
     case "changeId":  const params = JSON.parse(body);
                       return section.changeId(params.toId)
-                        .then( () => section.project.getIndex(response) );
+                        .then( newSection => newSection.project.getChildIndex(response) );
   }
   throw new TypeError(`Sectoin POST API action '${action}' not defined.`);
 });

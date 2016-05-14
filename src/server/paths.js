@@ -78,7 +78,7 @@ export function projectsPath(filename = "") {
   return fsPath.join(config.paths.projects, filename);
 }
 
-
+export const projectIndexPath = projectsPath("projects.json");
 
 //////////////////////////////
 //  Paths for projects
@@ -153,9 +153,9 @@ export function bundlePath(...segments) {
 //////////////////////////////
 
 export const VALID_ID_EXPRESSION = /^([\$_\w][\$_\-\w\d$]*)$/;
-export function dieIfInvalidId(id) {
+export function dieIfInvalidId(id, key = id) {
   if (typeof id !== "string" || !VALID_ID_EXPRESSION.test(id)) {
-    throw new TypeError(`invalid id: ${id}`)
+    throw new TypeError(`invalid ${key}: ${id}`)
   }
   return id;
 }
