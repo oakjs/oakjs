@@ -22,7 +22,7 @@ export default class Page extends ComponentController {
   ComponentSuperConstructor = OakPage;
 
   //////////////////////////////
-  //  Identify & Sugar
+  //  Standard Component Identity stuff
   //////////////////////////////
 
   static getPath(projectId, sectionId, pageId) { return `${projectId}/${sectionId}/${pageId}` }
@@ -32,16 +32,19 @@ export default class Page extends ComponentController {
   }
 
   get id() { return this.pageId }
+  set id(id) { this.pageId = id }
   get path() { return Page.getPath(this.projectId, this.sectionId, this.pageId) }
+
+  get parent() { return this.section }
+  get parentIndex() { return this.section.childIndex }
+
+
+  //////////////////////////////
+  //  Syntactic sugar
+  //////////////////////////////
 
   get project() { return this.oak.getProject(this.projectId) }
   get section() { return this.oak.getSection(this.projectId, this.sectionId) }
-
-  // 1-based position (index) of this page in its section's `pages` list
-  // NOTE: this index is 1-based!
-  get position() { return this.section.pages.indexOf(this) + 1 }
-  get isFirstPage() { return this.position === 1 }
-  get isLastPage() { return this.position === this.section.pages.length }
 
   //////////////////////////////
   //  Components

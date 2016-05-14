@@ -26,7 +26,7 @@ export default class Section extends ComponentController {
   ComponentSuperConstructor = OakSection;
 
   //////////////////////////////
-  //  Identity & Sugar
+  //  Standard identity stuff
   //////////////////////////////
 
   static getPath(projectId, sectionId) { return `${projectId}/${sectionId}` }
@@ -36,15 +36,18 @@ export default class Section extends ComponentController {
   }
 
   get id() { return this.sectionId }
+  set id(id) { this.pageId = id }
   get path() { return Section.getPath(this.projectId, this.sectionId) }
+
+  get parentIndex() { return this.project.childIndex }
+  get childIndex() { return this.pageIndex }
+
+  //////////////////////////////
+  //  Syntactic sugar
+  //////////////////////////////
 
   get project() { return this.oak.getProject(this.projectId) }
 
-  // 1-based position (index) of this section in its project's `sections` list.
-  // NOTE: this index is 1-based!
-  get position() { return this.project.sections.indexOf(this) + 1 }
-  get isFirstSection() { return this.position === 1}
-  get isLastSection() { return this.position === this.project.sections.length }
 
   //////////////////////////////
   //  Components

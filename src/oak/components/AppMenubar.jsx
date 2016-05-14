@@ -46,10 +46,10 @@ export default class AppMenubar extends OakComponent {
           </Dropdown>
           <Dropdown text="Go" showArrow={false} action="hide">
             <Menu>
-              <MenuItem onClick={oak.actions.showFirstPage} disabled={oak.page && oak.page.isFirstPage}>Show First Page</MenuItem>
-              <MenuItem onClick={oak.actions.showPreviousPage} disabled={oak.page && oak.page.isFirstPage}>Show Previous Page</MenuItem>
-              <MenuItem onClick={oak.actions.showNextPage} disabled={oak.page && oak.page.isLastPage}>Show Next Page</MenuItem>
-              <MenuItem onClick={oak.actions.showLastPage} disabled={oak.page && oak.page.isLastPage}>Show Last Page</MenuItem>
+              <MenuItem onClick={oak.actions.showFirstPage} disabled={oak.page && oak.page.isFirst}>Show First Page</MenuItem>
+              <MenuItem onClick={oak.actions.showPreviousPage} disabled={oak.page && oak.page.isFirst}>Show Previous Page</MenuItem>
+              <MenuItem onClick={oak.actions.showNextPage} disabled={oak.page && oak.page.isLast}>Show Next Page</MenuItem>
+              <MenuItem onClick={oak.actions.showLastPage} disabled={oak.page && oak.page.isLast}>Show Last Page</MenuItem>
             </Menu>
           </Dropdown>
           <Dropdown text="Project" showArrow={false} action="hide">

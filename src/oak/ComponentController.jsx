@@ -28,6 +28,24 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   type = "component";
 
   //////////////////////////////
+  //  Standard component stuff
+  //////////////////////////////
+
+  static getPath() { throw new TypeError("You must implement getPath()") }
+  static splitPath() { throw new TypeError("You must implement splitPath()") }
+  get route() { throw new TypeError("You must implement getRoute()") }
+
+  get parentIndex() { return this.parent && this.parent.childIndex }
+  get childIndex() {}
+
+  // 1-based position (index) of this page in its section's `pages` list
+  // NOTE: this index is 1-based!
+  get position() { return this.parentIndex.items.indexOf(this) + 1 }
+  get isFirst() { return this.position === 1 }
+  get isLast() { return this.position === this.parentIndex.items.length }
+
+
+  //////////////////////////////
   //  Component Sugar
   //////////////////////////////
 
