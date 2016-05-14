@@ -108,9 +108,8 @@ export function _renameComponent(options) {
 
 
 //////////////////////////////
-//  Remove component.  Undoing adds the component back.
+//  Delete component.  Undoing adds the component back.
 //////////////////////////////
-
 export function _deleteComponentTransaction(options) {
   dieIfMissing(options, "deleteComponent", ["component"]);
   let {
@@ -187,6 +186,7 @@ export function _deleteComponent({ component, route }) {
 //  Add component.  Undoing removes the component.
 //////////////////////////////
 export function _createComponentTransaction(options) {
+  if (DEBUG) console.info("_createComponentTransaction(", options,")");
   dieIfMissing(options, "_createComponentTransaction", ["parent", "type"]);
   let {
     parent,
@@ -245,10 +245,11 @@ export function _createComponentTransaction(options) {
 // NOTE: it's up to you to make sure there's not already a component at `path`!
 // No parameter normalization or checking!
 export function _createComponent({ parent, type, path, data, indexData, position, navigate }) {
-  if (DEBUG) console.info(`_createPage({ path: ${path}, data: ${data}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
+  if (DEBUG) console.info(`_createComponent({ path: ${path}, data: ${data}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
   return api.createComponent({ type, path, data, indexData, position })
     // returns json with:  `{ path, component, parentIndex }`
     .then( response => {
+console.warn(0);
       // ORDER is important:
       // 1. update the parentIndex
       parent.childIndex.loaded(response.parentIndex);
@@ -260,7 +261,7 @@ export function _createComponent({ parent, type, path, data, indexData, position
         console.error(`actions._createComponent(${response.path}): server ${type} created but client ${type} not found`);
         return Promise.resolve();
       }
-
+console.warn(navigate, component.route);
       // 3. have the component update with the response data
       component.loaded(response.component);
 

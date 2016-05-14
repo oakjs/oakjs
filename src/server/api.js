@@ -166,7 +166,7 @@ router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
 router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const { body } = request;
-  const data = JSON.parse(body);
+  const data = body ? JSON.parse(body) : {};
 
   const section = new Section({ projectId, sectionId });
   switch (action) {

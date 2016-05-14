@@ -33,7 +33,7 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
   static getPath() { throw new TypeError("You must implement getPath()") }
   static splitPath() { throw new TypeError("You must implement splitPath()") }
-  get route() { throw new TypeError("You must implement getRoute()") }
+  get route() { throw new TypeError("You must implement get route()") }
 
   get parentIndex() { return this.parent && this.parent.childIndex }
   get childIndex() {}

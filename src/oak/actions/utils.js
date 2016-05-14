@@ -101,43 +101,6 @@ export function navigateToRoute(route, replace, selection) {
 }
 
 
-
-//////////////////////////////
-//  Utility functions to manipulate components, for use by transactions only
-//////////////////////////////
-
-
-// Create a component.
-// NOTE: it's up to you to make sure there's not already a component at `path`!
-// No parameter normalization or checking!
-export function createComponent({ parent, type, path, data, indexData, position, route }) {
-  if (DEBUG) console.info(`_createPage({ path: ${path}, data: ${data}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
-  return api.createComponent({ type, path, data, indexData, position })
-    // returns json with:  `{ path, component, parentIndex }`
-    .then( response => {
-      // ORDER is important:
-      // 1. update the parentIndex
-      parent.childIndex.loaded(response.parentIndex);
-
-      // 2. get the new component
-      const component = oak.get(response.path);
-      if (!component) {
-        // this is an error -- we should be able to get the component now
-        console.error(`actions._createPage(${response.path}): server ${type} created but client ${type} not found`);
-        return Promise.resolve();
-      }
-
-      // 3. have the component update with the response data
-      component.loaded(response.component);
-
-console.info("component created" + (route ? `, navigating to ${route}` : ""));
-
-      // 4. navigate if necessary
-      if (route) navigateToRoute(route);
-    });
-}
-
-
 // Export all in one go
 export default Object.assign({}, exports);
 

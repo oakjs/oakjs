@@ -45,6 +45,8 @@ export default class Section extends ComponentController {
 
   getIndexData() { return { id: this.sectionId, title: this.title } }
 
+  get route() { return this.oak.getPageRoute(this.projectId, this.sectionId) }
+
   //////////////////////////////
   //  Syntactic sugar
   //////////////////////////////
@@ -80,8 +82,6 @@ export default class Section extends ComponentController {
   //////////////////////////////
   //  Initialization / Loading / Saving
   //////////////////////////////
-
-  static get route() { return this.oak.getPageRoute(this.projectId, this.sectionId) }
 
   // Create the pageIndex on demand.
   _makeIndex() {

@@ -1,14 +1,10 @@
 //////////////////////////////
-//  Actions for dealing with pages
+//  Page Actions
 //////////////////////////////
 "use strict";
 
-import ids from "oak-roots/util/ids";
 import { die, dieIfMissing } from "oak-roots/util/die";
-import { UndoTransaction } from "oak-roots/UndoQueue";
 
-import api from "../api";
-import JSXFragment from "../JSXFragment";
 import Page from "../Page";
 import oak from "../oak";
 
@@ -22,16 +18,22 @@ const DEBUG = true;
 // Save the page to the server.
 // NOTE: this is currently not undoable.
 // TODO: this doesn't return a transaction, so can't be used in other undo contexts... ???
-export function savePage() {
-  return oak.page.save("FORCE");
+export function savePage(options = {}) {
+  let {
+    page = oak.page
+  } = options;
+
+  // normalize page
+  if (typeof page === "string") page = oak.getPage(page);
+  if (!page) die(oak, "actions.savePage", [options], "you must specify a page");
+
+  return page.save("FORCE");
 }
 
 
 //////////////////////////////
-//  Change page id -- requires disk changes.
+//  Rename page (change it's id)
 //////////////////////////////
-
-// Change a page's id.
 export function renamePage(options = {}) {
   let {
     page = oak.page,        // Page to change
@@ -43,7 +45,7 @@ export function renamePage(options = {}) {
 
   // normalize page
   if (typeof page === "string") page = oak.getPage(page);
-  if (!page) die(oak, "actions.deletePage", [options], "you must specify a page");
+  if (!page) die(oak, "actions.renamePage", [options], "you must specify a page");
 
   return component._renameComponentTransaction({
     component: page,
@@ -57,9 +59,8 @@ export function renamePage(options = {}) {
 
 
 //////////////////////////////
-//  Remove page.  Undoing adds the page back.
+//  Delete page.  Undoing adds the page back.
 //////////////////////////////
-
 export function deletePage(options = {}) {
   let {
     page = oak.page,                // Page to delete as Page object or path.
@@ -84,7 +85,7 @@ export function deletePage(options = {}) {
 
 
 //////////////////////////////
-//  Add page.  Undoing removes the page.
+//  Add page.  Undoing deletes the new page.
 //////////////////////////////
 export function createPage(options = {}) {
   let {
@@ -101,7 +102,7 @@ export function createPage(options = {}) {
   } = options;
 
   // normalize section
-  if (typeof section === "string") section = oak.getPage(section);
+  if (typeof section === "string") section = oak.getSection(section);
   if (!section) die(oak, "actions.createPage", [options], "you must specify a section");
 
   return component._createComponentTransaction({
@@ -120,7 +121,7 @@ export function createPage(options = {}) {
 
 
 //////////////////////////////
-//  Duplicate some page.  Undoing removes the page.
+//  Duplicate some page.  Undoing deletes the new page.
 //////////////////////////////
 export function duplicatePage(options = {}) {
   let {

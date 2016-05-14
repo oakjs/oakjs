@@ -38,6 +38,8 @@ export default class Page extends ComponentController {
 
   getIndexData() { return { id: this.pageId, title: this.title } }
 
+  get route() { return this.oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
+
   //////////////////////////////
   //  Syntactic sugar
   //////////////////////////////
@@ -60,7 +62,6 @@ export default class Page extends ComponentController {
   //  Initialization / Loading / Saving
   //////////////////////////////
 
-  get route() { return this.oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
 
 }
 
