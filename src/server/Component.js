@@ -4,6 +4,7 @@
 //////////////////////////////
 
 import { proto } from "../oak-roots/util/decorators";
+import ids from "../oak-roots/util/ids";
 
 import paths from "./paths";
 
@@ -105,9 +106,8 @@ export default class Component {
   // Create a new component given a JSON blob and position within our parent.
   // Adds the component from the parent's childIndex.
   // `data` is the same as for `save()`.
-  create({ data = {}, indexData, position } = {}) {
-    if (!indexData || !indexData.id) throw new TypeError("component.create(): must pass indexData");
-
+  create({ data = {}, indexData = { id: this.id, title: this.id }, position } = {}) {
+//TODO: uniqify id within parent!
     // Make sure we at least have a minimal JSXE file.
     if (!data.jsxe) {
       data.jsxe = this.getDefaultJSXE(indexData);

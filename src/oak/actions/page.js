@@ -12,6 +12,7 @@ import JSXFragment from "../JSXFragment";
 import Page from "../Page";
 import oak from "../oak";
 
+import component from "./component";
 import utils from "./utils";
 
 // set to `true` to log messages as actions proceed
@@ -34,44 +35,26 @@ export function savePage() {
 export function renamePage(options = {}) {
   let {
     page = oak.page,         // Page to change
-    newId,                    // New id for the page
-    prompt = true,           // If `true` and `newId` is not specified, we'll ask.
-    actionName = "Rename Page", autoExecute
+    newId,                   // New id for the page
+    prompt = true,           // If `true` and `newId` is not specified, we'll ask interactively.
+    actionName,
+    autoExecute
   } = options
-  // check parameters
-  if (!page) die(oak, "actions.renamePage", [options], "you must specify options.page");
 
   // if `newId` was not specified, prompt
   if (!newId && prompt) {
-    newId = window.prompt("New name for page?", page.pageId);
+    newId = window.prompt("New name for page?", page.id);
     if (!newId) return;
   }
-  if (!newId) die(oak, "actions.renamePage", [options], "you must specify options.newId");
 
-  // Only navigate if we're showing the same page
-  const navigate = (oak.page === page);
+  // default to unique'd pageId
+  newId = page.section.uniquifyChildId(newId || pageId)
 
-  // Function to update page in place
-  function updateInstance(component, id) {
-    component.pageId = id;
-  }
-
-  const redoParams = {
+  return component.renameComponentTransaction({
     component: page,
     newId,
-    updateInstance,
-    route: navigate && oak.getPageRoute(page.projectId, page.sectionId, newId)
-  }
-  const undoParams = {
-    component: page,
-    newId: page.pageId,
-    updateInstance,
-    route: navigate && page.route
-  }
-
-  return new UndoTransaction({
-    redoActions:[ () => utils.renameComponent(redoParams) ],
-    undoActions:[ () => utils.renameComponent(undoParams) ],
+    updateInstance: function(component, id) { component.pageId = id },
+    route: (page === oak.page) && oak.getPageRoute(page.projectId, page.sectionId, newId),
     actionName,
     autoExecute
   });
