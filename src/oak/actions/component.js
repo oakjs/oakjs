@@ -193,10 +193,11 @@ export function _createComponentTransaction(options) {
     type,
     newId,
     title,
+    prompt,
     data,
     position,
     navigate,
-    actionName = `New ${component.type}`,
+    actionName = `New ${type}`,
     autoExecute
   } = options;
 

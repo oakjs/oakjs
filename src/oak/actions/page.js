@@ -94,7 +94,7 @@ export function createPage(options = {}) {
     position = oak.page && oak.page.position + 1,
                               // 1-based numeric position within the section, undefined = place after current page
     title,                    // title for the page
-    prompt,                   // if true and title is not specified, we'll prompt for page title
+    prompt = true,            // if true and title is not specified, we'll prompt for page title
     navigate = true,          // if true, we'll navigate to the page after creation
     actionName,
     autoExecute
@@ -109,6 +109,7 @@ export function createPage(options = {}) {
     type: "page",
     newId: pageId,
     title,
+    prompt,
     data,
     position,
     navigate,
@@ -126,7 +127,7 @@ export function duplicatePage(options = {}) {
     page = oak.page,                // default to current page
     pageId = page && page.pageId,   // default to page's name, createPage will uniquify.
     position,                       // 1-based numeric position within the section, undefined = place after current page
-    title,                          // title for the new page
+    title,                          // title for the new page, defaults to same as current page
     navigate,                       // if true, we'll navigate to the page after creation
     actionName = "Duplicate Page",
     autoExecute
