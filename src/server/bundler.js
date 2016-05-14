@@ -142,20 +142,19 @@ export function bundleSection({ section, force, response }) {
 }
 
 // Return all the data we need to display a project
-export function bundleProject({ projectId, force, response }) {
-  const projectPaths = new apiPaths.projectPaths(projectId);
+export function bundleProject({ project, force, response }) {
   const pathMap = {
-    jsxe:    projectPaths.jsxe,
-    styles:  projectPaths.css,
-    script:  projectPaths.script,
-    index:   projectPaths.sectionIndex
+    jsxe:    project.jsxePath,
+    styles:  project.stylesPath,
+    script:  project.scriptPath,
+    index:   project.childIndexPath
   };
 
   const options = {
     debug: DEBUG,
     force,
     response,
-    bundleFile: projectPaths.bundleFile,
+    bundleFile: project.bundlePath,
     optional: true,
     trusted: true,
   }

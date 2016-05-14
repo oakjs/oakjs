@@ -30,6 +30,7 @@ export default class Section extends Component {
   getFilePath(fileName = "") {
     return paths.sectionPath(this.projectId, this.sectionId, fileName);
   }
+  get bundlePath() { return paths.bundlePath("projects", this.projectId, `${this.sectionId}.bundle.json`) }
 
   get parent() { return new Section({ projectId: this.projectId, sectionId: this.sectionId }) }
   get project() { return this.parent }

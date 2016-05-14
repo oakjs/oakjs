@@ -84,19 +84,6 @@ export const projectIndexPath = projectsPath("projects.json");
 //  Paths for projects
 //////////////////////////////
 
-// Lightweight object which vends paths
-//  eg:   const path = paths.project(<projectId>).jsxePath;
-export class projectPaths {
-  constructor(project) {
-    this.project = dieIfInvalidId(project);
-  }
-  get jsxe() { return projectPath(this.project, "project.jsxe") }
-  get css() { return projectPath(this.project, "project.css") }
-  get script() { return projectPath(this.project, "project.js") }
-  get sectionIndex() { return projectPath(this.project, "sections.json") }
-  get bundleFile() { return bundlePath("projects", `${this.project}.bundle.json`) }
-}
-
 // Return the path for a project file.
 // Default is to return the `project.jsx` file, pass a different `fileName` for something else.
 // If you want the path to the project's directory, pass `fileName=""`.

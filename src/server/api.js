@@ -9,6 +9,7 @@ import fsPath from "path";
 
 import bundler from "./bundler";
 import Page from "./Page";
+import Project from "./Project";
 import paths from "./paths";
 import Section from "./Section";
 import util from "./util";
@@ -184,15 +185,13 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
 
 router.get("/project/:projectId/:action",  (request, response) => {
   const { action, projectId } = request.params;
-
-  const projectPaths = new paths.projectPaths(projectId);
+  const project = new Project({ projectId });
   switch (action) {
-    case "bundle":      return bundler.bundleProject({ projectId, response, ...debugParams(request.query) });
-    case "jsxe":        return sendTextFile(request, response, projectPaths.jsxe);
-    case "script":      return sendTextFile(request, response, projectPaths.script);
-    case "styles":      return sendTextFile(request, response, projectPaths.css);
-    case "sections":    return sendJSONFile(request, response, projectPaths.sectionIndex);
-
+    case "bundle":  return project.getBundle(response, request.query.force !== "true");
+    case "jsxe":    return project.getJSXE(response);
+    case "script":  return project.getScript(response);
+    case "styles":  return project.getStyles(response);
+    case "sections":   return project.getChildIndex(response);
   }
   throw new TypeError(`Project GET API action '${action}' not defined.`);
 });
