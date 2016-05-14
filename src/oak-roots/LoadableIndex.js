@@ -116,17 +116,19 @@ export default class LoadableIndex extends Loadable() {
 
   // Properties to actually save in the index
   // as:  internal object name  : index object name
-  indexProperties: {
+  @proto
+  indexProperties = {
     "id": "id"
   }
   getIndexData() {
-    const inputKey = Object.keys(this.indexProperites);
+    const inputKey = Object.keys(this.indexProperties);
     return this.items.map( item => {
       const data = {};
       inputKey.forEach(inputKey => {
-        const outputKey = this.indexProperites[inputKey];
+        const outputKey = this.indexProperties[inputKey];
         data[outputKey] = item[inputKey];
       });
+      return data;
     });
   }
 

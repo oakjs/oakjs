@@ -31,7 +31,7 @@ export function savePage() {
 //////////////////////////////
 
 // Change a page's id.
-export function changePageId(options = {}) {
+export function renamePage(options = {}) {
   let {
     path = oak.page && oak.page.path,     // Path for page to change
     toId,                                 // New id for the page
@@ -39,7 +39,7 @@ export function changePageId(options = {}) {
     actionName = "Rename Page", autoExecute
   } = options
   // check parameters
-  if (typeof path !== "string") die(oak, "actions.changePageId", [options], "you must specify options.path");
+  if (typeof path !== "string") die(oak, "actions.renamePage", [options], "you must specify options.path");
 
   // try to get the page (it's ok if we can't)
   const page = oak.getPage(path);
@@ -49,7 +49,7 @@ export function changePageId(options = {}) {
     toId = window.prompt("New name for page?", page && page.pageId);
     if (!toId) return;
   }
-  if (!toId) die(oak, "actions.changePageId", [options], "you must specify options.toId");
+  if (!toId) die(oak, "actions.renamePage", [options], "you must specify options.toId");
 
   const { projectId, sectionId, pageId:originalPageId } = Page.splitPath(path);
   const toPath = Page.getPath(projectId, sectionId, toId);
@@ -58,8 +58,8 @@ export function changePageId(options = {}) {
   const navigate = (oak.page && oak.page.path === path);
 
   return new UndoTransaction({
-    redoActions:[ () => _changePageId({ path, toId, navigate }) ],
-    undoActions:[ () => _changePageId({ path: toPath, toId: originalPageId, navigate }) ],
+    redoActions:[ () => _renamePage({ path, toId, navigate }) ],
+    undoActions:[ () => _renamePage({ path: toPath, toId: originalPageId, navigate }) ],
     actionName,
     autoExecute
   });
@@ -67,8 +67,8 @@ export function changePageId(options = {}) {
 
 // Internal routine to actually rename and possibly navigate.
 // No parameter normalization!
-function _changePageId({ path, toId, navigate }) {
-  if (DEBUG) console.info(`_changePageId({ path: ${path}, toId: ${toId}, navigate: ${navigate}  })`);
+function _renamePage({ path, toId, navigate }) {
+  if (DEBUG) console.info(`_renamePage({ path: ${path}, toId: ${toId}, navigate: ${navigate}  })`);
   return api.changeComponentId({
       type: "page",
       path,
@@ -79,7 +79,7 @@ function _changePageId({ path, toId, navigate }) {
       const page = oak.getPage(path);
       if (!page) {
         // it's not necessarily an error if we can't find the page, just warn and continue
-        console.warn(`actions._changePageId(${path}): id changed but page not found`);
+        console.warn(`actions._renamePage(${path}): id changed but page not found`);
         return Promise.resolve();
       }
       // NOTE: the order is important here!

@@ -27,6 +27,12 @@ router.use((request, response, next) => {
 });
 
 
+// Generic error handling
+router.use((error, request, response, next) => {
+  console.error(error);
+  res.status(500).send(error.message);
+});
+
 
 //////////////////////////////
 // Utility functions to load / save / etc
@@ -112,22 +118,20 @@ router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) =
 router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const { body } = request;
+  const data = JSON.parse(body);
 
   const page = new Page({ projectId, sectionId, pageId });
   switch (action) {
-    case "save":      const data = JSON.parse(body);
-                      return page.save(data)
+    case "save":      return page.save(data)
                         .then( () => page.getBundle(response) );
 
-    case "create":    const data = JSON.parse(body);
-                      return page.create(data)
+    case "create":    return page.create(data)
                         .then( () => page.getBundleAndParentIndex(response) )
 
     case "delete":    return page.delete()
                         .then( () => page.section.getChildIndex(response) );
 
-    case "changeId":  const data = JSON.parse(body);
-                      return page.changeId(data.toId)
+    case "changeId":  return page.changeId(data.toId)
                         .then( newPage => newPage.section.getChildIndex(response) );
   }
   throw new TypeError(`Page POST API action '${action}' not defined.`);
@@ -157,22 +161,20 @@ router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
 router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const { body } = request;
+  const data = JSON.parse(body);
 
   const section = new Section({ projectId, sectionId });
   switch (action) {
-    case "save":      const data = JSON.parse(body);
-                      return section.save(data)
+    case "save":      return section.save(data)
                         .then( () => section.getBundle(response) );
 
-    case "create":    const data = JSON.parse(body);
-                      return section.create(data)
+    case "create":    return section.create(data)
                         .then( () => section.getBundleAndSectionIndex(response) )
 
     case "delete":    return section.delete()
                         .then( () => section.project.getChildIndex(response) );
 
-    case "changeId":  const data = JSON.parse(body);
-                      return section.changeId(data.toId)
+    case "changeId":  return section.changeId(data.toId)
                         .then( newSection => newSection.project.getChildIndex(response) );
   }
   throw new TypeError(`Sectoin POST API action '${action}' not defined.`);

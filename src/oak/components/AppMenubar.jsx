@@ -69,8 +69,11 @@ export default class AppMenubar extends OakComponent {
               <MenuItem disabled>Section Settings...</MenuItem>
               <Submenu disabled>Jump to Section</Submenu>
               <Divider/>
-              <MenuItem disabled>New Section...</MenuItem>
-              <MenuItem disabled>Duplicate Section...</MenuItem>
+              <MenuItem onClick={oak.actions.saveSection} disabled={oak.section && !oak.section.isDirty}>Save Section...</MenuItem>
+              <MenuItem onClick={oak.actions.createSection}>New Section...</MenuItem>
+              <MenuItem onClick={oak.actions.deleteSection}>Delete Section...</MenuItem>
+              <MenuItem onClick={oak.actions.renameSection}>Rename Section...</MenuItem>
+              <MenuItem onClick={oak.actions.duplicateSection}>Duplicate Section...</MenuItem>
               <MenuItem disabled>Rearrange Sections...</MenuItem>
             </Menu>
           </Dropdown>
@@ -84,7 +87,7 @@ export default class AppMenubar extends OakComponent {
               <MenuItem onClick={oak.actions.savePage} disabled={oak.page && !oak.page.isDirty}>Save Page...</MenuItem>
               <MenuItem onClick={oak.actions.createPage}>New Page...</MenuItem>
               <MenuItem onClick={oak.actions.deletePage}>Delete Page...</MenuItem>
-              <MenuItem onClick={oak.actions.changePageId}>Rename Page...</MenuItem>
+              <MenuItem onClick={oak.actions.renamePage}>Rename Page...</MenuItem>
               <MenuItem onClick={oak.actions.duplicatePage}>Duplicate Page...</MenuItem>
               <MenuItem disabled>Rearrange Pages...</MenuItem>
             </Menu>

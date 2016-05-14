@@ -31,7 +31,7 @@ export function saveSection() {
 //////////////////////////////
 
 // Change a section's id.
-export function changeSectionId(options = {}) {
+export function renameSection(options = {}) {
   let {
     path = oak.section && oak.section.path,     // Path for section to change
     toId,                                 // New id for the section
@@ -39,7 +39,7 @@ export function changeSectionId(options = {}) {
     actionName = "Rename Section", autoExecute
   } = options
   // check parameters
-  if (typeof path !== "string") die(oak, "actions.changeSectionId", [options], "you must specify options.path");
+  if (typeof path !== "string") die(oak, "actions.renameSection", [options], "you must specify options.path");
 
   // try to get the section (it's ok if we can't)
   const section = oak.getSection(path);
@@ -49,7 +49,7 @@ export function changeSectionId(options = {}) {
     toId = window.prompt("New name for section?", section && section.sectionId);
     if (!toId) return;
   }
-  if (!toId) die(oak, "actions.changeSectionId", [options], "you must specify options.toId");
+  if (!toId) die(oak, "actions.renameSection", [options], "you must specify options.toId");
 
   const { projectId, sectionId:originalSectionId } = Section.splitPath(path);
   const toPath = Section.getPath(projectId, toId);
@@ -58,8 +58,8 @@ export function changeSectionId(options = {}) {
   const navigate = (oak.section && oak.section.path === path);
 
   return new UndoTransaction({
-    redoActions:[ () => _changeSectionId({ path, toId, navigate }) ],
-    undoActions:[ () => _changeSectionId({ path: toPath, toId: originalSectionId, navigate }) ],
+    redoActions:[ () => _renameSection({ path, toId, navigate }) ],
+    undoActions:[ () => _renameSection({ path: toPath, toId: originalSectionId, navigate }) ],
     actionName,
     autoExecute
   });
@@ -67,8 +67,8 @@ export function changeSectionId(options = {}) {
 
 // Internal routine to actually rename and possibly navigate.
 // No parameter normalization!
-function _changeSectionId({ path, toId, navigate }) {
-  if (DEBUG) console.info(`_changeSectionId({ path: ${path}, toId: ${toId}, navigate: ${navigate}  })`);
+function _renameSection({ path, toId, navigate }) {
+  if (DEBUG) console.info(`_renameSection({ path: ${path}, toId: ${toId}, navigate: ${navigate}  })`);
   return api.changeComponentId({
       type: "section",
       path,
@@ -79,7 +79,7 @@ function _changeSectionId({ path, toId, navigate }) {
       const section = oak.getSection(path);
       if (!section) {
         // it's not necessarily an error if we can't find the section, just warn and continue
-        console.warn(`actions._changeSectionId(${path}): id changed but section not found`);
+        console.warn(`actions._renameSection(${path}): id changed but section not found`);
         return Promise.resolve();
       }
       // NOTE: the order is important here!

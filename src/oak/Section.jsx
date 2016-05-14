@@ -87,6 +87,9 @@ export default class Section extends ComponentController {
   _makeIndex() {
     return new LoadableIndex({
       useOneBasedNumbering: true,
+      indexProperties: {
+        "id": "id", "title":"title"
+      },
       itemType: "page",
       loadData: () => {
         return api.loadPageIndex(this.path);

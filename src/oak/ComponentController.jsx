@@ -206,7 +206,8 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
   // Return index data to save.
   _getIndexData() {
-    return this._index && this._index.getIndexData();
+    const data = this._index && this._index.getIndexData();
+    if (data) return JSON.stringify(data, undefined, "  ");
   }
 
   // Call this if you change your Index after you've loaded.
