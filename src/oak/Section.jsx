@@ -51,7 +51,7 @@ export default class Section extends ComponentController {
   //////////////////////////////
 
   get project() { return this.oak.getProject(this.projectId) }
-
+  get pageIds() { return this.childIds }
 
   //////////////////////////////
   //  Components
@@ -76,12 +76,6 @@ export default class Section extends ComponentController {
 
   loadPage(pageIdentifier) {
     return this.pageIndex.loadItem(pageIdentifier);
-  }
-
-  // Given a possible pageId, modify it (minmally) to make sure it's unique within our pages
-  uniquifyPageId(pageId) {
-    const pageIds = this.pages.map( page => page.pageId );
-    return ids.uniquifyId(pageId, pageIds);
   }
 
   //////////////////////////////

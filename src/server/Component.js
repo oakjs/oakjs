@@ -90,8 +90,8 @@ export default class Component {
   // Special: get page bundle and it's our parent's index together in one object.
   getBundleAndParentIndex(response) {
     return Promise.all([ this.getBundle(), this.parent.getChildIndex() ])
-          .then( ([ item, index ]) => {
-            const bundle = { item, index };
+          .then( ([ component, parentIndex ]) => {
+            const bundle = { path: this.path, component, parentIndex };
             if (response) return response.send(bundle);
             return Promise.resolve( JSON.stringify(bundle) );
          });
@@ -105,16 +105,17 @@ export default class Component {
   // Create a new component given a JSON blob and position within our parent.
   // Adds the component from the parent's childIndex.
   // `data` is the same as for `save()`.
-  create({ data = {}, title = this.id, position } = {}) {
+  create({ data = {}, indexData, position } = {}) {
+    if (!indexData || !indexData.id) throw new TypeError("component.create(): must pass indexData");
+
     // Make sure we at least have a minimal JSXE file.
     if (!data.jsxe) {
-      data.jsxe = this.getDefaultJSXE(this.id, title);
+      data.jsxe = this.getDefaultJSXE(indexData);
     }
 
     return this.save(data)
       // add to the parent's childIndex
       .then(() => {
-        const indexData = { id: this.id, title };
         return this.parentIndex.add(indexData, position, "SAVE")
       })
       // create a blank child and save it

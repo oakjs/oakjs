@@ -49,7 +49,7 @@ export default class Project extends Component {
     return bundler.bundleProject({ project: this, response, force })
   }
 
-  getDefaultJSXE(id, title) {
+  getDefaultJSXE({ id, title }) {
     return `<OakProject id="${id}" title="${title}"><CurrentSection/></OakProject>`;
   }
 

@@ -232,7 +232,6 @@ export default class JSXFragment {
   //////////////////////////////
 
   // Return a SHALLOW clone of the element (eg: children are the same objects).
-  // If `uniquify` is truthy, we'll generate a unique `oid` for the element within this fragment
   // NOTE: clone has no side effects on this fragment.
   cloneElement(element) {
 if (!element) debugger;

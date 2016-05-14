@@ -204,7 +204,7 @@ export function createSection(options = {}) {
   }
 
   // make sure sectionId is unique within it's project
-  sectionId = project.uniquifySectionId(sectionId);
+  sectionId = project.uniquifyChildId(sectionId);
 
   const path = Section.getPath(projectId, sectionId);
   const currentRoute = (navigate ? oak.section && oak.section.route : undefined);

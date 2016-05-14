@@ -114,16 +114,18 @@ export function deletePage(options = {}) {
   }
 
   const createParams = {
+    parent: page.section,
+    type: "page",
     path: page.path,
-    title: page.title,
     data: page.getDataToSave(),
+    indexData: page.getIndexData(),
     position: page.position,
     navigate
   };
 
   return new UndoTransaction({
     redoActions:[ () => utils.deleteComponent(deleteParams) ],
-    undoActions:[ () => _createPage(createParams) ],
+    undoActions:[ () => utils.createComponent(createParams) ],
     actionName,
     autoExecute
   });
@@ -153,7 +155,7 @@ export function createPage(options = {}) {
 
   // prompt for title if necessary
   if (!title && prompt) {
-    title = window.prompt("Name for new page?", "Untitled") || "";
+    title = window.prompt("Name for new page?", "Untitled Page") || "Untitled Page";
   }
 
   if (!pageId) {
@@ -162,65 +164,33 @@ export function createPage(options = {}) {
   }
 
   // make sure pageId is unique within it's section
-  pageId = section.uniquifyPageId(pageId);
+  pageId = section.uniquifyChildId(pageId);
 
   const path = Page.getPath(projectId, sectionId, pageId);
-  const currentRoute = (navigate ? oak.page && oak.page.route : undefined);
 
   // get parameter data BEFORE creating transaction
   const createParams = {
+    parent: section,
+    type: "page",
     path,
-    title,
     data,
+    indexData: { id: pageId, title },
     position,
-    navigate
+    route: navigate && oak.getPageRoute(projectId, sectionId, pageId)
   };
 
   // On undo, go back to the current page if we're navigating
   const deleteParams = {
-    path,
+    component: path,
     route: navigate && oak.page && oak.page.route
   }
 
   return new UndoTransaction({
-    redoActions:[ () => _createPage(createParams) ],
-    undoActions:[ () => _deletePage(deleteParams) ],
+    redoActions:[ () => utils.createComponent(createParams) ],
+    undoActions:[ () => utils.deleteComponent(deleteParams) ],
     actionName,
     autoExecute
   });
-}
-// Internal routine to actually create the page.
-// NOTE: it's up to you to make sure there's not already a page at `path`!
-// No parameter normalization or checking!
-function _createPage({ path, title, data, position, navigate }) {
-  if (DEBUG) console.info(`_createPage({ path: ${path}, title: ${title}, data: ${data}, position: ${position}, navigate: ${navigate} })`);
-  return api.createComponent({ type: "page", path, title, data, position })
-    // returns json with:  `{ index, item }`
-    .then( ({ index: pageIndexData, item: pageData }) => {
-      const section = oak.getSection(path);
-      if (!section) {
-        // it's not necessarily an error if we can't find the page, just warn and continue
-        console.warn(`actions._createPage(${path}): server page created but section not found`);
-        return Promise.resolve();
-      }
-      // ORDER is important:
-      // 1. update the section's pageIndex
-      section.pageIndex.loaded(pageIndexData);
-
-      // 2. get the new page
-      const page = oak.getPage(path);
-      if (!page) {
-        // this is an error -- we should be able to get the page now
-        console.error(`actions._createPage(${path}): server page created but client page not found`);
-        return Promise.resolve();
-      }
-
-      // 3. have the page update with the response data
-      page.loaded(pageData);
-
-      // 4. navigate if necessary
-      if (navigate) utils.navigateToRoute(page.route, "REPLACE");
-    });
 }
 
 

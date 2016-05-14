@@ -53,7 +53,7 @@ export default class Section extends Component {
     return bundler.bundleSection({ section: this, response, force })
   }
 
-  getDefaultJSXE(id, title) {
+  getDefaultJSXE({ id, title }) {
     return `<OakSection id="${id}" title="${title}"><CurrentPage/></OakSection>`;
   }
 

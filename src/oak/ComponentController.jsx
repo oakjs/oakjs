@@ -37,6 +37,10 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
   get parentIndex() { return this.parent && this.parent.childIndex }
   get childIndex() {}
+  get childIds() { return this.childIndex && this.childIndex.items.map(item => item.id) }
+
+  // Given a possible childId, modify it (minmally) to make sure it's unique within our children
+  uniquifyChildId(childId) { return ids.uniquifyId(childId, this.childIds) }
 
   // 1-based position (index) of this page in its section's `pages` list
   // NOTE: this index is 1-based!

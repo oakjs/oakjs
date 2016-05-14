@@ -76,12 +76,6 @@ export default class Project extends ComponentController {
     return this.sectionIndex.loadItem(sectionIdentifier);
   }
 
-  // Given a possible sectionId, modify it (minmally) to make sure it's unique within our sections
-  uniquifySectionId(sectionId) {
-    const sectionIds = this.sections.map( section => section.sectionId );
-    return ids.uniquifyId(sectionId, sectionIds);
-  }
-
 
   //////////////////////////////
   //  Initialization / Loading / Saving

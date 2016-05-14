@@ -49,7 +49,7 @@ export default class Page extends Component {
     return bundler.bundlePage({ page: this, response, force })
   }
 
-  getDefaultJSXE(id, title) {
+  getDefaultJSXE({ id, title }) {
     return `<OakPage id="${id}" title="${title}"/>`;
   }
 }
