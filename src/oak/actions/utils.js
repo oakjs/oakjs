@@ -43,6 +43,16 @@ export function getFragmentOrDie(context, operation) {
 }
 
 
+//////////////////////////////
+//  Component utilities
+//////////////////////////////
+
+export function updateComponentAndChildren(component, update, updateArgs) {
+  if (!component) return;
+  update(component, ...updateArgs);
+  (component.children || []).forEach( child => updateComponentAndChildren(child, update, updateArgs) );
+}
+
 
 
 //////////////////////////////
@@ -112,7 +122,7 @@ export function renameComponent({ component, newId, updateInstance, route }) {
       component.parentIndex.changeId(component.id, newId);
 
       // 2: update component and children in place
-      _updateComponentAndChildren(component, updateInstance, [newId]);
+      updateComponentAndChildren(component, updateInstance, [newId]);
 
       // 3: update parentIndex with data we got back
       component.parentIndex.loaded(parentIndexJSON);
@@ -126,11 +136,6 @@ console.info("component id changed" + (route ? `, navigating to ${route}` : ""))
     });
 }
 
-function _updateComponentAndChildren(component, update, updateArgs) {
-  if (!component) return;
-  update(component, ...updateArgs);
-  (component.children || []).forEach( child => _updateComponentAndChildren(child, update, updateArgs) );
-}
 
 
 // Export all in one go
