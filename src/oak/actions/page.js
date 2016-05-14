@@ -51,7 +51,7 @@ export function changePageId(options = {}) {
   }
   if (!toId) die(oak, "actions.changePageId", [options], "you must specify options.toId");
 
-  const { projectId, sectionId, originalId } = Page.splitPath(path);
+  const { projectId, sectionId, pageId:originalPageId } = Page.splitPath(path);
   const toPath = Page.getPath(projectId, sectionId, toId);
 
   // Only navigate if we're on the same page
@@ -59,7 +59,7 @@ export function changePageId(options = {}) {
 
   return new UndoTransaction({
     redoActions:[ () => _changePageId({ path, toId, navigate }) ],
-    undoActions:[ () => _changePageId({ path: toPath, toId: originalId, navigate }) ],
+    undoActions:[ () => _changePageId({ path: toPath, toId: originalPageId, navigate }) ],
     actionName,
     autoExecute
   });
@@ -68,7 +68,7 @@ export function changePageId(options = {}) {
 // Internal routine to actually rename and possibly navigate.
 // No parameter normalization!
 function _changePageId({ path, toId, navigate }) {
-  if (DEBUG) console.info(`_createPage({ path: ${path}, toId: ${toId}, navigate: ${navigate}  })`);
+  if (DEBUG) console.info(`_changePageId({ path: ${path}, toId: ${toId}, navigate: ${navigate}  })`);
   return api.changeComponentId({
       type: "page",
       path,
