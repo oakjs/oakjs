@@ -36,7 +36,7 @@ export function normalizeIdentifier(identifier, defaultIdentifier) {
 
 const ENDING_NUMBER_PATTERN = /^(.*?)(\d*)$/;
 export function uniquifyId(id, otherIds) {
-  if (otherIds) return id;
+  if (!otherIds) return id;
 
   // if it's not in the list of `otherIds`, it's unique!
   if (!otherIds.includes(id)) return id;

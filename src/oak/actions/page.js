@@ -120,7 +120,7 @@ export function deletePage(options = {}) {
     data: page.getDataToSave(),
     indexData: page.getIndexData(),
     position: page.position,
-    navigate
+    route: page.route
   };
 
   return new UndoTransaction({
