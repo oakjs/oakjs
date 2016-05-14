@@ -2,6 +2,7 @@
 // Project class
 //////////////////////////////
 
+import ids from "oak-roots/util/ids";
 import LoadableIndex from "oak-roots/LoadableIndex";
 import { proto } from "oak-roots/util/decorators";
 import { dieIfMissing } from "oak-roots/util/die";
@@ -65,6 +66,12 @@ export default class Project extends ComponentController {
 
   loadSection(sectionIdentifier) {
     return this.sectionIndex.loadItem(sectionIdentifier);
+  }
+
+  // Given a possible sectionId, modify it (minmally) to make sure it's unique within our sections
+  uniquifySectionId(sectionId) {
+    const sectionIds = this.sections.map( section => section.sectionId );
+    return ids.uniquifyId(sectionId, sectionIds);
   }
 
 

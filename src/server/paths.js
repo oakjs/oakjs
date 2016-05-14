@@ -142,7 +142,10 @@ export function bundlePath(...segments) {
 export const VALID_ID_EXPRESSION = /^([\$_\w][\$_\-\w\d$]*)$/;
 export function dieIfInvalidId(id, key = id) {
   if (typeof id !== "string" || !VALID_ID_EXPRESSION.test(id)) {
-    throw new TypeError(`invalid ${key}: ${id}`)
+    const message = `invalid ${key}: ${id}`;
+    console.error("ERROR: " + message);
+    console.trace();
+    throw new TypeError(message)
   }
   return id;
 }

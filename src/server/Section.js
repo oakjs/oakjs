@@ -32,7 +32,7 @@ export default class Section extends Component {
   }
   get bundlePath() { return paths.bundlePath("projects", this.projectId, `${this.sectionId}.bundle.json`) }
 
-  get parent() { return new Section({ projectId: this.projectId, sectionId: this.sectionId }) }
+  get parent() { return new Project({ projectId: this.projectId }) }
   get project() { return this.parent }
 
   get childIndex() { return new ComponentIndex({ path: this.childIndexPath }) }
@@ -58,7 +58,7 @@ export default class Section extends Component {
   }
 
   createBlankChild() {
-    return new Page(this.projectId, this.sectionId, "Untitled");
+    return new Page({ projectId: this.projectId, sectionId: this.sectionId, pageId: "Untitled" });
   }
 
 }
