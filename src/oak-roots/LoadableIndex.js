@@ -64,18 +64,18 @@ export default class LoadableIndex extends Loadable() {
     }
   }
 
-  // Change the id of some item `fromId` `toId`.
+  // Change the id of some item `oldId` `newId`.
   // NOTE: does not change the INTERNAL id of the item... ????
   // Returns the item so changed.  Throws if item is not found.
   // Override in your subclass if there's more than one pointer to the object.
-  changeId(fromId, toId) {
-    if (!this.isLoaded) throw new TypeError(`${this}.changeId(${fromId}, ${toId}): index is not loaded`);
+  changeId(oldId, newId) {
+    if (!this.isLoaded) throw new TypeError(`${this}.changeId(${oldId}, ${newId}): index is not loaded`);
 
-    const item = this.getItem(fromId);
-    if (!item) throw new TypeError(`${this}.changeId(${fromId}): item not found`);
+    const item = this.getItem(oldId);
+    if (!item) throw new TypeError(`${this}.changeId(${oldId}): item not found`);
 
-    delete this._registry[fromId];
-    this._registry[toId] = item;
+    delete this._registry[oldId];
+    this._registry[newId] = item;
 
     return item;
   }

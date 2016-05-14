@@ -60,6 +60,10 @@ export function renameFile(oldPath, newPath) {
   return fsp.rename(oldPath, newPath);
 }
 
+export function removeDirectory(path) {
+  return fsp.remove(path);
+}
+
 //////////////////////////////
 //  Project Index
 //////////////////////////////

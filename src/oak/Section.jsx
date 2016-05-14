@@ -25,8 +25,9 @@ export default class Section extends ComponentController {
   @proto
   ComponentSuperConstructor = OakSection;
 
+
   //////////////////////////////
-  //  Standard identity stuff
+  //  Standard Component Identity stuff
   //////////////////////////////
 
   static getPath(projectId, sectionId) { return `${projectId}/${sectionId}` }
@@ -41,6 +42,8 @@ export default class Section extends ComponentController {
 
   get parentIndex() { return this.project.childIndex }
   get childIndex() { return this.pageIndex }
+  get children() { return this.pages }
+
 
   //////////////////////////////
   //  Syntactic sugar

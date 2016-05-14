@@ -122,7 +122,6 @@ export default class Component {
         const child = this.createBlankChild();
         if (child) return child.create();
       })
-      .catch( error => console.warn(error) )
   }
 
   //  Save this component given a JSON blob with any of:  `{ jsxe, styles, script, index }`
@@ -136,7 +135,6 @@ export default class Component {
       "script" in data && paths.saveOrDeleteFile(this.scriptPath, data.script),
       "index" in data && paths.saveOrDeleteFile(this.childIndexPath, data.index),
     ])
-      .catch( error => console.warn(error) )
   }
 
   //  Delete this component.
@@ -144,16 +142,8 @@ export default class Component {
   delete() {
     // Remove from the component index first
     return this.parentIndex.removeById(this.id, "SAVE")
-      .then(() => {
-        // Remove the various files, `catch()`ing to ignoring errors (eg: if files are nor present)
-        return Promise.all([
-            paths.deleteFile(this.jsxePath).catch(Function.prototype),
-            paths.deleteFile(this.stylesPath).catch(Function.prototype),
-            paths.deleteFile(this.scriptPath).catch(Function.prototype),
-            paths.deleteFile(this.childIndexPath).catch(Function.prototype)
-          ]);
-        })
-      .catch( error => console.warn(error) )
+      // Remove the various files, `catch()`ing to ignoring errors (eg: if files are nor present)
+      .then( () => paths.removeDirectory(this.rootPath) )
   }
 
   // Change the id of this component.
@@ -171,7 +161,6 @@ export default class Component {
       })
       // return the clone
       .then(() => clone)
-      .catch( error => console.warn(error) )
   }
 
 }

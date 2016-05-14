@@ -35,8 +35,8 @@ export function saveSection() {
 export function renameSection(options = {}) {
   let {
     path = oak.section && oak.section.path,     // Path for section to change
-    toId,                                 // New id for the section
-    prompt = true,                        // If `true` and `toId` is not specified, we'll ask.
+    newId,                                 // New id for the section
+    prompt = true,                        // If `true` and `newId` is not specified, we'll ask.
     actionName = "Rename Section", autoExecute
   } = options
   // check parameters
@@ -45,22 +45,22 @@ export function renameSection(options = {}) {
   // try to get the section (it's ok if we can't)
   const section = oak.getSection(path);
 
-  // if `toId` was not specified, prompt
-  if (!toId && prompt) {
-    toId = window.prompt("New name for section?", section && section.sectionId);
-    if (!toId) return;
+  // if `newId` was not specified, prompt
+  if (!newId && prompt) {
+    newId = window.prompt("New name for section?", section && section.sectionId);
+    if (!newId) return;
   }
-  if (!toId) die(oak, "actions.renameSection", [options], "you must specify options.toId");
+  if (!newId) die(oak, "actions.renameSection", [options], "you must specify options.newId");
 
   const { projectId, sectionId:originalSectionId } = Section.splitPath(path);
-  const toPath = Section.getPath(projectId, toId);
+  const toPath = Section.getPath(projectId, newId);
 
   // Only navigate if we're showing the same section
   const navigate = (oak.section && oak.section.path === path);
 
   return new UndoTransaction({
-    redoActions:[ () => _renameSection({ path, toId, navigate }) ],
-    undoActions:[ () => _renameSection({ path: toPath, toId: originalSectionId, navigate }) ],
+    redoActions:[ () => _renameSection({ path, newId, navigate }) ],
+    undoActions:[ () => _renameSection({ path: toPath, newId: originalSectionId, navigate }) ],
     actionName,
     autoExecute
   });
@@ -68,12 +68,12 @@ export function renameSection(options = {}) {
 
 // Internal routine to actually rename and possibly navigate.
 // No parameter normalization!
-function _renameSection({ path, toId, navigate }) {
-  if (DEBUG) console.info(`_renameSection({ path: ${path}, toId: ${toId}, navigate: ${navigate}  })`);
+function _renameSection({ path, newId, navigate }) {
+  if (DEBUG) console.info(`_renameSection({ path: ${path}, newId: ${newId}, navigate: ${navigate}  })`);
   return api.changeComponentId({
       type: "section",
       path,
-      toId
+      newId
     })
     // response returns the project's sectionIndex JSON data
     .then( sectionIndexJSON => {
@@ -85,10 +85,10 @@ function _renameSection({ path, toId, navigate }) {
       }
       // NOTE: the order is important here!
       // 1: changeId() in the project sectionIndex
-      section.project.sectionIndex.changeId(section.sectionId, toId);
+      section.project.sectionIndex.changeId(section.sectionId, newId);
 
       // 2: update section in place
-      section.sectionId = toId;
+      section.sectionId = newId;
 
       // 3: update project sectionIndex with data we got back
       section.project.sectionIndex.loaded(sectionIndexJSON);

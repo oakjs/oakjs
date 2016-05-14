@@ -31,7 +31,7 @@ export default class Project extends ComponentController {
   ComponentSuperConstructor = OakProject;
 
   //////////////////////////////
-  //  Identity & Sugar
+  //  Standard Component Identity stuff
   //////////////////////////////
 
   static getPath(projectId) { return projectId }
@@ -46,6 +46,8 @@ export default class Project extends ComponentController {
 
   get parentIndex() { return this.oak.registry.projectIndex }
   get childIndex() { return this.sectionIndex }
+  get children() { return this.sections }
+
 
   //////////////////////////////
   //  Components

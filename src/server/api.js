@@ -29,10 +29,9 @@ router.use((request, response, next) => {
 
 // Generic error handling
 router.use((error, request, response, next) => {
-  const message = (error.message || error);
-  console.error("ERROR: " + message);
-  console.trace(error);
-  res.status(500).send(message);
+  if (error instanceof Error) console.trace(error);
+  else console.error("ERROR: " + message);
+  res.status(500).send(error);
 });
 
 
@@ -120,7 +119,7 @@ router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) =
 router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const { body } = request;
-  const data = JSON.parse(body);
+  const data = body ? JSON.parse(body) : {};
 
   const page = new Page({ projectId, sectionId, pageId });
   switch (action) {
@@ -136,7 +135,7 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
                         .then( () => page.section.getChildIndex(response) )
                         .catch( error => { throw new Error(error)} );
 
-    case "changeId":  return page.changeId(data.toId)
+    case "changeId":  return page.changeId(data.newId)
                         .then( newPage => newPage.section.getChildIndex(response) )
                         .catch( error => { throw new Error(error)} );
   }
@@ -183,7 +182,7 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
                         .then( () => section.project.getChildIndex(response) )
                         .catch( error => { throw new Error(error)} );
 
-    case "changeId":  return section.changeId(data.toId)
+    case "changeId":  return section.changeId(data.newId)
                         .then( newSection => newSection.project.getChildIndex(response) )
                         .catch( error => { throw new Error(error)} );
   }

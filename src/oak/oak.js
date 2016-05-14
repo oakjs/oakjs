@@ -214,6 +214,18 @@ console.log("oak.forceUpdate()");
     return this.registry.projectIndex.items
   }
 
+  // Get project, section, component depending on path.
+  get(path) {
+    if (typeof path === "string" && path) {
+      const split = path.split("/");
+      if (split.length === 1) return this.getProject(split[0]);
+      if (split.length === 2) return this.getSection(split[0], split[1]);
+      if (split.length === 3) return this.getPage(split[0], split[1], split[2]);
+    }
+    console.warn(`oak.get(${path}): path not understood`);
+    return undefined;
+  }
+
   // Get a project by projectId by path.
   // NOTE: you can pass a page path to this and it'll take just the first bit.
   getProject(projectId) {
