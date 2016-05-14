@@ -31,7 +31,6 @@ export function saveComponent({ component }) {
 //////////////////////////////
 export function renameComponentTransaction(options = {}) {
   dieIfMissing(options, "renameComponent", ["component", "newId", "updateInstance"]);
-
   let {
     component,                // REQUIRED: Component to change
     newId,                    // REQUIRED: New id for the component
@@ -67,6 +66,8 @@ export function renameComponentTransaction(options = {}) {
 // No parameter normalization!
 export function _renameComponent({ component, newId, updateInstance, route }) {
   if (DEBUG) console.info(`renameComponent({ component: ${component}, newId: ${newId}, route: ${route}  })`);
+  dieIfMissing(options, "_renameComponent", ["component", "newId", "updateInstance"]);
+
   return api.changeComponentId({
       type: component.type,
       path: component.path,
@@ -75,7 +76,7 @@ export function _renameComponent({ component, newId, updateInstance, route }) {
     // response returns the parentIndex JSON data
     .then( parentIndexJSON => {
       // NOTE: the order is important here!
-      // 1: changeId() in the section parentIndex
+      // 1: changeId() in the parentIndex
       component.parentIndex.changeId(component.id, newId);
 
       // 2: update component and children in place
@@ -83,7 +84,6 @@ export function _renameComponent({ component, newId, updateInstance, route }) {
 
       // 3: update parentIndex with data we got back
       component.parentIndex.loaded(parentIndexJSON);
-
 
 console.info("component renamed" + (route ? `, navigating to ${route}` : ""));
       // navigate if desired
@@ -97,56 +97,75 @@ console.info("component renamed" + (route ? `, navigating to ${route}` : ""));
 //  Remove component.  Undoing adds the component back.
 //////////////////////////////
 
-export function deleteComponent(options = {}) {
+export function deleteComponentTransaction(options = {}) {
+  dieIfMissing(options, "deleteComponent", ["component"]);
   let {
-    component = oak.page,                // Component to delete as Component object or path.
-    confirm = !oak.event.optionKey, // If `true`, we'll show a confirm dialog before deleting.
+    component,                      // REQUIRED: Component to delete as Component object or path.
+    navigate,                       // OPTIONAL: If `true`, we'll navigate to the next component after delete.
+    confirm = !oak.event.optionKey, // OPTIONAL: If `true`, we'll show a confirm dialog before deleting.
                                     // Default is to confirm unless the option key is down.
     actionName = "Delete ${component.type}",
     autoExecute
   } = options;
 
-  if (typeof component === "string") component = oak.get(component);
-  if (!component) die(oak, "actions.deleteComponent", [options], "you must specify options.component");
-
-  // try to go to the component after, if that doesn't work, we're at the end, go to the one before
-  // If we don't get anything, this is the only component in the parent
-// TODO: can't delete only component in the parent -- ask if they want to delete parent?
-  const nextPage = component.parent.getChild(page.position + 1) || component.parent.getChild(page.position - 1);
+// TODO: error/etc if only child in parent
 
   if (confirm) {
     // TODO: confirm with a nicer alert
-    const answer = window.confirm(`Really delete ${type} ${component.title}?`);
+    const answer = window.confirm(`Really delete ${component.type} ${component.title}?`);
     if (answer === false) return;
   }
 
-  // Only navigate if we're on the same page
-  const navigate = (page === oak.page);
+  let route;
+  if (navigate) {
+    if (component.next) route = component.next.route;
+    if (component.prev) route = component.prev.route;
+  }
 
-  // get parameter data BEFORE creating transaction
   const deleteParams = {
     component,
-    route: navigate && nextPage && nextPage.route
+    route
   }
 
   const createParams = {
     parent: component.parent,
-    type: type,
+    type: component.type,
     path: component.path,
     data: component.getDataToSave(),
     indexData: component.getIndexData(),
     position: component.position,
-    route: component.route
+    // navigate back to current page on undo if route is set
+    route: route && oak.page && oak.page.route
   };
 
   return new UndoTransaction({
-    redoActions:[ () => utils.deleteComponent(deleteParams) ],
-    undoActions:[ () => utils.createComponent(createParams) ],
+    redoActions:[ () => _deleteComponent(deleteParams) ],
+    undoActions:[ () => _createComponent(createParams) ],
     actionName,
     autoExecute
   });
 }
 
+
+// Delete a component and optionally navigate to a new route.
+// No parameter normalization!
+export function _deleteComponent({ component, route }) {
+  if (DEBUG) console.info(`_deleteComponent({ component: ${component}, route: ${route} })`);
+
+  if (typeof component === "string") component = oak.get(component);
+  if (!component) throw new TypeError(`actions utils.deleteComponent(${component}): component not found`);
+
+  return api.deleteComponent({ type: component.type, path: component.path })
+    // response returns the parentIndex JSON data
+    .then( parentIndexJSON => {
+      // update the parentIndex data, which should remove the item from the index
+      component.parentIndex.loaded(parentIndexJSON);
+
+console.info("component deleted" + (route ? `, navigating to ${route}` : ""));
+      // navigate
+      if (route) utils.navigateToRoute(route, "REPLACE");
+    });
+}
 
 
 //////////////////////////////

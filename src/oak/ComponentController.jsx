@@ -48,6 +48,10 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   get isFirst() { return this.position === 1 }
   get isLast() { return this.position === this.parentIndex.items.length }
 
+  // Return the next item in our parent's list.
+// REVIEW:  As per HyperCard semantics, wrap around if we get to the last card?
+  get next() { return this.parentIndex.items[this.position] }
+  get previous() { return this.parentIndex.items[this.position-1] }
 
   //////////////////////////////
   //  Component Sugar

@@ -34,12 +34,17 @@ export function savePage() {
 // Change a page's id.
 export function renamePage(options = {}) {
   let {
-    page = oak.page,         // Page to change
-    newId,                   // New id for the page
-    prompt = true,           // If `true` and `newId` is not specified, we'll ask interactively.
+    page = oak.page,                  // Page to change
+    newId,                            // New id for the page
+    prompt = !oak.event.optionKey,    // If `true`, we'll prompt for a new name if newId is not set.
+                                      // Default is to confirm unless the option key is down.
     actionName,
     autoExecute
   } = options
+
+  // normalize page
+  if (typeof page === "string") page = oak.getPage(page);
+  if (!page) die(oak, "actions.deletePage", [options], "you must specify options.page");
 
   // if `newId` was not specified, prompt
   if (!newId && prompt) {
@@ -48,6 +53,7 @@ export function renamePage(options = {}) {
   }
 
   // default to unique'd pageId
+  // TODO: ideally we'd push this into renameComponentTransaction...
   newId = page.section.uniquifyChildId(newId || pageId)
 
   return component.renameComponentTransaction({
@@ -68,47 +74,19 @@ export function renamePage(options = {}) {
 export function deletePage(options = {}) {
   let {
     page = oak.page,                // Page to delete as Page object or path.
-    confirm = !oak.event.optionKey, // If `true`, we'll show a confirm dialog before deleting.
-                                    // Default is to confirm unless the option key is down.
-    actionName = "Delete Page", autoExecute
+    confirm,
+    actionName,
+    autoExecute
   } = options;
 
+  // normalize page
   if (typeof page === "string") page = oak.getPage(page);
   if (!page) die(oak, "actions.deletePage", [options], "you must specify options.page");
 
-  // try to go to the page after, if that doesn't work, we're at the end, go to the one before
-  // If we don't get anything, this is the only page in the section
-// TODO: can't delete only page in the section -- ask if they want to delete section?
-  const nextPage = page.section.getPage(page.position + 1) || page.section.getPage(page.position - 1);
-
-  if (confirm) {
-    // TODO: confirm with a nicer alert
-    const answer = window.confirm(`Really delete page ${page.title}?`);
-    if (answer === false) return;
-  }
-
-  // Only navigate if we're on the same page
-  const navigate = (page === oak.page);
-
-  // get parameter data BEFORE creating transaction
-  const deleteParams = {
+  return component.deleteComponentTransaction({
     component: page,
-    route: navigate && nextPage && nextPage.route
-  }
-
-  const createParams = {
-    parent: page.section,
-    type: "page",
-    path: page.path,
-    data: page.getDataToSave(),
-    indexData: page.getIndexData(),
-    position: page.position,
-    route: page.route
-  };
-
-  return new UndoTransaction({
-    redoActions:[ () => utils.deleteComponent(deleteParams) ],
-    undoActions:[ () => utils.createComponent(createParams) ],
+    navigate: (page == oak.page),   // navigate if on current page
+    confirm,
     actionName,
     autoExecute
   });

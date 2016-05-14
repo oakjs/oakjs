@@ -106,52 +106,6 @@ export function navigateToRoute(route, replace, selection) {
 //  Utility functions to manipulate components, for use by transactions only
 //////////////////////////////
 
-// Rename a component and optionally navigate to a new route.
-// No parameter normalization!
-export function renameComponent({ component, newId, updateInstance, route }) {
-  if (DEBUG) console.info(`renameComponent({ component: ${component}, newId: ${newId}, route: ${route}  })`);
-  return api.changeComponentId({
-      type: component.type,
-      path: component.path,
-      newId
-    })
-    // response returns the parentIndex JSON data
-    .then( parentIndexJSON => {
-      // NOTE: the order is important here!
-      // 1: changeId() in the section parentIndex
-      component.parentIndex.changeId(component.id, newId);
-
-      // 2: update component and children in place
-      updateComponentAndChildren(component, updateInstance, [newId]);
-
-      // 3: update parentIndex with data we got back
-      component.parentIndex.loaded(parentIndexJSON);
-
-
-console.info("component renamed" + (route ? `, navigating to ${route}` : ""));
-      // navigate if desired
-      if (route) navigateToRoute(route, "REPLACE");
-    });
-}
-
-
-// Delete a component and optionally navigate to a new route.
-// No parameter normalization!
-export function deleteComponent({ component, route }) {
-  if (typeof component === "string") component = oak.get(component);
-  if (!component) throw new TypeError(`actions utils.deleteComponent(${component}): component not found`);
-  if (DEBUG) console.info(`_deleteComponent({ component: ${component}, route: ${route} })`);
-  return api.deleteComponent({ type: component.type, path: component.path })
-    // response returns the parentIndex JSON data
-    .then( parentIndexJSON => {
-      // update the parentIndex data, which should remove the item from the index
-      component.parentIndex.loaded(parentIndexJSON);
-
-console.info("component deleted" + (route ? `, navigating to ${route}` : ""));
-      // navigate
-      if (route) navigateToRoute(route, "REPLACE");
-    });
-}
 
 // Create a component.
 // NOTE: it's up to you to make sure there's not already a component at `path`!

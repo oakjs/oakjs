@@ -96,7 +96,6 @@ export default class Section extends ComponentController {
         return api.loadPageIndex(this.path);
       },
       createItem: (pageId, props) => {
-console.info("creating page ",pageId);
         return new Page({
           pageId,
           sectionId: this.sectionId,
