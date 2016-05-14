@@ -54,7 +54,7 @@ export function changePageId(options = {}) {
   const { projectId, sectionId, pageId:originalPageId } = Page.splitPath(path);
   const toPath = Page.getPath(projectId, sectionId, toId);
 
-  // Only navigate if we're on the same page
+  // Only navigate if we're showing the same page
   const navigate = (oak.page && oak.page.path === path);
 
   return new UndoTransaction({
@@ -134,12 +134,12 @@ export function deletePage(options = {}) {
   const navigate = (page === oak.page);
 
   // get parameter data BEFORE creating transaction
-  const deletePageParams = {
+  const deleteParams = {
     path,
     route: navigate && nextPage && nextPage.route
   }
 
-  const createPageParams = {
+  const createParams = {
     path,
     title: page.title,
     data: page.getDataToSave(),
@@ -148,8 +148,8 @@ export function deletePage(options = {}) {
   };
 
   return new UndoTransaction({
-    redoActions:[ () => _deletePage(deletePageParams) ],
-    undoActions:[ () => _createPage(createPageParams) ],
+    redoActions:[ () => _deletePage(deleteParams) ],
+    undoActions:[ () => _createPage(createParams) ],
     actionName,
     autoExecute
   });
@@ -159,7 +159,7 @@ export function deletePage(options = {}) {
 function _deletePage({ path, route }) {
   if (DEBUG) console.info(`_deletePage({ path: ${path}, route: ${route} })`);
   return api.deleteComponent({ type: "page", path })
-    // response returns the sectionIndex JSON data
+    // response returns the pageIndex JSON data
     .then( pageIndexJSON => {
       // update the section's pageIndex data, which should remove the page from the index
       const section = oak.getSection(path);
@@ -210,7 +210,7 @@ export function createPage(options = {}) {
   const currentRoute = (navigate ? oak.page && oak.page.route : undefined);
 
   // get parameter data BEFORE creating transaction
-  const createPageParams = {
+  const createParams = {
     path,
     title,
     data,
@@ -219,14 +219,14 @@ export function createPage(options = {}) {
   };
 
   // On undo, go back to the current page if we're navigating
-  const deletePageParams = {
+  const deleteParams = {
     path,
     route: navigate && oak.page && oak.page.route
   }
 
   return new UndoTransaction({
-    redoActions:[ () => _createPage(createPageParams) ],
-    undoActions:[ () => _deletePage(deletePageParams) ],
+    redoActions:[ () => _createPage(createParams) ],
+    undoActions:[ () => _deletePage(deleteParams) ],
     actionName,
     autoExecute
   });
