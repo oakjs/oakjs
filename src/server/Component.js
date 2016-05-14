@@ -115,17 +115,12 @@ export default class Component {
       // add to the parent's childIndex
       .then(() => {
         const indexData = { id: this.id, title };
-console.info("saved", indexData);
         return this.parentIndex.add(indexData, position, "SAVE")
       })
       // create a blank child and save it
       .then(() => {
-console.info("index updated");
         const child = this.createBlankChild();
         if (child) return child.create();
-      })
-      .then(() => {
-console.info("finished creating");
       })
       .catch( error => console.warn(error) )
   }

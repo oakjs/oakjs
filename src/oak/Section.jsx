@@ -30,6 +30,10 @@ export default class Section extends ComponentController {
   //////////////////////////////
 
   static getPath(projectId, sectionId) { return `${projectId}/${sectionId}` }
+  static splitPath(path) {
+    const split = path.split("/");
+    return { projectId: split[0], sectionId: split[1] }
+  }
 
   get id() { return this.sectionId }
   get path() { return Section.getPath(this.projectId, this.sectionId) }

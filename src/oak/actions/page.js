@@ -51,7 +51,7 @@ export function changePageId(options = {}) {
   }
   if (!toId) die(oak, "actions.changePageId", [options], "you must specify options.toId");
 
-  const { projectId, sectionId, originalId } = path.split("/");
+  const { projectId, sectionId, originalId } = Page.splitPath(path);
   const toPath = Page.getPath(projectId, sectionId, toId);
 
   // Only navigate if we're on the same page

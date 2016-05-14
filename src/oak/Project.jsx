@@ -34,6 +34,10 @@ export default class Project extends ComponentController {
   //////////////////////////////
 
   static getPath(projectId) { return projectId }
+  static splitPath(path) {
+    const split = path.split("/");
+    return { projectId: split[0] }
+  }
 
   get id() { return this.projectId }
   get path() { return Project.getPath(this.projectId) }

@@ -15,7 +15,10 @@ import UndoQueue from "oak-roots/UndoQueue";
 import actions from "./actions";
 import EditorProps from "./EditorProps";
 import OakEvent from "./OakEvent";
+import Page from "./Page";
+import Project from "./Project";
 import ProjectRegistry from "./ProjectRegistry";
+import Section from "./Section";
 
 import oakComponents from "./components";
 import HTML_EDITOR_SETTINGS from "./components/theme/html";
@@ -216,7 +219,7 @@ console.log("oak.forceUpdate()");
   getProject(projectId) {
     if (typeof projectId !== "string") throw new TypeError(`oak.getProject(${projectId}): projectId must be a string`);
     // normalize to first bit in case they passed a path
-    projectId = projectId.split("/")[0];
+    projectId = Project.splitPath(projectId).projectId;
     return this.registry.getProject(projectId)
   }
 
@@ -224,7 +227,9 @@ console.log("oak.forceUpdate()");
   getSection(projectId, sectionId) {
     // If exactly one argument, assume it's a path.
     if (arguments.length === 1 && typeof projectId === "string") {
-      [ projectId, sectionId ] = projectId.split("/");
+      const split = Section.splitPath(projectId);
+      projectId = split.projectId;
+      sectionId = split.sectionId;
     }
     return this.registry.getSection(projectId, sectionId)
   }
@@ -233,7 +238,10 @@ console.log("oak.forceUpdate()");
   getPage(projectId, sectionId, pageId) {
     // If exactly one argument, assume it's a path.
     if (arguments.length === 1 && typeof projectId === "string") {
-      [ projectId, sectionId, pageId] = projectId.split("/");
+      const split = Page.splitPath(projectId);
+      projectId = split.projectId;
+      sectionId = split.sectionId;
+      pageId = split.pageId;
     }
     return this.registry.getPage(projectId, sectionId, pageId)
   }
