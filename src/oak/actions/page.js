@@ -4,7 +4,7 @@
 "use strict";
 
 import ids from "oak-roots/util/ids";
-import { die,  } from "oak-roots/util/die";
+import { die, dieIfMissing } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import api from "../api";
@@ -88,58 +88,30 @@ export function deletePage(options = {}) {
 //////////////////////////////
 export function createPage(options = {}) {
   let {
-    projectId = oak.page && oak.page.projectId,   // default to current project...
-    sectionId = oak.page && oak.page.sectionId,   // ... and section
-    pageId,
-    title,            // optional: title for the page (DEFAULT???)
-    data,             // optional: data object for page with `{ jsxe, script, styles }`
-    position = oak.page && oak.page.position + 1, // optional: 1-based numeric position within the section, undefined = place after current page
-    prompt = true,    // optional: if true and title is not specified, we'll prompt for page title
-    navigate = true,  // optional: if true, we'll navigate to the page after creation
-    actionName = "New Page",
+    section = oak.section,    // default to current section
+    pageId,                   // id for the page (we'll make one up if necessary)
+    data,                     // data object for page with `{ jsxe, script, styles }`
+    position = oak.page && oak.page.position + 1,
+                              // 1-based numeric position within the section, undefined = place after current page
+    title,                    // title for the page
+    prompt,                   // if true and title is not specified, we'll prompt for page title
+    navigate = true,          // if true, we'll navigate to the page after creation
+    actionName,
     autoExecute
   } = options;
 
-  // verify that project & section exist
-  const section = oak.getSection(projectId, sectionId);
-  if (!section) die(oak, "actions.createPage", [options], "project or section not found");
+  // normalize section
+  if (typeof section === "string") section = oak.getPage(section);
+  if (!section) die(oak, "actions.createPage", [options], "you must specify options.section");
 
-  // prompt for title if necessary
-  if (!title && prompt) {
-    title = window.prompt("Name for new ${component.type}?", "Untitled ${component.type}");
-    if (!title) return;
-  }
-
-  if (!pageId) {
-    if (title)  pageId = ids.normalizeIdentifier(title);
-    else        pageId = JSXFragment.getRandomOid();
-  }
-
-  // make sure pageId is unique within it's section
-  pageId = section.uniquifyChildId(pageId);
-
-  const path = Page.getPath(projectId, sectionId, pageId);
-
-  // get parameter data BEFORE creating transaction
-  const createParams = {
+  return component._createComponentTransaction({
     parent: section,
     type: "page",
-    path,
+    newId: pageId,
+    title,
     data,
-    indexData: { id: pageId, title },
     position,
-    route: navigate && oak.getPageRoute(projectId, sectionId, pageId)
-  };
-
-  // On undo, go back to the current page if we're navigating
-  const deleteParams = {
-    component: path,
-    route: navigate && oak.page && oak.page.route
-  }
-
-  return new UndoTransaction({
-    redoActions:[ () => utils.createComponent(createParams) ],
-    undoActions:[ () => utils.deleteComponent(deleteParams) ],
+    navigate,
     actionName,
     autoExecute
   });
@@ -153,25 +125,25 @@ export function duplicatePage(options = {}) {
   let {
     page = oak.page,                // default to current page
     pageId = page && page.pageId,   // default to page's name, createPage will uniquify.
-    position = oak.page && oak.page.position + 1, // optional: 1-based numeric position within the section, undefined = place after current page
-    navigate = true,  // optional: if true, we'll navigate to the page after creation
-    actionName = "Duplicate Page", autoExecute
+    position,                       // 1-based numeric position within the section, undefined = place after current page
+    title,                          // title for the new page
+    navigate,                       // if true, we'll navigate to the page after creation
+    actionName = "Duplicate Page",
+    autoExecute
   } = options;
 
   if (!page) die(oak, "actions.duplicatePage", [options], "page not found");
 
   return createPage({
-    projectId: page.projectId,
-    sectionId: page.sectionId,
+    section: page.section,
     pageId,
-    title: page.title,
     data: page.getDataToSave(),
     position,
+    title: title || page.title,
     navigate,
     actionName,
     autoExecute
   });
-
 }
 
 // Export all as a lump

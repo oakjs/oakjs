@@ -29,7 +29,7 @@ export function saveComponent({ component }) {
 //////////////////////////////
 //  Rename component (changes id)
 //////////////////////////////
-export function _renameComponentTransaction(options = {}) {
+export function _renameComponentTransaction(options) {
   dieIfMissing(options, "renameComponent", ["component", "updateInstance"]);
   let {
     component,                        // REQUIRED: Component to change
@@ -44,7 +44,7 @@ export function _renameComponentTransaction(options = {}) {
 
   // if `newId` was not specified, prompt
   if (!newId && prompt) {
-    newId = window.prompt("New name for ${component.type}?", component.id);
+    newId = window.prompt(`New name for ${component.type}?`, component.id);
     if (!newId) return;
   }
 
@@ -98,7 +98,8 @@ export function _renameComponent(options) {
       // 3: update parentIndex with data we got back
       component.parentIndex.loaded(parentIndexJSON);
 
-console.info("component renamed" + (route ? ", navigating..." : ""));
+      if (DEBUG) console.info("component renamed" + (navigate ? ", navigating..." : ""));
+
       // navigate if desired
       if (navigate && oak.page) utils.navigateToRoute(oak.page.route, "REPLACE");
     });
@@ -110,14 +111,14 @@ console.info("component renamed" + (route ? ", navigating..." : ""));
 //  Remove component.  Undoing adds the component back.
 //////////////////////////////
 
-export function _deleteComponentTransaction(options = {}) {
+export function _deleteComponentTransaction(options) {
   dieIfMissing(options, "deleteComponent", ["component"]);
   let {
     component,                      // REQUIRED: Component to delete as Component object or path.
     navigate,                       // OPTIONAL: If `true`, we'll navigate to the next component after delete.
     confirm = !oak.event.optionKey, // OPTIONAL: If `true`, we'll show a confirm dialog before deleting.
                                     // Default is to confirm unless the option key is down.
-    actionName = "Delete ${component.type}",
+    actionName = `Delete ${component.type}`,
     autoExecute
   } = options;
 
@@ -147,8 +148,7 @@ export function _deleteComponentTransaction(options = {}) {
     data: component.getDataToSave(),
     indexData: component.getIndexData(),
     position: component.position,
-    // navigate back to current page on undo if route is set
-    route: route && oak.page && oak.page.route
+    navigate: !!route
   };
 
   return new UndoTransaction({
@@ -174,55 +174,56 @@ export function _deleteComponent({ component, route }) {
       // update the parentIndex data, which should remove the item from the index
       component.parentIndex.loaded(parentIndexJSON);
 
-console.info("component deleted" + (route ? `, navigating to ${route}` : ""));
+      if (DEBUG) console.info("component deleted" + (route ? `, navigating to ${route}` : ""));
+
       // navigate
       if (route) utils.navigateToRoute(route, "REPLACE");
     });
 }
 
 
+
 //////////////////////////////
 //  Add component.  Undoing removes the component.
 //////////////////////////////
-export function _createComponentTransaction(options = {}) {
-//TOOD: DIE
+export function _createComponentTransaction(options) {
+  dieIfMissing(options, "_createComponentTransaction", ["parent", "type"]);
   let {
     parent,
     type,
-    path,
+    newId,
+    title,
     data,
-    indexData,
     position,
-    route,
-    actionName = "New ${component.type}",
+    navigate,
+    actionName = `New ${component.type}`,
     autoExecute
   } = options;
 
   // prompt for title if necessary
   if (!title && prompt) {
-    title = window.prompt("Name for new ${type}?", "Untitled");
+    title = window.prompt(`Name for new ${type}?`, `Untitled ${type}`);
     if (!title) return;
   }
 
-  if (!pageId) {
-    if (title)  pageId = ids.normalizeIdentifier(title);
-    else        pageId = JSXFragment.getRandomOid();
+  // Default newId
+  if (!newId) {
+    if (title)  newId = ids.normalizeIdentifier(title);
+    else        newId = JSXFragment.getRandomOid();
   }
 
-  // make sure pageId is unique within it's parent
-  pageId = parent.uniquifyChildId(pageId);
+  // make sure newId is unique within the parent
+  newId = parent.uniquifyChildId(newId);
+  const path = parent.getChildPath(newId);
 
-  path = Page.getPath(projectId, sectionId, pageId);
-
-  // get parameter data BEFORE creating transaction
   const createParams = {
     parent,
     type,
     path,
     data,
-    indexData: { id: pageId, title },
+    indexData: { id: newId, title: (title || newId) },
     position,
-    route: navigate && oak.getPageRoute(projectId, sectionId, pageId)
+    navigate
   };
 
   // On undo, go back to the current component if we're navigating
@@ -230,12 +231,19 @@ export function _createComponentTransaction(options = {}) {
     component: path,
     route: navigate && oak.page && oak.page.route
   }
+
+  return new UndoTransaction({
+    redoActions:[ () => _createComponent(createParams) ],
+    undoActions:[ () => _deleteComponent(deleteParams) ],
+    actionName,
+    autoExecute
+  });
 }
 
 // Create a component.
 // NOTE: it's up to you to make sure there's not already a component at `path`!
 // No parameter normalization or checking!
-export function createComponent({ parent, type, path, data, indexData, position, route }) {
+export function _createComponent({ parent, type, path, data, indexData, position, navigate }) {
   if (DEBUG) console.info(`_createPage({ path: ${path}, data: ${data}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
   return api.createComponent({ type, path, data, indexData, position })
     // returns json with:  `{ path, component, parentIndex }`
@@ -248,55 +256,21 @@ export function createComponent({ parent, type, path, data, indexData, position,
       const component = oak.get(response.path);
       if (!component) {
         // this is an error -- we should be able to get the component now
-        console.error(`actions._createPage(${response.path}): server ${type} created but client ${type} not found`);
+        console.error(`actions._createComponent(${response.path}): server ${type} created but client ${type} not found`);
         return Promise.resolve();
       }
 
       // 3. have the component update with the response data
       component.loaded(response.component);
 
-console.info("component created" + (route ? `, navigating to ${route}` : ""));
+      if (DEBUG) console.info("component renamed" + (navigate ? ", navigating..." : ""));
 
       // 4. navigate if necessary
-      if (route) navigateToRoute(route);
+      if (navigate) utils.navigateToRoute(component.route, "REPLACE");
     });
-
-  return new UndoTransaction({
-    redoActions:[ () => utils.createComponent(createParams) ],
-    undoActions:[ () => utils.deleteComponent(deleteParams) ],
-    actionName,
-    autoExecute
-  });
 }
 
 
-
-//////////////////////////////
-//  Duplicate some component.  Undoing removes the component.
-//////////////////////////////
-export function duplicatePage(options = {}) {
-  let {
-    component = oak.page,                // default to current page
-    pageId = component && component.id,   // default to component's id, createPage() will uniquify.
-    position = oak.page && oak.page.position + 1, // optional: 1-based numeric position within the parent, undefined = place after current component
-    navigate = true,  // optional: if true, we'll navigate to the component after creation
-    actionName = "Duplicate Page", autoExecute
-  } = options;
-
-  if (!component) die(oak, "actions.duplicatePage", [options], "component not found");
-
-  return createPage({
-    projectId: page.projectId,
-    sectionId: page.sectionId,
-    pageId,
-    data: component.getDataToSave(),
-    position,
-    navigate,
-    actionName,
-    autoExecute
-  });
-
-}
 
 // Export all as a lump
 export default Object.assign({}, exports);
