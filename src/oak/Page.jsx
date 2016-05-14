@@ -38,6 +38,7 @@ export default class Page extends ComponentController {
   get parent() { return this.section }
   get parentIndex() { return this.section.childIndex }
 
+  getIndexData() { return { id: this.pageId, title: this.title } }
 
   //////////////////////////////
   //  Syntactic sugar

@@ -48,6 +48,8 @@ export default class Project extends ComponentController {
   get childIndex() { return this.sectionIndex }
   get children() { return this.sections }
 
+  getIndexData() { return { id: this.projectId, title: this.title } }
+
 
   //////////////////////////////
   //  Components

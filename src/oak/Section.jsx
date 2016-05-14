@@ -44,6 +44,7 @@ export default class Section extends ComponentController {
   get childIndex() { return this.pageIndex }
   get children() { return this.pages }
 
+  getIndexData() { return { id: this.sectionId, title: this.title } }
 
   //////////////////////////////
   //  Syntactic sugar

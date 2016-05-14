@@ -121,15 +121,7 @@ export default class LoadableIndex extends Loadable() {
     "id": "id"
   }
   getIndexData() {
-    const inputKey = Object.keys(this.indexProperties);
-    return this.items.map( item => {
-      const data = {};
-      inputKey.forEach(inputKey => {
-        const outputKey = this.indexProperties[inputKey];
-        data[outputKey] = item[inputKey];
-      });
-      return data;
-    });
+    return this.items.map( item => item.getIndexData() );
   }
 
 
