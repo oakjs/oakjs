@@ -45,6 +45,7 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   uniquifyChildId(childId) { return ids.uniquifyId(childId, this.childIds) }
 
   // 1-based position (index) of this page in its section's `pages` list
+//REVIEW: 1-based???
   // NOTE: this index is 1-based!
   get position() { return this.parentIndex.items.indexOf(this) + 1 }
   get isFirst() { return this.position === 1 }
@@ -52,8 +53,9 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
   // Return the next item in our parent's list.
 // REVIEW:  As per HyperCard semantics, wrap around if we get to the last card?
+  // NOTE: position is 1-based!
   get next() { return this.parentIndex.items[this.position] }
-  get previous() { return this.parentIndex.items[this.position-1] }
+  get previous() { return this.parentIndex.items[this.position-2] }
 
   //////////////////////////////
   //  Component Sugar
@@ -293,9 +295,12 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
     this.dirty();
   }
 
-  //
-  //  Stylesheets
-  //
+  //////////////////////////////
+  //  Debug
+  //////////////////////////////
 
+  toString() {
+    return `[${this.type} ${this.id}]`;
+  }
 
 }

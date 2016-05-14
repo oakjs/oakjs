@@ -43,7 +43,7 @@ export function renamePage(options = {}) {
 
   // normalize page
   if (typeof page === "string") page = oak.getPage(page);
-  if (!page) die(oak, "actions.deletePage", [options], "you must specify options.page");
+  if (!page) die(oak, "actions.deletePage", [options], "you must specify a page");
 
   return component._renameComponentTransaction({
     component: page,
@@ -70,7 +70,7 @@ export function deletePage(options = {}) {
 
   // normalize page
   if (typeof page === "string") page = oak.getPage(page);
-  if (!page) die(oak, "actions.deletePage", [options], "you must specify options.page");
+  if (!page) die(oak, "actions.deletePage", [options], "you must specify a page");
 
   return component._deleteComponentTransaction({
     component: page,
@@ -102,7 +102,7 @@ export function createPage(options = {}) {
 
   // normalize section
   if (typeof section === "string") section = oak.getPage(section);
-  if (!section) die(oak, "actions.createPage", [options], "you must specify options.section");
+  if (!section) die(oak, "actions.createPage", [options], "you must specify a section");
 
   return component._createComponentTransaction({
     parent: section,

@@ -133,7 +133,7 @@ export function _deleteComponentTransaction(options) {
   let route;
   if (navigate) {
     if (component.next) route = component.next.route;
-    if (component.prev) route = component.prev.route;
+    else if (component.previous) route = component.previous.route;
   }
 
   const deleteParams = {
