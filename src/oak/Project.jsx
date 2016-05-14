@@ -41,7 +41,7 @@ export default class Project extends ComponentController {
   }
 
   get id() { return this.projectId }
-  set id(id) { this.pageId = id }
+  set id(id) { this.projectId = id }
   get path() { return Project.getPath(this.projectId) }
 
   get parentIndex() { return this.oak.registry.projectIndex }

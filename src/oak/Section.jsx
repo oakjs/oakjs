@@ -37,7 +37,7 @@ export default class Section extends ComponentController {
   }
 
   get id() { return this.sectionId }
-  set id(id) { this.pageId = id }
+  set id(id) { this.sectionId = id }
   get path() { return Section.getPath(this.projectId, this.sectionId) }
 
   get parentIndex() { return this.project.childIndex }
