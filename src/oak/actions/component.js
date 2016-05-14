@@ -81,7 +81,7 @@ export function _renameComponent(options) {
   const { component, newId, updateInstance, navigate } = options;
   if (DEBUG) console.info(`renameComponent({ component: ${component}, newId: ${newId}, navigate: ${navigate}  })`);
 
-  return api.changeComponentId({
+  return api.renameComponent({
       type: component.type,
       path: component.path,
       newId
@@ -165,7 +165,7 @@ export function _deleteComponent({ component, route }) {
   if (DEBUG) console.info(`_deleteComponent({ component: ${component}, route: ${route} })`);
 
   if (typeof component === "string") component = oak.get(component);
-  if (!component) throw new TypeError(`actions utils.deleteComponent(${component}): component not found`);
+  if (!component) throw new TypeError(`actions utils._deleteComponent(${component}): component not found`);
 
   return api.deleteComponent({ type: component.type, path: component.path })
     // response returns the parentIndex JSON data
@@ -193,7 +193,7 @@ export function _createComponentTransaction(options) {
     type,
     newId,
     title,
-    prompt,
+    prompt = !oak.event.optionKey,
     data,
     position,
     navigate,
@@ -255,20 +255,108 @@ console.warn(0);
       parent.childIndex.loaded(response.parentIndex);
 
       // 2. get the new component
-      const component = oak.get(response.path);
-      if (!component) {
+      const newComponent = oak.get(response.path);
+      if (!newComponent) {
         // this is an error -- we should be able to get the component now
         console.error(`actions._createComponent(${response.path}): server ${type} created but client ${type} not found`);
         return Promise.resolve();
       }
-console.warn(navigate, component.route);
+console.warn(navigate, newComponent.route);
       // 3. have the component update with the response data
-      component.loaded(response.component);
+      newComponent.loaded(response.component);
 
       if (DEBUG) console.info("component renamed" + (navigate ? ", navigating..." : ""));
 
       // 4. navigate if necessary
-      if (navigate) utils.navigateToRoute(component.route, "REPLACE");
+      if (navigate) utils.navigateToRoute(newComponent.route, "REPLACE");
+    });
+}
+
+
+
+//////////////////////////////
+//  Duplicate component and children.  Undoing removes the component.
+//////////////////////////////
+export function _duplicateComponentTransaction(options) {
+  if (DEBUG) console.info("_duplicateComponentTransaction(", options,")");
+  dieIfMissing(options, "_duplicateComponentTransaction", ["component"]);
+  let {
+    component,
+    newId,
+    position = component.position + 1,
+    title,
+    prompt = !oak.event.optionKey,
+    navigate = true,
+    actionName = `Duplicate ${type}`,
+    autoExecute
+  } = options;
+
+  // prompt for title if necessary
+  if (!title && prompt) {
+    title = window.prompt(`Name for new ${component.type}?`, `${component.title}`);
+    if (!title) return;
+  }
+
+  // Default newId
+  if (!newId) {
+    if (title)  newId = ids.normalizeIdentifier(title);
+    else        newId = JSXFragment.getRandomOid();
+  }
+
+  // make sure newId is unique within the parent
+  newId = component.parent.uniquifyChildId(newId);
+
+  const duplicateParams = {
+    component,
+    newId,
+    indexData: { id: newId, title: (title || newId) },
+    position,
+    navigate
+  };
+
+  // On undo, go back to the current component if we're navigating
+  const deleteParams = {
+    component: component.parent.getChildPath(newId),
+    route: navigate && oak.page && oak.page.route
+  }
+
+  return new UndoTransaction({
+    redoActions:[ () => _duplicateComponent(duplicateParams) ],
+    undoActions:[ () => _deleteComponent(deleteParams) ],
+    actionName,
+    autoExecute
+  });
+}
+
+// Create a component.
+// NOTE: it's up to you to make sure there's not already a component at `newId`!
+// No parameter normalization or checking!
+export function _duplicateComponent({ component, newId, indexData, position, navigate }) {
+  if (DEBUG) console.info(`_duplicateComponent({ component: ${component}, newId: ${newId}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
+
+  return api.duplicateComponent({ type:   component.type, path: component.path, newId, indexData, position })
+    // returns json with:  `{ path, component, parentIndex }`
+    .then( response => {
+// REFACTOR: most of this is similar to createComponent...
+      // ORDER is important:
+      // 1. update the parentIndex
+      component.parent.childIndex.loaded(response.parentIndex);
+
+      // 2. get the new component
+      const newComponent = oak.get(response.path);
+      if (!newComponent) {
+        // this is an error -- we should be able to get the component now
+        console.error(`actions._duplicateComponent(${response.path}): server ${type} duplicated but client ${type} not found`);
+        return Promise.resolve();
+      }
+
+      // 3. have the newComponent update with the response data
+      newComponent.loaded(response.component);
+
+      if (DEBUG) console.info("component duplicated" + (navigate ? ", navigating..." : ""));
+
+      // 4. navigate if necessary
+      if (navigate) utils.navigateToRoute(newComponent.route, "REPLACE");
     });
 }
 

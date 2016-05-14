@@ -131,12 +131,16 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
                         .then( () => page.getBundleAndParentIndex(response) )
                         .catch( error => { throw new Error(error)} );
 
-    case "delete":    return page.delete()
-                        .then( () => page.section.getChildIndex(response) )
+    case "duplicate": return page.duplicate(data)
+                        .then( newPage => newPage.getBundleAndParentIndex(response) )
                         .catch( error => { throw new Error(error)} );
 
-    case "changeId":  return page.changeId(data.newId)
+    case "rename":    return page.changeId(data.newId)
                         .then( newPage => newPage.section.getChildIndex(response) )
+                        .catch( error => { throw new Error(error)} );
+
+    case "delete":    return page.delete()
+                        .then( () => page.section.getChildIndex(response) )
                         .catch( error => { throw new Error(error)} );
   }
   throw new TypeError(`Page POST API action '${action}' not defined.`);
@@ -182,7 +186,7 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
                         .then( () => section.project.getChildIndex(response) )
                         .catch( error => { throw new Error(error)} );
 
-    case "changeId":  return section.changeId(data.newId)
+    case "rename":    return section.changeId(data.newId)
                         .then( newSection => newSection.project.getChildIndex(response) )
                         .catch( error => { throw new Error(error)} );
   }

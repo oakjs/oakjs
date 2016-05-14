@@ -9,10 +9,54 @@ import Page from "../Page";
 import oak from "../oak";
 
 import component from "./component";
+import navigation from "./navigation";
 import utils from "./utils";
 
 // set to `true` to log messages as actions proceed
 const DEBUG = true;
+
+
+// Show some page.
+export function showPage(options = {}) {
+  let {
+    page = oak.page,            // Page or page path, defaults to current page
+    replace,
+    actionName = "Show Page",
+    autoExecute
+  } = options;
+
+  // normalize page
+  if (page instanceof Page) page = page.path;
+  if (typeof page !== "string") die(oak, "actions.showPage", [options], "you must specify a page");
+
+  const { projectId, sectionId, pageId } = Page.splitPath(page);
+
+  return navigation._navigateToRouteTransaction({
+    route: oak.getPageRoute(projectId, sectionId, pageId),
+    replace,
+    actionName,
+    autoExecute
+  })
+}
+
+
+// Show first / previous / next / first / last page
+export function showFirstPage(options) { return _showRelativePage("FIRST", options); }
+export function showPreviousPage(options) { return _showRelativePage("PREV", options); }
+export function showNextPage(options) { return _showRelativePage("NEXT", options); }
+export function showLastPage(options) { return _showRelativePage("LAST", options); }
+
+function _showRelativePage(which, options) {
+  if (!oak.page) return;
+
+  let page;
+  if (which === "FIRST")        page = oak.page.section.firstChild;
+  else if (which === "PREV")    page = oak.page.previous;
+  else if (which === "NEXT")    page = oak.page.next;
+  else if (which === "LAST")    page = oak.page.section.lastChild;
+  const showPageOptions = Object.assign({ page }, options);
+  return showPage(showPageOptions);
+}
 
 
 // Save the page to the server.
@@ -126,22 +170,25 @@ export function createPage(options = {}) {
 export function duplicatePage(options = {}) {
   let {
     page = oak.page,                // default to current page
-    pageId = page && page.pageId,   // default to page's name, createPage will uniquify.
+    pageId = page && page.pageId,   // default to page's name, duplicatePage will uniquify.
     position,                       // 1-based numeric position within the section, undefined = place after current page
     title,                          // title for the new page, defaults to same as current page
+    prompt,                         // if true and title is not specified, we'll prompt for page title
     navigate,                       // if true, we'll navigate to the page after creation
     actionName = "Duplicate Page",
     autoExecute
   } = options;
 
-  if (!page) die(oak, "actions.duplicatePage", [options], "page not found");
+  // normalize page
+  if (typeof page === "string") page = oak.getPage(page);
+  if (!page) die(oak, "actions.duplicatePage", [options], "you must specify a page");
 
-  return createPage({
-    section: page.section,
-    pageId,
-    data: page.getDataToSave(),
+  return component._duplicateComponentTransaction({
+    component: page,
+    newId: pageId,
     position,
-    title: title || page.title,
+    title,
+    prompt,
     navigate,
     actionName,
     autoExecute

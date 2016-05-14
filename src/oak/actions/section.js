@@ -9,10 +9,56 @@ import Section from "../Section";
 import oak from "../oak";
 
 import component from "./component";
+import navigation from "./navigation";
 import utils from "./utils";
 
 // set to `true` to log messages as actions proceed
 const DEBUG = true;
+
+
+
+// Show some section.
+export function showSection(options = {}) {
+  let {
+    section = oak.section,            // Section or section path, defaults to current section
+    replace,
+    actionName = "Show Section",
+    autoExecute
+  } = options;
+
+  // normalize section
+  if (section instanceof Section) section = section.path;
+  if (typeof section !== "string") die(oak, "actions.showSection", [options], "you must specify a section");
+
+  const { projectId, sectionId } = Section.splitPath(section);
+
+  return navigation._navigateToRouteTransaction({
+    route: oak.getPageRoute(projectId, sectionId),
+    replace,
+    actionName,
+    autoExecute
+  })
+}
+
+
+// Show first / previous / next / first / last section
+export function showFirstSection(options) { return _showRelativeSection("FIRST", options); }
+export function showPreviousSection(options) { return _showRelativeSection("PREV", options); }
+export function showNextSection(options) { return _showRelativeSection("NEXT", options); }
+export function showLastSection(options) { return _showRelativeSection("LAST", options); }
+
+function _showRelativeSection(which, options) {
+  if (!oak.section) return;
+
+  let section;
+  if (which === "FIRST")        section = oak.section.project.firstChild;
+  else if (which === "PREV")    section = oak.section.previous;
+  else if (which === "NEXT")    section = oak.section.next;
+  else if (which === "LAST")    section = oak.section.project.lastChild;
+
+  const showSectionOptions = Object.assign({ section }, options);
+  return showSection(showSectionOptions);
+}
 
 
 // Save the section to the server.

@@ -26,7 +26,7 @@ export default new API({
   // No argument normalization.
   saveComponentBundle({ type, path, data }, fetchParams) {
     const url = `/api/${type}/${path}/save`;
-    const errorMessage = `Error saving ${type} ${path} bundle`;
+    const errorMessage = `Error saving ${type} ${path}`;
     return this.post(url, data, fetchParams, errorMessage)
             .then( response => response.json() );
   },
@@ -48,17 +48,27 @@ export default new API({
   // No argument normalization.
   deleteComponent({ type, path }, fetchParams) {
     const url = `/api/${type}/${path}/delete`;
-    const errorMessage = `Error deleting ${type} bundle`;
+    const errorMessage = `Error deleting ${type}`;
     return this.post(url, "", fetchParams, errorMessage)
             .then( response => response.json() );
   },
 
-  // Change id of some ComponentController (affects the disk).
+  // Duplicate a component and all children (Project, Section, Page)
+  // No argument normalization.
+  duplicateComponent({ type, path, newId, indexData, position }, fetchParams) {
+    const url = `/api/${type}/${path}/duplicate`;
+    const postData = { newId, indexData, position };
+    const errorMessage = `Error duplicating ${type}`;
+    return this.post(url, postData, fetchParams, errorMessage)
+            .then( response => response.json() );
+  },
+
+  // Rename some component (change it's id).
   // Response returns the parent index JSON data.
   // NOTE: does not affect client indices...
   // No argument normalization.
-  changeComponentId({ type, path, newId }, fetchParams) {
-    const url = `/api/${type}/${path}/changeId`;
+  renameComponent({ type, path, newId }, fetchParams) {
+    const url = `/api/${type}/${path}/rename`;
     const postData = { newId };
     const errorMessage = `Error changing id of ${type} ${path}`;
     return this.post(url, postData, fetchParams, errorMessage)

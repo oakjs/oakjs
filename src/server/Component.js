@@ -104,7 +104,7 @@ export default class Component {
   //
 
   // Create a new component given a JSON blob and position within our parent.
-  // Adds the component from the parent's childIndex.
+  // Adds the component to the parent's childIndex.
   // `data` is the same as for `save()`.
   create({ data = {}, indexData = { id: this.id, title: this.id }, position } = {}) {
 //TODO: uniqify id within parent!
@@ -123,6 +123,26 @@ export default class Component {
         const child = this.createBlankChild();
         if (child) return child.create();
       })
+  }
+
+  // Duplicate this component.
+  // Adds the component to the parent's childIndex.
+  duplicate({ newId, indexData = { id: this.id, title: this.id }, position } = {}) {
+//TODO: uniqify newId within parent!?!?!
+    const clone = this.clone({ id: newId });
+
+console.warn(clone);
+    return paths.copyDirectory(this.rootPath, clone.rootPath)
+      // add to the parent's childIndex
+      .then(() => {
+console.warn(1, indexData, position);
+        return this.parentIndex.add(indexData, position, "SAVE")
+      })
+      .then(() => {
+console.warn(2);
+      })
+      // return the clone
+      .then(() => clone)
   }
 
   //  Save this component given a JSON blob with any of:  `{ jsxe, styles, script, index }`
@@ -151,6 +171,7 @@ export default class Component {
   // Updates parent's childIndex.
   // Returns a new component with the specified id.
   changeId(newId) {
+//TODO: uniqify newId within parent!?!?!
     // Clone this item and update the id.
     const clone = this.clone({ id: newId });
 

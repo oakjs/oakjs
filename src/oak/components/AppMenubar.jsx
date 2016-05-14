@@ -50,6 +50,11 @@ export default class AppMenubar extends OakComponent {
               <MenuItem onClick={oak.actions.showPreviousPage} disabled={oak.page && oak.page.isFirst}>Show Previous Page</MenuItem>
               <MenuItem onClick={oak.actions.showNextPage} disabled={oak.page && oak.page.isLast}>Show Next Page</MenuItem>
               <MenuItem onClick={oak.actions.showLastPage} disabled={oak.page && oak.page.isLast}>Show Last Page</MenuItem>
+              <Divider/>
+              <MenuItem onClick={oak.actions.showFirstSection} disabled={oak.section && oak.section.isFirst}>Show First Section</MenuItem>
+              <MenuItem onClick={oak.actions.showPreviousSection} disabled={oak.section && oak.section.isFirst}>Show Previous Section</MenuItem>
+              <MenuItem onClick={oak.actions.showNextSection} disabled={oak.section && oak.section.isLast}>Show Next Section</MenuItem>
+              <MenuItem onClick={oak.actions.showLastSection} disabled={oak.section && oak.section.isLast}>Show Last Section</MenuItem>
             </Menu>
           </Dropdown>
           <Dropdown text="Project" showArrow={false} action="hide">

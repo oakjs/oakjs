@@ -7,6 +7,9 @@ import { die,  } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import oak from "../oak";
+import Page from "../Page";
+import Project from "../Project";
+import Section from "../Section";
 
 import selection from "./selection";
 import utils from "./utils";
@@ -16,10 +19,12 @@ import utils from "./utils";
 // All other navigation should go through this one.
 // Ignored if current `page.route` is the same as `route` passed in.
 // NOTE: clears selection and restores on undo.
-export function navigateTo(options) {
+export function _navigateToRouteTransaction(options = {}) {
   const {
-    route, replace = false,
-    actionName = "Show Page", autoExecute
+    route,
+    replace = false,
+    actionName = "Show Page",
+    autoExecute
   } = options;
   if (!route) throw new TypeError(`oak.actions.navigateTo(): route not provided`);
 
@@ -41,17 +46,21 @@ export function navigateTo(options) {
 
 
 // Show the first page of a `project`.
-export function showProject(options) {
-  const {
-    project = oak.page && oak.page.projectId,
-    replace = false,
-    actionName = "Show Project", autoExecute
+export function showProject(options = {}) {
+  let {
+    project = oak.page && oak.page.project,   // Project or project path, defaults to current project
+    replace,
+    actionName = "Show Project",
+    autoExecute
   } = options;
 
-  if (!project) return;
+  // normalize project
+  if (project instanceof Project) project = project.path;
+  if (typeof project !== "string") die(oak, "actions.showProject", [options], "you must specify a project");
 
+  const { projectId } = Project.splitPath(project);
   return navigateTo({
-    route: oak.getPageRoute(project),
+    route: oak.getPageRoute(projectId),
     replace,
     actionName,
     autoExecute
@@ -59,66 +68,26 @@ export function showProject(options) {
 }
 
 // Show the first page of a `section`.
-export function showSection(options) {
-  const {
-    project = oak.page && oak.page.projectId,
-    section = oak.page && oak.page.sectionId,
-    replace = false,
-    actionName = "Show Section", autoExecute
+export function showSection(options = {}) {
+  let {
+    section = oak.page && oak.page.section,   // Section or section path, defaults to current section
+    replace,
+    actionName = "Show Section",
+    autoExecute
   } = options;
 
-  if (!section) return;
+  // normalize section
+  if (section instanceof Section) section = section.path;
+  if (typeof section !== "string") die(oak, "actions.showSection", [options], "you must specify a section");
 
+  const { projectId, sectionId } = Section.splitPath(section);
   return navigateTo({
-    route: oak.getPageRoute(project, section),
+    route: oak.getPageRoute(projectId, sectionId),
     replace,
     actionName,
     autoExecute
   })
 }
 
-// Show some page.
-export function showPage(options) {
-  const {
-    project = oak.page && oak.page.projectId,
-    section = oak.page && oak.page.sectionId,
-    page = oak.page && oak.page.pageId,
-    replace = false,
-    actionName = "Show Page", autoExecute
-  } = options;
-
-  if (!page) return;
-
-  return navigateTo({
-    route: oak.getPageRoute(project, section, page),
-    replace,
-    actionName,
-    autoExecute
-  })
-}
-
-
-// Show first / previous / next / first / last page
-export function showFirstPage(options) { return _showRelativePage("FIRST", options); }
-export function showPreviousPage(options) { return _showRelativePage(-1, options); }
-export function showNextPage(options) { return _showRelativePage(1, options); }
-export function showLastPage(options) { return _showRelativePage("LAST", options); }
-
-function _showRelativePage(delta, options) {
-  if (!oak.page) return;
-
-  const props = {
-    project: oak.project.projectId,
-    section: oak.section.sectionId,
-    page: oak.page.position
-  };
-
-  if (delta === "FIRST") props.page = 1;
-  else if (delta === "LAST") props.page = oak.section.pages.length;
-  else if (typeof delta === "number") props.page += delta;
-  else {
-    throw new TypeError(`oak.actions.showRelativePage(${delta}): delta must be "FIRST", "LAST" or a number`);
-  }
-
-  return showPage(Object.assign(props, options));
-}
+// Export all as a lump
+export default Object.assign({}, exports);

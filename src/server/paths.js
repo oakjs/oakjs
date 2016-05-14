@@ -64,6 +64,10 @@ export function removeDirectory(path) {
   return fsp.remove(path);
 }
 
+export function copyDirectory(path, newPath) {
+  return fsp.copy(path, newPath);
+}
+
 //////////////////////////////
 //  Project Index
 //////////////////////////////
