@@ -172,23 +172,26 @@ export function createSection(options = {}) {
 export function duplicateSection(options = {}) {
   let {
     section = oak.section,          // default to current section
-    sectionId = section && section.sectionId,
-                                    // default to section's id, createSection will uniquify.
-    position,                       // 1-based numeric position within the project, undefined = place after current section
+    sectionId,
+                                    // default to section's name, duplicateSection will uniquify.
+    position,                       // 1-based numeric position within the section, undefined = place after current section
     title,                          // title for the new section, defaults to same as current section
+    prompt,                         // if true and title is not specified, we'll prompt for section title
     navigate,                       // if true, we'll navigate to the section after creation
     actionName = "Duplicate Section",
     autoExecute
   } = options;
 
-  if (!section) die(oak, "actions.duplicateSection", [options], "section not found");
+  // normalize section
+  if (typeof section === "string") section = oak.getSection(section);
+  if (!section) die(oak, "actions.duplicateSection", [options], "you must specify a section");
 
-  return createSection({
-    project: section.project,
-    sectionId,
-    data: section.getDataToSave(),
+  return component._duplicateComponentTransaction({
+    component: section,
+    newId: sectionId,
     position,
-    title: title || section.title,
+    title,
+    prompt,
     navigate,
     actionName,
     autoExecute

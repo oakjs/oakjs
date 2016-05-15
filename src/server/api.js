@@ -182,13 +182,18 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
                         .then( () => section.getBundleAndParentIndex(response) )
                         .catch( error => { throw new Error(error)} );
 
-    case "delete":    return section.delete()
-                        .then( () => section.project.getChildIndex(response) )
+    case "duplicate": return section.duplicate(data)
+                        .then( newSection => newSection.getBundleAndParentIndex(response) )
                         .catch( error => { throw new Error(error)} );
 
     case "rename":    return section.changeId(data.newId)
                         .then( newSection => newSection.project.getChildIndex(response) )
                         .catch( error => { throw new Error(error)} );
+
+    case "delete":    return section.delete()
+                        .then( () => section.project.getChildIndex(response) )
+                        .catch( error => { throw new Error(error)} );
+
   }
   throw new TypeError(`Sectoin POST API action '${action}' not defined.`);
 });
