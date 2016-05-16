@@ -13,6 +13,7 @@ import ids from "oak-roots/util/ids";
 
 import api from "./api";
 import JSXFragment from "./JSXFragment";
+import oak from "./oak";
 
 import Stub from "./components/Stub";
 
@@ -98,12 +99,12 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
   // Called when our component JSX, Script or Styles change.  Forces full page update.
   onComponentChanged() {
-    if (this.component) this.oak.updateSoon();
+    if (this.component) oak.updateSoon();
   }
 
   // Given a component `type` name, return the component class it corresponds to.
   getComponentConstructorForType(type, errorMessage) {
-    return this.oak.getComponentConstructorForType(type, errorMessage, this.components);
+    return oak.getComponentConstructorForType(type, errorMessage, this.components);
   }
 
   // Return all `oids` this component knows about.

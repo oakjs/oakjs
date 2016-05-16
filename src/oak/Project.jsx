@@ -9,6 +9,7 @@ import { dieIfMissing } from "oak-roots/util/die";
 
 import api from "./api";
 import ComponentController from "./ComponentController";
+import oak from "./oak";
 import Section from "./Section";
 
 import OakProject from "./components/OakProject";
@@ -16,7 +17,7 @@ import OakProject from "./components/OakProject";
 export default class Project extends ComponentController {
   constructor(props) {
     super(props);
-    dieIfMissing(this, "new Project", ["oak", "projectId"]);
+    dieIfMissing(this, "new Project", ["projectId"]);
   }
 
   @proto
@@ -37,13 +38,13 @@ export default class Project extends ComponentController {
   get id() { return this.projectId }
   set id(id) { this.projectId = id }
 
-  get parentIndex() { return this.oak.account.projectIndex }
+  get parentIndex() { return oak.account.projectIndex }
   get childIndex() { return this.sectionIndex }
   get children() { return this.sections }
 
   getIndexData() { return { id: this.projectId, title: this.title } }
 
-  get route() { return this.oak.getPageRoute(this.projectId) }
+  get route() { return oak.getPageRoute(this.projectId) }
 
 
   //////////////////////////////
@@ -51,7 +52,7 @@ export default class Project extends ComponentController {
   //////////////////////////////
 
   // TODO: dynamic components
-  get components() { return this.oak.getProjectTheme(this.projectId) }
+  get components() { return oak.getProjectTheme(this.projectId) }
 
   get component() { if (oak.project === this) return oak._projectComponent }
 
@@ -89,7 +90,6 @@ export default class Project extends ComponentController {
           sectionId,
           projectId: this.projectId,
           ...props,
-          oak: this.oak,
         });
       }
     });

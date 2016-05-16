@@ -17,7 +17,6 @@ export default class Account extends ChildController {
   constructor(props) {
     super();
     Object.assign(this, props);
-    dieIfMissing(this, "new Account", ["oak"]); // TODO: accountId?
   }
 
   //////////////////////////////
@@ -170,7 +169,6 @@ export default class Account extends ChildController {
         return new Project({
           projectId,
           ...props,
-          oak: this.oak,
         });
       }
     });

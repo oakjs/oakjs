@@ -4,6 +4,8 @@ import { autobind } from "oak-roots/util/decorators";
 import { getPath, setPath } from "oak-roots/util/path";
 import { classNames, unknownProperties } from "oak-roots/util/react";
 
+import oak from "../oak";
+
 import OakComponent from "./OakComponent";
 
 // Import custom CSS for all pages.
@@ -15,15 +17,12 @@ export default class OakPage extends OakComponent {
     title: PropTypes.string,
   }
 
-  static get route() { return this.oak.getPageRoute(this.project.id, this.section.id, this.id) }
-
   //////////////////////////////
   // Instance property sugar
   //////////////////////////////
 
   get controller() { return this.constructor.controller }
 
-  get oak() { return this.controller.oak }
   get id() { return this.controller.id }
   get project() { return this.controller.project }
   get section() { return this.controller.section }

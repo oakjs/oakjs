@@ -6,12 +6,13 @@ import { proto, debounce   } from "oak-roots/util/decorators";
 import { dieIfMissing } from "oak-roots/util/die";
 
 import ComponentController from "./ComponentController";
+import oak from "./oak";
 
 import OakPage from "./components/OakPage";
 
 export default class Page extends ComponentController {
   constructor(props) {
-    dieIfMissing(props, "new Page", ["oak", "pageId", "sectionId", "projectId"]);
+    dieIfMissing(props, "new Page", ["pageId", "sectionId", "projectId"]);
     super(props);
   }
 
@@ -38,14 +39,14 @@ export default class Page extends ComponentController {
 
   getIndexData() { return { id: this.pageId, title: this.title } }
 
-  get route() { return this.oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
+  get route() { return oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
 
   //////////////////////////////
   //  Syntactic sugar
   //////////////////////////////
 
-  get project() { return this.oak.account.getProject(this.projectId) }
-  get section() { return this.oak.account.getSection(this.projectId, this.sectionId) }
+  get project() { return oak.account.getProject(this.projectId) }
+  get section() { return oak.account.getSection(this.projectId, this.sectionId) }
 
 
   //////////////////////////////

@@ -9,6 +9,7 @@ import { dieIfMissing } from "oak-roots/util/die";
 
 import api from "./api";
 import ComponentController from "./ComponentController";
+import oak from "./oak";
 import Page from "./Page";
 
 import OakSection from "./components/OakSection";
@@ -16,7 +17,7 @@ import OakSection from "./components/OakSection";
 export default class Section extends ComponentController {
   constructor(props) {
     super(props);
-    dieIfMissing(this, "new Section", ["oak", "sectionId", "projectId"]);
+    dieIfMissing(this, "new Section", ["sectionId", "projectId"]);
   }
 
   @proto
@@ -45,13 +46,13 @@ export default class Section extends ComponentController {
 
   getIndexData() { return { id: this.sectionId, title: this.title } }
 
-  get route() { return this.oak.getPageRoute(this.projectId, this.sectionId) }
+  get route() { return oak.getPageRoute(this.projectId, this.sectionId) }
 
   //////////////////////////////
   //  Syntactic sugar
   //////////////////////////////
 
-  get project() { return this.oak.account.getProject(this.projectId) }
+  get project() { return oak.account.getProject(this.projectId) }
   get pageIds() { return this.childIds }
 
   //////////////////////////////
@@ -97,7 +98,6 @@ export default class Section extends ComponentController {
           sectionId: this.sectionId,
           projectId: this.projectId,
           ...props,
-          oak: this.oak,
         });
       }
     });
