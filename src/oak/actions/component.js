@@ -310,7 +310,7 @@ export function _duplicateComponentTransaction(options) {
   let {
     component,
     newId,
-    position = component.position + 1,
+    position = component.position,
     title,
     prompt = !oak.event.optionKey,
     navigate = true,
