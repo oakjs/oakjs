@@ -26,7 +26,7 @@ export function showSection(options = {}) {
     autoExecute
   } = options;
 
-  // normalize section
+  // normalize section to path string
   if (section instanceof Section) section = section.path;
   if (typeof section !== "string") die(oak, "actions.showSection", [options], "you must specify a section");
 
@@ -69,7 +69,7 @@ export function saveSection(options = {}) {
     section = oak.section
   } = options;
 
-  // normalize section
+  // normalize section to Section object
   if (typeof section === "string") section = oak.getSection(section);
   if (!section) die(oak, "actions.savePage", [options], "you must specify a section");
 
@@ -89,7 +89,7 @@ export function renameSection(options = {}) {
     autoExecute
   } = options
 
-  // normalize section
+  // normalize section to Section object
   if (typeof section === "string") section = oak.getSection(section);
   if (!section) die(oak, "actions.renameSection", [options], "you must specify a section");
 
@@ -115,7 +115,7 @@ export function deleteSection(options = {}) {
     autoExecute
   } = options;
 
-  // normalize section
+  // normalize section to Section object
   if (typeof section === "string") section = oak.getSection(section);
   if (!section) die(oak, "actions.deleteSection", [options], "you must specify a section");
 
@@ -182,7 +182,7 @@ export function duplicateSection(options = {}) {
     autoExecute
   } = options;
 
-  // normalize section
+  // normalize section to Section object
   if (typeof section === "string") section = oak.getSection(section);
   if (!section) die(oak, "actions.duplicateSection", [options], "you must specify a section");
 

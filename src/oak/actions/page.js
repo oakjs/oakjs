@@ -25,7 +25,7 @@ export function showPage(options = {}) {
     autoExecute
   } = options;
 
-  // normalize page
+  // normalize page to path string
   if (page instanceof Page) page = page.path;
   if (typeof page !== "string") die(oak, "actions.showPage", [options], "you must specify a page");
 
@@ -67,7 +67,7 @@ export function savePage(options = {}) {
     page = oak.page
   } = options;
 
-  // normalize page
+  // normalize page to Page object
   if (typeof page === "string") page = oak.getPage(page);
   if (!page) die(oak, "actions.savePage", [options], "you must specify a page");
 
@@ -87,7 +87,7 @@ export function renamePage(options = {}) {
     autoExecute
   } = options
 
-  // normalize page
+  // normalize page to Page object
   if (typeof page === "string") page = oak.getPage(page);
   if (!page) die(oak, "actions.renamePage", [options], "you must specify a page");
 
@@ -113,7 +113,7 @@ export function deletePage(options = {}) {
     autoExecute
   } = options;
 
-  // normalize page
+  // normalize page to Page object
   if (typeof page === "string") page = oak.getPage(page);
   if (!page) die(oak, "actions.deletePage", [options], "you must specify a page");
 
@@ -179,7 +179,7 @@ export function duplicatePage(options = {}) {
     autoExecute
   } = options;
 
-  // normalize page
+  // normalize page to Page object
   if (typeof page === "string") page = oak.getPage(page);
   if (!page) die(oak, "actions.duplicatePage", [options], "you must specify a page");
 
