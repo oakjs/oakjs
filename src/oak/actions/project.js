@@ -70,7 +70,7 @@ export function saveProject(options = {}) {
   } = options;
 
   // normalize project to Project object
-  if (typeof project === "string") project = oak.getProject(project);
+  if (typeof project === "string") project = oak.account.getProject(project);
   if (!project) die(oak, "actions.savePage", [options], "you must specify a project");
 
   return project.save("FORCE");
@@ -90,7 +90,7 @@ export function renameProject(options = {}) {
   } = options
 
   // normalize project to Project object
-  if (typeof project === "string") project = oak.getProject(project);
+  if (typeof project === "string") project = oak.account.getProject(project);
   if (!project) die(oak, "actions.renameProject", [options], "you must specify a project");
 
   return component._renameComponentTransaction({
@@ -116,7 +116,7 @@ export function deleteProject(options = {}) {
   } = options;
 
   // normalize project to Project object
-  if (typeof project === "string") project = oak.getProject(project);
+  if (typeof project === "string") project = oak.account.getProject(project);
   if (!project) die(oak, "actions.deleteProject", [options], "you must specify a project");
 
   return component._deleteComponentTransaction({
@@ -148,7 +148,7 @@ export function createProject(options = {}) {
   } = options;
 
   // normalize project to Project object
-  if (typeof project === "string") project = oak.getProject(project);
+  if (typeof project === "string") project = oak.account.getProject(project);
   if (!project) die(oak, "actions.createProject", [options], "you must specify a project");
 
   return component._createComponentTransaction({
@@ -183,7 +183,7 @@ export function duplicateProject(options = {}) {
   } = options;
 
   // normalize project to Project object
-  if (typeof project === "string") project = oak.getProject(project);
+  if (typeof project === "string") project = oak.account.getProject(project);
   if (!project) die(oak, "actions.duplicateProject", [options], "you must specify a project");
 
   return component._duplicateComponentTransaction({

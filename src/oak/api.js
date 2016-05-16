@@ -169,6 +169,14 @@ export default new API({
     return this.getJSON(url, fetchParams, errorMessage);
   },
 
+  saveProjectIndex(indexData, fetchParams) {
+    const url = `/api/oak/projects`;
+    const errorMessage = "Error saving project index";
+    return this.post(url, indexData, fetchParams, errorMessage)
+            .then( response => response.json() );
+  },
+
+
   loadSectionIndex(projectPath, fetchParams) {
     const url = `/api/project/${projectPath}/sections`;
     const errorMessage = `Error loading section index for ${projectPath}`;
@@ -180,6 +188,7 @@ export default new API({
     const errorMessage = `Error loading page index for ${sectionPath}`;
     return this.getJSON(url, fetchParams, errorMessage);
   },
+
 
 
 //   saveIndex(url, errorMessage = "Error saving index", index) {

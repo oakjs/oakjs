@@ -6,20 +6,21 @@
 //  This class works by dependency injection, you MUST pass the following routines on creation:
 //    - loadData()
 //    - createItem()
+//    - saveData()
 //
 //////////////////////////////
 
 import { dieIfMissing } from "oak-roots/util/die";
 import { proto } from "oak-roots/util/decorators";
 
-import Eventful from "oak-roots/Eventful";
 import Loadable from "oak-roots/Loadable";
+import Savable from "oak-roots/Savable";
 
 // REFACTOR:   Convert from JSON blobs to items when loading index?
 // REFACTOR:   Delta index and announce when things are added/removed/moved
 // REFACTOR:   Index to array of objects
 
-export default class LoadableIndex extends Loadable() {
+export default class LoadableIndex extends Savable(Loadable()) {
   constructor(props) {
     super();
     Object.assign(this, props);
@@ -84,6 +85,10 @@ export default class LoadableIndex extends Loadable() {
   //  Loading
   //////////////////////////////
 
+  // Pass a `loadData` routine in on creation (or implement in a subclass).
+  // Use `getIndexData()` to return the data to load.
+  loadData() { throw new TypeError("You must implement or pass LoadableIndex.loadData()") }
+
   onLoaded(jsonItems = []) {
     if (typeof jsonItems === "string") jsonItems = JSON.parse(jsonItems);
 
@@ -105,29 +110,30 @@ export default class LoadableIndex extends Loadable() {
   }
 
   unload() {
-    delete this.index;
+    delete this.items;
     super.unload();
   }
 
 
-  //
-  //  data to save
-  //
+  //////////////////////////////
+  //  Saving
+  //////////////////////////////
 
-  // Properties to actually save in the index
-  // as:  internal object name  : index object name
-  @proto
-  indexProperties = {
-    "id": "id"
-  }
+  // Pass a `saveData` routine in on creation (or implement in a subclass).
+  // Use `getIndexData()` to return the data to save.
+  saveData() { throw new TypeError("You must implement or pass LoadableIndex.saveData()") }
+
+  // Return the data to save for the index.
+  // NOTE: the default implementation assumes each item has a `getIndexData()` routine!
   getIndexData() {
     return this.items.map( item => item.getIndexData() );
   }
 
 
   //////////////////////////////
-  //  Reflection
+  //  Debugging
   //////////////////////////////
+
   toString() {
     return `[${this.itemType} LoadableIndex]`;
   }

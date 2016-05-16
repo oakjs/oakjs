@@ -2,6 +2,7 @@
 //  Top-level classes
 //////////////////////////////
 
+export Account from "./Account";
 export ComponentController from "./ComponentController";
 export EditorProps from "./EditorProps";
 export JSXElement from "./JSXElement";
@@ -10,7 +11,6 @@ export JSXParser from "./JSXParser";
 export OakEvent from "./OakEvent";
 export Page from "./Page";
 export Project from "./Project";
-export ProjectRegistry from "./ProjectRegistry";
 export Section from "./Section";
 
 // Export all as a single object.

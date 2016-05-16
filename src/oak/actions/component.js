@@ -196,7 +196,7 @@ export function _undeleteComponent({ parent, type, path, indexData, position, na
       const newComponent = oak.get(response.path);
       if (!newComponent) {
         // this is an error -- we should be able to get the component now
-        console.error(`actions._createComponent(${response.path}): server ${type} undeleted but client ${type} not found`);
+        console.error(`actions._undeleteComponent(${response.path}): server ${type} undeleted but client ${type} not found`);
         return Promise.resolve();
       }
       // 3. have the component update with the response data

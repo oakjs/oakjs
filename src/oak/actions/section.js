@@ -70,7 +70,7 @@ export function saveSection(options = {}) {
   } = options;
 
   // normalize section to Section object
-  if (typeof section === "string") section = oak.getSection(section);
+  if (typeof section === "string") section = oak.account.getSection(section);
   if (!section) die(oak, "actions.savePage", [options], "you must specify a section");
 
   return section.save("FORCE");
@@ -90,7 +90,7 @@ export function renameSection(options = {}) {
   } = options
 
   // normalize section to Section object
-  if (typeof section === "string") section = oak.getSection(section);
+  if (typeof section === "string") section = oak.account.getSection(section);
   if (!section) die(oak, "actions.renameSection", [options], "you must specify a section");
 
   return component._renameComponentTransaction({
@@ -116,7 +116,7 @@ export function deleteSection(options = {}) {
   } = options;
 
   // normalize section to Section object
-  if (typeof section === "string") section = oak.getSection(section);
+  if (typeof section === "string") section = oak.account.getSection(section);
   if (!section) die(oak, "actions.deleteSection", [options], "you must specify a section");
 
   return component._deleteComponentTransaction({
@@ -148,7 +148,7 @@ export function createSection(options = {}) {
   } = options;
 
   // normalize project
-  if (typeof project === "string") project = oak.getProject(project);
+  if (typeof project === "string") project = oak.account.getProject(project);
   if (!project) die(oak, "actions.createSection", [options], "you must specify a project");
 
   return component._createComponentTransaction({
@@ -183,7 +183,7 @@ export function duplicateSection(options = {}) {
   } = options;
 
   // normalize section to Section object
-  if (typeof section === "string") section = oak.getSection(section);
+  if (typeof section === "string") section = oak.account.getSection(section);
   if (!section) die(oak, "actions.duplicateSection", [options], "you must specify a section");
 
   return component._duplicateComponentTransaction({

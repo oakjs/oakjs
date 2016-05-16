@@ -63,8 +63,11 @@ export default class AppMenubar extends OakComponent {
               <Divider/>
               <MenuItem disabled>Project Settings...</MenuItem>
               <Divider/>
-              <MenuItem disabled>New Project...</MenuItem>
-              <MenuItem disabled>Duplicate Project...</MenuItem>
+              <MenuItem onClick={oak.actions.saveProject} disabled={oak.page && !oak.page.isDirty}>Save Project...</MenuItem>
+              <MenuItem onClick={oak.actions.createProject}>New Project...</MenuItem>
+              <MenuItem onClick={oak.actions.deleteProject}>Delete Project...</MenuItem>
+              <MenuItem onClick={oak.actions.renameProject}>Rename Project...</MenuItem>
+              <MenuItem onClick={oak.actions.duplicateProject}>Duplicate Project...</MenuItem>
             </Menu>
           </Dropdown>
           <Dropdown text="Section" showArrow={false} action="hide">

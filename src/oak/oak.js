@@ -12,12 +12,12 @@ import elements from "oak-roots/util/elements";
 import global from "oak-roots/util/global";
 import UndoQueue from "oak-roots/UndoQueue";
 
+import Account from "./Account";
 import actions from "./actions";
 import EditorProps from "./EditorProps";
 import OakEvent from "./OakEvent";
 import Page from "./Page";
 import Project from "./Project";
-import ProjectRegistry from "./ProjectRegistry";
 import Section from "./Section";
 
 import oakComponents from "./components";
@@ -51,11 +51,12 @@ class OakJS extends Eventful(Object) {
     // Create the global undoQueue
     this.undoQueue = new UndoQueue();
 
-    // Registry of loaded projects/sections/pages/etc
-    this.registry = new ProjectRegistry(this);
+    // `oak.account` represents all projects / sections / pages this "user" can see.
+//REFACTOR:  add user concept...
+    this.account = new Account({ oak: this });
 
-    // load the projectIndex singleton, since we have to do that before anything else
-    this.registry.projectIndex.load();
+    // load the account, since we have to do that before we can display anything
+    this.account.load();
   }
 
 
@@ -206,57 +207,39 @@ console.log("oak.forceUpdate()");
   }
 
   //////////////////////////////
-  //  Components
+  //  Syntactic sugar for getting project/section/page components
   //////////////////////////////
 
-  // All known projects.
-  get projects() {
-    return this.registry.projectIndex.items
-  }
-
-  // Get project, section, component depending on path.
+  // Get project, section, component specified by path.
   get(path) {
-    if (typeof path === "string" && path) {
-      const split = path.split("/");
-      if (split.length === 1) return this.getProject(split[0]);
-      if (split.length === 2) return this.getSection(split[0], split[1]);
-      if (split.length === 3) return this.getPage(split[0], split[1], split[2]);
+    if (path && typeof path === "string") {
+      const split = Page.splitPath(path);
+      if (split.pageId) return this.getPage(split.projectId, split.sectionId, split.pageId);
+      if (split.sectionId) return this.getPage(split.projectId, split.sectionId);
+      if (split.projectId) return this.getPage(split.projectId);
     }
     console.warn(`oak.get(${path}): path not understood`);
     return undefined;
   }
 
-  // Get a project by projectId by path.
+  // All known projects.
+  get projects() {  return this.account.projects }
+
+  // Get a project by projectId or 1-based numeric index, or by single path string.
   // NOTE: you can pass a page path to this and it'll take just the first bit.
-  getProject(projectId) {
-    if (typeof projectId !== "string") throw new TypeError(`oak.getProject(${projectId}): projectId must be a string`);
-    // normalize to first bit in case they passed a path
-    projectId = Project.splitPath(projectId).projectId;
-    return this.registry.getProject(projectId)
-  }
+  getProject(projectId) { return this.account.getProject(...arguments) }
 
-  // Return a section by projectId + sectionId strings or by single path string.
-  getSection(projectId, sectionId) {
-    // If exactly one argument, assume it's a path.
-    if (arguments.length === 1 && typeof projectId === "string") {
-      const split = Section.splitPath(projectId);
-      projectId = split.projectId;
-      sectionId = split.sectionId;
-    }
-    return this.registry.getSection(projectId, sectionId)
-  }
+  // Return a section by projectId + sectionId indices or strings, or by single path string.
+  // NOTE: you can pass a page path to this and it'll take just the first bit.
+  getSection(projectId, sectionId) { return this.account.getSection(...arguments) }
 
-  // Return a page by id
-  getPage(projectId, sectionId, pageId) {
-    // If exactly one argument, assume it's a path.
-    if (arguments.length === 1 && typeof projectId === "string") {
-      const split = Page.splitPath(projectId);
-      projectId = split.projectId;
-      sectionId = split.sectionId;
-      pageId = split.pageId;
-    }
-    return this.registry.getPage(projectId, sectionId, pageId)
-  }
+  // Return a section by projectId + sectionId indices or strings, or by single path string.
+  getPage(projectId, sectionId, pageId) { return this.account.getPage(...arguments) }
+
+
+  //////////////////////////////
+  //  Syntactic sugar for getting components
+  //////////////////////////////
 
   // All known components
   // TODO: this should really be dynamic...

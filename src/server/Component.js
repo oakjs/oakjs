@@ -179,7 +179,6 @@ export default class Component {
   // UNdelete this component
   // Restores the component in the parent's childIndex
   undelete({ indexData, position } = {}) {
-console.info("undelete", indexData, position);
     if (!indexData) throw new TypeError(`${this}.undelete(): you must provide indexData`);
     if (position == null) throw new TypeError(`${this}.undelete(): you must provide position`);
     // attempt to move FIRST, in case we can't find the trash folder

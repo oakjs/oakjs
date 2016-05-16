@@ -19,10 +19,10 @@ export default class UIRoute extends AppRoute {
 //    console.dir(params);
 
     //
-    // attempt to load the UI Page
+    // attempt to load the runner Page
     //
     const { runnerProjectId = "_runner", runnerSectionId = "player", runnerPageId = "showPage" } = params;
-    const runnerPage = oak.getPage(runnerProjectId, runnerSectionId, runnerPageId);
+    const runnerPage = oak.account.getPage(runnerProjectId, runnerSectionId, runnerPageId);
     // if we got a loaded page:
     if (runnerPage && runnerPage.isLoaded) {
       // assign it to `oak.runner.page` so we'll show it below
@@ -34,7 +34,7 @@ export default class UIRoute extends AppRoute {
       // Otherwise if we didn't get a page, or the page hasn't started loading yet
       if (!runnerPage || !runnerPage.isLoading) {
         // load it and then redraw
-        oak.registry.loadPage(runnerProjectId, runnerSectionId, runnerPageId)
+        oak.account.loadPage(runnerProjectId, runnerSectionId, runnerPageId)
           .then( page => {
             if (this._isMounted) {
               console.log("loaded runner page, updating ");
@@ -57,7 +57,7 @@ export default class UIRoute extends AppRoute {
     const appPageId = _normalizeInt(params.appPageId);
 
     if (runnerPage && appProjectId !== undefined) {
-      const appPage = oak.getPage(appProjectId, appSectionId, appPageId);
+      const appPage = oak.account.getPage(appProjectId, appSectionId, appPageId);
       // if we got a loaded page
       if (appPage && appPage.isLoaded) {
         // assign it to `oak.page` so `<CurrentPage>` will show it
@@ -69,7 +69,7 @@ export default class UIRoute extends AppRoute {
         // Otherwise if we didn't get a page, or the page hasn't started loading yet
         if (!appPage || !appPage.isLoading) {
           // load it and then redraw
-          oak.registry.loadPage(appProjectId, appSectionId, appPageId)
+          oak.account.loadPage(appProjectId, appSectionId, appPageId)
             .then( page => {
               if (this._isMounted) {
                 console.log("loaded oak page, updating ");

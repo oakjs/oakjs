@@ -68,7 +68,7 @@ export function savePage(options = {}) {
   } = options;
 
   // normalize page to Page object
-  if (typeof page === "string") page = oak.getPage(page);
+  if (typeof page === "string") page = oak.account.getPage(page);
   if (!page) die(oak, "actions.savePage", [options], "you must specify a page");
 
   return page.save("FORCE");
@@ -88,7 +88,7 @@ export function renamePage(options = {}) {
   } = options
 
   // normalize page to Page object
-  if (typeof page === "string") page = oak.getPage(page);
+  if (typeof page === "string") page = oak.account.getPage(page);
   if (!page) die(oak, "actions.renamePage", [options], "you must specify a page");
 
   return component._renameComponentTransaction({
@@ -114,7 +114,7 @@ export function deletePage(options = {}) {
   } = options;
 
   // normalize page to Page object
-  if (typeof page === "string") page = oak.getPage(page);
+  if (typeof page === "string") page = oak.account.getPage(page);
   if (!page) die(oak, "actions.deletePage", [options], "you must specify a page");
 
   return component._deleteComponentTransaction({
@@ -146,7 +146,7 @@ export function createPage(options = {}) {
   } = options;
 
   // normalize section
-  if (typeof section === "string") section = oak.getSection(section);
+  if (typeof section === "string") section = oak.account.getSection(section);
   if (!section) die(oak, "actions.createPage", [options], "you must specify a section");
 
   return component._createComponentTransaction({
@@ -180,7 +180,7 @@ export function duplicatePage(options = {}) {
   } = options;
 
   // normalize page to Page object
-  if (typeof page === "string") page = oak.getPage(page);
+  if (typeof page === "string") page = oak.account.getPage(page);
   if (!page) die(oak, "actions.duplicatePage", [options], "you must specify a page");
 
   return component._duplicateComponentTransaction({

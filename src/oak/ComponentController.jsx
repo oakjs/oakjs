@@ -34,15 +34,15 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   static getPath() { throw new TypeError("You must implement getPath()") }
   static splitPath() { throw new TypeError("You must implement splitPath()") }
   get route() { throw new TypeError("You must implement get route()") }
+  get childIndex() {throw new TypeError("You must implement get childIndex()") }
 
   get parentIndex() { return this.parent && this.parent.childIndex }
-  get childIndex() {}
   get childIds() { return this.childIndex && this.childIndex.items.map(item => item.id) }
   get children() { return this.childIndex && this.childIndex.items }
   get firstChild() { const children = this.children; return children && children[0] }
   get lastChild() { const children = this.children; return children && children[children.length-1] }
 
-  get path() { return this.parent ?`${this.parent.path}/${this.id}` : this.id; }
+  get path() { return this.parent ? this.parent.getChildPath(this.id) : this.id; }
   getChildPath(childId) { return `${this.path}/${childId}` }
 
 

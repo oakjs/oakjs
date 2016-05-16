@@ -44,8 +44,8 @@ export default class Page extends ComponentController {
   //  Syntactic sugar
   //////////////////////////////
 
-  get project() { return this.oak.getProject(this.projectId) }
-  get section() { return this.oak.getSection(this.projectId, this.sectionId) }
+  get project() { return this.oak.account.getProject(this.projectId) }
+  get section() { return this.oak.account.getSection(this.projectId, this.sectionId) }
 
 
   //////////////////////////////

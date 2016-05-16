@@ -45,6 +45,12 @@ export function _navigateToRouteTransaction(options = {}) {
 }
 
 
+// Navigate to some `route`.
+export function navigateTo(options) {
+  return _navigateToRouteTransaction(options);
+}
+
+
 // Show the first page of a `project`.
 export function showProject(options = {}) {
   let {

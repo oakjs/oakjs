@@ -202,7 +202,7 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
                         .then( () => section.getBundleAndParentIndex(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
   }
-  throw new TypeError(`Sectoin POST API action '${action}' not defined.`);
+  throw new TypeError(`Section POST API action '${action}' not defined.`);
 });
 
 
@@ -210,6 +210,7 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
 //  Project actions
 //////////////////////////////
 
+// Project read actions.
 router.get("/project/:projectId/:action",  (request, response) => {
   const { action, projectId } = request.params;
   const project = new Project({ projectId });
@@ -223,6 +224,40 @@ router.get("/project/:projectId/:action",  (request, response) => {
   throw new TypeError(`Project GET API action '${action}' not defined.`);
 });
 
+// Project write actions.
+router.post("/project/:projectId/:action", bodyTextParser, (request, response) => {
+  const { action, projectId } = request.params;
+  const { body } = request;
+  const data = body ? JSON.parse(body) : {};
+console.warn(action);
+  const project = new Project({ projectId });
+  switch (action) {
+    case "save":      return project.save(data)
+                        .then( () => project.getBundle(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "create":    return project.create(data)
+                        .then( () => project.getBundleAndParentIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "duplicate": return project.duplicate(data)
+                        .then( newProject => newProject.getBundleAndParentIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "rename":    return project.changeId(data.newId)
+                        .then( newProject => newProject.project.getChildIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "delete":    return project.delete()
+                        .then( () => project.project.getChildIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "undelete":  return project.undelete(data)
+                        .then( () => project.getBundleAndParentIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+  }
+  throw new TypeError(`Project POST API action '${action}' not defined.`);
+});
 
 
 //////////////////////////////

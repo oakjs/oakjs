@@ -19,11 +19,6 @@ export default class Project extends ComponentController {
     dieIfMissing(this, "new Project", ["oak", "projectId"]);
   }
 
-  // Given a projectId string (NOT an index), return the singleton Project for it.
-  static getProject(projectId) {
-    return
-  }
-
   @proto
   type = "project";
 
@@ -42,7 +37,7 @@ export default class Project extends ComponentController {
   get id() { return this.projectId }
   set id(id) { this.projectId = id }
 
-  get parentIndex() { return this.oak.registry.projectIndex }
+  get parentIndex() { return this.oak.account.projectIndex }
   get childIndex() { return this.sectionIndex }
   get children() { return this.sections }
 
@@ -86,10 +81,6 @@ export default class Project extends ComponentController {
     return new LoadableIndex({
       useOneBasedNumbering: true,
       itemType: "section",
-      indexProperties: {
-        id: "id",
-        title: "title"
-      },
       loadData: () => {
         return api.loadSectionIndex(this.projectId);
       },
