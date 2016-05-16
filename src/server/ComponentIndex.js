@@ -12,11 +12,17 @@ export default class ComponentIndex {
     if (!this.items) this.items = [];
   }
 
+  // Return the file contents of this index.
+  // If `response` is passed, returns as a HTTP response.
+  getFile(response) {
+    return paths.getJSONFile(this.path, response);
+  }
+
   load() {
     if (this.isLoaded) return Promise.resolve(this);
 
     if (!this.path) throw new TypeError("path not set for index");
-    return paths.getTextFile(this.path)
+    return this.getFile()
       // if file doesn't exist, return an empty array string for the next step
       .catch( () => { return "[]" })
       // then just remember the items

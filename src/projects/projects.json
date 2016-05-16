@@ -1,5 +1,14 @@
 [
-  { "id": "test", "title": "test" },
-  { "id": "SUI", "title": "Semantic UI" },
-  { "id": "_runner", "title": "OakJS Runner / Editor UI" }
+  {
+    "id": "test",
+    "title": "test"
+  },
+  {
+    "id": "SUI",
+    "title": "Semantic UI"
+  },
+  {
+    "id": "_runner",
+    "title": "OakJS Runner / Editor UI"
+  }
 ]

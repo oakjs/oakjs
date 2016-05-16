@@ -86,22 +86,6 @@ router.get("/oak/:action",  (request, response) => {
 //  Page actions
 //////////////////////////////
 
-// Merge page bundle with section pageIndex and return both
-function _sendPageBundleAndSectionPageIndex(page, request, response) {
-  return Promise.all([
-            bundler.bundlePage({ page }),
-            page.section.getChildIndex()
-          ])
-          .then( ([ bundleJSON, indexJSON ]) => {
-            // convert to objects and merge
-            const bundle = JSON.parse(bundleJSON);
-            bundle.pageIndex = JSON.parse(indexJSON);
-            // send the whole shmear back
-            response.send(bundle);
-         });
-}
-
-
 // Page read actions.
 router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
@@ -136,11 +120,11 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
                         .catch( error => { console.error(error); throw new Error(error)} );
 
     case "rename":    return page.changeId(data.newId)
-                        .then( newPage => newPage.section.getChildIndex(response) )
+                        .then( newPage => newPage.parentIndex.getFile(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
     case "delete":    return page.delete()
-                        .then( () => page.section.getChildIndex(response) )
+                        .then( () => page.parentIndex.getFile(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
     case "undelete":  return page.undelete(data)
@@ -191,11 +175,11 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
                         .catch( error => { console.error(error); throw new Error(error)} );
 
     case "rename":    return section.changeId(data.newId)
-                        .then( newSection => newSection.project.getChildIndex(response) )
+                        .then( newSection => newSection.parentIndex.getFile(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
     case "delete":    return section.delete()
-                        .then( () => section.project.getChildIndex(response) )
+                        .then( () => section.parentIndex.getFile(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
     case "undelete":  return section.undelete(data)
@@ -229,7 +213,6 @@ router.post("/project/:projectId/:action", bodyTextParser, (request, response) =
   const { action, projectId } = request.params;
   const { body } = request;
   const data = body ? JSON.parse(body) : {};
-console.warn(action);
   const project = new Project({ projectId });
   switch (action) {
     case "save":      return project.save(data)
@@ -245,11 +228,11 @@ console.warn(action);
                         .catch( error => { console.error(error); throw new Error(error)} );
 
     case "rename":    return project.changeId(data.newId)
-                        .then( newProject => newProject.project.getChildIndex(response) )
+                        .then( newProject => newProject.parentIndex.getFile(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
     case "delete":    return project.delete()
-                        .then( () => project.project.getChildIndex(response) )
+                        .then( () => project.parentIndex.getFile(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
     case "undelete":  return project.undelete(data)

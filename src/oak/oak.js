@@ -215,8 +215,8 @@ console.log("oak.forceUpdate()");
     if (path && typeof path === "string") {
       const split = Page.splitPath(path);
       if (split.pageId) return this.getPage(split.projectId, split.sectionId, split.pageId);
-      if (split.sectionId) return this.getPage(split.projectId, split.sectionId);
-      if (split.projectId) return this.getPage(split.projectId);
+      if (split.sectionId) return this.getSection(split.projectId, split.sectionId);
+      if (split.projectId) return this.getProject(split.projectId);
     }
     console.warn(`oak.get(${path}): path not understood`);
     return undefined;

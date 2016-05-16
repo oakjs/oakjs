@@ -98,7 +98,7 @@ export default class Component {
 
   // Special: get page bundle and it's our parent's index together in one object.
   getBundleAndParentIndex(response) {
-    return Promise.all([ this.getBundle(), this.parent.getChildIndex() ])
+    return Promise.all([ this.getBundle(), this.parentIndex.getFile() ])
           .then( ([ component, parentIndex ]) => {
             const bundle = { path: this.path, component, parentIndex };
             if (response) return response.send(bundle);

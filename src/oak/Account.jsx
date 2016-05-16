@@ -114,7 +114,7 @@ export default class Account extends ChildController {
   getPage(projectId, sectionId, pageId) {
     // If they passed a single string argument, assume it's a project/section/page path.
     if (arguments.length === 1 && typeof projectId === "string") {
-      const path = Page.split(projectId);
+      const path = Page.splitPath(projectId);
       return this.getPage(path.projectId, path.sectionId, path.pageId);
     }
 
