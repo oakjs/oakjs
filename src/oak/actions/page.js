@@ -46,14 +46,14 @@ export function showPreviousPage(options) { return _showRelativePage("PREV", opt
 export function showNextPage(options) { return _showRelativePage("NEXT", options); }
 export function showLastPage(options) { return _showRelativePage("LAST", options); }
 
-function _showRelativePage(which, options) {
-  if (!oak.page) return;
+function _showRelativePage(which, options = {}) {
+  let { page = oak.page } = options;
+  if (!page) return;
 
-  let page;
-  if (which === "FIRST")        page = oak.page.section.firstChild;
-  else if (which === "PREV")    page = oak.page.previous;
-  else if (which === "NEXT")    page = oak.page.next;
-  else if (which === "LAST")    page = oak.page.section.lastChild;
+  if (which === "FIRST")        page = page.section.firstChild;
+  else if (which === "PREV")    page = page.previous;
+  else if (which === "NEXT")    page = page.next;
+  else if (which === "LAST")    page = page.section.lastChild;
   const showPageOptions = Object.assign({ page }, options);
   return showPage(showPageOptions);
 }

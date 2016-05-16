@@ -47,14 +47,14 @@ export function showPreviousSection(options) { return _showRelativeSection("PREV
 export function showNextSection(options) { return _showRelativeSection("NEXT", options); }
 export function showLastSection(options) { return _showRelativeSection("LAST", options); }
 
-function _showRelativeSection(which, options) {
-  if (!oak.section) return;
+function _showRelativeSection(which, options = {}) {
+  let { section = oak.section } = options;
+  if (!section) return;
 
-  let section;
-  if (which === "FIRST")        section = oak.section.project.firstChild;
-  else if (which === "PREV")    section = oak.section.previous;
-  else if (which === "NEXT")    section = oak.section.next;
-  else if (which === "LAST")    section = oak.section.project.lastChild;
+  if (which === "FIRST")        section = section.project.firstChild;
+  else if (which === "PREV")    section = section.previous;
+  else if (which === "NEXT")    section = section.next;
+  else if (which === "LAST")    section = section.project.lastChild;
 
   const showSectionOptions = Object.assign({ section }, options);
   return showSection(showSectionOptions);

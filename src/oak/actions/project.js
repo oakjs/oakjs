@@ -42,19 +42,20 @@ export function showProject(options = {}) {
 
 
 // Show first / previous / next / first / last project
+// Same options as `showProject`
 export function showFirstProject(options) { return _showRelativeProject("FIRST", options); }
 export function showPreviousProject(options) { return _showRelativeProject("PREV", options); }
 export function showNextProject(options) { return _showRelativeProject("NEXT", options); }
 export function showLastProject(options) { return _showRelativeProject("LAST", options); }
 
-function _showRelativeProject(which, options) {
-  if (!oak.project) return;
+function _showRelativeProject(which, options = {}) {
+  let { project = oak.project } = options;
+  if (!project) return;
 
-  let project;
-  if (which === "FIRST")        project = oak.project.project.firstChild;
-  else if (which === "PREV")    project = oak.project.previous;
-  else if (which === "NEXT")    project = oak.project.next;
-  else if (which === "LAST")    project = oak.project.project.lastChild;
+  if (which === "FIRST")        project = project.project.firstChild;
+  else if (which === "PREV")    project = project.previous;
+  else if (which === "NEXT")    project = project.next;
+  else if (which === "LAST")    project = project.project.lastChild;
 
   const showProjectOptions = Object.assign({ project }, options);
   return showProject(showProjectOptions);
