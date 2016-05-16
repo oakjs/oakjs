@@ -4,9 +4,8 @@
 //
 //////////////////////////////
 
+import ChildController from "oak-roots/ChildController";
 import Eventful from "oak-roots/Eventful";
-import Loadable from "oak-roots/Loadable";
-import Savable from "oak-roots/Savable";
 import Stylesheet from "oak-roots/Stylesheet";
 import { autobind, proto, throttle } from "oak-roots/util/decorators";
 import ids from "oak-roots/util/ids";
@@ -18,7 +17,7 @@ import oak from "./oak";
 import Stub from "./components/Stub";
 
 
-export default class ComponentController extends Savable(Loadable(Eventful())) {
+export default class ComponentController extends Eventful(ChildController) {
   constructor(props) {
     super();
     Object.assign(this, props);
@@ -28,40 +27,23 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
   @proto
   type = "component";
 
+
   //////////////////////////////
-  //  Standard component stuff
+  //  ChildController stuff
   //////////////////////////////
 
-  static getPath() { throw new TypeError("You must implement getPath()") }
-  static splitPath() { throw new TypeError("You must implement splitPath()") }
-  get route() { throw new TypeError("You must implement get route()") }
-  get childIndex() {throw new TypeError("You must implement get childIndex()") }
-
-  get parentIndex() { return this.parent && this.parent.childIndex }
-  get childIds() { return this.childIndex && this.childIndex.items.map(item => item.id) }
-  get children() { return this.childIndex && this.childIndex.items }
-  get firstChild() { const children = this.children; return children && children[0] }
-  get lastChild() { const children = this.children; return children && children[children.length-1] }
-
-  get path() { return this.parent ? this.parent.getChildPath(this.id) : this.id; }
   getChildPath(childId) { return `${this.path}/${childId}` }
 
+  // Override to make the index for this type of thing.
+  // Depending on your logic, you may want to call this in your `constructor`
+  //  so the index is always available.
+  _makeIndex() {
+    console.warn("You must implement `_makeIndex()`");
+  }
 
-  // Given a possible childId, modify it (minmally) to make sure it's unique within our children
-  uniquifyChildId(childId) { return ids.uniquifyId(childId, this.childIds) }
+  static splitPath() { throw new TypeError("You must implement splitPath()") }
+  get route() { throw new TypeError("You must implement get route()") }
 
-  // 1-based position (index) of this page in its section's `pages` list
-//REVIEW: 1-based???
-  // NOTE: this index is 1-based!
-  get position() { return this.parentIndex.items.indexOf(this) + 1 }
-  get isFirst() { return this.position === 1 }
-  get isLast() { return this.position === this.parentIndex.items.length }
-
-  // Return the next item in our parent's list.
-// REVIEW:  As per HyperCard semantics, wrap around if we get to the last card?
-  // NOTE: position is 1-based!
-  get next() { return this.parentIndex.items[this.position] }
-  get previous() { return this.parentIndex.items[this.position-2] }
 
   //////////////////////////////
   //  Component Sugar
@@ -222,37 +204,6 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
 
 
   //////////////////////////////
-  //  Index
-  //////////////////////////////
-
-  // Override to make the index for this type of thing.
-  // Depending on your logic, you may want to call this in your `constructor`
-  //  so the index is always available.
-  _makeIndex() {
-    console.warn("Your subclass must override `_makeIndex()`");
-  }
-
-  // Called when your loaded bundle specifies "index".
-  _loadedIndex(indexJSON) {
-    if (!indexJSON) return;
-
-    if (!this._index) this._index = this._makeIndex();
-    this._index.loaded(JSON.parse(indexJSON));
-  }
-
-  // Return index data to save.
-  _getIndexData() {
-    const data = this._index && this._index.getIndexData();
-    if (data) return JSON.stringify(data, undefined, "  ");
-  }
-
-  // Call this if you change your Index after you've loaded.
-  updatedIndex() {
-    this.dirty();
-  }
-
-
-  //////////////////////////////
   //  Script
   //////////////////////////////
 
@@ -301,12 +252,13 @@ export default class ComponentController extends Savable(Loadable(Eventful())) {
     this.dirty();
   }
 
+
   //////////////////////////////
   //  Debug
   //////////////////////////////
 
   toString() {
-    return `[${this.type} ${this.id}]`;
+    return `[${this.type} ${this.path}]`;
   }
 
 }
