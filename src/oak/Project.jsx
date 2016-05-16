@@ -27,20 +27,19 @@ export default class Project extends ComponentController {
   ComponentSuperConstructor = OakProject;
 
   //////////////////////////////
-  //  Standard Component Identity stuff
+  //  ChildController stuff
   //////////////////////////////
+
+  // map `projectId` to `id`
+  get id() { return this.projectId }
+  set id(id) { this.projectId = id }
 
   static splitPath(path) {
     const split = path.split("/");
     return { projectId: split[0] }
   }
 
-  get id() { return this.projectId }
-  set id(id) { this.projectId = id }
-
-  get parentIndex() { return oak.account.projectIndex }
-  get childIndex() { return this.sectionIndex }
-  get children() { return this.sections }
+  get parent() { return oak.account }
 
   getIndexData() { return { id: this.projectId, title: this.title } }
 
@@ -48,21 +47,11 @@ export default class Project extends ComponentController {
 
 
   //////////////////////////////
-  //  Components
+  //  Sections syntactic sugar
   //////////////////////////////
 
-  // TODO: dynamic components
-  get components() { return oak.getProjectTheme(this.projectId) }
-
-  get component() { if (oak.project === this) return oak._projectComponent }
-
-
-  //////////////////////////////
-  //  Sections
-  //////////////////////////////
-
-  get sectionIndex() { return this._index || (this._index = this._makeIndex()) }
-  get sections() { return this.sectionIndex.items }
+  get sectionIndex() { return this.childIndex }
+  get sections() { return this.children }
 
   getSection(sectionIdentifier) {
     return this.sectionIndex.getItem(sectionIdentifier);
@@ -71,6 +60,17 @@ export default class Project extends ComponentController {
   loadSection(sectionIdentifier) {
     return this.sectionIndex.loadItem(sectionIdentifier);
   }
+
+
+  //////////////////////////////
+  //  Components
+  //////////////////////////////
+
+  // TODO: dynamic components
+  get components() { return oak.getProjectTheme(this.projectId) }
+  get component() { if (oak.project === this) return oak._projectComponent }
+
+
 
 
   //////////////////////////////

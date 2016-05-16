@@ -152,7 +152,7 @@ export function createProject(options = {}) {
   if (!project) die(oak, "actions.createProject", [options], "you must specify a project");
 
   return component._createComponentTransaction({
-    parent: project,
+    parent: project.parent,
     type: "project",
     newId: projectId,
     title,
