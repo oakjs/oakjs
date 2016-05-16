@@ -67,27 +67,6 @@ export function showProject(options = {}) {
   })
 }
 
-// Show the first page of a `section`.
-export function showSection(options = {}) {
-  let {
-    section = oak.page && oak.page.section,   // Section or section path, defaults to current section
-    replace,
-    actionName = "Show Section",
-    autoExecute
-  } = options;
-
-  // normalize section
-  if (section instanceof Section) section = section.path;
-  if (typeof section !== "string") die(oak, "actions.showSection", [options], "you must specify a section");
-
-  const { projectId, sectionId } = Section.splitPath(section);
-  return navigateTo({
-    route: oak.getPageRoute(projectId, sectionId),
-    replace,
-    actionName,
-    autoExecute
-  })
-}
 
 // Export all as a lump
 export default Object.assign({}, exports);

@@ -44,15 +44,6 @@ export default new API({
             .then( response => response.json() );
   },
 
-  // Delete a component (Project, Section, Page)
-  // No argument normalization.
-  deleteComponent({ type, path }, fetchParams) {
-    const url = `/api/${type}/${path}/delete`;
-    const errorMessage = `Error deleting ${type}`;
-    return this.post(url, "", fetchParams, errorMessage)
-            .then( response => response.json() );
-  },
-
   // Duplicate a component and all children (Project, Section, Page)
   // No argument normalization.
   duplicateComponent({ type, path, newId, indexData, position }, fetchParams) {
@@ -71,6 +62,25 @@ export default new API({
     const url = `/api/${type}/${path}/rename`;
     const postData = { newId };
     const errorMessage = `Error changing id of ${type} ${path}`;
+    return this.post(url, postData, fetchParams, errorMessage)
+            .then( response => response.json() );
+  },
+
+  // Delete a component (Project, Section, Page)
+  // No argument normalization.
+  deleteComponent({ type, path }, fetchParams) {
+    const url = `/api/${type}/${path}/delete`;
+    const errorMessage = `Error deleting ${type}`;
+    return this.post(url, "", fetchParams, errorMessage)
+            .then( response => response.json() );
+  },
+
+  // UNdelete a component (Project, Section, Page)
+  // No argument normalization.
+  undeleteComponent({ type, path, indexData, position }, fetchParams) {
+    const url = `/api/${type}/${path}/undelete`;
+    const postData = { indexData, position };
+    const errorMessage = `Error undeleting ${type}`;
     return this.post(url, postData, fetchParams, errorMessage)
             .then( response => response.json() );
   },

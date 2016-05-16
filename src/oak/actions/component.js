@@ -140,11 +140,10 @@ export function _deleteComponentTransaction(options) {
     route
   }
 
-  const createParams = {
+  const undeleteParams = {
     parent: component.parent,
     type: component.type,
     path: component.path,
-    data: component.getDataToSave(),
     indexData: component.getIndexData(),
     position: component.position,
     navigate: !!route
@@ -152,7 +151,7 @@ export function _deleteComponentTransaction(options) {
 
   return new UndoTransaction({
     redoActions:[ () => _deleteComponent(deleteParams) ],
-    undoActions:[ () => _createComponent(createParams) ],
+    undoActions:[ () => _undeleteComponent(undeleteParams) ],
     actionName,
     autoExecute
   });
@@ -177,6 +176,36 @@ export function _deleteComponent({ component, route }) {
 
       // navigate
       if (route) utils.navigateToRoute(route, "REPLACE");
+    });
+}
+
+
+// UNdelete a component (get it back from the trash).
+// NOTE: this is very likely to fail...
+// No parameter normalization or checking!
+export function _undeleteComponent({ parent, type, path, indexData, position, navigate }) {
+  if (DEBUG) console.info(`_undeleteComponent({ parent: ${parent}, path: ${path}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
+  return api.undeleteComponent({ type, path, indexData, position })
+    // returns json with:  `{ path, component, parentIndex }`
+    .then( response => {
+      // ORDER is important:
+      // 1. update the parentIndex
+      parent.childIndex.loaded(response.parentIndex);
+
+      // 2. get the new component
+      const newComponent = oak.get(response.path);
+      if (!newComponent) {
+        // this is an error -- we should be able to get the component now
+        console.error(`actions._createComponent(${response.path}): server ${type} undeleted but client ${type} not found`);
+        return Promise.resolve();
+      }
+      // 3. have the component update with the response data
+      newComponent.loaded(response.component);
+
+      if (DEBUG) console.info("component undeleted" + (navigate ? ", navigating..." : ""));
+
+      // 4. navigate if necessary
+      if (navigate) utils.navigateToRoute(newComponent.route, "REPLACE");
     });
 }
 
@@ -249,7 +278,6 @@ export function _createComponent({ parent, type, path, data, indexData, position
   return api.createComponent({ type, path, data, indexData, position })
     // returns json with:  `{ path, component, parentIndex }`
     .then( response => {
-console.warn(0);
       // ORDER is important:
       // 1. update the parentIndex
       parent.childIndex.loaded(response.parentIndex);
@@ -261,11 +289,10 @@ console.warn(0);
         console.error(`actions._createComponent(${response.path}): server ${type} created but client ${type} not found`);
         return Promise.resolve();
       }
-console.warn(navigate, newComponent.route);
       // 3. have the component update with the response data
       newComponent.loaded(response.component);
 
-      if (DEBUG) console.info("component renamed" + (navigate ? ", navigating..." : ""));
+      if (DEBUG) console.info("component created" + (navigate ? ", navigating..." : ""));
 
       // 4. navigate if necessary
       if (navigate) utils.navigateToRoute(newComponent.route, "REPLACE");

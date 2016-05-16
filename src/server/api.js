@@ -125,23 +125,27 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
   switch (action) {
     case "save":      return page.save(data)
                         .then( () => page.getBundle(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
 
     case "create":    return page.create(data)
                         .then( () => page.getBundleAndParentIndex(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
 
     case "duplicate": return page.duplicate(data)
                         .then( newPage => newPage.getBundleAndParentIndex(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
 
     case "rename":    return page.changeId(data.newId)
                         .then( newPage => newPage.section.getChildIndex(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
 
     case "delete":    return page.delete()
                         .then( () => page.section.getChildIndex(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "undelete":  return page.undelete(data)
+                        .then( () => page.getBundleAndParentIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
   }
   throw new TypeError(`Page POST API action '${action}' not defined.`);
 });
@@ -176,24 +180,27 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
   switch (action) {
     case "save":      return section.save(data)
                         .then( () => section.getBundle(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
 
     case "create":    return section.create(data)
                         .then( () => section.getBundleAndParentIndex(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
 
     case "duplicate": return section.duplicate(data)
                         .then( newSection => newSection.getBundleAndParentIndex(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
 
     case "rename":    return section.changeId(data.newId)
                         .then( newSection => newSection.project.getChildIndex(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
 
     case "delete":    return section.delete()
                         .then( () => section.project.getChildIndex(response) )
-                        .catch( error => { throw new Error(error)} );
+                        .catch( error => { console.error(error); throw new Error(error)} );
 
+    case "undelete":  return section.undelete(data)
+                        .then( () => section.getBundleAndParentIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
   }
   throw new TypeError(`Sectoin POST API action '${action}' not defined.`);
 });

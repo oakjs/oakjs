@@ -11,6 +11,13 @@ import paths from "./paths";
 // Set to `true` to debug creation and such.
 const DEBUG = true;
 
+
+// Use this to log an error and re-throw it
+function logAndReThrowError(error) {
+  console.error("ERROR: ", error);
+  return Promise.reject(error);
+}
+
 export default class Component {
 
   constructor(...props) {
@@ -62,7 +69,7 @@ export default class Component {
   getDefaultJSXE(id, title) { throw new TypeError("You must implement getDefaultJSXE()") }
 
   // Create a blank child if we should do so when you are created.
-  // If you do, save it and returns its save promise.
+  // If you do, save it and return its save promise.
   createBlankChild() {}
 
 
@@ -75,6 +82,7 @@ export default class Component {
   get stylesPath() { return this.getFilePath(this.stylesFileName) }
   get scriptPath() { return this.getFilePath(this.scriptFileName) }
   get childIndexPath() { return this.getFilePath(this.childIndexFileName) }
+  get trashPath() { throw new TypeError("You must implement get trashPath()") }
 
 
   //
@@ -95,7 +103,8 @@ export default class Component {
             const bundle = { path: this.path, component, parentIndex };
             if (response) return response.send(bundle);
             return Promise.resolve( JSON.stringify(bundle) );
-         });
+         })
+         .catch(logAndReThrowError);
   }
 
 
@@ -123,6 +132,7 @@ export default class Component {
         const child = this.createBlankChild();
         if (child) return child.create();
       })
+      .catch(logAndReThrowError);
   }
 
   // Duplicate this component.
@@ -131,18 +141,14 @@ export default class Component {
 //TODO: uniqify newId within parent!?!?!
     const clone = this.clone({ id: newId });
 
-console.warn(clone);
-    return paths.copyDirectory(this.rootPath, clone.rootPath)
+    return paths.copyFile(this.rootPath, clone.rootPath)
       // add to the parent's childIndex
       .then(() => {
-console.warn(1, indexData, position);
         return this.parentIndex.add(indexData, position, "SAVE")
-      })
-      .then(() => {
-console.warn(2);
       })
       // return the clone
       .then(() => clone)
+      .catch(logAndReThrowError);
   }
 
   //  Save this component given a JSON blob with any of:  `{ jsxe, styles, script, index }`
@@ -156,15 +162,31 @@ console.warn(2);
       "script" in data && paths.saveOrDeleteFile(this.scriptPath, data.script),
       "index" in data && paths.saveOrDeleteFile(this.childIndexPath, data.index),
     ])
+    .catch(logAndReThrowError);
   }
 
   //  Delete this component.
   //  Removes the component from the parent's childIndex.
   delete() {
+// REFACTOR: save index data off so we can restore it later?
     // Remove from the component index first
     return this.parentIndex.removeById(this.id, "SAVE")
       // Remove the various files, `catch()`ing to ignoring errors (eg: if files are nor present)
-      .then( () => paths.removeDirectory(this.rootPath) )
+      .then( () => paths.moveFile(this.rootPath, this.trashPath) )
+      .catch(logAndReThrowError);
+  }
+
+  // UNdelete this component
+  // Restores the component in the parent's childIndex
+  undelete({ indexData, position } = {}) {
+console.info("undelete", indexData, position);
+    if (!indexData) throw new TypeError(`${this}.undelete(): you must provide indexData`);
+    if (position == null) throw new TypeError(`${this}.undelete(): you must provide position`);
+    // attempt to move FIRST, in case we can't find the trash folder
+    return paths.moveFile(this.trashPath, this.rootPath)
+      // then update the component index
+      .then( () => this.parentIndex.add(indexData, position, "SAVE") )
+      .catch(logAndReThrowError);
   }
 
   // Change the id of this component.
@@ -183,6 +205,7 @@ console.warn(2);
       })
       // return the clone
       .then(() => clone)
+      .catch(logAndReThrowError);
   }
 
 }

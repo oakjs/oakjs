@@ -28,7 +28,7 @@ export function getJSONFile(path, response, encoding = "application/json") {
   return getTextFile(path, response, encoding);
 }
 
-// Save a file.
+// Save a file without any formatting.
 export function saveFile(path, contents) {
   return fsp.outputFile(path, contents);
 }
@@ -60,11 +60,15 @@ export function renameFile(oldPath, newPath) {
   return fsp.rename(oldPath, newPath);
 }
 
-export function removeDirectory(path) {
+export function removeFile(path) {
   return fsp.remove(path);
 }
 
-export function copyDirectory(path, newPath) {
+export function moveFile(path, newPath, clobber = true) {
+  return fsp.move(path, newPath, { clobber });
+}
+
+export function copyFile(path, newPath) {
   return fsp.copy(path, newPath);
 }
 
@@ -126,6 +130,16 @@ export function pagePath(project, section, page, filename="") {
 
 
 //////////////////////////////
+//  Path for project/page/section "trash"
+//////////////////////////////
+export function trashPath(...steps) {
+  // NOTE: we can't nest trash paths
+  const path = "_trash/" + steps.join("-");
+  return projectsPath(path);
+}
+
+
+//////////////////////////////
 //  Build files
 //////////////////////////////
 
@@ -162,6 +176,7 @@ export function isValidPath(path) {
   if (typeof path !== "string") return false;
   // don't allow '//'
   if (path.includes(fsPath.sep+fsPath.sep)) return false;
+// REFACTOR: don't allow paths beginning with a period (which also knocks out "." and "..")?
   return path.split(fsPath.sep).every(segment => segment !== "." && segment !== "..");
 }
 
