@@ -23,8 +23,11 @@ export default class Page extends ComponentController {
   ComponentSuperConstructor = OakPage;
 
   //////////////////////////////
-  //  Standard Component Identity stuff
+  //  ChildController stuff
   //////////////////////////////
+
+  // No child index.
+  _makeIndex() { return undefined }
 
   static splitPath(path) {
     const split = path.split("/");

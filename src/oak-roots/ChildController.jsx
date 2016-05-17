@@ -70,7 +70,8 @@ export default class ChildController extends Savable(Loadable()) {
   // Your subclass may load a bundle with this info,
   //  or load the data some other way and call `_loadedIndex()` to update the index.
   loadData() {
-    return this.childIndex.load();
+    if (this.childIndex) return this.childIndex.load();
+    return Promise.resolve();
   }
 
   onLoaded(indexJSON) {
@@ -78,8 +79,10 @@ export default class ChildController extends Savable(Loadable()) {
   }
 
   _loadedIndex(indexJSON) {
-    if (typeof indexJSON === "string") indexJSON = JSON.parse(indexJSON);
-    this.childIndex.loaded(indexJSON);
+    if (this.childIndex) {
+      if (typeof indexJSON === "string") indexJSON = JSON.parse(indexJSON);
+      this.childIndex.loaded(indexJSON);
+    }
   }
 
 
@@ -91,14 +94,15 @@ export default class ChildController extends Savable(Loadable()) {
   // Your subclass may save a bundle with this info,
   //  calling `_getIndexData()` to get the index data to save.
   saveData() {
-    return this.childIndex.saveData();
+    if (this.childIndex) return index.saveData();
+    return Promise.resolve();
   }
 
   onSaved() {}
 
   // Return the data to save for the index, only necessary if you're saving in a bundle or something.
   _getIndexData() {
-    return this.childIndex.getIndexData();
+    return this.childIndex && this.childIndex.getIndexData();
   }
 
 }

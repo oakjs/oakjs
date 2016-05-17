@@ -30,6 +30,23 @@ export default class Project extends ComponentController {
   //  ChildController stuff
   //////////////////////////////
 
+  // Create the sectionIndex on demand
+  _makeIndex() {
+    return new LoadableIndex({
+      itemType: "section",
+      loadData: () => {
+        return api.loadSectionIndex(this.projectId);
+      },
+      createItem: (sectionId, props) => {
+        return new Section({
+          sectionId,
+          projectId: this.projectId,
+          ...props,
+        });
+      }
+    });
+  }
+
   // map `projectId` to `id`
   get id() { return this.projectId }
   set id(id) { this.projectId = id }
@@ -70,29 +87,6 @@ export default class Project extends ComponentController {
   get components() { return oak.getProjectTheme(this.projectId) }
   get component() { if (oak.project === this) return oak._projectComponent }
 
-
-
-
-  //////////////////////////////
-  //  Initialization / Loading / Saving
-  //////////////////////////////
-
-  // Create the sectionIndex on demand
-  _makeIndex() {
-    return new LoadableIndex({
-      itemType: "section",
-      loadData: () => {
-        return api.loadSectionIndex(this.projectId);
-      },
-      createItem: (sectionId, props) => {
-        return new Section({
-          sectionId,
-          projectId: this.projectId,
-          ...props,
-        });
-      }
-    });
-  }
 }
 
 //////////////////////////////
