@@ -136,7 +136,7 @@ export function createPage(options = {}) {
     section = oak.section,    // default to current section
     pageId,                   // id for the page (we'll make one up if necessary)
     data,                     // data object for page with `{ jsxe, script, styles }`
-    position                  // numeric position within the section, undefined = place after current page
+    position,                 // numeric position within the section, undefined = place after current page
     title,                    // title for the page
     prompt = true,            // if true and title is not specified, we'll prompt for page title
     navigate = true,          // if true, we'll navigate to the page after creation
