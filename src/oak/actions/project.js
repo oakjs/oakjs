@@ -5,6 +5,7 @@
 
 import { die, dieIfMissing } from "oak-roots/util/die";
 
+import Account from "../Account";
 import Project from "../Project";
 import oak from "../oak";
 
