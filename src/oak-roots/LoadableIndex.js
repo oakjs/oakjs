@@ -27,15 +27,9 @@ export default class LoadableIndex extends Savable(Loadable()) {
     dieIfMissing(this, "constructor", ["itemType", "createItem", "loadData"]);
   }
 
-  // If `true`, `getItem()` and `loadItem()` will use 1-based numbering.
-  @proto
-  useOneBasedNumbering = false;
-
   // Return a item singleton specified by string id or numeric index.
   // If not found, returns `undefined`.
   // Always returns `undefined` if we haven't already loaded.
-  //
-  // NOTE: if `useOneBasedNumbering` is true, first item in the list is index `1`.
   getItem(itemIdentifier) {
     if (!this.isLoaded) return undefined;
 
@@ -43,8 +37,7 @@ export default class LoadableIndex extends Savable(Loadable()) {
       return this._registry[itemIdentifier];
     }
     else if (typeof itemIdentifier === "number") {
-      const delta = (this.useOneBasedNumbering ? -1 : 0);
-      return this.items[itemIdentifier + delta];
+      return this.items[itemIdentifier];
     }
 
     throw new TypeError(`${this}.getItem(${itemIdentifier}): identifier not understood`);

@@ -138,8 +138,7 @@ export function createSection(options = {}) {
     project = oak.project,    // default to current project
     sectionId,                // id for the section (we'll make one up if necessary)
     data,                     // data object for section with `{ jsxe, script, styles, index }`
-    position = oak.section && oak.section.position + 1,
-                              // 1-based numeric position within the project, undefined = place after current section
+    position,                 // numeric position within the project, undefined = place after current section
     title,                    // title for the section
     prompt = true,            // if true and title is not specified, we'll prompt for section title
     navigate = true,          // if true, we'll navigate to the section after creation
@@ -150,6 +149,9 @@ export function createSection(options = {}) {
   // normalize project
   if (typeof project === "string") project = oak.account.getProject(project);
   if (!project) die(oak, "actions.createSection", [options], "you must specify a project");
+
+  // place after current section by default
+  if (!position && oak.section) position = oak.section.position + 1;
 
   return component._createComponentTransaction({
     parent: project,

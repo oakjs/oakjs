@@ -136,11 +136,10 @@ export function deleteProject(options = {}) {
 //////////////////////////////
 export function createProject(options = {}) {
   let {
-    project = oak.project,    // default to current project
+    account = oak.account,    // default to current account
     projectId,                // id for the project (we'll make one up if necessary)
     data,                     // data object for project with `{ jsxe, script, styles, index }`
-    position = oak.project && oak.project.position + 1,
-                              // 1-based numeric position within the project, undefined = place after current project
+    position,                 // numeric position within the project, undefined = place after current project
     title,                    // title for the project
     prompt = true,            // if true and title is not specified, we'll prompt for project title
     navigate = true,          // if true, we'll navigate to the project after creation
@@ -148,12 +147,14 @@ export function createProject(options = {}) {
     autoExecute
   } = options;
 
-  // normalize project to Project object
-  if (typeof project === "string") project = oak.account.getProject(project);
-  if (!project) die(oak, "actions.createProject", [options], "you must specify a project");
+  // ensure account is an Account object
+  if (!(account instanceof Account)) die(oak, "actions.createProject", [options], "you must specify an account");
+
+  // place after current project by default
+  if (!position && oak.project) position = oak.project.position + 1;
 
   return component._createComponentTransaction({
-    parent: project.parent,
+    parent: account,
     type: "project",
     newId: projectId,
     title,
@@ -175,7 +176,7 @@ export function duplicateProject(options = {}) {
     project = oak.project,          // default to current project
     projectId,
                                     // default to project's name, duplicateProject will uniquify.
-    position,                       // 1-based numeric position within the project, undefined = place after current project
+    position,                       // numeric position within the project, undefined = place after current project
     title,                          // title for the new project, defaults to same as current project
     prompt,                         // if true and title is not specified, we'll prompt for project title
     navigate,                       // if true, we'll navigate to the project after creation

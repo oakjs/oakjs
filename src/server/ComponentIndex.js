@@ -45,7 +45,7 @@ export default class ComponentIndex {
   }
 
   // Given an `id`, return the index of that item in our `items`.
-  // Returns `-1` if we haven't yet loaded.
+  // Returns `undefined` if we haven't yet loaded.
   indexOfId(id) {
     for (let index = 0; index < this.items.length; index++) {
       if (this.items[index].id === id) return index;

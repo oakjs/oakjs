@@ -49,19 +49,17 @@ export default class ChildController extends Savable(Loadable()) {
   // Return our parent's index, which will include us.
   get parentIndex() { return this.parent && this.parent.childIndex }
 
-  // 1-based position (index) of this page in its section's `pages` list
+  // Position (index) of this page in its section's `pages` list
   // Returns `undefined` if we don't parent or parent has no childIndex.
-//REVIEW: 1-based???
-  get position() { return this.parentIndex && this.parentIndex.items.indexOf(this) + 1 }
+  get position() { return this.parentIndex && this.parentIndex.items.indexOf(this) }
 
   // Are we the first or last item in our parent's list?
-  get isFirst() { return this.position === 1 }
-  get isLast() { return !!this.parentIndex && this.position === this.parentIndex.items.length }
+  get isFirst() { return this.position === 0 }
+  get isLast() { return !!this.parentIndex && this.position === this.parentIndex.items.length - 1 }
 
   // Return the next item in our parent's list.
-  // NOTE: position is 1-based!
-  get next() { return this.parentIndex.items[this.position] }
-  get previous() { return this.parentIndex.items[this.position-2] }
+  get previous() { return this.parentIndex.items[this.position-1] }
+  get next() { return this.parentIndex.items[this.position+1] }
 
 
   //////////////////////////////

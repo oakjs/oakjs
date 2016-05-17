@@ -136,8 +136,7 @@ export function createPage(options = {}) {
     section = oak.section,    // default to current section
     pageId,                   // id for the page (we'll make one up if necessary)
     data,                     // data object for page with `{ jsxe, script, styles }`
-    position = oak.page && oak.page.position + 1,
-                              // 1-based numeric position within the section, undefined = place after current page
+    position                  // numeric position within the section, undefined = place after current page
     title,                    // title for the page
     prompt = true,            // if true and title is not specified, we'll prompt for page title
     navigate = true,          // if true, we'll navigate to the page after creation
@@ -148,6 +147,9 @@ export function createPage(options = {}) {
   // normalize section
   if (typeof section === "string") section = oak.account.getSection(section);
   if (!section) die(oak, "actions.createPage", [options], "you must specify a section");
+
+  // place after current section by default
+  if (!position && oak.page) position = oak.page.position + 1;
 
   return component._createComponentTransaction({
     parent: section,
@@ -171,7 +173,7 @@ export function duplicatePage(options = {}) {
   let {
     page = oak.page,                // default to current page
     pageId = page && page.pageId,   // default to page's name, duplicatePage will uniquify.
-    position,                       // 1-based numeric position within the section, undefined = place after current page
+    position,                       // numeric position within the section, undefined = place after current page
     title,                          // title for the new page, defaults to same as current page
     prompt,                         // if true and title is not specified, we'll prompt for page title
     navigate,                       // if true, we'll navigate to the page after creation

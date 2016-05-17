@@ -80,7 +80,6 @@ export default class Project extends ComponentController {
   // Create the sectionIndex on demand
   _makeIndex() {
     return new LoadableIndex({
-      useOneBasedNumbering: true,
       itemType: "section",
       loadData: () => {
         return api.loadSectionIndex(this.projectId);

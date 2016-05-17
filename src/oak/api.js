@@ -34,9 +34,6 @@ export default new API({
   // Create a new component (Project, Section, Page)
   // No argument normalization.
   createComponent({ type, path, data, indexData, position }, fetchParams) {
-    // position is 1-based, so subtract 1 if it's a number
-    if (typeof position === "number") position--;
-
     const url = `/api/${type}/${path}/create`;
     const postData = { data, indexData, position };
     const errorMessage = `Error creating ${type} at ${path}`;

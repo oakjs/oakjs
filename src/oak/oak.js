@@ -225,7 +225,7 @@ console.log("oak.forceUpdate()");
   // All known projects.
   get projects() {  return this.account.projects }
 
-  // Get a project by projectId or 1-based numeric index, or by single path string.
+  // Get a project by projectId or numeric index, or by single path string.
   // NOTE: you can pass a page path to this and it'll take just the first bit.
   getProject(projectId) { return this.account.getProject(...arguments) }
 

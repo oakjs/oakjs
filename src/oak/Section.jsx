@@ -87,7 +87,6 @@ export default class Section extends ComponentController {
   // Create the pageIndex on demand.
   _makeIndex() {
     return new LoadableIndex({
-      useOneBasedNumbering: true,
       itemType: "page",
       loadData: () => {
         return api.loadPageIndex(this.path);
