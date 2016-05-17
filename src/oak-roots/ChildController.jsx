@@ -102,7 +102,7 @@ export default class ChildController extends Savable(Loadable()) {
 
   // Return the data to save for the index, only necessary if you're saving in a bundle or something.
   _getIndexData() {
-    return this.childIndex && this.childIndex.getIndexData();
+    return this.childIndex && JSON.stringify(this.childIndex.getIndexData(), undefined, "  ");
   }
 
 }
