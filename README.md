@@ -14,4 +14,4 @@ Oakjs Application Framework client + server.
 
 The application will be served on [http://localhost:3000](http://localhost:3000).
 
-Note that projects are currently being saved within this project -- eventually they'll move to a sub-repo.
+Note that projects are currently being saved within this repo -- eventually they'll move to a sub-repo with a symbolic link.
