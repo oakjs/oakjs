@@ -1,602 +1,583 @@
-<OakPage id="IconAlphabetical" title="Icon-Alphabetical">
-  <PageTitle title="Icons">
+<Oak-OakPage id="IconAlphabetical" title="Icon-Alphabetical" oid="eiXs8gVp">
+  <PageTitle title="Icons" oid="NGYJh5eL">
     An icon is a glyph used to represent something else.
-
-    <Info>
+    <Info oid="Mu1OGwUh">
       Semantic includes a complete port
-      of <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome 4.3</a> designed
-      by <a href="https://twitter.com/davegandy" target="_blank">Dave Gandy</a> for its standard icon set.
+      of
+      <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank" oid="qaQpJRh2">
+        Font Awesome 4.3
+      </a>
+      designed
+      by
+      <a href="https://twitter.com/davegandy" target="_blank" oid="ldv4IERB">
+        Dave Gandy
+      </a>
+      for its standard icon set.
     </Info>
   </PageTitle>
-
-  <PageSection appearance="doubling six column grid" title="A">
-    <IconSample icon="add circle"/>
-    <IconSample icon="add square"/>
-    <IconSample icon="add to cart"/>
-    <IconSample icon="add user"/>
-    <IconSample icon="adjust"/>
-    <IconSample icon="adn"/>
-    <IconSample icon="alarm outline"/>
-    <IconSample icon="alarm slash outline"/>
-    <IconSample icon="alarm slash"/>
-    <IconSample icon="alarm"/>
-    <IconSample icon="align center"/>
-    <IconSample icon="align justify"/>
-    <IconSample icon="align left"/>
-    <IconSample icon="align right"/>
-    <IconSample icon="american express"/>
-    <IconSample icon="anchor"/>
-    <IconSample icon="android"/>
-    <IconSample icon="angellist"/>
-    <IconSample icon="angle double down"/>
-    <IconSample icon="angle double left"/>
-    <IconSample icon="angle double right"/>
-    <IconSample icon="angle double up"/>
-    <IconSample icon="angle down"/>
-    <IconSample icon="angle left"/>
-    <IconSample icon="angle right"/>
-    <IconSample icon="angle up"/>
-    <IconSample icon="announcement"/>
-    <IconSample icon="apple"/>
-    <IconSample icon="archive"/>
-    <IconSample icon="area chart"/>
-    <IconSample icon="arrow circle down"/>
-    <IconSample icon="arrow circle left"/>
-    <IconSample icon="arrow circle outline down"/>
-    <IconSample icon="arrow circle outline left"/>
-    <IconSample icon="arrow circle outline right"/>
-    <IconSample icon="arrow circle outline up"/>
-    <IconSample icon="arrow circle right"/>
-    <IconSample icon="arrow circle up"/>
-    <IconSample icon="arrow down"/>
-    <IconSample icon="arrow left"/>
-    <IconSample icon="arrow right"/>
-    <IconSample icon="arrow up"/>
-    <IconSample icon="asterisk"/>
-    <IconSample icon="at"/>
-    <IconSample icon="attach"/>
+  <PageSection appearance="doubling six column grid" title="A" oid="vHMRnSCK">
+    <IconSample icon="add circle" oid="wLw8hhhY"/>
+    <IconSample icon="add square" oid="b3w7o799"/>
+    <IconSample icon="add to cart" oid="wNil1KU4"/>
+    <IconSample icon="add user" oid="Nc2rY3Id"/>
+    <IconSample icon="adjust" oid="ZDIeM2d5"/>
+    <IconSample icon="adn" oid="DG80yr9b"/>
+    <IconSample icon="alarm outline" oid="e1AtFU1c"/>
+    <IconSample icon="alarm slash outline" oid="QgTa2SQd"/>
+    <IconSample icon="alarm slash" oid="vigU9Nqa"/>
+    <IconSample icon="alarm" oid="m02aJ2wu"/>
+    <IconSample icon="align center" oid="KBZH7c4J"/>
+    <IconSample icon="align justify" oid="NlSpWVIg"/>
+    <IconSample icon="align left" oid="fqrCWJZQ"/>
+    <IconSample icon="align right" oid="AjfZ0w2B"/>
+    <IconSample icon="american express" oid="LdnCWj7M"/>
+    <IconSample icon="anchor" oid="tLpf3TBo"/>
+    <IconSample icon="android" oid="oVVrc2xN"/>
+    <IconSample icon="angellist" oid="RQFylYkH"/>
+    <IconSample icon="angle double down" oid="vucgalc0"/>
+    <IconSample icon="angle double left" oid="b7bqVJoN"/>
+    <IconSample icon="angle double right" oid="J8nkAmgx"/>
+    <IconSample icon="angle double up" oid="dZAt9Xg5"/>
+    <IconSample icon="angle down" oid="f9YXpmv8"/>
+    <IconSample icon="angle left" oid="iayTFFM9"/>
+    <IconSample icon="angle right" oid="eEIipDnx"/>
+    <IconSample icon="angle up" oid="gm2AJtq2"/>
+    <IconSample icon="announcement" oid="KjfO4jM8"/>
+    <IconSample icon="apple" oid="mWJf7kV0"/>
+    <IconSample icon="archive" oid="jBShkj1g"/>
+    <IconSample icon="area chart" oid="Pd3o8Ixa"/>
+    <IconSample icon="arrow circle down" oid="MUoAvIDZ"/>
+    <IconSample icon="arrow circle left" oid="FmubowIf"/>
+    <IconSample icon="arrow circle outline down" oid="j9aZC3hw"/>
+    <IconSample icon="arrow circle outline left" oid="fiSMhLVI"/>
+    <IconSample icon="arrow circle outline right" oid="QxRRPnTs"/>
+    <IconSample icon="arrow circle outline up" oid="V8o7SR9b"/>
+    <IconSample icon="arrow circle right" oid="bWiD6Yqq"/>
+    <IconSample icon="arrow circle up" oid="llHIsTUy"/>
+    <IconSample icon="arrow down" oid="QZfyhNZI"/>
+    <IconSample icon="arrow left" oid="Qn4eC6rL"/>
+    <IconSample icon="arrow right" oid="boaJVi7m"/>
+    <IconSample icon="arrow up" oid="QORI4s0N"/>
+    <IconSample icon="asterisk" oid="vwJlRNuJ"/>
+    <IconSample icon="at" oid="krCFCoBD"/>
+    <IconSample icon="attach" oid="MeMQfKjZ"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="B">
-    <IconSample icon="backward"/>
-    <IconSample icon="ban"/>
-    <IconSample icon="bar chart"/>
-    <IconSample icon="bar"/>
-    <IconSample icon="barcode"/>
-    <IconSample icon="behance square"/>
-    <IconSample icon="behance"/>
-    <IconSample icon="birthday"/>
-    <IconSample icon="bitbucket square"/>
-    <IconSample icon="bitbucket"/>
-    <IconSample icon="bitcoin"/>
-    <IconSample icon="block layout"/>
-    <IconSample icon="bold"/>
-    <IconSample icon="bomb"/>
-    <IconSample icon="book"/>
-    <IconSample icon="bookmark"/>
-    <IconSample icon="browser"/>
-    <IconSample icon="bug"/>
-    <IconSample icon="building outline"/>
-    <IconSample icon="building"/>
-    <IconSample icon="bullseye"/>
-    <IconSample icon="buysellads"/>
+  <PageSection appearance="doubling six column grid" title="B" oid="QlBAgrBv">
+    <IconSample icon="backward" oid="gfsrZLcV"/>
+    <IconSample icon="ban" oid="vcbFqm6n"/>
+    <IconSample icon="bar chart" oid="TyrhHBSw"/>
+    <IconSample icon="bar" oid="dmBPOh37"/>
+    <IconSample icon="barcode" oid="NAeosxHB"/>
+    <IconSample icon="behance square" oid="RfIuB1gP"/>
+    <IconSample icon="behance" oid="UPM5FPQN"/>
+    <IconSample icon="birthday" oid="iu9IySWA"/>
+    <IconSample icon="bitbucket square" oid="p1gXvGRO"/>
+    <IconSample icon="bitbucket" oid="yaFE0foa"/>
+    <IconSample icon="bitcoin" oid="G2tD21xO"/>
+    <IconSample icon="block layout" oid="qrqsfN9o"/>
+    <IconSample icon="bold" oid="iMIraA0h"/>
+    <IconSample icon="bomb" oid="T2122fQD"/>
+    <IconSample icon="book" oid="mcIExmHq"/>
+    <IconSample icon="bookmark" oid="TPYlNQje"/>
+    <IconSample icon="browser" oid="AtJpGTTn"/>
+    <IconSample icon="bug" oid="FfGK28dj"/>
+    <IconSample icon="building outline" oid="kq7aeEvW"/>
+    <IconSample icon="building" oid="PsXTUUsh"/>
+    <IconSample icon="bullseye" oid="RLAVKBh3"/>
+    <IconSample icon="buysellads" oid="yQS7RJ8u"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="C">
-    <IconSample icon="calculator"/>
-    <IconSample icon="calendar outline"/>
-    <IconSample icon="calendar"/>
-    <IconSample icon="call square"/>
-    <IconSample icon="call"/>
-    <IconSample icon="camera retro"/>
-    <IconSample icon="car"/>
-    <IconSample icon="caret down"/>
-    <IconSample icon="caret left"/>
-    <IconSample icon="caret right"/>
-    <IconSample icon="caret up"/>
-    <IconSample icon="certificate"/>
-    <IconSample icon="check circle outline"/>
-    <IconSample icon="check circle"/>
-    <IconSample icon="check square"/>
-    <IconSample icon="checkered flag"/>
-    <IconSample icon="checkmark box"/>
-    <IconSample icon="checkmark"/>
-    <IconSample icon="chevron circle down"/>
-    <IconSample icon="chevron circle left"/>
-    <IconSample icon="chevron circle right"/>
-    <IconSample icon="chevron circle up"/>
-    <IconSample icon="chevron down"/>
-    <IconSample icon="chevron left"/>
-    <IconSample icon="chevron right"/>
-    <IconSample icon="chevron up"/>
-    <IconSample icon="child"/>
-    <IconSample icon="circle notched"/>
-    <IconSample icon="circle thin"/>
-    <IconSample icon="circle"/>
-    <IconSample icon="cloud download"/>
-    <IconSample icon="cloud upload"/>
-    <IconSample icon="cloud"/>
-    <IconSample icon="cocktail"/>
-    <IconSample icon="code"/>
-    <IconSample icon="codepen"/>
-    <IconSample icon="coffee"/>
-    <IconSample icon="columns"/>
-    <IconSample icon="comment outline"/>
-    <IconSample icon="comment"/>
-    <IconSample icon="comments outline"/>
-    <IconSample icon="comments"/>
-    <IconSample icon="compress"/>
-    <IconSample icon="configure"/>
-    <IconSample icon="connectdevelop"/>
-    <IconSample icon="copy"/>
-    <IconSample icon="copyright"/>
-    <IconSample icon="crop"/>
-    <IconSample icon="crosshairs"/>
-    <IconSample icon="css3"/>
-    <IconSample icon="cube"/>
-    <IconSample icon="cubes"/>
-    <IconSample icon="cut"/>
+  <PageSection appearance="doubling six column grid" title="C" oid="N5OAyLvF">
+    <IconSample icon="calculator" oid="u064SJ1L"/>
+    <IconSample icon="calendar outline" oid="hG2T8Njh"/>
+    <IconSample icon="calendar" oid="W4TixPFx"/>
+    <IconSample icon="call square" oid="cBfINsXw"/>
+    <IconSample icon="call" oid="eQfkKsA0"/>
+    <IconSample icon="camera retro" oid="Ms07r6ZB"/>
+    <IconSample icon="car" oid="gNYRi6A0"/>
+    <IconSample icon="caret down" oid="FXHF5Ykw"/>
+    <IconSample icon="caret left" oid="N5Bt4qWU"/>
+    <IconSample icon="caret right" oid="URZXdxpV"/>
+    <IconSample icon="caret up" oid="cp7gypsB"/>
+    <IconSample icon="certificate" oid="Ab3nKdwO"/>
+    <IconSample icon="check circle outline" oid="EhipTVvK"/>
+    <IconSample icon="check circle" oid="nD9ORgmn"/>
+    <IconSample icon="check square" oid="ITgrvxe6"/>
+    <IconSample icon="checkered flag" oid="omfMwg9C"/>
+    <IconSample icon="checkmark box" oid="q9ObrpWE"/>
+    <IconSample icon="checkmark" oid="jJrSWIQF"/>
+    <IconSample icon="chevron circle down" oid="lLr6E9p2"/>
+    <IconSample icon="chevron circle left" oid="NX4YrCZ5"/>
+    <IconSample icon="chevron circle right" oid="bl090dBZ"/>
+    <IconSample icon="chevron circle up" oid="m2kte7Su"/>
+    <IconSample icon="chevron down" oid="spehG1e4"/>
+    <IconSample icon="chevron left" oid="nkwHwOEv"/>
+    <IconSample icon="chevron right" oid="I5xToo1F"/>
+    <IconSample icon="chevron up" oid="RLb865LV"/>
+    <IconSample icon="child" oid="tpx1OCOg"/>
+    <IconSample icon="circle notched" oid="hV2LH65B"/>
+    <IconSample icon="circle thin" oid="vawJsT6O"/>
+    <IconSample icon="circle" oid="BAPqL4pV"/>
+    <IconSample icon="cloud download" oid="karqUkWT"/>
+    <IconSample icon="cloud upload" oid="Q6T6jxyA"/>
+    <IconSample icon="cloud" oid="mo9MSpTj"/>
+    <IconSample icon="cocktail" oid="IyJvu72Z"/>
+    <IconSample icon="code" oid="tmX68VH3"/>
+    <IconSample icon="codepen" oid="fjCEbEBm"/>
+    <IconSample icon="coffee" oid="k8ygRciT"/>
+    <IconSample icon="columns" oid="BB2nkE74"/>
+    <IconSample icon="comment outline" oid="Lx2uUKGP"/>
+    <IconSample icon="comment" oid="KTrWBN1d"/>
+    <IconSample icon="comments outline" oid="kCwfSK12"/>
+    <IconSample icon="comments" oid="k2bogKnq"/>
+    <IconSample icon="compress" oid="Otrc6ApU"/>
+    <IconSample icon="configure" oid="GPPEM3lU"/>
+    <IconSample icon="connectdevelop" oid="tISKUATH"/>
+    <IconSample icon="copy" oid="X3RadCC7"/>
+    <IconSample icon="copyright" oid="J178Fn7v"/>
+    <IconSample icon="crop" oid="NDtjYjIk"/>
+    <IconSample icon="crosshairs" oid="Xf6OnTmt"/>
+    <IconSample icon="css3" oid="cKhOL0uI"/>
+    <IconSample icon="cube" oid="Y4hBEWS7"/>
+    <IconSample icon="cubes" oid="eIj021xk"/>
+    <IconSample icon="cut" oid="h8B1FaJj"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="D">
-    <IconSample icon="dashboard"/>
-    <IconSample icon="dashcube"/>
-    <IconSample icon="database"/>
-    <IconSample icon="delicious"/>
-    <IconSample icon="desktop"/>
-    <IconSample icon="deviantart"/>
-    <IconSample icon="diamond"/>
-    <IconSample icon="digg"/>
-    <IconSample icon="discover"/>
-    <IconSample icon="disk outline"/>
-    <IconSample icon="doctor"/>
-    <IconSample icon="dollar"/>
-    <IconSample icon="download"/>
-    <IconSample icon="dribbble"/>
-    <IconSample icon="dropbox"/>
-    <IconSample icon="dropdown"/>
-    <IconSample icon="drupal"/>
+  <PageSection appearance="doubling six column grid" title="D" oid="T43Hl5An">
+    <IconSample icon="dashboard" oid="yCf7Gvf6"/>
+    <IconSample icon="dashcube" oid="rCfwdRsL"/>
+    <IconSample icon="database" oid="u9c897KV"/>
+    <IconSample icon="delicious" oid="uRNHX9v8"/>
+    <IconSample icon="desktop" oid="rirXaOek"/>
+    <IconSample icon="deviantart" oid="JpMvsjR1"/>
+    <IconSample icon="diamond" oid="SuvoI5Yy"/>
+    <IconSample icon="digg" oid="VgxRSaSe"/>
+    <IconSample icon="discover" oid="BRMsjqMQ"/>
+    <IconSample icon="disk outline" oid="NdAV3P2n"/>
+    <IconSample icon="doctor" oid="HA6TIFT8"/>
+    <IconSample icon="dollar" oid="SZe7Dysi"/>
+    <IconSample icon="download" oid="FBns3QSp"/>
+    <IconSample icon="dribbble" oid="eMgqay6j"/>
+    <IconSample icon="dropbox" oid="NvvhJQJ8"/>
+    <IconSample icon="dropdown" oid="nVLhg3DU"/>
+    <IconSample icon="drupal" oid="MUcRkrv0"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="E">
-    <IconSample icon="edit"/>
-    <IconSample icon="eject"/>
-    <IconSample icon="ellipsis horizontal"/>
-    <IconSample icon="ellipsis vertical"/>
-    <IconSample icon="emergency"/>
-    <IconSample icon="empire"/>
-    <IconSample icon="empty heart"/>
-    <IconSample icon="empty star"/>
-    <IconSample icon="erase"/>
-    <IconSample icon="euro"/>
-    <IconSample icon="exchange"/>
-    <IconSample icon="expand"/>
-    <IconSample icon="external share"/>
-    <IconSample icon="external square"/>
-    <IconSample icon="external"/>
-    <IconSample icon="eyedropper"/>
+  <PageSection appearance="doubling six column grid" title="E" oid="E5dMW2pc">
+    <IconSample icon="edit" oid="f1EYQOSi"/>
+    <IconSample icon="eject" oid="A77vMUUF"/>
+    <IconSample icon="ellipsis horizontal" oid="taLRmFZ2"/>
+    <IconSample icon="ellipsis vertical" oid="wDRCnlys"/>
+    <IconSample icon="emergency" oid="XtMIl9P1"/>
+    <IconSample icon="empire" oid="YPfTvuaN"/>
+    <IconSample icon="empty heart" oid="vw0YY9Nr"/>
+    <IconSample icon="empty star" oid="ZonYm5Mv"/>
+    <IconSample icon="erase" oid="OQXkaS7A"/>
+    <IconSample icon="euro" oid="I7r1nGud"/>
+    <IconSample icon="exchange" oid="OQLv8Vpw"/>
+    <IconSample icon="expand" oid="maFHIG2C"/>
+    <IconSample icon="external share" oid="dvxp8RuJ"/>
+    <IconSample icon="external square" oid="aZdNiogY"/>
+    <IconSample icon="external" oid="YPE0Rpct"/>
+    <IconSample icon="eyedropper" oid="ZCU4mvDX"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="F">
-    <IconSample icon="facebook square"/>
-    <IconSample icon="facebook"/>
-    <IconSample icon="fast backward"/>
-    <IconSample icon="fast forward"/>
-    <IconSample icon="fax"/>
-    <IconSample icon="feed"/>
-    <IconSample icon="female"/>
-    <IconSample icon="file archive outline"/>
-    <IconSample icon="file audio outline"/>
-    <IconSample icon="file code outline"/>
-    <IconSample icon="file excel outline"/>
-    <IconSample icon="file image outline"/>
-    <IconSample icon="file outline"/>
-    <IconSample icon="file pdf outline"/>
-    <IconSample icon="file powerpoint outline"/>
-    <IconSample icon="file text outline"/>
-    <IconSample icon="file text"/>
-    <IconSample icon="file video outline"/>
-    <IconSample icon="file word outline"/>
-    <IconSample icon="file"/>
-    <IconSample icon="film"/>
-    <IconSample icon="filter"/>
-    <IconSample icon="find"/>
-    <IconSample icon="fire extinguisher"/>
-    <IconSample icon="fire"/>
-    <IconSample icon="first aid"/>
-    <IconSample icon="flag outline"/>
-    <IconSample icon="flag"/>
-    <IconSample icon="flag"/>
-    <IconSample icon="flickr"/>
-    <IconSample icon="folder open outline"/>
-    <IconSample icon="folder open"/>
-    <IconSample icon="folder outline"/>
-    <IconSample icon="folder"/>
-    <IconSample icon="font"/>
-    <IconSample icon="food"/>
-    <IconSample icon="fork"/>
-    <IconSample icon="forumbee"/>
-    <IconSample icon="forward mail"/>
-    <IconSample icon="forward"/>
-    <IconSample icon="foursquare"/>
-    <IconSample icon="frown"/>
+  <PageSection appearance="doubling six column grid" title="F" oid="WpoGsm2f">
+    <IconSample icon="facebook square" oid="bZH2GMqZ"/>
+    <IconSample icon="facebook" oid="e8DA0uvx"/>
+    <IconSample icon="fast backward" oid="Xco8PRry"/>
+    <IconSample icon="fast forward" oid="GG0F5Nbo"/>
+    <IconSample icon="fax" oid="wdCWyAc1"/>
+    <IconSample icon="feed" oid="Qk39dkNi"/>
+    <IconSample icon="female" oid="eOVKeHEi"/>
+    <IconSample icon="file archive outline" oid="CqOe8jm8"/>
+    <IconSample icon="file audio outline" oid="Ory6f0xm"/>
+    <IconSample icon="file code outline" oid="Svl5lKFG"/>
+    <IconSample icon="file excel outline" oid="on4fCoPE"/>
+    <IconSample icon="file image outline" oid="NRERURiN"/>
+    <IconSample icon="file outline" oid="o1tZ6tZD"/>
+    <IconSample icon="file pdf outline" oid="u6YSfP6W"/>
+    <IconSample icon="file powerpoint outline" oid="okKQthg8"/>
+    <IconSample icon="file text outline" oid="PvfM0tTj"/>
+    <IconSample icon="file text" oid="okfyethr"/>
+    <IconSample icon="file video outline" oid="rOpEQnDn"/>
+    <IconSample icon="file word outline" oid="gMfoDYUc"/>
+    <IconSample icon="file" oid="iZOtbB2I"/>
+    <IconSample icon="film" oid="yVBytp3q"/>
+    <IconSample icon="filter" oid="yJ1GL0oU"/>
+    <IconSample icon="find" oid="a7mKCmhR"/>
+    <IconSample icon="fire extinguisher" oid="aQnkImHR"/>
+    <IconSample icon="fire" oid="EDLo86xA"/>
+    <IconSample icon="first aid" oid="X8e0e0FA"/>
+    <IconSample icon="flag outline" oid="cudcydb7"/>
+    <IconSample icon="flag" oid="pBA4jm9l"/>
+    <IconSample icon="flag" oid="r7A00t73"/>
+    <IconSample icon="flickr" oid="uX7sb7ut"/>
+    <IconSample icon="folder open outline" oid="ZybKLilN"/>
+    <IconSample icon="folder open" oid="onlSaRrZ"/>
+    <IconSample icon="folder outline" oid="M8u5qS2w"/>
+    <IconSample icon="folder" oid="vKhfrksE"/>
+    <IconSample icon="font" oid="ecqEsT60"/>
+    <IconSample icon="food" oid="BsE7xQXx"/>
+    <IconSample icon="fork" oid="YhQaSW29"/>
+    <IconSample icon="forumbee" oid="H2UdFbZM"/>
+    <IconSample icon="forward mail" oid="Wl5pPomX"/>
+    <IconSample icon="forward" oid="DF3q4bqe"/>
+    <IconSample icon="foursquare" oid="lurOZDSe"/>
+    <IconSample icon="frown" oid="ojHpv4xW"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="G">
-    <IconSample icon="game"/>
-    <IconSample icon="gay"/>
-    <IconSample icon="gift"/>
-    <IconSample icon="git square"/>
-    <IconSample icon="git"/>
-    <IconSample icon="github alternate"/>
-    <IconSample icon="github square"/>
-    <IconSample icon="github"/>
-    <IconSample icon="gittip"/>
-    <IconSample icon="google plus square"/>
-    <IconSample icon="google plus"/>
-    <IconSample icon="google wallet"/>
-    <IconSample icon="google"/>
-    <IconSample icon="grid layout"/>
+  <PageSection appearance="doubling six column grid" title="G" oid="VF5q9MkE">
+    <IconSample icon="game" oid="ZvcoHsf4"/>
+    <IconSample icon="gay" oid="nBKSmCbv"/>
+    <IconSample icon="gift" oid="begSZ4dU"/>
+    <IconSample icon="git square" oid="ruFpQrn3"/>
+    <IconSample icon="git" oid="kQUXuKRo"/>
+    <IconSample icon="github alternate" oid="YQnb6wyr"/>
+    <IconSample icon="github square" oid="oLbdDnBM"/>
+    <IconSample icon="github" oid="bAOqr3mS"/>
+    <IconSample icon="gittip" oid="Cor1woSl"/>
+    <IconSample icon="google plus square" oid="hP2TmA2q"/>
+    <IconSample icon="google plus" oid="S3c9FrfR"/>
+    <IconSample icon="google wallet" oid="u0bnOex9"/>
+    <IconSample icon="google" oid="sDiiHnNg"/>
+    <IconSample icon="grid layout" oid="PtLAUXL0"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="H">
-    <IconSample icon="h"/>
-    <IconSample icon="hacker news"/>
-    <IconSample icon="handicap"/>
-    <IconSample icon="header"/>
-    <IconSample icon="heart"/>
-    <IconSample icon="heartbeat"/>
-    <IconSample icon="help circle"/>
-    <IconSample icon="help"/>
-    <IconSample icon="heterosexual"/>
-    <IconSample icon="hide"/>
-    <IconSample icon="history"/>
-    <IconSample icon="home"/>
-    <IconSample icon="hospital"/>
-    <IconSample icon="html5"/>
+  <PageSection appearance="doubling six column grid" title="H" oid="xgAmyONG">
+    <IconSample icon="h" oid="QLbeZuPB"/>
+    <IconSample icon="hacker news" oid="j8eCLXh1"/>
+    <IconSample icon="handicap" oid="d7gm0ZjI"/>
+    <IconSample icon="header" oid="PYawO6DW"/>
+    <IconSample icon="heart" oid="fkODhcG1"/>
+    <IconSample icon="heartbeat" oid="vj4C2hod"/>
+    <IconSample icon="help circle" oid="O1pJhE3b"/>
+    <IconSample icon="help" oid="Pkq14FkZ"/>
+    <IconSample icon="heterosexual" oid="cWVbrsjD"/>
+    <IconSample icon="hide" oid="WxETkhDf"/>
+    <IconSample icon="history" oid="HNfE0ByI"/>
+    <IconSample icon="home" oid="FMRarJYx"/>
+    <IconSample icon="hospital" oid="I4e0f2Ui"/>
+    <IconSample icon="html5" oid="jCuTOuSu"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="I">
-    <IconSample icon="idea"/>
-    <IconSample icon="in cart"/>
-    <IconSample icon="inbox"/>
-    <IconSample icon="indent"/>
-    <IconSample icon="info circle"/>
-    <IconSample icon="info"/>
-    <IconSample icon="instagram"/>
-    <IconSample icon="intergender"/>
-    <IconSample icon="ioxhost"/>
-    <IconSample icon="italic"/>
+  <PageSection appearance="doubling six column grid" title="I" oid="DRL7YQBA">
+    <IconSample icon="idea" oid="liwU9OUJ"/>
+    <IconSample icon="in cart" oid="WtvIgaM4"/>
+    <IconSample icon="inbox" oid="Ry1CLxf4"/>
+    <IconSample icon="indent" oid="kWndb403"/>
+    <IconSample icon="info circle" oid="nKnTGnrq"/>
+    <IconSample icon="info" oid="uEl5RRAp"/>
+    <IconSample icon="instagram" oid="Uwuf0m5g"/>
+    <IconSample icon="intergender" oid="OmNjpbgQ"/>
+    <IconSample icon="ioxhost" oid="kkplcuMy"/>
+    <IconSample icon="italic" oid="Z9X2o4gD"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="J">
-    <IconSample icon="joomla"/>
-    <IconSample icon="jsfiddle"/>
+  <PageSection appearance="doubling six column grid" title="J" oid="k5tNufgu">
+    <IconSample icon="joomla" oid="E9TnkLpA"/>
+    <IconSample icon="jsfiddle" oid="nXT2pSne"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="K">
-    <IconSample icon="keyboard"/>
+  <PageSection appearance="doubling six column grid" title="K" oid="gdxsEYJ6">
+    <IconSample icon="keyboard" oid="c55rA4ju"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="L">
-    <IconSample icon="lab"/>
-    <IconSample icon="laptop"/>
-    <IconSample icon="lastfm square"/>
-    <IconSample icon="lastfm"/>
-    <IconSample icon="leaf"/>
-    <IconSample icon="leanpub"/>
-    <IconSample icon="legal"/>
-    <IconSample icon="lemon"/>
-    <IconSample icon="lesbian"/>
-    <IconSample icon="level down"/>
-    <IconSample icon="level up"/>
-    <IconSample icon="life ring"/>
-    <IconSample icon="lightning"/>
-    <IconSample icon="line chart"/>
-    <IconSample icon="linkedin square"/>
-    <IconSample icon="linkedin"/>
-    <IconSample icon="linkify"/>
-    <IconSample icon="linux"/>
-    <IconSample icon="lira"/>
-    <IconSample icon="list layout"/>
-    <IconSample icon="list"/>
-    <IconSample icon="location arrow"/>
-    <IconSample icon="lock"/>
-    <IconSample icon="long arrow down"/>
-    <IconSample icon="long arrow left"/>
-    <IconSample icon="long arrow right"/>
-    <IconSample icon="long arrow up"/>
+  <PageSection appearance="doubling six column grid" title="L" oid="RimWJJeE">
+    <IconSample icon="lab" oid="sidSNg66"/>
+    <IconSample icon="laptop" oid="ITL7KOV4"/>
+    <IconSample icon="lastfm square" oid="lWqGLmeZ"/>
+    <IconSample icon="lastfm" oid="mUMYKAeZ"/>
+    <IconSample icon="leaf" oid="w2OpH2e9"/>
+    <IconSample icon="leanpub" oid="wN6gSvfq"/>
+    <IconSample icon="legal" oid="Xuhdunly"/>
+    <IconSample icon="lemon" oid="ks0Y12i0"/>
+    <IconSample icon="lesbian" oid="mC0Yc3gp"/>
+    <IconSample icon="level down" oid="oTuavvcw"/>
+    <IconSample icon="level up" oid="gZS6kKSQ"/>
+    <IconSample icon="life ring" oid="vrTodu7e"/>
+    <IconSample icon="lightning" oid="KIRBGO61"/>
+    <IconSample icon="line chart" oid="WIuDj5bm"/>
+    <IconSample icon="linkedin square" oid="hQQW4X7F"/>
+    <IconSample icon="linkedin" oid="F5tjfKdq"/>
+    <IconSample icon="linkify" oid="bhLoQFLX"/>
+    <IconSample icon="linux" oid="hOGVcSNJ"/>
+    <IconSample icon="lira" oid="FQUvQxCM"/>
+    <IconSample icon="list layout" oid="HZ4aRxck"/>
+    <IconSample icon="list" oid="dR3q3YQW"/>
+    <IconSample icon="location arrow" oid="N1TKYiJD"/>
+    <IconSample icon="lock" oid="Uup2d2mv"/>
+    <IconSample icon="long arrow down" oid="YfaWuSF7"/>
+    <IconSample icon="long arrow left" oid="m9gpE6d3"/>
+    <IconSample icon="long arrow right" oid="jyd4bif5"/>
+    <IconSample icon="long arrow up" oid="q8MFkrlr"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="M">
-    <IconSample icon="magnet"/>
-    <IconSample icon="mail outline"/>
-    <IconSample icon="mail square"/>
-    <IconSample icon="mail"/>
-    <IconSample icon="male"/>
-    <IconSample icon="man"/>
-    <IconSample icon="map"/>
-    <IconSample icon="marker"/>
-    <IconSample icon="mastercard"/>
-    <IconSample icon="maxcdn"/>
-    <IconSample icon="maximize"/>
-    <IconSample icon="meanpath"/>
-    <IconSample icon="medium"/>
-    <IconSample icon="meh"/>
-    <IconSample icon="military"/>
-    <IconSample icon="minus circle"/>
-    <IconSample icon="minus square outline"/>
-    <IconSample icon="minus square"/>
-    <IconSample icon="minus"/>
-    <IconSample icon="mobile"/>
-    <IconSample icon="money"/>
-    <IconSample icon="moon"/>
-    <IconSample icon="move"/>
-    <IconSample icon="music"/>
-    <IconSample icon="mute"/>
+  <PageSection appearance="doubling six column grid" title="M" oid="pEcRFRMe">
+    <IconSample icon="magnet" oid="g81v3vSM"/>
+    <IconSample icon="mail outline" oid="KRcUxuby"/>
+    <IconSample icon="mail square" oid="drR9f9Pp"/>
+    <IconSample icon="mail" oid="OM1uydjg"/>
+    <IconSample icon="male" oid="j4sI9fgA"/>
+    <IconSample icon="man" oid="cUHmtGD0"/>
+    <IconSample icon="map" oid="rfm44mQm"/>
+    <IconSample icon="marker" oid="DBmxtUd4"/>
+    <IconSample icon="mastercard" oid="eV2YnuP1"/>
+    <IconSample icon="maxcdn" oid="QyGdcF73"/>
+    <IconSample icon="maximize" oid="oEqyNcGP"/>
+    <IconSample icon="meanpath" oid="X5exX8kq"/>
+    <IconSample icon="medium" oid="fmPELIYO"/>
+    <IconSample icon="meh" oid="bkJpxTcb"/>
+    <IconSample icon="military" oid="ZMfWN93r"/>
+    <IconSample icon="minus circle" oid="J6pVTUMB"/>
+    <IconSample icon="minus square outline" oid="U6PPf18r"/>
+    <IconSample icon="minus square" oid="Gn4oW95L"/>
+    <IconSample icon="minus" oid="qP1HWb1d"/>
+    <IconSample icon="mobile" oid="ZckYfH6G"/>
+    <IconSample icon="money" oid="mrZs9BZO"/>
+    <IconSample icon="moon" oid="EAGyaFNM"/>
+    <IconSample icon="move" oid="QkvVZwSR"/>
+    <IconSample icon="music" oid="pHBN8xcD"/>
+    <IconSample icon="mute" oid="SmJ99i0R"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="N">
-    <IconSample icon="neuter"/>
-    <IconSample icon="newspaper"/>
-    <IconSample icon="non binary transgender"/>
+  <PageSection appearance="doubling six column grid" title="N" oid="NA9aVcVi">
+    <IconSample icon="neuter" oid="bbcrmDpQ"/>
+    <IconSample icon="newspaper" oid="hBI8h16J"/>
+    <IconSample icon="non binary transgender" oid="wpQjMSbi"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="O">
-    <IconSample icon="openid"/>
-    <IconSample icon="options"/>
-    <IconSample icon="ordered list"/>
-    <IconSample icon="other gender horizontal"/>
-    <IconSample icon="other gender vertical"/>
-    <IconSample icon="other gender"/>
-    <IconSample icon="outdent"/>
+  <PageSection appearance="doubling six column grid" title="O" oid="C23cuxTD">
+    <IconSample icon="openid" oid="RFxwVeFa"/>
+    <IconSample icon="options" oid="JbVeeqVQ"/>
+    <IconSample icon="ordered list" oid="dD842WsM"/>
+    <IconSample icon="other gender horizontal" oid="PnK5K86U"/>
+    <IconSample icon="other gender vertical" oid="MZygYvOK"/>
+    <IconSample icon="other gender" oid="txfySISU"/>
+    <IconSample icon="outdent" oid="BN3W11w3"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="P">
-    <IconSample icon="pagelines"/>
-    <IconSample icon="paint brush"/>
-    <IconSample icon="paragraph"/>
-    <IconSample icon="paste"/>
-    <IconSample icon="pause"/>
-    <IconSample icon="paw"/>
-    <IconSample icon="payment"/>
-    <IconSample icon="paypal card"/>
-    <IconSample icon="paypal"/>
-    <IconSample icon="phone square"/>
-    <IconSample icon="phone"/>
-    <IconSample icon="photo"/>
-    <IconSample icon="pie chart"/>
-    <IconSample icon="pied piper alternate"/>
-    <IconSample icon="pied piper"/>
-    <IconSample icon="pin"/>
-    <IconSample icon="pinterest square"/>
-    <IconSample icon="pinterest"/>
-    <IconSample icon="plane"/>
-    <IconSample icon="play"/>
-    <IconSample icon="plug"/>
-    <IconSample icon="plus square outline"/>
-    <IconSample icon="plus"/>
-    <IconSample icon="pointing down"/>
-    <IconSample icon="pointing left"/>
-    <IconSample icon="pointing right"/>
-    <IconSample icon="pointing up"/>
-    <IconSample icon="pound"/>
-    <IconSample icon="power"/>
-    <IconSample icon="print"/>
-    <IconSample icon="privacy"/>
-    <IconSample icon="protect"/>
-    <IconSample icon="puzzle"/>
+  <PageSection appearance="doubling six column grid" title="P" oid="CEjBrSH0">
+    <IconSample icon="pagelines" oid="aHWZPvqo"/>
+    <IconSample icon="paint brush" oid="jmvuEi4f"/>
+    <IconSample icon="paragraph" oid="pEKwqWXU"/>
+    <IconSample icon="paste" oid="FDVrXevm"/>
+    <IconSample icon="pause" oid="MhLxHXGt"/>
+    <IconSample icon="paw" oid="mXmhuGxH"/>
+    <IconSample icon="payment" oid="yGk4CcfP"/>
+    <IconSample icon="paypal card" oid="J9wk5RBL"/>
+    <IconSample icon="paypal" oid="MBJKtqWu"/>
+    <IconSample icon="phone square" oid="aTf5Y0Y7"/>
+    <IconSample icon="phone" oid="ZEElvSqp"/>
+    <IconSample icon="photo" oid="s2AC0Lbe"/>
+    <IconSample icon="pie chart" oid="BBhXIq1F"/>
+    <IconSample icon="pied piper alternate" oid="qhnN3FLh"/>
+    <IconSample icon="pied piper" oid="t4OrO7be"/>
+    <IconSample icon="pin" oid="r0TfKb8h"/>
+    <IconSample icon="pinterest square" oid="HsIrxBG5"/>
+    <IconSample icon="pinterest" oid="PjmRdNEM"/>
+    <IconSample icon="plane" oid="HccPdhcg"/>
+    <IconSample icon="play" oid="X7nfDE7V"/>
+    <IconSample icon="plug" oid="t9nWw5Yl"/>
+    <IconSample icon="plus square outline" oid="DU4RqEvd"/>
+    <IconSample icon="plus" oid="VLtLy5kH"/>
+    <IconSample icon="pointing down" oid="GfwTEVpW"/>
+    <IconSample icon="pointing left" oid="iW0gKRyd"/>
+    <IconSample icon="pointing right" oid="PL2OqPYs"/>
+    <IconSample icon="pointing up" oid="ypEm5DOg"/>
+    <IconSample icon="pound" oid="uJmCTcKt"/>
+    <IconSample icon="power" oid="FjOP4vkD"/>
+    <IconSample icon="print" oid="tc0cLMrZ"/>
+    <IconSample icon="privacy" oid="nDPLOfXf"/>
+    <IconSample icon="protect" oid="dwxVB7dm"/>
+    <IconSample icon="puzzle" oid="rMT45Fv4"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="Q">
-    <IconSample icon="qq"/>
-    <IconSample icon="qrcode"/>
-    <IconSample icon="quote left"/>
-    <IconSample icon="quote right"/>
+  <PageSection appearance="doubling six column grid" title="Q" oid="aTvZdqfy">
+    <IconSample icon="qq" oid="HSeOVtht"/>
+    <IconSample icon="qrcode" oid="J1Yx7yAE"/>
+    <IconSample icon="quote left" oid="a8y0eaTt"/>
+    <IconSample icon="quote right" oid="qJaKAx6a"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="R">
-    <IconSample icon="radio"/>
-    <IconSample icon="rain"/>
-    <IconSample icon="random"/>
-    <IconSample icon="rebel"/>
-    <IconSample icon="record"/>
-    <IconSample icon="recycle"/>
-    <IconSample icon="reddit square"/>
-    <IconSample icon="reddit"/>
-    <IconSample icon="refresh"/>
-    <IconSample icon="remove bookmark"/>
-    <IconSample icon="remove circle outline"/>
-    <IconSample icon="remove circle"/>
-    <IconSample icon="remove user"/>
-    <IconSample icon="remove"/>
-    <IconSample icon="renren"/>
-    <IconSample icon="repeat"/>
-    <IconSample icon="reply all"/>
-    <IconSample icon="reply"/>
-    <IconSample icon="resize horizontal"/>
-    <IconSample icon="resize vertical"/>
-    <IconSample icon="retweet"/>
-    <IconSample icon="road"/>
-    <IconSample icon="rocket"/>
-    <IconSample icon="rss square"/>
-    <IconSample icon="rss"/>
-    <IconSample icon="ruble"/>
-    <IconSample icon="rupee"/>
+  <PageSection appearance="doubling six column grid" title="R" oid="mlDRxkd0">
+    <IconSample icon="radio" oid="S73tA7RL"/>
+    <IconSample icon="rain" oid="hEMwcdAq"/>
+    <IconSample icon="random" oid="xfVuhcha"/>
+    <IconSample icon="rebel" oid="xQceg00n"/>
+    <IconSample icon="record" oid="YAXRfTf1"/>
+    <IconSample icon="recycle" oid="eov4TDsc"/>
+    <IconSample icon="reddit square" oid="kaPDSFM8"/>
+    <IconSample icon="reddit" oid="bDLIbwXd"/>
+    <IconSample icon="refresh" oid="ilW8lfTg"/>
+    <IconSample icon="remove bookmark" oid="knyrX2rI"/>
+    <IconSample icon="remove circle outline" oid="JEH8unBI"/>
+    <IconSample icon="remove circle" oid="MObHi65r"/>
+    <IconSample icon="remove user" oid="XfvOCUhN"/>
+    <IconSample icon="remove" oid="aQmlhtsp"/>
+    <IconSample icon="renren" oid="ZSVBv5LX"/>
+    <IconSample icon="repeat" oid="TN6YqJBJ"/>
+    <IconSample icon="reply all" oid="WUeEQ2D3"/>
+    <IconSample icon="reply" oid="yACCipyb"/>
+    <IconSample icon="resize horizontal" oid="ddJUyu0P"/>
+    <IconSample icon="resize vertical" oid="eHGOlMqD"/>
+    <IconSample icon="retweet" oid="AbJV9g0j"/>
+    <IconSample icon="road" oid="KOrkpVB2"/>
+    <IconSample icon="rocket" oid="JE5wAAyn"/>
+    <IconSample icon="rss square" oid="EbCLMbZT"/>
+    <IconSample icon="rss" oid="s5vLB1lA"/>
+    <IconSample icon="ruble" oid="Mnm8252X"/>
+    <IconSample icon="rupee" oid="f0ROLUA7"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="S">
-    <IconSample icon="save"/>
-    <IconSample icon="search"/>
-    <IconSample icon="selected radio"/>
-    <IconSample icon="sellsy"/>
-    <IconSample icon="send outline"/>
-    <IconSample icon="send"/>
-    <IconSample icon="server"/>
-    <IconSample icon="setting"/>
-    <IconSample icon="settings"/>
-    <IconSample icon="share alternate square"/>
-    <IconSample icon="share alternate"/>
-    <IconSample icon="share square"/>
-    <IconSample icon="share"/>
-    <IconSample icon="shekel"/>
-    <IconSample icon="shipping"/>
-    <IconSample icon="shirtsinbulk"/>
-    <IconSample icon="shop"/>
-    <IconSample icon="sidebar"/>
-    <IconSample icon="sign in"/>
-    <IconSample icon="sign out"/>
-    <IconSample icon="signal"/>
-    <IconSample icon="simplybuilt"/>
-    <IconSample icon="sitemap"/>
-    <IconSample icon="skyatlas"/>
-    <IconSample icon="skype"/>
-    <IconSample icon="slack"/>
-    <IconSample icon="slideshare"/>
-    <IconSample icon="smile"/>
-    <IconSample icon="soccer"/>
-    <IconSample icon="sort alphabet ascending"/>
-    <IconSample icon="sort alphabet descending"/>
-    <IconSample icon="sort ascending"/>
-    <IconSample icon="sort content ascending"/>
-    <IconSample icon="sort content descending"/>
-    <IconSample icon="sort descending"/>
-    <IconSample icon="sort numeric ascending"/>
-    <IconSample icon="sort numeric descending"/>
-    <IconSample icon="sort"/>
-    <IconSample icon="sound"/>
-    <IconSample icon="soundcloud"/>
-    <IconSample icon="space shuttle"/>
-    <IconSample icon="spinner"/>
-    <IconSample icon="spoon"/>
-    <IconSample icon="spotify"/>
-    <IconSample icon="spy"/>
-    <IconSample icon="square outline"/>
-    <IconSample icon="square"/>
-    <IconSample icon="stack exchange"/>
-    <IconSample icon="stack overflow"/>
-    <IconSample icon="star half empty"/>
-    <IconSample icon="star half"/>
-    <IconSample icon="star"/>
-    <IconSample icon="steam square"/>
-    <IconSample icon="steam"/>
-    <IconSample icon="step backward"/>
-    <IconSample icon="step forward"/>
-    <IconSample icon="stop"/>
-    <IconSample icon="strikethrough"/>
-    <IconSample icon="stripe"/>
-    <IconSample icon="student"/>
-    <IconSample icon="stumbleupon circle"/>
-    <IconSample icon="stumbleupon"/>
-    <IconSample icon="subscript"/>
-    <IconSample icon="suitcase"/>
-    <IconSample icon="sun"/>
-    <IconSample icon="superscript"/>
+  <PageSection appearance="doubling six column grid" title="S" oid="HNV5HwY5">
+    <IconSample icon="save" oid="JWQeeIMl"/>
+    <IconSample icon="search" oid="qTs7tUc9"/>
+    <IconSample icon="selected radio" oid="tsnHvbus"/>
+    <IconSample icon="sellsy" oid="cQKgWFWX"/>
+    <IconSample icon="send outline" oid="OapDGIKq"/>
+    <IconSample icon="send" oid="j3Ba95gg"/>
+    <IconSample icon="server" oid="cnQVinXn"/>
+    <IconSample icon="setting" oid="oIMQdjX6"/>
+    <IconSample icon="settings" oid="cfXUSHRw"/>
+    <IconSample icon="share alternate square" oid="BxoBLiKq"/>
+    <IconSample icon="share alternate" oid="BCaJVQuu"/>
+    <IconSample icon="share square" oid="LibvbvCM"/>
+    <IconSample icon="share" oid="KrIdUNgS"/>
+    <IconSample icon="shekel" oid="Q1hhMUTp"/>
+    <IconSample icon="shipping" oid="bxspAX8j"/>
+    <IconSample icon="shirtsinbulk" oid="tBkXuMkR"/>
+    <IconSample icon="shop" oid="yOgwFPVb"/>
+    <IconSample icon="sidebar" oid="SOwhQyyt"/>
+    <IconSample icon="sign in" oid="WAAAJZUi"/>
+    <IconSample icon="sign out" oid="A3l8ED5H"/>
+    <IconSample icon="signal" oid="LHh63dOH"/>
+    <IconSample icon="simplybuilt" oid="RTaKZPhV"/>
+    <IconSample icon="sitemap" oid="y0oi9b9a"/>
+    <IconSample icon="skyatlas" oid="HUYY7ftv"/>
+    <IconSample icon="skype" oid="fAlM13wq"/>
+    <IconSample icon="slack" oid="w8jqBL3C"/>
+    <IconSample icon="slideshare" oid="DdSQ9Y4M"/>
+    <IconSample icon="smile" oid="Gr8mvPLs"/>
+    <IconSample icon="soccer" oid="yNUV52h9"/>
+    <IconSample icon="sort alphabet ascending" oid="bKGUn64b"/>
+    <IconSample icon="sort alphabet descending" oid="AvlOSAqx"/>
+    <IconSample icon="sort ascending" oid="btkFxpd0"/>
+    <IconSample icon="sort content ascending" oid="t03AGSud"/>
+    <IconSample icon="sort content descending" oid="uYAstajh"/>
+    <IconSample icon="sort descending" oid="AutjomlR"/>
+    <IconSample icon="sort numeric ascending" oid="cT7gDPHC"/>
+    <IconSample icon="sort numeric descending" oid="ugI1oDxn"/>
+    <IconSample icon="sort" oid="XMEcfJVu"/>
+    <IconSample icon="sound" oid="p6CwM9gy"/>
+    <IconSample icon="soundcloud" oid="vSRKLZ0J"/>
+    <IconSample icon="space shuttle" oid="Ev7BMZPN"/>
+    <IconSample icon="spinner" oid="QWeSj3b9"/>
+    <IconSample icon="spoon" oid="WGosKhJV"/>
+    <IconSample icon="spotify" oid="XZNt1ypH"/>
+    <IconSample icon="spy" oid="PyBnrOYv"/>
+    <IconSample icon="square outline" oid="lKkTP2Zg"/>
+    <IconSample icon="square" oid="B4MMDRx0"/>
+    <IconSample icon="stack exchange" oid="fk8kxeov"/>
+    <IconSample icon="stack overflow" oid="RTioZegf"/>
+    <IconSample icon="star half empty" oid="f2x977Op"/>
+    <IconSample icon="star half" oid="DEW5xqaG"/>
+    <IconSample icon="star" oid="bd9QPOEM"/>
+    <IconSample icon="steam square" oid="hLien3TM"/>
+    <IconSample icon="steam" oid="XM788CKt"/>
+    <IconSample icon="step backward" oid="uQNbYh0M"/>
+    <IconSample icon="step forward" oid="K06i9wtC"/>
+    <IconSample icon="stop" oid="cgt6x7dy"/>
+    <IconSample icon="strikethrough" oid="B2m7dR0Q"/>
+    <IconSample icon="stripe" oid="FRwXdoIi"/>
+    <IconSample icon="student" oid="w3A1M06M"/>
+    <IconSample icon="stumbleupon circle" oid="n8mlxopO"/>
+    <IconSample icon="stumbleupon" oid="EiiCvmN9"/>
+    <IconSample icon="subscript" oid="t6BJPUAE"/>
+    <IconSample icon="suitcase" oid="r7AYGMj3"/>
+    <IconSample icon="sun" oid="RFIScbmR"/>
+    <IconSample icon="superscript" oid="WcqxRrMT"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="T">
-    <IconSample icon="table"/>
-    <IconSample icon="tablet"/>
-    <IconSample icon="tag"/>
-    <IconSample icon="tags"/>
-    <IconSample icon="tasks"/>
-    <IconSample icon="taxi"/>
-    <IconSample icon="tencent weibo"/>
-    <IconSample icon="terminal"/>
-    <IconSample icon="text height"/>
-    <IconSample icon="text telephone"/>
-    <IconSample icon="text width"/>
-    <IconSample icon="theme"/>
-    <IconSample icon="thumbs down"/>
-    <IconSample icon="thumbs outline down"/>
-    <IconSample icon="thumbs outline up"/>
-    <IconSample icon="thumbs up"/>
-    <IconSample icon="ticket"/>
-    <IconSample icon="toggle down"/>
-    <IconSample icon="toggle left"/>
-    <IconSample icon="toggle off"/>
-    <IconSample icon="toggle on"/>
-    <IconSample icon="toggle right"/>
-    <IconSample icon="toggle up"/>
-    <IconSample icon="transgender"/>
-    <IconSample icon="translate"/>
-    <IconSample icon="trash outline"/>
-    <IconSample icon="trash"/>
-    <IconSample icon="travel"/>
-    <IconSample icon="treatment"/>
-    <IconSample icon="tree"/>
-    <IconSample icon="trello"/>
-    <IconSample icon="trophy"/>
-    <IconSample icon="tumblr square"/>
-    <IconSample icon="tumblr"/>
-    <IconSample icon="twitch"/>
-    <IconSample icon="twitter square"/>
-    <IconSample icon="twitter"/>
+  <PageSection appearance="doubling six column grid" title="T" oid="X2Q7pphH">
+    <IconSample icon="table" oid="E2PtCDDT"/>
+    <IconSample icon="tablet" oid="VrnX1Xo4"/>
+    <IconSample icon="tag" oid="D8OP0poa"/>
+    <IconSample icon="tags" oid="RdpfFWqe"/>
+    <IconSample icon="tasks" oid="yH2qIF03"/>
+    <IconSample icon="taxi" oid="XN18q3GW"/>
+    <IconSample icon="tencent weibo" oid="fu64XkXd"/>
+    <IconSample icon="terminal" oid="oYDC4bnf"/>
+    <IconSample icon="text height" oid="Hum51LhB"/>
+    <IconSample icon="text telephone" oid="WBWxunoC"/>
+    <IconSample icon="text width" oid="iGg3aEUl"/>
+    <IconSample icon="theme" oid="XWaplsqq"/>
+    <IconSample icon="thumbs down" oid="tAGanjDv"/>
+    <IconSample icon="thumbs outline down" oid="nAnXqbrw"/>
+    <IconSample icon="thumbs outline up" oid="WaIo7p1j"/>
+    <IconSample icon="thumbs up" oid="CnqReqcx"/>
+    <IconSample icon="ticket" oid="tIp6V4Rt"/>
+    <IconSample icon="toggle down" oid="UF2bLdyo"/>
+    <IconSample icon="toggle left" oid="tlgVIsFZ"/>
+    <IconSample icon="toggle off" oid="uNcvfYSC"/>
+    <IconSample icon="toggle on" oid="F75Zgjx8"/>
+    <IconSample icon="toggle right" oid="MdvjCZSw"/>
+    <IconSample icon="toggle up" oid="AcP3F6MU"/>
+    <IconSample icon="transgender" oid="Ox4BQ2IX"/>
+    <IconSample icon="translate" oid="vureH96x"/>
+    <IconSample icon="trash outline" oid="YrYYrr5r"/>
+    <IconSample icon="trash" oid="uivfgqfb"/>
+    <IconSample icon="travel" oid="t6SZGR8u"/>
+    <IconSample icon="treatment" oid="e1SpFGWk"/>
+    <IconSample icon="tree" oid="Y4HFZui3"/>
+    <IconSample icon="trello" oid="cwKJG9Xr"/>
+    <IconSample icon="trophy" oid="YIQ3XgSN"/>
+    <IconSample icon="tumblr square" oid="vORjAq6y"/>
+    <IconSample icon="tumblr" oid="C0rSmMci"/>
+    <IconSample icon="twitch" oid="umrZ0Nku"/>
+    <IconSample icon="twitter square" oid="HBOIyIEP"/>
+    <IconSample icon="twitter" oid="u8RSwaB3"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="U">
-    <IconSample icon="underline"/>
-    <IconSample icon="undo"/>
-    <IconSample icon="unhide"/>
-    <IconSample icon="university"/>
-    <IconSample icon="unlink"/>
-    <IconSample icon="unlock alternate"/>
-    <IconSample icon="unlock"/>
-    <IconSample icon="unmute"/>
-    <IconSample icon="unordered list"/>
-    <IconSample icon="upload"/>
-    <IconSample icon="user"/>
-    <IconSample icon="users"/>
+  <PageSection appearance="doubling six column grid" title="U" oid="jlh5Mv20">
+    <IconSample icon="underline" oid="FSVXkSEb"/>
+    <IconSample icon="undo" oid="UZ2ItmvT"/>
+    <IconSample icon="unhide" oid="IWL4IhU8"/>
+    <IconSample icon="university" oid="F9eciZdW"/>
+    <IconSample icon="unlink" oid="YTYs1QdM"/>
+    <IconSample icon="unlock alternate" oid="dQhMlmRk"/>
+    <IconSample icon="unlock" oid="An2Pm3lW"/>
+    <IconSample icon="unmute" oid="GLRAYwuD"/>
+    <IconSample icon="unordered list" oid="pLky2Gup"/>
+    <IconSample icon="upload" oid="otYD8l36"/>
+    <IconSample icon="user" oid="RYdBIfs0"/>
+    <IconSample icon="users" oid="w3FkFITU"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="V">
-    <IconSample icon="viacoin"/>
-    <IconSample icon="video play outline"/>
-    <IconSample icon="video play"/>
-    <IconSample icon="vimeo"/>
-    <IconSample icon="vine"/>
-    <IconSample icon="visa"/>
-    <IconSample icon="vk"/>
-    <IconSample icon="volume down"/>
-    <IconSample icon="volume off"/>
-    <IconSample icon="volume up"/>
+  <PageSection appearance="doubling six column grid" title="V" oid="by2c0Fya">
+    <IconSample icon="viacoin" oid="mCEPTMlQ"/>
+    <IconSample icon="video play outline" oid="jCpivDnZ"/>
+    <IconSample icon="video play" oid="K4OHA5iQ"/>
+    <IconSample icon="vimeo" oid="Cku28myx"/>
+    <IconSample icon="vine" oid="inKkuLfP"/>
+    <IconSample icon="visa" oid="xU0n2Jav"/>
+    <IconSample icon="vk" oid="bNs2FQXe"/>
+    <IconSample icon="volume down" oid="PHYWaCF7"/>
+    <IconSample icon="volume off" oid="SaAoiygH"/>
+    <IconSample icon="volume up" oid="amdZIs9C"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="W">
-    <IconSample icon="wait"/>
-    <IconSample icon="warning circle"/>
-    <IconSample icon="warning sign"/>
-    <IconSample icon="warning"/>
-    <IconSample icon="wechat"/>
-    <IconSample icon="weibo"/>
-    <IconSample icon="whatsapp"/>
-    <IconSample icon="wifi"/>
-    <IconSample icon="windows"/>
-    <IconSample icon="wizard"/>
-    <IconSample icon="woman"/>
-    <IconSample icon="won"/>
-    <IconSample icon="wordpress"/>
-    <IconSample icon="world"/>
-    <IconSample icon="write square"/>
-    <IconSample icon="write"/>
-    <IconSample icon="xing square"/>
+  <PageSection appearance="doubling six column grid" title="W" oid="FiGvHW76">
+    <IconSample icon="wait" oid="rrPipYTC"/>
+    <IconSample icon="warning circle" oid="dTiuLseI"/>
+    <IconSample icon="warning sign" oid="SWaFwscG"/>
+    <IconSample icon="warning" oid="AP5xQB79"/>
+    <IconSample icon="wechat" oid="sPnbqWH6"/>
+    <IconSample icon="weibo" oid="aoGlAFG6"/>
+    <IconSample icon="whatsapp" oid="TJy4ZBYF"/>
+    <IconSample icon="wifi" oid="sEd2HCMA"/>
+    <IconSample icon="windows" oid="nQ4uEioX"/>
+    <IconSample icon="wizard" oid="grDKNb2E"/>
+    <IconSample icon="woman" oid="hE08tgpt"/>
+    <IconSample icon="won" oid="LdhkCRvi"/>
+    <IconSample icon="wordpress" oid="WQvRmQa0"/>
+    <IconSample icon="world" oid="wfOOnXR0"/>
+    <IconSample icon="write square" oid="swIZ7eaD"/>
+    <IconSample icon="write" oid="ZXOHK1bx"/>
+    <IconSample icon="xing square" oid="IUM4dR2x"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="X">
-    <IconSample icon="xing"/>
+  <PageSection appearance="doubling six column grid" title="X" oid="m5w4kmVC">
+    <IconSample icon="xing" oid="kDnKsfj3"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="Y">
-    <IconSample icon="yahoo"/>
-    <IconSample icon="yelp"/>
-    <IconSample icon="yen"/>
-    <IconSample icon="youtube play"/>
-    <IconSample icon="youtube square"/>
-    <IconSample icon="youtube"/>
+  <PageSection appearance="doubling six column grid" title="Y" oid="k21tK1Nn">
+    <IconSample icon="yahoo" oid="kSxuYrxy"/>
+    <IconSample icon="yelp" oid="WRErlxng"/>
+    <IconSample icon="yen" oid="CQS3m6nY"/>
+    <IconSample icon="youtube play" oid="jopSv4wO"/>
+    <IconSample icon="youtube square" oid="WNWorYJJ"/>
+    <IconSample icon="youtube" oid="eQ7wZeFR"/>
   </PageSection>
-
-  <PageSection appearance="doubling six column grid" title="Z">
-    <IconSample icon="zoom out"/>
-    <IconSample icon="zoom"/>
+  <PageSection appearance="doubling six column grid" title="Z" oid="KRdZExSk">
+    <IconSample icon="zoom out" oid="LhPBZlvC"/>
+    <IconSample icon="zoom" oid="bcynmoNa"/>
   </PageSection>
-</OakPage>
+</Oak-OakPage>
