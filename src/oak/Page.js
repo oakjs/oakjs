@@ -62,10 +62,31 @@ export default class Page extends ComponentController {
   // REFACTOR: rename this?
   get component() { if (oak.page === this) return oak._pageComponent }
 
+
   //////////////////////////////
-  //  Initialization / Loading / Saving
+  //  Data manipulation
   //////////////////////////////
 
+  get data() {
+    const component = this.component;
+    if (component) return component.data;
+  }
+
+  // Get page `data` at path
+  get(path, defaultValue){
+    const component = this.component;
+    if (component) return component.get(path, defaultValue);
+  }
+
+  // Get page `data` at path
+  set(path, value){
+    const component = this.component;
+    if (component) return component.set(path, value);
+  }
+
+  deferredSet(path, value) {
+    return () => this.set(path, value);
+  }
 
 }
 
