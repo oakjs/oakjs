@@ -19,6 +19,7 @@
     "body-parser": "^1.15.0",
     "fs-extra": "^0.26.5",
     "fs-promise": "^0.4.1",
+    "he": "^1.1.0",
     "history": "^1.12.3",
     "lodash": "^4.5.1",
     "react": "^0.14.0",

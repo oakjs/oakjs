@@ -3,6 +3,8 @@
 //////////////////////////////
 "use strict"
 
+import he from "he";
+
 import Mutable from "oak-roots/Mutable";
 
 import { die, dieIfOutOfRange } from "oak-roots/util/die";
@@ -336,7 +338,10 @@ export default class JSXElement {
     if (!children || children.length === 0) return "";
 
     const childExpressions = children.map(child => {
-      if (typeof child === "string") return indent + child;
+    	// use "he" library to encode entities in the string
+      if (typeof child === "string") {
+      	return indent + he.encode(child, { useNamedReferences: true, decimal: true });
+      }
       return child.toJSX(indent);
     })
 
