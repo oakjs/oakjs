@@ -1,3 +1,6 @@
 [
-  { "id": "test", "title": "Simple Test Card" }
+  {
+    "id": "test",
+    "title": "Simple Test Card"
+  }
 ]
