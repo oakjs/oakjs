@@ -1,110 +1,100 @@
-<OakPage id="Ad" title="Ad">
-  <PageTitle title="Ad">
+<Oak-OakPage id="Ad" title="Ad" oid="WhqLLsoJ">
+  <PageTitle title="Ad" oid="ytx6BRYJ">
     An ad displays third-party promotional content
-    <Info>
+    <Info oid="YGHOLSJm">
       SUI Ads don't actually serve ads -- you should create
       a subclass of this element for your particular ad network.
     </Info>
   </PageTitle>
-
-  <PageSection title="Types">
-
-    <Example title="Common Units">
-      <Ad size="banner" test/>
-      <Ad size="leaderboard" test/>
-      <Grid columns={2}>
-        <Column>
-          <Ad size="medium rectangle" test/>
-          <Spacer/>
-          <Ad size="large rectangle" test/>
-        </Column>
-        <Column>
-          <Ad size="half page" test/>
-        </Column>
-      </Grid>
+  <PageSection title="Types" oid="C0tihRQJ">
+    <Example title="Common Units" oid="Tkc3s1yE">
+      <SUI-Ad size="banner" test oid="eP13AXOV"/>
+      <SUI-Ad size="leaderboard" test oid="AJJnZhgY"/>
+      <SUI-Grid columns={2} oid="DyQjni6w">
+        <SUI-Column oid="Z0bvR8bs">
+          <SUI-Ad size="medium rectangle" test oid="I3D68jg1"/>
+          <Oak-Spacer oid="L7gCRRCf"/>
+          <SUI-Ad size="large rectangle" test oid="GfhUxXRG"/>
+        </SUI-Column>
+        <SUI-Column oid="dlPHZCUZ">
+          <SUI-Ad size="half page" test oid="Hy37OTeF"/>
+        </SUI-Column>
+      </SUI-Grid>
     </Example>
-
-    <Example title="Mobile Sizes">
-      <Info>Mobile ads only appear when in mobile viewport width.</Info>
-      <Ad size="mobile leaderboard" test/>
-      <Ad size="mobile banner" test/>
+    <Example title="Mobile Sizes" oid="QUZqUTDE">
+      <Info oid="mwKrbUsE">
+        Mobile ads only appear when in mobile viewport width.
+      </Info>
+      <SUI-Ad size="mobile leaderboard" test oid="iXeLlWxR"/>
+      <SUI-Ad size="mobile banner" test oid="WpDTk8eX"/>
     </Example>
-
-    <Example title="Rectangle Sizes">
-      <Grid columns={2}>
-        <Column>
-          <Ad size="small rectangle" test/>
-        </Column>
-        <Column>
-          <Ad size="vertical rectangle" test/>
-        </Column>
-      </Grid>
+    <Example title="Rectangle Sizes" oid="jbVRE7ZY">
+      <SUI-Grid columns={2} oid="CkEb1TmC">
+        <SUI-Column oid="bhSjH1Mt">
+          <SUI-Ad size="small rectangle" test oid="dAXVQxEn"/>
+        </SUI-Column>
+        <SUI-Column oid="oR5hC8jH">
+          <SUI-Ad size="vertical rectangle" test oid="Qqny9VmX"/>
+        </SUI-Column>
+      </SUI-Grid>
     </Example>
-
-    <Example title="Button Sizes">
-      <Grid columns={3}>
-        <Column>
-          <Ad size="button" test/>
-        </Column>
-        <Column>
-          <Ad size="square button" test/>
-        </Column>
-        <Column>
-          <Ad size="small button" test/>
-        </Column>
-      </Grid>
+    <Example title="Button Sizes" oid="RUuH8OAR">
+      <SUI-Grid columns={3} oid="TlpwUSRg">
+        <SUI-Column oid="cYEpbMaC">
+          <SUI-Ad size="button" test oid="XxiTXkEt"/>
+        </SUI-Column>
+        <SUI-Column oid="KQeb7piH">
+          <SUI-Ad size="square button" test oid="oEmU0dpr"/>
+        </SUI-Column>
+        <SUI-Column oid="JQlkGJJN">
+          <SUI-Ad size="small button" test oid="kU911xkv"/>
+        </SUI-Column>
+      </SUI-Grid>
     </Example>
-
-    <Example title="Skyscraper Sizes">
-      <Grid columns={2}>
-        <Column>
-          <Ad size="skyscraper" test/>
-        </Column>
-        <Column>
-          <Ad size="wide skyscraper" test/>
-        </Column>
-      </Grid>
+    <Example title="Skyscraper Sizes" oid="Sp2KP35g">
+      <SUI-Grid columns={2} oid="TmlqUMBB">
+        <SUI-Column oid="B5Rud1CW">
+          <SUI-Ad size="skyscraper" test oid="wveu66cl"/>
+        </SUI-Column>
+        <SUI-Column oid="XDjZgSqB">
+          <SUI-Ad size="wide skyscraper" test oid="Ou5GxkL5"/>
+        </SUI-Column>
+      </SUI-Grid>
     </Example>
-
-    <Example title="Banner">
-      <Ad size="half banner" test/>
-      <Ad size="banner" test/>
-      <Ad size="top banner" test/>
-      <Ad size="vertical banner" test/>
+    <Example title="Banner" oid="KN8jONS9">
+      <SUI-Ad size="half banner" test oid="PGp37dWK"/>
+      <SUI-Ad size="banner" test oid="lIj424Le"/>
+      <SUI-Ad size="top banner" test oid="WWLUGCE1"/>
+      <SUI-Ad size="vertical banner" test oid="UL4E1Y7f"/>
     </Example>
-
-    <Example title="Leaderboard">
-      <Ad size="leaderboard" test/>
-      <Ad size="large leaderboard" test/>
-      <Ad size="billboard" test/>
+    <Example title="Leaderboard" oid="GiRpUK7w">
+      <SUI-Ad size="leaderboard" test oid="cZOtuMWc"/>
+      <SUI-Ad size="large leaderboard" test oid="x4GZkm70"/>
+      <SUI-Ad size="billboard" test oid="T3HiA9TL"/>
     </Example>
-
-    <Example title="Panorama">
-      <Ad size="panorama" test/>
+    <Example title="Panorama" oid="YVIY3qDM">
+      <SUI-Ad size="panorama" test oid="hQ9BcIyh"/>
     </Example>
-
-    <Example title="Netboard">
-      <Ad size="netboard" test/>
+    <Example title="Netboard" oid="Ws5LsuV4">
+      <SUI-Ad size="netboard" test oid="Wbmg17Qt"/>
     </Example>
-
   </PageSection>
-
-  <PageSection title="Appearance">
-
-    <Example title="Centered" hint="<Ad appearance='centered'/>">
-      <Ad size="half banner" appearance="centered" test/>
+  <PageSection title="Appearance" oid="GFfBofvS">
+    <Example title="Centered" hint="<Ad appearance='centered'/>" oid="rwM0GLnB">
+      <SUI-Ad size="half banner" appearance="centered" test oid="eqVckhI2"/>
     </Example>
-
-    <Example title="Hidden" hint="<Ad hidden/>">
-      <Label pointing="right">Hidden ad here</Label>
-      <Ad size="half banner" hidden test/>
-      <Label pointing="left">Hidden ad here</Label>
+    <Example title="Hidden" hint="<Ad hidden/>" oid="gKgb7dvH">
+      <SUI-Label pointing="right" oid="VqNYeXHu">
+        Hidden ad here
+      </SUI-Label>
+      <SUI-Ad size="half banner" hidden test oid="O5C9XYdD"/>
+      <SUI-Label pointing="left" oid="F6vsjINB">
+        Hidden ad here
+      </SUI-Label>
     </Example>
-
-    <Example title="Test" hint="<Ad test/> or <Ad test='text to show'/>">
-      <Ad size="leaderboard" test/>
-      <Ad size="leaderboard" test="custom text in leaderboard ad"/>
+    <Example title="Test" hint="<Ad test/> or <Ad test='text to show'/>" oid="b1CAFi97">
+      <SUI-Ad size="leaderboard" test oid="ZjHwWlSB"/>
+      <SUI-Ad size="leaderboard" test="custom text in leaderboard ad" oid="XLHJ8t85"/>
     </Example>
-
   </PageSection>
-</OakPage>
+</Oak-OakPage>
