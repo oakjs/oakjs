@@ -9,6 +9,6 @@
 }
 
 #SUI #examples .oak.current.Page {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   min-width: 0;
 }
