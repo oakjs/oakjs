@@ -11,51 +11,48 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { Link } from "react-router";
+import { Link as RouterLink } from "react-router";
 import Stub from "./Stub";
 
 
-export function OakPageLink({ page, label, children, ...linkProps }={}, context) {
+export function PageLink({ page, label, children, ...linkProps }={}, context) {
   linkProps.to = (typeof page === "string" ? page : page.route);
   const contents = (children || label || page.title);
-  return <Link {...linkProps}>{contents}</Link>;
+  return <RouterLink {...linkProps}>{contents}</RouterLink>;
 }
 
-export function OakSectionLink({ section, label, children, ...linkProps }={}, context) {
+export function SectionLink({ section, label, children, ...linkProps }={}, context) {
   linkProps.to = (typeof section === "string" ? section : section.route);
   const contents = (children || label || section.title);
-  return <Link {...linkProps}>{contents}</Link>;
+  return <RouterLink {...linkProps}>{contents}</RouterLink>;
 }
 
-export function OakProjectLink({ project, label, children, ...linkProps }={}, context) {
+export function ProjectLink({ project, label, children, ...linkProps }={}, context) {
   linkProps.to = (typeof project === "string" ? project : project.route);
   const contents = (children || label || project.title);
-  return <Link {...linkProps}>{contents}</Link>;
+  return <RouterLink {...linkProps}>{contents}</RouterLink>;
 }
 
-export function OakRouteLink({ label, children, ...linkProps }={}, context) {
-  return <Link {...linkProps}>{label}{children}</Link>;
+export function RouteLink({ label, children, ...linkProps }={}, context) {
+  return <RouterLink {...linkProps}>{label}{children}</RouterLink>;
 }
 
-export function OakAnchorLink({ label, children, ...anchorProps } = {}, context) {
+export function AnchorLink({ label, children, ...anchorProps } = {}, context) {
   return <a {...anchorProps}>{label}{children}</a>;
 }
 
 
-function OakLink(props, context) {
-  if (props.page) return OakPageLink(props, context);
-  if (props.section) return OakSectionLink(props, context);
-  if (props.project) return OakProjectLink(props, context);
-  if (props.to) return OakRouteLink(props, context);
-  if (props.href) return OakAnchorLink(props, context);
+function Link(props, context) {
+  if (props.page) return PageLink(props, context);
+  if (props.section) return SectionLink(props, context);
+  if (props.project) return ProjectLink(props, context);
+  if (props.to) return RouteLink(props, context);
+  if (props.href) return AnchorLink(props, context);
   return <Stub/>;
 }
-
-// Add render function so we hot reload.
-OakLink.render = Function.prototype;
 
 // Oak editor prefs
 import { editifyMap } from "../EditorProps";
 editifyMap({ draggable: true, droppable: false }, exports);
 
-export default OakLink;
+export default Link;
