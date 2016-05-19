@@ -1,4 +1,4 @@
-<OakPage id="projectSelector">
+<Page id="projectSelector">
   <br/>
   <Container>
     <Segment>
@@ -6,4 +6,4 @@
       <ProjectMenu appearance="vertical"/>
     </Segment>
   </Container>
-</OakPage>
+</Page>

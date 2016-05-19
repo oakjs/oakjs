@@ -1,4 +1,4 @@
-<Oak-OakPage id="Sticky" title="Sticky" oid="RM70lkxQ">
+<Oak-Page id="Sticky" title="Sticky" oid="RM70lkxQ">
   <PageTitle title="Sticky" oid="r2lYa66h">
     Sticky content fixes itself to the browser viewport as content is scrolled
     <Bug oid="Qxsk4KoW">
@@ -40,4 +40,4 @@
       <LoremIpsum oid="C4oPRXDU"/>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

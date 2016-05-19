@@ -1,4 +1,4 @@
-<Oak-OakPage id="Steps" title="Steps" oid="ujquQU5y">
+<Oak-Page id="Steps" title="Steps" oid="ujquQU5y">
   <PageTitle title="Steps" oid="N8mqt6pi">
     Steps show the completion status of an activity in a series of activities.
   </PageTitle>
@@ -94,4 +94,4 @@
       </SUI-Steps>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

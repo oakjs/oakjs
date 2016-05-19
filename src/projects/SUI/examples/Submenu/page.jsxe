@@ -1,4 +1,4 @@
-<Oak-OakPage id="Submenu" title="Submenu" oid="ghiIcykh">
+<Oak-Page id="Submenu" title="Submenu" oid="ghiIcykh">
   <PageTitle title="Submenu" oid="viG2Xkli">
     A Submenu shows a nested menu
   </PageTitle>
@@ -51,4 +51,4 @@
       </SUI-Menu>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

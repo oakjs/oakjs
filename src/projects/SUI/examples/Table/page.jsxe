@@ -1,4 +1,4 @@
-<Oak-OakPage id="Table" title="Table" oid="v3r9m4l4">
+<Oak-Page id="Table" title="Table" oid="v3r9m4l4">
   <PageTitle title="Table" oid="t8TVHp1A">
     A table displays a collections of data grouped into rows
     <Info oid="c1pL82B6">
@@ -263,4 +263,4 @@
       </SUI-Column>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

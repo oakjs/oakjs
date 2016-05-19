@@ -1,4 +1,4 @@
-<Oak-OakPage id="Search" title="Search" oid="nS0rEkMN">
+<Oak-Page id="Search" title="Search" oid="nS0rEkMN">
   <PageTitle title="Search" oid="T6YitZE4">
     A search component allows a user to query for results from a selection of data
     <Todo oid="VOCvb8hU">
@@ -36,4 +36,4 @@
       <SUI-Search appearance="right aligned" source={data.countryNames} placeholder="Search..." oid="tpTea1Tf"/>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

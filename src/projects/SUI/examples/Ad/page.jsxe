@@ -1,4 +1,4 @@
-<Oak-OakPage id="Ad" title="Ad" oid="WhqLLsoJ">
+<Oak-Page id="Ad" title="Ad" oid="WhqLLsoJ">
   <PageTitle title="Ad" oid="ytx6BRYJ">
     An ad displays third-party promotional content
     <Info oid="YGHOLSJm">
@@ -97,4 +97,4 @@
       <SUI-Ad size="leaderboard" test="custom text in leaderboard ad" oid="XLHJ8t85"/>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

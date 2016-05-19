@@ -1,4 +1,4 @@
-<Oak-OakPage id="FeedEvent" title="FeedEvent" oid="rp0ZuhKO">
+<Oak-Page id="FeedEvent" title="FeedEvent" oid="rp0ZuhKO">
   <PageTitle title="FeedEvent" oid="bWx5H0Do">
     Single event in a feed.
     <Info oid="r6pHFeqj">
@@ -71,4 +71,4 @@
       </SUI-Feed>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

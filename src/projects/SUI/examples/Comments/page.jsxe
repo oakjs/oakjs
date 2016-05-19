@@ -1,4 +1,4 @@
-<Oak-OakPage id="Comments" title="Comments" oid="Kf1vCVoJ">
+<Oak-Page id="Comments" title="Comments" oid="Kf1vCVoJ">
   <PageTitle title="Comments" oid="O9VYHe1x">
     A list of comments.
     <Todo oid="fLA3ceCG">
@@ -86,4 +86,4 @@
       </SUI-Column>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

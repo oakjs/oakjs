@@ -1,4 +1,4 @@
-<Oak-OakPage id="Shape" title="Shape" oid="JTsjTxNt">
+<Oak-Page id="Shape" title="Shape" oid="JTsjTxNt">
   <PageTitle title="Shape" oid="o9gMSJV7">
     A shape is a three dimensional object displayed on a two dimensional plane
     <Info oid="nxvosgfn">
@@ -115,4 +115,4 @@
       </SUI-Column>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

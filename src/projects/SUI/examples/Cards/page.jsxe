@@ -1,4 +1,4 @@
-<Oak-OakPage id="Cards" title="Cards" oid="m7OPrWF6">
+<Oak-Page id="Cards" title="Cards" oid="m7OPrWF6">
   <PageTitle title="Cards" oid="vVgAeBoQ">
     A group of cards
   </PageTitle>
@@ -37,4 +37,4 @@
       </SUI-Cards>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

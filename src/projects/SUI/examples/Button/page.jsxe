@@ -1,4 +1,4 @@
-<Oak-OakPage id="Button" title="Button" oid="Hyt3Cc1t">
+<Oak-Page id="Button" title="Button" oid="Hyt3Cc1t">
   <PageTitle title="Button" oid="wSOutIDS">
     A button indicates a possible user action.
   </PageTitle>
@@ -234,4 +234,4 @@
       </SUI-Button>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

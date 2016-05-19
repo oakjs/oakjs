@@ -12,7 +12,7 @@ import ComponentController from "./ComponentController";
 import oak from "./oak";
 import Page from "./Page";
 
-import OakSection from "./components/OakSection";
+import SectionComponent from "./components/Section";
 
 export default class Section extends ComponentController {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class Section extends ComponentController {
   type = "section";
 
   @proto
-  ComponentSuperConstructor = OakSection;
+  ComponentSuperConstructor = SectionComponent;
 
 
   //////////////////////////////
@@ -132,7 +132,7 @@ export class SectionElement extends JSXElement {
   }
 }
 
-// Register it so `<OakSection>` elements in a jsxe will use `SectionElement`.
+// Register it so `<Section>` elements in a jsxe will use `SectionElement`.
 import JSXParser from "./JSXParser";
-JSXParser.registerType("OakSection", SectionElement);
+JSXParser.registerType("Section", SectionElement);
 JSXParser.registerType("Oak-Section", SectionElement);

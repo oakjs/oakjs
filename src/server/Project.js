@@ -51,7 +51,7 @@ export default class Project extends Component {
   }
 
   getDefaultJSXE({ id, title }) {
-    return `<OakProject id="${id}" title="${title}"><CurrentSection/></OakProject>`;
+    return `<Project id="${id}" title="${title}"><CurrentSection/></Project>`;
   }
 
   createBlankChild() {

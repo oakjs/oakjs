@@ -1,4 +1,4 @@
-<Oak-OakPage id="Divider" title="Divider" oid="QmHFhqRL">
+<Oak-Page id="Divider" title="Divider" oid="QmHFhqRL">
   <PageTitle title="Divider" oid="B4tlcsnn">
     A divider visually segments content into groups.
   </PageTitle>
@@ -91,4 +91,4 @@
       </SUI-Segment>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

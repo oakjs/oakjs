@@ -1,4 +1,4 @@
-<Oak-OakPage id="Toggle" title="Toggle" oid="nR3fnSVg">
+<Oak-Page id="Toggle" title="Toggle" oid="nR3fnSVg">
   <PageTitle title="Toggle" oid="DTxmvk7J">
     A toggle allows the user turn a setting on or off.
   </PageTitle>
@@ -35,4 +35,4 @@
       </SUI-Segment>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

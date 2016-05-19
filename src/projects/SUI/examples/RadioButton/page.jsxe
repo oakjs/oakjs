@@ -1,4 +1,4 @@
-<Oak-OakPage id="RadioButton" title="RadioButton" oid="s63uZB5U">
+<Oak-Page id="RadioButton" title="RadioButton" oid="s63uZB5U">
   <PageTitle title="Radio Button" oid="AblGenmL">
     A radio button allows a user to select a single value from a small set of options
   </PageTitle>
@@ -28,4 +28,4 @@
       </Example>
     </Oak-Columns>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

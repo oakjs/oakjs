@@ -1,4 +1,4 @@
-<OakPage id="Label" title="Label">
+<Page id="Label" title="Label">
   <PageTitle title="Label">
     A label displays content classification
   </PageTitle>
@@ -434,4 +434,4 @@
 
 
   </PageSection>
-</OakPage>
+</Page>

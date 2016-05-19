@@ -1,4 +1,4 @@
-<Oak-OakPage id="Card" title="Card" oid="ZWBiBXs2">
+<Oak-Page id="Card" title="Card" oid="ZWBiBXs2">
   <PageTitle title="Card" oid="vF9CtUja">
     A card displays site content in a manner similar to a playing card
   </PageTitle>
@@ -189,4 +189,4 @@
       </SUI-Cards>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

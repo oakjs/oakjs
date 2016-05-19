@@ -1,4 +1,4 @@
-<Oak-OakPage id="Icon" title="Icon" oid="eZ3nKNaO">
+<Oak-Page id="Icon" title="Icon" oid="eZ3nKNaO">
   <PageTitle title="Icons" oid="cyG2THIg">
     An icon is a glyph used to represent something else.
     <Info oid="AC9lmnqd">
@@ -570,4 +570,4 @@
     <IconSample icon="youtube play" oid="BCLDcFFd"/>
     <IconSample icon="youtube square" oid="KDAHA1Z2"/>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

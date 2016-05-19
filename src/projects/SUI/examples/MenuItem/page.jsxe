@@ -1,4 +1,4 @@
-<Oak-OakPage id="MenuItem" title="MenuItem" oid="bqqrJ5bK">
+<Oak-Page id="MenuItem" title="MenuItem" oid="bqqrJ5bK">
   <PageTitle title="MenuItem" oid="R0cgv2KK">
     A MenuItem is one item in a menu.
   </PageTitle>
@@ -205,4 +205,4 @@
       <SUI-Menu appearance="inverted" color="grey" items={data.simpleItems} itemCount={4} oid="vikmlthP"/>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

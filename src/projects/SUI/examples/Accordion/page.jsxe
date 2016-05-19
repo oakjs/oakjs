@@ -1,4 +1,4 @@
-<Oak-OakPage id="Accordion" title="Accordion" oid="O1jrNZ7G">
+<Oak-Page id="Accordion" title="Accordion" oid="O1jrNZ7G">
   <PageTitle title="Accordion" oid="OTNUHaZr">
     An accordion allows users to toggle the display of sections of content
     <Todo oid="CwAhPwNL">
@@ -177,4 +177,4 @@
       <SUI-Accordion appearance="styled" items={data.dogStringArray} onOpening={()=> console.log("opening")} onOpen={()=> console.log("open")} onClosing={()=> console.log("closing")} onClose={()=> console.log("close")} onChange={()=> console.log("changed")} oid="uQ4maIr2"/>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

@@ -1,4 +1,4 @@
-<Oak-OakPage id="Label" title="Label" oid="SA4egCkk">
+<Oak-Page id="Label" title="Label" oid="SA4egCkk">
   <PageTitle title="Label" oid="ZjjU5NZZ">
     A label displays content classification
   </PageTitle>
@@ -717,4 +717,4 @@
       </SUI-Label>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

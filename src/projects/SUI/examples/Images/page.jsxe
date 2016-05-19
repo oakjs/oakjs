@@ -1,4 +1,4 @@
-<Oak-OakPage id="Images" title="Images" oid="SOBuGj18">
+<Oak-Page id="Images" title="Images" oid="SOBuGj18">
   <PageTitle title="Images" oid="E0w5UQyZ">
     Imagess add consistent styling to a nested list of Images.
   </PageTitle>
@@ -102,4 +102,4 @@
       </p>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

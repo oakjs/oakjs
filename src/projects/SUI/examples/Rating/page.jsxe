@@ -1,4 +1,4 @@
-<Oak-OakPage id="Rating" title="Rating" oid="MXnxnb52">
+<Oak-Page id="Rating" title="Rating" oid="MXnxnb52">
   <PageTitle title="Rating" oid="U4xZq04f">
     A rating indicates user interest in content
   </PageTitle>
@@ -159,4 +159,4 @@
       </SUI-Grid>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

@@ -1,4 +1,4 @@
-<Oak-OakPage id="Field" title="Field" oid="wYIawasp">
+<Oak-Page id="Field" title="Field" oid="wYIawasp">
   <PageTitle title="Field" oid="YSqROF6R">
     A field is a form element containing a label and an input.
     <Info oid="QjLAjVQk">
@@ -190,4 +190,4 @@
       </SUI-Form>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

@@ -1,4 +1,4 @@
-<Oak-OakPage id="Embed" title="Embed" oid="vjIbegis">
+<Oak-Page id="Embed" title="Embed" oid="vjIbegis">
   <PageTitle title="Embed" oid="eJcVdaR8"></PageTitle>
   <PageSection title="Sources" oid="CiaMarmt">
     <Example title="YouTube" oid="XvWBmCXu">
@@ -55,4 +55,4 @@
       </SUI-Column>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

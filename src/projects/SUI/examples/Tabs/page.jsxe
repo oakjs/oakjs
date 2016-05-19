@@ -1,4 +1,4 @@
-<Oak-OakPage id="Tabs" title="Tabs" oid="ZH4QW6Rd">
+<Oak-Page id="Tabs" title="Tabs" oid="ZH4QW6Rd">
   <PageTitle title="Tabs" oid="KVaW2Zkc">
     Tabs is a hidden section of content activated by a menu.
     <Todo oid="meqNQio7">
@@ -67,4 +67,4 @@
       </Bug>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

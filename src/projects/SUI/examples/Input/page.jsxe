@@ -1,4 +1,4 @@
-<Oak-OakPage id="Input" title="Input" oid="QgDHen7G">
+<Oak-Page id="Input" title="Input" oid="QgDHen7G">
   <PageTitle title="Input" oid="NP0HPVFe">
     An input is a field used to elicit a response from a user.
     <Todo oid="tEpWB3sr">
@@ -351,4 +351,4 @@
       <Oak-Spacer oid="qnv5O552"/>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

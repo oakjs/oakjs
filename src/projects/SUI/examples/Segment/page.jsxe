@@ -1,4 +1,4 @@
-<Oak-OakPage id="Segment" title="Segment" oid="tsRnYg4b">
+<Oak-Page id="Segment" title="Segment" oid="tsRnYg4b">
   <PageTitle title="Segment" oid="DrArgvyQ">
     A segment is used to create a grouping of related content
   </PageTitle>
@@ -296,4 +296,4 @@
       </SUI-Segment>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

@@ -1,4 +1,4 @@
-<Oak-OakPage id="Statistic" title="Statistic" oid="UIslT3Hx">
+<Oak-Page id="Statistic" title="Statistic" oid="UIslT3Hx">
   <PageTitle title="Statistic" oid="eOb1VfSL">
     A statistic emphasizes the current value of an attribute
     <Info oid="CKqpN2mJ">
@@ -125,4 +125,4 @@
       </SUI-Grid>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

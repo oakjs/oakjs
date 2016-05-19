@@ -1,4 +1,4 @@
-<Oak-OakPage id="Flag" title="Flag" oid="dXPhjWgN">
+<Oak-Page id="Flag" title="Flag" oid="dXPhjWgN">
   <PageTitle title="Flag" oid="auiT2dNY">
     A flag is is used to represent a political state.
   </PageTitle>
@@ -2683,4 +2683,4 @@
       </tbody>
     </table>
   </SUI-Segment>
-</Oak-OakPage>
+</Oak-Page>

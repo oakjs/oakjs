@@ -1,4 +1,4 @@
-<Oak-OakPage id="Container" title="Container" oid="ALLeKwM5">
+<Oak-Page id="Container" title="Container" oid="ALLeKwM5">
   <PageTitle title="Container" oid="G7jh369k">
     <p oid="TvS5ihtT">
       Containers limit content to a maximum width.
@@ -86,4 +86,4 @@
       </SUI-Segment>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

@@ -1,4 +1,4 @@
-<Oak-OakPage id="Labels" title="Labels" oid="qonhjgwP">
+<Oak-Page id="Labels" title="Labels" oid="qonhjgwP">
   <PageTitle title="Labels" oid="jrj26xgj">
     A group of
     <Oak-Link page="SUI/examples/Label" oid="iliHoRRC">
@@ -211,4 +211,4 @@
       </SUI-Labels>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

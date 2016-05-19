@@ -1,4 +1,4 @@
-<Oak-OakPage id="Progress" title="Progress" oid="eb5U82QN">
+<Oak-Page id="Progress" title="Progress" oid="eb5U82QN">
   <PageTitle title="Progress" oid="bPQ6kE1Y">
     A progress bar shows the progression of a task
   </PageTitle>
@@ -142,4 +142,4 @@
       </SUI-Column>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

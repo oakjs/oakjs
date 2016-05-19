@@ -1,4 +1,4 @@
-<Oak-OakPage id="Comment" title="Comment" oid="ab6kprAa">
+<Oak-Page id="Comment" title="Comment" oid="ab6kprAa">
   <PageTitle title="Comment" oid="KlN2ZEGQ">
     A comment displays user feedback to site content
     <Info oid="F7judowD">
@@ -70,4 +70,4 @@
       </SUI-Column>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

@@ -12,7 +12,7 @@ import ComponentController from "./ComponentController";
 import oak from "./oak";
 import Section from "./Section";
 
-import OakProject from "./components/OakProject";
+import ProjectComponent from "./components/Project";
 
 export default class Project extends ComponentController {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class Project extends ComponentController {
   type = "project";
 
   @proto
-  ComponentSuperConstructor = OakProject;
+  ComponentSuperConstructor = ProjectComponent;
 
   //////////////////////////////
   //  ChildController stuff
@@ -118,7 +118,7 @@ export class ProjectElement extends JSXElement {
   }
 }
 
-// Register it so `<OakProject>` elements in a jsxe will use `ProjectElement`.
+// Register it so `<Project>` elements in a jsxe will use `ProjectElement`.
 import JSXParser from "./JSXParser";
-JSXParser.registerType("OakProject", ProjectElement);
-JSXParser.registerType("Oak-OakProject", ProjectElement);
+JSXParser.registerType("Project", ProjectElement);
+JSXParser.registerType("Oak-Project", ProjectElement);

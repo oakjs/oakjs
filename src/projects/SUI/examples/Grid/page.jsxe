@@ -1,4 +1,4 @@
-<Oak-OakPage id="Grid" title="Grid" oid="VvaQ6VhN">
+<Oak-Page id="Grid" title="Grid" oid="VvaQ6VhN">
   <PageTitle title="Grid" oid="O73ij1r0">
     A grid is used to harmonize negative space in a layout
   </PageTitle>
@@ -813,4 +813,4 @@
       </SUI-Grid>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

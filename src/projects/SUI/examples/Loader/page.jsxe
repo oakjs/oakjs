@@ -1,4 +1,4 @@
-<Oak-OakPage id="Loader" title="Loader" oid="Yj4D1FR5">
+<Oak-Page id="Loader" title="Loader" oid="Yj4D1FR5">
   <PageTitle title="Loader" oid="KL3QEdhT">
     A loader alerts a user to wait for an activity to complete
   </PageTitle>
@@ -149,4 +149,4 @@
       </SUI-Grid>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

@@ -1,4 +1,4 @@
-<Oak-OakPage id="Sidbar" title="Sidbar" oid="Lm1m3W40">
+<Oak-Page id="Sidbar" title="Sidbar" oid="Lm1m3W40">
   <PageTitle title="Sidebar" oid="GXIyY9Ix">
     A sidebar hides additional content beside a page.
   </PageTitle>
@@ -145,4 +145,4 @@
       </Bug>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

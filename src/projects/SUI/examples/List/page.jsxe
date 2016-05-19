@@ -1,4 +1,4 @@
-<Oak-OakPage id="List" title="List" oid="fRq0xmNK">
+<Oak-Page id="List" title="List" oid="fRq0xmNK">
   <PageTitle title="List" oid="E1QANhFH">
     A list is used to group related content.
   </PageTitle>
@@ -299,4 +299,4 @@
       </SUI-List>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

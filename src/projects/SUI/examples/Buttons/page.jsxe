@@ -1,4 +1,4 @@
-<Oak-OakPage id="Buttons" title="Buttons" oid="XN17uc2s">
+<Oak-Page id="Buttons" title="Buttons" oid="XN17uc2s">
   <PageTitle title="Buttons" oid="NC1wHiyj">
     A Buttons encapsulates a set of Button elements, generally to provide consistent styling.
   </PageTitle>
@@ -194,4 +194,4 @@
       </SUI-Buttons>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

@@ -1,4 +1,4 @@
-<Oak-OakPage id="MenuHeader" title="MenuHeader" oid="JxC22oSb">
+<Oak-Page id="MenuHeader" title="MenuHeader" oid="JxC22oSb">
   <PageTitle title="MenuHeader" oid="BilE5xLn">
     A MenuHeader shows a header inside a menu.
   </PageTitle>
@@ -45,4 +45,4 @@
       <SUI-Menu appearance="inverted" color="grey" items={data.simpleItems} itemCount={4} oid="LPwLHPTx"/>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

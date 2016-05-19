@@ -8,7 +8,7 @@ import { dieIfMissing } from "oak-roots/util/die";
 import ComponentController from "./ComponentController";
 import oak from "./oak";
 
-import OakPage from "./components/OakPage";
+import PageComponent from "./components/Page";
 
 export default class Page extends ComponentController {
   constructor(props) {
@@ -20,7 +20,7 @@ export default class Page extends ComponentController {
   type = "page";
 
   @proto
-  ComponentSuperConstructor = OakPage;
+  ComponentSuperConstructor = PageComponent;
 
   //////////////////////////////
   //  ChildController stuff
@@ -121,5 +121,5 @@ export class PageElement extends JSXElement {
 
 // Register it so `<Page>` elements in a jsxe will use `PageElement`.
 import JSXParser from "./JSXParser";
-JSXParser.registerType("OakPage", PageElement);
-JSXParser.registerType("Oak-OakPage", PageElement);
+JSXParser.registerType("Page", PageElement);
+JSXParser.registerType("Oak-Page", PageElement);

@@ -9,9 +9,9 @@ import oak from "../oak";
 import OakComponent from "./OakComponent";
 
 // Import custom CSS for all pages.
-import "./OakPage.css";
+import "./Page.css";
 
-export default class OakPage extends OakComponent {
+export default class Page extends OakComponent {
   static propTypes = {
     ...OakComponent.propTypes,
     title: PropTypes.string,
@@ -95,4 +95,4 @@ export default class OakPage extends OakComponent {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: true }, OakPage);
+editify({ draggable: false, droppable: true }, Page);

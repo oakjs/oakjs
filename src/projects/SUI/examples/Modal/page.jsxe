@@ -1,4 +1,4 @@
-<Oak-OakPage id="Modal" title="Modal" oid="wSNTFpGW">
+<Oak-Page id="Modal" title="Modal" oid="wSNTFpGW">
   <PageTitle title="Modal" oid="v08ehTST">
     A modal displays content that temporarily blocks interactions with the main view of a site
     <Todo oid="tcYXFDeh">
@@ -117,4 +117,4 @@
       </SUI-Column>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

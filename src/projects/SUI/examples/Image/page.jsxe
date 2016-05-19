@@ -1,4 +1,4 @@
-<Oak-OakPage id="Image" title="Image" oid="dxeYTLsl">
+<Oak-Page id="Image" title="Image" oid="dxeYTLsl">
   <PageTitle title="Image" oid="q0xwVrxd">
     An image is a graphical representation of something.
   </PageTitle>
@@ -222,4 +222,4 @@
       </Example>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

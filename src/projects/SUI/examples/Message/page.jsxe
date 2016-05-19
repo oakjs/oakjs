@@ -1,4 +1,4 @@
-<Oak-OakPage id="Message" title="Message" oid="IhDqyFsA">
+<Oak-Page id="Message" title="Message" oid="IhDqyFsA">
   <PageTitle title="Message" oid="Hd4HVfx6">
     A dimmer hides distractions to focus attention on particular content.
     <Todo oid="LdFWjkrp">
@@ -94,4 +94,4 @@
       <SUI-Message size="massive" icon="settings" content="A massive message" oid="YQWpynKO"/>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

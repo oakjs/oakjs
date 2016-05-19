@@ -1,4 +1,4 @@
-<Oak-OakPage id="Rail" title="Rail" oid="sZJamlad">
+<Oak-Page id="Rail" title="Rail" oid="sZJamlad">
   <PageTitle title="Rail" oid="B34roZ0H">
     A rail is used to show accompanying content outside the boundaries of the main view of a site.
   </PageTitle>
@@ -80,4 +80,4 @@
       </SUI-Segment>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

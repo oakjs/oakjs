@@ -1,4 +1,4 @@
-<Oak-OakPage id="Feed" title="Feed" oid="YGRFXuJv">
+<Oak-Page id="Feed" title="Feed" oid="YGRFXuJv">
   <PageTitle title="Feed" oid="WGdBpf5n">
     A feed presents user activity chronologically.
   </PageTitle>
@@ -75,4 +75,4 @@
       </SUI-Feed>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

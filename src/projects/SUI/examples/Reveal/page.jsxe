@@ -1,4 +1,4 @@
-<Oak-OakPage id="Reveal" title="Reveal" oid="lOliTZiB">
+<Oak-Page id="Reveal" title="Reveal" oid="lOliTZiB">
   <PageTitle title="Reveal" oid="rJcZHtKb">
     A reveal displays additional content in place of previous content when activated.
     <Todo oid="mLco3pbs">
@@ -120,4 +120,4 @@
       There doesn&apos;t appear to be a significant difference in an instant reveal
     </Bug>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

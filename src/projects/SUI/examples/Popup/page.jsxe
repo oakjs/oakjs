@@ -1,4 +1,4 @@
-<Oak-OakPage id="Popup" title="Popup" oid="MPrRksGt">
+<Oak-Page id="Popup" title="Popup" oid="MPrRksGt">
   <PageTitle title="Popup" oid="haxpd137">
     A popup displays additional information on top of a page
   </PageTitle>
@@ -200,4 +200,4 @@
       </SUI-Column>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

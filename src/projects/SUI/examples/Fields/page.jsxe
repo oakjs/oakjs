@@ -1,4 +1,4 @@
-<Oak-OakPage id="Fields" title="Fields" oid="Q9DsV2ja">
+<Oak-Page id="Fields" title="Fields" oid="Q9DsV2ja">
   <PageTitle title="Fields" oid="j7n6h0bo">
     A set of fields can appear grouped together
     <Info oid="QZ92kTo7">
@@ -112,4 +112,4 @@
       </SUI-Form>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

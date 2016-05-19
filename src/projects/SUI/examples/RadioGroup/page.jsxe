@@ -1,4 +1,4 @@
-<Oak-OakPage id="RadioGroup" title="RadioGroup" oid="NDeXRjZ1">
+<Oak-Page id="RadioGroup" title="RadioGroup" oid="NDeXRjZ1">
   <PageTitle title="RadioGroup" oid="p9VAtb2B">
     A RadioGroup allows the user to pick one of a mutually exclusive set of choices.
     <Info oid="hIKEhUVp">
@@ -64,4 +64,4 @@
       </SUI-Form>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

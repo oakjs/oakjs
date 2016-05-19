@@ -1,4 +1,4 @@
-<Oak-OakPage id="ListItem" title="ListItem" oid="xvfhVR7U">
+<Oak-Page id="ListItem" title="ListItem" oid="xvfhVR7U">
   <PageTitle title="ListItem" oid="BfIWay0D">
     A single item in a list.
   </PageTitle>
@@ -107,4 +107,4 @@
       </SUI-Column>
     </SUI-Grid>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

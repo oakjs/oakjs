@@ -1,4 +1,4 @@
-<OakPage id="Button" title="Button">
+<Page id="Button" title="Button">
   <PageTitle title="Button">
     A button indicates a possible user action.
   </PageTitle>
@@ -214,4 +214,4 @@
       </Button>
     </Example>
   </PageSection>
-</OakPage>
+</Page>

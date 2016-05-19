@@ -1,4 +1,4 @@
-<Oak-OakPage id="Form" title="Form" oid="s9CbVevj">
+<Oak-Page id="Form" title="Form" oid="s9CbVevj">
   <PageTitle title="Form" oid="XuCenVsE"></PageTitle>
   <PageSection title="Content" oid="x5DcW8ss">
     <Example title="Simple Form" oid="pnm2GUJj">
@@ -145,4 +145,4 @@
       </SUI-Segment>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

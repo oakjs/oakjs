@@ -1,4 +1,4 @@
-<Oak-OakPage id="Breadcrumb" title="Breadcrumb" oid="KKwTjYmr">
+<Oak-Page id="Breadcrumb" title="Breadcrumb" oid="KKwTjYmr">
   <PageTitle title="Breadcrumb" oid="uUT0BNJE">
     A breadcrumb is used to show hierarchy between content
   </PageTitle>
@@ -50,4 +50,4 @@
       <SUI-Breadcrumb size="huge" items={data.map} oid="bpG6BnCp"/>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

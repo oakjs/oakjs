@@ -55,7 +55,7 @@ export default class Section extends Component {
   }
 
   getDefaultJSXE({ id, title }) {
-    return `<OakSection id="${id}" title="${title}"><CurrentPage/></OakSection>`;
+    return `<Section id="${id}" title="${title}"><CurrentPage/></Section>`;
   }
 
   createBlankChild() {

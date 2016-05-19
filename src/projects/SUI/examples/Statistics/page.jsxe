@@ -1,4 +1,4 @@
-<Oak-OakPage id="Statistics" title="Statistics" oid="LcXvsM0c">
+<Oak-Page id="Statistics" title="Statistics" oid="LcXvsM0c">
   <PageTitle title="Statistics" oid="ARmJL1dK">
     A group of statistics
   </PageTitle>
@@ -77,4 +77,4 @@
       </SUI-Statistics>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

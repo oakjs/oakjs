@@ -1,4 +1,4 @@
-<Oak-OakPage id="Header" title="Header" oid="CpPO1Xi3">
+<Oak-Page id="Header" title="Header" oid="CpPO1Xi3">
   <PageTitle title="Header" oid="vPX4j7H4">
     A header provides a short summary of content.
     <ul oid="dpF6LSJf">
@@ -348,4 +348,4 @@
       </SUI-Segment>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

@@ -1,4 +1,4 @@
-<Oak-OakPage id="Menu" title="Menu" oid="r71A4VF9">
+<Oak-Page id="Menu" title="Menu" oid="r71A4VF9">
   <PageTitle title="Menu" oid="jl6rvwLx">
     A menu displays grouped navigation actions
   </PageTitle>
@@ -309,4 +309,4 @@
       </Info>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

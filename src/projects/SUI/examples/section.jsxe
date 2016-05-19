@@ -1,4 +1,4 @@
-<Oak-OakSection id="examples" title="Examples" oid="SMaT8WT0">
+<Oak-Section id="examples" title="Examples" oid="SMaT8WT0">
   <div id="PageSidebar" oid="TfyyiBgF">
     <SUI-Menu id="PageSidebarMenu" appearance="inverted attached vertical sticky" oid="we40f12G">
       <SUI-MenuHeader oid="IanBiOwq">
@@ -9,4 +9,4 @@
     </SUI-Menu>
   </div>
   <Oak-CurrentPage oid="VJfF0xbf"/>
-</Oak-OakSection>
+</Oak-Section>

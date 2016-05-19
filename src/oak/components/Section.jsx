@@ -3,11 +3,12 @@ import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
 
-// Project-specific CSS styling.
-import "./OakProject.css";
+// Import custom CSS for all sections.
+import "./Section.css";
 
-export default class OakProject extends OakComponent {
-//  static defaultProps = {}
+export default class Section extends OakComponent {
+  // Oak editor prefs
+  static editor = { draggable: false, droppable: true };
 
   static propTypes = {
     id: PropTypes.string,
@@ -23,6 +24,7 @@ export default class OakProject extends OakComponent {
   get controller() { return this.constructor.controller }
 
   get id() { return this.controller.id }
+  get project() { return this.controller.project }
   get type() { return this.controller.type; }
 
 // DEPRECATED ???
@@ -33,10 +35,11 @@ export default class OakProject extends OakComponent {
   //////////////////////////////
 
   getClassName(props) {
-    return classNames("oak", this.props.className, "Project");
+    return classNames("oak", this.props.className, "Section");
   }
+
 }
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: true }, OakProject);
+editify({ draggable: false, droppable: true }, Section);

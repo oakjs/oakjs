@@ -1,4 +1,4 @@
-<Oak-OakPage id="Dimmer" title="Dimmer" oid="HlWX2cFE">
+<Oak-Page id="Dimmer" title="Dimmer" oid="HlWX2cFE">
   <PageTitle title="Dimmer" oid="n7Rq7jbL">
     A dimmer hides distractions to focus attention on particular content.
     <Todo oid="M3IAdhWB">
@@ -127,4 +127,4 @@
       </SUI-Segment>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>

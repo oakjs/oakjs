@@ -1,4 +1,4 @@
-<Oak-OakPage id="Item" title="Item" oid="t9ypcwRN">
+<Oak-Page id="Item" title="Item" oid="t9ypcwRN">
   <PageTitle title="Item" oid="dGdcKi3u">
     An item view presents large collections of site content for display
     <Info oid="QTtHW77i">
@@ -110,4 +110,4 @@
       </SUI-Items>
     </Example>
   </PageSection>
-</Oak-OakPage>
+</Oak-Page>
