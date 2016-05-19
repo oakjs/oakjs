@@ -121,3 +121,4 @@ export class ProjectElement extends JSXElement {
 // Register it so `<OakProject>` elements in a jsxe will use `ProjectElement`.
 import JSXParser from "./JSXParser";
 JSXParser.registerType("OakProject", ProjectElement);
+JSXParser.registerType("Oak-OakProject", ProjectElement);
