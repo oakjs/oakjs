@@ -41,7 +41,7 @@
   },
   {
     "id": "Container",
-    "title": "Container (broken)"
+    "title": "Container"
   },
   {
     "id": "Dimmer",
@@ -153,7 +153,7 @@
   },
   {
     "id": "Message",
-    "title": "Message (broken)"
+    "title": "Message"
   },
   {
     "id": "Modal",

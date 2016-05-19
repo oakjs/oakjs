@@ -12,7 +12,7 @@ import { autobind } from "oak-roots/util/decorators";
 import Button from "./Button";
 import ElementBuffer from "./ElementBuffer";
 import Header from "./Header";
-import SUIComponent from "./SUIComponent";
+import SUIModuleComponent from "./SUIModuleComponent";
 import Stub from "./Stub";
 
 import { isElement, hasClass } from "./SUI";
@@ -50,7 +50,7 @@ const moduleProps = {
 
 // NOTE: We do NOT extend from SUIComponent because
 //       we only initialize the modal when showing.
-class SUIModal extends SUIComponent {
+class SUIModal extends SUIModuleComponent {
   static propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
