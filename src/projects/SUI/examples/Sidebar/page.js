@@ -1,11 +1,10 @@
 getInitialData({ page, components:c }) {
-  console.warn(c);
   return {
     iconMenu: [
-      <MenuItem icon="home">Home</MenuItem>,
-      <MenuItem icon="block layout">Topics</MenuItem>,
-      <MenuItem icon="smile">Friends</MenuItem>,
-      <MenuItem icon="calendar">History</MenuItem>,
+      <c.MenuItem icon="home">Home</c.MenuItem>,
+      <c.MenuItem icon="block layout">Topics</c.MenuItem>,
+      <c.MenuItem icon="smile">Friends</c.MenuItem>,
+      <c.MenuItem icon="calendar">History</c.MenuItem>,
     ],
   }
 }

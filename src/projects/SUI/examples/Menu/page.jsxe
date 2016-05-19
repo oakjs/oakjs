@@ -1,293 +1,312 @@
-<OakPage id="Menu" title="Menu">
-  <PageTitle title="Menu">
+<Oak-OakPage id="Menu" title="Menu" oid="r71A4VF9">
+  <PageTitle title="Menu" oid="jl6rvwLx">
     A menu displays grouped navigation actions
   </PageTitle>
-
-  <PageSection title="Content">
-
-    <Example title="Inline menu items">
-      <Menu>
-        <MenuHeader>News</MenuHeader>
-        <MenuItem active>Editorials</MenuItem>
-        <MenuItem>Reviews</MenuItem>
-        <MenuItem>Events</MenuItem>
-      </Menu>
+  <PageSection title="Content" oid="b920S8kC">
+    <Example title="Inline menu items" oid="oWiZaT2w">
+      <SUI-Menu oid="JxHlxB1s">
+        <SUI-MenuHeader oid="y9mpnRdT">
+          News
+        </SUI-MenuHeader>
+        <SUI-MenuItem active oid="U2xqMRL5">
+          Editorials
+        </SUI-MenuItem>
+        <SUI-MenuItem oid="r6TDe7gs">
+          Reviews
+        </SUI-MenuItem>
+        <SUI-MenuItem oid="Ijp6bYqu">
+          Events
+        </SUI-MenuItem>
+      </SUI-Menu>
     </Example>
-
-    <Example title="Items attribute with MenuItems">
-      <Menu items={data.simpleItems}/>
+    <Example title="Items attribute with MenuItems" oid="Vq58Veh8">
+      <SUI-Menu items={data.simpleItems} oid="qqkqNNZc"/>
     </Example>
-
-    <Example title="Items attribute with array strings">
-      <Menu items={["#News", "Editorials", "Reviews", "Events"]}/>
+    <Example title="Items attribute with array strings" oid="RkV5BdHj">
+      <SUI-Menu items={["#News", "Editorials", "Reviews", "Events"]} oid="p1icgQc5"/>
     </Example>
-
   </PageSection>
-
-  <PageSection title="Types">
-
-    <Example title="Normal">
-      <Menu items={data.simpleItems}/>
-      <Menu items={data.homeToLogoutItems}/>
+  <PageSection title="Types" oid="G9vpJr9W">
+    <Example title="Normal" oid="Ul0UcUiY">
+      <SUI-Menu items={data.simpleItems} oid="yHfbgq9W"/>
+      <SUI-Menu items={data.homeToLogoutItems} oid="RapTheKK"/>
     </Example>
-
-    <Example title="Secondary" hint="<Menu appearance='secondary'/>">
-      <Menu appearance="secondary" items={data.homeToLogoutItems}/>
+    <Example title="Secondary" hint="<Menu appearance='secondary'/>" oid="e8GfvcS2">
+      <SUI-Menu appearance="secondary" items={data.homeToLogoutItems} oid="y6CSIYmS"/>
     </Example>
-
-    <Example title="Pointing" hint="<Menu appearance='pointing'/>">
-      <Menu appearance="pointing" items={data.homeToLogoutItems}/>
-
-      <Spacer/>
-      <Label color="teal" pointing="down">Secondary pointing</Label>
-      <Menu appearance="secondary pointing" items={data.homeToLogoutItems}/>
+    <Example title="Pointing" hint="<Menu appearance='pointing'/>" oid="vvseEb24">
+      <SUI-Menu appearance="pointing" items={data.homeToLogoutItems} oid="dSnKofCN"/>
+      <Oak-Spacer oid="U4LR3LUh"/>
+      <SUI-Label color="teal" pointing="down" oid="kmpucYSp">
+        Secondary pointing
+      </SUI-Label>
+      <SUI-Menu appearance="secondary pointing" items={data.homeToLogoutItems} oid="lR24ltel"/>
     </Example>
-
-    <Example title="Tabular" hint="<Menu appearance='tabular'/>">
-      <Menu appearance="tabular" items={data.topTabItems}/>
-
-      <Spacer/>
-      <Label color="teal" pointing="down">bottom tabular</Label>
-      <Menu appearance="bottom tabular" items={data.topTabItems}/>
-
-      <Grid columns={2}>
-        <Column>
-          <Label color="teal" pointing="down">vertical left tabular</Label>
-          <Menu appearance="vertical left tabular" items={data.topTabItems}/>
-        </Column>
-
-        <Column>
-          <Label color="teal" pointing="down">vertical right tabular</Label>
-          <Menu appearance="vertical right tabular" items={data.topTabItems}/>
-        </Column>
-      </Grid>
+    <Example title="Tabular" hint="<Menu appearance='tabular'/>" oid="Bw9WUYv7">
+      <SUI-Menu appearance="tabular" items={data.topTabItems} oid="pS4nudV9"/>
+      <Oak-Spacer oid="IcUHr5Nt"/>
+      <SUI-Label color="teal" pointing="down" oid="qZjRRX0q">
+        bottom tabular
+      </SUI-Label>
+      <SUI-Menu appearance="bottom tabular" items={data.topTabItems} oid="Gq4G5P9O"/>
+      <SUI-Grid columns={2} oid="G4ZZ5nJo">
+        <SUI-Column oid="jQf8POfU">
+          <SUI-Label color="teal" pointing="down" oid="f8PrPmsJ">
+            vertical left tabular
+          </SUI-Label>
+          <SUI-Menu appearance="vertical left tabular" items={data.topTabItems} oid="BH9rEWEQ"/>
+        </SUI-Column>
+        <SUI-Column oid="pITo0Ify">
+          <SUI-Label color="teal" pointing="down" oid="jct9GBPT">
+            vertical right tabular
+          </SUI-Label>
+          <SUI-Menu appearance="vertical right tabular" items={data.topTabItems} oid="ap2vLTmT"/>
+        </SUI-Column>
+      </SUI-Grid>
     </Example>
-
-    <Example title="Pagination" hint="<Menu appearance='pagination'/>">
-      <Menu appearance="pagination" items={data.paginationItems}/>
+    <Example title="Pagination" hint="<Menu appearance='pagination'/>" oid="DIiZ74Th">
+      <SUI-Menu appearance="pagination" items={data.paginationItems} oid="V68VUYkq"/>
     </Example>
-
-    <Example title="Text" hint="<Menu appearance='text'/>">
-      <Menu appearance="text" items={data.textItems}/>
+    <Example title="Text" hint="<Menu appearance='text'/>" oid="LgAbqEpX">
+      <SUI-Menu appearance="text" items={data.textItems} oid="Y0nBGLh2"/>
     </Example>
-
-    <Example title="Icons only" hint="<Menu appearance='icon'/>">
-      <Menu appearance='icon compact' items={data.iconItems}/>
+    <Example title="Icons only" hint="<Menu appearance='icon'/>" oid="Z8hqd4Bm">
+      <SUI-Menu appearance="icon compact" items={data.iconItems} oid="QUnpvhBW"/>
     </Example>
-
-    <Example title="Labeled icon" hint="<Menu appearance='labeled icon'/>">
-      <Menu appearance='labeled icon compact' items={data.labeledIconItems}/>
+    <Example title="Labeled icon" hint="<Menu appearance='labeled icon'/>" oid="sNsU1O6W">
+      <SUI-Menu appearance="labeled icon compact" items={data.labeledIconItems} oid="lpbo3i3i"/>
     </Example>
-
-    <Example title="Vertical" hint="<Menu appearance='vertical'/>">
-      <Grid columns={3}>
-        <Column>
-          <Label color="teal" pointing="down">Vertical</Label>
-          <Menu appearance="vertical" items={data.verticalItems}/>
-        </Column>
-
-        <Column>
-          <Label color="teal" pointing="down">Vertical Pointing</Label>
-          <Menu appearance="vertical pointing" items={data.verticalItems}/>
-        </Column>
-
-        <Column>
-          <Label color="teal" pointing="down">Vertical Tabular</Label>
-          <Menu appearance="vertical tabular" items={data.verticalItems}/>
-        </Column>
-
-        <Column>
-          <Label color="teal" pointing="down">Secondary Vertical</Label>
-          <Menu appearance="secondary vertical" items={data.verticalItems}/>
-        </Column>
-
-        <Column>
-           <Label color="teal" pointing="down">Secondary Vertical Pointing</Label>
-           <Menu appearance="secondary vertical pointing" items={data.verticalItems}/>
-        </Column>
-
-        <Column>
-          <Label color="teal" pointing="down">Vertical Text</Label>
-          <Menu appearance="vertical text" items={data.verticalItems}/>
-        </Column>
-      </Grid>
+    <Example title="Vertical" hint="<Menu appearance='vertical'/>" oid="CQ1VWPst">
+      <SUI-Grid columns={3} oid="Bg8X7m9j">
+        <SUI-Column oid="dKjut8rB">
+          <SUI-Label color="teal" pointing="down" oid="cmmpMV4s">
+            Vertical
+          </SUI-Label>
+          <SUI-Menu appearance="vertical" items={data.verticalItems} oid="QQwu8Jrf"/>
+        </SUI-Column>
+        <SUI-Column oid="RSxUlBiq">
+          <SUI-Label color="teal" pointing="down" oid="rNUn80sb">
+            Vertical Pointing
+          </SUI-Label>
+          <SUI-Menu appearance="vertical pointing" items={data.verticalItems} oid="TDeeeMYc"/>
+        </SUI-Column>
+        <SUI-Column oid="Gjs2sYyD">
+          <SUI-Label color="teal" pointing="down" oid="or8LYpj1">
+            Vertical Tabular
+          </SUI-Label>
+          <SUI-Menu appearance="vertical tabular" items={data.verticalItems} oid="eE1s4wbY"/>
+        </SUI-Column>
+        <SUI-Column oid="mMoMwIkW">
+          <SUI-Label color="teal" pointing="down" oid="YkHsplYh">
+            Secondary Vertical
+          </SUI-Label>
+          <SUI-Menu appearance="secondary vertical" items={data.verticalItems} oid="H6KRsBYZ"/>
+        </SUI-Column>
+        <SUI-Column oid="kMEK4Z1y">
+          <SUI-Label color="teal" pointing="down" oid="dIwTMiZK">
+            Secondary Vertical Pointing
+          </SUI-Label>
+          <SUI-Menu appearance="secondary vertical pointing" items={data.verticalItems} oid="rFZfjqvZ"/>
+        </SUI-Column>
+        <SUI-Column oid="pxEI2yBB">
+          <SUI-Label color="teal" pointing="down" oid="obNX6mJq">
+            Vertical Text
+          </SUI-Label>
+          <SUI-Menu appearance="vertical text" items={data.verticalItems} oid="lP5HMLIF"/>
+        </SUI-Column>
+      </SUI-Grid>
     </Example>
-
   </PageSection>
-
-  <PageSection title="Appearance">
-
-    <Example title="Fluid" hint="<Menu appearance='fluid'/>">
-      <Menu appearance="vertical fluid" items={data.simpleItems}/>
+  <PageSection title="Appearance" oid="KxSmyTXA">
+    <Example title="Fluid" hint="<Menu appearance='fluid'/>" oid="JdndRbU7">
+      <SUI-Menu appearance="vertical fluid" items={data.simpleItems} oid="gSliWjBA"/>
     </Example>
-
-    <Example title="Compact" hint="<Menu appearance='compact'/>">
-      <Menu appearance="compact" items={data.simpleItems}/>
+    <Example title="Compact" hint="<Menu appearance='compact'/>" oid="kmUFS0d2">
+      <SUI-Menu appearance="compact" items={data.simpleItems} oid="NhQYrOop"/>
     </Example>
-
-    <Example title="Evenly divided" hint="<Menu itemCount={4}/>">
-      <Menu itemCount={4} items={data.simpleItems}/>
+    <Example title="Evenly divided" hint="<Menu itemCount={4}/>" oid="QbTh1Q8G">
+      <SUI-Menu itemCount={4} items={data.simpleItems} oid="sL1BXBAQ"/>
     </Example>
-
-    <Example title="Pointing" hint="<Menu appearance='pointing'/>">
-      <Menu appearance='pointing vertical' items={data.labeledIconItems}/>
-      <Bug>
-        <a Xhref="http://semantic-ui.com/collections/menu.html#evenly-divided" target="_blank">SUI example</a> for
-        this works, why doesn't ours?
+    <Example title="Pointing" hint="<Menu appearance='pointing'/>" oid="B4eCDhDW">
+      <SUI-Menu appearance="pointing vertical" items={data.labeledIconItems} oid="h2iTUJWX"/>
+      <Bug oid="CCXdxAoO">
+        <a Xhref="http://semantic-ui.com/collections/menu.html#evenly-divided" target="_blank" oid="OA9litse">
+          SUI example
+        </a>
+        for
+        this works, why doesn&apos;t ours?
       </Bug>
     </Example>
-
-    <Example title="Attached" hint="<Menu appearance='top attached'/>">
-      <Menu appearance="top attached" items={data.simpleItems}/>
-      <Segment appearance="attached">
-        <LoremIpsum short/>
-      </Segment>
-      <Menu appearance="bottom attached" items={data.simpleItems}/>
-
-      <Label color="teal" pointing="down">secondary attached</Label>
-      <Menu appearance="secondary top attached" items={data.simpleItems}/>
-      <Segment appearance="attached">
-        <LoremIpsum short/>
-      </Segment>
-      <Menu appearance="secondary bottom attached" items={data.simpleItems}/>
-
-      <Label color="teal" pointing="down">pointing attached</Label>
-      <Menu appearance="pointing top attached" items={data.simpleItems}/>
-      <Segment appearance="bottom attached">
-        <LoremIpsum short/>
-      </Segment>
-
-      <Label color="teal" pointing="down">tabular attached</Label>
-      <Menu appearance="tabular attached" items={data.simpleItems}/>
-      <Segment appearance="bottom attached">
-        <LoremIpsum short/>
-      </Segment>
-
-      <Segment appearance="top attached">
-        <LoremIpsum short/>
-      </Segment>
-      <Menu appearance="tabular bottom attached" items={data.simpleItems}/>
-
+    <Example title="Attached" hint="<Menu appearance='top attached'/>" oid="d36DY1ZP">
+      <SUI-Menu appearance="top attached" items={data.simpleItems} oid="coEh52V9"/>
+      <SUI-Segment appearance="attached" oid="OApHNdWx">
+        <LoremIpsum short oid="NMo2TC8n"/>
+      </SUI-Segment>
+      <SUI-Menu appearance="bottom attached" items={data.simpleItems} oid="QDuY9PBr"/>
+      <SUI-Label color="teal" pointing="down" oid="rPnYOfhY">
+        secondary attached
+      </SUI-Label>
+      <SUI-Menu appearance="secondary top attached" items={data.simpleItems} oid="l0T95kxY"/>
+      <SUI-Segment appearance="attached" oid="RQ8YtFc3">
+        <LoremIpsum short oid="DD0LFPmd"/>
+      </SUI-Segment>
+      <SUI-Menu appearance="secondary bottom attached" items={data.simpleItems} oid="PV43POl9"/>
+      <SUI-Label color="teal" pointing="down" oid="r71HfDOo">
+        pointing attached
+      </SUI-Label>
+      <SUI-Menu appearance="pointing top attached" items={data.simpleItems} oid="VJabiCll"/>
+      <SUI-Segment appearance="bottom attached" oid="jxaVXtvF">
+        <LoremIpsum short oid="C5qK0X0F"/>
+      </SUI-Segment>
+      <SUI-Label color="teal" pointing="down" oid="VPoWd6pN">
+        tabular attached
+      </SUI-Label>
+      <SUI-Menu appearance="tabular attached" items={data.simpleItems} oid="wJEdjfK8"/>
+      <SUI-Segment appearance="bottom attached" oid="ukG7XVT9">
+        <LoremIpsum short oid="g4bVgXDe"/>
+      </SUI-Segment>
+      <SUI-Segment appearance="top attached" oid="hrNFIdLT">
+        <LoremIpsum short oid="K54p522u"/>
+      </SUI-Segment>
+      <SUI-Menu appearance="tabular bottom attached" items={data.simpleItems} oid="wf3AZNkX"/>
     </Example>
-
-    <Example title="Inverted" hint="<Menu appearance='inverted'/>">
-      <Menu appearance="inverted" items={data.homeToLogoutItems}/>
-
-      <Spacer/>
-      <Label color="teal" pointing="down">inverted pointing</Label>
-      <Menu appearance="inverted pointing" items={data.homeToLogoutItems}/>
-
-      <Spacer/>
-      <Label color="teal" pointing="down">inverted pagination</Label>
-      <Spacer tiny/>
-      <Menu appearance="inverted pagination" items={data.paginationItems}/>
-
-      <Spacer/>
-      <Label color="teal" pointing="down">inverted secondary (inside segment)</Label>
-      <Segment appearance="inverted">
-        <Menu appearance="inverted secondary" items={data.homeToLogoutItems}/>
-      </Segment>
-      <Label color="teal" pointing="down">inverted secondary pointing (inside segment)</Label>
-      <Segment appearance="inverted">
-        <Menu appearance="inverted secondary pointing" items={data.homeToLogoutItems}/>
-      </Segment>
-      <Label color="teal" pointing="down">inverted tabular (inside segment)</Label>
-      <Segment appearance="inverted">
-        <Menu appearance="inverted tabular" items={data.topTabItems}/>
-      </Segment>
+    <Example title="Inverted" hint="<Menu appearance='inverted'/>" oid="s0wJV1ry">
+      <SUI-Menu appearance="inverted" items={data.homeToLogoutItems} oid="uftblr7c"/>
+      <Oak-Spacer oid="uMWnpEVS"/>
+      <SUI-Label color="teal" pointing="down" oid="hcOOHO82">
+        inverted pointing
+      </SUI-Label>
+      <SUI-Menu appearance="inverted pointing" items={data.homeToLogoutItems} oid="q161C88i"/>
+      <Oak-Spacer oid="ApNEUQ1D"/>
+      <SUI-Label color="teal" pointing="down" oid="N0E46TXt">
+        inverted pagination
+      </SUI-Label>
+      <Oak-Spacer tiny oid="syDwnxYM"/>
+      <SUI-Menu appearance="inverted pagination" items={data.paginationItems} oid="CEnaNSZy"/>
+      <Oak-Spacer oid="MLGFNcN6"/>
+      <SUI-Label color="teal" pointing="down" oid="abhJo6jG">
+        inverted secondary (inside segment)
+      </SUI-Label>
+      <SUI-Segment appearance="inverted" oid="cg7kdwQ9">
+        <SUI-Menu appearance="inverted secondary" items={data.homeToLogoutItems} oid="pg6LRImG"/>
+      </SUI-Segment>
+      <SUI-Label color="teal" pointing="down" oid="I5QJXFnG">
+        inverted secondary pointing (inside segment)
+      </SUI-Label>
+      <SUI-Segment appearance="inverted" oid="TuFjiWC7">
+        <SUI-Menu appearance="inverted secondary pointing" items={data.homeToLogoutItems} oid="YgD3P0Tk"/>
+      </SUI-Segment>
+      <SUI-Label color="teal" pointing="down" oid="ExNE1eum">
+        inverted tabular (inside segment)
+      </SUI-Label>
+      <SUI-Segment appearance="inverted" oid="dtfbX3JF">
+        <SUI-Menu appearance="inverted tabular" items={data.topTabItems} oid="NXRtTdJ1"/>
+      </SUI-Segment>
     </Example>
-
-    <Spacer/>
-    <Grid columns={3}>
-      <Column>
-        <Label color="teal" pointing="down">inverted vertical pointing</Label>
-        <Menu appearance="inverted vertical" items={data.verticalItems}/>
-      </Column>
-
-      <Column>
-        <Label color="teal" pointing="down">inverted vertical pointing</Label>
-        <Menu appearance="inverted vertical pointing" items={data.verticalItems}/>
-      </Column>
-
-      <Column>
-        <Label color="teal" pointing="down">inverted vertical tabular (inside segment)</Label>
-        <Segment appearance="inverted compact">
-          <Menu appearance="inverted vertical tabular" items={data.verticalItems}/>
-        </Segment>
-        <Bug>SUI rendering bug???</Bug>
-      </Column>
-
-      <Column>
-        <Label color="teal" pointing="down">inverted secondary vertical (inside segment)</Label>
-        <Segment appearance="inverted compact">
-          <Menu appearance="inverted secondary vertical" items={data.verticalItems}/>
-        </Segment>
-      </Column>
-
-      <Column>
-        <Label color="teal" pointing="down">inverted secondary vertical pointing (in segment)</Label>
-        <Segment appearance="inverted compact">
-          <Menu appearance="inverted secondary vertical pointing" items={data.verticalItems}/>
-        </Segment>
-      </Column>
-
-      <Column>
-        <Label color="teal" pointing="down">inverted vertical text (inside segment)</Label>
-        <Segment appearance="inverted compact">
-          <Menu appearance="inverted vertical text" items={data.verticalItems}/>
-        </Segment>
-        <Bug>Active item is not well highlighted</Bug>
-      </Column>
-    </Grid>
-
-    <Example title="Colored" hint="<Menu color='red'/>">
-      <Grid columns={2}>
-        <Column>
-          <Menu color="red" itemCount={4} items={data.simpleItems}/>
-          <Menu color="orange" itemCount={4} items={data.simpleItems}/>
-          <Menu color="yellow" itemCount={4} items={data.simpleItems}/>
-          <Menu color="olive" itemCount={4} items={data.simpleItems}/>
-          <Menu color="green" itemCount={4} items={data.simpleItems}/>
-          <Menu color="teal" itemCount={4} items={data.simpleItems}/>
-          <Menu color="blue" itemCount={4} items={data.simpleItems}/>
-          <Menu color="violet" itemCount={4} items={data.simpleItems}/>
-          <Menu color="purple" itemCount={4} items={data.simpleItems}/>
-          <Menu color="pink" itemCount={4} items={data.simpleItems}/>
-          <Menu color="brown" itemCount={4} items={data.simpleItems}/>
-          <Menu color="grey" itemCount={4} items={data.simpleItems}/>
-        </Column>
-        <Column>
-          <Menu color="inverted red" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted orange" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted yellow" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted olive" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted green" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted teal" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted blue" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted violet" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted purple" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted pink" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted brown" itemCount={4} items={data.simpleItems}/>
-          <Menu color="inverted grey" itemCount={4} items={data.simpleItems}/>
-        </Column>
-      </Grid>
+    <Oak-Spacer oid="cpj0MmcS"/>
+    <SUI-Grid columns={3} oid="QyZ8rakd">
+      <SUI-Column oid="OfSQPq4V">
+        <SUI-Label color="teal" pointing="down" oid="ERQOavpK">
+          inverted vertical pointing
+        </SUI-Label>
+        <SUI-Menu appearance="inverted vertical" items={data.verticalItems} oid="VJVy4lWM"/>
+      </SUI-Column>
+      <SUI-Column oid="tvr8IQOa">
+        <SUI-Label color="teal" pointing="down" oid="jElmYik1">
+          inverted vertical pointing
+        </SUI-Label>
+        <SUI-Menu appearance="inverted vertical pointing" items={data.verticalItems} oid="BH0mTrql"/>
+      </SUI-Column>
+      <SUI-Column oid="jNO0Kw0S">
+        <SUI-Label color="teal" pointing="down" oid="BRW3PYUU">
+          inverted vertical tabular (inside segment)
+        </SUI-Label>
+        <SUI-Segment appearance="inverted compact" oid="bICMdNjs">
+          <SUI-Menu appearance="inverted vertical tabular" items={data.verticalItems} oid="Hv9lTopT"/>
+        </SUI-Segment>
+        <Bug oid="YAr63eDL">
+          SUI rendering bug???
+        </Bug>
+      </SUI-Column>
+      <SUI-Column oid="ycpw6L46">
+        <SUI-Label color="teal" pointing="down" oid="rm2QcFrR">
+          inverted secondary vertical (inside segment)
+        </SUI-Label>
+        <SUI-Segment appearance="inverted compact" oid="b2rrVpHV">
+          <SUI-Menu appearance="inverted secondary vertical" items={data.verticalItems} oid="oqE0SAUa"/>
+        </SUI-Segment>
+      </SUI-Column>
+      <SUI-Column oid="IxpUyaBF">
+        <SUI-Label color="teal" pointing="down" oid="G9FfxSyX">
+          inverted secondary vertical pointing (in segment)
+        </SUI-Label>
+        <SUI-Segment appearance="inverted compact" oid="kIGHoC94">
+          <SUI-Menu appearance="inverted secondary vertical pointing" items={data.verticalItems} oid="J8ugWIcX"/>
+        </SUI-Segment>
+      </SUI-Column>
+      <SUI-Column oid="WlaCbu4c">
+        <SUI-Label color="teal" pointing="down" oid="JZE3RS33">
+          inverted vertical text (inside segment)
+        </SUI-Label>
+        <SUI-Segment appearance="inverted compact" oid="FGIMUcm7">
+          <SUI-Menu appearance="inverted vertical text" items={data.verticalItems} oid="LTUnlEs7"/>
+        </SUI-Segment>
+        <Bug oid="XlW3of3w">
+          Active item is not well highlighted
+        </Bug>
+      </SUI-Column>
+    </SUI-Grid>
+    <Example title="Colored" hint="<Menu color='red'/>" oid="GFAqkMmR">
+      <SUI-Grid columns={2} oid="cuEWo1oE">
+        <SUI-Column oid="WbHYgfaP">
+          <SUI-Menu color="red" itemCount={4} items={data.simpleItems} oid="cF0uIGwP"/>
+          <SUI-Menu color="orange" itemCount={4} items={data.simpleItems} oid="u6ppL1fX"/>
+          <SUI-Menu color="yellow" itemCount={4} items={data.simpleItems} oid="Hh1nKgBI"/>
+          <SUI-Menu color="olive" itemCount={4} items={data.simpleItems} oid="QZl7E2bM"/>
+          <SUI-Menu color="green" itemCount={4} items={data.simpleItems} oid="TBwMXEhj"/>
+          <SUI-Menu color="teal" itemCount={4} items={data.simpleItems} oid="oYoD7bZh"/>
+          <SUI-Menu color="blue" itemCount={4} items={data.simpleItems} oid="wCSipvkU"/>
+          <SUI-Menu color="violet" itemCount={4} items={data.simpleItems} oid="o77ZoEs0"/>
+          <SUI-Menu color="purple" itemCount={4} items={data.simpleItems} oid="VVvOTR7e"/>
+          <SUI-Menu color="pink" itemCount={4} items={data.simpleItems} oid="hi1jVOvE"/>
+          <SUI-Menu color="brown" itemCount={4} items={data.simpleItems} oid="rx9ClY5M"/>
+          <SUI-Menu color="grey" itemCount={4} items={data.simpleItems} oid="Klr7cGZe"/>
+        </SUI-Column>
+        <SUI-Column oid="QtTeq93d">
+          <SUI-Menu color="inverted red" itemCount={4} items={data.simpleItems} oid="jf9fMrGs"/>
+          <SUI-Menu color="inverted orange" itemCount={4} items={data.simpleItems} oid="eH6Om91P"/>
+          <SUI-Menu color="inverted yellow" itemCount={4} items={data.simpleItems} oid="TdIdjgWk"/>
+          <SUI-Menu color="inverted olive" itemCount={4} items={data.simpleItems} oid="tv89GjI8"/>
+          <SUI-Menu color="inverted green" itemCount={4} items={data.simpleItems} oid="mslFrlMS"/>
+          <SUI-Menu color="inverted teal" itemCount={4} items={data.simpleItems} oid="AfSX4r1X"/>
+          <SUI-Menu color="inverted blue" itemCount={4} items={data.simpleItems} oid="uZV65rQ5"/>
+          <SUI-Menu color="inverted violet" itemCount={4} items={data.simpleItems} oid="qqSQiCky"/>
+          <SUI-Menu color="inverted purple" itemCount={4} items={data.simpleItems} oid="bl07Nys4"/>
+          <SUI-Menu color="inverted pink" itemCount={4} items={data.simpleItems} oid="sFhsVXNX"/>
+          <SUI-Menu color="inverted brown" itemCount={4} items={data.simpleItems} oid="akEf2Umi"/>
+          <SUI-Menu color="inverted grey" itemCount={4} items={data.simpleItems} oid="QSUnjr2C"/>
+        </SUI-Column>
+      </SUI-Grid>
     </Example>
-
-    <Example title="Sizes" hint="<Menu size='large'/>">
-      <Label color="teal" pointing="down">small</Label>
-      <Menu size='small' items={data.homeToLogoutItems}/>
-
-      <Label color="teal" pointing="down">medium (default size)</Label>
-      <Menu size='medium' items={data.homeToLogoutItems}/>
-
-      <Label color="teal" pointing="down">large</Label>
-      <Menu size='default' items={data.homeToLogoutItems}/>
+    <Example title="Sizes" hint="<Menu size='large'/>" oid="BJjsYrIJ">
+      <SUI-Label color="teal" pointing="down" oid="JB5GkML2">
+        small
+      </SUI-Label>
+      <SUI-Menu size="small" items={data.homeToLogoutItems} oid="U4KFRqTI"/>
+      <SUI-Label color="teal" pointing="down" oid="DYttAYjq">
+        medium (default size)
+      </SUI-Label>
+      <SUI-Menu size="medium" items={data.homeToLogoutItems} oid="CFAp3tSp"/>
+      <SUI-Label color="teal" pointing="down" oid="r4MwGfDq">
+        large
+      </SUI-Label>
+      <SUI-Menu size="default" items={data.homeToLogoutItems} oid="tY6qbULr"/>
     </Example>
-
-    <Example title="Stackable" hint="<Menu appearance='stackable'/>">
-      <Menu appearance="stackable" items={data.homeToLogoutItems}/>
-      <Info>Stackable isn't super capable here...</Info>
+    <Example title="Stackable" hint="<Menu appearance='stackable'/>" oid="RytNS0oT">
+      <SUI-Menu appearance="stackable" items={data.homeToLogoutItems} oid="v4slruyt"/>
+      <Info oid="HQ7Gn7IZ">
+        Stackable isn&apos;t super capable here...
+      </Info>
     </Example>
-
   </PageSection>
-</OakPage>
+</Oak-OakPage>

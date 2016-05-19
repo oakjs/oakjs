@@ -1,109 +1,182 @@
-<OakPage id="Segments" title="Segments">
-  <PageTitle title="Segments">
+<Oak-OakPage id="Segments" title="Segments" oid="SRFA41LC">
+  <PageTitle title="Segments" oid="VCfQfDfp">
     A Segments is used to create a grouping of segments with similar appearance.
   </PageTitle>
-
-  <PageSection title="Types">
-
-    <Example title="Normal">
-      <Grid columns={3}>
-        <Column>
-          <Segments>
-            <Segment>Top</Segment>
-            <Segment>Middle</Segment>
-            <Segment>Middle</Segment>
-            <Segment>Middle</Segment>
-            <Segment>Bottom</Segment>
-          </Segments>
-        </Column>
-
-        <Column>
-          <Segments>
-            <Segment>Top</Segment>
-            <Segment color="red">Middle</Segment>
-            <Segment color="blue">Middle</Segment>
-            <Segment color="green">Middle</Segment>
-            <Segment color="yellow">Bottom</Segment>
-          </Segments>
-        </Column>
-
-        <Column>
-          <Segments>
-            <Segment appearance="inverted">Inverted</Segment>
-            <Segment appearance="secondary">Secondary</Segment>
-            <Segment>Normal</Segment>
-            <Segment>Normal</Segment>
-            <Segment appearance="tertiary">Tertiary</Segment>
-          </Segments>
-        </Column>
-      </Grid>
+  <PageSection title="Types" oid="Zg0pAdUc">
+    <Example title="Normal" oid="dg9ppXhk">
+      <SUI-Grid columns={3} oid="G0U9QGss">
+        <SUI-Column oid="Gc9mfG4w">
+          <SUI-Segments oid="qkjMiNqr">
+            <SUI-Segment oid="umQgloi0">
+              Top
+            </SUI-Segment>
+            <SUI-Segment oid="JR1pVHDD">
+              Middle
+            </SUI-Segment>
+            <SUI-Segment oid="tPZuhXZ1">
+              Middle
+            </SUI-Segment>
+            <SUI-Segment oid="du90QkoS">
+              Middle
+            </SUI-Segment>
+            <SUI-Segment oid="rG2c653x">
+              Bottom
+            </SUI-Segment>
+          </SUI-Segments>
+        </SUI-Column>
+        <SUI-Column oid="yZ9lsBNY">
+          <SUI-Segments oid="fEdKd0Vj">
+            <SUI-Segment oid="lvqhrFsR">
+              Top
+            </SUI-Segment>
+            <SUI-Segment color="red" oid="v5Ju3sHp">
+              Middle
+            </SUI-Segment>
+            <SUI-Segment color="blue" oid="Oay39NY7">
+              Middle
+            </SUI-Segment>
+            <SUI-Segment color="green" oid="DoAE2cAp">
+              Middle
+            </SUI-Segment>
+            <SUI-Segment color="yellow" oid="DnLstm3B">
+              Bottom
+            </SUI-Segment>
+          </SUI-Segments>
+        </SUI-Column>
+        <SUI-Column oid="XZQDvT1f">
+          <SUI-Segments oid="StXk3Eht">
+            <SUI-Segment appearance="inverted" oid="rgNgJUxy">
+              Inverted
+            </SUI-Segment>
+            <SUI-Segment appearance="secondary" oid="lBZy49Il">
+              Secondary
+            </SUI-Segment>
+            <SUI-Segment oid="Ffgmk6dc">
+              Normal
+            </SUI-Segment>
+            <SUI-Segment oid="wGfU5mWk">
+              Normal
+            </SUI-Segment>
+            <SUI-Segment appearance="tertiary" oid="dZ7ZadT4">
+              Tertiary
+            </SUI-Segment>
+          </SUI-Segments>
+        </SUI-Column>
+      </SUI-Grid>
     </Example>
-
-    <Example title="Horizontal" hint="<Segments horizontal/>">
-      <Segments horizontal>
-        <Segment>Left</Segment>
-        <Segment>Right</Segment>
-      </Segments>
-
-      <Segments horizontal>
-        <Segment>Left</Segment>
-        <Segment>Center</Segment>
-        <Segment>Right</Segment>
-      </Segments>
-
-      <Segments horizontal>
-        <Segment>1</Segment>
-        <Segment>2</Segment>
-        <Segment>3</Segment>
-        <Segment>4</Segment>
-        <Segment>5</Segment>
-      </Segments>
+    <Example title="Horizontal" hint="<Segments horizontal/>" oid="M0JE1EAE">
+      <SUI-Segments horizontal oid="XlibYAjD">
+        <SUI-Segment oid="lfQyeaiL">
+          Left
+        </SUI-Segment>
+        <SUI-Segment oid="EpMP3clx">
+          Right
+        </SUI-Segment>
+      </SUI-Segments>
+      <SUI-Segments horizontal oid="qEhG2aZY">
+        <SUI-Segment oid="V4R58Dl4">
+          Left
+        </SUI-Segment>
+        <SUI-Segment oid="vcvAW2mH">
+          Center
+        </SUI-Segment>
+        <SUI-Segment oid="Y3FmxmHv">
+          Right
+        </SUI-Segment>
+      </SUI-Segments>
+      <SUI-Segments horizontal oid="vwt0bgf4">
+        <SUI-Segment oid="WwGNLumx">
+          1
+        </SUI-Segment>
+        <SUI-Segment oid="yKFjZZKr">
+          2
+        </SUI-Segment>
+        <SUI-Segment oid="ccbvyTaW">
+          3
+        </SUI-Segment>
+        <SUI-Segment oid="gLoldcNj">
+          4
+        </SUI-Segment>
+        <SUI-Segment oid="Hg0axdLW">
+          5
+        </SUI-Segment>
+      </SUI-Segments>
     </Example>
-
-    <Example title="Nested">
-      <Segments>
-        <Segment>Top</Segment>
-        <Segments>
-          <Segment>Nested Top</Segment>
-          <Segment>Nested Middle</Segment>
-          <Segment>Nested Bottom</Segment>
-        </Segments>
-        <Segment>Middle</Segment>
-        <Segments horizontal>
-          <Segment>Left</Segment>
-          <Segment>Center</Segment>
-          <Segment>Right</Segment>
-        </Segments>
-        <Segment>Bottom</Segment>
-      </Segments>
+    <Example title="Nested" oid="B8DxaDCD">
+      <SUI-Segments oid="T6ndZPXI">
+        <SUI-Segment oid="jkwN1OBP">
+          Top
+        </SUI-Segment>
+        <SUI-Segments oid="dWFAoGuk">
+          <SUI-Segment oid="OAQuOwCp">
+            Nested Top
+          </SUI-Segment>
+          <SUI-Segment oid="WbDQojwC">
+            Nested Middle
+          </SUI-Segment>
+          <SUI-Segment oid="WiyFAbtj">
+            Nested Bottom
+          </SUI-Segment>
+        </SUI-Segments>
+        <SUI-Segment oid="mgA5eM1M">
+          Middle
+        </SUI-Segment>
+        <SUI-Segments horizontal oid="GGSrMXN4">
+          <SUI-Segment oid="mgA853Qq">
+            Left
+          </SUI-Segment>
+          <SUI-Segment oid="JGYY3ikh">
+            Center
+          </SUI-Segment>
+          <SUI-Segment oid="dlTfJOTE">
+            Right
+          </SUI-Segment>
+        </SUI-Segments>
+        <SUI-Segment oid="Fi4ambaV">
+          Bottom
+        </SUI-Segment>
+      </SUI-Segments>
     </Example>
-
   </PageSection>
-
-  <PageSection title="Appearance">
-    <Example title="Raised" hint="<Segments appearance='raised'/>">
-      <Segments appearance="raised">
-        <Segment>Top</Segment>
-        <Segment>Middle</Segment>
-        <Segment>Bottom</Segment>
-      </Segments>
+  <PageSection title="Appearance" oid="BeVSb8gk">
+    <Example title="Raised" hint="<Segments appearance='raised'/>" oid="VhWXXwC2">
+      <SUI-Segments appearance="raised" oid="ETFdf66Q">
+        <SUI-Segment oid="hgXbJri5">
+          Top
+        </SUI-Segment>
+        <SUI-Segment oid="Hc44b7JU">
+          Middle
+        </SUI-Segment>
+        <SUI-Segment oid="Au3M6OeI">
+          Bottom
+        </SUI-Segment>
+      </SUI-Segments>
     </Example>
-
-    <Example title="Stacked" hint="<Segments appearance='stacked'/>">
-      <Segments appearance="stacked">
-        <Segment>Top</Segment>
-        <Segment>Middle</Segment>
-        <Segment>Bottom</Segment>
-      </Segments>
+    <Example title="Stacked" hint="<Segments appearance='stacked'/>" oid="bnoxt2Q6">
+      <SUI-Segments appearance="stacked" oid="wbM1DZNX">
+        <SUI-Segment oid="sHaFkkSO">
+          Top
+        </SUI-Segment>
+        <SUI-Segment oid="LEJqpCA6">
+          Middle
+        </SUI-Segment>
+        <SUI-Segment oid="IqDnFMJ4">
+          Bottom
+        </SUI-Segment>
+      </SUI-Segments>
     </Example>
-
-    <Example title="Piled" hint="<Segments appearance='piled'/>">
-      <Segments appearance="piled">
-        <Segment>Top</Segment>
-        <Segment>Middle</Segment>
-        <Segment>Bottom</Segment>
-      </Segments>
+    <Example title="Piled" hint="<Segments appearance='piled'/>" oid="Yxffd5QH">
+      <SUI-Segments appearance="piled" oid="eBfcTJhQ">
+        <SUI-Segment oid="ONlUFZ63">
+          Top
+        </SUI-Segment>
+        <SUI-Segment oid="yM10UCh6">
+          Middle
+        </SUI-Segment>
+        <SUI-Segment oid="BYgnJTcS">
+          Bottom
+        </SUI-Segment>
+      </SUI-Segments>
     </Example>
-
   </PageSection>
-</OakPage>
+</Oak-OakPage>

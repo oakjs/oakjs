@@ -1,95 +1,83 @@
-<OakPage id="Rail" title="Rail">
-  <PageTitle title="Rail">
+<Oak-OakPage id="Rail" title="Rail" oid="sZJamlad">
+  <PageTitle title="Rail" oid="B34roZ0H">
     A rail is used to show accompanying content outside the boundaries of the main view of a site.
   </PageTitle>
-
-  <PageSection title="Appearance">
-
-    <Example title="Left or Right" hint="<Rail left/>">
-      <Segment style={{marginLeft:350}}>
-        <Rail left>
-          <Segment>
+  <PageSection title="Appearance" oid="xmTovFPd">
+    <Example title="Left or Right" hint="<Rail left/>" oid="NtN5UOby">
+      <SUI-Segment style={{marginLeft:350}} oid="IHLBaktG">
+        <SUI-Rail left oid="C90oADUn">
+          <SUI-Segment oid="vCPv3yV2">
             Left rail content
-          </Segment>
-        </Rail>
-        <LoremIpsum short/>
-      </Segment>
-
-      <Segment style={{marginRight:350}}>
-        <Rail right>
-          <Segment>
+          </SUI-Segment>
+        </SUI-Rail>
+        <LoremIpsum short oid="i5lFULuR"/>
+      </SUI-Segment>
+      <SUI-Segment style={{marginRight:350}} oid="KN7s7d9W">
+        <SUI-Rail right oid="u5e3POoV">
+          <SUI-Segment oid="CItYuWJQ">
             Right rail content
-          </Segment>
-        </Rail>
-        <LoremIpsum short/>
-      </Segment>
+          </SUI-Segment>
+        </SUI-Rail>
+        <LoremIpsum short oid="BnboYFmf"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Internal" hint="<Rail left internal/>">
-      <Segment>
-        <Rail left internal>
-          <Segment>
+    <Example title="Internal" hint="<Rail left internal/>" oid="I5aeLbvd">
+      <SUI-Segment oid="YmcafRB1">
+        <SUI-Rail left internal oid="njW12YPs">
+          <SUI-Segment oid="b5a3chyq">
             Left rail content
-          </Segment>
-        </Rail>
-        <LoremIpsum style={{marginLeft:350}} short/>
-      </Segment>
-
-      <Segment>
-        <Rail right internal>
-          <Segment>
+          </SUI-Segment>
+        </SUI-Rail>
+        <LoremIpsum style={{marginLeft:350}} short oid="XT1nA6wx"/>
+      </SUI-Segment>
+      <SUI-Segment oid="EdB0oT6d">
+        <SUI-Rail right internal oid="uKSFulnY">
+          <SUI-Segment oid="UngoFJHM">
             Right rail content
-          </Segment>
-        </Rail>
-        <LoremIpsum style={{marginRight:350}} short/>
-      </Segment>
+          </SUI-Segment>
+        </SUI-Rail>
+        <LoremIpsum style={{marginRight:350}} short oid="a3aEab7u"/>
+      </SUI-Segment>
     </Example>
   </PageSection>
-
-  <PageSection title="Appearance">
-
-    <Example title="Dividing" hint="<Rail dividing/>">
-      <Segment style={{marginLeft:350}}>
-        <Rail dividing left>
+  <PageSection title="Appearance" oid="ME4Vvhxl">
+    <Example title="Dividing" hint="<Rail dividing/>" oid="fh15Z1ow">
+      <SUI-Segment style={{marginLeft:350}} oid="Jn1loNWD">
+        <SUI-Rail dividing left oid="tel2GT7w">
           Left rail content
-        </Rail>
-        <LoremIpsum short/>
-      </Segment>
+        </SUI-Rail>
+        <LoremIpsum short oid="lv3MKRJJ"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Close" hint="<Rail appearance='close'/> or <Rail appearance='very close'/>">
-      <Segment style={{marginLeft:350}}>
-        <Rail left appearance="close">
-          <Segment>
+    <Example title="Close" hint="<Rail appearance='close'/> or <Rail appearance='very close'/>" oid="fnQ6gS4I">
+      <SUI-Segment style={{marginLeft:350}} oid="aKTmW5yb">
+        <SUI-Rail left appearance="close" oid="F5iSUmqf">
+          <SUI-Segment oid="Uw2tE4ga">
             Left rail content
-          </Segment>
-        </Rail>
-        <LoremIpsum short/>
-      </Segment>
+          </SUI-Segment>
+        </SUI-Rail>
+        <LoremIpsum short oid="UYbF0e9e"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Very Close" hint="<Rail appearance='very close'/>">
-      <Segment style={{marginLeft:350}}>
-        <Rail left appearance="very close">
-          <Segment>
+    <Example title="Very Close" hint="<Rail appearance='very close'/>" oid="O0G8FTrS">
+      <SUI-Segment style={{marginLeft:350}} oid="kJ250T3u">
+        <SUI-Rail left appearance="very close" oid="EyaFqixT">
+          <SUI-Segment oid="iO2HK06h">
             Left rail content
-          </Segment>
-        </Rail>
-        <LoremIpsum short/>
-      </Segment>
+          </SUI-Segment>
+        </SUI-Rail>
+        <LoremIpsum short oid="lRulkqsU"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Attached" hint="<Rail appearance='attached'/>">
-      <Segment style={{marginLeft:350}}>
-        <Rail left appearance="attached">
-          <Segment>
+    <Example title="Attached" hint="<Rail appearance='attached'/>" oid="Twn8BFok">
+      <SUI-Segment style={{marginLeft:350}} oid="yZVnMsSc">
+        <SUI-Rail left appearance="attached" oid="n9gKTnGb">
+          <SUI-Segment oid="gY0pUBYc">
             Left rail content
-          </Segment>
-        </Rail>
-        <LoremIpsum short/>
-      </Segment>
+          </SUI-Segment>
+        </SUI-Rail>
+        <LoremIpsum short oid="mUbKYtrT"/>
+      </SUI-Segment>
     </Example>
-
-
   </PageSection>
-</OakPage>
+</Oak-OakPage>

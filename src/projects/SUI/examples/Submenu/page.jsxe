@@ -1,39 +1,54 @@
-<OakPage id="Submenu" title="Submenu">
-  <PageTitle title="Submenu">
+<Oak-OakPage id="Submenu" title="Submenu" oid="ghiIcykh">
+  <PageTitle title="Submenu" oid="viG2Xkli">
     A Submenu shows a nested menu
   </PageTitle>
-
-  <PageSection title="Content">
-
-    <Example title="Inline contents">
-      <Menu appearance="vertical">
-        <MenuItem>A normal item</MenuItem>
-        <Submenu>
+  <PageSection title="Content" oid="vxY5WP7L">
+    <Example title="Inline contents" oid="hvlDwB5l">
+      <SUI-Menu appearance="vertical" oid="Ul0qeOy6">
+        <SUI-MenuItem oid="KsGulisy">
+          A normal item
+        </SUI-MenuItem>
+        <SUI-Submenu oid="sYUF74ih">
           More Stuff
-          <MenuHeader icon="newspaper">Breaking News</MenuHeader>
-          <MenuItem icon="comment outline">Editorials</MenuItem>
-          <MenuItem active icon="film">Movie Reviews</MenuItem>
-          <MenuItem icon="calendar">Current Events</MenuItem>
-        </Submenu>
-        <MenuItem>Another normal item</MenuItem>
-      </Menu>
+          <SUI-MenuHeader icon="newspaper" oid="ggdqjHN1">
+            Breaking News
+          </SUI-MenuHeader>
+          <SUI-MenuItem icon="comment outline" oid="X542ymi2">
+            Editorials
+          </SUI-MenuItem>
+          <SUI-MenuItem active icon="film" oid="nBEOQ1bW">
+            Movie Reviews
+          </SUI-MenuItem>
+          <SUI-MenuItem icon="calendar" oid="h0lv9B01">
+            Current Events
+          </SUI-MenuItem>
+        </SUI-Submenu>
+        <SUI-MenuItem oid="NFxVMN6s">
+          Another normal item
+        </SUI-MenuItem>
+      </SUI-Menu>
     </Example>
-
-    <Example title="Items as MenuItem Elements">
-      <Menu appearance="vertical">
-        <MenuItem>A normal item</MenuItem>
-        <Submenu label="More Stuff" items={data.simpleItems}/>
-        <MenuItem>Another normal item</MenuItem>
-      </Menu>
+    <Example title="Items as MenuItem Elements" oid="O7bDVmNm">
+      <SUI-Menu appearance="vertical" oid="ZQXtVtZa">
+        <SUI-MenuItem oid="UGRMSaDi">
+          A normal item
+        </SUI-MenuItem>
+        <SUI-Submenu label="More Stuff" items={data.simpleItems} oid="GaYit1Yv"/>
+        <SUI-MenuItem oid="ekeqsypA">
+          Another normal item
+        </SUI-MenuItem>
+      </SUI-Menu>
     </Example>
-
-    <Example title="Items as Strings">
-      <Menu appearance="vertical">
-        <MenuItem>A normal item</MenuItem>
-        <Submenu label="More Stuff" items={["Breaking News", "Editorials", "Movie Reviews", "Current Events"]}/>
-        <MenuItem>Another normal item</MenuItem>
-      </Menu>
+    <Example title="Items as Strings" oid="cFxaqgPU">
+      <SUI-Menu appearance="vertical" oid="q9ygiS8h">
+        <SUI-MenuItem oid="sm9xKQv9">
+          A normal item
+        </SUI-MenuItem>
+        <SUI-Submenu label="More Stuff" items={["Breaking News", "Editorials", "Movie Reviews", "Current Events"]} oid="jGcj5Kdq"/>
+        <SUI-MenuItem oid="eq17rIIV">
+          Another normal item
+        </SUI-MenuItem>
+      </SUI-Menu>
     </Example>
-
   </PageSection>
-</OakPage>
+</Oak-OakPage>

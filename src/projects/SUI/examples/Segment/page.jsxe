@@ -1,258 +1,299 @@
-<OakPage id="Segment" title="Segment">
-  <PageTitle title="Segment">
+<Oak-OakPage id="Segment" title="Segment" oid="tsRnYg4b">
+  <PageTitle title="Segment" oid="DrArgvyQ">
     A segment is used to create a grouping of related content
   </PageTitle>
-
-  <PageSection title="Types">
-
-    <Example title="Normal">
-      <Segment>
-        <LoremIpsum short/>
-      </Segment>
+  <PageSection title="Types" oid="n2eNHaGJ">
+    <Example title="Normal" oid="ee5gtgoj">
+      <SUI-Segment oid="PTnJRReE">
+        <LoremIpsum short oid="Cqepf7cK"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Raised" hint="<Segment appearance='raised'/>">
-      <Segment appearance="raised">
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Raised" hint="<Segment appearance='raised'/>" oid="AQftQCyH">
+      <SUI-Segment appearance="raised" oid="G7EPGcSV">
+        <LoremIpsum short oid="YRI8rwnO"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Stacked" hint="<Segment appearance='stacked'/>">
-      <Segment appearance="stacked">
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Stacked" hint="<Segment appearance='stacked'/>" oid="ERBJ7NwV">
+      <SUI-Segment appearance="stacked" oid="m1TxBEeE">
+        <LoremIpsum short oid="BOIbeIJV"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Tall Stacked" hint="<Segment appearance='tall stacked'/>">
-      <Segment appearance="tall stacked">
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Tall Stacked" hint="<Segment appearance='tall stacked'/>" oid="yauIWd67">
+      <SUI-Segment appearance="tall stacked" oid="FxsRPQcO">
+        <LoremIpsum short oid="qgNFKm5O"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Piled" hint="<Segment appearance='piled'/>">
-      <Segment appearance="piled">
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Piled" hint="<Segment appearance='piled'/>" oid="PKm0cypy">
+      <SUI-Segment appearance="piled" oid="SrGcYVxm">
+        <LoremIpsum short oid="bO37QPha"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Basic" hint="<Segment appearance='basic'/>">
-      <Segment appearance='basic'>
-        <LoremIpsum/>
-      </Segment>
+    <Example title="Basic" hint="<Segment appearance='basic'/>" oid="MuAV0s8a">
+      <SUI-Segment appearance="basic" oid="tPCFafmo">
+        <LoremIpsum oid="n3oB8Aqd"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Vertical" hint="<Segment appearance='vertical'/>">
-      <Segment appearance="vertical">
-        <LoremIpsum short/>
-      </Segment>
-      <Segment appearance="vertical">
-        <LoremIpsum short/>
-      </Segment>
-      <Segment appearance="vertical">
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Vertical" hint="<Segment appearance='vertical'/>" oid="qpdPSo1f">
+      <SUI-Segment appearance="vertical" oid="UK9w7WMc">
+        <LoremIpsum short oid="lFbL3cud"/>
+      </SUI-Segment>
+      <SUI-Segment appearance="vertical" oid="THX8gnt4">
+        <LoremIpsum short oid="cA0gGIX2"/>
+      </SUI-Segment>
+      <SUI-Segment appearance="vertical" oid="EveyqDhX">
+        <LoremIpsum short oid="nhCpFi3x"/>
+      </SUI-Segment>
     </Example>
   </PageSection>
-
-  <PageSection title="States">
-
-    <Example title="Disabled" hint="<Segment disabled/>">
-      <Segment disabled>
-        <LoremIpsum short/>
-      </Segment>
+  <PageSection title="States" oid="VU5aZFIR">
+    <Example title="Disabled" hint="<Segment disabled/>" oid="EtlJn9dp">
+      <SUI-Segment disabled oid="X0xb5ETb">
+        <LoremIpsum short oid="dUCk9RU6"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Loading" hint="<Segment loading/>">
-      <Segment loading>
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Loading" hint="<Segment loading/>" oid="MiIm5wFX">
+      <SUI-Segment loading oid="gXyHHRnf">
+        <LoremIpsum short oid="gakuaMZb"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Hidden" hint="<Segment visible={false}/>">
-      <Label pointing="right">Hidden segment here</Label>
-      <Segment visible={false}>
-        <LoremIpsum short/>
-      </Segment>
-      <Label pointing="left">Hidden segment here</Label>
+    <Example title="Hidden" hint="<Segment visible={false}/>" oid="YbmEuB18">
+      <SUI-Label pointing="right" oid="fAf7GwUR">
+        Hidden segment here
+      </SUI-Label>
+      <SUI-Segment visible={false} oid="x8H8IivX">
+        <LoremIpsum short oid="wYnBwl31"/>
+      </SUI-Segment>
+      <SUI-Label pointing="left" oid="WQPu1hb1">
+        Hidden segment here
+      </SUI-Label>
     </Example>
-
   </PageSection>
-
-  <PageSection title="Appearance">
-
-    <Example title="Text Alignment" hint="<Segment/>">
-      <Segment align="left">Left aligned</Segment>
-      <Segment align="center">Center aligned</Segment>
-      <Segment align="right">Right aligned</Segment>
+  <PageSection title="Appearance" oid="Pl44iCx8">
+    <Example title="Text Alignment" hint="<Segment/>" oid="PSQIpmt5">
+      <SUI-Segment align="left" oid="fn5Y3D0Z">
+        Left aligned
+      </SUI-Segment>
+      <SUI-Segment align="center" oid="hbpXTAaa">
+        Center aligned
+      </SUI-Segment>
+      <SUI-Segment align="right" oid="LO3c6Ips">
+        Right aligned
+      </SUI-Segment>
     </Example>
-
-    <Example title="Clearing" hint="<Segment clearing/>">
-      <Segment clearing>
-        <Button floated="right">I'm a floated button</Button>
-      </Segment>
+    <Example title="Clearing" hint="<Segment clearing/>" oid="u5ut5tyD">
+      <SUI-Segment clearing oid="oSjcancs">
+        <SUI-Button floated="right" oid="KaH0ugF8">
+          I&apos;m a floated button
+        </SUI-Button>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Floated" hint="<Segment floated='right'/>">
-      <Segment floated="left">This segment appears to the left</Segment>
-      <Segment floated="right">This segment appears to the right</Segment>
+    <Example title="Floated" hint="<Segment floated='right'/>" oid="fUIIvp4M">
+      <SUI-Segment floated="left" oid="imt9lUKx">
+        This segment appears to the left
+      </SUI-Segment>
+      <SUI-Segment floated="right" oid="Uo2qN9eS">
+        This segment appears to the right
+      </SUI-Segment>
     </Example>
-
-    <Example title="Inverted" hint="<Segment appearance='inverted'/>">
-      <Segment appearance='inverted'>
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Inverted" hint="<Segment appearance='inverted'/>" oid="V8slcmkh">
+      <SUI-Segment appearance="inverted" oid="XjMMcC0E">
+        <LoremIpsum short oid="wdVPHwCL"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Attached" hint="<Segment appearance='attached'/>">
-      <Segment appearance='top attached'>
-        <LoremIpsum tiny/>
-      </Segment>
-      <Segment appearance='attached'>
-        <LoremIpsum tiny/>
-      </Segment>
-      <Segment appearance='bottom attached'>
-        <LoremIpsum tiny/>
-      </Segment>
-
-      <Spacer/>
-      <Header appearance='top attached'>
+    <Example title="Attached" hint="<Segment appearance='attached'/>" oid="HC0IOJnI">
+      <SUI-Segment appearance="top attached" oid="MkK0hL2r">
+        <LoremIpsum tiny oid="bs68e9JR"/>
+      </SUI-Segment>
+      <SUI-Segment appearance="attached" oid="kuoqVFRg">
+        <LoremIpsum tiny oid="ieLvPx7r"/>
+      </SUI-Segment>
+      <SUI-Segment appearance="bottom attached" oid="LCMyP2Of">
+        <LoremIpsum tiny oid="qakjF547"/>
+      </SUI-Segment>
+      <Oak-Spacer oid="qVTU5wkI"/>
+      <SUI-Header appearance="top attached" oid="edwTP0Nt">
         Top attached header
-      </Header>
-      <Segment appearance='attached'>
-        <LoremIpsum/>
-      </Segment>
-      <Message appearance='bottom attached'>
+      </SUI-Header>
+      <SUI-Segment appearance="attached" oid="H5uBPt1k">
+        <LoremIpsum oid="qpww6tcN"/>
+      </SUI-Segment>
+      <SUI-Message appearance="bottom attached" oid="dFH5rqYA">
         Bottom attached message
-      </Message>
-
+      </SUI-Message>
     </Example>
-
-    <Example title="Unpadded" hint="<Segment appearance='unpadded'/>">
-      <Segment appearance='unpadded'>
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Unpadded" hint="<Segment appearance='unpadded'/>" oid="ZnmM3g4w">
+      <SUI-Segment appearance="unpadded" oid="D7hj4TIR">
+        <LoremIpsum short oid="tPJJMdVY"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Padded" hint="<Segment appearance='padded'/>">
-      <Segment appearance='padded'>
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Padded" hint="<Segment appearance='padded'/>" oid="UG97yJei">
+      <SUI-Segment appearance="padded" oid="yBkNw7s3">
+        <LoremIpsum short oid="ldYl9MA2"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Very Padded" hint="<Segment appearance='very padded'/>">
-      <Segment appearance='very padded'>
-        <LoremIpsum short/>
-      </Segment>
+    <Example title="Very Padded" hint="<Segment appearance='very padded'/>" oid="oDL5JowQ">
+      <SUI-Segment appearance="very padded" oid="TVubHx0o">
+        <LoremIpsum short oid="FkJ9BjRk"/>
+      </SUI-Segment>
     </Example>
-
-    <Example title="Compact" hint="<Segment appearance='compact'/>">
-      <Segment appearance='compact'>
+    <Example title="Compact" hint="<Segment appearance='compact'/>" oid="hSBDSFr5">
+      <SUI-Segment appearance="compact" oid="NFfF1rPY">
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-      </Segment>
+      </SUI-Segment>
     </Example>
-
-    <Grid columns={2}>
-      <Column>
-        <Example title="Colors" hint="<Segment color='red'/>">
-          <Segment color='red'>Red</Segment>
-          <Segment color='orange'>Orange</Segment>
-          <Segment color='yellow'>Yellow</Segment>
-          <Segment color='olive'>Olive</Segment>
-          <Segment color='green'>Green</Segment>
-          <Segment color='teal'>Teal</Segment>
-          <Segment color='blue'>Blue</Segment>
-          <Segment color='violet'>Violet</Segment>
-          <Segment color='purple'>Purple</Segment>
-          <Segment color='pink'>Pink</Segment>
-          <Segment color='brown'>Brown</Segment>
-          <Segment color='grey'>Grey</Segment>
-          <Segment color='black'>Black</Segment>
+    <SUI-Grid columns={2} oid="OXdaOdrk">
+      <SUI-Column oid="GnBmLYlG">
+        <Example title="Colors" hint="<Segment color='red'/>" oid="bYbjyj0a">
+          <SUI-Segment color="red" oid="iuJxfhIQ">
+            Red
+          </SUI-Segment>
+          <SUI-Segment color="orange" oid="nn8jxfmx">
+            Orange
+          </SUI-Segment>
+          <SUI-Segment color="yellow" oid="hCoctXLY">
+            Yellow
+          </SUI-Segment>
+          <SUI-Segment color="olive" oid="ds4Q8wND">
+            Olive
+          </SUI-Segment>
+          <SUI-Segment color="green" oid="dsZ0drPq">
+            Green
+          </SUI-Segment>
+          <SUI-Segment color="teal" oid="CyqCPJr4">
+            Teal
+          </SUI-Segment>
+          <SUI-Segment color="blue" oid="Xw5RDDmq">
+            Blue
+          </SUI-Segment>
+          <SUI-Segment color="violet" oid="VE4Ny8HB">
+            Violet
+          </SUI-Segment>
+          <SUI-Segment color="purple" oid="IcYBsXV8">
+            Purple
+          </SUI-Segment>
+          <SUI-Segment color="pink" oid="VyOFxrOW">
+            Pink
+          </SUI-Segment>
+          <SUI-Segment color="brown" oid="npqFlV7E">
+            Brown
+          </SUI-Segment>
+          <SUI-Segment color="grey" oid="i4YVgGxH">
+            Grey
+          </SUI-Segment>
+          <SUI-Segment color="black" oid="NsbMqwpd">
+            Black
+          </SUI-Segment>
         </Example>
-      </Column>
-
-      <Column>
-        <Example title="Inverted Colors" hint="<Segment color='red' appearance='inverted'/>">
-          <Segment appearance="inverted" color='red'>Red</Segment>
-          <Segment appearance="inverted" color='orange'>Orange</Segment>
-          <Segment appearance="inverted" color='yellow'>Yellow</Segment>
-          <Segment appearance="inverted" color='olive'>Olive</Segment>
-          <Segment appearance="inverted" color='green'>Green</Segment>
-          <Segment appearance="inverted" color='teal'>Teal</Segment>
-          <Segment appearance="inverted" color='blue'>Blue</Segment>
-          <Segment appearance="inverted" color='violet'>Violet</Segment>
-          <Segment appearance="inverted" color='purple'>Purple</Segment>
-          <Segment appearance="inverted" color='pink'>Pink</Segment>
-          <Segment appearance="inverted" color='brown'>Brown</Segment>
-          <Segment appearance="inverted" color='grey'>Grey</Segment>
-          <Segment appearance="inverted" color='black'>Black</Segment>
+      </SUI-Column>
+      <SUI-Column oid="E15K6XoP">
+        <Example title="Inverted Colors" hint="<Segment color='red' appearance='inverted'/>" oid="nlEuLmXQ">
+          <SUI-Segment appearance="inverted" color="red" oid="gtD81GWn">
+            Red
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="orange" oid="tHn8r8lH">
+            Orange
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="yellow" oid="AadUYNOp">
+            Yellow
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="olive" oid="ml0y51Vr">
+            Olive
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="green" oid="RuFNkoy8">
+            Green
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="teal" oid="hh8dilkQ">
+            Teal
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="blue" oid="Td8NMJnv">
+            Blue
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="violet" oid="ThR5Tg3V">
+            Violet
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="purple" oid="atZZrbI6">
+            Purple
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="pink" oid="wulRwgXG">
+            Pink
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="brown" oid="iBcmFNVS">
+            Brown
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="grey" oid="YKV1ehII">
+            Grey
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted" color="black" oid="GXqtoEZ7">
+            Black
+          </SUI-Segment>
         </Example>
-      </Column>
-    </Grid>
-
-    <Example title="Emphasis" hint="<Segment appearance='secondary'/> or <Segment appearance='tertiary'/>">
-      <Grid columns={3}>
-        <Column>
-          <Segment>
-            <LoremIpsum tiny/>
-          </Segment>
-
-          <Segment appearance="secondary">
-            <LoremIpsum tiny/>
-          </Segment>
-
-          <Segment appearance="tertiary">
-            <LoremIpsum tiny/>
-          </Segment>
-        </Column>
-        <Column>
-          <Segment appearance="inverted">
-            <LoremIpsum tiny/>
-          </Segment>
-
-          <Segment appearance="inverted secondary">
-            <LoremIpsum tiny/>
-          </Segment>
-
-          <Segment appearance="inverted tertiary">
-            <LoremIpsum tiny/>
-          </Segment>
-        </Column>
-
-        <Column>
-          <Segment appearance="red inverted">
-            <LoremIpsum tiny/>
-          </Segment>
-
-          <Segment appearance="red inverted secondary">
-            <LoremIpsum tiny/>
-          </Segment>
-
-          <Segment appearance="red inverted tertiary">
-            <LoremIpsum tiny/>
-          </Segment>
-        </Column>
-      </Grid>
+      </SUI-Column>
+    </SUI-Grid>
+    <Example title="Emphasis" hint="<Segment appearance='secondary'/> or <Segment appearance='tertiary'/>" oid="XDDMx2GW">
+      <SUI-Grid columns={3} oid="d9Rg1EsE">
+        <SUI-Column oid="Yy2wcu2F">
+          <SUI-Segment oid="AvsX933k">
+            <LoremIpsum tiny oid="gGDquPOw"/>
+          </SUI-Segment>
+          <SUI-Segment appearance="secondary" oid="vRMNARj1">
+            <LoremIpsum tiny oid="BSwcHM5w"/>
+          </SUI-Segment>
+          <SUI-Segment appearance="tertiary" oid="siyC8yyP">
+            <LoremIpsum tiny oid="Ikql7iHY"/>
+          </SUI-Segment>
+        </SUI-Column>
+        <SUI-Column oid="EbHNhX9V">
+          <SUI-Segment appearance="inverted" oid="gIiPARje">
+            <LoremIpsum tiny oid="ncGooGD3"/>
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted secondary" oid="xG9ReAo3">
+            <LoremIpsum tiny oid="YqtGEFbT"/>
+          </SUI-Segment>
+          <SUI-Segment appearance="inverted tertiary" oid="d6o4UBvj">
+            <LoremIpsum tiny oid="rGOaPyWj"/>
+          </SUI-Segment>
+        </SUI-Column>
+        <SUI-Column oid="qh7Frej2">
+          <SUI-Segment appearance="red inverted" oid="bFxNA5Yv">
+            <LoremIpsum tiny oid="QDulLWG7"/>
+          </SUI-Segment>
+          <SUI-Segment appearance="red inverted secondary" oid="AolUylwe">
+            <LoremIpsum tiny oid="hVQWQGWX"/>
+          </SUI-Segment>
+          <SUI-Segment appearance="red inverted tertiary" oid="ePQDNZNw">
+            <LoremIpsum tiny oid="HrBYn7LJ"/>
+          </SUI-Segment>
+        </SUI-Column>
+      </SUI-Grid>
     </Example>
-
-    <Example title="Circular" hint="<Segment appearance='circular'/>">
-      <Info>If you want to guarantee a perfect circle, manually match width and height of your content</Info>
-      <Segment appearance='compact circular' style={{width:180, height:180}}>
-        <Header size="large">Buy Now</Header>
-        <Subheader>$10.99</Subheader>
-      </Segment>
-
-      <Segment appearance='compact circular inverted' style={{width:180, height:180}}>
-        <Header size="large">Buy Now</Header>
-        <Subheader>$10.99</Subheader>
-      </Segment>
-
-      <Segment appearance='compact circular inverted blue' style={{width:180, height:180}}>
-        <Header size="large">Buy Now</Header>
-        <Subheader>$10.99</Subheader>
-      </Segment>
+    <Example title="Circular" hint="<Segment appearance='circular'/>" oid="DS8Hy5My">
+      <Info oid="lSg8GttC">
+        If you want to guarantee a perfect circle, manually match width and height of your content
+      </Info>
+      <SUI-Segment appearance="compact circular" style={{width:180, height:180}} oid="j8fGahL2">
+        <SUI-Header size="large" oid="yKK0lwmP">
+          Buy Now
+        </SUI-Header>
+        <SUI-Subheader oid="k8csBj1l">
+          $10.99
+        </SUI-Subheader>
+      </SUI-Segment>
+      <SUI-Segment appearance="compact circular inverted" style={{width:180, height:180}} oid="Y8sKl2uF">
+        <SUI-Header size="large" oid="lIIuD3dW">
+          Buy Now
+        </SUI-Header>
+        <SUI-Subheader oid="RDLELZ9k">
+          $10.99
+        </SUI-Subheader>
+      </SUI-Segment>
+      <SUI-Segment appearance="compact circular inverted blue" style={{width:180, height:180}} oid="RlqtVbeQ">
+        <SUI-Header size="large" oid="CyZMuiSJ">
+          Buy Now
+        </SUI-Header>
+        <SUI-Subheader oid="mtLmFW49">
+          $10.99
+        </SUI-Subheader>
+      </SUI-Segment>
     </Example>
-
-
-
   </PageSection>
-</OakPage>
+</Oak-OakPage>

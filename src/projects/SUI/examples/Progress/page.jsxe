@@ -1,187 +1,145 @@
-<OakPage id="Progress" title="Progress">
-  <PageTitle title="Progress">
+<Oak-OakPage id="Progress" title="Progress" oid="eb5U82QN">
+  <PageTitle title="Progress" oid="bPQ6kE1Y">
     A progress bar shows the progression of a task
   </PageTitle>
-
-  <PageSection title="Types">
-
-    <Example title="Standard">
-      <Progress value={3} total={4} activeText="Uploading Files" showProgress/>
+  <PageSection title="Types" oid="jHOCK78h">
+    <Example title="Standard" oid="oU1QkoFh">
+      <SUI-Progress value={3} total={4} activeText="Uploading Files" showProgress oid="kmGK1gXG"/>
     </Example>
-
-    <Example title="Indicating" hint="<Progress appearance='indicating'/>">
-      <Progress appearance="indicating" value={3} total={4} activeText="Uploading Files" showProgress/>
+    <Example title="Indicating" hint="<Progress appearance='indicating'/>" oid="PH2TrEmc">
+      <SUI-Progress appearance="indicating" value={3} total={4} activeText="Uploading Files" showProgress oid="MMUecuNU"/>
     </Example>
-
-    <Example title="Attached" hint="<Progress appearance='top attached'/>">
-      <Segment>
-        <Progress appearance="top attached" value={2} total={4}/>
-        <LoremIpsum/>
-        <Progress appearance="bottom attached" value={2} total={4}/>
-      </Segment>
-    </Example>
-
-  </PageSection>
-
-  <PageSection title="Content">
-
-    <Example title="Bar">
-      <Progress value={1} total={4}/>
-    </Example>
-
-    <Example title="Progress" hint="<Progress showProgress/>">
-      <Progress value={3} total={4} showProgress/>
-    </Example>
-
-    <Example title="Percentage Label" hint="<Progress showProgress percentText='...'/>">
-      <Progress ref="percentage" value={10} total={40} showProgress percentText='{percent}% completed'/>
-      <Buttons>
-        <Button onClick={()=> page.refs.percentage.decrement()} icon="minus"/>
-        <Button onClick={()=> page.refs.percentage.increment()} icon="plus"/>
-      </Buttons>
-    </Example>
-
-    <Example title="Ratio Label" hint="<Progress showProgress label='ratio' ratioText='...'/>">
-      <Progress ref="ratio" value={10} total={40} showProgress label='ratio' ratioText="{value} of {total} files uploaded"/>
-      <Buttons>
-        <Button onClick={()=> page.refs.ratio.decrement()} icon="minus"/>
-        <Button onClick={()=> page.refs.ratio.increment()} icon="plus"/>
-      </Buttons>
-    </Example>
-
-    <Example title="Label" hint="<Progress activeText='...' successText='...'/>">
-      <Progress ref="label" value={1} total={4}
-        activeText="Uploading file {value} of {total}"
-        successText="All files uploaded"
-        warningText="We're experiencing network difficulties, please stand by..."
-        errorText="You ran out of space to upload files."
-        />
-      <Buttons>
-        <Button onClick={()=> page.refs.label.decrement()} icon="minus"/>
-        <Button onClick={()=> page.refs.label.increment()} icon="plus"/>
-      </Buttons>
-      <Spacer inline/>
-    </Example>
-
-  </PageSection>
-
-  <PageSection title="States">
-    <Grid columns={2}>
-      <Column>
-        <Example title="Disabled" hint="<Progress disabled/>">
-          <Progress disabled value={2} total={4}
-            activeText="Uploading file {value} of {total}"
-            />
-        </Example>
-      </Column>
-
-      <Column>
-        <Example title="Success" hint="<Progress state='success' successText='...'/>">
-          <Progress state='success' value={4} total={4} showProgress
-            activeText="Uploading file {value} of {total}"
-            successText="All files uploaded"
-            />
-        </Example>
-      </Column>
-
-      <Column>
-        <Example title="Warning" hint="<Progress state='warning' warningText='...'/>">
-          <Progress state='warning' value={4} total={4}
-            warningText="We're experiencing network difficulties, please stand by..."
-            />
-        </Example>
-      </Column>
-
-      <Column>
-        <Example title="Error" hint="<Progress state='error' errorText='...'/>">
-          <Progress state='error' value={4} total={4}
-            errorText="Sorry, you ran out of space."
-            />
-        </Example>
-      </Column>
-
-    </Grid>
-  </PageSection>
-
-  <PageSection title="States">
-    <Example title="All states (look at console)" hint="<Progress onChange='...'/>">
-      <Progress ref="states" value={0} total={4}
-        onChange={()=>console.warn("onChange() fired")}
-        onSuccess={()=>console.warn("onSuccess() fired")}
-        onActive={()=>console.warn("onActive() fired")}
-        onError={()=>console.warn("onError() fired")}
-        onWarning={()=>console.warn("onWarning() fired")}
-        />
-      <Buttons>
-        <Button onClick={()=> page.refs.states.decrement()} icon="minus"/>
-        <Button onClick={()=> page.refs.states.increment()} icon="plus"/>
-      </Buttons>
-      <Todo>How to do onError and onWarning?</Todo>
+    <Example title="Attached" hint="<Progress appearance='top attached'/>" oid="IDsTqg2B">
+      <SUI-Segment oid="CeX2P2CO">
+        <SUI-Progress appearance="top attached" value={2} total={4} oid="g4FeN2u4"/>
+        <LoremIpsum oid="GN8vCjHJ"/>
+        <SUI-Progress appearance="bottom attached" value={2} total={4} oid="Mr5JntWt"/>
+      </SUI-Segment>
     </Example>
   </PageSection>
-
-
-  <PageSection title="Appearance">
-    <Grid columns={2}>
-      <Column>
-        <Example title="Inverted" hint="<Progress appearance='inverted'/>">
-          <Segment appearance="inverted">
-            <Progress appearance="inverted" value={2} total={4} activeText="Uploading file {value} of {total}" showProgress/>
-            <Progress appearance="inverted" value={4} total={4} successText="Success" showProgress/>
-            <Progress appearance="inverted" state="warning" value={2} total={4} warningText="Warning" showProgress/>
-            <Progress appearance="inverted" state="error" value={4} total={4} errorText="Error" showProgress/>
-          </Segment>
-        </Example>
-      </Column>
-
-      <Column>
-        <Example title="Sizes" hint="<Progress size='small'/>">
-          <Progress size="tiny" activeText="Tiny" value={2} total={4}/>
-          <Progress size="small" activeText="Small" value={2} total={4}/>
-          <Progress size="medium" activeText="Medium (default size)" value={2} total={4}/>
-          <Progress size="large" activeText="Large" value={2} total={4}/>
-          <Progress size="big" activeText="Big" value={2} total={4}/>
-        </Example>
-      </Column>
-
-      <Column>
-        <Example title="Colors" hint="<Progress color='red'/>">
-          <Progress color="red" activeText="Red" value={2} total={15}/>
-          <Progress color="orange" activeText="Orange" value={3} total={15}/>
-          <Progress color="yellow" activeText="Yellow" value={4} total={15}/>
-          <Progress color="olive" activeText="Olive" value={5} total={15}/>
-          <Progress color="green" activeText="Green" value={6} total={15}/>
-          <Progress color="teal" activeText="Teal" value={7} total={15}/>
-          <Progress color="blue" activeText="Blue" value={8} total={15}/>
-          <Progress color="violet" activeText="Violet" value={9} total={15}/>
-          <Progress color="purple" activeText="Purple" value={10} total={15}/>
-          <Progress color="pink" activeText="Pink" value={11} total={15}/>
-          <Progress color="brown" activeText="Brown" value={12} total={15}/>
-          <Progress color="grey" activeText="Grey" value={13} total={15}/>
-          <Progress color="black" activeText="Black" value={14} total={15}/>
-        </Example>
-      </Column>
-
-      <Column>
-        <Example title="Inverted Colors" hint="<Progress appearance='inverted' color='red'/>">
-          <Segment appearance="inverted">
-            <Progress appearance='inverted' color="red" activeText="Red" value={2} total={15}/>
-            <Progress appearance='inverted' color="orange" activeText="Orange" value={3} total={15}/>
-            <Progress appearance='inverted' color="yellow" activeText="Yellow" value={4} total={15}/>
-            <Progress appearance='inverted' color="olive" activeText="Olive" value={5} total={15}/>
-            <Progress appearance='inverted' color="green" activeText="Green" value={6} total={15}/>
-            <Progress appearance='inverted' color="teal" activeText="Teal" value={7} total={15}/>
-            <Progress appearance='inverted' color="blue" activeText="Blue" value={8} total={15}/>
-            <Progress appearance='inverted' color="violet" activeText="Violet" value={9} total={15}/>
-            <Progress appearance='inverted' color="purple" activeText="Purple" value={10} total={15}/>
-            <Progress appearance='inverted' color="pink" activeText="Pink" value={11} total={15}/>
-            <Progress appearance='inverted' color="brown" activeText="Brown" value={12} total={15}/>
-            <Progress appearance='inverted' color="grey" activeText="Grey" value={13} total={15}/>
-            <Progress appearance='inverted' color="black" activeText="Black" value={14} total={15}/>
-          </Segment>
-        </Example>
-      </Column>
-
-    </Grid>
+  <PageSection title="Content" oid="qmr8qN1u">
+    <Example title="Bar" oid="uwEHcYIP">
+      <SUI-Progress value={1} total={4} oid="HFrMrLYH"/>
+    </Example>
+    <Example title="Progress" hint="<Progress showProgress/>" oid="TkinPp6D">
+      <SUI-Progress value={3} total={4} showProgress oid="aZ88nvxr"/>
+    </Example>
+    <Example title="Percentage Label" hint="<Progress showProgress percentText='...'/>" oid="aLMAdTML">
+      <SUI-Progress ref="percentage" value={10} total={40} showProgress percentText="{percent}% completed" oid="hgC6SWf9"/>
+      <SUI-Buttons oid="A3VhSdx4">
+        <SUI-Button onClick={()=> page.refs.percentage.decrement()} icon="minus" oid="vD0yksRe"/>
+        <SUI-Button onClick={()=> page.refs.percentage.increment()} icon="plus" oid="skyihnhc"/>
+      </SUI-Buttons>
+    </Example>
+    <Example title="Ratio Label" hint="<Progress showProgress label='ratio' ratioText='...'/>" oid="r799RK8B">
+      <SUI-Progress ref="ratio" value={10} total={40} showProgress label="ratio" ratioText="{value} of {total} files uploaded" oid="AbW3M6uU"/>
+      <SUI-Buttons oid="opLACfGt">
+        <SUI-Button onClick={()=> page.refs.ratio.decrement()} icon="minus" oid="YZwgXuPs"/>
+        <SUI-Button onClick={()=> page.refs.ratio.increment()} icon="plus" oid="ggTUVvil"/>
+      </SUI-Buttons>
+    </Example>
+    <Example title="Label" hint="<Progress activeText='...' successText='...'/>" oid="KF8xhkG3">
+      <SUI-Progress ref="label" value={1} total={4} activeText="Uploading file {value} of {total}" successText="All files uploaded" warningText="We're experiencing network difficulties, please stand by..." errorText="You ran out of space to upload files." oid="p3GuCgkF"/>
+      <SUI-Buttons oid="uOqkyVX9">
+        <SUI-Button onClick={()=> page.refs.label.decrement()} icon="minus" oid="Grkj2c1l"/>
+        <SUI-Button onClick={()=> page.refs.label.increment()} icon="plus" oid="C5jaUOLO"/>
+      </SUI-Buttons>
+      <Oak-Spacer inline oid="nVmHoChH"/>
+    </Example>
   </PageSection>
-</OakPage>
+  <PageSection title="States" oid="c8xHD01a">
+    <SUI-Grid columns={2} oid="JqNCtd4v">
+      <SUI-Column oid="msvS0jqU">
+        <Example title="Disabled" hint="<Progress disabled/>" oid="O42lp40u">
+          <SUI-Progress disabled value={2} total={4} activeText="Uploading file {value} of {total}" oid="uUsBGfSb"/>
+        </Example>
+      </SUI-Column>
+      <SUI-Column oid="NJj1sc4x">
+        <Example title="Success" hint="<Progress state='success' successText='...'/>" oid="N05Li4iP">
+          <SUI-Progress state="success" value={4} total={4} showProgress activeText="Uploading file {value} of {total}" successText="All files uploaded" oid="GS8tdGEb"/>
+        </Example>
+      </SUI-Column>
+      <SUI-Column oid="qnh4UL81">
+        <Example title="Warning" hint="<Progress state='warning' warningText='...'/>" oid="jH8FNBQU">
+          <SUI-Progress state="warning" value={4} total={4} warningText="We're experiencing network difficulties, please stand by..." oid="ImCe0i9E"/>
+        </Example>
+      </SUI-Column>
+      <SUI-Column oid="uDidpi4J">
+        <Example title="Error" hint="<Progress state='error' errorText='...'/>" oid="hwkkNHen">
+          <SUI-Progress state="error" value={4} total={4} errorText="Sorry, you ran out of space." oid="Zv6Fpb7b"/>
+        </Example>
+      </SUI-Column>
+    </SUI-Grid>
+  </PageSection>
+  <PageSection title="States" oid="Ync4hy1M">
+    <Example title="All states (look at console)" hint="<Progress onChange='...'/>" oid="PLeqM4nr">
+      <SUI-Progress ref="states" value={0} total={4} onChange={()=>console.warn("onChange() fired")} onSuccess={()=>console.warn("onSuccess() fired")} onActive={()=>console.warn("onActive() fired")} onError={()=>console.warn("onError() fired")} onWarning={()=>console.warn("onWarning() fired")} oid="o3iHKHED"/>
+      <SUI-Buttons oid="mZKIQ61w">
+        <SUI-Button onClick={()=> page.refs.states.decrement()} icon="minus" oid="k4KXKn8I"/>
+        <SUI-Button onClick={()=> page.refs.states.increment()} icon="plus" oid="pd4AFGg4"/>
+      </SUI-Buttons>
+      <Todo oid="GsLahwcJ">
+        How to do onError and onWarning?
+      </Todo>
+    </Example>
+  </PageSection>
+  <PageSection title="Appearance" oid="H6foNkiZ">
+    <SUI-Grid columns={2} oid="BF469XOC">
+      <SUI-Column oid="ygtH6mQq">
+        <Example title="Inverted" hint="<Progress appearance='inverted'/>" oid="WqrNpQH8">
+          <SUI-Segment appearance="inverted" oid="VuBpLPFv">
+            <SUI-Progress appearance="inverted" value={2} total={4} activeText="Uploading file {value} of {total}" showProgress oid="mcNaGiWg"/>
+            <SUI-Progress appearance="inverted" value={4} total={4} successText="Success" showProgress oid="Dv6wRDbl"/>
+            <SUI-Progress appearance="inverted" state="warning" value={2} total={4} warningText="Warning" showProgress oid="LGcK2IBs"/>
+            <SUI-Progress appearance="inverted" state="error" value={4} total={4} errorText="Error" showProgress oid="trpt3rvm"/>
+          </SUI-Segment>
+        </Example>
+      </SUI-Column>
+      <SUI-Column oid="MlDHXyEt">
+        <Example title="Sizes" hint="<Progress size='small'/>" oid="GrrwafDJ">
+          <SUI-Progress size="tiny" activeText="Tiny" value={2} total={4} oid="OQZIPdc5"/>
+          <SUI-Progress size="small" activeText="Small" value={2} total={4} oid="DPajCEKZ"/>
+          <SUI-Progress size="medium" activeText="Medium (default size)" value={2} total={4} oid="qWEpPp58"/>
+          <SUI-Progress size="large" activeText="Large" value={2} total={4} oid="VuB6dVur"/>
+          <SUI-Progress size="big" activeText="Big" value={2} total={4} oid="lBg6sUaq"/>
+        </Example>
+      </SUI-Column>
+      <SUI-Column oid="jM8E7m2M">
+        <Example title="Colors" hint="<Progress color='red'/>" oid="VA0t13XB">
+          <SUI-Progress color="red" activeText="Red" value={2} total={15} oid="ZE4HG5P8"/>
+          <SUI-Progress color="orange" activeText="Orange" value={3} total={15} oid="OPtNta4y"/>
+          <SUI-Progress color="yellow" activeText="Yellow" value={4} total={15} oid="ON5ohTca"/>
+          <SUI-Progress color="olive" activeText="Olive" value={5} total={15} oid="iGdmvtUk"/>
+          <SUI-Progress color="green" activeText="Green" value={6} total={15} oid="OOx1lgqM"/>
+          <SUI-Progress color="teal" activeText="Teal" value={7} total={15} oid="XSdT5utt"/>
+          <SUI-Progress color="blue" activeText="Blue" value={8} total={15} oid="rw8xPjpa"/>
+          <SUI-Progress color="violet" activeText="Violet" value={9} total={15} oid="HuG9o8n8"/>
+          <SUI-Progress color="purple" activeText="Purple" value={10} total={15} oid="d2mBenMK"/>
+          <SUI-Progress color="pink" activeText="Pink" value={11} total={15} oid="OlIpeP6T"/>
+          <SUI-Progress color="brown" activeText="Brown" value={12} total={15} oid="JvsCR0LO"/>
+          <SUI-Progress color="grey" activeText="Grey" value={13} total={15} oid="LuHWLXRu"/>
+          <SUI-Progress color="black" activeText="Black" value={14} total={15} oid="OGkXDYxc"/>
+        </Example>
+      </SUI-Column>
+      <SUI-Column oid="b2OeaVso">
+        <Example title="Inverted Colors" hint="<Progress appearance='inverted' color='red'/>" oid="MhjfGvul">
+          <SUI-Segment appearance="inverted" oid="wTHJyX4p">
+            <SUI-Progress appearance="inverted" color="red" activeText="Red" value={2} total={15} oid="YxLOGCFu"/>
+            <SUI-Progress appearance="inverted" color="orange" activeText="Orange" value={3} total={15} oid="pxstkK3I"/>
+            <SUI-Progress appearance="inverted" color="yellow" activeText="Yellow" value={4} total={15} oid="oYK1xQhK"/>
+            <SUI-Progress appearance="inverted" color="olive" activeText="Olive" value={5} total={15} oid="MckrUrfS"/>
+            <SUI-Progress appearance="inverted" color="green" activeText="Green" value={6} total={15} oid="BFsCNo5I"/>
+            <SUI-Progress appearance="inverted" color="teal" activeText="Teal" value={7} total={15} oid="Tpi7GR3I"/>
+            <SUI-Progress appearance="inverted" color="blue" activeText="Blue" value={8} total={15} oid="xqNjaiqJ"/>
+            <SUI-Progress appearance="inverted" color="violet" activeText="Violet" value={9} total={15} oid="HvM6tbEd"/>
+            <SUI-Progress appearance="inverted" color="purple" activeText="Purple" value={10} total={15} oid="qIGOTf7a"/>
+            <SUI-Progress appearance="inverted" color="pink" activeText="Pink" value={11} total={15} oid="FQEXiJGw"/>
+            <SUI-Progress appearance="inverted" color="brown" activeText="Brown" value={12} total={15} oid="fUjtwDKO"/>
+            <SUI-Progress appearance="inverted" color="grey" activeText="Grey" value={13} total={15} oid="pxxnalUo"/>
+            <SUI-Progress appearance="inverted" color="black" activeText="Black" value={14} total={15} oid="oVvcxirX"/>
+          </SUI-Segment>
+        </Example>
+      </SUI-Column>
+    </SUI-Grid>
+  </PageSection>
+</Oak-OakPage>
