@@ -13,6 +13,8 @@ import ElementBuffer from "./ElementBuffer";
 import MenuHeader from "./MenuHeader";
 import Divider from "./Divider";
 
+import "./MenuItem.css";
+
 // `appearance`:  any combination of:
 //    - `fitted`, `horizontally fitted`, `vertically fitted`
 //    - `inverted`, `red`, `blue`, etc
@@ -20,7 +22,7 @@ import Divider from "./Divider";
 function SUIMenuItem(props) {
  const {
     className,
-    value, label = value, children,
+    value, label = value, hint, children,
     appearance, color, icon, image,
     active, hidden, disabled, down,
     href, onClick,
@@ -44,6 +46,7 @@ function SUIMenuItem(props) {
 
   if (icon) elements.appendIcon(icon);
   if (image) elements.appendIcon(image);
+  if (hint) elements.appendWrapped("div", {className: "hint"}, hint);
   if (label) elements.append(label);
   if (children) elements.append(children);
 

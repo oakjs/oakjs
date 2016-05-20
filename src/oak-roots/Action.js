@@ -62,6 +62,9 @@ export default class Action {
     dieIfMissing(props, "new Action", ["id", "handler"]);
     Object.assign(this, props);
 
+    // normalize shortcut to an array
+    if (typeof this.shortcut === "string") this.shortcut = this.shortcut.split(" ");
+
     // Register this action
     Action.register(this);
   }
@@ -76,10 +79,65 @@ export default class Action {
     if (isFocused && !this.whenFocused) return;
 
   //REFACTOR: multiple shortcuts?
-    // normalize shortcut to an array
-    if (typeof this.shortcut === "string") this.shortcut = this.shortcut.split(" ");
     // return list of shortcuts if ALL are found in `keys`
     if (this.shortcut.every(key => keys[key])) return this.shortcut;
+  }
+
+  // Return hint for shortcut as shown in menus.
+  static SHORTCUT_KEY_HINTS = {
+    "Alt":                "⎇",
+    "Backquote":          "`",
+    "Backslash":          "\\",
+    "Backspace":          "⌫",
+    "BracketLeft":        "]",
+    "BracketRight":       "[",
+    "Comma":              ",",
+    "Control":            "^",
+    "Delete":             "⌦",
+    "Down":               "↓",
+    "End":                "end",
+    "Enter":              "↵",
+    "Equal":              "=",
+    "Escape":             "esc",
+    "Home":               "home",
+    "Left":               "←",
+    "Meta":               "⌘",
+    "Minus":              "-",
+    "Numlock":            "clear",
+    "Numpad0":            "NUM0",
+    "Numpad1":            "NUM1",
+    "Numpad2":            "NUM2",
+    "Numpad3":            "NUM3",
+    "Numpad4":            "NUM4",
+    "Numpad5":            "NUM5",
+    "Numpad6":            "NUM6",
+    "Numpad7":            "NUM7",
+    "Numpad8":            "NUM8",
+    "Numpad9":            "NUM9",
+    "NumpadAdd":          "NUM+",
+    "NumpadDecimal":      "NUM.",
+    "NumpadDivide":       "NUM\\",
+    "NumpadEnter":        "NUM↵",
+    "NumpadMultiply":     "NUM*",
+    "NumpadSubtract":     "NUM-",
+    "PageDown":           "pgDn",
+    "PageUp":             "pgUp",
+    "Period":             ".",
+    "Quote":              "'",
+    "Right":              "→",
+    "Semicolon":          ";",
+    "Shift":              "⇧",
+    "Slash":              "/",
+    "Space":              "space",
+    "Tab":                "tab",
+    "Up":                 "↑",
+  }
+
+  get shortcutHint() {
+    if (!this.shortcut) return "";
+    return this.shortcut.map(key => {
+      return Action.SHORTCUT_KEY_HINTS[key] || key;
+    });
   }
 
 

@@ -1,0 +1,9 @@
+/* Menu hints (eg: keyboard shortcuts) */
+.ui.menu .item {
+  white-space: nowrap;
+}
+
+.ui.menu .item > .hint {
+  float: right;
+  padding-left:3em;
+}

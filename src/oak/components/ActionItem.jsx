@@ -55,6 +55,7 @@ export default class ActionItem extends React.Component {
     }
     return SUIMenuItem({
       label: action.title,
+      hint: action.shortcutHint,
       hidden: !action.visible,
       disabled: !action.enabled,
       onClick: action.handler
