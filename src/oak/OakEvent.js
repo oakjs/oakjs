@@ -16,6 +16,7 @@
 //
 //////////////////////////////
 
+import Action from "oak-roots/Action";
 import Point from "oak-roots/Point";
 import Rect from "oak-roots/Rect";
 
@@ -506,8 +507,12 @@ export default class OakEvent {
 
     oak.setEvent(oakEvent, event);
 
-  // DEBUG
-  //  event.preventDefault();
+    // Have `Action` fire any active key events.
+    const actionFired = Action.fireMatchingAction(oakEvent.keys, !!oakEvent.focused);
+    if (actionFired) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 
   //////////////////////////////

@@ -3,6 +3,7 @@
 //////////////////////////////
 "use strict";
 
+import Action from "oak-roots/Action";
 import ids from "oak-roots/util/ids";
 import { die, dieIfMissing } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";

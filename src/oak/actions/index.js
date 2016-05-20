@@ -10,6 +10,7 @@ export * from "./project";
 export * from "./resize";
 export * from "./section";
 export * from "./selection";
+export * from "./undo";
 
 // Export all as a lump
 export default Object.assign({}, exports);

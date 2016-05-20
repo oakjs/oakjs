@@ -3,6 +3,7 @@
 //////////////////////////////
 "use strict";
 
+import Action from "oak-roots/Action";
 import { die, dieIfMissing } from "oak-roots/util/die";
 
 import Section from "../Section";
@@ -26,6 +27,15 @@ export function showSection(options = {}) {
     autoExecute
   } = options;
 
+  // handle relative section specifier
+  if (section === "FIRST") section = oak.section && oak.section.project.firstChild;
+  else if (section === "PREV") section = oak.section && oak.section.previous
+  else if (section === "NEXT") section = oak.section && oak.section.next;
+  else if (section === "LAST") section = oak.section && oak.section.project.lastChild;
+
+  if (section === oak.section) return;
+  if (!section) return;
+
   // normalize section to path string
   if (section instanceof Section) section = section.path;
   if (typeof section !== "string") die(oak, "actions.showSection", [options], "you must specify a section");
@@ -40,26 +50,34 @@ export function showSection(options = {}) {
   })
 }
 
+new Action({
+  id: "oak.showFirstSection", title: "Show First Section",
+  handler: ()=>showSection({ section: "FIRST" }),
+  enabled:()=>oak.section && !oak.section.isFirst
+});
 
-// Show first / previous / next / first / last section
-export function showFirstSection(options) { return _showRelativeSection("FIRST", options); }
-export function showPreviousSection(options) { return _showRelativeSection("PREV", options); }
-export function showNextSection(options) { return _showRelativeSection("NEXT", options); }
-export function showLastSection(options) { return _showRelativeSection("LAST", options); }
+new Action({
+  id: "oak.showPreviousSection", title: "Show Previous Section",
+  handler: ()=>showSection({ section: "PREV" }),
+  enabled:()=>oak.section && !oak.section.isFirst
+});
 
-function _showRelativeSection(which, options = {}) {
-  let { section = oak.section } = options;
-  if (!section) return;
+new Action({
+  id: "oak.showNextSection", title: "Show Next Section",
+  handler: ()=>showSection({ section: "NEXT" }),
+  enabled:()=>oak.section && !oak.section.isLast
+});
 
-  if (which === "FIRST")        section = section.project.firstChild;
-  else if (which === "PREV")    section = section.previous;
-  else if (which === "NEXT")    section = section.next;
-  else if (which === "LAST")    section = section.project.lastChild;
+new Action({
+  id: "oak.showLastSection", title: "Show Last Section",
+  handler: ()=>showSection({ section: "LAST" }),
+  enabled:()=>oak.section && !oak.section.isLast
+});
 
-  const showSectionOptions = Object.assign({ section }, options);
-  return showSection(showSectionOptions);
-}
 
+//////////////////////////////
+//  Save a section.
+//////////////////////////////
 
 // Save the section to the server.
 // NOTE: this is currently not undoable.
@@ -76,63 +94,18 @@ export function saveSection(options = {}) {
   return section.save("FORCE");
 }
 
-
-//////////////////////////////
-//  Rename section (change it's id)
-//////////////////////////////
-export function renameSection(options = {}) {
-  let {
-    section = oak.section,  // Section to change
-    newId,                  // New id for the section
-    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
-    actionName,
-    autoExecute
-  } = options
-
-  // normalize section to Section object
-  if (typeof section === "string") section = oak.account.getSection(section);
-  if (!section) die(oak, "actions.renameSection", [options], "you must specify a section");
-
-  return component._renameComponentTransaction({
-    component: section,
-    newId,
-    updateInstance: function(component, id) { component.sectionId = id },
-    navigate: (section === oak.section),
-    actionName,
-    autoExecute
-  });
-}
-
-
-//////////////////////////////
-//  Delete section.  Undoing adds the section back.
-//////////////////////////////
-export function deleteSection(options = {}) {
-  let {
-    section = oak.section,    // Section to delete as Section object or path.
-    confirm,
-    actionName,
-    autoExecute
-  } = options;
-
-  // normalize section to Section object
-  if (typeof section === "string") section = oak.account.getSection(section);
-  if (!section) die(oak, "actions.deleteSection", [options], "you must specify a section");
-
-  return component._deleteComponentTransaction({
-    component: section,
-    navigate: (section == oak.section),   // navigate if showing the section
-    confirm,
-    actionName,
-    autoExecute
-  });
-}
+new Action({
+  id: "oak.saveSection", title: "Save Section",
+  handler: saveSection,
+  enabled:()=>oak.section
+});
 
 
 
 //////////////////////////////
 //  Add section.  Undoing deletes the new section.
 //////////////////////////////
+
 export function createSection(options = {}) {
   let {
     project = oak.project,    // default to current project
@@ -167,6 +140,12 @@ export function createSection(options = {}) {
   });
 }
 
+new Action({
+  id: "oak.createSection", title: "New Section...",
+  handler: createSection,
+  enabled:()=>oak.project
+});
+
 
 //////////////////////////////
 //  Duplicate some section.  Undoing deletes the new section.
@@ -199,6 +178,77 @@ export function duplicateSection(options = {}) {
     autoExecute
   });
 }
+
+new Action({
+  id: "oak.duplicateSection", title: "Duplicate Section...",
+  handler: duplicateSection,
+  enabled:()=>oak.section
+});
+
+
+//////////////////////////////
+//  Rename section (change it's id)
+//////////////////////////////
+export function renameSection(options = {}) {
+  let {
+    section = oak.section,  // Section to change
+    newId,                  // New id for the section
+    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
+    actionName,
+    autoExecute
+  } = options
+
+  // normalize section to Section object
+  if (typeof section === "string") section = oak.account.getSection(section);
+  if (!section) die(oak, "actions.renameSection", [options], "you must specify a section");
+
+  return component._renameComponentTransaction({
+    component: section,
+    newId,
+    updateInstance: function(component, id) { component.sectionId = id },
+    navigate: (section === oak.section),
+    actionName,
+    autoExecute
+  });
+}
+
+new Action({
+  id: "oak.renameSection", title: "Rename Section...",
+  handler: renameSection,
+  enabled:()=>oak.section
+});
+
+
+//////////////////////////////
+//  Delete section.  Undoing adds the section back.
+//////////////////////////////
+export function deleteSection(options = {}) {
+  let {
+    section = oak.section,    // Section to delete as Section object or path.
+    confirm,
+    actionName,
+    autoExecute
+  } = options;
+
+  // normalize section to Section object
+  if (typeof section === "string") section = oak.account.getSection(section);
+  if (!section) die(oak, "actions.deleteSection", [options], "you must specify a section");
+
+  return component._deleteComponentTransaction({
+    component: section,
+    navigate: (section == oak.section),   // navigate if showing the section
+    confirm,
+    actionName,
+    autoExecute
+  });
+}
+
+new Action({
+  id: "oak.deleteSection", title: "Delete Section",
+  handler: deleteSection,
+  enabled:()=>oak.section
+});
+
 
 // Export all as a lump
 export default Object.assign({}, exports);

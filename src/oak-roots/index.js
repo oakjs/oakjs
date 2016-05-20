@@ -1,4 +1,5 @@
 // Top level classes / higher order classes.
+export Action from "./Action";
 export AcornParser from "./AcornParser";
 export API from "./API";
 export CustomEvent from "./CustomEvent";

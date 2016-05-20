@@ -27,6 +27,13 @@ export default class LoadableIndex extends Savable(Loadable()) {
     dieIfMissing(this, "constructor", ["itemType", "createItem", "loadData"]);
   }
 
+  //////////////////////////////
+  //  Getting items
+  //////////////////////////////
+
+  get firstChild() { return this.items && this.items[0] }
+  get lastChild() { return this.items && this.items[this.items.length - 1]; }
+
   // Return a item singleton specified by string id or numeric index.
   // If not found, returns `undefined`.
   // Always returns `undefined` if we haven't already loaded.
@@ -57,6 +64,11 @@ export default class LoadableIndex extends Savable(Loadable()) {
         .then( () => this.loadItem(itemIdentifier) );
     }
   }
+
+
+  //////////////////////////////
+  //  Manipulating
+  //////////////////////////////
 
   // Change the id of some item `oldId` `newId`.
   // NOTE: does not change the INTERNAL id of the item... ????

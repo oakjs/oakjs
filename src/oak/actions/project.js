@@ -3,6 +3,7 @@
 //////////////////////////////
 "use strict";
 
+import Action from "oak-roots/Action";
 import { die, dieIfMissing } from "oak-roots/util/die";
 
 import Account from "../Account";
@@ -27,6 +28,15 @@ export function showProject(options = {}) {
     autoExecute
   } = options;
 
+  // handle relative project identifier
+  if (project === "FIRST") project = oak.account.projectIndex.firstChild;
+  else if (project === "PREV") project = oak.project && oak.project.previous;
+  else if (project === "NEXT") project = oak.project && oak.project.next;
+  else if (project === "LAST") project = oak.account.projectIndex.lastChild
+
+  if (project === oak.project) return;
+  if (!project) return;
+
   // normalize project to path string
   if (project instanceof Project) project = project.path;
   if (typeof project !== "string") die(oak, "actions.showProject", [options], "you must specify a project");
@@ -41,27 +51,35 @@ export function showProject(options = {}) {
   })
 }
 
+new Action({
+  id: "oak.showFirstProject", title: "Show First Project",
+  handler: ()=>showProject({ project: "FIRST" }),
+  enabled:()=>oak.project && !oak.project.isFirst
+});
 
-// Show first / previous / next / first / last project
-// Same options as `showProject`
-export function showFirstProject(options) { return _showRelativeProject("FIRST", options); }
-export function showPreviousProject(options) { return _showRelativeProject("PREV", options); }
-export function showNextProject(options) { return _showRelativeProject("NEXT", options); }
-export function showLastProject(options) { return _showRelativeProject("LAST", options); }
+new Action({
+  id: "oak.showPreviousProject", title: "Show Previous Project",
+  handler: ()=>showProject({ project: "PREV" }),
+  enabled:()=>oak.project && !oak.project.isFirst
+});
 
-function _showRelativeProject(which, options = {}) {
-  let { project = oak.project } = options;
-  if (!project) return;
+new Action({
+  id: "oak.showNextProject", title: "Show Next Project",
+  handler: ()=>showProject({ project: "NEXT" }),
+  enabled:()=>oak.project && !oak.project.isLast
+});
 
-  if (which === "FIRST")        project = project.project.firstChild;
-  else if (which === "PREV")    project = project.previous;
-  else if (which === "NEXT")    project = project.next;
-  else if (which === "LAST")    project = project.project.lastChild;
+new Action({
+  id: "oak.showLastProject", title: "Show Last Project",
+  handler: ()=>showProject({ project: "LAST" }),
+  enabled:()=>oak.project && !oak.project.isLast
+});
 
-  const showProjectOptions = Object.assign({ project }, options);
-  return showProject(showProjectOptions);
-}
 
+
+//////////////////////////////
+//  Save a project
+//////////////////////////////
 
 // Save the project to the server.
 // NOTE: this is currently not undoable.
@@ -78,62 +96,18 @@ export function saveProject(options = {}) {
   return project.save("FORCE");
 }
 
-
-//////////////////////////////
-//  Rename project (change it's id)
-//////////////////////////////
-export function renameProject(options = {}) {
-  let {
-    project = oak.project,  // Project to change
-    newId,                  // New id for the project
-    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
-    actionName,
-    autoExecute
-  } = options
-
-  // normalize project to Project object
-  if (typeof project === "string") project = oak.account.getProject(project);
-  if (!project) die(oak, "actions.renameProject", [options], "you must specify a project");
-
-  return component._renameComponentTransaction({
-    component: project,
-    newId,
-    updateInstance: function(component, id) { component.projectId = id },
-    navigate: (project === oak.project),
-    actionName,
-    autoExecute
-  });
-}
+new Action({
+  id: "oak.saveProject", title: "Save Project",
+  handler: saveProject,
+  enabled:()=>oak.project
+});
 
 
-//////////////////////////////
-//  Delete project.  Undoing adds the project back.
-//////////////////////////////
-export function deleteProject(options = {}) {
-  let {
-    project = oak.project,    // Project to delete as Project object or path.
-    confirm,
-    actionName,
-    autoExecute
-  } = options;
-
-  // normalize project to Project object
-  if (typeof project === "string") project = oak.account.getProject(project);
-  if (!project) die(oak, "actions.deleteProject", [options], "you must specify a project");
-
-  return component._deleteComponentTransaction({
-    component: project,
-    navigate: (project == oak.project),   // navigate if showing the project
-    confirm,
-    actionName,
-    autoExecute
-  });
-}
 
 
 
 //////////////////////////////
-//  Add project.  Undoing deletes the new project.
+//  Create new project.  Undoing deletes the new project.
 //////////////////////////////
 export function createProject(options = {}) {
   let {
@@ -168,6 +142,11 @@ export function createProject(options = {}) {
   });
 }
 
+new Action({
+  id: "oak.createProject", title: "New Project...",
+  handler: createProject,
+});
+
 
 //////////////////////////////
 //  Duplicate some project.  Undoing deletes the new project.
@@ -200,6 +179,77 @@ export function duplicateProject(options = {}) {
     autoExecute
   });
 }
+
+new Action({
+  id: "oak.duplicateProject", title: "Duplicate Project...",
+  handler: duplicateProject,
+  enabled:()=>oak.project
+});
+
+
+//////////////////////////////
+//  Rename project (change it's id)
+//////////////////////////////
+export function renameProject(options = {}) {
+  let {
+    project = oak.project,  // Project to change
+    newId,                  // New id for the project
+    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
+    actionName,
+    autoExecute
+  } = options
+
+  // normalize project to Project object
+  if (typeof project === "string") project = oak.account.getProject(project);
+  if (!project) die(oak, "actions.renameProject", [options], "you must specify a project");
+
+  return component._renameComponentTransaction({
+    component: project,
+    newId,
+    updateInstance: function(component, id) { component.projectId = id },
+    navigate: (project === oak.project),
+    actionName,
+    autoExecute
+  });
+}
+
+new Action({
+  id: "oak.renameProject", title: "Rename Project...",
+  handler: renameProject,
+  enabled:()=>oak.project
+});
+
+
+//////////////////////////////
+//  Delete project.  Undoing adds the project back.
+//////////////////////////////
+export function deleteProject(options = {}) {
+  let {
+    project = oak.project,    // Project to delete as Project object or path.
+    confirm,
+    actionName,
+    autoExecute
+  } = options;
+
+  // normalize project to Project object
+  if (typeof project === "string") project = oak.account.getProject(project);
+  if (!project) die(oak, "actions.deleteProject", [options], "you must specify a project");
+
+  return component._deleteComponentTransaction({
+    component: project,
+    navigate: (project == oak.project),   // navigate if showing the project
+    confirm,
+    actionName,
+    autoExecute
+  });
+}
+
+new Action({
+  id: "oak.deleteProject", title: "Delete Project",
+  handler: deleteProject,
+  enabled:()=>oak.project
+});
+
 
 // Export all as a lump
 export default Object.assign({}, exports);

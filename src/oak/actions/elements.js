@@ -2,6 +2,7 @@
 //  Actions for dealing with elements
 //////////////////////////////
 
+import Action from "oak-roots/Action";
 import { die } from "oak-roots/util/die";
 import UndoQueue, { UndoTransaction } from "oak-roots/UndoQueue";
 
@@ -103,6 +104,12 @@ export function removeElements(options) {
     }
   });
 }
+
+new Action({
+  id: "oak.removeElements", title: "Delete", shortcut: "Meta Delete",
+  handler: removeElements,
+  enabled:()=>!oak.nothingSelected
+});
 
 
 //////////////////////////////

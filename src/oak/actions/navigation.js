@@ -3,6 +3,7 @@
 //////////////////////////////
 "use strict";
 
+import Action from "oak-roots/Action";
 import { die,  } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
@@ -48,29 +49,6 @@ export function _navigateToRouteTransaction(options = {}) {
 // Navigate to some `route`.
 export function navigateTo(options) {
   return _navigateToRouteTransaction(options);
-}
-
-
-// Show the first page of a `project`.
-export function showProject(options = {}) {
-  let {
-    project = oak.page && oak.page.project,   // Project or project path, defaults to current project
-    replace,
-    actionName = "Show Project",
-    autoExecute
-  } = options;
-
-  // normalize project
-  if (project instanceof Project) project = project.path;
-  if (typeof project !== "string") die(oak, "actions.showProject", [options], "you must specify a project");
-
-  const { projectId } = Project.splitPath(project);
-  return navigateTo({
-    route: oak.getPageRoute(projectId),
-    replace,
-    actionName,
-    autoExecute
-  })
 }
 
 

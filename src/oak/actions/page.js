@@ -3,6 +3,7 @@
 //////////////////////////////
 "use strict";
 
+import Action from "oak-roots/Action";
 import { die, dieIfMissing } from "oak-roots/util/die";
 
 import Page from "../Page";
@@ -25,6 +26,12 @@ export function showPage(options = {}) {
     autoExecute
   } = options;
 
+  // handle relative page specifier
+  if (page === "FIRST") page = oak.page && oak.page.section.firstChild;
+  else if (page === "PREV") page = oak.page && oak.page.previous
+  else if (page === "NEXT") page = oak.page && oak.page.next;
+  else if (page === "LAST") page = oak.page && oak.page.section.lastChild;
+
   // normalize page to path string
   if (page instanceof Page) page = page.path;
   if (typeof page !== "string") die(oak, "actions.showPage", [options], "you must specify a page");
@@ -40,24 +47,34 @@ export function showPage(options = {}) {
 }
 
 
-// Show first / previous / next / first / last page
-export function showFirstPage(options) { return _showRelativePage("FIRST", options); }
-export function showPreviousPage(options) { return _showRelativePage("PREV", options); }
-export function showNextPage(options) { return _showRelativePage("NEXT", options); }
-export function showLastPage(options) { return _showRelativePage("LAST", options); }
+new Action({
+  id: "oak.showFirstPage", title: "Show First Page",
+  handler: ()=>showPage({ page: "FIRST" }),
+  enabled:()=>oak.page && !oak.page.isFirst
+});
 
-function _showRelativePage(which, options = {}) {
-  let { page = oak.page } = options;
-  if (!page) return;
+new Action({
+  id: "oak.showPreviousPage", title: "Show Previous Page",
+  handler: ()=>showPage({ page: "PREV" }),
+  enabled:()=>oak.page && !oak.page.isFirst
+});
 
-  if (which === "FIRST")        page = page.section.firstChild;
-  else if (which === "PREV")    page = page.previous;
-  else if (which === "NEXT")    page = page.next;
-  else if (which === "LAST")    page = page.section.lastChild;
-  const showPageOptions = Object.assign({ page }, options);
-  return showPage(showPageOptions);
-}
+new Action({
+  id: "oak.showNextPage", title: "Show Next Page",
+  handler: ()=>showPage({ page: "NEXT" }),
+  enabled:()=>oak.page && !oak.page.isLast
+});
 
+new Action({
+  id: "oak.showLastPage", title: "Show Last Page",
+  handler: ()=>showPage({ page: "LAST" }),
+  enabled:()=>oak.page && !oak.page.isLast
+});
+
+
+//////////////////////////////
+//  Save a page.
+//////////////////////////////
 
 // Save the page to the server.
 // NOTE: this is currently not undoable.
@@ -74,58 +91,11 @@ export function savePage(options = {}) {
   return page.save("FORCE");
 }
 
-
-//////////////////////////////
-//  Rename page (change it's id)
-//////////////////////////////
-export function renamePage(options = {}) {
-  let {
-    page = oak.page,        // Page to change
-    newId,                  // New id for the page
-    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
-    actionName,
-    autoExecute
-  } = options
-
-  // normalize page to Page object
-  if (typeof page === "string") page = oak.account.getPage(page);
-  if (!page) die(oak, "actions.renamePage", [options], "you must specify a page");
-
-  return component._renameComponentTransaction({
-    component: page,
-    newId,
-    updateInstance: function(component, id) { component.pageId = id },
-    navigate: (page === oak.page),
-    actionName,
-    autoExecute
-  });
-}
-
-
-//////////////////////////////
-//  Delete page.  Undoing adds the page back.
-//////////////////////////////
-export function deletePage(options = {}) {
-  let {
-    page = oak.page,                // Page to delete as Page object or path.
-    confirm,
-    actionName,
-    autoExecute
-  } = options;
-
-  // normalize page to Page object
-  if (typeof page === "string") page = oak.account.getPage(page);
-  if (!page) die(oak, "actions.deletePage", [options], "you must specify a page");
-
-  return component._deleteComponentTransaction({
-    component: page,
-    navigate: (page == oak.page),   // navigate if on current page
-    confirm,
-    actionName,
-    autoExecute
-  });
-}
-
+new Action({
+  id: "oak.savePage", title: "Save Page",
+  handler: savePage,
+  enabled:()=>oak.page
+});
 
 
 //////////////////////////////
@@ -165,6 +135,11 @@ export function createPage(options = {}) {
   });
 }
 
+new Action({
+  id: "oak.createPage", title: "New Page...",
+  handler: createPage,
+  enabled:()=>oak.section
+});
 
 //////////////////////////////
 //  Duplicate some page.  Undoing deletes the new page.
@@ -196,6 +171,77 @@ export function duplicatePage(options = {}) {
     autoExecute
   });
 }
+
+new Action({
+  id: "oak.duplicatePage", title: "Duplicate Page...",
+  handler: duplicatePage,
+  enabled:()=>oak.page
+});
+
+
+//////////////////////////////
+//  Rename page (change it's id)
+//////////////////////////////
+export function renamePage(options = {}) {
+  let {
+    page = oak.page,        // Page to change
+    newId,                  // New id for the page
+    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
+    actionName,
+    autoExecute
+  } = options
+
+  // normalize page to Page object
+  if (typeof page === "string") page = oak.account.getPage(page);
+  if (!page) die(oak, "actions.renamePage", [options], "you must specify a page");
+
+  return component._renameComponentTransaction({
+    component: page,
+    newId,
+    updateInstance: function(component, id) { component.pageId = id },
+    navigate: (page === oak.page),
+    actionName,
+    autoExecute
+  });
+}
+
+new Action({
+  id: "oak.renamePage", title: "Rename Page...",
+  handler: renamePage,
+  enabled:()=>oak.page
+});
+
+
+//////////////////////////////
+//  Delete page.  Undoing adds the page back.
+//////////////////////////////
+export function deletePage(options = {}) {
+  let {
+    page = oak.page,                // Page to delete as Page object or path.
+    confirm,
+    actionName,
+    autoExecute
+  } = options;
+
+  // normalize page to Page object
+  if (typeof page === "string") page = oak.account.getPage(page);
+  if (!page) die(oak, "actions.deletePage", [options], "you must specify a page");
+
+  return component._deleteComponentTransaction({
+    component: page,
+    navigate: (page == oak.page),   // navigate if on current page
+    confirm,
+    actionName,
+    autoExecute
+  });
+}
+
+new Action({
+  id: "oak.deletePage", title: "Delete Page",
+  handler: deletePage,
+  enabled:()=>oak.page
+});
+
 
 // Export all as a lump
 export default Object.assign({}, exports);

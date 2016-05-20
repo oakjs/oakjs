@@ -2,6 +2,7 @@
 //  Actions for dealing with elements
 //////////////////////////////
 
+import Action from "oak-roots/Action";
 import { die } from "oak-roots/util/die";
 import UndoQueue, { UndoTransaction } from "oak-roots/UndoQueue";
 
@@ -45,6 +46,13 @@ export function copyElements(options) {
   });
 }
 
+new Action({
+  id: "oak.copyElements", title: "Copy", shortcut: "Meta C",
+  handler: copyElements,
+  enabled:()=>!oak.nothingSelected
+});
+
+
 
 // Remove `elements` from `context` and place in `oak.clipboard`.
 // Default is to cut `oak.selection`.
@@ -68,6 +76,12 @@ export function cutElements(options) {
     autoExecute
   });
 }
+
+new Action({
+  id: "oak.cutElements", title: "Cut", shortcut: "Meta X",
+  handler: cutElements,
+  enabled:()=>!oak.nothingSelected
+});
 
 
 // Paste `elements` from the `oak.clipboard` inside `parent` at `position`.
@@ -104,6 +118,11 @@ export function pasteElements(options) {
   });
 }
 
+new Action({
+  id: "oak.pasteElements", title: "Paste", shortcut: "Meta V",
+  handler: pasteElements,
+  enabled:()=>!oak.nothingSelected
+});
 
 
 // Export all as a lump

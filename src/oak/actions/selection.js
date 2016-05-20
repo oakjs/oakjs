@@ -3,6 +3,7 @@
 //////////////////////////////
 "use strict";
 
+import Action from "oak-roots/Action";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import oak from "../oak";
@@ -98,6 +99,12 @@ export function clearSelection(options = {}) {
   });
 }
 
+new Action({
+  id: "oak.deselectAll", title: "Deselect All", shortcut: "Meta Shift A",
+  handler: clearSelection,
+  enabled:()=>oak.state.editing && !oak.nothingSelected
+});
+
 
 // Set the current selection to the set of `elements` passed in.
 export function setSelection(options = {}) {
@@ -131,6 +138,13 @@ export function selectAll(options = {}) {
     autoExecute,
   });
 }
+
+new Action({
+  id: "oak.selectAll", title: "Select All", shortcut: "Shift A",
+  handler: selectAll,
+  enabled:()=>oak.state.editing && oak.editContext
+});
+
 
 // Internal function to change the selection assuming normalized `options.selection`.
 function _setSelectionTransaction(options = {}) {

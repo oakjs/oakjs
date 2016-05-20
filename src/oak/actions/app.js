@@ -1,8 +1,9 @@
 //////////////////////////////
-//  Actions for dealing with elements
+//  Actions for manipulating oak state.
 //////////////////////////////
 "use strict";
 
+import Action from "oak-roots/Action";
 import { die,  } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
@@ -11,16 +12,57 @@ import oak from "../oak";
 import utils from "./utils";
 
 //////////////////////////////
-//  Manipulating oak state
+//  Editing page / project / section
 //////////////////////////////
 
-export function startEditing(options) {
-  return setAppState({ state: { editing: true }, ...options });
+export function startEditing(options = {}) {
+  const state = { editing: true };
+  if (options.editContext) state.editContext = options.editContext;
+  return setAppState({ state, ...options });
 }
 
-export function stopEditing(options) {
-  return setAppState({ state: { editing: false }, ...options });
+export function stopEditing(options = {}) {
+  const state = { editing: false };
+  if (options.editContext) state.editContext = options.editContext;
+  return setAppState({ state, ...options });
 }
+
+
+new Action({
+  id: "oak.startEditingPage", title: "Start Editing Page", shortcut: "Meta E",
+  handler: ()=> startEditing({editContext:"page"}),
+  visible:()=>!(oak.state.editing && oak.state.editContext === "page")
+});
+
+new Action({
+  id: "oak.stopEditingPage", title: "Stop Editing Page", shortcut: "Meta E",
+  handler: stopEditing,
+  visible:()=>oak.state.editing && oak.state.editContext === "page"
+});
+
+new Action({
+  id: "oak.startEditingSection", title: "Start Editing Section",
+  handler: ()=> startEditing({editContext:"section"}),
+  visible:()=>!(oak.state.editing && oak.state.editContext === "section")
+});
+
+new Action({
+  id: "oak.stopEditingSection", title: "Stop Editing Section",
+  handler: stopEditing,
+  visible:()=>oak.state.editing && oak.state.editContext === "section"
+});
+
+new Action({
+  id: "oak.startEditingProject", title: "Start Editing Project",
+  handler: ()=> startEditing({editContext:"project"}),
+  visible:()=>!(oak.state.editing && oak.state.editContext === "project")
+});
+
+new Action({
+  id: "oak.stopEditingProject", title: "Stop Editing Project",
+  handler: stopEditing,
+  visible:()=>oak.state.editing && oak.state.editContext === "project"
+});
 
 
 //////////////////////////////
