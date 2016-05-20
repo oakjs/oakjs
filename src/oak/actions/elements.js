@@ -85,7 +85,7 @@ export function resetElementProps(options) {
 //
 // NOTE: You cannot reliably use this to remove non-element children,
 //       use `removeChildrenAtPositions()` instead.
-export function removeElements(options) {
+export function removeElements(options = {}) {
   const {
     context, elements = oak.selectedComponents,
     actionName = "Delete Elements", autoExecute
@@ -106,7 +106,7 @@ export function removeElements(options) {
 }
 
 new Action({
-  id: "oak.removeElements", title: "Delete", shortcut: "Meta Delete",
+  id: "oak.removeElements", title: "Delete", shortcut: "Meta Backspace",
   handler: removeElements,
   enabled:()=>!oak.nothingSelected
 });
@@ -124,7 +124,7 @@ new Action({
 //
 // Required options:  `parent`, `position`, `elements`
 // Optional options:  `context`, `autoExecute`, `actionName`
-export function addElements(options) {
+export function addElements(options = {}) {
   const {
     context, parent, position, elements,
     actionName = "Add Elements", autoExecute

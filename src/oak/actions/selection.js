@@ -140,7 +140,7 @@ export function selectAll(options = {}) {
 }
 
 new Action({
-  id: "oak.selectAll", title: "Select All", shortcut: "Shift A",
+  id: "oak.selectAll", title: "Select All", shortcut: "Meta A",
   handler: selectAll,
   enabled:()=>oak.state.editing && oak.editContext
 });

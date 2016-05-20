@@ -195,7 +195,7 @@ export default class Action {
       bestMatch.handler();
       return true;
     } catch (e) {
-      console.error(`Error firing action ${action.id}`, e);
+      console.error(`Error firing action ${bestMatch.id}`, e);
       throw e;
     }
   }

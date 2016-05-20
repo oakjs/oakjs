@@ -218,7 +218,7 @@ export class UndoTransaction {
     Object.assign(this, others);
 
     // assign transactions
-    if (transactions) this.addTransactions(value);
+    if (transactions) this.addTransactions(transactions);
 
     // autoExecute?
     if (autoExecute) {

@@ -24,7 +24,7 @@ const DEBUG = false;
 // Default is to copy `oak.selection`.
 //
 // Optional options:  `elements`, `context`, `autoExecute`, `actionName`
-export function copyElements(options) {
+export function copyElements(options = {}) {
   const {
    context, elements = oak.selectedComponents,
     actionName = "Copy", autoExecute
@@ -58,7 +58,7 @@ new Action({
 // Default is to cut `oak.selection`.
 //
 // Optional options:  `elements`, `context`, `autoExecute`, `actionName`
-export function cutElements(options) {
+export function cutElements(options = {}) {
   const {
    context, elements = oak.selectedComponents,
     actionName = "Cut", autoExecute
@@ -87,7 +87,7 @@ new Action({
 // Paste `elements` from the `oak.clipboard` inside `parent` at `position`.
 // Required options:  `parent`, `position`
 // Optional options:  `context`, `autoExecute`, `actionName`
-export function pasteElements(options) {
+export function pasteElements(options = {}) {
   const {
    context, position,
     actionName = "Paste", autoExecute
