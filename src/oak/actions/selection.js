@@ -160,6 +160,7 @@ function _setSelectionTransaction(options = {}) {
 //  Menu-type actions
 //////////////////////////////
 
+// Select all which takes us into edit mode if necessary
 function selectAllAction(options = {}) {
   const {
     actionName = "Select All",

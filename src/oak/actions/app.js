@@ -73,14 +73,14 @@ new Action({
 
 export function setAppStateTransaction(options = {}) {
   const {
-    state: stateDeltas,
-    actionName = "Set oak state", autoExecute
+    state,
+    actionName = "Set app state", autoExecute
   } = options;
 
-  if (stateDeltas == null) die(oak, "setAppStateTransaction", arguments, "`options.state` must be provided.");
+  if (state == null) die(oak, "setAppStateTransaction", arguments, "`options.state` must be provided.");
 
-  const originalState = oak.state;
-  const newState = Object.assign({}, originalState, stateDeltas);
+  const originalState = Object.assign({}, oak.state);
+  const newState = Object.assign({}, originalState, state);
 
   function redo() { utils.setAppState(newState); }
   function undo() { utils.setAppState(originalState); }

@@ -126,7 +126,7 @@ new Action({
 // Optional options:  `context`, `autoExecute`, `actionName`
 export function addElements(options = {}) {
   const {
-    context, parent, position, elements,
+    context, parent, position, elements, autoSelect,
     actionName = "Add Elements", autoExecute
   } = options;
 
@@ -135,9 +135,10 @@ export function addElements(options = {}) {
   return changeFragmentTransaction({
     actionName,
     context,
+    autoSelect,
     autoExecute,
     transformer: (fragment) => {
-      fragment.add(parent, position, elements);
+      return fragment.add(parent, position, elements);
     }
   });
 }
@@ -151,21 +152,24 @@ export function addElements(options = {}) {
 
 // Create a transaction for a transformation of `props` of one or more elements.
 //  We'll call `options.transformer(jsxFragmentClone)` to make the actual change.
+//  If `autoSelect` is true, we'll automatically select anything returned by the `transformer`.
 //
 // NOTE: don't call this directly, use one of the `setElement*()` or `*Element()` calls.
 export function changeFragmentTransaction({
-  context, transformer,
+  context, transformer, autoSelect,
   actionName, autoExecute
 }) {
   const controller = utils.getControllerOrDie(context, actionName);
   const originalFragment = controller.jsxFragment;
+  const originalSelection = autoSelect && oak.selection;
 
   // clone the original fragment and transform it
   const newFragment = originalFragment.clone();
-  transformer(newFragment);
+  const results = transformer(newFragment);
+  const newSelection = autoSelect && results.map(element => element.oid);
 
-  function redo() { return _setControllerFragment(controller, newFragment) }
-  function undo() { return _setControllerFragment(controller, originalFragment) }
+  function redo() { return _setControllerFragment(controller, newFragment, newSelection) }
+  function undo() { return _setControllerFragment(controller, originalFragment, originalSelection) }
 
   return new UndoTransaction({
     redoActions:[redo],
@@ -175,10 +179,11 @@ export function changeFragmentTransaction({
   });
 }
 
-function _setControllerFragment(controller, fragment) {
+function _setControllerFragment(controller, fragment, selection) {
   controller.jsxFragment = fragment;
   controller.dirty(true);
   controller.onComponentChanged();
+  if (selection) utils.setSelection(selection);
 }
 
 
