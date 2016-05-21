@@ -18,13 +18,13 @@ import utils from "./utils";
 export function startEditing(options = {}) {
   const state = { editing: true };
   if (options.editContext) state.editContext = options.editContext;
-  return setAppState({ state, ...options });
+  return setAppStateTransaction({ state, ...options });
 }
 
 export function stopEditing(options = {}) {
   const state = { editing: false };
   if (options.editContext) state.editContext = options.editContext;
-  return setAppState({ state, ...options });
+  return setAppStateTransaction({ state, ...options });
 }
 
 
@@ -71,19 +71,18 @@ new Action({
 //////////////////////////////
 
 
-export function setAppState(options = {}) {
+export function setAppStateTransaction(options = {}) {
   const {
     state: stateDeltas,
     actionName = "Set oak state", autoExecute
   } = options;
 
-  if (stateDeltas == null) die(oak, "setAppState", arguments, "`options.state` must be provided.");
+  if (stateDeltas == null) die(oak, "setAppStateTransaction", arguments, "`options.state` must be provided.");
 
   const originalState = oak.state;
   const newState = Object.assign({}, originalState, stateDeltas);
 
   function redo() { utils.setAppState(newState); }
-
   function undo() { utils.setAppState(originalState); }
 
   return new UndoTransaction({

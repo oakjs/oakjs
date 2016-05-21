@@ -99,13 +99,6 @@ export function clearSelection(options = {}) {
   });
 }
 
-new Action({
-  id: "oak.deselectAll", title: "Deselect All", shortcut: "Meta Shift A",
-  handler: clearSelection,
-  enabled:()=>oak.state.editing && !oak.nothingSelected
-});
-
-
 // Set the current selection to the set of `elements` passed in.
 export function setSelection(options = {}) {
   const {
@@ -139,12 +132,6 @@ export function selectAll(options = {}) {
   });
 }
 
-new Action({
-  id: "oak.selectAll", title: "Select All", shortcut: "Meta A",
-  handler: selectAll,
-  enabled:()=>oak.state.editing && oak.editContext
-});
-
 
 // Internal function to change the selection assuming normalized `options.selection`.
 function _setSelectionTransaction(options = {}) {
@@ -170,8 +157,36 @@ function _setSelectionTransaction(options = {}) {
 
 
 //////////////////////////////
-//  Utility functions to change selection for use by transactions only
+//  Menu-type actions
 //////////////////////////////
+
+function selectAllAction(options = {}) {
+  const {
+    actionName = "Select All",
+    autoExecute
+  } = options;
+
+  return new UndoTransaction({
+    actionName: actionName,
+    transactions: [
+      app.startEditing({autoExecute: false }),
+      selectAll({ autoExecute: false })
+    ],
+    autoExecute
+  });
+}
+
+new Action({
+  id: "oak.selectAll", title: "Select All", shortcut: "Meta A",
+  handler: selectAllAction,
+  enabled:()=>oak.editContext
+});
+
+new Action({
+  id: "oak.deselectAll", title: "Deselect All", shortcut: "Meta Shift A",
+  handler: clearSelection,
+  enabled:()=>oak.state.editing && !oak.nothingSelected
+});
 
 
 
