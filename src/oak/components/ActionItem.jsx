@@ -19,12 +19,12 @@ export default class ActionItem extends React.Component {
   // Component lifecyle
   //////////////////////////////
 
-  // Activate this action when the menu item is shown
+  // Activate this action when the menu item is shown, so we'll get shortcut keys.
   componentDidMount() {
     Action.activate(this.props.id);
   }
 
-  // Deactivate this action when the menu item is shown
+  // Deactivate this action when the menu item is hidden.
   componentWillUnmount() {
     Action.deactivate(this.props.id);
   }
