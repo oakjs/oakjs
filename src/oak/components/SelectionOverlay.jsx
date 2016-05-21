@@ -499,7 +499,6 @@ console.log("dragMoveEnd", info);
   }
 
   renderDropChildrenRects() {
-return null;
     const rects = this.getDropChildrenRects(this.state.dropParent);
     if (!rects) return [];
 

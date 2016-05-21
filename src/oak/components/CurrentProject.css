@@ -1,9 +1,0 @@
-.oak.current.Project {
-  transition: transform 0.25s;
-  transform-origin: 50px 50px;
-  background-color: white;
-}
-
-.oak.runner.Page[data-editing=true] .oak.current.Project {
-/*  transform: scale(0.75); */
-}
