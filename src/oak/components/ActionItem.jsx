@@ -10,9 +10,7 @@ import SUIMenuItem from "themes/SUI/MenuItem";
 export default class ActionItem extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,       // `id` of the Action in question.
-
 //REFACTOR: override title, enabled, etc here?
-
   }
 
   //////////////////////////////
@@ -32,16 +30,13 @@ export default class ActionItem extends React.Component {
   //////////////////////////////
   // Syntactic sugar
   //////////////////////////////
+
   get id() {
     return this.props.id;
   }
   get action() {
     return Action.get(this.id);
   }
-
-
-
-// TODO: activate / deactivate on draw
 
   toString() {
     return `<ActionItem ${this.id}/>`;
