@@ -1,7 +1,6 @@
 .oak.runner.Project {
   position: relative;
   min-height: 100vh;
-  background:red;
 }
 
 .oak.runner.Section {
