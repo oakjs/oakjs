@@ -394,8 +394,8 @@ console.info(parent, dropParent, position, dropPosition);
         let lastLeft = parentRect.left;
 
         row.forEach( (info, colIndex) => {
-          // draw the line 1/2 way between the two elements
-          const right = info.rect.left + (info.rect.width / 2);
+          // take up all the space between components
+          const right = info.rect.left + info.rect.width;
           info.rect.set({ left: lastLeft, right });
           lastLeft = info.rect.right;
         });
