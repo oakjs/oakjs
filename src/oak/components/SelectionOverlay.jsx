@@ -359,14 +359,10 @@ console.info(parent, dropParent, position, dropPosition);
         // if there's exactly one thing in the row
         // split it in half vertically
         if (rows[row].length === 1) {
-          // make element half height
           const element = rows[row][0];
-          element.rect.height = element.rect.height / 2;
-          // create clone and push it's top down
-          const clone = { oid: element.oid, position: child.position, rect: element.rect.clone() };
-          clone.rect.top += clone.rect.height;
+          const cell = { oid: element.oid, position: child.position, rect: element.rect.clone() };
           row++;
-          rows[row] = [ clone ];
+          rows[row] = [ cell ];
         }
 
         // next row
@@ -381,7 +377,7 @@ console.info(parent, dropParent, position, dropPosition);
     // remove empty rows
     rows = rows.filter(row => row.length > 0);
 
-    // adjust lefts and right of all rects and add a capper column at the end
+    // adjust lefts and right
     rows.forEach( (row, rowIndex)=> {
       // if only one thing in the row, take up the whole width
       if (row.length === 1) {
