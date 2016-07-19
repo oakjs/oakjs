@@ -2,6 +2,7 @@
 //
 //  Generic ChildController class
 //
+//  A `childController` manages a set of `children`, which are generally themselves `Loadable`s.
 //  Assumes you will create a `LoadableIndex` in `_makeChildIndex` to manage list of children.
 //
 //  There's also stuff in here about managing `parent` and parent properties.
