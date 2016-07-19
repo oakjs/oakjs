@@ -186,7 +186,7 @@ new Action({
 new Action({
   id: "oak.deselectAll", title: "Deselect All", shortcut: "Meta Shift A",
   handler: clearSelection,
-  enabled:()=>oak.state.editing && !oak.nothingSelected
+  enabled:()=>oak.state.editing && !oak.selectionIsEmpty
 });
 
 

@@ -49,7 +49,7 @@ export function copyElements(options = {}) {
 new Action({
   id: "oak.copyElements", title: "Copy", shortcut: "Meta C",
   handler: copyElements,
-  enabled:()=>!oak.nothingSelected
+  enabled: () => oak.selectionIsEmpty
 });
 
 
@@ -80,7 +80,7 @@ export function cutElements(options = {}) {
 new Action({
   id: "oak.cutElements", title: "Cut", shortcut: "Meta X",
   handler: cutElements,
-  enabled:()=>!oak.nothingSelected
+  enabled: () => oak.selectionIsEmpty
 });
 
 
@@ -121,7 +121,7 @@ export function pasteElements(options = {}) {
 new Action({
   id: "oak.pasteElements", title: "Paste", shortcut: "Meta V",
   handler: pasteElements,
-  enabled:()=>!oak.nothingSelected
+  enabled: () => oak.selectionIsEmpty
 });
 
 

@@ -26,7 +26,7 @@ export default class EditorToolbar extends OakComponent {
             <c.Button onClick={oak.redo} icon="repeat" disabled={!oak.canRedo}/>
             <c.Spacer inline/>
           </c.Buttons>
-          <c.Buttons appearance="transparent" visible={oak.state.editing && !oak.nothingSelected} color="red">
+          <c.Buttons appearance="transparent" visible={oak.state.editing && oak.selectionIsEmpty} color="red">
             <c.Button onClick={oak.actions.removeElements} icon="remove"/>
           </c.Buttons>
         </c.Menu>

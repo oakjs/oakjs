@@ -109,20 +109,15 @@ class OakJS extends Eventful(Object) {
     return undefined;
   }
 
-  // DEBUG
-  // DEPRECATED
-  get fragment() {
-    return this.editContext.jsxFragment;
-  }
-
-  get nothingSelected() {
-    return this.selection.length === 0;
-  }
-
   // Return the currently selected elements (as a list of `oid`s).
   // NOTE: this is a FROZEN array!
   get selection() {
     return this.state.selection;
+  }
+
+	// Syntactic sugar for enabling actions, etc.
+  get selectionIsEmpty() {
+    return this.selection.length === 0;
   }
 
   // Return the `JSXElement`s which correspond to the selection.
