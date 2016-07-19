@@ -5,6 +5,7 @@
 import { throttle } from "oak-roots/util/decorators";
 import Point from "oak-roots/Point";
 import Rect from "oak-roots/Rect";
+import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import { getDragPreviewForElements } from "oak-roots/util/elements";
 
@@ -233,12 +234,6 @@ export default class SelectionOverlay extends OakComponent {
     });
   }
 
-  // NOTE: called repeatedly, don't do anything expensive in here...
-  renderDragMovePreview() {
-    if (!this.state.dragMoving) return;
-    return <DragMovePreview {...this.state.dragMoveProps} />
-  }
-
   onDragMoveStart = (event, info) => {
 console.log("startDragMoving", info, this.state.dragComponents);
 // TODO: if option down, drag a clone
@@ -254,7 +249,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
     // Forget it if no change
     if (parent === "NO_CHANGE" || (parent === dropParent && position === dropPosition)) return;
 
-console.info(parent, dropParent, position, dropPosition);
+//console.info(parent, dropParent, position, dropPosition);
 
     // if we're already on-screen, undo to remove elements added before
     if (dropParent) {
@@ -277,6 +272,54 @@ console.info(parent, dropParent, position, dropPosition);
 
     oak.forceUpdate();
   }
+
+
+  onDragMoveEnd = (event, info) => {
+    // if we started moving...
+    if (this.state.dragMoveStarted) {
+      // ALWAYS undo the initial remove
+ 	  	oak.undo();
+
+      // if we actually dropped,
+      if (this.state.dropParent) {
+
+oak.undo();
+
+        // redo the add + remove in one undo transaction
+        const elements = this.state.dragComponents;
+        const parent = this.state.dropParent;
+        const position = this.state.dropPosition;
+console.warn(elements);
+        new UndoTransaction({
+          actionName: "Move Element",
+          transactions: [
+            oak.actions.removeElements({ elements, autoExecute: false }),
+            oak.actions.addElements({ parent, position, elements, autoExecute: false })
+          ]
+        });
+      }
+    }
+
+    // Clear drag state
+    this.setState({
+      dragMoving: false,
+      dragMoveStarted: undefined,
+      dragOids: undefined,
+      dragComponents: undefined,
+      dropParent: undefined,
+      dropParentRect: undefined,
+      dropPosition: undefined,
+      dragMoveProps: undefined
+    });
+  }
+
+  // NOTE: called repeatedly, don't do anything expensive in here...
+  renderDragMovePreview() {
+    if (!this.state.dragMoving) return;
+    return <DragMovePreview {...this.state.dragMoveProps} />
+  }
+
+
 
   // Return the `{ parent, position }` where drop should happen.
   // `position` ignores the things being dragged so it's stable as the
@@ -435,27 +478,6 @@ console.info(parent, dropParent, position, dropPosition);
     }
 
     return rects;
-  }
-
-
-  onDragMoveEnd = (event, info) => {
-  	// If we've started moving, but there's nowhere to drop
-  	//	undo to go back to the original tree.
-  	if (this.state.dragMoveStarted && !this.state.dropParent) {
-  		oak.undo();
-  	}
-
-console.log("dragMoveEnd", info);
-    this.setState({
-      dragMoving: false,
-      dragMoveStarted: undefined,
-      dragOids: undefined,
-      dragComponents: undefined,
-      dropParent: undefined,
-      dropParentRect: undefined,
-      dropPosition: undefined,
-      dragMoveProps: undefined
-    });
   }
 
 
