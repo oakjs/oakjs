@@ -74,20 +74,35 @@ export default class Form extends React.Component {
 //  Event handlers from nested `<Editor.Control>`s
 //
   onChange(event, field, value) {
-    if (field.props.field) {
-      this.set(field.props.field, value);
+    if (field.props.name) {
+      this.set(field.props.name, value);
+    }
+    if (this.props.onChange) {
+      this.props.onChange.call(this, event, field, value);
     }
   }
 
   onFocus(event, field, value) {
     this.setState({ focused: field });
+
+    if (this.props.onFocus) {
+      this.props.onFocus.call(this, event, field, value);
+    }
   }
 
-  onBlur(event, field, value) {
+  onBlur(event, field) {
     this.setState({ focused: undefined });
+
+    if (this.props.onBlur) {
+      this.props.onBlur.call(this, event, field);
+    }
   }
 
-  onKeyPress(event, field, value) {}
+  onKeyPress(event, field, value) {
+    if (this.props.onKeyPress) {
+      this.props.onKeyPress.call(this, event, field);
+    }
+  }
 
 
 //
