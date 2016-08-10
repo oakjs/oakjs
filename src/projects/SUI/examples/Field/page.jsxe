@@ -155,7 +155,7 @@
       </Example>
     </Oak-Columns>
     <Oak-Columns oid="uYoar2Lx">
-      <Example title="Requied" hint="<Field requied>" oid="iw6X4Pjl">
+      <Example title="Required" hint="<Field requied>" oid="iw6X4Pjl">
         <SUI-Form oid="Ml7OX5E0">
           <SUI-Field required appearance="fluid" type="text" label="Last Name" oid="t1TMPOcA"/>
           <SUI-Field required type="checkbox" rightLabel="I agree to the terms and conditions" oid="Egcbu1bH"/>

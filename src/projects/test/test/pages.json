@@ -2,5 +2,9 @@
   {
     "id": "test",
     "title": "Simple Test Card"
+  },
+  {
+    "id": "editor",
+    "title": "Editor Package Test"
   }
 ]

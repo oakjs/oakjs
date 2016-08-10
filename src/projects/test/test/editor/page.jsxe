@@ -1,0 +1,6 @@
+<Oak-Page id="editor" title="Editor Package Test">
+  <h2>Editor Test</h2>
+  <Editor-Form data={{ foo: "bar" }} errorOn="top">
+    <Editor-Control field="foo" label="Foo:" hint="foo" error="Oh noes!"/>
+  </Editor-Form>
+</Oak-Page>

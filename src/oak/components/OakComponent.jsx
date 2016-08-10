@@ -53,15 +53,15 @@ export default class OakComponent extends React.Component {
   // Manipulating rendered elements
   //////////////////////////////
 
-	// Return one our `ref`s DOM node as a jQuery vector.
-	// If you don't pass a `ref` string, we'll get the root node.
-	// NOTE: this is not very react-y...
-	$ref(refName) {
-		if (!this._isMounted) return $();
-		const ref = (refName ? this.refs[refName] : this);
-		if (!ref) return $();
-		return $(ReactDOM.findDOMNode(ref));
-	}
+  // Return one our `ref`s DOM node as a jQuery vector.
+  // If you don't pass a `ref` string, we'll get the root node.
+  // NOTE: this is not very react-y...
+  $ref(refName) {
+    if (!this._isMounted) return $();
+    const ref = (refName ? this.refs[refName] : this);
+    if (!ref) return $();
+    return $(ReactDOM.findDOMNode(ref));
+  }
 
   //////////////////////////////
   // Rendering

@@ -33,12 +33,25 @@ for (let key in exports) {
   const component = exports[key];
   component.package = "Oak"
   // export under "package name" as well
-  exports["Oak-"+key] = component;
+  exports[`Oak-${key}`] = component;
 }
 
 // NOTE: do NOT set Oak.Component package since project-specific components base off of that
 export OakComponent from "./OakComponent";
 
+//
+// Editor package
+import Editor from "./Editor";
+// Mark all editor components as coming from the Editor package
+for (let key in Editor) {
+  const component = Editor[key];
+  component.package = Editor;
+  // export under "package name" as well
+  exports[`Editor-${key}`] = component;
+}
+
+
+//
 // Adapted SUI components
 // TODO: this should be dynamic...
 import SUIComponents from "./theme/SUI";
@@ -48,7 +61,7 @@ for (let key in SUIComponents) {
   const component = SUIComponents[key];
   component.package = "SUI"
   // export under "package name" as well
-  exports["SUI-"+key] = component;
+  exports[`SUI-${key}`] = component;
 }
 
 
