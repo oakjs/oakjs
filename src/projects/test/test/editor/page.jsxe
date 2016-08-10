@@ -1,6 +1,17 @@
 <Oak-Page id="editor" title="Editor Package Test">
   <h2>Editor Test</h2>
-  <Editor-Form data={{ foo: "bar" }} errorOn="top">
-    <Editor-Control field="foo" label="Foo:" hint="foo" error="Oh noes!"/>
+  <Editor-Form data={{ foo: "bar" }} labelOn="top" errorOn="top">
+
+    <Editor-Control name="foo" label="Foo:" hint="hint" disabled/>
+
+    <Editor-Control name="foo" label="Foo:" hint="hint" required>
+      <input/>
+    </Editor-Control>
+
+    <Editor-Control inline name="foo" label="Foo:" hint="hint" error="Oh noes!" disabled>
+      <input/>
+    </Editor-Control>
+
+
   </Editor-Form>
 </Oak-Page>

@@ -1,0 +1,43 @@
+// Control wrapper element.
+.oak.Control {
+
+  padding: .25em;
+
+  &.inline {
+    display: inline-block;
+  }
+
+  // Label element.
+  .oak.label {
+
+    &.top {
+      display: block;
+    }
+
+    &.left {
+      padding-right: .25em;
+    }
+
+    &.right {
+      padding-left: .25em;
+    }
+  }
+
+  // Hint label element, below the field.
+  .oak.hint {
+    display:block;
+    font-size: 80%;
+    opacity: .4;
+  }
+
+  // Error element
+  &.with-error {
+    background-color: #FFDDDD;
+  }
+
+  .oak.error {
+    color: darkred;
+    font-weight: bold;
+  }
+
+}

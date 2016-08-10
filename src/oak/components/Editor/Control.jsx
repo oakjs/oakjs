@@ -12,10 +12,13 @@ import React, { PropTypes } from "react";
 
 import { classNames } from "oak-roots/util/react";
 
+import "./Control.less";
 
 export default class Control extends React.Component {
 
 	static propTypes = {
+		children: PropTypes.element,			// only allow a single child element
+
 	// wrapper appearance/attributes
     id: PropTypes.string,
     className: PropTypes.string,
@@ -24,20 +27,22 @@ export default class Control extends React.Component {
 	// value semantics
 		defaultValue: PropTypes.any,			// explicit default value, may be overwritten by the below
 		value: PropTypes.any,							// explicit value, may be overwritten by the below
-		field: PropTypes.string,					// lens into `form.data` for dynamic value from form
+		name: PropTypes.string,						// lens into `form.data` for dynamic value from form
 		getDisplayValue: PropTypes.func,	// function which yields dynamic display value.  see `currentValue()`
 
 	// display
 		controlProps: PropTypes.any,			// properties to apply directly to the control
 		hidden: PropTypes.any,						// boolean or function => if true, hide the control + label
 		disabled: PropTypes.any,					// boolean or function => if true, disable the control + label
+		inline: PropTypes.bool,						// `true` == { display: inline-block} , `false` = { display: block }
 		width: PropTypes.number,					// # of columns of 16-column grid for display (including label)
 
 		label: PropTypes.any,							// string or function for field label
 		labelOn: PropTypes.string,				// one of "top", "left", "right" <= defaults to form.labelOn
-		labelProps: PropTypes.object,			// properties to apply to the label control (eg: class, style, etc)
+		labelProps: PropTypes.object,			// properties to apply to the label element (eg: class, style, etc)
 
 		hint: PropTypes.any,							// string or function for field hint (below field)
+		hintProps: PropTypes.object,			// properties to apply to the hint element (eg: class, style, etc)
 
 	// form stuff
 		tabIndex: PropTypes.number,				// Form tab index
@@ -46,6 +51,7 @@ export default class Control extends React.Component {
 		required: PropTypes.any,					// boolean or function => if true, field is required
 		error: PropTypes.any,							// string or array of current error messages
 		errorOn: PropTypes.string,				// one of "top", "bottom" <= defaults to form.errorOn
+		errorProps: PropTypes.object,			// properties to apply to the error element (eg: class, style, etc)
 		validators: PropTypes.any,				// ????
 
 		// TODO: events
@@ -66,7 +72,7 @@ export default class Control extends React.Component {
 //
 	// CSS class for the outer wrapper element to distinguish this control
 	// OVERRIDE this in your class to specify a unique name if you care!
-	static wrapperClass = "output";
+	static controlClass = "output";
 
 	// Where should labels appear if component and form don't specify?
 	static labelOn = "left";
@@ -87,15 +93,15 @@ export default class Control extends React.Component {
 
 	// Return the current value of the field according to our `form` and our `@name` and/or `@getDisplayValue`.
 	get currentValue() {
-		const { value, defaultValue, field, getDisplayValue } = this.props;
+		const { value, defaultValue, name, getDisplayValue } = this.props;
 
 		// Start with `props.value` or `props.defaultValue`.
 		let currentValue = (value === undefined ? defaultValue : value);
 
-		// If we have a `form` and have specified a `field`, use the value of the field in `form.data`.
+		// If we have a `form` and have specified a `name`, take value from `form.data[<name>]`.
 		// This explicitly overrides the `value`.
-		if (this.form && field) {
-			currentValue = this.form.get(field);
+		if (this.form && name) {
+			currentValue = this.form.get(name);
 		}
 
 		// If we have a `getDisplayValue` function, call that to transform the value.
@@ -105,6 +111,61 @@ export default class Control extends React.Component {
 
 		return currentValue;
 	}
+
+//
+//	Event handling.
+//
+//	The following event handlers will be bound during `render()`
+//	with the nested child's handler (if any) as the first argument.
+//
+
+		getTargetValue(event) {
+			return event.target.value;
+		}
+
+		onChange(childHandler, event) {
+			return this._handleEvent("onChange", childHandler, event);
+		}
+
+		onFocus(childHandler, event) {
+			return this._handleEvent("onFocus", childHandler, event);
+		}
+
+		onBlur(childHandler, event) {
+			return this._handleEvent("onBlur", childHandler, event);
+		}
+
+		onKeyPress(childHandler, event) {
+			return this._handleEvent("onKeyPress", childHandler, event);
+		}
+
+
+		// Generic event handling:
+		//	- do any element-provided `childHandler` first
+		//	- then pass to the form
+		//	- then
+		_handleEvent(eventName, childHandler, event, args) {
+			// handle child handler first, bailing if so instructed
+			if (typeof childHandler === "function") {
+				const result = childHandler(event);
+				if (result === false || event.defaultPrevented) return false;
+			}
+
+			// pass event to form, bailing if so instructed
+			const value = this.getTargetValue(event);
+			if (this.form) {
+				const result = this.form[eventName](event, this, value);
+				if (result === false || event.defaultPrevented) return false;
+			}
+
+			// call prop event
+			const handler = this.props[eventName];
+			if (handler) {
+				const result = handler(event, this, value);
+				if (result === false || event.defaultPrevented) return false;
+			}
+			return true;
+		}
 
 
 //
@@ -133,38 +194,56 @@ export default class Control extends React.Component {
 		if (props.label && props.labelOn === undefined) props.labelOn = formProps.labelOn || this.constructor.labelOn;
 		if (props.error && props.errorOn === undefined) props.errorOn = formProps.errorOn || this.constructor.errorOn;
 
+		// if we weren't passed any children, create a default one
+		if (!props.children) props.children = this.getControlElement(props);
+
 		return props;
 	}
 
+	getControlElement(props) {
+		return React.createElement("output");
+	}
 
 	// Render just the control itself (without the label, etc)
-	// Set `props.labelProps` to apply arbitrary properties to the label.
+	// Set `props.controlProps` to apply arbitrary properties to the label.
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderControl(props) {
-		// Pull out `controlProps.className` if specified.
-		const className = classNames([
-			"oak output",
-			props.controlProps && props.controlProps.className,
-			{ disabled: props.disabled }
-		]);
+		const { children, controlProps, value, name, disabled, required } = props;
 
-		return (
-			<output {...props.controlProps} className={className} name={props.field}>
-				{props.value}
-			</output>
-		);
+		if (React.Children.count(children) !== 1) {
+			console.error("children must be exactly one element!", children);
+			return undefined;
+		}
+
+		const childProps = {
+			...controlProps,
+			value,
+			// bind events we take over, pulling in child's event if defined
+			onChange: this.onChange.bind(this, children.onChange),
+			onFocus: this.onFocus.bind(this, children.onFocus),
+			onBlur: this.onBlur.bind(this, children.onBlur),
+			onKeyPress: this.onKeyPress.bind(this, children.onKeyPress),
+		}
+		// map certain properties only if actually set
+		if (name) childProps.name = name;
+		if (disabled) childProps.disabled = true;
+		if (required) childProps.required = true;
+
+		// return a clone of the child with injected properties
+		return React.cloneElement(children, childProps);
 	}
 
 	// Render label.  Returns `undefined` if no label to display.
 	// Set `props.labelProps` to apply arbitrary properties to the label.
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderLabel(props) {
-		if (!props.label) return undefined;
+		const { label, labelOn, labelProps } = props;
+		if (!label) return undefined;
 		// Pull out `labelProps.className` if specified.
-		const className = `oak ${props.labelOn} label ${props.labelProps && props.labelProps.className || ""}`;
+		const className = `oak ${labelOn} label ${labelProps && labelProps.className || ""}`;
 		return (
-			<label {...props.labelProps} className={className}>
-				{props.label}
+			<label {...labelProps} className={className}>
+				{label}
 			</label>
 		);
 	}
@@ -172,25 +251,27 @@ export default class Control extends React.Component {
 	// Render hint.  Returns `undefined` if no hint to display.
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderHint(props) {
+		const { hint, hintProps } = props;
 		if (!props.hint) return undefined;
-		// fancy className semantics
-		const className = `oak hint`;
+		// Pull out `labelProps.className` if specified.
+		const className = `oak hint ${hintProps && hintProps.className || ""}`;
 		return (
-			<label className="oak hint">
+			<label {...hintProps} className={className}>
 				{props.hint}
 			</label>
 		);
 	}
 
-	// Render the errors.  Returns `undefined` if no errors to display.
+	// Render error.  Returns `undefined` if no error to display.
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderError(props) {
-		if (!props.error) return undefined;
-		// fancy className semantics
-		const className = `oak ${props.errorOn} error ${props.errorProps && props.errorProps.className || ""}`;
+		const { error, errorOn, errorProps } = props;
+		if (!error) return undefined;
+		// Merge with `errorProps.className` if specified.
+		const className = `oak ${errorOn} error ${errorProps && errorProps.className || ""}`;
 		return (
-			<div {...props.errorProps} className={className}>
-				{props.error}
+			<div {...errorProps} className={className}>
+				{error}
 			</div>
 		);
 	}
@@ -200,18 +281,17 @@ export default class Control extends React.Component {
 	getWrapperClassName(props) {
 		return classNames(
 				"oak",
-				this.constructor.controlClass,
-				"control",
-				props.className,
 				{
 					disabled: props.disabled,
 					required: props.required,
-					hasError: !!props.error,
-					hasLabel: !!props.label,
-					hasHint: !!props.hint,
+					inline: props.inline
 				},
-				props.label && `labelOn-${props.labelOn}`,
-				props.error && `errorOn-${props.errorOn}`,
+				this.constructor.controlClass,
+				"Control",
+				props.className,
+				props.error && `with-error errorOn-${props.errorOn}`,
+				props.label && `with-label labelOn-${props.labelOn}`,
+				props.hint && "with-hint",
 				props.width && `width-${props.width}`
 			);
 	}

@@ -66,9 +66,28 @@ export default class Form extends React.Component {
 
   set(path, value) {
     setPath(value, path, this.data);
-  // TODO: onChange semantics ???
+    this.forceUpdate();
   }
 
+
+//
+//  Event handlers from nested `<Editor.Control>`s
+//
+  onChange(event, field, value) {
+    if (field.props.field) {
+      this.set(field.props.field, value);
+    }
+  }
+
+  onFocus(event, field, value) {
+    this.setState({ focused: field });
+  }
+
+  onBlur(event, field, value) {
+    this.setState({ focused: undefined });
+  }
+
+  onKeyPress(event, field, value) {}
 
 
 //
