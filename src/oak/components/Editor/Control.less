@@ -56,9 +56,16 @@
     background-color: transparent;
   }
 
-  // Padding for checkboxen
-  input[type="checkbox"] {
+  // Checkboxen
+  input[type="checkbox"],
+  input[type="radio"] {
     margin-right: 0.4em;
+    cursor: pointer;
+  }
+  &.Checkbox {
+    > .oak.label {
+      cursor: pointer;
+    }
   }
 
   // Label element.
@@ -69,6 +76,8 @@
     font-size: 0.928571em;
     font-weight: bold;
     text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
 
     &.top {
       width: 100% !important;
@@ -81,6 +90,14 @@
 
     &.right {
       margin-left: 0.4em;
+    }
+  }
+
+  // Required appearance
+  &.required {
+    & > .oak.label:after {
+      content: " *";
+      color: #9f3a38;
     }
   }
 

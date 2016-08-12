@@ -308,7 +308,7 @@ export default class Control extends React.Component {
 // TODO:  <Editor-Label> ???
 		return (
 			<label {...this.getLabelProps(props)}>
-				{props.labelOn === "wrap" ? props.control : undefined}
+				{props.labelOn === "wrapping" ? props.control : undefined}
 				{props.label}
 			</label>
 		);
@@ -401,7 +401,7 @@ export default class Control extends React.Component {
 		// forget it if we're hidden
 		if (props.hidden) return null;
 
-		// NOTE: control MUST be first (since label may wrap the control if labelOn === "wrap")
+		// NOTE: control MUST be first (since label may wrap the control if labelOn === "wrapping")
 		props.control = this.renderControl(props);
 		props.label = this.renderLabel(props);
 		props.error = this.renderError(props);
@@ -412,7 +412,7 @@ export default class Control extends React.Component {
 
 		// Assemble children in the correct order according to `labelOn`:
 		// - label surrounding the control (eg for Checkboxes)
-		if (props.labelOn === "wrap") {
+		if (props.labelOn === "wrapping") {
 			// note: in this case, the label will already wrap the control
 			return <div {...wrapperProps}>{props.error}{props.label}{props.hint}</div>;
 		}
@@ -508,7 +508,7 @@ export class Checkbox extends Input {
 
 	static defaultProps = {
 		type: "checkbox",
-		labelOn: "wrap"
+		labelOn: "wrapping"
 	}
 
 	get trueValue() {
@@ -548,23 +548,27 @@ export class Select extends Control {
 	// Add <input> specific propTypes
 	static propTypes = {
 		...Control.propTypes,
-		options: PropTypes.any
+		values: PropTypes.any									// Specifier for HTML options
 	}
 
+	// Render the options specified for this control, which come from it's "values".
 	renderOptions(props) {
-		const { options } = this.props;
-		if (!options) return [];
+		const { values } = this.props;
+		if (!values) return [];
 
-		if (Array.isArray(options)) {
-			return options.map( option => {
+		if (Array.isArray(values)) {
+			return values.map( option => {
+				// nested array = `[ key, "value" ]`
 				if (Array.isArray(option)) {
 					return <option value={option[0]}>{option[1]}</option>;
 				}
+				// otherwise assume key/value are the same
 				return <option value={option}>{option}</option>
 			});
 		}
 
-		return Object.keys(options).map( key => <option value={key}>{options[key]}</option> );
+		// Assume a `{ key -> value }` map.
+		return Object.keys(values).map( key => <option value={key}>{values[key]}</option> );
 	}
 
 

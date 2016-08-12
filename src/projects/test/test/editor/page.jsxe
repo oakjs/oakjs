@@ -30,30 +30,37 @@
       border: "1px solid transparent"
     }}>
 
+
+    <h5>Wrapped generic Control</h5>
+    <Editor-Control name="foo" label="Foo:">
+      <input/>
+    </Editor-Control>
+
+    <h5>Control Subclasses</h5>
     <Editor-Output name="foo" label="Output Field:"/>
     <Editor-Text name="foo" label="Text Field:" size="30"/>
     <Editor-Password name="foo" label="Password Field:" tabIndex="20" labelProps={{style:{color:"#999"}}}/>
 
-    <Editor-Checkbox name="checker" label="Checkbox"/>
-    <Editor-Output name="checker" label="Checkbox value:"/>
+    <br/>
+    <Editor-Select name="select" label="Select:" options={["yes","no"]} inline/>
+    <Editor-Output name="select" inline/>
 
-    <Editor-Checkbox name="yesno" label="Yes/No Checkbox" trueValue="yes" falseValue="no"/>
-    <Editor-Output name="yesno" label="Yes/No value:"/>
+    <br/>
+    <Editor-Select name="select" label="Required Select:" required options={{ yes: "YES", no: "NO" }}  inline/>
+    <Editor-Output name="select" inline/>
 
-    <Editor-Checkbox name="trueUndefined" label="True/undefined" falseValue={undefined}/>
-    <Editor-Output name="trueUndefined" label="True/undefined value:"/>
+    <br/>
+    <Editor-Checkbox name="checker" label="Checkbox" inline/>
+    <Editor-Output name="checker" inline/>
 
-    <Editor-Select name="select" label="Select:" options={["yes","no"]}/>
-    <Editor-Output name="select" label="Select value:"/>
+    <br/>
+    <Editor-Checkbox name="yesno" label="Yes/No Checkbox" trueValue="yes" falseValue="no" inline/>
+    <Editor-Output name="yesno" inline/>
 
-    <Editor-Select name="select" label="Required Select:" required options={{ yes: "YES", no: "NO" }}/>
-    <Editor-Output name="select" label="Required Select value:"/>
+    <br/>
+    <Editor-Checkbox name="trueUndefined" label="True/undefined Checkbox" falseValue={undefined} inline/>
+    <Editor-Output name="trueUndefined" inline/>
 
-
-    <h5>Wrapped input field</h5>
-    <Editor-Control name="foo" label="Foo:">
-      <input/>
-    </Editor-Control>
 
   </Editor-Form>
 </Oak-Page>
