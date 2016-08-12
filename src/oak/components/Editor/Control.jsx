@@ -10,72 +10,76 @@
 
 import React, { PropTypes } from "react";
 
-import { classNames } from "oak-roots/util/react";
+import { classNames, unknownProps, mergeProps } from "oak-roots/util/react";
+import { definedProperties } from "oak-roots/util/object";
 
 import "./Control.less";
 
-const fnOrString = PropTypes.oneOfType([
+const stringOrFn = PropTypes.oneOfType([
 	PropTypes.string,
 	PropTypes.func
 ]);
 
-const fnOrBool = PropTypes.oneOfType([
-	PropTypes.string,
-	PropTypes.booll
+const boolOrFn = PropTypes.oneOfType([
+	PropTypes.bool,
+	PropTypes.func
+]);
+
+const numberOrString = PropTypes.oneOfType([
+	PropTypes.number,
+	PropTypes.string
 ]);
 
 export default class Control extends React.Component {
 
 	static propTypes = {
-		children: PropTypes.element,			// only allow a single child element
+		children: PropTypes.element,					// only allow a single child element
 
-	// wrapper appearance/attributes
-    id: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.object,
+	// value semantics -- see `get currentValue()`
+		defaultValue: PropTypes.any,					// explicit default value, may be overwritten by the below
+		value: PropTypes.any,									// explicit value, may be overwritten by the below
+		name: PropTypes.string,								// lens into `form.data` for dynamic value from form
 
-	// value semantics
-		defaultValue: PropTypes.any,			// explicit default value, may be overwritten by the below
-		value: PropTypes.any,							// explicit value, may be overwritten by the below
-		name: PropTypes.string,						// lens into `form.data` for dynamic value from form
-		getDisplayValue: PropTypes.func,	// function which yields dynamic display value.  see `currentValue()`
-
-	// display
-		required: fnOrBool,								// boolean or function => if true, field is required
-		hidden: fnOrBool,									// boolean or function => if true, hide the control + label
-		disabled: fnOrBool,								// boolean or function => if true, disable the control + label
+	// schema properties
+		disabled: boolOrFn,										// boolean or function => if true, disable the control + label
+		hidden: boolOrFn,											// boolean or function => if true, hide the control + label
+		required: boolOrFn,										// boolean or function => if true, field is required
+// 	values: PropTypes.any
+//	validators: PropTypes.array,
 
 	// display
-		inline: PropTypes.bool,						// `true` == { display: inline-block} , `false` = { display: block }
-		width: PropTypes.number,					// # of columns of 16-column grid for display (including label)
+    id: PropTypes.string,									// HTML `id` of control
+    className: PropTypes.string,					// HTML class of control
+    style: PropTypes.object,							// HTML style of control
+		inline: PropTypes.bool,								// `true` == { display: inline-block} , `false` = { display: block }
+		width: PropTypes.number,							// # of columns of 16-column grid for display (including label)
 
 	// standard form stuff
-		placeholder: fnOrString,					// Placeholder text.
-		tabIndex: PropTypes.number,				// Form tab index
-		controlProps: PropTypes.any,			// properties to apply directly to the control
+		tabIndex: numberOrString,							// HTML tabIndex attribute.
+		controlProps: PropTypes.object,				// arbitrary properties to apply directly to the control
 
 	// auto-generated label element
-		label: fnOrString,								// string or function for field label
-		labelOn: PropTypes.string,				// one of "top", "left", "right" <= defaults to form.labelOn
-		labelProps: PropTypes.object,			// properties to apply to the label element (eg: class, style, etc)
+		label: stringOrFn,										// String or function for field label
+		labelOn: PropTypes.string,						// Where does the label appear?
+		labelProps: PropTypes.object,					// properties to apply to the label element (eg: class, style, etc)
 
 	// auto-generated hint element
-		hint: fnOrString,									// string or function for field hint (below field)
-		hintProps: PropTypes.object,			// properties to apply to the hint element (eg: class, style, etc)
+		hint: stringOrFn,											// string or function for field hint (below field)
+		hintProps: PropTypes.object,					// properties to apply to the hint element (eg: class, style, etc)
 
 	// errors
-		error: PropTypes.any,							// string or array of current error messages
-		errorOn: PropTypes.string,				// one of "top", "bottom" <= defaults to form.errorOn
-		errorProps: PropTypes.object,			// properties to apply to the error element (eg: class, style, etc)
-
-	// TODO: validation???
-//		validators: PropTypes.any,				// ????
+		error: PropTypes.any,									// string or array of current error messages
+		errorProps: PropTypes.object,					// properties to apply to the error element (eg: class, style, etc)
 
 		// events
-		onChange: PropTypes.func,					// code to run on field change
-		onFocus: PropTypes.func,					// code to run when field is focused
-		onBlur: PropTypes.func,						// code to run when field is blurred
-		onKeyPress: PropTypes.func,				// code to run on (each?) keypress
+		onChange: PropTypes.func,							// code to run on field change
+		onFocus: PropTypes.func,							// code to run when field is focused
+		onBlur: PropTypes.func,								// code to run when field is blurred
+		onKeyPress: PropTypes.func,						// code to run on (each?) keypress
+
+		// wrapper styling
+		wrapperProps: PropTypes.object,				// Props passed directly to the wrapper
+		"data-oid": PropTypes.string,					// necessary so we don't pass oid down to children...
 	}
 
 	// Make this control aware of our `form`, which sets our data context.
@@ -84,19 +88,43 @@ export default class Control extends React.Component {
 	}
 
 //
-//	class-level appearance defaults
-//	change in subclasses as you like (eg: checkboxes).
+//	Class-level appearance/behavior defaults.
+//	Change in subclasses as you like (eg: checkboxes).
 //
-	// CSS class for the outer wrapper element to distinguish this control
-	// OVERRIDE this in your class to specify a unique name if you care!
-	static controlClass = "output";
 
-	// Where should labels appear if component and form don't specify?
-	static labelOn = "left";
+	// Keys of props which can optionally be specified as function expressions.
+	// Any functions will be evaluated in `normalizeProps()` as:
+	//		control[key](currentValue, form)
+	// Note `value` is always processed and is handled separately from this list -- see `get currrentValue()`
+	static expressionProps = [
+		"disabled", "label", "hidden", "hint", "required"
+	];
 
-	// Where should errors appear if component and form don't specify?
-	static errorOn = "bottom";
+	// Keys of (normalized) props we'll pass directly to the control.
+	// These are in addition to any explicit `controlProps` or anything not in our `propTypes`.
+	// Props whose values are `undefined` will be skipped.
+	static controlProps = [
+		"className", "defaultValue", "disabled", "hidden", "id", "name", "required", "style", "tabIndex", "value"
+	];
 
+	// Names of event handlers we'll take over and assign directly to the control.
+	// NOTE: you MUST have a function defined for each of these, see `onChange` below.
+	static controlEvents = [
+		"onChange", "onFocus", "onBlur", "onKeyPress"
+	]
+
+	// Create JUST the main control element (<input> etc) for this Control.
+	// This will be merged with properties from `getControlProps()`.
+	// NOTE: the base class doesn't create a default control and assumes you're nesting an explicit control.
+	// Use an <Editor-Input> or <Editor-Output> etc variant if you want a control to be created for you.
+	createControlElement(props) {}
+
+	// Given an `eventTarget` (which is presumably the control created by `createControlElement()`,
+	//	return the current `value` for the control, normalized the way you want it saved.
+	// Some controls (e.g. checkboxes, selects, etc) will override this.
+	getControlValue(eventTarget) {
+		return eventTarget.value;
+	}
 
 //
 //	Editor.Form integration.
@@ -108,25 +136,22 @@ export default class Control extends React.Component {
 		return this.context && this.context.form;
 	}
 
-	// Return the current value of the field according to our `form` and our `@name` and/or `@getDisplayValue`.
+	// Return the current value of the field according to our `form` and/or `value`.
 	get currentValue() {
-		const { value, defaultValue, name, getDisplayValue } = this.props;
+		// if we have a `form`, defer to that.
+		if (this.form) return this.form.getValueForControl(this);
 
-		// Start with `props.value` or `props.defaultValue`.
-		let currentValue = (value === undefined ? defaultValue : value);
+		// If we got an explicit value function, evaluate it.
+		const { value, defaultValue } = this.props;
+		if (typeof value === "function") return value.call(this, defaultValue);
 
-		// If we have a `form` and have specified a `name`, take value from `form.data[<name>]`.
-		// This explicitly overrides the `value`.
-		if (this.form && name) {
-			currentValue = this.form.get(name);
-		}
+		return value;
+	}
 
-		// If we have a `getDisplayValue` function, call that to transform the value.
-		if (getDisplayValue) {
-			currentValue = getDisplayValue.call(this, currentValue);
-		}
-
-		return currentValue;
+	// Return the current error of the field according to our `form` and/or `error`.
+	get currentError() {
+		if (this.form) return this.form.getErrorForControl(this);
+		return this.props.error;
 	}
 
 //
@@ -136,55 +161,50 @@ export default class Control extends React.Component {
 //	with the nested child's handler (if any) as the first argument.
 //
 
-		getTargetValue(event) {
-			return event.target.value;
+	onChange(controlHandler, event) {
+		return this._handleEvent("onChange", controlHandler, event);
+	}
+
+	onFocus(controlHandler, event) {
+		return this._handleEvent("onFocus", controlHandler, event);
+	}
+
+	onBlur(controlHandler, event) {
+		return this._handleEvent("onBlur", controlHandler, event);
+	}
+
+	onKeyPress(controlHandler, event) {
+		return this._handleEvent("onKeyPress", controlHandler, event);
+	}
+
+	// Generic event handling:
+	//	- do any element-provided `controlHandler` first
+	//	- then pass to `form[eventName]`
+	//	- then pass to `props[eventName]`
+	// Bail if any return `false` or set `event.preventDefault`.
+	_handleEvent(eventName, controlHandler, event, args) {
+		// handle child handler first, bailing if so instructed
+		if (typeof controlHandler === "function") {
+			const result = controlHandler(event);
+			if (result === false || event.defaultPrevented) return false;
 		}
 
-		onChange(childHandler, event) {
-			return this._handleEvent("onChange", childHandler, event);
+		// pass event to form, bailing if so instructed
+		const value = this.getControlValue(event.target);
+		if (this.form) {
+			const result = this.form[eventName](event, this, value);
+			if (result === false || event.defaultPrevented) return false;
 		}
 
-		onFocus(childHandler, event) {
-			return this._handleEvent("onFocus", childHandler, event);
+		// call prop event
+		const handler = this.props[eventName];
+		if (handler) {
+			const result = handler(event, this, value);
+			if (result === false || event.defaultPrevented) return false;
 		}
 
-		onBlur(childHandler, event) {
-			return this._handleEvent("onBlur", childHandler, event);
-		}
-
-		onKeyPress(childHandler, event) {
-			return this._handleEvent("onKeyPress", childHandler, event);
-		}
-
-
-		// Generic event handling:
-		//	- do any element-provided `childHandler` first
-		//	- then pass to the form
-		//	- then pass to `props[childHandler]`
-		// Bail if any return `false` or set `event.preventDefault`.
-		_handleEvent(eventName, childHandler, event, args) {
-			// handle child handler first, bailing if so instructed
-			if (typeof childHandler === "function") {
-				const result = childHandler(event);
-				if (result === false || event.defaultPrevented) return false;
-			}
-
-			// pass event to form, bailing if so instructed
-			const value = this.getTargetValue(event);
-			if (this.form) {
-				const result = this.form[eventName](event, this, value);
-				if (result === false || event.defaultPrevented) return false;
-			}
-
-			// call prop event
-			const handler = this.props[eventName];
-			if (handler) {
-				const result = handler(event, this, value);
-				if (result === false || event.defaultPrevented) return false;
-			}
-
-			return true;
-		}
+		return true;
+	}
 
 
 //
@@ -194,100 +214,92 @@ export default class Control extends React.Component {
 	// Normalize dynamic props before rendering.
 	// Returns a clone of the props passed in, with all functions expanded to actual values, etc.
 	normalizeProps() {
-		const formProps = this.form.props || {};
-
-		// clone current props so we can modify them
+		// Merge props from the form with explicit props set on this control.
 		const props = {
+			// schema-level props from the form
+			...(this.form, this.form.getPropsForControl(this)),
+			// our explicit props
 			...this.props,
-			value: this.currentValue
+			// ALWAYS override `value` and `error` with values from our form
+			value: this.currentValue,
+			error: this.currentError
 		};
 
-		// normalize dynamic properties if defined as functions
-		if (typeof props.hidden === "function") props.hidden = !!props.hidden.call(this, props.value, form);
-		if (typeof props.disabled === "function") props.disabled = !!props.disabled.call(this, props.value, form);
-		if (typeof props.required === "function") props.required = !!props.required.call(this, props.value, form);
-		if (typeof props.label === "function") props.label = props.label.call(this, props.value, form);
-		if (typeof props.hint === "function") props.hint = props.hint.call(this, props.value, form);
-		if (typeof props.placeholder === "function") props.placeholder = props.placeholder.call(this, props.value, form);
+		// Evaluate dynamic properties defined as functions.
+		this.constructor.expressionProps.forEach( key => {
+			if (typeof props[key] === "function") props[key] = props[key].call(this, props.value, form);
+		});
 
-		// default labelOn / errorOn from form
-		if (props.label && props.labelOn === undefined) props.labelOn = formProps.labelOn || this.constructor.labelOn;
-		if (props.error && props.errorOn === undefined) props.errorOn = formProps.errorOn || this.constructor.errorOn;
-
-		// if we weren't passed any children, create one according to our class-specific semantics
+		// Create a control child if one was not passed in
 		if (!props.children) props.children = this.createControlElement(props);
 
 		return props;
 	}
 
-	// Create JUST the main control element (<input> etc) for this Control.
-	// This will be merged with properties from `getControlProps()`.
-	// The base class creates an `<output>`, Your subclass should override this.
-	createControlElement(props) {
-		return React.createElement("output");
-	}
 
 	// Return properties to monkey-patch into the managed control.
 	getControlProps(control, props) {
-		const { value, name, disabled, required } = props;
+		// Get the union of:
+		const controlProps = mergeProps(
+			// `controlProps` for all controls set on form
+			(this.form && this.form.controlProps),
 
-		const controlProps = {
-			...props.controlProps,
-			// always override control value
-			value,
-			// bind events we take over, pulling in controls's existing event if defined
-			onChange: this.onChange.bind(this, control.onChange),
-			onFocus: this.onFocus.bind(this, control.onFocus),
-			onBlur: this.onBlur.bind(this, control.onBlur),
-			onKeyPress: this.onKeyPress.bind(this, control.onKeyPress),
-		}
+			// controlProps we're told by our class to pick up
+			definedProperties(props, ...this.constructor.controlProps),
 
-		// map certain properties only if actually set
-		if (name) controlProps.name = name;
-		if (disabled) controlProps.disabled = true;
-		if (required) controlProps.required = true;
+			// any unknown props (not defined in our PropTypes)
+			unknownProps(props, this.constructor),
 
-		// merge className with control's className
-		if (controlProps.className && control.props.className) {
-			controlProps.className = classNames(controlProps.className, control.props.className);
-		}
+			// any props set directly on the inner control element
+			control.props,
 
-		// merge style with control's style
-		if (controlProps.style && control.props.style) {
-			controlProps.style = { ...controlProps.style, ...control.props.style };
-		}
+			// explicit controlProps set at the control level (safety hatch)
+			props.controlProps,
+		);
+
+		// Add bound event handlers we take over, pulling in controls's existing event if defined.
+		this.constructor.controlEvents.forEach( key => {
+			controlProps[key] = this[key].bind(this, control.props[key])
+		});
 
 		return controlProps;
 	}
 
-	// Render just the control itself (without the label, etc)
-	// Set `props.controlProps` to apply arbitrary properties to the label.
+	// Render just the control itself (without the label, etc).
 	// Passed the normalized `props` from `normalizeProps()`.
+// TODO: allow for nested label, etc?  How do we tell what the actual `control` is?
 	renderControl(props) {
-		const { children } = props;
-
-		if (React.Children.count(children) !== 1) {
-			console.error("children must be exactly one element!", children);
+		// There can be only one.
+		if (React.Children.count(props.children) !== 1) {
+			console.error("Children must be exactly one element!", props.children);
 			return undefined;
 		}
-		const control = React.Children.only(children);
-		const controlProps = this.getControlProps(control, props);
 
 		// return a clone of the control with injected properties
-		return React.cloneElement(control, controlProps);
+		const originalControl = React.Children.only(props.children);
+		props.controlProps = this.getControlProps(originalControl, props);
+		props.control = React.cloneElement(originalControl, props.controlProps);
+
+		return props.control;
 	}
 
 	// Render label.  Returns `undefined` if no label to display.
 	// Set `props.labelProps` to apply arbitrary properties to the label.
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderLabel(props) {
-		const { label, labelOn, labelProps } = props;
-		if (!label) return undefined;
-		// Pull out `labelProps.className` if specified.
-		const className = `oak ${labelOn} label ${labelProps && labelProps.className || ""}`;
+		if (!props.label) return undefined;
+
+		// Marge our labelProps with those specified by the form.
+		const labelProps = mergeProps(
+			{ className: "oak label" },
+			this.form && this.form.props.labelProps,
+			props.labelProps
+		);
+
+// TODO:  <Editor-Label> ???
 		return (
-			<label {...labelProps} className={className}>
-				{label}
+			<label {...labelProps}>
+				{props.label}
 			</label>
 		);
 	}
@@ -295,12 +307,18 @@ export default class Control extends React.Component {
 	// Render hint.  Returns `undefined` if no hint to display.
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderHint(props) {
-		const { hint, hintProps } = props;
 		if (!props.hint) return undefined;
-		// Pull out `labelProps.className` if specified.
-		const className = `oak hint ${hintProps && hintProps.className || ""}`;
+
+		// Marge our hintProps with those specified by the form.
+		const hintProps = mergeProps(
+			{ className: "oak hint" },
+			this.form && this.form.props.hintProps,
+			props.hintProps
+		);
+
+// TODO:  <Editor-Hint> ???
 		return (
-			<label {...hintProps} className={className}>
+			<label {...hintProps}>
 				{props.hint}
 			</label>
 		);
@@ -309,20 +327,31 @@ export default class Control extends React.Component {
 	// Render error.  Returns `undefined` if no error to display.
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderError(props) {
-		const { error, errorOn, errorProps } = props;
-		if (!error) return undefined;
-		// Merge with `errorProps.className` if specified.
-		const className = `oak ${errorOn} error ${errorProps && errorProps.className || ""}`;
+		if (!props.error) return undefined;
+
+		// Marge our errorProps with those specified by the form.
+		const errorProps = mergeProps(
+			{ className: "oak error" },
+			this.form && this.form.props.errorProps,
+			props.errorProps
+		);
+
+// TODO:  <Editor-Error> ???
 		return (
-			<div {...errorProps} className={className}>
+			<div {...errorProps}>
 				{error}
 			</div>
 		);
 	}
 
+
 	// Return class names for the OUTER wrapper element.
 	// Passed the normalized `props` from `normalizeProps()`.
-	getWrapperClassName(props) {
+	getWrapperClassname(props) {
+		// Get name of this control's class, avoiding "Control Control"
+		const constructorName = this.constructor.name === "Control"
+													? "Control"
+													: `${this.constructor.name} Control`;
 		return classNames(
 				"oak",
 				{
@@ -330,62 +359,119 @@ export default class Control extends React.Component {
 					required: props.required,
 					inline: props.inline
 				},
-				this.constructor.controlClass,
-				"Control",
-				props.className,
-				props.error && `with-error errorOn-${props.errorOn}`,
-				props.label && `with-label labelOn-${props.labelOn}`,
+				constructorName,
+				props.label && `with-label`,
+				props.error && "with-error",
 				props.hint && "with-hint",
 				props.width && `width-${props.width}`
 			);
 	}
 
-	// Return all properties to apply to the outer wrapper element.
-	// Override this to add any additional props.
+	// Return normalized props to pass to the wrapper.
 	// Passed the normalized `props` from `normalizeProps()`.
 	getWrapperProps(props) {
-		return {
-			id: props.id,
-			style: props.style,
-			className: this.getWrapperClassName(props),
-// TODO: add all unknown props... ???
+		// Remember in `props.wrapperProps` for debugging.
+		props.wrapperProps = {
+			...props.wrapperProps,
+			className: this.getWrapperClassname(props),
 			"data-oid": props["data-oid"]
-		};
-	}
+		}
 
+		return props.wrapperProps;
+	}
 
 	// Generic render routine, including rendering label, errors, etc.
 	// You generally shouldn't override this -- override one of the `render*()` routines instead.
 	render() {
-		// get normalized render props
+		// Normalized props before rendering.
 		const props = this.normalizeProps();
 
 		// forget it if we're hidden
 		if (props.hidden) return null;
 
-		// Assemble children in the correct order according to `props`.
-		const children = [ this.renderControl(props) ];
-
-		// Add label according to `labelOn`.
+		const error = this.renderError(props);
 		const label = this.renderLabel(props);
-		if (label) {
-			const position = (props.labelOn !== "right" ? 0 : children.length);
-			children.splice(position, 0, label);
-		}
-
-		// Add hint.
+		const control = this.renderControl(props);
 		const hint = this.renderHint(props);
-		if (hint) children.push(hint);
 
-		// Add error according to `errorOn`.
-		const error = this.renderError(props)
-		if (error) {
-			const position = (props.errorOn === "top" ? 0 : children.length);
-			children.splice(position, 0, error);
-		}
-
+		// Assemble children in the correct order according to `labelOn`.
 		const wrapperProps = this.getWrapperProps(props);
-		return React.createElement("div", wrapperProps, ...children);
+		if (props.labelOn === "right") {
+			return <div {...wrapperProps}>{error}{control}{label}{hint}</div>
+		}
+		return <div {...wrapperProps}>{error}{label}{control}{hint}</div>
 	}
+
+}
+
+
+/////////////////
+//
+//	Simple control variants
+//	TODO: move to a separate file.
+//
+/////////////////
+
+// Export the base class as "Output"
+export class Output extends Control {
+	// Create JUST the main control element (<input> etc) for this Control.
+	// This will be merged with properties from `getControlProps()`.
+	createControlElement(props) {
+		return React.createElement("output");
+	}
+}
+
+
+// Generic "<Input>" class
+export class Input extends Control {
+	// Add <input> specific propTypes
+	static propTypes = {
+		...Control.propTypes,
+
+		type: PropTypes.string,								// input type
+		placeholder: stringOrFn,							// placeholder attribute shown inside field.
+	}
+
+	// Dynamic input properties.
+	static expressionProps = [
+		...Control.controlProps, "placeholder"
+	];
+
+	// Pass input-specific properties to the control.
+	static controlProps = [
+		...Control.controlProps, "placeholder", "type"
+	];
+
+	// Create JUST the main control element (<input> etc) for this Control.
+	// This will be merged with properties from `getControlProps()`.
+	createControlElement(props) {
+		return React.createElement("input");
+	}
+}
+
+
+// Text string field.
+export class Text extends Input {
+	static defaultProps = {
+		type: "text"
+	}
+}
+
+// Password field.
+export class Password extends Input {
+	static defaultProps = {
+		type: "password"
+	}
+}
+
+// Checkbox field.
+export class Checkbox extends Input {
+	static defaultProps = {
+		type: "checkbox",
+		labelOn: "right"
+	}
+
+// TODO:  `trueValue` and `falseValue`
+// TODO:  map `value` to `checked` in `getControlProps`
 
 }

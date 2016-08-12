@@ -1,17 +1,35 @@
-<Oak-Page id="editor" title="Editor Package Test">
+<Oak-Page id="editor" title="Editor Package Test" style={{ padding: "1em" }}>
   <h2>Editor Test</h2>
-  <Editor-Form data={{ foo: "bar" }} labelOn="top" errorOn="top">
+  <Editor-Form
+    data={{
+      foo: "bar",
+      checker: true
+    }}
+    schema={{
+      foo: {
+        required: true
+      }
+    }}
+    errors={{
+      foo:"NOOOO"
+    }}
+    labelProps={{
+      style: { width: 200 }
+    }}
+    style={{
+      border: "1px solid transparent"
+    }}>
 
-    <Editor-Control name="foo" label="Foo:" hint="hint" disabled/>
+    <Editor-Output name="foo" label="Output Field:"/>
+    <Editor-Text name="foo" label="Text Field:" size="30"/>
+    <Editor-Password name="foo" label="Password Field:" tabIndex="20"/>
+    <Editor-Checkbox name="checker" label="Checkbox"/>
+    <Editor-Text name="checker" label="Checkbox value:"/>
 
-    <Editor-Control name="foo" label="Foo:" hint="hint" required>
+    <h5>Wrapped input field</h5>
+    <Editor-Control name="foo" label="Foo:">
       <input/>
     </Editor-Control>
-
-    <Editor-Control inline name="foo" label="Foo:" hint="hint" error="Oh noes!" disabled>
-      <input/>
-    </Editor-Control>
-
 
   </Editor-Form>
 </Oak-Page>

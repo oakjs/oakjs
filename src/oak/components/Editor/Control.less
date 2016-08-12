@@ -1,28 +1,43 @@
 // Control wrapper element.
+// Styling is similar to default theme of Semantic UI.
 .oak.Control {
-  padding: .25em;
+  display: block;
+  clear: both;
+  margin: 0 0 .5em;
+//  border: 1px solid #eee;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   &.inline {
     display: inline-block;
   }
 
   &.disabled {
-    opacity: 0.6;
+    opacity: 0.45;
   }
 
   // Label element.
   .oak.label {
+    position: relative;
+    display: inline-block;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 0.928571em;
+    font-weight: bold;
+    text-transform: none;
 
     &.top {
       display: block;
+      margin-bottom: 0.285714rem;
     }
 
     &.left {
-      padding-right: .25em;
+      margin-right: 0.857143em;
     }
 
     &.right {
-      padding-left: .25em;
+      margin-left: 0.857143em;
     }
   }
 
@@ -31,16 +46,75 @@
     display:block;
     font-size: 80%;
     opacity: .4;
+    margin-top: .2142em;
   }
 
   // Error element
   &.with-error {
-    background-color: #FFDDDD;
+    .oak.label {
+      color: #9f3a38;
+    }
+
+    input:not([type]),
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="time"],
+    input[type="text"],
+    input[type="url"] {
+      background-color: #fff6f6;
+      border-color: #e0b4b4;
+      box-shadow: none;
+      color: #9f3a38;
+    }
   }
 
   .oak.error {
-    color: darkred;
+    color: #9f3a38;
     font-weight: bold;
+
+    &.top {
+      margin-bottom: .2142em;
+    }
+
+    &.bottom {
+      margin-top: .2142em;
+    }
   }
 
+  // Style text inputs and outputs
+  output,
+  input:not([type]),
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="email"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="time"],
+  input[type="text"],
+  input[type="url"] {
+    background-color: #ffffff;
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    border-radius: 0.285714rem;
+    box-shadow: 0 0 0 0 transparent inset;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 1.2142em;
+    margin: 0;
+    outline: medium none;
+    padding: 0.3em 0.5em;
+    transition: color 0.1s ease 0s, border-color 0.1s ease 0s;
+  }
+
+  // Style outputs to match inputs
+  output {
+    display: inline-block;
+    border-color: transparent;
+  }
 }
+

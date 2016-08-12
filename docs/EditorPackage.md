@@ -2,14 +2,13 @@
 
 ##High-level goals:
 - Quickly & simply create editor for a complex, nested Javascript object
-- immediate-save forms (client-only) as well as submit/cancel via server
+- An Editor manipulates an in-memory javascript object which may or may not be saved via a HTML "SUBMIT" process
 - Client + server validation
-- Doesn’t require Semantic UI (???)
+- Doesn’t require Semantic UI
 - Lightweight components for simple control types (Text, Integer, Checkbox, etc)
 - Easy to work with arbitrary components (via `<Editor-Control>` wrapper)
 - `<Editor-Repeat>` control for arbitrary-length arrays of nested objects
 - Form layout is easy via 16-column grid
-- Can use <Row> and <Column> containers to get more complex layout?
 
 
 ##Sample
@@ -60,6 +59,7 @@
 
 ###Perhaps ???
 - `select(“nested.field.name”)` = explicit select some field in the form
+- `formData` context (useful for passing to sub-forms or repeats, etc )
 - @autoFocus [ true = first field, “…” or fn = field name] = auto focus when form is shown
 - @state [“loading”, “error”, “saving”, “saved”] = current state of the form
 - @mode [“new”, “edit”] = which mode are we in (UI often changes between the states)
@@ -71,14 +71,14 @@
 
 ##<Editor.Control>
 - Wrapper for managed input controls provided by the system.
+- You can nest an arbitrary React Component inside and they will be managed with @value, @onChange, @disabled, @required, etc.
 - Many simple types are provided, eg:
-	- `<Output>`, `<Text>`, `<Integer>`, `<Decimal>`, `<Date>`, `<Select>`, `<Checkbox>`, `<Button>`, `<Icon>`, `<Save>`, `<Cancel>`, `<Clear>`, etc
+	- `<Output>`, `<Text>`, `<Integer>`, `<Decimal>`, `<Date>`, `<Select>`, `<Checkbox>`, `<Button>`, `<Save>`, `<Cancel>`, `<Clear>`, etc
 	- `<Group>` = field group, @title, @inline, @nested, @count for equal sized fields
 	- `<Label field=“…”/>` = arbitrarily-placed label, respects matching field's hidden/disabled/etc
 	- `<Repeat>` = repeat sub-form or fields for each item in an array, auto-adds “add” and “remove” buttons.  @ordered, @primary, @min, @max
 	- `<Image>` = display image (w/ auto-thumbnail support?)
 	- `<FileUpload>` = nice upload UI to temp directory, gets back a file identifier that the server can move into place. @multiple, @types
-- You can nest an arbitrary React Component inside and they will be managed with @value, @onChange, @disabled, @required, etc.
 
 ###Properties
 - @id = id of the WRAPPER element
@@ -119,16 +119,63 @@
 ---
 
 ##Open Questions
-- pass unknown properties to the wrapper or to the control ???
-- validation methodology?
+- `field@value` to `fnOrAny` ?
+- need to distinguish between `display value` and `inner value` for e.g. `disabled` logic
+	- `control.formValue` getter and leave `display value` stuff to the inner control?
+- ditch `labelOn` in favor of a class-level setting, use `inline` to say that label should be at field level?
+- generic `controlProps` for form which apply to all controls?
+- form `data` to `value` -- this might make more sense for nested fields, etc
+- <Editor-Label> component
+- <Editor-Hint> component
+- <Editor-Error> component
 - @error should come from the form instead of inlining into the element...
-- what grid model for complex styling?  16-column grid?
+	- form `errors` prop vs state and initial rendering without error?
+- validation methodology?
+- what grid model for complex styling?  16-column grid?  20?
+- use HTML "hidden" attribute to actually hide (will require CSS support for interaction with `display`)
 - external toolbar display / management?
 - “watchData” to auto-hookup save/cancel buttons to data `state`?
 
----
 
+
+
+---
 ##Super nice to have
 - Read in React propTypes and auto-create a form for a component
 	- monkey-patch PropType functions to add annotations?
 	- one time shot via copy and paste code block to create starter form?
+
+
+
+---
+##Buggy Things to Work Out
+- @labelOn - doesn't automagically work with inline, want to force checkbox / radio to always be to the right
+- @labelProps etc at the form level?
+
+
+
+
+##Eric Notes
+- Schema interaction:
+	- form itself can have an associated schema (eg: JSONSchema, PropTypes, SimpleSchema, etc)
+	- this schema can be used to auto-create fields
+		- do this as a one-shot deal which creates a oak composite component that you can manipulate		- nice to have a re-do which keeps customizations you've made on the last round
+		- external schema spec which we can go to/from the above, with possible JSXE representation
+	- does each form NEED to have a schema?
+		- auto-create a schema as we're creating the form (and save it where???)
+	- "locked" (PropTypes) vs "unlocked" (ad-hoc) schema
+	- data editor has same characteristic -- "locked" (API) vs "unlocked" (user-created) data
+	
+	- proposal:
+		- form can OPTIONALLY have an "oak schema" associated with it
+		- any named control in the form will automatically pick up the following from the schema, if present:
+			- type
+			- required
+			- isValid()
+			- visible
+			- enabled
+			- values (for enums)
+			- permissions / roles
+		- relation between "oak schema" and "source schema" is effectively one-way with reconciliation
+		- validation happens at form level, but the "onChange()" gets passed pointer to the field in question
+			- use @ref on each child for entire-form-at-once level validation

@@ -26,9 +26,8 @@ export default class Form extends React.Component {
     save: PropTypes.func,             // function to call to save the form
 
   // field defaults which you can specify at the form-level
-		labelOn: PropTypes.string,		    // one of "top", "left", "right"
-		errorOn: PropTypes.string,		    // one of "top", "bottom"
-
+		labelProps: PropTypes.object,     // Arbitrary props for label
+    controlProps: PropTypes.object,   // Arbitrary props to pass to all controls
   };
 
   static initialState = {
@@ -60,8 +59,10 @@ export default class Form extends React.Component {
     return this.props.data;
   }
 
-  get(path) {
-    return getPath(path, this.data);
+  get(path, defaultValue) {
+    const value = getPath(path, this.data);
+    if (value === undefined) return defaultValue;
+    return value;
   }
 
   set(path, value) {
@@ -69,38 +70,66 @@ export default class Form extends React.Component {
     this.forceUpdate();
   }
 
+  // Return (non-normalized) properties for a control.
+  getPropsForControl(control) {
+    const { schema } = this.props;
+    const { name } = control.props;
+    if (schema && name) return schema[name];
+  }
+
+  // Return the value we should
+  getValueForControl(control) {
+    const { name, value, defaultValue } = control.props;
+
+    if (name) return this.get(name, defaultValue);
+    if (typeof value === "function") return value.call(control, defaultValue);
+    return value;
+  }
+
+  // Save a value for a particular control.
+  // TODO: custom save???
+  saveValueForControl(control, currentValue) {
+    const { name } = control.props;
+    if (name) return this.set(name, currentValue);
+  }
+
+  // Return the error associated with a particular form control.
+  getErrorForControl(control) {
+    const { name, error } = control.props;
+    if (name && this.state && this.state.errors) return this.state.errors[name];
+    if (error) return error;
+  }
 
 //
 //  Event handlers from nested `<Editor.Control>`s
 //
-  onChange(event, field, value) {
-    if (field.props.name) {
-      this.set(field.props.name, value);
-    }
+  onChange(event, control, currentValue) {
+    this.saveValueForControl(control, currentValue);
+
     if (this.props.onChange) {
-      this.props.onChange.call(this, event, field, value);
+      this.props.onChange.call(this, event, control, currentValue);
     }
   }
 
-  onFocus(event, field, value) {
-    this.setState({ focused: field });
+  onFocus(event, control, currentValue) {
+    this.setState({ focused: control });
 
     if (this.props.onFocus) {
-      this.props.onFocus.call(this, event, field, value);
+      this.props.onFocus.call(this, event, control, currentValue);
     }
   }
 
-  onBlur(event, field) {
+  onBlur(event, control, currentValue) {
     this.setState({ focused: undefined });
 
     if (this.props.onBlur) {
-      this.props.onBlur.call(this, event, field);
+      this.props.onBlur.call(this, event, control);
     }
   }
 
-  onKeyPress(event, field, value) {
+  onKeyPress(event, control, currentValue) {
     if (this.props.onKeyPress) {
-      this.props.onKeyPress.call(this, event, field);
+      this.props.onKeyPress.call(this, event, control);
     }
   }
 
