@@ -1,89 +1,26 @@
 // Control wrapper element.
 // Styling is similar to default theme of Semantic UI.
 .oak.Control {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;  // verticaly align
   clear: both;
   margin: 0 0 .5em;
-//  border: 1px solid #eee;
+  background-color: #f8f8f8;
+  padding-left:10px;
+  padding-right: 10px;
 
   &:last-child {
     margin-bottom: 0;
   }
 
   &.inline {
-    display: inline-block;
+    display: inline-flex;
   }
 
   &.disabled {
     opacity: 0.45;
-  }
-
-  // Label element.
-  .oak.label {
-    position: relative;
-    display: inline-block;
-    color: rgba(0, 0, 0, 0.87);
-    font-size: 0.928571em;
-    font-weight: bold;
-    text-transform: none;
-
-    &.top {
-      display: block;
-      margin-bottom: 0.285714rem;
-    }
-
-    &.left {
-      margin-right: 0.857143em;
-    }
-
-    &.right {
-      margin-left: 0.857143em;
-    }
-  }
-
-  // Hint label element, below the field.
-  .oak.hint {
-    display:block;
-    font-size: 80%;
-    opacity: .4;
-    margin-top: .2142em;
-  }
-
-  // Error element
-  &.with-error {
-    .oak.label {
-      color: #9f3a38;
-    }
-
-    input:not([type]),
-    input[type="date"],
-    input[type="datetime-local"],
-    input[type="email"],
-    input[type="number"],
-    input[type="password"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="time"],
-    input[type="text"],
-    input[type="url"] {
-      background-color: #fff6f6;
-      border-color: #e0b4b4;
-      box-shadow: none;
-      color: #9f3a38;
-    }
-  }
-
-  .oak.error {
-    color: #9f3a38;
-    font-weight: bold;
-
-    &.top {
-      margin-bottom: .2142em;
-    }
-
-    &.bottom {
-      margin-top: .2142em;
-    }
   }
 
   // Style text inputs and outputs
@@ -99,6 +36,7 @@
   input[type="time"],
   input[type="text"],
   input[type="url"] {
+    flex: 1;
     background-color: #ffffff;
     border: 1px solid rgba(34, 36, 38, 0.15);
     border-radius: 0.285714rem;
@@ -115,6 +53,92 @@
   output {
     display: inline-block;
     border-color: transparent;
+    background-color: transparent;
   }
+
+  // Padding for checkboxen
+  input[type="checkbox"] {
+    margin-right: 0.4em;
+  }
+
+  // Label element.
+  & > .oak.label {
+    position: relative;
+    display: inline-block;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 0.928571em;
+    font-weight: bold;
+    text-transform: none;
+
+    &.top {
+      width: 100% !important;
+      margin-bottom: 0.285714rem;
+    }
+
+    &.left {
+      margin-right: 0.4em;
+    }
+
+    &.right {
+      margin-left: 0.4em;
+    }
+  }
+
+  // Hint label element, below the field.
+  .oak.hint {
+    display:block;
+    font-size: 80%;
+    opacity: .4;
+    margin-top: .2142em;
+  }
+
+  // Error element
+  .oak.error {
+    color: #9f3a38;
+    font-weight: bold;
+
+    &.top {
+      margin-bottom: .2142em;
+    }
+
+    &.bottom {
+      margin-top: .2142em;
+    }
+  }
+
+  &.with-error {
+    .oak.label {
+      color: #9f3a38;
+    }
+
+    input {
+      background-color: #fff6f6;
+      border-color: #e0b4b4;
+      box-shadow: none;
+      color: #9f3a38;
+    }
+  }
+
+  // explicit width in 20-column grid
+  .width-1   { width:   5%; }
+  .width-2   { width:  10%; }
+  .width-3   { width:  15%; }
+  .width-4   { width:  20%; }
+  .width-5   { width:  25%; }
+  .width-6   { width:  30%; }
+  .width-7   { width:  35%; }
+  .width-8   { width:  40%; }
+  .width-9   { width:  45%; }
+  .width-10  { width:  50%; }
+  .width-11  { width:  55%; }
+  .width-12  { width:  60%; }
+  .width-13  { width:  65%; }
+  .width-14  { width:  70%; }
+  .width-15  { width:  75%; }
+  .width-16  { width:  80%; }
+  .width-17  { width:  85%; }
+  .width-18  { width:  90%; }
+  .width-19  { width:  95%; }
+  .width-20  { width: 100%; }
 }
 

@@ -97,6 +97,7 @@ export function unknownProperties(target, source = {}) {
 
 // Return a new object with only properties in `target` that correspond to `keys`
 export function properties(target, ...keys) {
+  if (!target) return undefined;
   const result = {};
   keys.forEach( key => result[key] = target[key] );
   return result;
@@ -105,6 +106,7 @@ export function properties(target, ...keys) {
 // Return a new object with only properties in `target` that correspond to `keys`
 //  which are not `undefined.
 export function definedProperties(target, ...keys) {
+  if (!target) return undefined;
   const result = {};
   keys.forEach( key => { if (target[key] !== undefined) result[key] = target[key] });
   return result;

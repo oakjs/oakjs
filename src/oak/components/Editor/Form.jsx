@@ -25,8 +25,7 @@ export default class Form extends React.Component {
     immediate: PropTypes.bool,        // `true` = immediate edit of data, `false` = `save()` cycle.
     save: PropTypes.func,             // function to call to save the form
 
-  // field defaults which you can specify at the form-level
-		labelProps: PropTypes.object,     // Arbitrary props for label
+  // defaults which apply to ALL controls in the form
     controlProps: PropTypes.object,   // Arbitrary props to pass to all controls
   };
 
@@ -141,7 +140,7 @@ export default class Form extends React.Component {
   // Return css class name for the <form> element.
   getFormClassName(props) {
     return classNames(
-      "oak editor",
+      "oak Editor",
       props.className,
       props.state
     );

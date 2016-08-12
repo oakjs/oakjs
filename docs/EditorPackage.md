@@ -119,9 +119,6 @@
 ---
 
 ##Open Questions
-- `field@value` to `fnOrAny` ?
-- need to distinguish between `display value` and `inner value` for e.g. `disabled` logic
-	- `control.formValue` getter and leave `display value` stuff to the inner control?
 - ditch `labelOn` in favor of a class-level setting, use `inline` to say that label should be at field level?
 - generic `controlProps` for form which apply to all controls?
 - form `data` to `value` -- this might make more sense for nested fields, etc

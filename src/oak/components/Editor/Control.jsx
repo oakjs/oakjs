@@ -14,6 +14,7 @@ import { classNames, unknownProps, mergeProps } from "oak-roots/util/react";
 import { definedProperties } from "oak-roots/util/object";
 
 import "./Control.less";
+import "./width.less";
 
 const stringOrFn = PropTypes.oneOfType([
 	PropTypes.string,
@@ -119,11 +120,11 @@ export default class Control extends React.Component {
 	// Use an <Editor-Input> or <Editor-Output> etc variant if you want a control to be created for you.
 	createControlElement(props) {}
 
-	// Given an `eventTarget` (which is presumably the control created by `createControlElement()`,
+	// Given an `element` (which is presumably the control created by `createControlElement()`,
 	//	return the current `value` for the control, normalized the way you want it saved.
 	// Some controls (e.g. checkboxes, selects, etc) will override this.
-	getControlValue(eventTarget) {
-		return eventTarget.value;
+	getControlValue(controlElement) {
+		return controlElement.value;
 	}
 
 //
@@ -215,15 +216,22 @@ export default class Control extends React.Component {
 	// Returns a clone of the props passed in, with all functions expanded to actual values, etc.
 	normalizeProps() {
 		// Merge props from the form with explicit props set on this control.
-		const props = {
+		const props = mergeProps(
+			// generic form props for all controls
+			this.form && this.form.props.controlProps,
+
 			// schema-level props from the form
-			...(this.form, this.form.getPropsForControl(this)),
+			this.form && this.form.getPropsForControl(this),
+
 			// our explicit props
-			...this.props,
+			this.props,
+
 			// ALWAYS override `value` and `error` with values from our form
-			value: this.currentValue,
-			error: this.currentError
-		};
+			{
+				value: this.currentValue,
+				error: this.currentError
+			}
+		);
 
 		// Evaluate dynamic properties defined as functions.
 		this.constructor.expressionProps.forEach( key => {
@@ -233,6 +241,9 @@ export default class Control extends React.Component {
 		// Create a control child if one was not passed in
 		if (!props.children) props.children = this.createControlElement(props);
 
+		// Remember props for reflection and event handling
+		this._props = props;
+
 		return props;
 	}
 
@@ -241,9 +252,6 @@ export default class Control extends React.Component {
 	getControlProps(control, props) {
 		// Get the union of:
 		const controlProps = mergeProps(
-			// `controlProps` for all controls set on form
-			(this.form && this.form.controlProps),
-
 			// controlProps we're told by our class to pick up
 			definedProperties(props, ...this.constructor.controlProps),
 
@@ -277,10 +285,18 @@ export default class Control extends React.Component {
 
 		// return a clone of the control with injected properties
 		const originalControl = React.Children.only(props.children);
-		props.controlProps = this.getControlProps(originalControl, props);
-		props.control = React.cloneElement(originalControl, props.controlProps);
+		const controlProps = this.getControlProps(originalControl, props);
 
-		return props.control;
+		return React.cloneElement(originalControl, controlProps);
+	}
+
+
+	// Return props to pass to our <label> element.
+	getLabelProps(props) {
+		return mergeProps(
+			{ className: `oak ${props.labelOn} label` },
+			props.labelProps
+		);
 	}
 
 	// Render label.  Returns `undefined` if no label to display.
@@ -289,18 +305,20 @@ export default class Control extends React.Component {
 	renderLabel(props) {
 		if (!props.label) return undefined;
 
-		// Marge our labelProps with those specified by the form.
-		const labelProps = mergeProps(
-			{ className: "oak label" },
-			this.form && this.form.props.labelProps,
-			props.labelProps
-		);
-
 // TODO:  <Editor-Label> ???
 		return (
-			<label {...labelProps}>
+			<label {...this.getLabelProps(props)}>
+				{props.labelOn === "wrap" ? props.control : undefined}
 				{props.label}
 			</label>
+		);
+	}
+
+	// Return props to pass to our <label> element.
+	getHintProps(props) {
+		return mergeProps(
+			{ className: "oak hint" },
+			props.hintProps
 		);
 	}
 
@@ -308,19 +326,20 @@ export default class Control extends React.Component {
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderHint(props) {
 		if (!props.hint) return undefined;
-
-		// Marge our hintProps with those specified by the form.
-		const hintProps = mergeProps(
-			{ className: "oak hint" },
-			this.form && this.form.props.hintProps,
-			props.hintProps
-		);
-
 // TODO:  <Editor-Hint> ???
 		return (
-			<label {...hintProps}>
+			<label {...this.getHintProps(props)}>
 				{props.hint}
 			</label>
+		);
+	}
+
+
+	// Return props to pass to our <label> element.
+	getErrorProps(props) {
+		return mergeProps(
+			{ className: "oak error" },
+			props.errorProps
 		);
 	}
 
@@ -328,17 +347,9 @@ export default class Control extends React.Component {
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderError(props) {
 		if (!props.error) return undefined;
-
-		// Marge our errorProps with those specified by the form.
-		const errorProps = mergeProps(
-			{ className: "oak error" },
-			this.form && this.form.props.errorProps,
-			props.errorProps
-		);
-
 // TODO:  <Editor-Error> ???
 		return (
-			<div {...errorProps}>
+			<div {...this.getErrorProps(props)}>
 				{error}
 			</div>
 		);
@@ -360,7 +371,8 @@ export default class Control extends React.Component {
 					inline: props.inline
 				},
 				constructorName,
-				props.label && `with-label`,
+				props.label && "with-label",
+				props.label && props.labelOn && `label-on-${props.labelOn}`,
 				props.error && "with-error",
 				props.hint && "with-hint",
 				props.width && `width-${props.width}`
@@ -389,21 +401,30 @@ export default class Control extends React.Component {
 		// forget it if we're hidden
 		if (props.hidden) return null;
 
-		const error = this.renderError(props);
-		const label = this.renderLabel(props);
-		const control = this.renderControl(props);
-		const hint = this.renderHint(props);
+		// NOTE: control MUST be first (since label may wrap the control if labelOn === "wrap")
+		props.control = this.renderControl(props);
+		props.label = this.renderLabel(props);
+		props.error = this.renderError(props);
+		props.hint = this.renderHint(props);
 
-		// Assemble children in the correct order according to `labelOn`.
+
 		const wrapperProps = this.getWrapperProps(props);
-		if (props.labelOn === "right") {
-			return <div {...wrapperProps}>{error}{control}{label}{hint}</div>
+
+		// Assemble children in the correct order according to `labelOn`:
+		// - label surrounding the control (eg for Checkboxes)
+		if (props.labelOn === "wrap") {
+			// note: in this case, the label will already wrap the control
+			return <div {...wrapperProps}>{props.error}{props.label}{props.hint}</div>;
 		}
-		return <div {...wrapperProps}>{error}{label}{control}{hint}</div>
+		// - label on right
+		else if (props.labelOn === "right") {
+			return <div {...wrapperProps}>{props.error}{props.control}{props.label}{props.hint}</div>
+		}
+		// - label on left by default
+		return <div {...wrapperProps}>{props.error}{props.label}{props.control}{props.hint}</div>
 	}
 
 }
-
 
 /////////////////
 //
@@ -418,6 +439,17 @@ export class Output extends Control {
 	// This will be merged with properties from `getControlProps()`.
 	createControlElement(props) {
 		return React.createElement("output");
+	}
+
+	// Make empty/null/undefined value render as a space for consistent vertical sizing.
+	getControlProps(control, props) {
+		const controlProps = super.getControlProps(control, props);
+		const { value } = controlProps;
+
+		if (value === null || value === undefined || (value.trim && !value.trim())) {
+			controlProps.value = " ";		// <-- UTF-8 non-breaking space character
+		}
+		return controlProps;
 	}
 }
 
@@ -464,14 +496,85 @@ export class Password extends Input {
 	}
 }
 
+
+
 // Checkbox field.
 export class Checkbox extends Input {
-	static defaultProps = {
-		type: "checkbox",
-		labelOn: "right"
+	static propTypes = {
+		...Input.propTypes,
+		trueValue: PropTypes.any,
+		falseValue: PropTypes.any,
 	}
 
-// TODO:  `trueValue` and `falseValue`
-// TODO:  map `value` to `checked` in `getControlProps`
+	static defaultProps = {
+		type: "checkbox",
+		labelOn: "wrap"
+	}
 
+	get trueValue() {
+		if (this._props.hasOwnProperty("trueValue")) return this._props.trueValue;
+		return true;
+	}
+
+	get falseValue() {
+		if (this._props.hasOwnProperty("falseValue")) return this._props.falseValue;
+		return false;
+	}
+
+	// Map `checked` attribute of control to an output value.
+	getControlValue(controlElement) {
+		const checked = controlElement.checked;
+		if (checked) return this.trueValue;
+		return this.falseValue;
+	}
+
+	// map `value` to `checked` in controlProps.
+	getControlProps(control, props) {
+		const controlProps = super.getControlProps(control, props);
+		controlProps.checked = (controlProps.value === this.trueValue);
+		return controlProps;
+	}
+}
+
+
+// "<Select>" class.
+// Specify `@options` as:
+//	- array of scalar values								["a", "b"]
+//	- array of arrays `[ key, "label" ]`		[ ["a", "AAA", "b": "BBB" ] ]
+//	- map of `{ key => label }`							{ a: "AAA", b: "BBB" }
+//
+// If select is not `@required`, we'll automatically add an empty option with to the beginning.
+export class Select extends Control {
+	// Add <input> specific propTypes
+	static propTypes = {
+		...Control.propTypes,
+		options: PropTypes.any
+	}
+
+	renderOptions(props) {
+		const { options } = this.props;
+		if (!options) return [];
+
+		if (Array.isArray(options)) {
+			return options.map( option => {
+				if (Array.isArray(option)) {
+					return <option value={option[0]}>{option[1]}</option>;
+				}
+				return <option value={option}>{option}</option>
+			});
+		}
+
+		return Object.keys(options).map( key => <option value={key}>{options[key]}</option> );
+	}
+
+
+	// Create JUST the main control element (<input> etc) for this Control.
+	// This will be merged with properties from `getControlProps()`.
+	createControlElement(props) {
+		const options = this.renderOptions(props);
+		// if not required, add a blank item at the beginning of the list
+		if (!props.required) options.splice(0, 0, <option value={undefined}></option>);
+
+		return React.createElement("select", undefined, ...options);
+	}
 }
