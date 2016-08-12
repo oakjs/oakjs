@@ -35,18 +35,27 @@ export function unknownProps(props, Component) {
 
 // Merge sets of properties, with properties from later sets "winning".
 // Automagically merges "className" and "style" properties.
+// Recursively calls `mergeProps()` for any properties that end in "Props".  (????)
 export function mergeProps(...propSets) {
   // ALWAYS create a new object which merges all the propSets
-  const props = Object.assign( {}, ...propSets);
+  const props = Object.assign({}, ...propSets);
 
   // Automagically merge "className" and "style" props as necessary
   if (props.className) {
     const allNames = propSets.map( propSet => propSet && propSet.className );
     props.className = classNames(allNames);
   }
+
   if (props.style) {
     const allStyles = propSets.map( propSet => propSet && propSet.style );
     props.style = Object.assign({}, ...allStyles);
+  }
+
+  for (var key in props) {
+    if (key.endsWith("Props")) {
+      const allProps = propSets.map( propSet => propSet && propSet[key] );
+      props[key] = mergeProps(...allProps);
+    }
   }
 
   return props;
