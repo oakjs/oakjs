@@ -1,13 +1,26 @@
+.INPUT() {
+  background-color: #ffffff;
+  border: 1px solid rgba(34, 36, 38, 0.15);
+  border-radius: 0.285714rem;
+  box-shadow: 0 0 0 0 transparent inset;
+  color: rgba(0, 0, 0, 0.87);
+  line-height: 1.2142em;
+  margin: 0;
+  outline: medium none;
+  padding: 0.3em 0.5em;
+  transition: color 0.1s ease 0s, border-color 0.1s ease 0s;
+}
+
 // Control wrapper element.
 // Styling is similar to default theme of Semantic UI.
 .oak.Control {
+//  background-color: #f8f8f8;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;  // verticaly align
   clear: both;
   margin: 0 0 .5em;
-  background-color: #f8f8f8;
   padding-left:10px;
   padding-right: 10px;
 
@@ -91,19 +104,18 @@
     &.right {
       margin-left: 0.4em;
     }
-  }
 
-  // Required appearance
-  &.required {
-    & > .oak.label:after {
+    // required shows asterisk after the label text
+    &.required:after {
       content: " *";
-      color: #9f3a38;
+      color: #db2828;
     }
   }
 
   // Hint label element, below the field.
   .oak.hint {
     display:block;
+    flex: 1;
     font-size: 80%;
     opacity: .4;
     margin-top: .2142em;

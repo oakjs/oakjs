@@ -39,14 +39,15 @@
     <h5>Control Subclasses</h5>
     <Editor-Output name="foo" label="Output Field:"/>
     <Editor-Text name="foo" label="Text Field:" size="30"/>
-    <Editor-Password name="foo" label="Password Field:" tabIndex="20" labelProps={{style:{color:"#999"}}}/>
+    <Editor-Password name="foo" label="Password Field:" tabIndex="20"
+      labelProps={{style:{color:"#999"}}} hint="At least 6 letters, numbers or special characters"/>
 
     <br/>
-    <Editor-Select name="select" label="Select:" options={["yes","no"]} inline/>
+    <Editor-Select name="select" label="Select:" values={["yes","no"]} inline/>
     <Editor-Output name="select" inline/>
 
     <br/>
-    <Editor-Select name="select" label="Required Select:" required options={{ yes: "YES", no: "NO" }}  inline/>
+    <Editor-Select name="select" label="Required Select:" required values={{ yes: "YES", no: "NO" }}  inline/>
     <Editor-Output name="select" inline/>
 
     <br/>

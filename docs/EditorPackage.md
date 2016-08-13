@@ -119,14 +119,11 @@
 ---
 
 ##Open Questions
-- ditch `labelOn` in favor of a class-level setting, use `inline` to say that label should be at field level?
-- generic `controlProps` for form which apply to all controls?
 - form `data` to `value` -- this might make more sense for nested fields, etc
-- <Editor-Label> component
 - <Editor-Hint> component
 - <Editor-Error> component
-- @error should come from the form instead of inlining into the element...
-	- form `errors` prop vs state and initial rendering without error?
+- form `errors` prop vs state and initial rendering without error?
+- @options vs @values for select?
 - validation methodology?
 - what grid model for complex styling?  16-column grid?  20?
 - use HTML "hidden" attribute to actually hide (will require CSS support for interaction with `display`)

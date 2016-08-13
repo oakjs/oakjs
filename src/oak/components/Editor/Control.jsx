@@ -1,10 +1,11 @@
 //////////////////////////////
 // Editor.Control class
 //
-//	Base class for all editor controls which renders a wrapper element, label, errors, etc.
-//	as well as the "control" element.
+//	Base class for all editor controls which renders a `control` inside a wrapper element,
+//	with `label`, `errors`, `hint`, etc.
 //
-//	The base class renders a non-editable "output" element.
+//	The base class can be used to wrap an arbitrary component,
+//	use a subclass to auto-create an inner `control`.
 //
 //////////////////////////////
 
@@ -12,6 +13,8 @@ import React, { PropTypes } from "react";
 
 import { classNames, unknownProps, mergeProps } from "oak-roots/util/react";
 import { definedProperties } from "oak-roots/util/object";
+
+import Label from "./Label";
 
 import "./Control.less";
 import "./width.less";
@@ -53,7 +56,7 @@ export default class Control extends React.Component {
     className: PropTypes.string,					// HTML class of control
     style: PropTypes.object,							// HTML style of control
 		inline: PropTypes.bool,								// `true` == { display: inline-block} , `false` = { display: block }
-		width: PropTypes.number,							// # of columns of 16-column grid for display (including label)
+		width: PropTypes.number,							// # of columns of 20-column grid for display (including label)
 
 	// standard form stuff
 		tabIndex: numberOrString,							// HTML tabIndex attribute.
@@ -106,6 +109,12 @@ export default class Control extends React.Component {
 	// Props whose values are `undefined` will be skipped.
 	static controlProps = [
 		"className", "defaultValue", "disabled", "hidden", "id", "name", "required", "style", "tabIndex", "value"
+	];
+
+	// Keys of (normalized) props we'll pass pass down to our <label> element.
+	// Props whose values are `undefined` will be skipped.
+	static labelProps = [
+		"disabled", "hidden", "inline", "label", "labelOn", "required"
 	];
 
 	// Names of event handlers we'll take over and assign directly to the control.
@@ -291,27 +300,20 @@ export default class Control extends React.Component {
 	}
 
 
-	// Return props to pass to our <label> element.
-	getLabelProps(props) {
-		return mergeProps(
-			{ className: `oak ${props.labelOn} label` },
-			props.labelProps
-		);
-	}
-
 	// Render label.  Returns `undefined` if no label to display.
 	// Set `props.labelProps` to apply arbitrary properties to the label.
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderLabel(props) {
 		if (!props.label) return undefined;
 
-// TODO:  <Editor-Label> ???
-		return (
-			<label {...this.getLabelProps(props)}>
-				{props.labelOn === "wrapping" ? props.control : undefined}
-				{props.label}
-			</label>
+		const labelProps = mergeProps(
+			props.labelProps,
+			definedProperties(props, ...this.constructor.labelProps),
 		);
+
+		// if labelOn is "wrapped", pass in the control to be wrapped
+		if (labelProps.labelOn === "wrapped") labelProps.children = props.control;
+		return React.createElement(Label, labelProps);
 	}
 
 	// Return props to pass to our <label> element.
@@ -401,7 +403,7 @@ export default class Control extends React.Component {
 		// forget it if we're hidden
 		if (props.hidden) return null;
 
-		// NOTE: control MUST be first (since label may wrap the control if labelOn === "wrapping")
+		// NOTE: control MUST be first (since label may wrap the control if labelOn === "wrapped")
 		props.control = this.renderControl(props);
 		props.label = this.renderLabel(props);
 		props.error = this.renderError(props);
@@ -412,7 +414,7 @@ export default class Control extends React.Component {
 
 		// Assemble children in the correct order according to `labelOn`:
 		// - label surrounding the control (eg for Checkboxes)
-		if (props.labelOn === "wrapping") {
+		if (props.labelOn === "wrapped") {
 			// note: in this case, the label will already wrap the control
 			return <div {...wrapperProps}>{props.error}{props.label}{props.hint}</div>;
 		}
@@ -508,7 +510,12 @@ export class Checkbox extends Input {
 
 	static defaultProps = {
 		type: "checkbox",
-		labelOn: "wrapping"
+		labelOn: "wrapped",
+		labelProps: {
+			style: {
+				width: "auto"
+			}
+		}
 	}
 
 	get trueValue() {
