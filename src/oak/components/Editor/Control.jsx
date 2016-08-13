@@ -581,28 +581,28 @@ export class Select extends Control {
 	}
 
 	// Render the options specified for this control, which come from it's "values".
-	static renderOptions(options, required = true) {
-		let options;
+	static renderOptions(options, required) {
+		let elements = [];
 		if (Array.isArray(options)) {
-			options = this.renderOptionsArray(options);
+			elements = this.renderOptionsArray(options);
 		}
 		else if (typeof options === "object") {
-			options = this.renderOptionsMap(options);
+			elements = this.renderOptionsMap(options);
 		}
 
 		// if not required, add a blank item at the beginning of the list
 		if (!required) {
-			options.unshift(<option value={undefined}></option>);
+			elements.unshift(<option value={undefined}></option>);
 		}
 
-		return options;
+		return elements;
 	}
 
 	// Create JUST the main control element (<input> etc) for this Control.
 	// This will be merged with properties from `getControlProps()`.
 	createControlElement(props) {
 		// Render according to our `renderOptions` method
-		const options = this.constructor.renderOptions(props.options || props.value, props.required);
+		const options = this.constructor.renderOptions(props.options || props.values, props.required);
 		return React.createElement("select", undefined, ...options);
 	}
 }
