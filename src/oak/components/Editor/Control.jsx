@@ -545,7 +545,7 @@ export class Checkbox extends Input {
 
 
 // "<Select>" class.
-// Specify `@options` as:
+// Specify `@options` or `@values` (from schema) as:
 //	- array of scalar values								["a", "b"]
 //	- array of arrays `[ key, "label" ]`		[ ["a", "AAA", "b": "BBB" ] ]
 //	- map of `{ key => label }`							{ a: "AAA", b: "BBB" }
@@ -555,29 +555,39 @@ export class Select extends Control {
 	// Add <input> specific propTypes
 	static propTypes = {
 		...Control.propTypes,
-		values: PropTypes.any									// Specifier for HTML options
+		values: PropTypes.any,								// List of valid `values` from schema.
+		options: PropTypes.any								// Specifier for HTML options, overides `options`.
+	}
+
+	// Given an array of options as:
+	//	- an array of scalar values, and/or
+	//	- an array of arrays as `[key, "label"]`
+	// return a set of HTML `<option>` elements.
+	static renderOptionsArray(options) {
+		return options.map( option => {
+			// nested array = `[ key, "value" ]`
+			if (Array.isArray(option)) {
+				return <option value={option[0]}>{option[1]}</option>;
+			}
+			// otherwise assume key/value are the same
+			return <option value={option}>{option}</option>
+		});
+	}
+
+	// Given a set of options as a `{ key => value }` map,
+	//	return a set of HTML <option> elements.
+	static renderOptionsMap(options) {
+		return Object.keys(options).map( key => <option value={key}>{options[key]}</option> );
 	}
 
 	// Render the options specified for this control, which come from it's "values".
 	renderOptions(props) {
-		const { values } = this.props;
-		if (!values) return [];
+		const options = this.props.options || this.props.values;
+		if (!options) return [];
 
-		if (Array.isArray(values)) {
-			return values.map( option => {
-				// nested array = `[ key, "value" ]`
-				if (Array.isArray(option)) {
-					return <option value={option[0]}>{option[1]}</option>;
-				}
-				// otherwise assume key/value are the same
-				return <option value={option}>{option}</option>
-			});
-		}
-
-		// Assume a `{ key -> value }` map.
-		return Object.keys(values).map( key => <option value={key}>{values[key]}</option> );
+		if (Array.isArray(options)) return this.constructor.renderOptionsArray(options);
+		return this.constructor.renderOptionsMap(options);
 	}
-
 
 	// Create JUST the main control element (<input> etc) for this Control.
 	// This will be merged with properties from `getControlProps()`.
