@@ -57,7 +57,7 @@ export default class Label extends React.Component {
     const { hidden, label, children, labelOn } = this.props;
 
     // forget it if we're `hidden` or have neither `label` nor `children`.
-    if (hidden || (!label && !children)) return null;
+    if (hidden || ((label === null || label === undefined) && !children)) return null;
 
     const labelProps = this.getRenderProps(this.props);
     if (labelOn === "right") {

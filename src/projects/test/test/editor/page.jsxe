@@ -65,7 +65,8 @@
 
     <br/>
     <Editor-Group name="address" label="Address:">
-      <Editor-Text name="street" label="Street:"/>
+      <Editor-Text name="street[0]" label="Street:"/>
+      <Editor-Text name="street[1]" label=""/>
       <Editor-Text name="city" label="City:"/>
       <Editor-Text name="state" label="State:"/>
       <Editor-Text name="zip" label="Zip Code:"/>

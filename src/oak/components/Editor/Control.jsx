@@ -321,7 +321,8 @@ export default class Control extends React.Component {
 	// Set `props.labelProps` to apply arbitrary properties to the label.
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderLabel(props, children) {
-		if (!props.label) return undefined;
+		// NOTE: render label as an empty string... ???
+		if (props.label === null || props.label === undefined) return undefined;
 
 		const labelProps = mergeProps(
 			props.labelProps,
