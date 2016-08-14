@@ -117,6 +117,13 @@
 	
 
 ---
+##Groups
+- Groups can be used for visual nesting
+- Groups can also be used for passing a subset of data down to children
+- 
+
+
+---
 
 ##Open Questions
 - form `data` to `value` -- this might make more sense for nested fields, etc

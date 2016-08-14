@@ -37,7 +37,7 @@ const numberOrString = PropTypes.oneOfType([
 export default class Control extends React.Component {
 
 	static propTypes = {
-		children: PropTypes.element,					// only allow a single child element
+		children: PropTypes.any,							// Children
 
 	// value semantics -- see `getCurrentValue()`
 		defaultValue: PropTypes.any,					// explicit default value, may be overwritten by the below
@@ -88,7 +88,8 @@ export default class Control extends React.Component {
 
 	// Make this control aware of our `form`, which sets our data context.
 	static contextTypes = {
-		form: PropTypes.any
+		form: PropTypes.any,
+		namePrefix: PropTypes.any
 	}
 
 //
@@ -149,28 +150,32 @@ export default class Control extends React.Component {
 	// Syntactic sugar to get our `form` element.
 	// Returns `undefined` if form is not set!
 	get form() {
-		return this.context && this.context.form;
+		return this.context.form;
 	}
 
 	// Return the current value of the field according to our `form` and/or `value`.
 	getCurrentValue(props) {
 		let value = undefined;
 
-		if (this.form) value = this.form.getValueForControl(this, props);
+		// look up in our `form` if defined
+		if (props.name && this.form) value = this.form.getValueForControl(props.name);
 
 		// If `props.value` is a function, evaluate it passing in the current value.
-		if (typeof props.value === "function") return props.value.call(this, value);
+		// This allows us to transform the value.
+		if (typeof props.value === "function") value = props.value.call(this, value);
 		else if (value === undefined) value = props.value;
 
-		if (value === undefined) value = props.defaultValue;
+		if (value === undefined) return props.defaultValue;
 
 		return value;
 	}
 
 	// Return the current error of the field according to our `form` and/or `error`.
 	getCurrentError(props) {
-		if (this.form) return this.form.getErrorForControl(this, props);
-		return this.props.error;
+		let error = undefined;
+		if (props.name && this.form) error = this.form.getErrorForControl(props.name);
+		if (error === undefined) error = props.error;
+		return error;
 	}
 
 //
@@ -180,20 +185,20 @@ export default class Control extends React.Component {
 //	with the nested child's handler (if any) as the first argument.
 //
 
-	onChange(controlHandler, event) {
-		return this._handleEvent("onChange", controlHandler, event);
+	onChange(props, controlHandler, event) {
+		return this._handleEvent("onChange", props, controlHandler, event);
 	}
 
-	onFocus(controlHandler, event) {
-		return this._handleEvent("onFocus", controlHandler, event);
+	onFocus(props, controlHandler, event) {
+		return this._handleEvent("onFocus", props, controlHandler, event);
 	}
 
-	onBlur(controlHandler, event) {
-		return this._handleEvent("onBlur", controlHandler, event);
+	onBlur(props, controlHandler, event) {
+		return this._handleEvent("onBlur", props, controlHandler, event);
 	}
 
-	onKeyPress(controlHandler, event) {
-		return this._handleEvent("onKeyPress", controlHandler, event);
+	onKeyPress(props, controlHandler, event) {
+		return this._handleEvent("onKeyPress", props, controlHandler, event);
 	}
 
 	// Generic event handling:
@@ -201,7 +206,7 @@ export default class Control extends React.Component {
 	//	- then pass to `form[eventName]`
 	//	- then pass to `props[eventName]`
 	// Bail if any return `false` or set `event.preventDefault`.
-	_handleEvent(eventName, controlHandler, event, args) {
+	_handleEvent(eventName, props, controlHandler, event, args) {
 		// handle child handler first, bailing if so instructed
 		if (typeof controlHandler === "function") {
 			const result = controlHandler(event);
@@ -211,14 +216,14 @@ export default class Control extends React.Component {
 		// pass event to form, bailing if so instructed
 		const value = this.getControlValue(event.target);
 		if (this.form) {
-			const result = this.form[eventName](event, this, value);
+			const result = this.form[eventName](event, this, props.name, value);
 			if (result === false || event.defaultPrevented) return false;
 		}
 
 		// call prop event
-		const handler = this.props[eventName];
+		const handler = props[eventName];
 		if (handler) {
-			const result = handler(event, this, value);
+			const result = handler(event, props, value);
 			if (result === false || event.defaultPrevented) return false;
 		}
 
@@ -233,19 +238,24 @@ export default class Control extends React.Component {
 	// Normalize dynamic props before rendering.
 	// Returns a clone of the props passed in, with all functions expanded to actual values, etc.
 	normalizeProps() {
+		// Figure out the full "name" of this control, including our `namePrefix`.
+		let controlName = this.props.name;
+		// if we have a `namePrefix`, add its `name` to ours
+		if (controlName && this.context.namePrefix) {
+			controlName = `${this.context.namePrefix}.${controlName}`;
+		}
+
 		// Merge props from the form with explicit props set on this control.
 		const props = mergeProps(
-			// generic form props for all controls
-			this.form && this.form.props.controlProps,
-
-			// schema-level props from the form
-			this.form && this.form.getPropsForControl(this),
+			// form-level props from this control, including schema props
+			this.form && this.form.getPropsForControl(controlName),
 
 			// our explicit props
 			this.props,
 		);
 
-		// ALWAYS override `value` and `error` with values from our form
+		// ALWAYS override `name`, `value` and `error` with values from our form
+		props.name = controlName;
 		props.value = this.getCurrentValue(props);
 		props.error = this.getCurrentError(props);
 
@@ -265,7 +275,7 @@ export default class Control extends React.Component {
 
 
 	// Return properties to monkey-patch into the managed control.
-	getControlProps(control, props) {
+	getControlProps(controlElement, props) {
 		// Get the union of:
 		const controlProps = mergeProps(
 			// controlProps we're told by our class to pick up
@@ -275,7 +285,7 @@ export default class Control extends React.Component {
 			unknownProps(props, this.constructor),
 
 			// any props set directly on the inner control element
-			control.props,
+			controlElement.props,
 
 			// explicit controlProps set at the control level (safety hatch)
 			props.controlProps,
@@ -283,7 +293,7 @@ export default class Control extends React.Component {
 
 		// Add bound event handlers we take over, pulling in controls's existing event if defined.
 		this.constructor.controlEvents.forEach( key => {
-			controlProps[key] = this[key].bind(this, control.props[key])
+			controlProps[key] = this[key].bind(this, props, controlElement.props[key])
 		});
 
 		return controlProps;

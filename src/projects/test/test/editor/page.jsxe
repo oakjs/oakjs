@@ -63,6 +63,14 @@
     <Editor-Checkbox name="trueUndefined" label="True/undefined Checkbox" falseValue={undefined} inline width={5}/>
     <Editor-Output name="trueUndefined" inline value={value => `(${typeof value}) ${value}`}/>
 
+    <br/>
+    <Editor-Group name="address" label="Address:">
+      <Editor-Text name="street" label="Street:"/>
+      <Editor-Text name="city" label="City:"/>
+      <Editor-Text name="state" label="State:"/>
+      <Editor-Text name="zip" label="Zip Code:"/>
+    </Editor-Group>
+
 
   </Editor-Form>
 </Oak-Page>

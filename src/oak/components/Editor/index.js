@@ -3,6 +3,7 @@ export Control from "./Control";
 export { Checkbox, Input, Output, Password, Select, Text } from "./Control";
 export Error from "./Error";
 export Form from "./Form";
+export Group from "./Group";
 export Label from "./Label";
 
 // Export all as a map

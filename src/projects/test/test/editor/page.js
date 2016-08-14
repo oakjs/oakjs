@@ -5,7 +5,15 @@ getInitialData() {
     booleanSelect: true,
     checker: true,
     yesno: "yes",
-    trueUndefined: undefined
+    trueUndefined: undefined,
+    address: {
+      street: "123 My Street",
+      city: "Anytown",
+      state: "Any State",
+      zip: 12345,
+      country: "USA"
+
+    }
   };
   return window.data;
 }

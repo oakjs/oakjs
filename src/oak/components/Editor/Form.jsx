@@ -7,7 +7,7 @@
 import React, { PropTypes } from "react";
 
 import { getPath, setPath } from "oak-roots/util/path";
-import { classNames } from "oak-roots/util/react";
+import { classNames, mergeProps } from "oak-roots/util/react";
 
 export default class Form extends React.Component {
 
@@ -41,11 +41,13 @@ export default class Form extends React.Component {
   // Pass this form instance to our children as `context.form`.
   // `Editor.Control`s will automatically look for this.
   static childContextTypes = {
-    form: PropTypes.any,
+    form: PropTypes.any
   }
 
   getChildContext() {
-    return { form: this }
+    return {
+      form: this
+    }
   }
 
 
@@ -69,64 +71,64 @@ export default class Form extends React.Component {
     this.forceUpdate();
   }
 
-  // Return (non-normalized) properties for a control.
-  getPropsForControl(control) {
-    const { schema } = this.props;
-    const { name } = control.props;
-    if (schema && name) return schema[name];
+  // Return (non-normalized) properties for a specific control according to our schema
+  //  and our `props.controlProps`.
+  getPropsForControl(controlName) {
+    const { schema, controlProps } = this.props;
+
+    const schemaProps = schema && controlName && schema[controlName];
+    if (schemaProps && controlProps) return mergeProps(controlProps, schemaProps);
+    if (schemaProps) return schemaProps;
+    return controlProps;
   }
 
+
   // Return the value we should
-  getValueForControl(control, props) {
-    const { name, defaultValue } = props;
-    if (name) return this.get(name, props.defaultValue);
-    return props.defaultValue;
+  getValueForControl(controlName) {
+    if (controlName) return this.get(controlName);
   }
 
   // Save a value for a particular control.
   // TODO: custom save???
-  saveValueForControl(control, currentValue) {
-    const { name } = control.props;
-    if (name) return this.set(name, currentValue);
+  saveValueForControl(controlName, currentValue) {
+    if (controlName) return this.set(controlName, currentValue);
   }
 
   // Return the error associated with a particular form control.
-  getErrorForControl(control, props) {
-    const { name, error } = props;
-    if (name && this.state && this.state.errors) return this.state.errors[name];
-    if (error) return error;
+  getErrorForControl(controlName) {
+    if (controlName && this.state && this.state.errors) return this.state.errors[controlName];
   }
 
 //
 //  Event handlers from nested `<Editor.Control>`s
 //
-  onChange(event, control, currentValue) {
-    this.saveValueForControl(control, currentValue);
+  onChange(event, control, controlName, currentValue) {
+    this.saveValueForControl(controlName, currentValue);
 
     if (this.props.onChange) {
-      this.props.onChange.call(this, event, control, currentValue);
+      this.props.onChange.call(this, event, control, controlName, currentValue);
     }
   }
 
-  onFocus(event, control, currentValue) {
-    this.setState({ focused: control });
+  onFocus(event, control, controlName) {
+    this._focused = control;
 
     if (this.props.onFocus) {
-      this.props.onFocus.call(this, event, control, currentValue);
+      this.props.onFocus.call(this, event, control, controlName);
     }
   }
 
-  onBlur(event, control, currentValue) {
-    this.setState({ focused: undefined });
+  onBlur(event, control, controlName) {
+    delete this._focused;
 
     if (this.props.onBlur) {
-      this.props.onBlur.call(this, event, control);
+      this.props.onBlur.call(this, event, control, controlName);
     }
   }
 
-  onKeyPress(event, control, currentValue) {
+  onKeyPress(event, control, controlName) {
     if (this.props.onKeyPress) {
-      this.props.onKeyPress.call(this, event, control);
+      this.props.onKeyPress.call(this, event, control, controlName);
     }
   }
 
