@@ -41,7 +41,6 @@ export default class Label extends React.Component {
       },
       props.labelOn,
       "label",
-			props.labelOn && `label-on-${props.labelOn}`,
 			props.width && `width-${props.width}`
     );
   }
@@ -55,16 +54,16 @@ export default class Label extends React.Component {
   }
 
   render() {
-    const props = this.props;
+    const { hidden, label, children, labelOn } = this.props;
 
     // forget it if we're `hidden` or have neither `label` nor `children`.
-    if (props.hidden || (!props.label && !props.children)) return null;
+    if (hidden || (!label && !children)) return null;
 
-    return (
-      <label {...this.getRenderProps(props)}>
-        {props.children}{props.label}
-      </label>
-    );
+    const labelProps = this.getRenderProps(this.props);
+    if (labelOn === "right" || labelOn === "wrapping") {
+      return <label {...labelProps}>{children}{label}</label>;
+    }
+    return <label {...labelProps}>{label}{children}</label>;
   }
 
 }

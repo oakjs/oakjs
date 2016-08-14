@@ -1,12 +1,7 @@
 <Oak-Page id="editor" title="Editor Package Test" style={{ padding: "1em" }}>
   <h2>Editor Test</h2>
   <Editor-Form
-    data={{
-      foo: "bar",
-      select: "yes",
-      checker: true,
-      yesno: "yes"
-    }}
+    data={data}
 
     schema={{
       foo: {
@@ -38,29 +33,35 @@
 
     <h5>Control Subclasses</h5>
     <Editor-Output name="foo" label="Output Field:"/>
-    <Editor-Text name="foo" label="Text Field:" size="30"/>
+
+    <Editor-Text name="foo" label="Text Field:" width="10"/>
+
     <Editor-Password name="foo" label="Password Field:" tabIndex="20"
       labelProps={{style:{color:"#999"}}} hint="At least 6 letters, numbers or special characters"/>
 
     <br/>
     <Editor-Select name="select" label="Select:" values={["yes","no"]} inline/>
-    <Editor-Output name="select" inline/>
+    <Editor-Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
     <Editor-Select name="select" label="Required Select:" required values={{ yes: "YES", no: "NO" }}  inline/>
-    <Editor-Output name="select" inline/>
+    <Editor-Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
+
+    <br/>
+    <Editor-Select name="booleanSelect" label="Boolean Select:" values={[true, false]} inline/>
+    <Editor-Output name="booleanSelect" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
     <Editor-Checkbox name="checker" label="Checkbox" inline/>
-    <Editor-Output name="checker" inline/>
+    <Editor-Output name="checker" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
     <Editor-Checkbox name="yesno" label="Yes/No Checkbox" trueValue="yes" falseValue="no" inline/>
-    <Editor-Output name="yesno" inline/>
+    <Editor-Output name="yesno" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
     <Editor-Checkbox name="trueUndefined" label="True/undefined Checkbox" falseValue={undefined} inline/>
-    <Editor-Output name="trueUndefined" inline/>
+    <Editor-Output name="trueUndefined" inline value={value => `(${typeof value}) ${value}`}/>
 
 
   </Editor-Form>

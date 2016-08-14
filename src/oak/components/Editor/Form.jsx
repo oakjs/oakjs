@@ -77,12 +77,10 @@ export default class Form extends React.Component {
   }
 
   // Return the value we should
-  getValueForControl(control) {
-    const { name, value, defaultValue } = control.props;
-
-    if (name) return this.get(name, defaultValue);
-    if (typeof value === "function") return value.call(control, defaultValue);
-    return value;
+  getValueForControl(control, props) {
+    const { name, defaultValue } = props;
+    if (name) return this.get(name, props.defaultValue);
+    return props.defaultValue;
   }
 
   // Save a value for a particular control.
@@ -93,8 +91,8 @@ export default class Form extends React.Component {
   }
 
   // Return the error associated with a particular form control.
-  getErrorForControl(control) {
-    const { name, error } = control.props;
+  getErrorForControl(control, props) {
+    const { name, error } = props;
     if (name && this.state && this.state.errors) return this.state.errors[name];
     if (error) return error;
   }

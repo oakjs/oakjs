@@ -17,7 +17,6 @@ import { definedProperties } from "oak-roots/util/object";
 import Label from "./Label";
 
 import "./Control.less";
-import "./width.less";
 
 const stringOrFn = PropTypes.oneOfType([
 	PropTypes.string,
@@ -39,7 +38,7 @@ export default class Control extends React.Component {
 	static propTypes = {
 		children: PropTypes.element,					// only allow a single child element
 
-	// value semantics -- see `get currentValue()`
+	// value semantics -- see `getCurrentValue()`
 		defaultValue: PropTypes.any,					// explicit default value, may be overwritten by the below
 		value: PropTypes.any,									// explicit value, may be overwritten by the below
 		name: PropTypes.string,								// lens into `form.data` for dynamic value from form
@@ -56,7 +55,7 @@ export default class Control extends React.Component {
     className: PropTypes.string,					// HTML class of control
     style: PropTypes.object,							// HTML style of control
 		inline: PropTypes.bool,								// `true` == { display: inline-block} , `false` = { display: block }
-		width: PropTypes.number,							// # of columns of 20-column grid for display (including label)
+		width: numberOrString,								// # of columns of 20-column grid for display (including label)
 
 	// standard form stuff
 		tabIndex: numberOrString,							// HTML tabIndex attribute.
@@ -147,20 +146,23 @@ export default class Control extends React.Component {
 	}
 
 	// Return the current value of the field according to our `form` and/or `value`.
-	get currentValue() {
-		// if we have a `form`, defer to that.
-		if (this.form) return this.form.getValueForControl(this);
+	getCurrentValue(props) {
+		let value = undefined;
 
-		// If we got an explicit value function, evaluate it.
-		const { value, defaultValue } = this.props;
-		if (typeof value === "function") return value.call(this, defaultValue);
+		if (this.form) value = this.form.getValueForControl(this, props);
+
+		// If `props.value` is a function, evaluate it passing in the current value.
+		if (typeof props.value === "function") return props.value.call(this, value);
+		else if (value === undefined) value = props.value;
+
+		if (value === undefined) value = props.defaultValue;
 
 		return value;
 	}
 
 	// Return the current error of the field according to our `form` and/or `error`.
-	get currentError() {
-		if (this.form) return this.form.getErrorForControl(this);
+	getCurrentError(props) {
+		if (this.form) return this.form.getErrorForControl(this, props);
 		return this.props.error;
 	}
 
@@ -234,13 +236,11 @@ export default class Control extends React.Component {
 
 			// our explicit props
 			this.props,
-
-			// ALWAYS override `value` and `error` with values from our form
-			{
-				value: this.currentValue,
-				error: this.currentError
-			}
 		);
+
+		// ALWAYS override `value` and `error` with values from our form
+		props.value = this.getCurrentValue(props);
+		props.error = this.getCurrentError(props);
 
 		// Evaluate dynamic properties defined as functions.
 		this.constructor.expressionProps.forEach( key => {
@@ -311,8 +311,8 @@ export default class Control extends React.Component {
 			definedProperties(props, ...this.constructor.labelProps),
 		);
 
-		// if labelOn is "wrapped", pass in the control to be wrapped
-		if (labelProps.labelOn === "wrapped") labelProps.children = props.control;
+		// if labelOn is "wrapping", pass in the control to be wrapped
+		if (labelProps.labelOn === "wrapping") labelProps.children = props.$control;
 		return React.createElement(Label, labelProps);
 	}
 
@@ -403,27 +403,37 @@ export default class Control extends React.Component {
 		// forget it if we're hidden
 		if (props.hidden) return null;
 
-		// NOTE: control MUST be first (since label may wrap the control if labelOn === "wrapped")
-		props.control = this.renderControl(props);
-		props.label = this.renderLabel(props);
-		props.error = this.renderError(props);
-		props.hint = this.renderHint(props);
+		// Render control.  This may end up being wrapped...
+		// NOTE: control MUST be first (since label may wrap the control if labelOn === "wrapping")
+		props.$control = this.renderControl(props);
 
+		// Render hint and add a wrapper if we got one.
+		props.$hint = this.renderHint(props);
+		if (props.$hint) {
+			props.$control = <span className='hintWrapper'>{props.$control}{props.$hint}</span>;
+		}
 
+		// Render label, which might wrap the control
+		props.$label = this.renderLabel(props);
+
+		// Render error
+		props.$error = this.renderError(props);
+
+		// Render the wrapper and embedded contents
 		const wrapperProps = this.getWrapperProps(props);
 
 		// Assemble children in the correct order according to `labelOn`:
 		// - label surrounding the control (eg for Checkboxes)
-		if (props.labelOn === "wrapped") {
+		if (props.labelOn === "wrapping") {
 			// note: in this case, the label will already wrap the control
-			return <div {...wrapperProps}>{props.error}{props.label}{props.hint}</div>;
+			return <div {...wrapperProps}>{props.$error}{props.$label}</div>;
 		}
 		// - label on right
 		else if (props.labelOn === "right") {
-			return <div {...wrapperProps}>{props.error}{props.control}{props.label}{props.hint}</div>
+			return <div {...wrapperProps}>{props.$error}{props.$control}{props.$label}</div>
 		}
 		// - label on left by default
-		return <div {...wrapperProps}>{props.error}{props.label}{props.control}{props.hint}</div>
+		return <div {...wrapperProps}>{props.$error}{props.$label}{props.$control}</div>
 	}
 
 }
@@ -510,7 +520,7 @@ export class Checkbox extends Input {
 
 	static defaultProps = {
 		type: "checkbox",
-		labelOn: "wrapped",
+		labelOn: "wrapping",
 		labelProps: {
 			style: {
 				width: "auto"
@@ -545,64 +555,69 @@ export class Checkbox extends Input {
 
 
 // "<Select>" class.
-// Specify `@options` or `@values` (from schema) as:
+// Specify `@options` or `@values` (e.g. from schema) as:
 //	- array of scalar values								["a", "b"]
 //	- array of arrays `[ key, "label" ]`		[ ["a", "AAA", "b": "BBB" ] ]
 //	- map of `{ key => label }`							{ a: "AAA", b: "BBB" }
 //
-// If select is not `@required`, we'll automatically add an empty option with to the beginning.
+// If select is not `@required`, we'll automatically add an empty option to the select,
+//	whose value will be `undefined` when it is selected.
+//
+// Note: the values you get back will NOT necessarily be strings if your values/options are no strings,
+//				e.g.  <Select values={[ true, false ]}
 export class Select extends Control {
 	// Add <input> specific propTypes
 	static propTypes = {
 		...Control.propTypes,
 		values: PropTypes.any,								// List of valid `values` from schema.
-		options: PropTypes.any								// Specifier for HTML options, overides `options`.
+		options: PropTypes.any								// Specifier for HTML options, overides `values`.
 	}
 
-	// Given an array of options as:
-	//	- an array of scalar values, and/or
-	//	- an array of arrays as `[key, "label"]`
-	// return a set of HTML `<option>` elements.
-	static renderOptionsArray(options) {
-		return options.map( option => {
-			// nested array = `[ key, "value" ]`
-			if (Array.isArray(option)) {
-				return <option value={option[0]}>{option[1]}</option>;
-			}
-			// otherwise assume key/value are the same
-			return <option value={option}>{option}</option>
-		});
-	}
+	// Given a set of options as:
+	//	- an array of scalar values, or
+	//	- an array of arrays as `[key, "label"]`, or
+	//	- a `{ key: label }` map
+	// return a normalized set of option values as: `[ [ key, "label" ], ...]`.
+	//
+	// If not `required`, we'll add an empty item at the front of the list.
+	static normalizeOptions(options, required) {
+		let normalized;
 
-	// Given a set of options as a `{ key => value }` map,
-	//	return a set of HTML <option> elements.
-	static renderOptionsMap(options) {
-		return Object.keys(options).map( key => <option value={key}>{options[key]}</option> );
-	}
-
-	// Render the options specified for this control, which come from it's "values".
-	static renderOptions(options, required) {
-		let elements = [];
 		if (Array.isArray(options)) {
-			elements = this.renderOptionsArray(options);
+			normalized = options.map( option => (Array.isArray(option) ? option : [ option, "" + option ]) );
 		}
 		else if (typeof options === "object") {
-			elements = this.renderOptionsMap(options);
+			normalized = [];
+			for (var key in options) {
+				normalized.push([ key, options[key] ]);
+			}
 		}
 
 		// if not required, add a blank item at the beginning of the list
 		if (!required) {
-			elements.unshift(<option value={undefined}></option>);
+			normalized.unshift([ undefined, "" ]);
 		}
 
-		return elements;
+		return normalized;
+	}
+
+	// Render a set of normalized options.
+	static renderOptions(options) {
+		return options.map( option => <option value={option[0]}>{option[1]}</option> );
 	}
 
 	// Create JUST the main control element (<input> etc) for this Control.
 	// This will be merged with properties from `getControlProps()`.
 	createControlElement(props) {
-		// Render according to our `renderOptions` method
-		const options = this.constructor.renderOptions(props.options || props.values, props.required);
+		// Remember normalized options for `getControlValue`
+		this._options = this.constructor.normalizeOptions(props.options || props.values, props.required);
+		const options = this.constructor.renderOptions(this._options);
 		return React.createElement("select", undefined, ...options);
 	}
+
+	// Map `selectedIndex` attribute of control to values from our normalized `_options`.
+	getControlValue(controlElement) {
+		return this._options[controlElement.selectedIndex][0];
+	}
+
 }

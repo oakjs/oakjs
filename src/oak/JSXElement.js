@@ -42,7 +42,6 @@ export default class JSXElement {
 
   // Given a JSXElement, `oid` string, return an oid string.
   // Returns `undefined` if none of the above.
-//DEPRECATED ?
   static getOid(thing) {
     if (typeof thing === "string") return thing;
     if (thing.oid) return thing.oid;
