@@ -14,7 +14,8 @@ import React, { PropTypes } from "react";
 import { classNames, unknownProps, mergeProps } from "oak-roots/util/react";
 import { definedProperties } from "oak-roots/util/object";
 
-import Label from "./Label";
+import Editor_Error from "./Error";
+import Editor_Label from "./Label";
 
 import "./Control.less";
 
@@ -110,10 +111,16 @@ export default class Control extends React.Component {
 		"className", "defaultValue", "disabled", "hidden", "id", "name", "required", "style", "tabIndex", "value"
 	];
 
-	// Keys of (normalized) props we'll pass pass down to our <label> element.
+	// Keys of (normalized) props we'll pass pass down to our <Editor_Label> element.
 	// Props whose values are `undefined` will be skipped.
 	static labelProps = [
 		"disabled", "hidden", "inline", "label", "labelOn", "required"
+	];
+
+	// Keys of (normalized) props we'll pass pass down to our <Editor_Error> element.
+	// Props whose values are `undefined` will be skipped.
+	static errorProps = [
+		"disabled", "hidden", "error", "required"
 	];
 
 	// Names of event handlers we'll take over and assign directly to the control.
@@ -288,7 +295,7 @@ export default class Control extends React.Component {
 	renderControl(props) {
 		// There can be only one.
 		if (React.Children.count(props.children) !== 1) {
-			console.error("Children must be exactly one element!", props.children);
+			console.error("Control must have exactly one child!!", props.children);
 			return undefined;
 		}
 
@@ -303,17 +310,30 @@ export default class Control extends React.Component {
 	// Render label.  Returns `undefined` if no label to display.
 	// Set `props.labelProps` to apply arbitrary properties to the label.
 	// Passed the normalized `props` from `normalizeProps()`.
-	renderLabel(props) {
+	renderLabel(props, children) {
 		if (!props.label) return undefined;
 
 		const labelProps = mergeProps(
 			props.labelProps,
 			definedProperties(props, ...this.constructor.labelProps),
 		);
+		if (children) labelProps.children = children;
 
-		// if labelOn is "wrapping", pass in the control to be wrapped
-		if (labelProps.labelOn === "wrapping") labelProps.children = props.$control;
-		return React.createElement(Label, labelProps);
+		return React.createElement(Editor_Label, labelProps);
+	}
+
+	// Render error.  Returns `undefined` if no error to display.
+	// Set `props.errorProps` to apply arbitrary properties to the error.
+	// Passed the normalized `props` from `normalizeProps()`.
+	renderError(props) {
+		if (!props.error) return undefined;
+
+		const errorProps = mergeProps(
+			props.errorProps,
+			definedProperties(props, ...this.constructor.errorProps),
+		);
+
+		return React.createElement(Editor_Error, errorProps);
 	}
 
 	// Return props to pass to our <label> element.
@@ -333,27 +353,6 @@ export default class Control extends React.Component {
 			<label {...this.getHintProps(props)}>
 				{props.hint}
 			</label>
-		);
-	}
-
-
-	// Return props to pass to our <label> element.
-	getErrorProps(props) {
-		return mergeProps(
-			{ className: "oak error" },
-			props.errorProps
-		);
-	}
-
-	// Render error.  Returns `undefined` if no error to display.
-	// Passed the normalized `props` from `normalizeProps()`.
-	renderError(props) {
-		if (!props.error) return undefined;
-// TODO:  <Editor-Error> ???
-		return (
-			<div {...this.getErrorProps(props)}>
-				{error}
-			</div>
 		);
 	}
 
@@ -403,37 +402,34 @@ export default class Control extends React.Component {
 		// forget it if we're hidden
 		if (props.hidden) return null;
 
-		// Render control.  This may end up being wrapped...
-		// NOTE: control MUST be first (since label may wrap the control if labelOn === "wrapping")
+		// Render control element.
+		// NOTE: control MUST be rendered first.
 		props.$control = this.renderControl(props);
 
-		// Render hint and add a wrapper if we got one.
+		// Forget it if we didn't get a control to draw.
+		if (!props.$control) return null;
+
+		// Render hint and error elements.
 		props.$hint = this.renderHint(props);
-		if (props.$hint) {
-			props.$control = <span className='hintWrapper'>{props.$control}{props.$hint}</span>;
+		props.$error = this.renderError(props);
+
+		// add a wrapper if we got a hint and/or error
+		if (props.$hint || props.$error) {
+			props.$control = <span className='controlWrapper'>{props.$error}{props.$control}{props.$hint}</span>;
 		}
 
-		// Render label, which might wrap the control
+		// Render label.
 		props.$label = this.renderLabel(props);
-
-		// Render error
-		props.$error = this.renderError(props);
 
 		// Render the wrapper and embedded contents
 		const wrapperProps = this.getWrapperProps(props);
 
-		// Assemble children in the correct order according to `labelOn`:
-		// - label surrounding the control (eg for Checkboxes)
-		if (props.labelOn === "wrapping") {
-			// note: in this case, the label will already wrap the control
-			return <div {...wrapperProps}>{props.$error}{props.$label}</div>;
-		}
-		// - label on right
-		else if (props.labelOn === "right") {
-			return <div {...wrapperProps}>{props.$error}{props.$control}{props.$label}</div>
+		// Assemble children in the correct order according to `labelOn`
+		if (props.labelOn === "right") {
+			return <div {...wrapperProps}>{props.$control}{props.$label}</div>
 		}
 		// - label on left by default
-		return <div {...wrapperProps}>{props.$error}{props.$label}{props.$control}</div>
+		return <div {...wrapperProps}>{props.$label}{props.$control}</div>
 	}
 
 }
@@ -520,7 +516,7 @@ export class Checkbox extends Input {
 
 	static defaultProps = {
 		type: "checkbox",
-		labelOn: "wrapping",
+		labelOn: "right",
 		labelProps: {
 			style: {
 				width: "auto"
@@ -528,6 +524,9 @@ export class Checkbox extends Input {
 		}
 	}
 
+//
+//	value semantics
+//
 	get trueValue() {
 		if (this._props.hasOwnProperty("trueValue")) return this._props.trueValue;
 		return true;
@@ -551,6 +550,23 @@ export class Checkbox extends Input {
 		controlProps.checked = (controlProps.value === this.trueValue);
 		return controlProps;
 	}
+
+//
+//	rendering
+//
+
+	// Wrap the control inside a <label> so clicking the label will toggle the checkbox.
+	renderControl(props) {
+		let $control = super.renderControl(props);
+		if ($control && props.label) return super.renderLabel(props, $control);
+		return $control;
+	}
+
+	// Label rendering happens inside `renderControl()`...
+	renderLabel(props) {
+		return undefined;
+	}
+
 }
 
 
@@ -577,25 +593,28 @@ export class Select extends Control {
 	//	- an array of scalar values, or
 	//	- an array of arrays as `[key, "label"]`, or
 	//	- a `{ key: label }` map
-	// return a normalized set of option values as: `[ [ key, "label" ], ...]`.
+	// return a normalized set of option values as: `[ { key, label }, ...]`.
 	//
 	// If not `required`, we'll add an empty item at the front of the list.
 	static normalizeOptions(options, required) {
 		let normalized;
 
 		if (Array.isArray(options)) {
-			normalized = options.map( option => (Array.isArray(option) ? option : [ option, "" + option ]) );
+			normalized = options.map( option => {
+				if (Array.isArray(option)) return { key: option[0], label: option[1] };
+				return { key: option, label: "" + option };
+			});
 		}
 		else if (typeof options === "object") {
 			normalized = [];
 			for (var key in options) {
-				normalized.push([ key, options[key] ]);
+				normalized.push({ key, label: ""+options[key] });
 			}
 		}
 
 		// if not required, add a blank item at the beginning of the list
 		if (!required) {
-			normalized.unshift([ undefined, "" ]);
+			normalized.unshift({ key: undefined, label: "" });
 		}
 
 		return normalized;
@@ -603,7 +622,7 @@ export class Select extends Control {
 
 	// Render a set of normalized options.
 	static renderOptions(options) {
-		return options.map( option => <option value={option[0]}>{option[1]}</option> );
+		return options.map( option => <option value={option.key}>{option.label}</option> );
 	}
 
 	// Create JUST the main control element (<input> etc) for this Control.
@@ -617,7 +636,7 @@ export class Select extends Control {
 
 	// Map `selectedIndex` attribute of control to values from our normalized `_options`.
 	getControlValue(controlElement) {
-		return this._options[controlElement.selectedIndex][0];
+		return this._options[controlElement.selectedIndex].key;
 	}
 
 }

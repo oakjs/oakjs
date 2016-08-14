@@ -7,7 +7,7 @@
 // Control wrapper element.
 // Styling is similar to default theme of Semantic UI.
 .oak.Control {
-//  background-color: #f8f8f8;
+  background-color: #f8f8f8;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -64,19 +64,21 @@
   }
 
   // Checkboxen
-  input[type="checkbox"],
-  input[type="radio"] {
-    margin-right: 0.4em;
-    cursor: pointer;
-  }
   &.Checkbox {
-    > .oak.label {
+    .oak.label {
+      cursor: pointer;
+      margin-left: 0;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin-right: 0.4em;
       cursor: pointer;
     }
   }
 
   // Label element.
-  & > .oak.label {
+  & .oak.label {
     position: relative;
     display: inline-block;
     color: rgba(0, 0, 0, 0.87);
@@ -115,7 +117,7 @@
     margin-top: .2142em;
   }
 
-  .hintWrapper {
+  .controlWrapper {
     display: inline-block;
     flex: 1;
   }

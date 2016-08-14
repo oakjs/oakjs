@@ -25,7 +25,6 @@
       border: "1px solid transparent"
     }}>
 
-
     <h5>Wrapped generic Control</h5>
     <Editor-Control name="foo" label="Foo:">
       <input/>
@@ -37,6 +36,7 @@
     <Editor-Text name="foo" label="Text Field:" width="10"/>
 
     <Editor-Password name="foo" label="Password Field:" tabIndex="20"
+      error={["Password doesn't match", "Password is not long enough"]}
       labelProps={{style:{color:"#999"}}} hint="At least 6 letters, numbers or special characters"/>
 
     <br/>
@@ -52,15 +52,15 @@
     <Editor-Output name="booleanSelect" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="checker" label="Checkbox" inline/>
+    <Editor-Checkbox name="checker" label="Checkbox" inline error="NOOOOO" width={5}/>
     <Editor-Output name="checker" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="yesno" label="Yes/No Checkbox" trueValue="yes" falseValue="no" inline/>
+    <Editor-Checkbox name="yesno" label="Yes/No Checkbox" trueValue="yes" falseValue="no" inline width={5}/>
     <Editor-Output name="yesno" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="trueUndefined" label="True/undefined Checkbox" falseValue={undefined} inline/>
+    <Editor-Checkbox name="trueUndefined" label="True/undefined Checkbox" falseValue={undefined} inline width={5}/>
     <Editor-Output name="trueUndefined" inline value={value => `(${typeof value}) ${value}`}/>
 
 

@@ -1,8 +1,8 @@
 //////////////////////////////
-// Editor.Label class
+// Editor.Editor_Label class
 //
 //	Simple label class rendered inside an `<Editor-Control>`
-//  We (currently) assuming that you're passing normalized props from a <Control> to its <Label>.
+//  We (currently) assuming that you're passing normalized props from a <Control> to its <Editor_Label>.
 //
 //////////////////////////////
 
@@ -60,7 +60,7 @@ export default class Label extends React.Component {
     if (hidden || (!label && !children)) return null;
 
     const labelProps = this.getRenderProps(this.props);
-    if (labelOn === "right" || labelOn === "wrapping") {
+    if (labelOn === "right") {
       return <label {...labelProps}>{children}{label}</label>;
     }
     return <label {...labelProps}>{label}{children}</label>;

@@ -120,8 +120,8 @@
 
 ##Open Questions
 - form `data` to `value` -- this might make more sense for nested fields, etc
-- <Editor-Hint> component
-- <Editor-Error> component
+- <Editor-Hint> component?
+- <Editor-Error> component?
 - form `errors` prop vs state and initial rendering without error?
 - @options vs @values for select?
 - validation methodology?
