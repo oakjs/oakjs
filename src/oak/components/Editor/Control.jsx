@@ -404,32 +404,33 @@ export default class Control extends React.Component {
 
 		// Render control element.
 		// NOTE: control MUST be rendered first.
-		props.$control = this.renderControl(props);
+		let control = this.renderControl(props);
 
 		// Forget it if we didn't get a control to draw.
-		if (!props.$control) return null;
+		if (!control) return null;
 
 		// Render hint and error elements.
-		props.$hint = this.renderHint(props);
-		props.$error = this.renderError(props);
+		const hint = this.renderHint(props);
+		const error = this.renderError(props);
 
-		// add a wrapper if we got a hint and/or error
-		if (props.$hint || props.$error) {
-			props.$control = <span className='controlWrapper'>{props.$error}{props.$control}{props.$hint}</span>;
+		// Add a wrapper around the control if we got a hint and/or error.
+		// This makes the hint/error line up with the control, not its label.
+		if (hint || error) {
+			control = <span className='controlWrapper'>{error}{control}{hint}</span>;
 		}
 
 		// Render label.
-		props.$label = this.renderLabel(props);
+		const label = this.renderLabel(props);
 
 		// Render the wrapper and embedded contents
 		const wrapperProps = this.getWrapperProps(props);
 
 		// Assemble children in the correct order according to `labelOn`
 		if (props.labelOn === "right") {
-			return <div {...wrapperProps}>{props.$control}{props.$label}</div>
+			return <div {...wrapperProps}>{control}{label}</div>
 		}
 		// - label on left by default
-		return <div {...wrapperProps}>{props.$label}{props.$control}</div>
+		return <div {...wrapperProps}>{label}{control}</div>
 	}
 
 }
@@ -555,7 +556,7 @@ export class Checkbox extends Input {
 //	rendering
 //
 
-	// Wrap the control inside a <label> so clicking the label will toggle the checkbox.
+	// Wrap the control inside a `<label>` so clicking the label will toggle the checkbox.
 	renderControl(props) {
 		let $control = super.renderControl(props);
 		if ($control && props.label) return super.renderLabel(props, $control);
