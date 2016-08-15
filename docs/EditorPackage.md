@@ -128,12 +128,9 @@
 ##Open Questions
 - form `data` to `value` -- this might make more sense for nested fields, etc
 - <Editor-Hint> component?
-- <Editor-Error> component?
 - form `errors` prop vs state and initial rendering without error?
-- @options vs @values for select?
 - validation methodology?
 - what grid model for complex styling?  16-column grid?  20?
-- use HTML "hidden" attribute to actually hide (will require CSS support for interaction with `display`)
 - external toolbar display / management?
 - “watchData” to auto-hookup save/cancel buttons to data `state`?
 

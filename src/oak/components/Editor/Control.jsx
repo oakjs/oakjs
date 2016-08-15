@@ -100,7 +100,8 @@ export default class Control extends React.Component {
 	// Keys of props which can optionally be specified as function expressions.
 	// Any functions will be evaluated in `normalizeProps()` as:
 	//		control[key](currentValue, form)
-	// Note `value` is always processed and is handled separately from this list -- see `get currrentValue()`
+	// Note `value` and `error` are always processed and is handled separately from this list
+	//	-- see `getCurrentValue()` and `getCurrentError()`
 	static expressionProps = [
 		"disabled", "label", "hidden", "hint", "required"
 	];
@@ -176,7 +177,8 @@ export default class Control extends React.Component {
 	getCurrentError(props) {
 		let error = undefined;
 		if (props.name && this.form) error = this.form.getErrorForControl(props.name);
-		if (error === undefined) error = props.error;
+		if (typeof props.error === "function") error = props.error.call(this, props.value);
+		else if (error === undefined) error = props.error;
 		return error;
 	}
 

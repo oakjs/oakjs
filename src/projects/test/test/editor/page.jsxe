@@ -52,15 +52,15 @@
     <Editor-Output name="booleanSelect" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="checker" label="Checkbox" inline error="NOOOOO" width={5}/>
+    <Editor-Checkbox name="checker" label="Checkbox" inline error={value => value === false && "FALSE"} width={3}/>
     <Editor-Output name="checker" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="yesno" label="Yes/No Checkbox" trueValue="yes" falseValue="no" inline width={5}/>
+    <Editor-Checkbox name="yesno" label="Yes/No Checkbox" trueValue="yes" falseValue="no" inline width={3}/>
     <Editor-Output name="yesno" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="trueUndefined" label="True/undefined Checkbox" falseValue={undefined} inline width={5}/>
+    <Editor-Checkbox name="trueUndefined" label="True/undefined Checkbox" falseValue={undefined} inline width={3}/>
     <Editor-Output name="trueUndefined" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
