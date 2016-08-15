@@ -80,7 +80,12 @@ module.exports = {
         test: /\.less$/,
         include: paths.src,
         loaders: ["style", "css", "less"]
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'file-loader'
       }
+
     ]
   }
 };

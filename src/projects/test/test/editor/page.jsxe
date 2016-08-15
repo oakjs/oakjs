@@ -64,11 +64,13 @@
     <Editor-Output name="trueUndefined" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Group name="address" label="Address:">
-      <Editor-Text name="street[0]" label="Street:"/>
-      <Editor-Text name="street[1]" label=""/>
+    <Editor-Group name="address" label="Address:" labelOn="top">
+      <Editor-Group name="street" label="Street:">
+        <Editor-Text name="0"/>
+        <Editor-Text name="1"/>
+      </Editor-Group>
       <Editor-Text name="city" label="City:"/>
-      <Editor-Text name="state" label="State:"/>
+      <Editor-Select name="state" label="State:" values={states}/>
       <Editor-Text name="zip" label="Zip Code:"/>
     </Editor-Group>
 

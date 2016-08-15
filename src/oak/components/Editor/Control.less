@@ -4,18 +4,31 @@
 //  - hint should wrap underneath field only
 
 
+.FIELD_APPEARANCE() {
+  background-color: #ffffff;
+  border: 1px solid rgba(34, 36, 38, 0.15);
+  border-radius: 0.285714rem;
+  box-shadow: 0 0 0 0 transparent inset;
+  color: rgba(0, 0, 0, 0.87);
+  line-height: 1.2142em;
+  margin: 0;
+  outline: none;
+  padding: 0.3em 0.5em;
+}
+
+
 // Control wrapper element.
 // Styling is similar to default theme of Semantic UI.
 .oak.Control {
-  border: 1px solid #eeeeee;
+//  border: 1px solid #eeeeee;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;  // vertical align center
   clear: both;
   margin: 0 0 .5em;
-  padding-left:10px;
-  padding-right: 10px;
+//  padding-left:10px;
+//  padding-right: 10px;
 
   &.inline {
     display: inline-flex;
@@ -40,16 +53,7 @@
   input[type="url"] {
     flex: 1;
     width: 100%;
-    background-color: #ffffff;
-    border: 1px solid rgba(34, 36, 38, 0.15);
-    border-radius: 0.285714rem;
-    box-shadow: 0 0 0 0 transparent inset;
-    color: rgba(0, 0, 0, 0.87);
-    line-height: 1.2142em;
-    margin: 0;
-    outline: medium none;
-    padding: 0.3em 0.5em;
-    transition: color 0.1s ease 0s, border-color 0.1s ease 0s;
+    .FIELD_APPEARANCE();
   }
 
   // Style outputs to match inputs
@@ -70,6 +74,26 @@
     input[type="radio"] {
       margin-right: 0.4em;
       cursor: pointer;
+    }
+  }
+
+  // Styling selects
+  select {
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+
+    .FIELD_APPEARANCE();
+    padding: 0.3em 2em 0.3em 0.5em;
+    cursor:pointer;
+
+    background-image: url("dropdown.png");
+    background-position: right 4px top 40%, right center;
+    background-repeat: no-repeat;
+
+    &:after {
+      content: "v";
     }
   }
 
@@ -173,10 +197,11 @@
 
 
 .oak.Group {
-  border: 1px solid #dddddd;
+//  border: 1px solid #dddddd;
   display: flex;
   flex-wrap: wrap;
   align-items: center;  // vertical align center
+  margin-bottom: 0;
 
   .groupWrapper {
     flex: 1;

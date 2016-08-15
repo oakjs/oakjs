@@ -7,10 +7,6 @@
 
 import React, { PropTypes } from "react";
 
-import { definedProperties } from "oak-roots/util/object";
-import { getPath, setPath } from "oak-roots/util/path";
-import { classNames, mergeProps } from "oak-roots/util/react";
-
 import Control from "./Control";
 
 const stringOrFn = PropTypes.oneOfType([
@@ -19,6 +15,10 @@ const stringOrFn = PropTypes.oneOfType([
 ]);
 
 export default class Group extends Control {
+	static propTypes = {
+	  ...Control.propTypes,
+		bordered: PropTypes.bool,							// Show border?
+	}
 
   // Pass our `props.name` down as the `namePrefix` of any children.
   static childContextTypes = {
@@ -27,10 +27,11 @@ export default class Group extends Control {
 
   getChildContext() {
     return {
-      namePrefix: this.props.name
+      namePrefix: this.controlName
     }
   }
 
+  // Put a wrapper around the controls (to separate them from the label).
   renderControl(props) {
     return (
       <div className='groupWrapper'>

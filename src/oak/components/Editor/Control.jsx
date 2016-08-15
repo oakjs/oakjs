@@ -154,6 +154,7 @@ export default class Control extends React.Component {
 	}
 
 	// Return the current value of the field according to our `form` and/or `value`.
+	// Passed the normalized `props` from `normalizeProps()`.
 	getCurrentValue(props) {
 		let value = undefined;
 
@@ -171,6 +172,7 @@ export default class Control extends React.Component {
 	}
 
 	// Return the current error of the field according to our `form` and/or `error`.
+	// Passed the normalized `props` from `normalizeProps()`.
 	getCurrentError(props) {
 		let error = undefined;
 		if (props.name && this.form) error = this.form.getErrorForControl(props.name);
@@ -235,15 +237,21 @@ export default class Control extends React.Component {
 //	Rendering
 //
 
-	// Normalize dynamic props before rendering.
-	// Returns a clone of the props passed in, with all functions expanded to actual values, etc.
-	normalizeProps() {
+	get controlName() {
 		// Figure out the full "name" of this control, including our `namePrefix`.
 		let controlName = this.props.name;
 		// if we have a `namePrefix`, add its `name` to ours
 		if (controlName && this.context.namePrefix) {
 			controlName = `${this.context.namePrefix}.${controlName}`;
 		}
+		return controlName;
+	}
+
+	// Normalize dynamic props before rendering.
+	// Returns a clone of the props passed in, with all functions expanded to actual values, etc.
+	normalizeProps() {
+		// Figure out the full "name" of this control, including our `namePrefix`.
+		let controlName = this.controlName;
 
 		// Merge props from the form with explicit props set on this control.
 		const props = mergeProps(
@@ -264,6 +272,9 @@ export default class Control extends React.Component {
 			if (typeof props[key] === "function") props[key] = props[key].call(this, props.value, form);
 		});
 
+		// Make sure we actually display an empty string label.  (???)
+		if (props.label === "") props.label = " ";		// <-- `&nbsp;` in utf-8
+
 		// Create a control child if one was not passed in
 		if (!props.children) props.children = this.createControlElement(props);
 
@@ -275,6 +286,7 @@ export default class Control extends React.Component {
 
 
 	// Return properties to monkey-patch into the managed control.
+	// Passed the normalized `props` from `normalizeProps()`.
 	getControlProps(controlElement, props) {
 		// Get the union of:
 		const controlProps = mergeProps(
@@ -598,35 +610,49 @@ export class Select extends Control {
 	static propTypes = {
 		...Control.propTypes,
 		values: PropTypes.any,								// List of valid `values` from schema.
-		options: PropTypes.any								// Specifier for HTML options, overides `values`.
+		options: PropTypes.any,								// Specifier for HTML options, overides `values`.
+
+		placeholder: stringOrFn,							// placeholder attribute shown inside field.
 	}
+
+	// Dynamic input properties.
+	static expressionProps = [
+		...Control.controlProps, "placeholder"
+	];
 
 	// Given a set of options as:
 	//	- an array of scalar values, or
-	//	- an array of arrays as `[key, "label"]`, or
-	//	- a `{ key: label }` map
-	// return a normalized set of option values as: `[ { key, label }, ...]`.
+	//	- an array of arrays as `[value, "label"]`, or
+	//	- a `{ value: label }` map
+	// return a normalized set of option values as: `[ { value, label }, ...]`.
 	//
-	// If not `required`, we'll add an empty item at the front of the list.
-	static normalizeOptions(options, required) {
+	// If not `required`, we'll add an empty item at the front of the list with `{ value: undefined, label: placeholder }`.
+	static normalizeOptions(options, required, placeholder = "") {
 		let normalized;
 
 		if (Array.isArray(options)) {
 			normalized = options.map( option => {
-				if (Array.isArray(option)) return { key: option[0], label: option[1] };
-				return { key: option, label: "" + option };
+				if (Array.isArray(option)) return { value: option[0], label: option[1] };
+				return { value: option, label: "" + option };
 			});
 		}
 		else if (typeof options === "object") {
 			normalized = [];
-			for (var key in options) {
-				normalized.push({ key, label: ""+options[key] });
+			for (var value in options) {
+				normalized.push({ value, label: ""+options[value] });
 			}
 		}
 
+		normalized.forEach( option => {
+			if (option.label.startsWith("-")) {
+				option.disabled = true;
+				option.label = option.label.substr(1);
+			}
+		});
+
 		// if not required, add a blank item at the beginning of the list
 		if (!required) {
-			normalized.unshift({ key: undefined, label: "" });
+			normalized.unshift({ value: undefined, label: placeholder });
 		}
 
 		return normalized;
@@ -634,21 +660,21 @@ export class Select extends Control {
 
 	// Render a set of normalized options.
 	static renderOptions(options) {
-		return options.map( option => <option value={option.key}>{option.label}</option> );
+		return options.map( option => <option {...option}/> );
 	}
 
 	// Create JUST the main control element (<input> etc) for this Control.
 	// This will be merged with properties from `getControlProps()`.
 	createControlElement(props) {
 		// Remember normalized options for `getControlValue`
-		this._options = this.constructor.normalizeOptions(props.options || props.values, props.required);
+		this._options = this.constructor.normalizeOptions(props.options || props.values, props.required, props.placeholder);
 		const options = this.constructor.renderOptions(this._options);
 		return React.createElement("select", undefined, ...options);
 	}
 
 	// Map `selectedIndex` attribute of control to values from our normalized `_options`.
 	getControlValue(controlElement) {
-		return this._options[controlElement.selectedIndex].key;
+		return this._options[controlElement.selectedIndex].value;
 	}
 
 }
