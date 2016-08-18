@@ -71,7 +71,7 @@
       </Editor-Group>
       <Editor-Text name="city" label="City:"/>
       <Editor-Select name="state" label="State:" values={states}/>
-      <Editor-Text name="zip" label="Zip Code:"/>
+      <Editor-Text name="zip" label="Zip Code:" size="5"/>
     </Editor-Group>
 
 

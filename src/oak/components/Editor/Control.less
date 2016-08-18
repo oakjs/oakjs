@@ -4,16 +4,26 @@
 //  - hint should wrap underneath field only
 
 
+.NO_DEFAULT_APPEARANCE() {
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+}
+
 .FIELD_APPEARANCE() {
   background-color: #ffffff;
   border: 1px solid rgba(34, 36, 38, 0.15);
   border-radius: 0.285714rem;
   box-shadow: 0 0 0 0 transparent inset;
   color: rgba(0, 0, 0, 0.87);
-  line-height: 1.2142em;
+  line-height: 1.2142em !important;
   margin: 0;
   outline: none;
   padding: 0.3em 0.5em;
+
+  &:focus {
+    border-color: #96c8da;
+  }
 }
 
 
@@ -56,6 +66,11 @@
     .FIELD_APPEARANCE();
   }
 
+  input[size] {
+    flex: 0;
+    width: auto;
+  }
+
   // Style outputs to match inputs
   output {
     display: inline-block;
@@ -73,28 +88,50 @@
     input[type="checkbox"],
     input[type="radio"] {
       margin-right: 0.4em;
-      cursor: pointer;
+
+    /* THIS WORKS IN WEBKIT, NOT IN MOZ:
+      .NO_DEFAULT_APPEARANCE();
+
+      &:after {
+        .FIELD_APPEARANCE();
+        position: relative;
+        display: inline-block;
+        top: 0.2em;
+        width: 1.5em;
+        height: 1.5em;
+        content: " ";
+      }
+
+      &:focus {
+        outline: none;
+        &:after {
+          border-color: #96c8da;
+        }
+      }
+
+      &[checked] {
+        &:after {
+          background-color: rgba(34, 36, 38, 0.15);
+        }
+      }
+    */
     }
   }
 
   // Styling selects
   select {
-    display: inline-block;
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    appearance:none;
-
+    .NO_DEFAULT_APPEARANCE();
     .FIELD_APPEARANCE();
+    display: inline-block;
     padding: 0.3em 2em 0.3em 0.5em;
+    // FF Mac wants this to be consistent with <input>s...
+    // padding: 0.2em 2em 0.3em 0.25em;
     cursor:pointer;
 
+    // dropdown appearance
     background-image: url("dropdown.png");
     background-position: right 4px top 40%, right center;
     background-repeat: no-repeat;
-
-    &:after {
-      content: "v";
-    }
   }
 
   // Label element.

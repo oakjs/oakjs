@@ -573,7 +573,9 @@ export class Checkbox extends Input {
 	// map `value` to `checked` in controlProps.
 	getControlProps(control, props) {
 		const controlProps = super.getControlProps(control, props);
-		controlProps.checked = (controlProps.value === this.trueValue);
+		if (props.value === this.trueValue) controlProps.checked = "checked";
+		delete controlProps.value;
+console.info(props.name, props.value, this.trueValue, controlProps);
 		return controlProps;
 	}
 
@@ -584,7 +586,7 @@ export class Checkbox extends Input {
 	// Wrap the control inside a `<label>` so clicking the label will toggle the checkbox.
 	renderControl(props) {
 		let $control = super.renderControl(props);
-		if ($control && props.label) return super.renderLabel(props, $control);
+		if ($control && props.label != null) return super.renderLabel(props, $control);
 		return $control;
 	}
 
@@ -614,12 +616,18 @@ export class Select extends Control {
 		values: PropTypes.any,								// List of valid `values` from schema.
 		options: PropTypes.any,								// Specifier for HTML options, overides `values`.
 
+		multiple: PropTypes.bool,							// multi-select?
 		placeholder: stringOrFn,							// placeholder attribute shown inside field.
 	}
 
 	// Dynamic input properties.
 	static expressionProps = [
-		...Control.controlProps, "placeholder"
+		...Control.expressionProps, "placeholder"
+	];
+
+	// Properties passed to control.
+	static controlProps = [
+		...Control.controlProps, "multiple"
 	];
 
 	// Given a set of options as:
@@ -662,8 +670,16 @@ export class Select extends Control {
 
 	// Render a set of normalized options.
 	static renderOptions(options) {
-		return options.map( option => <option {...option}/> );
+		return options.map( option => <option {...option}>{option.label}</option> );
 	}
+
+
+	getCurrentValue(props) {
+		const value = super.getCurrentValue(props);
+		if (props.multiple && !Array.isArray(value)) return [value];
+		return value;
+	}
+
 
 	// Create JUST the main control element (<input> etc) for this Control.
 	// This will be merged with properties from `getControlProps()`.
@@ -675,8 +691,13 @@ export class Select extends Control {
 	}
 
 	// Map `selectedIndex` attribute of control to values from our normalized `_options`.
-	getControlValue(controlElement) {
-		return this._options[controlElement.selectedIndex].value;
+	getControlValue(selectElement) {
+		// Return an array for multi-select.
+		if (this._props.multiple) {
+			return this._options.map( (option, index) => selectElement.options[index].selected && option.value )
+				.filter(Boolean);
+		}
+		return this._options[selectElement.selectedIndex].value;
 	}
 
 }
