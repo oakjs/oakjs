@@ -10,6 +10,7 @@
     "jquery.js",
     "React-15.01.js",
     "ReactDom-15.01.js",
+    "PropTypes-patch.js",
     "ReactRouter.js",
     "SemanticUI/semantic.min.js"
   ],
