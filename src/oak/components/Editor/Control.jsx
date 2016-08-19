@@ -575,7 +575,6 @@ export class Checkbox extends Input {
 		const controlProps = super.getControlProps(control, props);
 		if (props.value === this.trueValue) controlProps.checked = "checked";
 		delete controlProps.value;
-console.info(props.name, props.value, this.trueValue, controlProps);
 		return controlProps;
 	}
 
