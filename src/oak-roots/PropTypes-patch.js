@@ -189,7 +189,7 @@ function propTypesToSchema(propTypes, defaultProps) {
   if (propTypes) {
 	  const required = [];
   	Object.keys(propTypes).forEach(key => {
-			schema.properties[key] = propTypes[key].schema;
+			schema.properties[key] = Object.assign({ title: key }, propTypes[key].schema);
 			if (schema.properties[key].isRequired) required.push(key);
 		});
 	  if (required.length) schema.required = required;

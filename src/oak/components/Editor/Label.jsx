@@ -13,7 +13,7 @@ import { classNames, mergeProps } from "oak-roots/util/react";
 export default class Label extends React.Component {
 	static propTypes = {
   // content
-    label: PropTypes.string,              // string label to display
+    title: PropTypes.string,              // string label to display
 	  children: PropTypes.any,              // custom children (will be placed BEFORE the label)
 
   // schema properties
@@ -54,16 +54,16 @@ export default class Label extends React.Component {
   }
 
   render() {
-    const { hidden, label, children, labelOn } = this.props;
+    const { hidden, title, children, labelOn } = this.props;
 
-    // forget it if we're `hidden` or have neither `label` nor `children`.
-    if (hidden || ((label === null || label === undefined) && !children)) return null;
+    // forget it if we're `hidden` or have neither `title` nor `children`.
+    if (hidden || ((title === null || title === undefined) && !children)) return null;
 
     const labelProps = this.getRenderProps(this.props);
     if (labelOn === "right") {
-      return <label {...labelProps}>{children}{label}</label>;
+      return <label {...labelProps}>{children}{title}</label>;
     }
-    return <label {...labelProps}>{label}{children}</label>;
+    return <label {...labelProps}>{title}{children}</label>;
   }
 
 }

@@ -16,11 +16,11 @@ export default class ComponentEditor extends Form {
   static propTypes = {
     ...Form.propTypes,
 
-    // add component we're editing, as a string (from `context.components`) or a `React.Component`.
-    component: PropTypes.oneOf([
+    // Type of component we're editing, as a string (from `context.components`) or a `React.Component`.
+    Component: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(React.Component)
-    ]).isRequired;
+    ]).isRequired
   }
 
   // Get current components map from context.
@@ -31,27 +31,27 @@ export default class ComponentEditor extends Form {
 
   // Return the component for this Editor
   get Component() {
-    const { component } = this.props;
-    if (!component) return undefined;
+    const { Component } = this.props;
+    if (!Component) return undefined;
 
     // Ghetto-check for React.Component subclass.
     // If we don't have propTypes, we can't effecively work with the component.
-    if (component.propTypes) return component;
+    if (Component.propTypes) return Component;
 
     // Named component?
-    if (typeof component === "string") {
+    if (typeof Component === "string") {
       const { components } = this.context;
       if (!components) {
-        console.warn(`ComponentEditor created without 'context.components' for ${component}`);
+        console.warn(`ComponentEditor created without 'context.components' for ${Component}`);
         return undefined;
       }
-      else if (!components[component]) {
-        console.warn(`ComponentEditor can't find named component ${component}`);
+      else if (!components[Component]) {
+        console.warn(`ComponentEditor can't find named component ${Component}`);
         return undefined;
       }
-      return components[component];
+      return components[Component];
     }
-    console.warn(`ComponentEditor can't understand component`, component);
+    console.warn(`ComponentEditor can't understand component`, Component);
   }
 
   // Return JSON-schema associated with our Component.
@@ -65,7 +65,7 @@ export default class ComponentEditor extends Form {
   getPropsForControl(controlName) {
     const schema = this.schema;
     const props = getPath(controlName, schema && schema.properties);
-    const required = schema && schema.required && schema.required[controlName];
+    const required = !!(schema && schema.required && schema.required.includes(controlName));
     if (!props && !required) return undefined;
 
     // Munge the props

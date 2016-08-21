@@ -2,7 +2,7 @@
 // Editor.Control class
 //
 //	Base class for all editor controls which renders a `control` inside a wrapper element,
-//	with `label`, `errors`, `hint`, etc.
+//	with `title`, `errors`, `hint`, etc.
 //
 //	The base class can be used to wrap an arbitrary component,
 //	use a subclass to auto-create an inner `control`.
@@ -48,7 +48,6 @@ export default class Control extends React.Component {
 		disabled: boolOrFn,										// boolean or function => if true, disable the control + label
 		hidden: boolOrFn,											// boolean or function => if true, hide the control + label
 		required: boolOrFn,										// boolean or function => if true, field is required
-// 	values: PropTypes.any
 //	validators: PropTypes.array,
 
 	// display
@@ -63,7 +62,7 @@ export default class Control extends React.Component {
 		controlProps: PropTypes.object,				// arbitrary properties to apply directly to the control
 
 	// auto-generated label element
-		label: stringOrFn,										// String or function for field label
+		title: stringOrFn,										// String or function for field label
 		labelOn: PropTypes.string,						// Where does the label appear?
 		labelProps: PropTypes.object,					// properties to apply to the label element (eg: class, style, etc)
 
@@ -103,10 +102,10 @@ export default class Control extends React.Component {
 	// Note `value` and `error` are always processed and is handled separately from this list
 	//	-- see `getCurrentValue()` and `getCurrentError()`
 	static expressionProps = [
-		"disabled", "label", "hidden", "hint", "required"
+		"disabled", "title", "hidden", "hint", "required"
 	];
 
-	// Keys of (normalized) props we'll pass directly to the control.
+	// Keys of (normalized) props we'll pass directly to the control wrapper element.
 	// These are in addition to any explicit `controlProps` or anything not in our `propTypes`.
 	// Props whose values are `undefined` will be skipped.
 	static controlProps = [
@@ -116,7 +115,7 @@ export default class Control extends React.Component {
 	// Keys of (normalized) props we'll pass pass down to our <Editor_Label> element.
 	// Props whose values are `undefined` will be skipped.
 	static labelProps = [
-		"disabled", "hidden", "inline", "label", "labelOn", "required"
+		"disabled", "hidden", "inline", "labelOn", "required", "title"
 	];
 
 	// Keys of (normalized) props we'll pass pass down to our <Editor_Error> element.
@@ -275,7 +274,7 @@ export default class Control extends React.Component {
 		});
 
 		// Make sure we actually display an empty string label.  (???)
-		if (props.label === "") props.label = " ";		// <-- `&nbsp;` in utf-8
+		if (props.title === "") props.title = " ";		// <-- `&nbsp;` in utf-8
 
 		// Create a control child if one was not passed in
 		if (!props.children) props.children = this.createControlElement(props);
@@ -336,7 +335,7 @@ export default class Control extends React.Component {
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderLabel(props, children) {
 		// NOTE: render label as an empty string... ???
-		if (props.label === null || props.label === undefined) return undefined;
+		if (props.title === null || props.title === undefined) return undefined;
 
 		const labelProps = mergeProps(
 			props.labelProps,
@@ -361,7 +360,7 @@ export default class Control extends React.Component {
 		return React.createElement(Editor_Error, errorProps);
 	}
 
-	// Return props to pass to our <label> element.
+	// Return props to pass to our hint element.
 	getHintProps(props) {
 		return mergeProps(
 			{ className: "oak hint" },
@@ -488,7 +487,7 @@ export class Output extends Control {
 }
 
 
-// Generic "<Input>" class
+// Generic `<Editor-Input>` class
 export class Input extends Control {
 	// Add <input> specific propTypes
 	static propTypes = {
@@ -516,14 +515,20 @@ export class Input extends Control {
 }
 
 
-// Text string field.
+// `<Editor-Text>` class -- string text field.
 export class Text extends Input {
 	static defaultProps = {
 		inputType: "text"
 	}
+
+	getCurrentValue(props) {
+		const value = super.getCurrentValue(props);
+		if (value === undefined || value === null) return "";
+		return value;
+	}
 }
 
-// Password field.
+// `<Editor-Password>` class -- password text field.
 export class Password extends Input {
 	static defaultProps = {
 		inputType: "password"
@@ -532,7 +537,7 @@ export class Password extends Input {
 
 
 
-// Checkbox field.
+// `<Editor-Checkbox>` class
 export class Checkbox extends Input {
 	static propTypes = {
 		...Input.propTypes,
@@ -612,7 +617,7 @@ export class Select extends Control {
 	// Add <input> specific propTypes
 	static propTypes = {
 		...Control.propTypes,
-		values: PropTypes.any,								// List of valid `values` from schema.
+		"enum": PropTypes.any,								// List of valid `enum` values from schema.
 		options: PropTypes.any,								// Specifier for HTML options, overides `values`.
 
 		multiple: PropTypes.bool,							// multi-select?
@@ -637,7 +642,7 @@ export class Select extends Control {
 	//
 	// If not `required`, we'll add an empty item at the front of the list with `{ value: undefined, label: placeholder }`.
 	static normalizeOptions(options, required, placeholder = "") {
-		let normalized;
+		let normalized = [];
 
 		if (Array.isArray(options)) {
 			normalized = options.map( option => {
@@ -684,7 +689,7 @@ export class Select extends Control {
 	// This will be merged with properties from `getControlProps()`.
 	createControlElement(props) {
 		// Remember normalized options for `getControlValue`
-		this._options = this.constructor.normalizeOptions(props.options || props.values, props.required, props.placeholder);
+		this._options = this.constructor.normalizeOptions(props.options || props["enum"], props.required, props.placeholder);
 		const options = this.constructor.renderOptions(this._options);
 		return React.createElement("select", undefined, ...options);
 	}
@@ -693,10 +698,40 @@ export class Select extends Control {
 	getControlValue(selectElement) {
 		// Return an array for multi-select.
 		if (this._props.multiple) {
-			return this._options.map( (option, index) => selectElement.options[index].selected && option.value )
-				.filter(Boolean);
+			const value = [];
+			this._options.forEach( (option, index) => {
+				if (selectElement.options[index].selected) value.push(option.value);
+			});
+			return value;
 		}
 		return this._options[selectElement.selectedIndex].value;
+	}
+
+}
+
+
+// Dynamic Control -- renders a different Control according to schema setup.
+// TODO: rename me!
+export class Dynamic extends Control {
+
+	render() {
+		// Normalized props before rendering.
+		const props = this.normalizeProps();
+
+		if (props.enum) {
+			return <Select {...this.props}/>;
+		}
+
+		// return appropriate Input according to `type`.
+		let { type } = props;
+
+		// checkbox?
+		if (type === "boolean") return <Checkbox {...this.props}/>;
+
+		// map types
+		if (type === "string") type = "text";
+
+		return <Input {...this.props} inputType={type}/>
 	}
 
 }
