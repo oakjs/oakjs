@@ -40,15 +40,15 @@
       labelProps={{style:{color:"#999"}}} hint="At least 6 letters, numbers or special characters"/>
 
     <br/>
-    <Editor-Select name="select" title="Select:" values={["yes","no"]} inline/>
+    <Editor-Select name="select" title="Select:" options={["yes","no"]} inline/>
     <Editor-Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Select name="select" title="Required Select:" required values={{ yes: "YES", no: "NO" }}  inline/>
+    <Editor-Select name="select" title="Required Select:" required options={{ yes: "YES", no: "NO" }}  inline/>
     <Editor-Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Select name="booleanSelect" title="Boolean Select:" values={[true, false]} inline/>
+    <Editor-Select name="booleanSelect" title="Boolean Select:" options={[true, false]} inline/>
     <Editor-Output name="booleanSelect" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
@@ -70,7 +70,7 @@
         <Editor-Text name="1"/>
       </Editor-Group>
       <Editor-Text name="city" title="City:"/>
-      <Editor-Select name="state" title="State:" values={states}/>
+      <Editor-Select name="state" title="State:" options={states}/>
       <Editor-Text name="zip" title="Zip Code:" size="5"/>
     </Editor-Group>
 

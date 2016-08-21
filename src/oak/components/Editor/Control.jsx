@@ -592,7 +592,7 @@ export class Checkbox extends Input {
 	// Wrap the control inside a `<label>` so clicking the label will toggle the checkbox.
 	renderControl(props) {
 		let $control = super.renderControl(props);
-		if ($control && props.label != null) return super.renderLabel(props, $control);
+		if ($control && props.title != null) return super.renderLabel(props, $control);
 		return $control;
 	}
 
