@@ -72,17 +72,32 @@ export default class Form extends React.Component {
     this.forceUpdate();
   }
 
-  // Return (non-normalized) properties for a specific control according to our schema
-  //  and our `props.controlProps`.
-  getPropsForControl(controlName) {
-    const { schema, controlProps } = this.props;
+  get schema() {
+    return this.props.schema;
+  }
 
-    const schemaProps = schema && controlName && schema[controlName];
+  // Return (non-normalized) properties for a specific control
+  //  according to our `schema` and our `props.controlProps`.
+  // NOTE: this is current JSON-schema specific...
+  getPropsForControl(controlName) {
+    const { controlProps } = this.props;
+    const schemaProps = this.schemaPropsForControl(controlName);
+
     if (schemaProps && controlProps) return mergeProps(controlProps, schemaProps);
     if (schemaProps) return schemaProps;
     return controlProps;
   }
 
+  // Return normalized schema properties for a specific control.
+  // NOTE: this is JSON-schema specific at this point...
+  // TODO: move this into a subclass or property-inject it somehow
+  schemaPropsForControl(controlName) {
+    const { schema } = this;
+
+    // TODO: nested/complex schema...
+    if (!schema || !schema[controlName]) return undefined;
+
+  }
 
   // Return the value we should
   getValueForControl(controlName) {

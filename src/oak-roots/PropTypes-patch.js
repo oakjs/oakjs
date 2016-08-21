@@ -185,7 +185,7 @@ function propTypesToSchema(propTypes, defaultProps) {
   	properties: {}
   };
 
-  // build the schema properties
+  // Build the schema `properties` & `required`entries
   if (propTypes) {
 	  const required = [];
   	Object.keys(propTypes).forEach(key => {
@@ -195,7 +195,7 @@ function propTypesToSchema(propTypes, defaultProps) {
 	  if (required.length) schema.required = required;
 	}
 
-  // Add defaultProps if passed in.
+  // Add `defaultProps` as property `default`s if passed in.
   if (defaultProps) {
   	Object.keys(defaultProps).forEach( key => {
 	  	if (!schema.properties[key]) schema.properties[key] = {};
