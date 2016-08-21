@@ -1,7 +1,7 @@
 //////////////////////////////
-// Editor.Control class
+// Editor.Form class
 //
-// Base class for all editor controls.
+// Form class which optionally works with a `JSON schema` to initialize properties.
 //////////////////////////////
 
 import React, { PropTypes } from "react";
@@ -19,7 +19,8 @@ export default class Form extends React.Component {
 
   // data semantics
     data: PropTypes.any,              // object we're editing
-    state: PropTypes.string,          // "loading", "error", "saving", "saved"
+    mode: PropTypes.string,           // "loading", "error", "saving", "saved"
+    schema: PropTypes.object,         // JSON schema for this form.
 
   // saving semantics
     immediate: PropTypes.bool,        // `true` = immediate edit of data, `false` = `save()` cycle.
@@ -142,7 +143,7 @@ export default class Form extends React.Component {
     return classNames(
       "oak Editor",
       props.className,
-      props.state
+      props.mode
     );
   }
 
