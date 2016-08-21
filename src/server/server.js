@@ -9,7 +9,7 @@ import webpackHotMiddleware from "webpack-hot-middleware";
 const isDeveloping = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
 const port = isDeveloping ? 3000 : process.env.PORT;
-const oak = express();
+const app = express();
 
 import config from "./config";
 
@@ -32,8 +32,8 @@ if (isDeveloping) {
     }
   });
 
-  oak.use(middleware);
-  if (config.useHMR) oak.use(webpackHotMiddleware(compiler));
+  app.use(middleware);
+  if (config.useHMR) app.use(webpackHotMiddleware(compiler));
 }
 
 
@@ -42,24 +42,24 @@ if (isDeveloping) {
 //////////////////////////////
 
 // anything in `public` gets served directly
-oak.use(express.static(config.paths.public));
+app.use(express.static(config.paths.public));
 
 // API routines split into their own file
 import apiRouter from "./api";
-oak.use("/api", apiRouter);
+app.use("/api", apiRouter);
 
 
 //////////////////////////////
 //  Dev & production specific
 //////////////////////////////
 if (isDeveloping) {
-  oak.get("*", function response(request, response) {
+  app.get("*", function response(request, response) {
     response.write(middleware.fileSystem.readFileSync(config.paths.oakBuildHTMLFile));
     response.end();
   });
 } else {
-  oak.use(express.static(config.paths.build));
-  oak.get("*", function response(request, response) {
+  app.use(express.static(config.paths.build));
+  app.get("*", function response(request, response) {
     response.sendFile(config.paths.oakBuildHTMLFile);
   });
 }
@@ -68,7 +68,7 @@ if (isDeveloping) {
 //////////////////////////////
 //  Start listening
 //////////////////////////////
-oak.listen(port, "localhost", function onStart(err) {
+app.listen(port, "localhost", function onStart(err) {
   if (err) {
     console.log(err);
   }
