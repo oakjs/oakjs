@@ -207,5 +207,6 @@ function propTypesToSchema(propTypes, defaultProps) {
 }
 
 function schemaForComponent(Component) {
+	if (!Component) return undefined;
 	return propTypesToSchema(Component.propTypes, Component.defaultProps);
 }
