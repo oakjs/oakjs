@@ -494,7 +494,7 @@ export class Input extends Control {
 	static propTypes = {
 		...Control.propTypes,
 
-		type: PropTypes.string,								// input type
+		inputType: PropTypes.string,					// <input type> attribute
 		placeholder: stringOrFn,							// placeholder attribute shown inside field.
 	}
 
@@ -505,13 +505,13 @@ export class Input extends Control {
 
 	// Pass input-specific properties to the control.
 	static controlProps = [
-		...Control.controlProps, "placeholder", "type"
+		...Control.controlProps, "placeholder"
 	];
 
 	// Create JUST the main control element (<input> etc) for this Control.
 	// This will be merged with properties from `getControlProps()`.
 	createControlElement(props) {
-		return React.createElement("input");
+		return React.createElement("input", { type: props.inputType });
 	}
 }
 
@@ -519,14 +519,14 @@ export class Input extends Control {
 // Text string field.
 export class Text extends Input {
 	static defaultProps = {
-		type: "text"
+		inputType: "text"
 	}
 }
 
 // Password field.
 export class Password extends Input {
 	static defaultProps = {
-		type: "password"
+		inputType: "password"
 	}
 }
 
@@ -541,7 +541,7 @@ export class Checkbox extends Input {
 	}
 
 	static defaultProps = {
-		type: "checkbox",
+		inputType: "checkbox",
 		labelOn: "right",
 		labelProps: {
 			style: {
