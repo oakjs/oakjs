@@ -58,16 +58,6 @@ function saveTextFile(request, response, path, body) {
 }
 
 
-function debugParams(query) {
-  const { debug, force } = query;
-
-  const options = {};
-  if (debug !== undefined) options.debug = debug !== "false";
-  if (force !== undefined) options.force = force !== "false";
-  return options;
-}
-
-
 //////////////////////////////
 //  Oak actions
 //////////////////////////////
@@ -91,7 +81,7 @@ router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) =
   const { action, projectId, sectionId, pageId } = request.params;
   const page = new Page({ projectId, sectionId, pageId });
   switch (action) {
-    case "bundle":  return page.getBundle(response, request.query.force !== "true");
+    case "bundle":  return page.getBundle(response, request.query.force === "true");
     case "jsxe":    return page.getJSXE(response);
     case "script":  return page.getScript(response);
     case "styles":  return page.getStyles(response);
@@ -145,7 +135,7 @@ router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const section = new Section({ projectId, sectionId });
   switch (action) {
-    case "bundle":  return section.getBundle(response, request.query.force !== "true");
+    case "bundle":  return section.getBundle(response, request.query.force === "true");
     case "jsxe":    return section.getJSXE(response);
     case "script":  return section.getScript(response);
     case "styles":  return section.getStyles(response);
@@ -199,7 +189,7 @@ router.get("/project/:projectId/:action",  (request, response) => {
   const { action, projectId } = request.params;
   const project = new Project({ projectId });
   switch (action) {
-    case "bundle":  return project.getBundle(response, request.query.force !== "true");
+    case "bundle":  return project.getBundle(response, request.query.force === "true");
     case "jsxe":    return project.getJSXE(response);
     case "script":  return project.getScript(response);
     case "styles":  return project.getStyles(response);
@@ -254,7 +244,8 @@ router.get("/bundle", (request, response) => {
     errorStatus: 500,
     errorMessage: "Error bundling files",
     ...queryOptions,
-    ...debugParams(request.query),
+    debug: debug === "true",
+    force: force === "true",
     response,
     trusted: false,
   };
