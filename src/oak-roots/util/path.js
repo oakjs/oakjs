@@ -57,13 +57,17 @@ export function splitPath(pathString) {
 }
 
 
-export function getPath(pathString, object) {
+
+// Given a path string, return `object.path.path.path` or `undefined`.
+// Pass an integer value to `_omitSteps` to omit that number of steps on the end of the path.
+export function getPath(pathString, object, _omitSteps = 0) {
   if (object == null || !pathString) return object;
   const path = splitPath(pathString);
   if (!path) return undefined;
 
   let target = object;
-  for (let i = 0; i < path.length; i++) {
+  const lastStep = path.length - _omitSteps;
+  for (let i = 0; i < lastStep; i++) {
     const key = path[i];
     if (target == null || target[key] == null) return undefined;
     target = target[key];
@@ -71,6 +75,14 @@ export function getPath(pathString, object) {
   return target;
 }
 
+// Given a path string, the PARENT of `object.path` or `undefined`.
+export function getParent(pathString, object) {
+  return getPath(pathString, object, 1);
+}
+
+
+
+// Set `object.path.path.path. to `value`.
 export function setPath(value, pathString, object) {
   if (object == null) return object;
   const path = splitPath(pathString);
