@@ -26,52 +26,52 @@
     }}>
 
     <h5>Wrapped generic Control</h5>
-    <Editor-Control name="foo" label="Foo:">
+    <Editor-Control name="foo" title="Foo:">
       <input/>
     </Editor-Control>
 
     <h5>Control Subclasses</h5>
-    <Editor-Output name="foo" label="Output Field:"/>
+    <Editor-Output name="foo" title="Output Field:"/>
 
-    <Editor-Text name="foo" label="Text Field:" width="10"/>
+    <Editor-Text name="foo" title="Text Field:" width="10"/>
 
-    <Editor-Password name="foo" label="Password Field:" tabIndex="20"
+    <Editor-Password name="foo" title="Password Field:" tabIndex="20"
       error={["Password doesn't match", "Password is not long enough"]}
       labelProps={{style:{color:"#999"}}} hint="At least 6 letters, numbers or special characters"/>
 
     <br/>
-    <Editor-Select name="select" label="Select:" values={["yes","no"]} inline/>
+    <Editor-Select name="select" title="Select:" values={["yes","no"]} inline/>
     <Editor-Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Select name="select" label="Required Select:" required values={{ yes: "YES", no: "NO" }}  inline/>
+    <Editor-Select name="select" title="Required Select:" required values={{ yes: "YES", no: "NO" }}  inline/>
     <Editor-Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Select name="booleanSelect" label="Boolean Select:" values={[true, false]} inline/>
+    <Editor-Select name="booleanSelect" title="Boolean Select:" values={[true, false]} inline/>
     <Editor-Output name="booleanSelect" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="checker" label="Checkbox" inline error={value => value === false && "FALSE"} width={3}/>
+    <Editor-Checkbox name="checker" title="Checkbox" inline error={value => value === false && "FALSE"} width={3}/>
     <Editor-Output name="checker" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="yesno" label="Yes/No Checkbox" trueValue="yes" falseValue="no" inline width={3}/>
+    <Editor-Checkbox name="yesno" title="Yes/No Checkbox" trueValue="yes" falseValue="no" inline width={3}/>
     <Editor-Output name="yesno" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="trueUndefined" label="True/undefined Checkbox" falseValue={undefined} inline width={3}/>
+    <Editor-Checkbox name="trueUndefined" title="True/undefined Checkbox" falseValue={undefined} inline width={3}/>
     <Editor-Output name="trueUndefined" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Group name="address" label="Address:" labelOn="top">
-      <Editor-Group name="street" label="Street:">
+    <Editor-Group name="address" title="Address:" labelOn="top">
+      <Editor-Group name="street" title="Street:">
         <Editor-Text name="0"/>
         <Editor-Text name="1"/>
       </Editor-Group>
-      <Editor-Text name="city" label="City:"/>
-      <Editor-Select name="state" label="State:" values={states}/>
-      <Editor-Text name="zip" label="Zip Code:" size="5"/>
+      <Editor-Text name="city" title="City:"/>
+      <Editor-Select name="state" title="State:" values={states}/>
+      <Editor-Text name="zip" title="Zip Code:" size="5"/>
     </Editor-Group>
 
 

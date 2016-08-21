@@ -23,6 +23,18 @@ export default class ComponentEditor extends Form {
     ]).isRequired
   }
 
+  static defaultProps = {
+    ...Form.defaultProps,
+    controlProps: {
+      labelOn: "left",
+      labelProps: {
+        style: {
+          width: 200
+        }
+      }
+    }
+  }
+
   // Get current components map from context.
   static contextTypes = {
     components: React.PropTypes.any,
@@ -59,24 +71,6 @@ export default class ComponentEditor extends Form {
   get schema() {
     return schemaForComponent(this.Component);
   }
-
-
-  // Return schema properties to apply to a control specified by `controlName`.
-  getPropsForControl(controlName) {
-    const schema = this.schema;
-    const props = getPath(controlName, schema && schema.properties);
-    const required = !!(schema && schema.required && schema.required.includes(controlName));
-    if (!props && !required) return undefined;
-
-    // Munge the props
-    const schemaProps = {
-      ...props,
-      required
-    }
-
-    return schemaProps;
-  }
-
 
 }
 

@@ -6,7 +6,7 @@
 
 import React, { PropTypes } from "react";
 
-import { getPath, setPath } from "oak-roots/util/path";
+import { getPath, getParent, setPath } from "oak-roots/util/path";
 import { classNames, mergeProps } from "oak-roots/util/react";
 
 export default class Form extends React.Component {
@@ -93,10 +93,14 @@ export default class Form extends React.Component {
   // TODO: move this into a subclass or property-inject it somehow
   schemaPropsForControl(controlName) {
     const { schema } = this;
+    if (!schema) return undefined;
 
-    // TODO: nested/complex schema...
-    if (!schema || !schema[controlName]) return undefined;
-
+    const props = getPath(controlName, schema.properties);
+// TODO: nested controlName requires different required strategy here...
+    const required = !!(schema.required && schema.required.includes(controlName));
+    if (props && required) return { ...props, required };
+    if (props) return props;
+    return { required };
   }
 
   // Return the value we should

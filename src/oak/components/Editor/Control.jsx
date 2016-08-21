@@ -521,6 +521,8 @@ export class Text extends Input {
 		inputType: "text"
 	}
 
+	// Map input value of undefined/null to empty string,
+	//	or React will complain: https://fb.me/react-controlled-components
 	getCurrentValue(props) {
 		const value = super.getCurrentValue(props);
 		if (value === undefined || value === null) return "";
@@ -529,7 +531,7 @@ export class Text extends Input {
 }
 
 // `<Editor-Password>` class -- password text field.
-export class Password extends Input {
+export class Password extends Text {
 	static defaultProps = {
 		inputType: "password"
 	}
@@ -718,20 +720,17 @@ export class Dynamic extends Control {
 		// Normalized props before rendering.
 		const props = this.normalizeProps();
 
-		if (props.enum) {
-			return <Select {...this.props}/>;
-		}
+		// If `enum` is specified, render as a `<Select>`.
+		if (props.enum) return <Select {...this.props}/>;
 
-		// return appropriate Input according to `type`.
+		// Otherwise return appropriate Input according to `type`.
 		let { type } = props;
 
-		// checkbox?
+		// `boolean` => `<Checkbox/>`?
 		if (type === "boolean") return <Checkbox {...this.props}/>;
 
-		// map types
-		if (type === "string") type = "text";
-
-		return <Input {...this.props} inputType={type}/>
+		// otherwise return as a `<Text/>` input
+		return <Text {...this.props} />
 	}
 
 }
