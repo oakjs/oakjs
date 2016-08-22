@@ -11,28 +11,13 @@
 
 import React, { PropTypes } from "react";
 
-import { classNames, unknownProps, mergeProps } from "oak-roots/util/react";
+import { classNames, unknownProps, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
 import { definedProperties } from "oak-roots/util/object";
 
 import Editor_Error from "./Error";
 import Editor_Label from "./Label";
 
 import "./Control.less";
-
-const stringOrFn = PropTypes.oneOfType([
-	PropTypes.string,
-	PropTypes.func
-]);
-
-const boolOrFn = PropTypes.oneOfType([
-	PropTypes.bool,
-	PropTypes.func
-]);
-
-const numberOrString = PropTypes.oneOfType([
-	PropTypes.number,
-	PropTypes.string
-]);
 
 export default class Control extends React.Component {
 
@@ -55,10 +40,10 @@ export default class Control extends React.Component {
     className: PropTypes.string,					// HTML class of control
     style: PropTypes.object,							// HTML style of control
 		inline: PropTypes.bool,								// `true` == { display: inline-block} , `false` = { display: block }
-		width: numberOrString,								// # of columns of 20-column grid for display (including label)
+		width: PropTypes.number,							// # of columns of 20-column grid for display (including label)
 
 	// standard form stuff
-		tabIndex: numberOrString,							// HTML tabIndex attribute.
+		tabIndex: PropTypes.number,						// HTML tabIndex attribute.
 		controlProps: PropTypes.object,				// arbitrary properties to apply directly to the control
 
 	// auto-generated label element

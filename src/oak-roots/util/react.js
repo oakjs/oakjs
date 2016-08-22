@@ -2,7 +2,11 @@
 //  React Utility functions
 //////////////////////////////
 
+import { PropTypes } from "react";
 import { knownProperties, unknownProperties } from "./object";
+
+export const stringOrFn = PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]);
+export const boolOrFn = PropTypes.oneOfType([ PropTypes.bool, PropTypes.func ]);
 
 // `classNames`, concept stolen from:  http://jedwatson.github.io/classnames
 export function classNames (...args) {

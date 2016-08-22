@@ -2,11 +2,15 @@
 
   <Oak-Panel scrolling>
     <Oak-Header><h2>Header</h2></Oak-Header>
-    <Oak-LeftSidebar>
-      <h2>Left Sidebar</h2>
-      <img src="http://foo.bar" style={{ width:100, height: 400, border:"1px solid red", margin: 5}}/>
+    <Oak-LeftSidebar width={200}>
+      <Oak-Panel scrolling>
+        <Oak-Header>
+          <h2>Left Sidebar</h2>
+        </Oak-Header>
+        <img src="http://foo.bar" style={{ width:100, height: 400, border:"1px solid red", margin: 5}}/>
+      </Oak-Panel>
     </Oak-LeftSidebar>
-    <Oak-RightSidebar>
+    <Oak-RightSidebar hidden={function(){return !oak.state.editing}}>
       <h2>Right Sidebar</h2>
       <img src="http://foo.bar" style={{ width:100, height: 300, border:"1px solid red", margin: 5}}/>
     </Oak-RightSidebar>

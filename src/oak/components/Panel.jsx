@@ -13,9 +13,15 @@
 //////////////////////////////
 
 import { Children, Component, PropTypes } from "react";
-import { classNames, mergeProps } from "oak-roots/util/react";
+import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
 
 import "./Panel.less";
+
+
+// TODO:
+//  - <Panel title> auto-create <Header>
+//  - <Panel closeable>   => set hidden dynamically?  how do we re-show it?
+//  - <Toolbar> ?
 
 
 // Simple "Hide-able" class which supports boolean / function "hidden" property.
@@ -54,7 +60,9 @@ export default class Panel extends Hideable {
   }
 
   componentDidMount() {
-    this.setBodyHeight();
+    // HACK: for nested scrolling panels, we have to call this more than once...
+    setTimeout(this.setBodyHeight, 0);
+    setTimeout(this.setBodyHeight, 1);
     $(window).on("resize", this.setBodyHeight);
   }
 
@@ -66,6 +74,10 @@ export default class Panel extends Hideable {
     }
   }
 
+  componentWillUpdate() {
+    this.resetBodyHeight();
+  }
+
   componentDidUpdate() {
     this.setBodyHeight();
   }
@@ -74,14 +86,17 @@ export default class Panel extends Hideable {
     $(window).off("resize", this.setBodyHeight);
   }
 
+  resetBodyHeight() {
+    $(this.refs && this.refs.body).height(1);
+  }
+
   setBodyHeight = () => {
     if (!this.props.scrolling) return;
 
+    this.resetBodyHeight();
+
     const $panel = $(ReactDOM.findDOMNode(this));
     const $body = $(this.refs.body);
-
-    // reset body height before measuring so we get an accurate read pn panel height
-    $body.height(1);
 
     const panelHeight = $panel.height();
     const headerHeight = $panel.children(".oak.Header").outerHeight();
@@ -159,19 +174,23 @@ export default class Panel extends Hideable {
 // <Header> class inside a <Panel>
 export class Header extends Hideable {
   getRenderProps() {
-    const props = super.getRenderProps();
-    props.className = classNames("oak Header", props.className);
+    const { className, height, ...props } = super.getRenderProps();
+
+    // Add known className
+    props.className = classNames("oak Header", className);
+
     // height => style.height
-    if (props.height) {
-      props.style = mergeProps(props.style, { height: props.height });
+    if (height) {
+      props.style = mergeProps(props.style, { height: height });
     }
+
     return props;
   }
 
 	render() {
     const props = this.getRenderProps();
     if (props.hidden) return null;
-    return React.createElement("header", props, props.children);
+    return React.createElement("header", props, ...props.children);
   }
 }
 
