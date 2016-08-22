@@ -1,10 +1,8 @@
 <Oak-Page id="component" title="component">
-
   <Editor-ComponentEditor Component="Oak-Page" data={oak.page.props}>
     <Editor-Dynamic name="id"/>
     <Editor-Dynamic name="className" />
     <Editor-Dynamic name="style" />
     <Editor-Dynamic name="title" />
   </Editor-ComponentEditor>
-
 </Oak-Page>

@@ -1,10 +1,11 @@
-// Page height is 100% of vertical minus runner toolbar.
-//  grrr... can't figure out how to do this without cheating
-@PAGE_HEIGHT: ~"calc(100vh - 60px)";
-
 .oak.current.Project {
+  flex: 1;
+
+  display: flex;
   position: relative;
-  min-height: @PAGE_HEIGHT;
+  min-height: 100%;
+  width: 100%;
+
   transition: transform 0.25s;
   transform-origin: 50px 50px;
   background-color: white;
@@ -15,11 +16,19 @@
 }
 
 .oak.current.Section {
+  flex: 1;
+
+  display: flex;
   position: relative;
-  min-height: @PAGE_HEIGHT;
+  min-height: 100%;
+  width: 100%;
 }
 
 .oak.current.Page {
+  flex: 1;
+
+  display: flex;
   position: relative;
-  min-height: @PAGE_HEIGHT;
+  min-height: 100%;
+  width: 100%;
 }

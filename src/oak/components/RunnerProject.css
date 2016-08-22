@@ -1,14 +1,18 @@
+#OakPlayer {
+  height: 100vh;
+}
+
 .oak.runner.Project {
   position: relative;
-  min-height: 100vh;
+  height: 100%;
 }
 
 .oak.runner.Section {
   position: relative;
-  min-height: 100vh;
+  height: 100%;
 }
 
 .oak.runner.Page {
   position: relative;
-  min-height: 100vh;
+  height: 100%;
 }

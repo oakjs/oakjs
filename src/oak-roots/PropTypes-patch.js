@@ -14,7 +14,7 @@ function typeOf(value) {
 
 	switch (typeof value) {
 		case "boolean": 	return "boolean";
-		case "function": 	return "boolean";
+		case "function": 	return "function";
 		case "number": 		return "number";
 		case "string": 		return "string";
 		case "undefined":	return undefined;
@@ -28,7 +28,7 @@ function typeOf(value) {
 
 
 // Handle simple types first (everything with a "isRequired") property.
-Object.keys(PT).forEach(key => {
+Object.keys(PT).forEach( function(key) {
   const checker = PT[key];
 
 	switch (key) {
@@ -86,7 +86,7 @@ Object.keys(PT).forEach(key => {
 
 				// attempt to divine the type of the expectedValues
 				const VARIES = {};
-				const type = expectedValues.map( value => typeOf(value) )
+				const type = expectedValues.map( function (value) { return typeOf(value) } )
 											.reduce( function (prev, current) { return prev === current ? prev : VARIES },
 																typeOf(expectedValues[0]) );
 				if (type !== VARIES) result.schema.type = type;
@@ -104,7 +104,7 @@ Object.keys(PT).forEach(key => {
 				const result = checker(arrayOfTypeCheckers);
 				// get list of schemas from the `arrayOfTypeCheckers`, omitting any we can't figure out.
 				// TODO: omitting ones we can't figure out is losing information... ???
-				const typeSchemas = arrayOfTypeCheckers.map( typeChecker => typeChecker.schema )
+				const typeSchemas = arrayOfTypeCheckers.map( function (typeChecker) { return typeChecker.schema } )
 														.filter(Boolean);
 				result.schema = { anyOf: typeSchemas };
 
@@ -124,7 +124,7 @@ Object.keys(PT).forEach(key => {
 				// figure out schema for properties + required property keys
 				const shapeSchema = {};
 				const shapeRequired = [];
-				Object.keys(shapeTypes).forEach( key => {
+				Object.keys(shapeTypes).forEach( function(key) {
 					const schema = shapeTypes[key].schema;
 					if (schema) {
 						shapeSchema[key] = schema;
@@ -188,7 +188,7 @@ function propTypesToSchema(propTypes, defaultProps) {
   // Build the schema `properties` & `required`entries
   if (propTypes) {
 	  const required = [];
-  	Object.keys(propTypes).forEach(key => {
+  	Object.keys(propTypes).forEach( function(key) {
 			schema.properties[key] = Object.assign({ title: key }, propTypes[key].schema);
 			if (schema.properties[key].isRequired) required.push(key);
 		});
@@ -197,7 +197,7 @@ function propTypesToSchema(propTypes, defaultProps) {
 
   // Add `defaultProps` as property `default`s if passed in.
   if (defaultProps) {
-  	Object.keys(defaultProps).forEach( key => {
+  	Object.keys(defaultProps).forEach( function(key) {
 	  	if (!schema.properties[key]) schema.properties[key] = {};
   		schema.properties[key]["default"] = defaultProps[key];
 	  });

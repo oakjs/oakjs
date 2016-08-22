@@ -1,6 +1,10 @@
-<Page id="runner" data-editing={oak.state.editing}>
-  <AppMenubar ref="appMenubar"/>
-  <EditorToolbar ref="editorToolbar"/>
-  <CurrentProject/>
-  <SelectionOverlay ref="selectionOverlay"/>
-</Page>
+<Oak-Page id="runner" data-editing={oak.state.editing}>
+  <Oak-Panel fluid>
+    <Oak-Header>
+      <Oak-AppMenubar ref="appMenubar"/>
+      <Oak-EditorToolbar ref="editorToolbar"/>
+    </Oak-Header>
+    <Oak-CurrentProject/>
+    <Oak-SelectionOverlay ref="selectionOverlay"/>
+  </Oak-Panel>
+</Oak-Page>

@@ -1,0 +1,91 @@
+/* Oak-Panel and child styling.
+
+    <Oak-Panel>
+      <Oak-Header>...</Oak-Header>
+      <Oak-LeftSidebar>...</Oak-LeftSidebar>
+      <Oak-RightSidebar>...</Oak-RightSidebar>
+      <Oak-Footer>...</Oak-Footer>
+      ...main content elements...
+    </Oak-Panel>
+
+  renders as:
+
+    <div class="oak Panel">
+      <div class="oak Header">...</div>
+      <div class="main">
+        <div class="oak LeftSidebar">...</div>
+        <div class="contents">
+          ...main content elements...
+        </div>
+        <div class="oak RightSidebar">...</div>
+      </div>
+      <div class="oak Footer">...</div>
+    </div>
+*/
+
+.oak.Panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  // `fluid` Panels take up all available height.
+  &.fluid {
+    min-height: 100%;
+  }
+
+  // Scrolling panels scroll the contents and sidebars.
+  // Dynamic height is set in Javascript... :-(
+  &.scrolling {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+
+    & > .body {
+      overflow: hidden;
+
+      & > .oak.LeftSidebar,
+      & > .oak.RightSidebar,
+      & > .contents {
+        overflow: auto;
+      }
+    }
+  }
+
+  & > .oak.Header {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    border-bottom: 1px solid black;
+  }
+
+  & > .oak.Footer {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    border-top: 1px solid black;
+  }
+
+  & > .body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+
+    & > .oak.LeftSidebar {
+      flex-shrink: 0;
+//      min-height: 100%;
+      border-right: 1px solid black;
+    }
+
+    & > .contents {
+      flex-grow: 1;
+    }
+
+    & > .oak.RightSidebar {
+      flex-shrink: 0;
+//      min-height: 100%;
+      border-left: 1px solid black;
+    }
+  }
+
+}

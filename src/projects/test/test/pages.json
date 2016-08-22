@@ -10,5 +10,9 @@
   {
     "id": "component",
     "title": "component"
+  },
+  {
+    "id": "panel",
+    "title": "panel"
   }
 ]
