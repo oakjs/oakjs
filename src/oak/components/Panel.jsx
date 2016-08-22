@@ -21,10 +21,17 @@ import "./Panel.less";
 
 
 // TODO:
-//  - nested scrolling panels don't work reliably (race consdition to figure out size)
-//  - <Panel title> auto-create <Header>
-//  - <Panel closeable>   => set hidden dynamically?  how do we re-show it?
-//  - <Toolbar> ?
+//  - non-`scrolling` sidebars should always scroll?  be sticky?
+//  - <PanelHeader> etc ?
+//  - <Panel title> auto-create <Header><h2>{title}</h2></Header>
+//  - <Panel closeable>   => set hidden dynamically?  how do we re-show it?  pref?
+//  - <Toolbar> ?  <TopToolbar> vs <BottomToolbar> ?
+//  - better name for "fluid`?  default to "fluid" and have "compact" ?
+//  - padding?  applies to body only, with separate setting for header/sidebars/etc?
+//      - "tight" | ("normal") | "relaxed" ?
+//      - (none) | "padded" | "relaxed"
+//      - appearance like SUI = "unpadded" "lightly padded" "padded" "very padded"
+//
 
 
 // Simple "Hide-able" class which supports boolean / function "hidden" property.

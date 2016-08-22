@@ -3,7 +3,8 @@
 //////////////////////////////
 
 // Debounce a `callback` so it's won't be called again until `delay` msec has passed.
-// i.e. `callback` will be called once, at the end (or beginning, if `immediate` is true).
+// i.e. `callback` will be called once, `delay` msec after the last call
+//      (or once at the beginning, if `immediate` is true).
 export function debounce(callback, delay = 0, options) {
   // default options
   const immediate = (options && "immediate" in options ? options.immediate : false);
