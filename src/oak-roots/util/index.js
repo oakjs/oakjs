@@ -3,6 +3,7 @@ export browser from "./browser";
 export decorators from "./decorators";
 export die from "./die";
 export elements from "./elements";
+export fn from "./fn";
 export global from "./global";
 export ids from "./ids";
 export object from "./object";
