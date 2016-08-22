@@ -13,6 +13,8 @@
 //////////////////////////////
 
 import { Children, Component, PropTypes } from "react";
+
+import fn from "oak-roots/util/fn";
 import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
 
 import "./Panel.less";
@@ -48,6 +50,34 @@ class Hideable extends Component {
 }
 
 
+// Set ALL <Panel scrolling> body element heights, from the outside in.
+const DEBUG_SCROLL = false;
+function _setScrollBodyHeights() {
+  const $scrollingPanels = $(".oak.scrolling.Panel");
+  if (DEBUG_SCROLL) console.info("setScrollBodyHeights", $scrollingPanels);
+  if ($scrollingPanels.length === 0) return;
+
+  // first reset all body heights so we get an accurate measurement
+  $scrollingPanels.children(".body").height(1);
+
+  // now size bodies according to panel size
+  $scrollingPanels.each(function (index, panel) {
+    const $panel = $(panel);
+    const panelHeight = $panel.innerHeight();
+    const headerHeight = $panel.children(".oak.Header").outerHeight();
+    const footerHeight = $panel.children(".oak.Footer").outerHeight();
+
+    $panel.children(".body").height(panelHeight - headerHeight - footerHeight);
+  });
+}
+
+// Actually set scrollBodyHeights on an immediate debounce.
+const setScrollBodyHeights = fn.debounce(_setScrollBodyHeights, 0);
+
+// And make sure heights are set on resize with a larger throttle.
+$(window).on("resize", fn.throttle(_setScrollBodyHeights, 100));
+
+
 export default class Panel extends Hideable {
   static propTypes = {
     ...Hideable.propTypes,
@@ -60,11 +90,9 @@ export default class Panel extends Hideable {
     scrolling: PropTypes.bool,
   }
 
+
   componentDidMount() {
-    // HACK: for nested scrolling panels, we have to call this more than once...
-    setTimeout(this.setBodyHeight, 0);
-    setTimeout(this.setBodyHeight, 1);
-    $(window).on("resize", this.setBodyHeight);
+    setScrollBodyHeights();
   }
 
   // if "scrolling" changes, clear explicitly body height
@@ -80,40 +108,21 @@ export default class Panel extends Hideable {
   }
 
   componentDidUpdate() {
-    this.setBodyHeight();
-  }
-
-  componentWillUnmount() {
-    $(window).off("resize", this.setBodyHeight);
+    setScrollBodyHeights();
   }
 
   resetBodyHeight() {
     $(this.refs && this.refs.body).height(1);
   }
 
-  setBodyHeight = () => {
-    if (!this.props.scrolling) return;
-
-    this.resetBodyHeight();
-
-    const $panel = $(ReactDOM.findDOMNode(this));
-    const $body = $(this.refs.body);
-
-    const panelHeight = $panel.height();
-    const headerHeight = $panel.children(".oak.Header").outerHeight();
-    const footerHeight = $panel.children(".oak.Footer").outerHeight();
-
-    $body.height(panelHeight - headerHeight - footerHeight);
-  };
-
   // Munge children into:
-  //  <header>
+  //  <Header>
   //  <.body>
   //      <LeftSidebar>
-  //      <.contents> ...content elements ... </.contents>
+  //      <.contents> ...loose content elements ... </.contents>
   //      <RightSidebar/>
   //  </.body>
-  //  <footer>
+  //  <Footer>
 //TODO: can we eliminate "contents" if we don't have sidebars?
   mungeChildren(props) {
     // Pull children out for possible reordering, unknown stuff goes in `contents`.
@@ -173,6 +182,7 @@ export default class Panel extends Hideable {
 
 
 // <Header> class inside a <Panel>
+// TODO: <PanelHeader> ???
 export class Header extends Hideable {
   getRenderProps() {
     const { className, height, ...props } = super.getRenderProps();
