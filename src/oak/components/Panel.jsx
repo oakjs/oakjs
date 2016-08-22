@@ -66,8 +66,10 @@ function _setScrollBodyHeights() {
     const panelHeight = $panel.innerHeight();
     const headerHeight = $panel.children(".oak.Header").outerHeight();
     const footerHeight = $panel.children(".oak.Footer").outerHeight();
+    const bodyHeight = panelHeight - headerHeight - footerHeight;
 
-    $panel.children(".body").height(panelHeight - headerHeight - footerHeight);
+    const $body = $panel.children(".body");
+    $body.height(bodyHeight);
   });
 }
 
@@ -104,7 +106,7 @@ export default class Panel extends Hideable {
   }
 
   componentWillUpdate() {
-    this.resetBodyHeight();
+//    this.resetBodyHeight();
   }
 
   componentDidUpdate() {
