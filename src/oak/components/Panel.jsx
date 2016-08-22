@@ -19,6 +19,7 @@ import "./Panel.less";
 
 
 // TODO:
+//  - nested scrolling panels don't work reliably (race consdition to figure out size)
 //  - <Panel title> auto-create <Header>
 //  - <Panel closeable>   => set hidden dynamically?  how do we re-show it?
 //  - <Toolbar> ?
