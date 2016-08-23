@@ -4,7 +4,7 @@
       <SUI-MenuHeader oid="IanBiOwq">
         Components
       </SUI-MenuHeader>
-      <Oak-SectionMenu appearance="inverted vertical" oid="VEL5c4kJ"/>
+      <Oak-PageMenu appearance="inverted vertical" oid="VEL5c4kJ"/>
       <Oak-Spacer large oid="kILJxOdp"/>
     </SUI-Menu>
   </div>

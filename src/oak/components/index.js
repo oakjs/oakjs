@@ -21,7 +21,7 @@ export RunnerProject from "./RunnerProject";
 export RunnerSection from "./RunnerSection";
 export Spacer from "./Spacer";
 export SelectionOverlay from "./SelectionOverlay";
-export SectionMenu from "./SectionMenu";
+export PageMenu from "./PageMenu";
 export Stub from "./Stub";
 
 // Mark all of the above components as coming from the "Oak" package

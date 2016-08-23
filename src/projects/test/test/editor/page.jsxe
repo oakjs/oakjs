@@ -33,9 +33,9 @@
     <h5>Control Subclasses</h5>
     <Editor-Output name="foo" title="Output Field:"/>
 
-    <Editor-Text name="foo" title="Text Field:" width="10"/>
+    <Editor-Text name="foo" title="Text Field:" width={10}/>
 
-    <Editor-Password name="foo" title="Password Field:" tabIndex="20"
+    <Editor-Password name="foo" title="Password Field:" tabIndex={20}
       error={["Password doesn't match", "Password is not long enough"]}
       labelProps={{style:{color:"#999"}}} hint="At least 6 letters, numbers or special characters"/>
 

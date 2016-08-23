@@ -8,9 +8,6 @@ import oak from "../oak";
 
 import OakComponent from "./OakComponent";
 
-// Import custom CSS for all pages.
-import "./Page.css";
-
 export default class Page extends OakComponent {
   static propTypes = {
     ...OakComponent.propTypes,
