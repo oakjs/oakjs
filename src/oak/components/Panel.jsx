@@ -3,10 +3,10 @@
 //	<Oak-Panel> component for use with oak.
 //
 //    <Oak-Panel>
-//      <Oak-Header>...</Oak-Header>
+//      <Oak-PanelHeader>...</Oak-PanelHeader>
 //      <Oak-LeftSidebar>...</Oak-LeftSidebar>
 //      <Oak-RightSidebar>...</Oak-RightSidebar>
-//      <Oak-Footer>...</Oak-Footer>
+//      <Oak-PanelFooter>...</Oak-PanelFooter>
 //      ...main content elements...
 //    </Oak-Panel>
 //
@@ -23,7 +23,7 @@ import "./Panel.less";
 // TODO:
 //  - non-`scrolling` sidebars should always scroll?  be sticky?
 //  - <PanelHeader> etc ?
-//  - <Panel title> auto-create <Header><h2>{title}</h2></Header>
+//  - <Panel title> auto-create <PanelHeader><h2>{title}</h2></PanelHeader>
 //  - <Panel closeable>   => set hidden dynamically?  how do we re-show it?  pref?
 //  - <Toolbar> ?  <TopToolbar> vs <BottomToolbar> ?
 //  - better name for "fluid`?  default to "fluid" and have "compact" ?
@@ -71,8 +71,8 @@ function _setScrollBodyHeights() {
   $scrollingPanels.each(function (index, panel) {
     const $panel = $(panel);
     const panelHeight = $panel.innerHeight();
-    const headerHeight = $panel.children(".oak.Header").outerHeight();
-    const footerHeight = $panel.children(".oak.Footer").outerHeight();
+    const headerHeight = $panel.children(".oak.PanelHeader").outerHeight();
+    const footerHeight = $panel.children(".oak.PanelFooter").outerHeight();
     const bodyHeight = panelHeight - headerHeight - footerHeight;
 
     const $body = $panel.children(".body");
@@ -125,22 +125,22 @@ export default class Panel extends Hideable {
   }
 
   // Munge children into:
-  //  <Header>
+  //  <PanelHeader>
   //  <.body>
   //      <LeftSidebar>
   //      <.contents> ...loose content elements ... </.contents>
   //      <RightSidebar/>
   //  </.body>
-  //  <Footer>
+  //  <PanelFooter>
 //TODO: can we eliminate "contents" if we don't have sidebars?
   mungeChildren(props) {
     // Pull children out for possible reordering, unknown stuff goes in `contents`.
     let header, footer, left, right, contents = [];
     Children.forEach( props.children, (child) => {
       switch (child.type) {
-        case Header:
+        case PanelHeader:
           header = child; break;
-        case Footer:
+        case PanelFooter:
           footer = child; break;
         case LeftSidebar:
           left = child; break;
@@ -190,14 +190,14 @@ export default class Panel extends Hideable {
 }
 
 
-// <Header> class inside a <Panel>
+// <PanelHeader> class inside a <Panel>
 // TODO: <PanelHeader> ???
-export class Header extends Hideable {
+export class PanelHeader extends Hideable {
   getRenderProps() {
     const { className, height, ...props } = super.getRenderProps();
 
     // Add known className
-    props.className = classNames("oak Header", className);
+    props.className = classNames("oak PanelHeader", className);
 
     // height => style.height
     if (height) {
@@ -215,11 +215,11 @@ export class Header extends Hideable {
 }
 
 
-// <Footer> class inside a <Panel>
-export class Footer extends Hideable {
+// <PanelFooter> class inside a <Panel>
+export class PanelFooter extends Hideable {
   getRenderProps() {
     const props = super.getRenderProps();
-    props.className = classNames("oak Footer", props.className);
+    props.className = classNames("oak PanelFooter", props.className);
     // height => style.height
     if (props.height) {
       props.style = mergeProps(props.style, { height: props.height });

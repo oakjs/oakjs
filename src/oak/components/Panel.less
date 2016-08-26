@@ -1,17 +1,17 @@
 /* Oak-Panel and child styling.
 
     <Oak-Panel>
-      <Oak-Header>...</Oak-Header>
+      <Oak-PanelHeader>...</Oak-PanelHeader>
       <Oak-LeftSidebar>...</Oak-LeftSidebar>
       <Oak-RightSidebar>...</Oak-RightSidebar>
-      <Oak-Footer>...</Oak-Footer>
+      <Oak-PanelFooter>...</Oak-PanelFooter>
       ...main content elements...
     </Oak-Panel>
 
   renders as:
 
     <div class="oak Panel">
-      <div class="oak Header">...</div>
+      <div class="oak PanelHeader">...</div>
       <div class="main">
         <div class="oak LeftSidebar">...</div>
         <div class="contents">
@@ -19,7 +19,7 @@
         </div>
         <div class="oak RightSidebar">...</div>
       </div>
-      <div class="oak Footer">...</div>
+      <div class="oak PanelFooter">...</div>
     </div>
 */
 
@@ -53,14 +53,14 @@
     }
   }
 
-  & > .oak.Header {
+  & > .oak.PanelHeader {
     position: relative;
     flex-shrink: 0;
     width: 100%;
 //    border-bottom: 1px solid black;
   }
 
-  & > .oak.Footer {
+  & > .oak.PanelFooter {
     position: relative;
     flex-shrink: 0;
     width: 100%;

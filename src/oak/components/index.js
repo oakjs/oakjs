@@ -9,7 +9,7 @@ export CurrentSection from "./CurrentSection";
 export EditorToolbar from "./EditorToolbar";
 export Link, { AnchorLink, PageLink, ProjectLink, RouteLink, SectionLink } from "./Link";
 export Page from "./Page";
-export Panel, { Footer, Header, LeftSidebar, RightSidebar } from "./Panel";
+export Panel, { PanelFooter, PanelHeader, LeftSidebar, RightSidebar } from "./Panel";
 export Project from "./Project";
 export Section from "./Section";
 export SelectionSidebar from "./SelectionSidebar";

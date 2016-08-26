@@ -1,12 +1,12 @@
 <Page id="panel" title="panel">
 
   <Oak-Panel scrolling>
-    <Oak-Header><h2>Header</h2></Oak-Header>
+    <Oak-PanelHeader><h2>Header</h2></Oak-PanelHeader>
     <Oak-LeftSidebar width={200}>
       <Oak-Panel scrolling>
-        <Oak-Header>
+        <Oak-PanelHeader>
           <h2>Left Sidebar</h2>
-        </Oak-Header>
+        </Oak-PanelHeader>
         <img src="http://foo.bar" style={{ width:100, height: 400, border:"1px solid red", margin: 5}}/>
       </Oak-Panel>
     </Oak-LeftSidebar>
@@ -14,7 +14,7 @@
       <h2>Right Sidebar</h2>
       <img src="http://foo.bar" style={{ width:100, height: 300, border:"1px solid red", margin: 5}}/>
     </Oak-RightSidebar>
-    <Oak-Footer><h2>Footer</h2></Oak-Footer>
+    <Oak-PanelFooter><h2>Footer</h2></Oak-PanelFooter>
 
     <img src="http://foo.bar" style={{ width:500, height: 200, border:"1px solid red", margin: 5}}/>
   </Oak-Panel>
