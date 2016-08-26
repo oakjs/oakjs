@@ -2,6 +2,7 @@
 export ActionItem from "./ActionItem";
 export AppMenubar from "./AppMenubar";
 export Columns from "./Columns";
+export ComponentMenu from "./ComponentMenu";
 export CurrentPage from "./CurrentPage";
 export CurrentProject from "./CurrentProject";
 export CurrentSection from "./CurrentSection";
@@ -11,6 +12,7 @@ export Page from "./Page";
 export Panel, { Footer, Header, LeftSidebar, RightSidebar } from "./Panel";
 export Project from "./Project";
 export Section from "./Section";
+export SelectionSidebar from "./SelectionSidebar";
 export PageMenuItem from "./PageMenuItem";
 export ProjectMenu from "./ProjectMenu";
 export ProjectMenuItem from "./ProjectMenuItem";

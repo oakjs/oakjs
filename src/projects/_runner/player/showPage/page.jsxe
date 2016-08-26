@@ -4,6 +4,9 @@
       <Oak-AppMenubar ref="appMenubar"/>
       <Oak-EditorToolbar ref="editorToolbar"/>
     </Oak-Header>
+    <Oak-RightSidebar>
+    	<Oak-SelectionSidebar/>
+    </Oak-RightSidebar>
     <Oak-CurrentProject/>
     <Oak-SelectionOverlay ref="selectionOverlay"/>
   </Oak-Panel>

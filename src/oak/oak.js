@@ -284,7 +284,7 @@ console.log("oak.forceUpdate()");
     }
     else if (constructor) {
       if (constructor.editorProps) return constructor.editorProps;
-      console.warn(`oak.getEditorProps(${constructor}): cant find 'editorProps' settings for type!`);
+      console.warn(`oak.getEditorProps(): cant find 'editorProps' settings for '${constructor.name}'!`);
     }
     return new EditorProps();
   }
