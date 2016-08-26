@@ -51,6 +51,6 @@ export default class Page extends Component {
   }
 
   getDefaultJSXE({ id, title }) {
-    return `<Oak-Page id="${id}" title="${title}"/>`;
+    return `<Oak-Page id="${id}" title="${title}"></Oak-Page>`;
   }
 }
