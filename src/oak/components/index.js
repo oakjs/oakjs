@@ -25,6 +25,7 @@ export Spacer from "./Spacer";
 export SelectionOverlay from "./SelectionOverlay";
 export PageMenu from "./PageMenu";
 export Stub from "./Stub";
+export SplitPanel from "./SplitPanel";
 
 // Mark all of the above components as coming from the "Oak" package
 for (let key in exports) {
