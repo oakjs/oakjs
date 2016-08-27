@@ -9,6 +9,8 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
+
+import PreferentialComponent from "oak-roots/PreferentialComponent";
 import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
@@ -17,24 +19,35 @@ import "./ComponentMenu.less";
 
 
 
-export default class ComponentMenu extends OakComponent {
+export default class ComponentMenu extends PreferentialComponent(OakComponent) {
 
   static propTypes = {
     controller: PropTypes.object
   }
 
-  constructor(props) {
-    super(props);
-    // remember our `opens` from sessionStorage
-    this.state = { opens : this.getOpensForController() };
+//
+// Syntactic sugar
+//
+  getRootElement(props = this.props) {
+    return props.controller && props.controller.jsxFragment && props.controller.jsxFragment.root;
   }
 
-  componentWillReceiveProps(nextProps) {
-    // if controller changes,
-    if (nextProps.controller !== this.props.controller) {
-      // reset our `opens` from sessionStorage
-      this.setState({ opens : this.getOpensForController(nextProps.controller) });
-    }
+
+//
+//  Remember `opens` map for all ComponentMenus with the same root `oid`.
+//
+  getPrefId(props) {
+    const root = this.getRootElement(props);
+    if (root) return `oak.ComponentMenu.opensFor.${root.props.oid}`;
+  }
+
+  getDefaultPrefs(props) {
+    const prefs = { opens: {} };
+    // default to opening the root element
+    const root = this.getRootElement(props);
+    if (root) prefs.opens[root.props.oid] = 1;
+
+    return prefs;
   }
 
 
@@ -78,7 +91,7 @@ export default class ComponentMenu extends OakComponent {
       this.props.controller.jsxFragment.forEachDescendent(oid, (element) => element.props && (opens[element.props.oid] = true) );
     }
 
-    this.setOpensForController(opens);
+    this.savePrefs({ opens });
   }
 
   close(oid) {
@@ -91,45 +104,8 @@ export default class ComponentMenu extends OakComponent {
       this.props.controller.jsxFragment.forEachDescendent(oid, (element) => element.props && (delete opens[element.props.oid]) );
     }
 
-    this.setOpensForController(opens);
+    this.savePrefs({ opens });
   }
-
-
-//
-//  remember `opens` in sessionStorage for each controller
-//
-
-  _getRootForController(controller = this.props.controller) {
-    if (controller && controller.jsxFragment) return controller.jsxFragment.root;
-  }
-
-  _getLocalStorageOpensKey(controller = this.props.controller) {
-    const root = this._getRootForController(controller);
-    if (root) `oak.ComponentMenu.opensFor.${root.props.oid}`;
-  }
-
-
-  getOpensForController(controller = this.props.controller) {
-    // attempt to pull from localStorage
-    const id = this._getLocalStorageOpensKey(controller);
-    if (id && sessionStorage[id]) return JSON.parse( sessionStorage[id] );
-
-    const opens = {};
-    // default so the root is open
-    const root = this._getRootForController(controller);
-    if (root) opens[root.props.oid] = 1;
-
-    return opens;
-  }
-
-  setOpensForController(opens, controller = this.props.controller) {
-    // attempt to save in localStorage
-    const id = this._getLocalStorageOpensKey(controller);
-    if (id) sessionStorage[id] = JSON.stringify(opens);
-    // save in state so we'll redraw
-    this.setState({ opens });
-  }
-
 
 //
 //  Render

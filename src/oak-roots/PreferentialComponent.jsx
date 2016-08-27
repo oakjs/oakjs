@@ -66,7 +66,7 @@ export default function PreferentialComponent(Component = React.Component) {
     // Save preference deltas.  Applies in shallow copy over current prefs.
     savePrefs(deltas) {
       if (!deltas || Object.keys(deltas).length === 0) return;
-      const fullPrefs = { ...this.loadPrefs(this.props), deltas };
+      const fullPrefs = { ...this.loadPrefs(this.props), ...deltas };
       return this._savePrefs(fullPrefs);
     }
 
