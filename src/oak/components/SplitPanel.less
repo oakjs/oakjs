@@ -1,0 +1,24 @@
+.oak.SplitPanel {
+  display: flex;
+
+  &.vertical {
+    flex-direction: column;
+    &.resizing > .splitter {
+      height: 10px;
+      background-color:pink;
+    }
+  }
+
+  &.horizontal {
+    flex-direction: row;
+    &.resizing > .splitter {
+      width: 10px;
+      background-color:pink;
+    }
+  }
+
+  & > .splitter {
+    flex: 0 0 auto;
+  }
+
+}
