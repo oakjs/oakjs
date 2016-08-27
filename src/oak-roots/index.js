@@ -8,6 +8,7 @@ export Loadable from "./Loadable";
 export LoadableIndex from "./LoadableIndex";
 export Mutable from "./Mutable";
 export Point from "./Point";
+export PreferentialComponent from "./PreferentialComponent";
 export Rect from "./Rect";
 export Savable from "./Savable";
 export UndoQueue from "./UndoQueue";
