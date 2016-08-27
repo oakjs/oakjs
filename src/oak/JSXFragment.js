@@ -101,12 +101,41 @@ export default class JSXFragment {
     return parents;
   }
 
-
 	// Given a list of elements or oids, return as a list of elements.
 	getElements(elementsOrOids = []) {
 		return elementsOrOids.map( elementOrOid => this.getElement(elementOrOid) )
 			.filter(Boolean);
 	}
+
+	// Return an array of the element children of an element.
+	// Returns `undefined` if element not found or element has no children.
+	getChildren(elementOrOid) {
+		// get children, bailing if not found or no kids
+		const element = this.getElement(elementOrOid);
+		if (element) return element.children;
+		return undefined;
+	}
+
+	// Execute callback for each element child of an element.
+	// Fails silently if element can't be found.
+	forEachChild(elementOrOid, callback) {
+		const children = this.getChildren(elementOrOid);
+		if (!children) return;
+		children.forEach( child => callback(child) );
+	}
+
+	// Execute callback for each descendent elements of an element.
+	// NOTE: does NOT include the element itself!
+	// Fails silently if element can't be found.
+	forEachDescendent(elementOrOid, callback) {
+		const children = this.getChildren(elementOrOid);
+		if (!children) return;
+		// do the callback breadth-first across children first
+		children.forEach( child => callback(child) );
+		// recurse for kids of kids
+		children.forEach( child => this.forEachDescendent(child, callback) );
+	}
+
 
   //////////////////////////////
   // Modify element properties
