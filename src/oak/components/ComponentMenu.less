@@ -1,22 +1,28 @@
 .oak.ComponentMenu {
   padding: 5px;
 
-  .Element {
+  .element {
 
-    &.selected > .Type {
+    &.selected > .name {
       color: pink;
+    }
+
+    & > .children {
+      padding-left: 8px;
+    }
+
+    &.closed > .children {
+
     }
   }
 
-  .Children {
-    padding-left: 8px;
-  }
 
-  .Type,
-  .String {
+  .name,
+  .string {
     cursor: pointer;
     text-wrap: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
     height: 1.4em;
     line-height: 1.4em;
   }
@@ -31,7 +37,13 @@
     &:before { content: "." }
   }
 
-  .String {
+  .innerText {
+    opacity: 0.6;
+    padding-left: 0.5em;
+  }
+
+  .textNode,
+  .innerText {
     font-style: italic;
     &:before { content:"“" }
     &:after { content:"”" }
