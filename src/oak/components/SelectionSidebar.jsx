@@ -16,7 +16,9 @@ export default class SelectionSidebar extends OakComponent {
     const { ComponentMenu } = c;
     return (
       <div id="SelectionSidebar">
-        <ComponentMenu controller={oak.page}/>
+      	<div id="SelectionSidebar-fixed">
+	        <ComponentMenu controller={oak.page}/>
+	      </div>
       </div>
     );
   }

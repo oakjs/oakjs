@@ -1,5 +1,6 @@
 .oak.ComponentMenu {
   padding: 5px;
+  min-height: 100%;
 
   .element {
 
@@ -22,31 +23,22 @@
     cursor: pointer;
     text-wrap: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
     height: 1.4em;
     line-height: 1.4em;
   }
 
-  .id {
-    opacity: 0.6;
-    &:before { content: "#" }
-  }
-
-  .className {
-    opacity: 0.6;
-    &:before { content: "." }
-  }
-
-  .innerText {
+  .id,
+  .className,
+  .innerText,
+  .title {
     opacity: 0.6;
     padding-left: 0.5em;
   }
 
   .textNode,
-  .innerText {
+  .innerText,
+  .title {
     font-style: italic;
-    &:before { content:"“" }
-    &:after { content:"”" }
   }
 
 }

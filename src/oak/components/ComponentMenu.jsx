@@ -34,7 +34,7 @@ export default class ComponentMenu extends PreferentialComponent(OakComponent) {
 
 
 //
-//  Remember `opens` map for all ComponentMenus with the same root `oid`.
+//  Remember `opens` map for all `<ComponentMenus>` with the same root `oid`.
 //
   getPrefId(props) {
     const root = this.getRootElement(props);
@@ -142,28 +142,30 @@ class ComponentMenuItem extends OakComponent {
     // Pull out components used below.
     const { Icon } = this.context.components;
 
-    if (typeof item === "string") return <div className='textNode'>{item}</div>;
+    if (typeof item === "string") return <div className='textNode'><Icon icon="none"/>“{item}”</div>;
 
     const { children } = item;
-    const singleTextChild = children && children.length === 1 && typeof children.text === "string" && children[0];
+    const singleTextChild = !!children && children.length === 1 && typeof children[0] === "string" && !!children[0];
+    const showChildren = !singleTextChild && !!children && children.length !== 0;
 
-    const { id, className, oid } = item.props || {};
+    const { id, className, oid, title } = item.props || {};
 
     const selected = menu.isSelected(oid);
     const open = menu.isOpen(oid);
-    const openIcon = (open ? "minus square" : "add square");
+    const openIcon = (open ? "minus" : "add");
 
     const elementClass = classNames("element", { open, selected });
     return (
       <div className={elementClass}>
         <div className="name">
-          {<Icon icon={openIcon} onClick={() => menu.toggle(oid)}/>}
+          {showChildren ? <Icon icon={openIcon} onClick={() => menu.toggle(oid)}/> : <Icon icon="none"/>}
           <span className="type" onClick={() => menu.select(oid)}>{item.type}</span>
-          {id && <span className="id">{id}</span>}
-          {className && <span className="className">{className.split(" ").join(".")}</span>}
-          {singleTextChild && <span className="innerText">{children[0]}</span>}
+          {id && <span className="id">#{id}</span>}
+          {className && <span className="className">.{className.split(" ").join(".")}</span>}
+          {singleTextChild && <span className="innerText">“{children[0]}”</span>}
+          {!singleTextChild && title && <span className="title">“{title}”</span>}
         </div>
-        {open && children && children.length && !singleTextChild && this.renderChildren(menu, item)}
+        {open && showChildren && this.renderChildren(menu, item)}
       </div>
     )
   }

@@ -1,13 +1,13 @@
 <Oak-Page id="runner" data-editing={oak.state.editing}>
-	<Oak-SplitPanel horizontal resizable>
+	<Oak-AppMenubar ref="appMenubar"/>
+	<Oak-SplitPanel horizontal>
+   	<Oak-SelectionSidebar/>
 		<Oak-Panel fluid>
 			<Oak-PanelHeader>
-				<Oak-AppMenubar ref="appMenubar"/>
 				<Oak-EditorToolbar ref="editorToolbar"/>
 			</Oak-PanelHeader>
 			<Oak-CurrentProject/>
 			<Oak-SelectionOverlay ref="selectionOverlay"/>
 		</Oak-Panel>
-   	<Oak-SelectionSidebar/>
 	</Oak-SplitPanel>
 </Oak-Page>
