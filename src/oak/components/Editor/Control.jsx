@@ -121,7 +121,7 @@ export default class Control extends React.Component {
 	// Use an <Editor-Input> or <Editor-Output> etc variant if you want a control to be created for you.
 	createControlElement(props) {}
 
-	// Given an `element` (which is presumably the control created by `createControlElement()`,
+	// Given an `element` (which is presumably the control created by `createControlElement()`),
 	//	return the current `value` for the control, normalized the way you want it saved.
 	// Some controls (e.g. checkboxes, selects, etc) will override this.
 	getControlValue(controlElement) {
@@ -252,7 +252,6 @@ export default class Control extends React.Component {
 		props.name = controlName;
 		props.value = this.getCurrentValue(props);
 		props.error = this.getCurrentError(props);
-
 		// Evaluate dynamic properties defined as functions.
 		this.constructor.expressionProps.forEach( key => {
 			if (typeof props[key] === "function") props[key] = props[key].call(this, props.value, form);
@@ -290,6 +289,7 @@ export default class Control extends React.Component {
 		);
 
 		// Add bound event handlers we take over, pulling in controls's existing event if defined.
+//TODO: can we reliably pick these up at the form level???
 		this.constructor.controlEvents.forEach( key => {
 			controlProps[key] = this[key].bind(this, props, controlElement.props[key])
 		});

@@ -90,20 +90,20 @@ export default class Form extends React.Component {
     const schemaProps = this.schemaPropsForControl(controlName);
 
     if (schemaProps && controlProps) return mergeProps(controlProps, schemaProps);
-    if (schemaProps) return schemaProps;
-    return controlProps;
+    return schemaProps || controlProps;
   }
 
   // Return normalized schema properties for a specific control.
   // NOTE: this is JSON-schema specific at this point...
-  // TODO: move this into a subclass or property-inject it somehow
+  // TODO: move this into a subclass or property-inject it somehow?
   schemaPropsForControl(controlName) {
     const { schema } = this;
     if (!schema || !controlName) return undefined;
 
+// TODO: nested controlName requires different props / required strategy here...
     const props = getPath(controlName, schema.properties);
-// TODO: nested controlName requires different required strategy here...
     const required = !!(schema.required && schema.required.includes(controlName));
+
     if (props && required) return { ...props, required };
     if (props) return props;
     return { required };

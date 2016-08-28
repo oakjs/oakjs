@@ -52,7 +52,7 @@ export default class ElementEditor extends Form {
   };
 
 
-  // Cache `Component` and `schema` on load.
+  // Cache `Component`, `schema` etc on load.
   constructor(props) {
     super(props);
     this.state = this.getComponentInfo(props.element);
@@ -68,9 +68,9 @@ export default class ElementEditor extends Form {
 
   // Return `{ Component, schema }` for specified element, which we'll cache in `state`.
   getComponentInfo(element) {
-    let props, Component, schema, knownProperties, controls;
+    let data, Component, schema, knownProperties, controls;
     if (element) {
-      props = { ...element.props };
+      data = { ...element.props };
       Component = this.context.components[element.type];
       if (!Component) console.warn("<ElementEditor>: can't find Component for: ", element.type);
 
@@ -93,7 +93,7 @@ export default class ElementEditor extends Form {
       }
     }
 
-    return { Component, schema, knownProperties, controls };
+    return { data, Component, schema, knownProperties, controls };
   }
 
   getControlForProperty(key, property) {
@@ -112,7 +112,7 @@ export default class ElementEditor extends Form {
 
   // Return data which we'll edit in the form.
   get data() {
-    return this.state.props;
+    return this.state && this.state.data;
   }
 
   // Return children from the schema.
@@ -138,11 +138,10 @@ export default class ElementEditor extends Form {
   @debounce(300)
   onFieldChanged() {
     // clone props and update the value
-    const props = { ...this.data };
     oak.actions.setElementProps({
       context: this.props.controller,
       elements: [ this.props.element ],
-      props
+      props: { ...this.data }
     });
   }
 }
