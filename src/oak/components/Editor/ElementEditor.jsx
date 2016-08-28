@@ -85,9 +85,6 @@ export default class ElementEditor extends Form {
           .map( key => this.getControlForProperty(key, schema.properties[key]) )
           .filter(Boolean);
 
-        // add `oid` to list of known properties
-        if (!knownProperties.includes("oid")) knownProperties.push("oid");
-
         // add a type <Output> to the beginning
         controls.unshift( <Output title="Component" value={element.type}/> );
       }
@@ -96,9 +93,13 @@ export default class ElementEditor extends Form {
     return { data, Component, schema, knownProperties, controls };
   }
 
+  IGNORED_PROPERTIES = [
+    "children", "oid", "data-oid"
+  ]
+
   getControlForProperty(key, property) {
     // skip certain properties
-    if (["children", "oid"].includes(key)) return undefined;
+    if (this.IGNORED_PROPERTIES.includes(key)) return undefined;
     if (property.type === "boolean") return <Checkbox name={key} title={property.title || key} />;
     if (property.enum) return <Select name={key} title={property.title || key} />;
     return <Text name={key} title={property.title || key} />;
@@ -125,6 +126,8 @@ export default class ElementEditor extends Form {
       const unknownControls = Object.keys(data)
         .map( key => {
           if (this.state.knownProperties.includes(key)) return;
+          if (this.IGNORED_PROPERTIES.includes(key)) return;
+
           return this.getControlForProperty(key, { title: key, type: typeof data[key] });
         }).filter(Boolean)
 
