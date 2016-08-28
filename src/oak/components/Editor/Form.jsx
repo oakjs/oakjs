@@ -4,7 +4,7 @@
 // Form class which optionally works with a `JSON schema` to initialize properties.
 //////////////////////////////
 
-import React, { PropTypes } from "react";
+import React, { Children, PropTypes } from "react";
 
 import { getPath, getParent, setPath } from "oak-roots/util/path";
 import { classNames, mergeProps } from "oak-roots/util/react";
@@ -30,8 +30,11 @@ export default class Form extends React.Component {
     controlProps: PropTypes.object,   // Arbitrary props to pass to all controls
   };
 
-  static initialState = {
-    errors: undefined             // map of { `field.name` => [errors] }
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: undefined     // map of { `field.name` => [errors] }
+    };
   }
 
 
@@ -177,14 +180,15 @@ export default class Form extends React.Component {
     }
   }
 
+  mungeChildren(props) {
+    return Children.toArray(props.children);
+  }
+
   render() {
     const formProps = this.getFormProps(this.props);
+    const children = this.mungeChildren(this.props);
     // TODO: nested forms maybe don't render a <form> element?
-    return (
-      <form {...formProps}>
-        {this.props.children}
-      </form>
-    );
+    return React.createElement("form", formProps, ...children);
   }
 
 }
