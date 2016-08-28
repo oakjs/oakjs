@@ -13,11 +13,14 @@ import "./SelectionSidebar.less";
 export default class SelectionSidebar extends OakComponent {
   render() {
     const { oak, components: c } = this.context;
-    const { ComponentMenu } = c;
+    const { ComponentMenu, SplitPanel } = c;
     return (
       <div id="SelectionSidebar">
       	<div id="SelectionSidebar-fixed">
-	        <ComponentMenu controller={oak.page}/>
+      		<SplitPanel direction="vertical" resizable scrolling>
+		        <ComponentMenu controller={oak.page}/>
+		        <div>Yo</div>
+		      </SplitPanel>
 	      </div>
       </div>
     );

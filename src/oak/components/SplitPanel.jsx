@@ -9,9 +9,16 @@
 //
 //  NOTE: only works with TWO internal components
 //
+//
+//  TODO:
+//  - `resizable`
+//      - add a splitter div
+//      - remember sizes somehow
+//
 //////////////////////////////
 
 import { Children, Component, PropTypes } from "react";
+import ReactDOM from "react-dom";
 
 import fn from "oak-roots/util/fn";
 import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
@@ -24,69 +31,82 @@ export default class SplitPanel extends Hideable {
   static propTypes = {
     ...Hideable.propTypes,
 
-    // horizontal? vertical?  NOTE: there can be only one...
-    vertical: PropTypes.bool,           // DEFAULT is vertical
-    horizontal: PropTypes.bool,
+    // direction? e.g. direction="vertical" means divide panel up into vertical chunks.
+    direction: PropTypes.oneOf(["horizontal","vertical"]),
 
-    // Can the user resize the two panes?
+    // Do we automatically set up scrolling in the panes?
+    scrolling: PropTypes.bool,
+
+    // Can the user resize the panes?
     resizable: PropTypes.bool,
 
-    // Ratio of first component to second component, eg: .25 = 25% component 1, 75% component two.
-// TODO: `sizes` so we can have > 2 children?
-    ratio: PropTypes.number
+    // Ratio of components, eg: `[ "50%", "50%" ]` or `[ 30, "100%" ]`
+    sizes: PropTypes.array
   }
 
   static defaultProps = {
-    resizable: true,
-    ratio: .5
+    direction: "vertical",
+    resizable: false,
+    sizes: [ "50%", "50%" ]
   }
 
 
   componentDidMount() {
-    this.setRatio();
+    this.setChildSizes();
   }
 
   componentDidUpdate() {
-    this.setRatio();
+    this.setChildSizes();
   }
 
-  setRatio() {
-console.warn("TODO: set ratio of children!!!");
-  }
+  setChildSizes() {
+    const { direction, sizes } = this._props;
+    if (!sizes) return;
 
+    const $root = $(ReactDOM.findDOMNode(this));
+    const $children = $root.children(":not(.oak.Splitter)");
+
+    sizes.forEach( (size, index) => {
+      const child = $children[index];
+      if (!child) return;
+
+      const flex = (typeof size === "number" ? 0 : 1);
+      const sizeString = (typeof size === "number" ? `${size}px` : size);
+
+      child.style.flex = `${flex} 0 ${sizeString}`;
+    });
+  }
 
   mungeChildren(props) {
-    const children = Children.toArray(props.children);
-    // If no children,
-    if (!children) {
-      return [];
+    const { resizable, scrolling } = props;
+    let children = Children.toArray(props.children);
+
+    // if scrolling, wrap children in a "Scroller" div
+    if (scrolling) {
+      children = children.map( child => <div className="oak Scroller">{child}</div> );
     }
-    // otherwise if we don't have exactly 2 kids, complain and don't insert the splitter
-    else if (children.length !== 2) {
-      console.warn("<SplitPanel> should have exactly two children");
-      return children;
+
+    // if resizable, interleave <Splitter> divs.
+    if (resizable) {
+      const interleaved = children.map( (child, index) => {
+        if (index === 0) return child;
+        return [<div className="oak Splitter"/>, child];
+      });
+      children = [].concat(...interleaved);
     }
-    else {
-      return [
-        children[0],
-        <div className="splitter"/>,
-        children[1]
-      ];
-    }
+
+    return children;
   }
 
   getRenderProps() {
     const props = super.getRenderProps();
-    let { horizontal, vertical, resizable } = props;
+    let { direction, resizable, scrolling } = props;
 
-    // there can be only one
-    if (vertical) horizontal = false;
-    else if (horizontal) vertical = false;
-    else vertical = true;
-
+    // Add standard classNames to those passed in with `props`
     props.className = classNames(
       "oak",
-      { horizontal, vertical, resizable },
+      { scrolling, resizable },
+      direction,
       "SplitPanel",
       props.className
     );
@@ -97,10 +117,11 @@ console.warn("TODO: set ratio of children!!!");
   }
 
   render() {
-    const { children, hidden, ...props } = this.getRenderProps();
-    if (hidden) return null;
-
-    return React.createElement("div", props, ...children);
+    this._props = this.getRenderProps();
+    if (this._props.hidden) return null;
+    // remove props we don't want to apply to main element
+    const { direction, children, hidden, scrolling, sizes, ...elementProps } = this._props;
+    return React.createElement("div", elementProps, ...children);
   }
 
 }

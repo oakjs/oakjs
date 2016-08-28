@@ -1,13 +1,15 @@
 <Oak-Page id="runner" data-editing={oak.state.editing}>
-	<Oak-AppMenubar ref="appMenubar"/>
-	<Oak-SplitPanel horizontal>
-   	<Oak-SelectionSidebar/>
-		<Oak-Panel fluid>
-			<Oak-PanelHeader>
-				<Oak-EditorToolbar ref="editorToolbar"/>
-			</Oak-PanelHeader>
-			<Oak-CurrentProject/>
-			<Oak-SelectionOverlay ref="selectionOverlay"/>
-		</Oak-Panel>
+	<Oak-SplitPanel direction="vertical" sizes={[30, "100%"]}>
+		<Oak-AppMenubar ref="appMenubar"/>
+		<Oak-SplitPanel direction="horizontal" sizes={[300, "100%"]}>
+			<Oak-SelectionSidebar/>
+			<Oak-Panel fluid>
+				<Oak-PanelHeader>
+					<Oak-EditorToolbar ref="editorToolbar"/>
+				</Oak-PanelHeader>
+				<Oak-CurrentProject/>
+				<Oak-SelectionOverlay ref="selectionOverlay"/>
+			</Oak-Panel>
+		</Oak-SplitPanel>
 	</Oak-SplitPanel>
 </Oak-Page>

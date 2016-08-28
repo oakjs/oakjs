@@ -1,24 +1,34 @@
 .oak.SplitPanel {
   display: flex;
 
+  & > .oak.Scroller {
+    position: relative;
+    overflow: auto;
+  }
+
   &.vertical {
+    height: 100%;
     flex-direction: column;
-    &.resizing > .splitter {
-      height: 10px;
-      background-color:pink;
-    }
   }
 
   &.horizontal {
+    width: 100%;
     flex-direction: row;
-    &.resizing > .splitter {
-      width: 10px;
-      background-color:pink;
-    }
   }
 
-  & > .splitter {
-    flex: 0 0 auto;
+  & > .oak.Splitter {
+    flex: 0 0 0;
   }
+
+  &.resizable > .oak.Splitter {
+    cursor: row-resize;;
+    flex: 0 0 6px;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  &.horizontal.resizable > .oak.Splitter {
+    cursor: col-resize;
+  }
+
 
 }

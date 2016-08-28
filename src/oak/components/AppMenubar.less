@@ -2,9 +2,9 @@
   so the -fixed bit below doesn't overlap the body. */
 #AppMenubar {
   position: relative;
-  height: 30px;
+  flex: 0 0 30px;
   margin: 0;
-  z-index: 10001;  // must be above #EditorToolbar
+  z-index: 10001;  // must be above #EditorToolbar and #SelectionSidebar
   background-color: #333;
 }
 
@@ -28,6 +28,7 @@
       background-color: #333;
       padding-top: .4em;
       padding-bottom: .6em;
+      box-shadow: 2px 2px 5px black;
 
       .item {
         background-color: transparent;

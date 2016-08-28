@@ -1,5 +1,4 @@
-/* Container for the menubar: this takes up space to push the body down
-  so the -fixed bit below doesn't overlap the body. */
+/* Container for the sidebar. */
 #SelectionSidebar {
   position: relative;
   flex: 0 0 300px;
@@ -7,14 +6,13 @@
   margin: 0;
   background-color: #333;
   color: white;
+  z-index: 10000;  // must be below #AppMenubar
 }
 
-/* The menubar itself is fixed, so it pops out of its container */
+/* The sidebar itself is fixed, so it pops out of its container */
 #SelectionSidebar-fixed {
   position: fixed;
-  left: 0; top: 30px; width: 300px; height: 100px;
-  margin: 0;
-  padding: 0px 5px;
+  left: 0; top: 30px; width: 300px; bottom: 0;
   background-color: #333;
   border-width: 0px;
   border-right: 1px solid #222;
