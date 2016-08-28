@@ -18,8 +18,8 @@ export default class SelectionSidebar extends OakComponent {
       <div id="SelectionSidebar">
       	<div id="SelectionSidebar-fixed">
       		<SplitPanel direction="vertical" resizable scrolling>
-		        <ComponentMenu controller={oak.page}/>
-		        <ElementEditor element={oak.selectedComponents[0]}/>
+		        <ComponentMenu controller={oak.editContext}/>
+		        <ElementEditor context={oak.editContext} element={oak.selectedComponents[0]}/>
 		      </SplitPanel>
 	      </div>
       </div>

@@ -2,6 +2,9 @@
 // Editor.Form class
 //
 // Form class which optionally works with a `JSON schema` to initialize properties.
+//
+// TODO:
+//  - "cloneData" to store data in state temporarily?
 //////////////////////////////
 
 import React, { Children, PropTypes } from "react";
@@ -96,7 +99,7 @@ export default class Form extends React.Component {
   // TODO: move this into a subclass or property-inject it somehow
   schemaPropsForControl(controlName) {
     const { schema } = this;
-    if (!schema) return undefined;
+    if (!schema || !controlName) return undefined;
 
     const props = getPath(controlName, schema.properties);
 // TODO: nested controlName requires different required strategy here...
@@ -114,7 +117,7 @@ export default class Form extends React.Component {
   // Save a value for a particular control.
   // TODO: custom save???
   saveValueForControl(controlName, currentValue) {
-    if (controlName) return this.set(controlName, currentValue);
+    if (controlName) this.set(controlName, currentValue);
   }
 
   // Return the error associated with a particular form control.
@@ -128,10 +131,16 @@ export default class Form extends React.Component {
   onChange(event, control, controlName, currentValue) {
     this.saveValueForControl(controlName, currentValue);
 
+    this.onFieldChanged(control, controlName, currentValue);
+
     if (this.props.onChange) {
       this.props.onChange.call(this, event, control, controlName, currentValue);
     }
   }
+
+  // Called when a field changes, AFTER the value for the control has been updated.
+  // Use this to perform any special saving logic...
+  onFieldChanged(control, controlName, currentValue) {}
 
   onFocus(event, control, controlName) {
     this._focused = control;
