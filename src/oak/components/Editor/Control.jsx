@@ -124,7 +124,7 @@ export default class Control extends React.Component {
 	// Given an `element` (which is presumably the control created by `createControlElement()`),
 	//	return the current `value` for the control, normalized the way you want it saved.
 	// Some controls (e.g. checkboxes, selects, etc) will override this.
-	getControlValue(controlElement) {
+	getElementValue(controlElement) {
 		return controlElement.value;
 	}
 
@@ -202,7 +202,7 @@ export default class Control extends React.Component {
 		}
 
 		// pass event to form, bailing if so instructed
-		const value = this.getControlValue(event.target);
+		const value = this.getElementValue(event.target);
 		if (this.form) {
 			const result = this.form[eventName](event, this, props.name, value);
 			if (result === false || event.defaultPrevented) return false;
@@ -556,7 +556,7 @@ export class Checkbox extends Input {
 	}
 
 	// Map `checked` attribute of control to an output value.
-	getControlValue(controlElement) {
+	getElementValue(controlElement) {
 		const checked = controlElement.checked;
 		if (checked) return this.trueValue;
 		return this.falseValue;
@@ -665,6 +665,7 @@ export class Select extends Control {
 	}
 
 
+	// React will complain if you pass a scalar into a multi-select.
 	getCurrentValue(props) {
 		const value = super.getCurrentValue(props);
 		if (props.multiple && !Array.isArray(value)) return [value];
@@ -675,14 +676,14 @@ export class Select extends Control {
 	// Create JUST the main control element (<input> etc) for this Control.
 	// This will be merged with properties from `getControlProps()`.
 	createControlElement(props) {
-		// Remember normalized options for `getControlValue`
+		// Remember normalized options for `getElementValue`
 		this._options = this.constructor.normalizeOptions(props.options || props["enum"], props.required, props.placeholder);
 		const options = this.constructor.renderOptions(this._options);
 		return React.createElement("select", undefined, ...options);
 	}
 
 	// Map `selectedIndex` attribute of control to values from our normalized `_options`.
-	getControlValue(selectElement) {
+	getElementValue(selectElement) {
 		// Return an array for multi-select.
 		if (this._props.multiple) {
 			const value = [];
