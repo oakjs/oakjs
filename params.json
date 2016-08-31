@@ -1,0 +1,6 @@
+{
+  "name": "Oakjs",
+  "tagline": "OakJS Application Framework (client + server)",
+  "body": "#oakjs Framework\r\nOakjs Application Framework client + server.\r\n\r\n---\r\n###Getting Started\r\n\r\n---\r\n1. Clone package, cd into the directory.\r\n2. `npm install`\r\n3. `npm start`\r\n\r\nThe application will be served on [http://localhost:3000](http://localhost:3000).\r\n\r\nNote that projects are currently being saved within this repo -- eventually they'll move to a sub-repo with a symbolic link.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
