@@ -36,6 +36,10 @@ export default class ComponentMenu extends PreferentialComponent(OakComponent) {
 //
 //  Remember `opens` map for all `<ComponentMenus>` with the same root `oid`.
 //
+
+  // Remember opens across sessions.
+  static storage = localStorage;
+
   getPrefId(props) {
     const root = this.getRootElement(props);
     if (root) return `oak.ComponentMenu.opensFor.${root.props.oid}`;
@@ -73,6 +77,7 @@ export default class ComponentMenu extends PreferentialComponent(OakComponent) {
 
   // Should some element be "open" in the list?
   isOpen(oid) {
+    if (!this.state.opens) return false;
     return this.state.opens[oid];
   }
 
@@ -145,13 +150,14 @@ class ComponentMenuItem extends OakComponent {
     if (typeof item === "string") return <div className='textNode'><Icon icon="none"/>“{item}”</div>;
 
     const { children } = item;
-    const singleTextChild = !!children && children.length === 1 && typeof children[0] === "string" && !!children[0];
-    const showChildren = !singleTextChild && !!children && children.length !== 0;
+    const childCount = (children && children.length) || 0;
+    const singleTextChild = childCount === 1 && typeof children[0] === "string" && !!children[0];
+    const showChildren = childCount > 0 && !singleTextChild;
 
     const { id, className, oid, title } = item.props || {};
 
     const selected = menu.isSelected(oid);
-    const open = menu.isOpen(oid);
+    const open = showChildren && menu.isOpen(oid);
     const openIcon = (open ? "minus" : "add");
 
     const elementClass = classNames("element", { open, selected });

@@ -34,7 +34,7 @@ export default function PreferentialComponent(Component = React.Component) {
       super(props);
       // load prefs and apply to state
       const prefs = this.loadPrefs(props);
-      if (prefs) this.state = { ...this.state, prefs };
+      if (prefs) this.state = { ...this.state, ...prefs };
     }
 
     // When `props` change, apply new preferences.
