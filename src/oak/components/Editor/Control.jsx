@@ -10,6 +10,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
+import ReactDOM from "react-dom";
 
 import { classNames, unknownProps, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
 import { definedProperties } from "oak-roots/util/object";
@@ -115,17 +116,17 @@ export default class Control extends React.Component {
 		"onChange", "onFocus", "onBlur", "onKeyPress"
 	]
 
-	// Create JUST the main control element (<input> etc) for this Control.
-	// This will be merged with properties from `getControlProps()`.
-	// NOTE: the base class doesn't create a default control and assumes you're nesting an explicit control.
-	// Use an <Editor-Input> or <Editor-Output> etc variant if you want a control to be created for you.
-	createControlElement(props) {}
-
-	// Given an `element` (which is presumably the control created by `createControlElement()`),
+	// Given an `element` (which is presumably the control created by `renderControl()`),
 	//	return the current `value` for the control, normalized the way you want it saved.
 	// Some controls (e.g. checkboxes, selects, etc) will override this.
 	getElementValue(controlElement) {
-		return controlElement.value;
+		// TODOC
+		// Handle controls which have been given an explicit `getElementValue` method
+		//	(e.g. `<HTMLSelect>`, `<HTMLCheckbox>` etc).
+		if (typeof controlElement.getElementValue === "function") {
+			return controlElement.getElementValue();
+		}
+ 		return controlElement.value;
 	}
 
 //
@@ -260,9 +261,6 @@ export default class Control extends React.Component {
 		// Make sure we actually display an empty string label.  (???)
 		if (props.title === "") props.title = " ";		// <-- `&nbsp;` in utf-8
 
-		// Create a control child if one was not passed in
-		if (!props.children) props.children = this.createControlElement(props);
-
 		// Remember props for reflection and event handling
 		this._props = props;
 
@@ -272,7 +270,7 @@ export default class Control extends React.Component {
 
 	// Return properties to monkey-patch into the managed control.
 	// Passed the normalized `props` from `normalizeProps()`.
-	getControlProps(controlElement, props) {
+	getControlProps(props, controlElement) {
 		// Get the union of:
 		const controlProps = mergeProps(
 			// controlProps we're told by our class to pick up
@@ -282,7 +280,7 @@ export default class Control extends React.Component {
 			unknownProps(props, this.constructor),
 
 			// any props set directly on the inner control element
-			controlElement.props,
+			controlElement && controlElement.props,
 
 			// explicit controlProps set at the control level (safety hatch)
 			props.controlProps,
@@ -291,7 +289,7 @@ export default class Control extends React.Component {
 		// Add bound event handlers we take over, pulling in controls's existing event if defined.
 //TODO: can we reliably pick these up at the form level instead???
 		this.constructor.controlEvents.forEach( key => {
-			controlProps[key] = this[key].bind(this, props, controlElement.props[key])
+			controlProps[key] = this[key].bind(this, props, controlElement && controlElement.props[key])
 		});
 
 		return controlProps;
@@ -301,18 +299,32 @@ export default class Control extends React.Component {
 	// Passed the normalized `props` from `normalizeProps()`.
 // TODO: allow for nested label, etc?  How do we tell what the actual `control` is?
 	renderControl(props) {
-		// There can be only one.
-		if (React.Children.count(props.children) !== 1) {
-			console.error("Control must have exactly one child!!", props.children);
+		const childCount = React.Children.count(props.children);
+
+		// If we have exactly one child, assume we're wrapping an external control
+		//	-- clone it and apply controlProps;
+		if (childCount === 1) {
+			// return a clone of the control with injected properties
+			const originalControl = React.Children.only(props.children);
+			const controlProps = this.getControlProps(props, originalControl);
+			return React.cloneElement(originalControl, controlProps);
+		}
+		// If we have NO children, attempt to create one with `renderControlElement()`
+		else if (childCount === 0) {
+			const controlProps = this.getControlProps(props);
+			return this.renderControlElement(props, controlProps);
+		}
+		else {
+			console.info(`Control doesn't know what to do with ${childCount} children`, props.children);
 			return undefined;
 		}
-
-		// return a clone of the control with injected properties
-		const originalControl = React.Children.only(props.children);
-		const controlProps = this.getControlProps(originalControl, props);
-
-		return React.cloneElement(originalControl, controlProps);
 	}
+
+	// Create JUST the main control element (<input> etc) for this Control.
+	// You'll probably want to hand it properties from `controlProps`.
+	// NOTE: the base class doesn't create a default control and assumes you're nesting an explicit control.
+	// Use an <Editor-Input> or <Editor-Output> etc variant if you want a control to be created for you.
+	renderControlElement(props, controlProps) {}
 
 
 	// Render label.  Returns `undefined` if no label to display.
@@ -455,13 +467,13 @@ export default class Control extends React.Component {
 export class Output extends Control {
 	// Create JUST the main control element (<input> etc) for this Control.
 	// This will be merged with properties from `getControlProps()`.
-	createControlElement(props) {
-		return React.createElement("output");
+	renderControlElement(props, controlProps) {
+		return React.createElement("output", controlProps);
 	}
 
 	// Make empty/null/undefined value render as a space for consistent vertical sizing.
-	getControlProps(control, props) {
-		const controlProps = super.getControlProps(control, props);
+	getControlProps(props, control) {
+		const controlProps = super.getControlProps(props, control);
 		const { value } = controlProps;
 
 		if (value === null || value === undefined || (value.trim && !value.trim())) {
@@ -494,8 +506,9 @@ export class Input extends Control {
 
 	// Create JUST the main control element (<input> etc) for this Control.
 	// This will be merged with properties from `getControlProps()`.
-	createControlElement(props) {
-		return React.createElement("input", { type: props.inputType });
+	renderControlElement(props, controlProps) {
+		controlProps.type = props.inputType;
+		return React.createElement("input", controlProps);
 	}
 }
 
@@ -563,8 +576,8 @@ export class Checkbox extends Input {
 	}
 
 	// map `value` to `checked` in controlProps.
-	getControlProps(control, props) {
-		const controlProps = super.getControlProps(control, props);
+	getControlProps(props, control) {
+		const controlProps = super.getControlProps(props, control);
 		if (props.value === this.trueValue) controlProps.checked = "checked";
 		delete controlProps.value;
 		return controlProps;
@@ -588,111 +601,3 @@ export class Checkbox extends Input {
 
 }
 
-
-// "<Select>" class.
-// Specify `@options` or `@values` (e.g. from schema) as:
-//	- array of scalar values								["a", "b"]
-//	- array of arrays `[ key, "label" ]`		[ ["a", "AAA", "b": "BBB" ] ]
-//	- map of `{ key => label }`							{ a: "AAA", b: "BBB" }
-//
-// If select is not `@required`, we'll automatically add an empty option to the select,
-//	whose value will be `undefined` when it is selected.
-//
-// Note: the values you get back will NOT necessarily be strings if your values/options are no strings,
-//				e.g.  <Select values={[ true, false ]}
-export class Select extends Control {
-	// Add <input> specific propTypes
-	static propTypes = {
-		...Control.propTypes,
-		"enum": PropTypes.any,								// List of valid `enum` values from schema.
-		options: PropTypes.any,								// Specifier for HTML options, overides `values`.
-
-		multiple: PropTypes.bool,							// multi-select?
-		placeholder: stringOrFn,							// placeholder attribute shown inside field.
-	}
-
-	// Dynamic input properties.
-	static expressionProps = [
-		...Control.expressionProps, "placeholder"
-	];
-
-	// Properties passed to control.
-	static controlProps = [
-		...Control.controlProps, "multiple"
-	];
-
-	// Given a set of options as:
-	//	- an array of scalar values, or
-	//	- an array of arrays as `[value, "label"]`, or
-	//	- a `{ value: label }` map
-	// return a normalized set of option values as: `[ { value, label }, ...]`.
-	//
-	// If not `required`, we'll add an empty item at the front of the list with `{ value: undefined, label: placeholder }`.
-	static normalizeOptions(options, required, placeholder = "") {
-		let normalized = [];
-
-		if (Array.isArray(options)) {
-			normalized = options.map( option => {
-				if (Array.isArray(option)) return { value: option[0], label: option[1] };
-				return { value: option, label: "" + option };
-			});
-		}
-		else if (typeof options === "object") {
-			normalized = [];
-			for (var value in options) {
-				normalized.push({ value, label: ""+options[value] });
-			}
-		}
-
-		normalized.forEach( option => {
-			if (option.label.startsWith("-")) {
-				option.disabled = true;
-				option.label = option.label.substr(1);
-			}
-		});
-
-		// if not required, add a blank item at the beginning of the list
-		if (!required) {
-			normalized.unshift({ value: undefined, label: placeholder });
-		}
-
-		return normalized;
-	}
-
-	// Render a set of normalized options.
-	static renderOptions(options) {
-		return options.map( option => <option {...option}>{option.label}</option> );
-	}
-
-
-	// React will complain if you pass a scalar into a multi-select.
-	getCurrentValue(props) {
-		const value = super.getCurrentValue(props);
-		if (props.multiple && !Array.isArray(value)) return [value];
-		return value;
-	}
-
-
-	// Create JUST the main control element (<input> etc) for this Control.
-	// This will be merged with properties from `getControlProps()`.
-	createControlElement(props) {
-		// Remember normalized options for `getElementValue`
-		this._options = this.constructor.normalizeOptions(props.options || props["enum"], props.required, props.placeholder);
-		const options = this.constructor.renderOptions(this._options);
-		return React.createElement("select", undefined, ...options);
-	}
-
-	// Map `selectedIndex` attribute of control to values from our normalized `_options`.
-	getElementValue(selectElement) {
-		// Return an array for multi-select.
-		if (this._props.multiple) {
-			const value = [];
-			this._options.forEach( (option, index) => {
-				if (selectElement.options[index].selected) value.push(option.value);
-			});
-			return value;
-		}
-		return this._options[selectElement.selectedIndex].value;
-	}
-
-}

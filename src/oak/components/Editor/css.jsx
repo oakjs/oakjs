@@ -14,7 +14,8 @@ import React, { PropTypes } from "react";
 import { classNames, unknownProps, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
 import { definedProperties } from "oak-roots/util/object";
 
-import Control, { Select, Text } from "./Control";
+import Control, { Text } from "./Control";
+import { HTMLSelect } from "./Select";
 
 //import "./css.less";
 
@@ -26,20 +27,7 @@ const LENGTH_UNITS = [
 // Static <Select/> to return CSS-legal length types
 export function CSSLengthType(props, context) {
   return (
-    <select value={props.value||""} onChange={props.onChange}>
-      <option value=""/>
-      <option value="auto">auto</option>
-      <option disabled/>
-      <option value="px">px</option>
-      <option value="%">%</option>
-      <option value="em">em</option>
-      <option value="rem">rem</option>
-      <option disabled/>
-      <option value="vh">vh</option>
-      <option value="vw">vw</option>
-      <option value="vmin">vmin</option>
-      <option value="vmax">vmax</option>
-    </select>
+    <HTMLSelect {...props} options={LENGTH_UNITS}/>
   );
 }
 
@@ -101,18 +89,18 @@ console.info(value);
   }
 
   // TODO: not getting `getControlProps()`... ???
-  renderControl(props) {
+  createControlElement(props) {
     let value = this.splitValue(props.value);
 
     // if we got an error back, pass it up to the control
     if (value && value.error) {
       props.error = value.error;
-      return <input type="text" value={value.value} style={{ width: "10em" }}/>
+      return <input type="text" style={{ width: "10em" }}/>
     }
 
     // If no value or "auto", only render a single select.
     if (value === undefined || value === "auto") {
-      return <CSSLengthType value={value} onChange={(event)=>this.onUnitsChanged(event)}/>;
+      return <CSSLengthType onChange={(event)=>this.onUnitsChanged(event)}/>;
     }
 
     // Render field + select.
