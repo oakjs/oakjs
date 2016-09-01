@@ -1,4 +1,5 @@
 // Components for individual consumption,
+export { CSSLengthType, CSSLength } from "./css";
 export Control from "./Control";
 export { Checkbox, Input, Output, Password, Select, Text } from "./Control";
 export ElementEditor from "./ElementEditor";

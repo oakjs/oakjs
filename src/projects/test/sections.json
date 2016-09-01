@@ -2,5 +2,9 @@
   {
     "id": "test",
     "title": "Loading Test"
+  },
+  {
+    "id": "editor",
+    "title": "editor"
   }
 ]
