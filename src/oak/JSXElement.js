@@ -104,10 +104,13 @@ export default class JSXElement {
 
 	// Return our type with the `package` appended to the beginning
 	get packageType() {
-    const constructor = this.componentConstructor;
-    if (constructor && constructor.package && !this.type.startsWith(constructor.package+"-")) {
+		// FIXME: Convert things to their full package name for components created when we weren't doing that.
+		//				Remove this code once everything has been properly namespaced.
+    const pkg = this.componentConstructor && this.componentConstructor.package;
+    if (pkg && typeof pkg === "string" && !this.type.startsWith(pkg+"-")) {
   		return `${constructor.package}-${this.type}`
 		}
+
 		return this.type;
 	}
 
