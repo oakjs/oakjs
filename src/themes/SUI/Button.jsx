@@ -74,7 +74,7 @@ SUIButton.propTypes = {
   style: PropTypes.object,
 
   appearance: PropTypes.string,
-  size: PropTypes.string,
+  size: PropTypes.oneOf(["mini","tiny","small","medium","large","big","huge","massive"]),
   circular: PropTypes.bool,
   color: PropTypes.string,
   floated: PropTypes.string,
