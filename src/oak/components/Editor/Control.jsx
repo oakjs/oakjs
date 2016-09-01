@@ -289,7 +289,7 @@ export default class Control extends React.Component {
 		);
 
 		// Add bound event handlers we take over, pulling in controls's existing event if defined.
-//TODO: can we reliably pick these up at the form level???
+//TODO: can we reliably pick these up at the form level instead???
 		this.constructor.controlEvents.forEach( key => {
 			controlProps[key] = this[key].bind(this, props, controlElement.props[key])
 		});

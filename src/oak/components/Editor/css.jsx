@@ -80,13 +80,18 @@ console.info(value);
     this.context.form.onChange(event, this, this.props.name, value);
   }
 
+  // Split css length value into:
+  //  - `undefined`
+  //  - `auto`
+  //  - `{ number, units }`
+  //  - `{ error }`
   splitValue(value = this._props && this._props.value) {
     if (value === undefined || value === "") return undefined;
 
     if (value === "auto") return "auto";
 
     const numberMatch = (""+value).match(NUMBER_LENGTH_EXPRESSION);
-    if (!numberMatch) return { error: `Invalid length value: '${value}'` };
+    if (!numberMatch) return { error: `Invalid length value: '${value}'`, value };
 
     const [ match, number, units ] = numberMatch;
     return {
@@ -95,14 +100,27 @@ console.info(value);
     }
   }
 
+  // TODO: not getting `getControlProps()`... ???
   renderControl(props) {
-    const value = this.splitValue(props.value);
-// TODO: error
-    if (value === undefined) return <CSSLengthType onChange={(event)=>this.onUnitsChanged(event)}/>;
-    if (value === "auto") return <CSSLengthType value="auto" onChange={(event)=>this.onUnitsChanged(event)}/>;
+    let value = this.splitValue(props.value);
+
+    // if we got an error back, pass it up to the control
+    if (value && value.error) {
+      props.error = value.error;
+      return <input type="text" value={value.value} style={{ width: "10em" }}/>
+    }
+
+    // If no value or "auto", only render a single select.
+    if (value === undefined || value === "auto") {
+      return <CSSLengthType value={value} onChange={(event)=>this.onUnitsChanged(event)}/>;
+    }
+
+    // Render field + select.
+    // The `autoFocus` will cause the field to focus when the 2 fields are shown.
+    // TODO: we really only want to do this when switching from single select => 2 selects...
     return (
       <span>
-        <input type="number" style={{width:"5em", textAlign:"right"}} value={value.number||0} onChange={(event)=>this.onNumberChanged(event)}/>
+        <input type="number" autoFocus style={{width:"5em", textAlign:"right"}} value={value.number||0} onChange={(event)=>this.onNumberChanged(event)}/>
         <CSSLengthType value={value.units} onChange={(event)=>this.onUnitsChanged(event)}/>
       </span>
     );
