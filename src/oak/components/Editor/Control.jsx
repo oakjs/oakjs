@@ -696,27 +696,3 @@ export class Select extends Control {
 	}
 
 }
-
-
-// Dynamic Control -- renders a different Control according to schema setup.
-// TODO: rename me!
-export class Dynamic extends Control {
-
-	render() {
-		// Normalized props before rendering.
-		const props = this.normalizeProps();
-
-		// If `enum` is specified, render as a `<Select>`.
-		if (props.enum) return <Select {...this.props}/>;
-
-		// Otherwise return appropriate Input according to `type`.
-		let { type } = props;
-
-		// `boolean` => `<Checkbox/>`?
-		if (type === "boolean") return <Checkbox {...this.props}/>;
-
-		// otherwise return as a `<Text/>` input
-		return <Text {...this.props} />
-	}
-
-}

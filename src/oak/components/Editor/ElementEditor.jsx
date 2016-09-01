@@ -5,7 +5,7 @@
 //  NOTE:  We assume that the element's type is relatively fixed (so we can cache `schema`, etc).
 //////////////////////////////
 
-import { PropTypes } from "react";
+import { Children, PropTypes } from "react";
 
 import { debounce } from "oak-roots/util/decorators";
 import { getPath, getParent, setPath } from "oak-roots/util/path";
@@ -30,8 +30,7 @@ export default class ElementEditor extends Form {
   static defaultProps = {
     ...Form.defaultProps,
     style: {
-      padding: 10,
-      color: "white"
+      padding: 10
     },
     controlProps: {
       labelOn: "left",
@@ -116,8 +115,13 @@ export default class ElementEditor extends Form {
     return this.state && this.state.data;
   }
 
-  // Return children from the schema.
+  // Return children from the schema, or from inline elements for an instance.
   mungeChildren(props) {
+    // If children have been specified,
+    //  assume this is a custom adaptation for a specific Component type.
+    // Return the children as specified.
+    if (props.children) return Children.toArray(props.children);
+
     const data = this.data;
     let children = this.state.controls || [];
 

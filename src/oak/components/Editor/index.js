@@ -1,7 +1,6 @@
 // Components for individual consumption,
-export ComponentEditor from "./ComponentEditor";
 export Control from "./Control";
-export { Checkbox, Dynamic, Input, Output, Password, Select, Text } from "./Control";
+export { Checkbox, Input, Output, Password, Select, Text } from "./Control";
 export ElementEditor from "./ElementEditor";
 export Error from "./Error";
 export Form from "./Form";
