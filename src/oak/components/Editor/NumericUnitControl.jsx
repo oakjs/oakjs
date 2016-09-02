@@ -31,6 +31,10 @@ export default class NumericUnitControl extends Control {
 
     // Default units to use if we get a value + no units.
     defaultUnits: PropTypes.string,
+
+    // INCLUSIVE Min/max values
+    min: PropTypes.number,
+    max: PropTypes.number
   }
 
   // Generic split parser:  `<number><units>`
@@ -41,55 +45,56 @@ export default class NumericUnitControl extends Control {
   //  - `{ value, string }` eg for `auto`, `inherits`, etc from fixed part of regex
   //  - `{ value, number, units }`
   //  - `{ value, error }`
-  splitValue(value = this._props && this._props.value) {
-    const { typeName, stringValues, unitValues, defaultUnits } = this._props;
-
+  splitValue(_value, props) {
+    // convert to a string value
+    let value = _value;
     if (typeof value === "string") value = value.trim();
-    if (value === undefined || value === "") return undefined;
+    else if (typeof value === "number") value = "" + value;
 
-    const split = { value };
-
-    if (typeof value === "number") {
-      split.number = value;
-      return split;
-    }
+    if (value === null || value === undefined || value === "") return undefined;
 
     if (typeof value !== "string") {
       console.warn(`${this.constructor.name}.splitValue(): dont know how to parse:`, value);
-      split.error = `Invalid ${typeName}`;
-      return split;
+      return { error: `Invalid ${props.typeName}` };
     }
 
     // if it's one of the specified `stringValues`, just return that.
-    if (stringValues && stringValues.includes(value)) {
-      split.string = value;
-      return split;
+    if (props.stringValues && props.stringValues.includes(value)) {
+      return { string: value };
     }
 
     // Match against our numeric `<number><units string>` parser
     const parserMatch = value.match(this.constructor.splitParser);
     if (!parserMatch) {
-      split.error = `Invalid ${typeName}`;
-      return split;
+      return { error: `Invalid ${props.typeName}` };
     }
 
     // get the bits from the parser match
     let [ fullMatch, number, units ] = parserMatch;
 
     // if units don't match unitValues, show an error
-    if (units && !unitValues.includes(units)) {
-      split.error = `"${units}" is not valid`;
+    if (units && !props.unitValues.includes(units)) {
+      let error = `"${units}" is not valid`;
       // Tell them first first which starts with that value
       // TODO: fill it in for them?
-      const firstMatch = unitValues.filter( unitValue => unitValue.startsWith(units) )[0];
-      if (firstMatch) split.error += `, did you mean "${firstMatch}"?`;
-      else if (defaultUnits) split.error += `, maybe you want "${defaultUnits}"?`;
-      return split;
+      const firstMatch = props.unitValues.filter( unitValue => unitValue.startsWith(units) )[0];
+      if (firstMatch) error += `, did you mean "${firstMatch}"?`;
+      else if (props.defaultUnits) error += `, maybe you want "${props.defaultUnits}"?`;
+
+      return { error };
     }
 
-    split.number = parseFloat(number) || 0;
-    split.units = units;
-    return split;
+    // make sure min < number < max
+    number = parseFloat(number) || 0;
+    let error = undefined;
+    if ("min" in props && number < props.min) {
+      error = `${props.typeName || "value"} must be at least ${props.min}`;
+    }
+    if ("max" in props && number > props.max) {
+      error = `${props.typeName || "value"} must be no more than ${props.max}`;
+    }
+
+    return { number, error, units };
   }
 
   // Custom `onChange` handler for both `<input>` and `<select>` change events.
@@ -104,7 +109,7 @@ export default class NumericUnitControl extends Control {
 
     const numberChanged = event.target.tagName.toUpperCase() === "INPUT";
     if (numberChanged) {
-      const newSplit = this.splitValue(fieldValue);
+      const newSplit = this.splitValue(fieldValue, props);
       if (newSplit && newSplit.number) {
         const units = newSplit.units || lastSplit && lastSplit.units || props.defaultUnits;
         newValue = "" + newSplit.number + units;
@@ -128,7 +133,8 @@ export default class NumericUnitControl extends Control {
   // Add `split` value to the normalized props.
   normalizeProps() {
     const props = super.normalizeProps();
-    const split = props.split = this.splitValue(props.value);
+    // Figure out split value
+    const split = props.split = this.splitValue(props.value, props);
     // push error / hint up to props
     if (split) {
       if (split.error && !props.error) props.error = split.error;
