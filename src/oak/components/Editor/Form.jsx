@@ -8,6 +8,7 @@
 //////////////////////////////
 
 import React, { Children, PropTypes } from "react";
+import ReactDOM from "react-dom";
 
 import { getPath, getParent, setPath } from "oak-roots/util/path";
 import { classNames, mergeProps } from "oak-roots/util/react";
@@ -143,6 +144,9 @@ export default class Form extends React.Component {
   onFieldChanged(control, controlName, currentValue) {}
 
   onFocus(event, control, controlName) {
+    const $root = $(ReactDOM.findDOMNode(control));
+    $root.addClass("with-focus");
+
     this._focused = control;
 
     if (this.props.onFocus) {
@@ -151,6 +155,9 @@ export default class Form extends React.Component {
   }
 
   onBlur(event, control, controlName) {
+    const $root = $(ReactDOM.findDOMNode(control));
+    $root.removeClass("with-focus");
+
     delete this._focused;
 
     if (this.props.onBlur) {

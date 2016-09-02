@@ -126,9 +126,9 @@ export default class NumericUnitControl extends Control {
       value = fieldValue;
     }
     else {
-      value = (lastValue && lastValue.number || 0) + fieldValue;
+      value = ((lastValue && lastValue.number) || 0) + fieldValue;
     }
-//console.warn("onUnitsChanged", fieldValue, value);
+console.warn("onUnitsChanged", fieldValue, value);
     this.context.form.onChange(event, this, name, value);
   }
 
@@ -154,9 +154,9 @@ export default class NumericUnitControl extends Control {
                   || stringValues
                   || unitValues;
     return (
-      <span>
-        <input {...controlProps} className="right-attached" value={inputValue} autoFocus={split && split.error} type="text" style={{width:"8em"}} onChange={(event)=>this.onNumberChanged(event)}/>
-        <HTMLSelect {...controlProps} tabIndex="-1" className="left-attached" value={selectValue} options={options} onChange={(event)=>this.onUnitsChanged(event)}/>
+      <span {...controlProps} className={classNames(controlProps.className, "combobox")} onChange={undefined}>
+        <input className="right-attached" value={inputValue} type="text" onChange={(event)=>this.onNumberChanged(event)}/>
+        <HTMLSelect tabIndex="-1" className="left-attached" value={selectValue} options={options} onChange={(event)=>this.onUnitsChanged(event)}/>
       </span>
     );
   }
