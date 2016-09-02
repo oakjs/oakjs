@@ -422,11 +422,10 @@ export default class Control extends React.Component {
 		const hint = this.renderHint(props);
 		const error = this.renderError(props);
 
-		// Add a wrapper around the control if we got a hint and/or error.
+		// Add a wrapper around the control in case we got a hint and/or error.
 		// This makes the hint/error line up with the control, not its label.
-		if (hint || error) {
-			control = <span className='controlWrapper'>{control}{hint}{error}</span>;
-		}
+		// NOTE: skipping the wrapper sometimes makes the control de-focus when changing hint/error state.
+		control = <span className='controlWrapper'>{control}{hint}{error}</span>;
 
 		// Render label.
 		const label = this.renderLabel(props);
