@@ -692,7 +692,6 @@ export default class OakEvent {
       type: "focus",
       focused: event.target
     });
-console.warn("setting focused to ", event.target);
     oak.setEvent(oakEvent, event);
   }
 
@@ -737,7 +736,6 @@ console.warn("setting focused to ", event.target);
         const oakEvent = oak.event.clone({ type: "_blur" });
         delete oakEvent.focused;
         oak.setEvent(oakEvent);
-  console.warn("_elementBlur is clearing focus");
       }
     }, 0);
 
