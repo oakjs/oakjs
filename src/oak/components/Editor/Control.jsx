@@ -126,6 +126,7 @@ export default class Control extends React.Component {
 		if (typeof controlElement.getElementValue === "function") {
 			return controlElement.getElementValue();
 		}
+		// Assume `controlElement.value` is correct (not universally applicable)
  		return controlElement.value;
 	}
 
@@ -286,8 +287,8 @@ export default class Control extends React.Component {
 			props.controlProps,
 		);
 
-		// Add bound event handlers we take over, pulling in controls's existing event if defined.
-//TODO: can we reliably pick these up at the form level instead???
+		// Add bound event handlers we take over, pulling in controls's existing event if defined
+		// for `controlEvents` such as `onChange`.
 		this.constructor.controlEvents.forEach( key => {
 			controlProps[key] = this[key].bind(this, props, controlElement && controlElement.props[key])
 		});
@@ -297,35 +298,22 @@ export default class Control extends React.Component {
 
 	// Render just the control itself (without the label, etc).
 	// Passed the normalized `props` from `normalizeProps()`.
-// TODO: allow for nested label, etc?  How do we tell what the actual `control` is?
+	// NOTE:	The base class assumes you're wrapping a SINGLE component.
+	//			 	We'll clone the component and add `controlProps` to it.
+	// 			 	Subclasses will NOT allow for wrapping, and will create the component directly
+	//				(and thus should NOT do a `super()` call).
 	renderControl(props) {
-		const childCount = React.Children.count(props.children);
-
-		// If we have exactly one child, assume we're wrapping an external control
-		//	-- clone it and apply controlProps;
-		if (childCount === 1) {
-			// return a clone of the control with injected properties
-			const originalControl = React.Children.only(props.children);
-			const controlProps = this.getControlProps(props, originalControl);
-			return React.cloneElement(originalControl, controlProps);
-		}
-		// If we have NO children, attempt to create one with `renderControlElement()`
-		else if (childCount === 0) {
-			const controlProps = this.getControlProps(props);
-			return this.renderControlElement(props, controlProps);
-		}
-		else {
-			console.info(`Control doesn't know what to do with ${childCount} children`, props.children);
+		// If we don't have exactly one child, we don't really know how to wrap...
+		if (React.Children.count(props.children) !== 1) {
+			console.warn(`Generic <Control>s must wrap exactly one child, got children: `, props.children);
 			return undefined;
 		}
+
+		// return a clone of the control with injected properties
+		const originalControl = React.Children.only(props.children);
+		const controlProps = this.getControlProps(props, originalControl);
+		return React.cloneElement(originalControl, controlProps);
 	}
-
-	// Create JUST the main control element (<input> etc) for this Control.
-	// You'll probably want to hand it properties from `controlProps`.
-	// NOTE: the base class doesn't create a default control and assumes you're nesting an explicit control.
-	// Use an <Editor-Input> or <Editor-Output> etc variant if you want a control to be created for you.
-	renderControlElement(props, controlProps) {}
-
 
 	// Render label.  Returns `undefined` if no label to display.
 	// Set `props.labelProps` to apply arbitrary properties to the label.
@@ -437,7 +425,7 @@ export default class Control extends React.Component {
 		// Add a wrapper around the control if we got a hint and/or error.
 		// This makes the hint/error line up with the control, not its label.
 		if (hint || error) {
-			control = <span className='controlWrapper'>{error}{control}{hint}</span>;
+			control = <span className='controlWrapper'>{control}{hint}{error}</span>;
 		}
 
 		// Render label.
@@ -465,21 +453,22 @@ export default class Control extends React.Component {
 
 // Export the base class as "Output"
 export class Output extends Control {
-	// Create JUST the main control element (<input> etc) for this Control.
-	// This will be merged with properties from `getControlProps()`.
-	renderControlElement(props, controlProps) {
-		return React.createElement("output", controlProps);
-	}
 
 	// Make empty/null/undefined value render as a space for consistent vertical sizing.
-	getControlProps(props, control) {
-		const controlProps = super.getControlProps(props, control);
+	getControlProps(props) {
+		const controlProps = super.getControlProps(props);
 		const { value } = controlProps;
 
+		// Output a non-breaking space if necessary
 		if (value === null || value === undefined || (value.trim && !value.trim())) {
 			controlProps.value = " ";		// <-- UTF-8 non-breaking space character
 		}
 		return controlProps;
+	}
+
+	// Create JUST the <output> element.
+	renderControl(props) {
+		return React.createElement("output", this.getControlProps(props));
 	}
 }
 
@@ -494,6 +483,10 @@ export class Input extends Control {
 		placeholder: stringOrFn,							// placeholder attribute shown inside field.
 	}
 
+	static defaultProps = {
+		inputType: "text"
+	}
+
 	// Dynamic input properties.
 	static expressionProps = [
 		...Control.controlProps, "placeholder"
@@ -504,29 +497,29 @@ export class Input extends Control {
 		...Control.controlProps, "placeholder"
 	];
 
-	// Create JUST the main control element (<input> etc) for this Control.
-	// This will be merged with properties from `getControlProps()`.
-	renderControlElement(props, controlProps) {
+	getControlProps(props) {
+		const controlProps = super.getControlProps(props);
+
+		// map `inputType` => `<input type>`
 		controlProps.type = props.inputType;
-		return React.createElement("input", controlProps);
+
+		// Map input value of undefined/null to empty string,
+		//	or React will complain: https://fb.me/react-controlled-components
+		const value = controlProps.value;
+		if (value === undefined || value === null) controlProps.value = "";
+
+		return controlProps;
+	}
+
+	// Create JUST the <input> element.
+	renderControl(props) {
+		return React.createElement("input", this.getControlProps(props));
 	}
 }
 
 
 // `<Editor-Text>` class -- string text field.
-export class Text extends Input {
-	static defaultProps = {
-		inputType: "text"
-	}
-
-	// Map input value of undefined/null to empty string,
-	//	or React will complain: https://fb.me/react-controlled-components
-	getCurrentValue(props) {
-		const value = super.getCurrentValue(props);
-		if (value === undefined || value === null) return "";
-		return value;
-	}
-}
+export class Text extends Input {}
 
 // `<Editor-Password>` class -- password text field.
 export class Password extends Text {
@@ -541,8 +534,8 @@ export class Password extends Text {
 export class Checkbox extends Input {
 	static propTypes = {
 		...Input.propTypes,
-		trueValue: PropTypes.any,
-		falseValue: PropTypes.any,
+		checkedValue: PropTypes.any,					//
+		uncheckedValue: PropTypes.any,
 	}
 
 	static defaultProps = {
@@ -558,40 +551,39 @@ export class Checkbox extends Input {
 //
 //	value semantics
 //
-	get trueValue() {
-		if (this._props.hasOwnProperty("trueValue")) return this._props.trueValue;
+	get checkedValue() {
+		if (this._props.hasOwnProperty("checkedValue")) return this._props.checkedValue;
 		return true;
 	}
 
-	get falseValue() {
-		if (this._props.hasOwnProperty("falseValue")) return this._props.falseValue;
+	get uncheckedValue() {
+		if (this._props.hasOwnProperty("uncheckedValue")) return this._props.uncheckedValue;
 		return false;
 	}
 
 	// Map `checked` attribute of control to an output value.
 	getElementValue(controlElement) {
 		const checked = controlElement.checked;
-		if (checked) return this.trueValue;
-		return this.falseValue;
+		if (checked) return this.checkedValue;
+		return this.uncheckedValue;
 	}
 
 	// map `value` to `checked` in controlProps.
-	getControlProps(props, control) {
-		const controlProps = super.getControlProps(props, control);
-		if (props.value === this.trueValue) controlProps.checked = "checked";
+	getControlProps(props) {
+		const controlProps = super.getControlProps(props);
+
+		// map `value` to boolean `checked`
+		controlProps.checked = (props.value === this.checkedValue);
 		delete controlProps.value;
+
 		return controlProps;
 	}
 
-//
-//	rendering
-//
-
 	// Wrap the control inside a `<label>` so clicking the label will toggle the checkbox.
 	renderControl(props) {
-		let $control = super.renderControl(props);
-		if ($control && props.title != null) return super.renderLabel(props, $control);
-		return $control;
+		let control = super.renderControl(props);
+		if (control && props.title != null) return super.renderLabel(props, control);
+		return control;
 	}
 
 	// Label rendering happens inside `renderControl()`...
