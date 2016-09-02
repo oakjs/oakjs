@@ -1,8 +1,6 @@
 //////////////////////////////
 // Editor.Control subclasses for dealing with CSS values
 //
-// TODO: select input on initial re-render after changing from auto -> num|value
-// TODO: <Editor-Number> which rejects any non-number keystrokes + paste ???
 // TODO: !important ???
 //////////////////////////////
 
