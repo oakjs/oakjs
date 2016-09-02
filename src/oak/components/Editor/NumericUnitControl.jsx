@@ -77,7 +77,7 @@ export default class NumericUnitControl extends Control {
 
     // if units don't match unitValues, show an error
     if (units && !unitValues.includes(units)) {
-      split.error = `Invalid units "${units}"`;
+      split.error = `"${units}" is not valid`;
       // Tell them first first which starts with that value
       // TODO: fill it in for them?
       const firstMatch = unitValues.filter( unitValue => unitValue.startsWith(units) )[0];
@@ -120,43 +120,44 @@ export default class NumericUnitControl extends Control {
       }
     }
 
-    console.warn("NUC onChange", fieldValue, newValue);
+//    console.warn("NUC onChange", fieldValue, newValue);
 		return this._handleEvent("onChange", props, controlHandler, event, newValue);
   }
 
   // Add `split` value to the normalized props.
   normalizeProps() {
     const props = super.normalizeProps();
-    props.split = this.splitValue(props.value);
+    const split = props.split = this.splitValue(props.value);
+    // push error / hint up to props
+    if (split) {
+      if (split.error && !props.error) props.error = split.error;
+      if (split.hint && !props.hint) props.hint = split.hint;
+    }
+
+    // normalize select options
+    // TODO: cache options for class?
+    props.options = (props.stringValues && props.unitValues && [...props.stringValues, "-", ...props.unitValues ])
+                  || props.stringValues
+                  || props.unitValues;
     return props;
   }
 
 
   renderControl(props) {
-    const { split, stringValues, unitValues, defaultUnits } = props;
     const controlProps = this.getControlProps(props);
 
     let inputValue = props.value || "";
     let selectValue = "";
 
-    if (split) {
-      // if we got an error back, pass the error up to the control
-      if (split.error) props.error = split.error;
-      if (split.hint) props.hint = split.hint;
-      if ("number" in split) {
-        inputValue = split.number;
-        selectValue = split.units || defaultUnits;
-      }
+    if (props.split && "number" in props.split) {
+      inputValue = props.split.number;
+      selectValue = props.split.units || props.defaultUnits;
     }
 
-    // TODO: cache options for class?
-    const options = (stringValues && unitValues && [...stringValues, "-", ...unitValues ])
-                  || stringValues
-                  || unitValues;
     return (
       <span {...controlProps} className={classNames(controlProps.className, "combobox")}>
         <input className="right-attached" value={inputValue} type="text" onChange={(event)=>true}/>
-        <HTMLSelect tabIndex="-1" className="left-attached" value={selectValue} options={options} onChange={(event)=>true}/>
+        <HTMLSelect tabIndex="-1" className="left-attached" value={selectValue} options={props.options} onChange={(event)=>true}/>
       </span>
     );
   }
