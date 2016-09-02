@@ -33,6 +33,7 @@ export default class NumericUnitControl extends Control {
     defaultUnits: PropTypes.string,
   }
 
+  // Generic split parser:  `<number><units>`
   static splitParser = /^([+-]?(?:\d+(?:\.\d*)?|\.\d+))(.*)$/;
 
   // Split the value into:
