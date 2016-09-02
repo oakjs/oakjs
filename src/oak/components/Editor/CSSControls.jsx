@@ -8,12 +8,8 @@
 
 import React, { PropTypes } from "react";
 
-import Control, { Text } from "./Control";
+import Control from "./Control";
 import { HTMLSelect } from "./Select";
-
-//import "./css.less";
-
-
 
 // Control which renders a <Number> and <Select> to both evaluate to a numeric value with units.
 //
@@ -49,42 +45,48 @@ export class NumericUnitControl extends Control {
     if (typeof value === "string") value = value.trim();
     if (value === undefined || value === "") return undefined;
 
+    const split = { value };
+
     if (typeof value === "number") {
-      return { number: value };
+      split.number = value;
+      return split;
     }
 
     if (typeof value !== "string") {
       console.warn(`${this.constructor.name}.splitValue(): dont know how to parse:`, value);
-      return { error: `1-Invalid value: '${value}'`, value };
+      split.error = `Invalid value: '${value}'`;
+      return split;
     }
 
     // if it's one of the specified `stringValues`, just return that.
-    if (stringValues && stringValues.includes(value)) return { string: value };
+    if (stringValues && stringValues.includes(value)) {
+      split.string = value;
+      return split;
+    }
 
-    // Construct a regex parser on the fly
-    // TODO: cache the parsers???
+    // Match against our numeric `<number><units string>` parser
     const parserMatch = value.match(this.constructor.splitParser);
     if (!parserMatch) {
-      return { error: `2-Invalid value: '${value}'`, value };
+      split.error = `Invalid value: '${value}'`;
+      return split;
     }
+
+    // get the bits from the parser match
     let [ fullMatch, number, units ] = parserMatch;
 
     // if units don't match unitValues, show an error
-    // TODO: default to the first which starts with that value?
     if (units && !unitValues.includes(units)) {
+      split.hint = `Don't understand '${units}'`;
+      // Tell them first first which starts with that value
+      // TODO: fill it in for them?
       const firstMatch = unitValues.filter( unitValue => unitValue.startsWith(units) )[0];
-      if (firstMatch) {
-        units = firstMatch;
-      }
-      else {
-        return { error: `2-Invalid units: '${units}'`, value };
-      }
+      if (firstMatch) split.hint += `, did you mean '${firstMatch}'?`;
+      return split;
     }
 
-    return {
-      number: parseFloat(number) || 0,
-      units
-    }
+    split.number = parseFloat(number) || 0;
+    split.units = units;
+    return split;
   }
 
   onUnitsChanged(event) {
@@ -108,13 +110,13 @@ export class NumericUnitControl extends Control {
 
   onNumberChanged(event) {
     const { name, defaultUnits } = this._props;
-    const current = this.splitValue();
+    const lastValue = this.splitValue();
     const fieldValue = event.target.value;
 
     const split = this.splitValue(fieldValue);
     let value;
     if (split && split.number) {
-      value = "" + split.number + (split.units || current && current.units || defaultUnits);
+      value = "" + split.number + (split.units || lastValue && lastValue.units || defaultUnits);
     }
     else if (split && split.string) {
       value = split.string;
@@ -136,6 +138,7 @@ export class NumericUnitControl extends Control {
     if (split) {
       // if we got an error back, pass the error up to the control
       if (split.error) props.error = split.error;
+      if (split.hint) props.hint = split.hint;
       if ("number" in split) {
         inputValue = split.number;
         selectValue = split.units || defaultUnits;
@@ -153,7 +156,6 @@ export class NumericUnitControl extends Control {
       </span>
     );
   }
-
 }
 
 // EITHER:  `""` / `undefined`
