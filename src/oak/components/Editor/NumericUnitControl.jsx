@@ -2,9 +2,9 @@
 // Editor.NumericUnitControl
 //  renders a <Number> and <Select> to both evaluate to a numeric value with units.
 //
-// TODO: make the whole thing look selectable / focused at the same time
-// TODO: prettier (would involve being able to explicitly select text after typing)
-// TODO: select input on initial re-render after changing from auto -> num|value
+// TODO: make this a dynamic combobox-type thing
+// TODO: put full text into field (involves explicitly selecting text after typing)
+// TODO: select input on initial re-render after selecting units value
 // TODO: min/max ?
 // TODO: typeahead to select firstMatch with units
 //////////////////////////////
