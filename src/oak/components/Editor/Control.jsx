@@ -176,19 +176,19 @@ export default class Control extends React.Component {
 //
 
 	onChange(props, controlHandler, event) {
-		return this._handleEvent("onChange", props, controlHandler, event);
+		return this._handleEvent("onChange", props, controlHandler, event, this.getElementValue(event.target));
 	}
 
 	onFocus(props, controlHandler, event) {
-		return this._handleEvent("onFocus", props, controlHandler, event);
+		return this._handleEvent("onFocus", props, controlHandler, event, this.getElementValue(event.target));
 	}
 
 	onBlur(props, controlHandler, event) {
-		return this._handleEvent("onBlur", props, controlHandler, event);
+		return this._handleEvent("onBlur", props, controlHandler, event, this.getElementValue(event.target));
 	}
 
 	onKeyPress(props, controlHandler, event) {
-		return this._handleEvent("onKeyPress", props, controlHandler, event);
+		return this._handleEvent("onKeyPress", props, controlHandler, event, this.getElementValue(event.target));
 	}
 
 	// Generic event handling:
@@ -196,7 +196,9 @@ export default class Control extends React.Component {
 	//	- then pass to `form[eventName]`
 	//	- then pass to `props[eventName]`
 	// Bail if any return `false` or set `event.preventDefault`.
-	_handleEvent(eventName, props, controlHandler, event, args) {
+//TODO: allow handlers to modify the value by passing value back???
+//TODO: fire control event BEFORE form event???
+	_handleEvent(eventName, props, controlHandler, event, value, args) {
 		// handle child handler first, bailing if so instructed
 		if (typeof controlHandler === "function") {
 			const result = controlHandler(event);
@@ -204,7 +206,6 @@ export default class Control extends React.Component {
 		}
 
 		// pass event to form, bailing if so instructed
-		const value = this.getElementValue(event.target);
 		if (this.form) {
 			const result = this.form[eventName](event, this, props.name, value);
 			if (result === false || event.defaultPrevented) return false;
@@ -213,7 +214,7 @@ export default class Control extends React.Component {
 		// call prop event
 		const handler = props[eventName];
 		if (handler) {
-			const result = handler(event, props, value);
+			const result = handler(event, value, props);
 			if (result === false || event.defaultPrevented) return false;
 		}
 
@@ -385,7 +386,8 @@ export default class Control extends React.Component {
 				props.label && props.labelOn && `label-on-${props.labelOn}`,
 				props.error && "with-error",
 				props.hint && "with-hint",
-				props.width && `width-${props.width}`
+				props.width && `width-${props.width}`,
+				this.form && this.form._focused === this && "with-focus"
 			);
 	}
 

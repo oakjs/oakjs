@@ -91,53 +91,53 @@ export default class NumericUnitControl extends Control {
     return split;
   }
 
-  // Event handler for number field.
-  onNumberChanged(event) {
-    const { name, defaultUnits } = this._props;
-    const lastValue = this.splitValue();
+  // Custom `onChange` handler for both `<input>` and `<select>` change events.
+  onChange(props, controlHandler, event) {
+    // current value of the field that changed
     const fieldValue = event.target.value;
 
-    const split = this.splitValue(fieldValue);
-    let value;
-    if (split && split.number) {
-      value = "" + split.number + (split.units || lastValue && lastValue.units || defaultUnits);
+    const lastSplit = props.split;
+
+    // figure out the new value we'll save for the field
+    let newValue = fieldValue;
+
+    const numberChanged = event.target.tagName.toUpperCase() === "INPUT";
+    if (numberChanged) {
+      const newSplit = this.splitValue(fieldValue);
+      if (newSplit && newSplit.number) {
+        const units = newSplit.units || lastSplit && lastSplit.units || props.defaultUnits;
+        newValue = "" + newSplit.number + units;
+      }
     }
-    else if (split && split.string) {
-      value = split.string;
-    }
+    // units changed
     else {
-      value = fieldValue;
+      if (!fieldValue) {
+        newValue = undefined;
+      }
+      else if (props.unitValues.includes(fieldValue)) {
+        const number = (lastSplit && lastSplit.number) || 0;
+        newValue = "" + number + fieldValue;
+      }
     }
-//console.warn("onNumberChanged", fieldValue, value);
-    this.context.form.onChange(event, this, name, value);
+
+    console.warn("NUC onChange", fieldValue, newValue);
+		return this._handleEvent("onChange", props, controlHandler, event, newValue);
   }
 
-  // Event handler for units select.
-  onUnitsChanged(event) {
-    const lastValue = this.splitValue();
-    const { name, stringValues } = this._props;
-
-    const fieldValue = event.target.value;
-    let value;
-    if (!fieldValue) {
-      value = undefined;
-    }
-    else if (stringValues.includes(fieldValue)) {
-      value = fieldValue;
-    }
-    else {
-      value = ((lastValue && lastValue.number) || 0) + fieldValue;
-    }
-console.warn("onUnitsChanged", fieldValue, value);
-    this.context.form.onChange(event, this, name, value);
+  // Add `split` value to the normalized props.
+  normalizeProps() {
+    const props = super.normalizeProps();
+    props.split = this.splitValue(props.value);
+    return props;
   }
+
 
   renderControl(props) {
-    const { stringValues, unitValues, defaultUnits } = props;
+    const { split, stringValues, unitValues, defaultUnits } = props;
     const controlProps = this.getControlProps(props);
 
-    let inputValue = props.value || "", selectValue = "";
-    const split = this.splitValue(props.value);
+    let inputValue = props.value || "";
+    let selectValue = "";
 
     if (split) {
       // if we got an error back, pass the error up to the control
@@ -154,9 +154,9 @@ console.warn("onUnitsChanged", fieldValue, value);
                   || stringValues
                   || unitValues;
     return (
-      <span {...controlProps} className={classNames(controlProps.className, "combobox")} onChange={undefined}>
-        <input className="right-attached" value={inputValue} type="text" onChange={(event)=>this.onNumberChanged(event)}/>
-        <HTMLSelect tabIndex="-1" className="left-attached" value={selectValue} options={options} onChange={(event)=>this.onUnitsChanged(event)}/>
+      <span {...controlProps} className={classNames(controlProps.className, "combobox")}>
+        <input className="right-attached" value={inputValue} type="text" onChange={(event)=>true}/>
+        <HTMLSelect tabIndex="-1" className="left-attached" value={selectValue} options={options} onChange={(event)=>true}/>
       </span>
     );
   }
