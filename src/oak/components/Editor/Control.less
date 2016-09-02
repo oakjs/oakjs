@@ -23,6 +23,23 @@
   &:focus {
     border-color: #96c8da;
   }
+
+  &.right-attached {
+    text-align: right;
+    padding-right: 0.1em;
+    border-right-width: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &.left-attached {
+    text-align: left;
+    padding-left: 0.1em;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
 }
 
 
@@ -75,7 +92,7 @@
   }
 
   // Style outputs to match inputs
-  output {
+  output:not(.fieldish) {
     display: inline-block;
     border-color: transparent;
     background-color: transparent;
@@ -125,10 +142,9 @@
   select {
     .NO_DEFAULT_APPEARANCE();
     .FIELD_APPEARANCE();
-    display: inline-block;
-    padding: 0.3em 2em 0.3em 0.5em;
-    // FF Mac wants this to be consistent with <input>s...
-    // padding: 0.2em 2em 0.3em 0.25em;
+    padding-right: 1.5em;
+    // FF Mac wants this to be consistent with <input>s... ???
+    // padding: 0.2em 1.5em 0.3em 0.25em;
     cursor:pointer;
 
     // dropdown appearance
@@ -201,7 +217,8 @@
       color: #9f3a38;
     }
 
-    input {
+    input,
+    select {
       background-color: #fff6f6;
       border-color: #e0b4b4;
       box-shadow: none;

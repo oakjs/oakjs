@@ -1,7 +1,7 @@
 // Components for individual consumption,
-export { CSSLengthType, CSSLength } from "./css";
 export Control from "./Control";
 export { Checkbox, Input, Output, Password, Text } from "./Control";
+export { NumericUnitControl, CSSLength } from "./CSSControls";
 export ElementEditor from "./ElementEditor";
 export Error from "./Error";
 export Form from "./Form";
