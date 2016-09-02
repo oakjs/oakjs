@@ -692,6 +692,7 @@ export default class OakEvent {
       type: "focus",
       focused: event.target
     });
+console.warn("setting focused to ", event.target);
     oak.setEvent(oakEvent, event);
   }
 
@@ -728,17 +729,23 @@ export default class OakEvent {
   }
 
   static _elementBlur(event) {
+    // if focused element hasn't changed, clear focused on a timeout
+    //  so we remember it during this blur event
+    const currentFocused = oak.event.focused;
+    setTimeout(function() {
+      if (oak.event.focused === currentFocused) {
+        const oakEvent = oak.event.clone({ type: "_blur" });
+        delete oakEvent.focused;
+        oak.setEvent(oakEvent);
+  console.warn("_elementBlur is clearing focus");
+      }
+    }, 0);
+
+    // fire the normal blur event
     const oakEvent = oak.event.clone({
       type: "blur"
     });
     oak.setEvent(oakEvent, event);
-
-    // clear focused data on a timeout so we remember it during this event
-    setTimeout(function() {
-      const oakEvent = oak.event.clone({ type: "_blur" });
-      delete oakEvent.focused;
-      oak.setEvent(oakEvent);
-    }, 0);
   }
 
 
