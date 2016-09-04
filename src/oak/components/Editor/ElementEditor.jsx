@@ -17,6 +17,8 @@ import Form from "./Form";
 import { Output, Text, Checkbox, } from "./Control";
 import { Select, } from "./Select";
 
+import "./ElementEditor.less";
+
 export default class ElementEditor extends Form {
   static propTypes = {
     ...Form.propTypes,
@@ -30,6 +32,7 @@ export default class ElementEditor extends Form {
 
   static defaultProps = {
     ...Form.defaultProps,
+    className: "ElementEditor",
     style: {
       padding: 10
     },
@@ -71,21 +74,21 @@ export default class ElementEditor extends Form {
     let data, Component, schema, knownProperties, controls;
     if (element) {
       data = { ...element.props };
-      Component = this.context.components[element.type];
+      Component = this.context && this.context.components[element.type];
       if (!Component) console.warn("<ElementEditor>: can't find Component for: ", element.type);
 
       schema = schemaForComponent(Component);
 
       // create controls for properties in the schema
       if (schema) {
-        // Names of all known schema properties.
-        knownProperties = Object.keys(schema.properties);
+      // Names of all known schema properties.
+      knownProperties = Object.keys(schema.properties);
 
-        controls = knownProperties
-          .map( key => this.getControlForProperty(key, schema.properties[key]) )
-          .filter(Boolean);
+      controls = knownProperties
+        .map( key => this.getControlForProperty(key, schema.properties[key]) )
+        .filter(Boolean);
 
-        // add a type <Output> to the beginning
+      // add a type <Output> to the beginning
         controls.unshift( <Output title="Component" value={element.type}/> );
       }
     }
@@ -149,8 +152,11 @@ export default class ElementEditor extends Form {
   }
 
   // Update the UI to reflect change to the element after a short delay.
-  @debounce(300)
+  @debounce(150)
   onFieldChanged(control, controlName, currentValue) {
+    // If no controller, we can't update...
+    if (!this.props.controller) return;
+
     // clone props and update the value
     oak.actions.setElementProps({
       context: this.props.controller,

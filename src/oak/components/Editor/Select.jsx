@@ -71,6 +71,8 @@ export class HTMLSelect extends React.Component {
 	normalizeOptions({ options, required, placeholder = "" }) {
 		let normalized = [];
 
+		if (typeof options === "string") options = options.split(",");
+
 		if (Array.isArray(options)) {
 			normalized = options.map( option => {
 				if (Array.isArray(option)) return { value: option[0], label: option[1] };
@@ -115,6 +117,7 @@ export class HTMLSelect extends React.Component {
 
 // "<Select>" Control subclass.
 // Specify `@options` or `@values` (e.g. from schema) as:
+//  - comma-separated string of values:     "a,b"
 //	- array of scalar values								["a", "b"]
 //	- array of arrays `[ key, "label" ]`		[ ["a", "AAA", "b": "BBB" ] ]
 //	- map of `{ key => label }`							{ a: "AAA", b: "BBB" }

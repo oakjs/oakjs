@@ -257,7 +257,7 @@ export default class Control extends React.Component {
 		props.error = this.getCurrentError(props);
 		// Evaluate dynamic properties defined as functions.
 		this.constructor.expressionProps.forEach( key => {
-			if (typeof props[key] === "function") props[key] = props[key].call(this, props.value, form);
+			if (typeof props[key] === "function") props[key] = props[key].call(this, props.value, this.form);
 		});
 
 		// Make sure we actually display an empty string label.  (???)

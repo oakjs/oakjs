@@ -174,11 +174,11 @@
       </SUI-Segment>
     </Example>
     <Example title="Circular" oid="YJNVExtb">
-      <SUI-Button circular icon="settings" oid="chJYP7Tv"/>
-      <SUI-Button circular appearance="facebook" icon="facebook" oid="s2rcvowS"/>
-      <SUI-Button circular appearance="twitter" icon="twitter" oid="C47WX0pk"/>
-      <SUI-Button circular appearance="linkedin" icon="linkedin" oid="M5hLQXiQ"/>
-      <SUI-Button circular appearance="google plus" icon="google plus" oid="VlOZ11vs"/>
+      <SUI-Button appearance="circular" icon="settings" oid="chJYP7Tv"/>
+      <SUI-Button appearance="circular facebook" icon="facebook" oid="s2rcvowS"/>
+      <SUI-Button appearance="circular twitter" icon="twitter" oid="C47WX0pk"/>
+      <SUI-Button appearance="circular linkedin" icon="linkedin" oid="M5hLQXiQ"/>
+      <SUI-Button appearance="circular google plus" icon="google plus" oid="VlOZ11vs"/>
     </Example>
     <Example title="Vertically Attached" oid="bUV171ij">
       <SUI-Button attached="top" title="Top" oid="tOn4q7iT"/>
