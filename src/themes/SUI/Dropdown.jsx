@@ -97,6 +97,7 @@ class SUIDropdown extends SUIModuleComponent {
     error: PropTypes.any,
 
     // proxied down to menu
+    items: PropTypes.any, // TODO: array of (string|element), object, array of objects
     menuClassName: PropTypes.string,
     menuAppearance: PropTypes.string,
 
@@ -244,7 +245,8 @@ class SUIDropdown extends SUIModuleComponent {
     if (items) {
       // pass all unknown properties on to Menu
       const menuProps = {
-        ...this.getUnknownProps(),   // includes "items"
+        ...this.getUnknownProps(),
+        items,
         className: menuClassName,
         appearance: menuAppearance,
       }
