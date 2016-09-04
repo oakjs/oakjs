@@ -540,13 +540,7 @@ export class Checkbox extends Input {
 	}
 
 	static defaultProps = {
-		inputType: "checkbox",
-		labelOn: "right",
-		labelProps: {
-			style: {
-				width: "auto"
-			}
-		}
+		inputType: "checkbox"
 	}
 
 //
@@ -583,13 +577,17 @@ export class Checkbox extends Input {
 	// Wrap the control inside a `<label>` so clicking the label will toggle the checkbox.
 	renderControl(props) {
 		let control = super.renderControl(props);
-		if (control && props.title != null) return super.renderLabel(props, control);
-		return control;
+		if (!control || !props.title == null) return control
+
+		return <label className="oak checkbox label">{control}{props.title}</label>;
 	}
 
-	// Label rendering happens inside `renderControl()`...
+	// Normal title rendering happens inside `renderControl()`.
+	// Here we just render an empty label to space the control over to match inputs/etc.
 	renderLabel(props) {
-		return undefined;
+		if (!props.title || props.labelOn === "top") return null;
+		// render label as a `nbsp`
+		return super.renderLabel({ ...props, title: " " });		// <-- `&nbsp;` in utf-8
 	}
 
 }
