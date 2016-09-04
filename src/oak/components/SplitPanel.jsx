@@ -73,7 +73,7 @@ export default class SplitPanel extends Hideable {
       const flex = (typeof size === "number" ? 0 : 1);
       const sizeString = (typeof size === "number" ? `${size}px` : size);
 
-      child.style.flex = `${flex} 0 ${sizeString}`;
+      child.style.flex = `${flex} ${flex} ${sizeString}`;
     });
   }
 
