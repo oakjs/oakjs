@@ -8,96 +8,101 @@
 import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
-import { getFloatedClass } from "./constants";
+import { getFloatedClass, getAttachedClass } from "./constants";
 import ElementBuffer from "./ElementBuffer";
 
 import "./Button.css";
 
 
+const APPEARANCES = [ "circular", "basic", "inverted", "fluid", "facebook", "twitter", "google plus", "vk", "linkedin", "instagram", "youtube" ];
+
 // `appearance`:  any combination of:
 //    - `primary`, `secondary`
 //    - `animated, `vertical animated`, `animated fade`, etc.
-function SUIButton(props) {
-  const {
-    // appearance
-    appearance="", size, circular, color, floated,
-    // content / label
-    title, icon, children,
-    // events & states
-    active, disabled, loading, toggle,
-    // label stuff
-    label, labelAppearance, labelOn,
+export default class SUIButton extends React.Component {
+  static propTypes = {
+    title: PropTypes.string,
+    icon: PropTypes.string,
+    children: PropTypes.any,
 
-    // everything else, including id, className, style, onClick
-    ...elementProps
-  } = props;
+    label: PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.element
+          ]),
+    labelAppearance: PropTypes.string,
+    labelOn: PropTypes.string,
+    id: PropTypes.string,
 
-  const buttonElements = new ElementBuffer({
-    type: (appearance.includes("attached") ? "div" : "button"),
-    props: elementProps,
-  });
-  buttonElements.addClass("ui", appearance, size, color, getFloatedClass(floated));
-  buttonElements.addClass({ circular, active, disabled, loading, toggle, icon: icon && !(title || children) });
-  buttonElements.addClass("button");
+    onClick: PropTypes.func,
 
-  if (icon) buttonElements.appendIcon(icon);
-  buttonElements.append(title, children);
+    appearance: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string)
+    ]),
+    size: PropTypes.oneOf(["mini", "tiny", "small", "medium", "large", "big", "huge", "massive"]),
+    color: PropTypes.oneOf(["primary", "secondary", "positive", "negative", "red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "grey", "black"]),
+    floated: PropTypes.oneOf(["left", "right"]),
+    attached: PropTypes.oneOf(["top", "bottom", "left", "right"]),
+    className: PropTypes.string,
+    style: PropTypes.object,
 
-  // If we didn't get a label, just return the button
-  if (!label) return buttonElements.render();
+    active: PropTypes.bool,
+    disabled: PropTypes.bool,
+    hidden: PropTypes.bool,
+    loading: PropTypes.bool,
+    toggle: PropTypes.bool,
+  };
 
-  // Otherwise we need to create the wrapper and add label + button to it
-  const labelWrapper = new ElementBuffer({
-    props: {
-      className: classNames("ui", labelOn, "labeled button"),
-      tabIndex: "0"
-    },
-    elements: [ buttonElements.render() ]
-  });
+  static defaultProps = {
+    labelOn: "right",
+    labelAppearance: "basic"
+  };
 
-  // if we didn't get a string, we assume we got a rendered label
-  const labelElement = typeof label !== "string"
-                     ? label
-                     : <a className={classNames("ui", labelAppearance, color, "label")}>{label}</a>;
-  labelWrapper.addOn(labelOn, labelElement);
-  return labelWrapper.render();
+  render() {
+    const {
+      // appearance
+      appearance="", size, color, floated, attached,
+      // content / label
+      title, icon, children,
+      // events & states
+      active, disabled, hidden, loading, toggle,
+      // label stuff
+      label, labelAppearance, labelOn,
+
+      // everything else, including id, className, style, onClick
+      ...elementProps
+    } = this.props;
+
+    if (hidden) return null;
+
+    const buttonElements = new ElementBuffer({
+      type: (attached ? "div" : "button"),
+      props: elementProps,
+    });
+    buttonElements.addClass("ui", appearance, size, color, getFloatedClass(floated), getAttachedClass(attached));
+    buttonElements.addClass({ active, disabled, loading, toggle, icon: icon && !(title || children) });
+    buttonElements.addClass("button");
+
+    if (icon) buttonElements.appendIcon(icon);
+    buttonElements.append(title, children);
+
+    // If we didn't get a label, just return the button
+    if (!label) return buttonElements.render();
+
+    // Otherwise we need to create the wrapper and add label + button to it
+    const labelWrapper = new ElementBuffer({
+      props: {
+        className: classNames("ui", labelOn, "labeled button"),
+        tabIndex: "0"
+      },
+      elements: [ buttonElements.render() ]
+    });
+
+    // if we didn't get a string, we assume we got a rendered label
+    const labelElement = typeof label !== "string"
+                       ? label
+                       : <a className={classNames("ui", labelAppearance, color, "label")}>{label}</a>;
+    labelWrapper.addOn(labelOn, labelElement);
+    return labelWrapper.render();
+  }
 }
-
-SUIButton.defaultProps = {
-  labelOn: "right",
-  labelAppearance: "basic"
-};
-
-SUIButton.propTypes = {
-  id: PropTypes.string,
-  className: PropTypes.string,
-  style: PropTypes.object,
-
-  appearance: PropTypes.string,
-  size: PropTypes.oneOf(["mini","tiny","small","medium","large","big","huge","massive"]),
-  circular: PropTypes.bool,
-  color: PropTypes.string,
-  floated: PropTypes.string,
-
-  title: PropTypes.string,
-  icon: PropTypes.string,
-  children: PropTypes.any,
-
-  label: React.PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.element
-        ]),
-  labelAppearance: PropTypes.string,
-  labelOn: PropTypes.string,
-
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
-  loading: PropTypes.bool,
-  toggle: PropTypes.bool,
-  onClick: PropTypes.func
-};
-
-// add render() method so we get hot code reload.
-SUIButton.render = Function.prototype;
-
-export default SUIButton;
