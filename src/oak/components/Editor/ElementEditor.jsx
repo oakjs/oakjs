@@ -77,11 +77,13 @@ export default class ElementEditor extends Form {
     if (element) {
       data = { ...element.props };
       elementType = element.type;
-      Component = this.context && this.context.components[elementType];
 
+      const components = (this.context && this.context.components) || oak.components;
+      Component = components[elementType];
       if (!Component) {
         console.warn("<ElementEditor>: can't find Component for: ", elementType);
-      } else {
+      }
+      else {
         schema = schemaForComponent(Component);
 
         // create controls for properties in the schema
@@ -164,8 +166,9 @@ export default class ElementEditor extends Form {
   // Update the UI to reflect change to the element after a short delay.
   @debounce(150)
   onFieldChanged(control, controlName, currentValue) {
+    const { element, controller } = this.props;
     // If no controller, we can't update...
-    if (!this.props.controller) return;
+    if (!element || !controller) return;
 
     // clone props and update the value
     oak.actions.setElementProps({
