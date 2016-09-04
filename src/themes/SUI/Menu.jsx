@@ -25,6 +25,8 @@ import "./Menu.css";
 export function renderItems(items) {
   if (!items) return undefined;
 
+  if (typeof items === "string") items = items.split(",");
+
   if (Array.isArray(items))
     return renderItemsArray(items);
 
