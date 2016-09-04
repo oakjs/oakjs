@@ -129,6 +129,12 @@ export class Select extends Control {
 
 		multiple: PropTypes.bool,							// multi-select?
 		placeholder: stringOrFn,							// placeholder attribute for `undefined` value.
+
+		delimiter: PropTypes.string,          // Delimiter for multiple options specified as string
+	}
+
+	static defaultProps = {
+	  delimiter: ","
 	}
 
 	// Dynamic input properties.
@@ -144,7 +150,13 @@ export class Select extends Control {
 	// React will complain if you pass a scalar into a multi-select.
 	getCurrentValue(props) {
 		const value = super.getCurrentValue(props);
-		if (props.multiple && !Array.isArray(value)) return [value];
+		if (props.multiple && !Array.isArray(value)) {
+		  if (typeof value === "string") {
+		    if (value === "") return [];
+		    return value.split(props.delimiter);
+		  }
+		  return [value];
+		}
 		return value;
 	}
 
