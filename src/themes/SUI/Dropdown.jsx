@@ -19,7 +19,7 @@ import "./Dropdown.css";
 const moduleProps = {
   on: PropTypes.string,                   // default: "click"       Event used to trigger dropdown (Hover, Click, Custom Event).
   allowAdditions: PropTypes.bool,         // default: false         Whether search selection should allow users to add their own selections, works for single or multiselect.
-  action: PropTypes.string,               // default: "auto"        "activate", "select", "combo", "nothing", "hide", function(text, value)
+  action: PropTypes.string,               // default: "activate"    "activate", "select", "combo", "nothing", "hide", function(text, value)
   match: PropTypes.string,                // default: "both"        When using search selection specifies how to match values.  "both", "value", "text"
   forceSelection: PropTypes.bool,         // default: true          Whether search selection will force currently selected choice when element is blurred.
   allowCategorySelection: PropTypes.bool, // default: false         Whether menu items with sub-menus (categories) should be selectable
@@ -240,7 +240,7 @@ class SUIDropdown extends SUIModuleComponent {
     if (icon) elements.appendIcon(icon);
     if (text != null) elements.appendWrapped("div", "text", text);
     if (showArrow) elements.appendIcon("dropdown");
-    if (placeholder) elements.appendWrapped("div", "default text", placeholder);
+    if (placeholder || selection) elements.appendWrapped("div", "default text", placeholder || "");
 
     if (items) {
       // pass all unknown properties on to Menu
