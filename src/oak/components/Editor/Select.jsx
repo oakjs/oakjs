@@ -113,7 +113,7 @@ export class HTMLSelect extends React.Component {
 
 
 
-// "<Select>" class.
+// "<Select>" Control subclass.
 // Specify `@options` or `@values` (e.g. from schema) as:
 //	- array of scalar values								["a", "b"]
 //	- array of arrays `[ key, "label" ]`		[ ["a", "AAA", "b": "BBB" ] ]
