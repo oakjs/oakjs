@@ -125,6 +125,12 @@ class OakJS extends Eventful(Object) {
     return this.selection.map( oid => this.getEditableComponentForOid(oid) ).filter(Boolean);
   }
 
+  // Return the FIRST selected component of the specified type.
+  // Returns `undefined` if no such component was found.
+  getSelectedComponent(type) {
+    return this.selectedComponents.filter( component => component.type === type )[0];
+  }
+
   //////////////////////////////
   //  Browser event data
   //////////////////////////////
