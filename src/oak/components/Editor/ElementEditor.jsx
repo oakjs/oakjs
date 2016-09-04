@@ -14,7 +14,8 @@ import { getPath, getParent, setPath } from "oak-roots/util/path";
 //import { schemaForComponent } from "oak-roots/PropTypes-patch";
 
 import Form from "./Form";
-import { Output, Text, Checkbox, Select, } from "./Control";
+import { Output, Text, Checkbox, } from "./Control";
+import { Select, } from "./Select";
 
 export default class ElementEditor extends Form {
   static propTypes = {
@@ -65,7 +66,7 @@ export default class ElementEditor extends Form {
   }
 
 
-  // Return `{ Component, schema }` for specified element, which we'll cache in `state`.
+  // Return `{ Component, schema, etc }` for specified element, which we'll cache in `state`.
   getComponentInfo(element) {
     let data, Component, schema, knownProperties, controls;
     if (element) {
@@ -141,9 +142,15 @@ export default class ElementEditor extends Form {
     return children;
   }
 
+  // If `currentValue` is the empty string, save as `undefined`.
+  saveValueForControl(controlName, currentValue) {
+    if (currentValue === "") return super.saveValueForControl(controlName, undefined);
+    return super.saveValueForControl(controlName, currentValue);
+  }
+
   // Update the UI to reflect change to the element after a short delay.
   @debounce(300)
-  onFieldChanged() {
+  onFieldChanged(control, controlName, currentValue) {
     // clone props and update the value
     oak.actions.setElementProps({
       context: this.props.controller,
