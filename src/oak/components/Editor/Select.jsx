@@ -1,12 +1,5 @@
 //////////////////////////////
-// Editor.Control class
-//
-//	Base class for all editor controls which renders a `control` inside a wrapper element,
-//	with `title`, `errors`, `hint`, etc.
-//
-//	The base class can be used to wrap an arbitrary component,
-//	use a subclass to auto-create an inner `control`.
-//
+// Editor.HTMLSelect and Editor.Select classes
 //////////////////////////////
 
 import React, { PropTypes } from "react";

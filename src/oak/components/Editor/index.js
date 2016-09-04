@@ -2,6 +2,7 @@
 export Control from "./Control";
 export { Checkbox, Input, Output, Password, Text } from "./Control";
 export { CSSLength } from "./CSSControls";
+export Dropdown from "./Dropdown";
 export ElementEditor from "./ElementEditor";
 export Error from "./Error";
 export Form from "./Form";

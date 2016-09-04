@@ -120,6 +120,8 @@ export default class Control extends React.Component {
 	//	return the current `value` for the control, normalized the way you want it saved.
 	// Some controls (e.g. checkboxes, selects, etc) will override this.
 	getElementValue(controlElement) {
+		if (!controlElement) return undefined;
+
 		// TODOC
 		// Handle controls which have been given an explicit `getElementValue` method
 		//	(e.g. `<HTMLSelect>`, `<HTMLCheckbox>` etc).
