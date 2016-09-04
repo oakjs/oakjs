@@ -82,8 +82,8 @@ export function setAppStateTransaction(options = {}) {
   const originalState = Object.assign({}, oak.state);
   const newState = Object.assign({}, originalState, state);
 
-  function redo() { utils.setAppState(newState); }
-  function undo() { utils.setAppState(originalState); }
+  function redo() { utils.replaceAppState(newState); }
+  function undo() { utils.replaceAppState(originalState); }
 
   return new UndoTransaction({
     redoActions:[redo],

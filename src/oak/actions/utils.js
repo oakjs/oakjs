@@ -60,14 +60,14 @@ export function updateComponentAndChildren(component, update, updateArgs) {
 //////////////////////////////
 
 // Return a new app state which applies deltas to the state
-export function changeAppState(deltas) {
+export function setAppState(deltas) {
   const newState = Object.assign({}, oak.state, deltas);
-  return setAppState(newState);
+  return replaceAppState(newState);
 }
 
 // Change app state directly (not in a transaction).
-export function setAppState(newState) {
-//console.info("setAppState", newState);
+export function replaceAppState(newState) {
+//console.info("replaceAppState", newState);
   oak.state = Object.freeze(newState);
   oak.preference("appState", oak.state);
   oak.updateSoon();
@@ -80,7 +80,7 @@ export function setAppState(newState) {
 //////////////////////////////
 
 export function setSelection(selection = []) {
-  return changeAppState({ selection: selection });
+  return setAppState({ selection: selection });
 }
 
 
