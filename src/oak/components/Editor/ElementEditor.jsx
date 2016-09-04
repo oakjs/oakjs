@@ -58,40 +58,55 @@ export default class ElementEditor extends Form {
   // Cache `Component`, `schema` etc on load.
   constructor(props) {
     super(props);
-    this.state = this.getComponentInfo(props.element);
+    this.state = this.getComponentInfo(props);
   }
 
   // Update cache of `Component` and `schema` when props change.
   componentWillReceiveProps(nextProps) {
     if (this.props.element !== nextProps.element || !this.state.Component) {
-      this.setState(this.getComponentInfo(nextProps.element));
+      this.setState(this.getComponentInfo(nextProps));
     }
   }
 
 
   // Return `{ Component, schema, etc }` for specified element, which we'll cache in `state`.
-  getComponentInfo(element) {
-    let data, Component, schema, knownProperties, controls;
+  getComponentInfo(props) {
+    const { element } = props;
+
+    let data, elementType = "unknown", Component, schema, knownProperties, controls;
     if (element) {
       data = { ...element.props };
-      Component = this.context && this.context.components[element.type];
-      if (!Component) console.warn("<ElementEditor>: can't find Component for: ", element.type);
+      elementType = element.type;
+      Component = this.context && this.context.components[elementType];
 
-      schema = schemaForComponent(Component);
+      if (!Component) {
+        console.warn("<ElementEditor>: can't find Component for: ", elementType);
+      } else {
+        schema = schemaForComponent(Component);
 
-      // create controls for properties in the schema
-      if (schema) {
-      // Names of all known schema properties.
-      knownProperties = Object.keys(schema.properties);
+        // create controls for properties in the schema
+        if (schema) {
+          // Names of all known schema properties.
+          knownProperties = Object.keys(schema.properties);
+        }
+      }
+    }
 
+    // If we were passed children directly, assume we want those for our controls
+    if (props.children) {
+      controls = Children.toArray(props.children);
+    }
+    // Otherwise attempt to generate based on knownProperties
+    else if (schema && knownProperties) {
       controls = knownProperties
         .map( key => this.getControlForProperty(key, schema.properties[key]) )
         .filter(Boolean);
 
-      // add a type <Output> to the beginning
-        controls.unshift( <Output title="Component" value={element.type}/> );
-      }
+      // add a type <Output> to the beginning of the controls
+      controls.unshift( <Output title="Component" value={elementType}/> );
     }
+
+    if (!data) data = { ...props.data }
 
     return { data, Component, schema, knownProperties, controls };
   }
@@ -121,15 +136,10 @@ export default class ElementEditor extends Form {
 
   // Return children from the schema, or from inline elements for an instance.
   mungeChildren(props) {
-    // If children have been specified,
-    //  assume this is a custom adaptation for a specific Component type.
-    // Return the children as specified.
-    if (props.children) return Children.toArray(props.children);
-
-    const data = this.data;
     let children = this.state.controls || [];
 
     // add fields for any properties which are not in `knownProperties`.
+    const data = this.data;
     if (data && this.state.knownProperties) {
       const unknownControls = Object.keys(data)
         .map( key => {
