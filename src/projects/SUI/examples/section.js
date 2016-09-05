@@ -1,5 +1,10 @@
 componentDidMount() {
-  console.warn("examples section mount");
+   $("#PageSidebarMenu").sticky({
+     context: ".oak.current.Page"
+   });
+}
+
+componentDidUpdate() {
    $("#PageSidebarMenu").sticky({
      context: ".oak.current.Page"
    });
