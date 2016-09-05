@@ -150,7 +150,7 @@ export class Select extends Control {
 	// React will complain if you pass a scalar into a multi-select.
 	getCurrentValue(props) {
 		const value = super.getCurrentValue(props);
-		if (props.multiple && !Array.isArray(value)) {
+		if (props.multiple && value != null && !Array.isArray(value)) {
 		  if (typeof value === "string") {
 		    if (value === "") return [];
 		    return value.split(props.delimiter);
