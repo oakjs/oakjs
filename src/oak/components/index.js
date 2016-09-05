@@ -36,5 +36,3 @@ for (let key in SUI) {
 
 // Export all as a map
 export default Object.assign({}, exports);
-
-console.info(exports);
