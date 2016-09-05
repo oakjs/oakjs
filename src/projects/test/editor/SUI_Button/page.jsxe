@@ -1,6 +1,7 @@
 <Oak-Page id="SUI_Button" title="SUI-Button" oid="yD0HwCK2">
   <Editor-ElementEditor element={oak.getSelectedComponent("SUI-Button")} controller={oak.editContext} oid="oh7VXOLk">
-    <SUI-Button title="Button" Xappearance="circular" oid="UpttjRXX"/>
+    <SUI-Button title="Button1" oid="UpttjRXX"/>
+    <SUI-Button title="Button2" appearance="circular" oid="XUpttjRXX"/>
     <Oak-Spacer oid="PijUW4lf"/>
     <Editor-Output title="Component" value="SUI-Button" oid="Ds2XO68J"/>
     <Editor-Text name="title" title="title" oid="MZfFGZku"/>

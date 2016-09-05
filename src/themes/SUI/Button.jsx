@@ -35,7 +35,10 @@ export default class SUIButton extends React.Component {
 
     onClick: PropTypes.func,
 
-    appearance: PropTypes.arrayOf(PropTypes.oneOf(APPEARANCES)),
+    appearance: PropTypes.oneOfType([
+      PropTypes.oneOf(APPEARANCES),
+      PropTypes.arrayOf(PropTypes.oneOf(APPEARANCES))
+    ]),
     size: PropTypes.oneOf(["mini", "tiny", "small", "medium", "large", "big", "huge", "massive"]),
     color: PropTypes.oneOf(["primary", "secondary", "positive", "negative", "red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "grey", "black"]),
     floated: PropTypes.oneOf(["left", "right"]),

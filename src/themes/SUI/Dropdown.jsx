@@ -197,8 +197,8 @@ class SUIDropdown extends SUIModuleComponent {
     }
     else {
       // remove items which are in `lastValue` but not in `value`
-      lastValue.filter(value => !value.includes(value) )
-        .forEach( value => this.removeSelected(value) );
+      lastValue.filter(val => !value.includes(val) )
+        .forEach( val => this.removeSelected(val) );
 
       // add items which are in `value` but not in `lastValue`
       value.filter(value => !lastValue.includes(value) )
