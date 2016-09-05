@@ -1,0 +1,11 @@
+.oak.FixedPanel {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid red;
+
+  // Wrapper pops out of the FixedPanel and is sized dynamically
+  & > div {
+    position:fixed;
+  }
+}
