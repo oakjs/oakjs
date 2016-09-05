@@ -14,7 +14,7 @@ function PageMenuItem(props, context) {
   if (!props.page || !context.components) return null;
 
   const { page, label, children, ...extraProps } = props;
-  const { MenuItem } = context.components;
+  const { SUI } = context.components;
 
   const active = (context.page ? context.page.path === page.path : undefined);
   extraProps.className = classNames("PageMenuItem", {active}, extraProps.className);
@@ -23,9 +23,9 @@ function PageMenuItem(props, context) {
   const handleClick = () => oak.actions.navigateTo({ route: page.route });
 
   return (
-    <MenuItem {...extraProps} onClick={handleClick}>
+    <SUI.MenuItem {...extraProps} onClick={handleClick}>
       {itemText}
-    </MenuItem>
+    </SUI.MenuItem>
   );
 }
 

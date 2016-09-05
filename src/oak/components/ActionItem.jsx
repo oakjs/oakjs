@@ -39,7 +39,7 @@ export default class ActionItem extends React.Component {
   }
 
   toString() {
-    return `<ActionItem ${this.id}/>`;
+    return `<Oak-ActionItem ${this.id}/>`;
   }
 
   render() {

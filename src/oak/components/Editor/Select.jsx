@@ -118,8 +118,8 @@ export class HTMLSelect extends React.Component {
 // If select is not `@required`, we'll automatically add an empty option to the select,
 //	whose value will be `undefined` when it is selected.
 //
-// Note: the values you get back will NOT necessarily be strings if your values/options are no strings,
-//				e.g.  <Select values={[ true, false ]}
+// Note: the values you get back will NOT necessarily be strings if your options/enum are not strings,
+//				e.g.  <Editor-Select options={[ true, false ]}
 export class Select extends Control {
 	// Add <Select> specific propTypes
 	static propTypes = {

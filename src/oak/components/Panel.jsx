@@ -17,9 +17,9 @@
 //  - sidebars inside vs. outside headers?
 //  - non-`scrolling` sidebars should always scroll?  be sticky?
 //  - different scrolling scenarios
-//  - <Panel title> auto-create <PanelHeader><h2>{title}</h2></PanelHeader>
-//  - <Panel closeable>   => set hidden dynamically?  how do we re-show it?  pref?
-//  - <Toolbar> ?  <TopToolbar> vs <BottomToolbar> ?
+//  - <Oak-Panel title> auto-create <Oak-PanelHeader><h2>{title}</h2></Oak-PanelHeader>
+//  - <Oak-Panel closeable>   => set hidden dynamically?  how do we re-show it?  pref?
+//  - <Oak-Toolbar> ?  <Oak-TopToolbar> vs <Oak-BottomToolbar> ?
 //  - better name for "fluid`?  default to "fluid" and have "compact" ?
 //  - padding?  applies to body only, with separate setting for header/sidebars/etc?
 //      - "tight" | ("normal") | "relaxed" ?
@@ -233,7 +233,7 @@ export class RightSidebar extends OakComponent {
 
 //
 //  Panel sizing:
-//  Set ALL <Panel scrolling> body element heights, from the outside in.
+//  Set ALL <Oak-Panel scrolling> body element heights, from the outside in.
 //  This is called on a slight delay after drawing.
 //
 
