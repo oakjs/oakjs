@@ -1,5 +1,5 @@
 import "./IconSample.css";
-const OakComponent = oak.components.OakComponent;
+const { OakComponent } = oak.components.Oak;
 export default class IconSample extends OakComponent {
   render() {
     const { SUI } = this.context.components;

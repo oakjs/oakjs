@@ -1,4 +1,4 @@
-const OakComponent = oak.components.OakComponent;
+const { OakComponent } = oak.components.Oak;
 export default class Enablers extends OakComponent {
   render() {
     const { page } = this.context;

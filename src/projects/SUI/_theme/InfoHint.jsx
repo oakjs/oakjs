@@ -1,4 +1,4 @@
-const OakComponent = oak.components.OakComponent;
+const { OakComponent } = oak.components.Oak;
 export default class InfoHint extends OakComponent {
   render() {
     const { SUI } = this.context.components;

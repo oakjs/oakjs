@@ -11,5 +11,12 @@ export Label from "./Label";
 export NumericUnitControl from "./NumericUnitControl";
 export { HTMLSelect, Select } from "./Select";
 
+
+// Set "package" of the components
+// DEPRECATED?
+for (let key in exports) {
+  exports[key].package = "Editor";
+}
+
 // Export all as a map
 export default Object.assign({}, exports);
