@@ -24,7 +24,7 @@ export default class AcornParser {
       throw new TypeError(`parseElement({type:'${type}'}): dont know how to parse this type.`);
     }
 
-    const elementType = this.parseElementType(astElement);
+    const elementType = this.parseElementType(astElement, code, options);
     const ElementConstructor = this.getElementConstructor(elementType);
     const element = new ElementConstructor({
       type: elementType,
@@ -41,8 +41,12 @@ export default class AcornParser {
     return element;
   }
 
+  // Parse the element type for a JSXElement.
+  // Handles `<Foo-Var>` and `<Foo.Var>` just fine.
   parseElementType(astElement, code, options) {
-    return this.parseIdentifier(astElement.openingElement.name);
+    const name = astElement.openingElement.name;
+    if (!name) throw new TypeError(`parseElementType({type:'${name.type}'}): don't know how to parse this!`);
+    return code.substring(name.start, name.end);
   }
 
   // Parse a JSXElement's `openingElement.attributes` and return a `props` object.
@@ -135,7 +139,14 @@ export default class AcornParser {
 
   parseIdentifier(ast, code, options) {
     const type = (ast && ast.type);
-    if (type === "JSXIdentifier") return ast.name;
-    throw new TypeError(`parseIdentifier({type:'${type}'}): we can only parse {type:'JSXIdentifier'}.`)
+    if (type !== "JSXIdentifier") throw new TypeError(`parseIdentifier({type:'${type}'}): we can only parse {type:'JSXIdentifier'}.`)
+    return ast.name;
+  }
+
+  parseMemberExpression(ast, code, options) {
+    const type = (ast && ast.type);
+    if (type !== "JSXMemberExpression") throw new TypeError(`parseMemberExpression({type:'${type}'}): we can only parse {type:'JSXMemberExpression'}.`)
+    if (!code) throw new TypeError(`parseMemberExpression({type:'${type}'}): you must pass 'code' to extract the expression.`);
+    return code.substring(ast.start, ast.end);
   }
 }
