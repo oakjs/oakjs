@@ -1,4 +1,4 @@
-<Oak-Page id="Search" title="Search" oid="nS0rEkMN">
+<Oak.Page id="Search" title="Search" oid="nS0rEkMN">
   <PageTitle title="Search" oid="T6YitZE4">
     A search component allows a user to query for results from a selection of data
     <Todo oid="VOCvb8hU">
@@ -11,13 +11,13 @@
   </PageTitle>
   <PageSection title="Types" oid="DQ5Bla94">
     <Example title="API-Based" hint="<Search apiSettings={{...}} fields={{...}}/>" oid="wods4jhV">
-      <SUI-Search apiSettings={{ url: "//api.github.com/search/repositories?q={query}"}} fields={{ results: "items", title: "name", url: "html_url" }} minCharacters={3} placeholder="Search GitHub Repos" oid="soKlfjm8"/>
+      <SUI.Search apiSettings={{ url: "//api.github.com/search/repositories?q={query}"}} fields={{ results: "items", title: "name", url: "html_url" }} minCharacters={3} placeholder="Search GitHub Repos" oid="soKlfjm8"/>
     </Example>
     <Example title="Local Source" hint="<Search category/>" oid="GqWZqRJX">
-      <SUI-Search source={data.countryNames} placeholder="Choose a Country" oid="W9n6dTxa"/>
+      <SUI.Search source={data.countryNames} placeholder="Choose a Country" oid="W9n6dTxa"/>
     </Example>
     <Example title="Category Results" hint="<Search source={[...]}/>" oid="woCK3gvw">
-      <SUI-Search category apiSettings={{
+      <SUI.Search category apiSettings={{
                   url: "//api.github.com/search/repositories?q={query}",
                   onResponse: data.processGithubResponse
                 }} placeholder="Search Github" icon="github" iconOn="left" oid="W07A4mpR"/>
@@ -25,15 +25,15 @@
   </PageSection>
   <PageSection title="States" oid="FsZP4IFC">
     <Example title="Loading" hint="<Search loading/>" oid="aTbh6yvy">
-      <SUI-Search loading placeholder="Search..." oid="I5Q93eU4"/>
+      <SUI.Search loading placeholder="Search..." oid="I5Q93eU4"/>
     </Example>
   </PageSection>
   <PageSection title="Appearance" oid="IF7bfCTV">
     <Example title="Fluid results" hint="<Search appearance='fluid'/>" oid="BVadexWU">
-      <SUI-Search appearance="fluid" source={data.countryNames} placeholder="Search..." oid="uOVEWnma"/>
+      <SUI.Search appearance="fluid" source={data.countryNames} placeholder="Search..." oid="uOVEWnma"/>
     </Example>
     <Example title="Right aligned results" hint="<Search appearance='right aligned'/>" oid="EUE0KlTL">
-      <SUI-Search appearance="right aligned" source={data.countryNames} placeholder="Search..." oid="tpTea1Tf"/>
+      <SUI.Search appearance="right aligned" source={data.countryNames} placeholder="Search..." oid="tpTea1Tf"/>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

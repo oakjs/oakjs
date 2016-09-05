@@ -1,94 +1,94 @@
-<Oak-Page id="Divider" title="Divider" oid="QmHFhqRL">
+<Oak.Page id="Divider" title="Divider" oid="QmHFhqRL">
   <PageTitle title="Divider" oid="B4tlcsnn">
     A divider visually segments content into groups.
   </PageTitle>
   <PageSection title="Types" oid="hIrNjxBn">
     <Example title="Standard" oid="J74NocIq">
-      <SUI-Segment oid="ghT2scRk">
+      <SUI.Segment oid="ghT2scRk">
         <LoremIpsum short oid="dQMMdM0S"/>
-        <SUI-Divider oid="HH3Cpq1B"/>
+        <SUI.Divider oid="HH3Cpq1B"/>
         <LoremIpsum short oid="bGpA71NK"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Vertical" hint="<Divider vertical>OR</Divider>" oid="gnUXHHLE">
-      <SUI-Grid columns={3} appearance="very relaxed" oid="ATK8vOLK">
-        <SUI-Column oid="WZc0a4O4">
+      <SUI.Grid columns={3} appearance="very relaxed" oid="ATK8vOLK">
+        <SUI.Column oid="WZc0a4O4">
           <LoremIpsum short oid="ni92MZAi"/>
-        </SUI-Column>
-        <SUI-Divider vertical oid="PXUqMEru">
+        </SUI.Column>
+        <SUI.Divider vertical oid="PXUqMEru">
           Or
-        </SUI-Divider>
-        <SUI-Column oid="qT8QAFlI">
+        </SUI.Divider>
+        <SUI.Column oid="qT8QAFlI">
           <LoremIpsum short oid="gqURwc8V"/>
-        </SUI-Column>
-        <SUI-Divider vertical oid="N3eHiFeG">
+        </SUI.Column>
+        <SUI.Divider vertical oid="N3eHiFeG">
           Or
-        </SUI-Divider>
-        <SUI-Column oid="uM72qwVU">
+        </SUI.Divider>
+        <SUI.Column oid="uM72qwVU">
           <LoremIpsum short oid="hR5CxcEc"/>
-        </SUI-Column>
-      </SUI-Grid>
+        </SUI.Column>
+      </SUI.Grid>
     </Example>
     <Example title="Horizontal" hint="<Divider horizontal>...text...</Divider>" oid="IvxZH7Sk">
-      <SUI-Segment oid="tk88QJXU">
+      <SUI.Segment oid="tk88QJXU">
         <LoremIpsum short oid="g652tWVG"/>
-        <SUI-Divider horizontal oid="AMw6GSdg">
+        <SUI.Divider horizontal oid="AMw6GSdg">
           And yet...
-        </SUI-Divider>
+        </SUI.Divider>
         <LoremIpsum short oid="nfPLL36y"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Horizontal header" hint="<Divider horizontal header size='large'>...text...</Divider>" oid="NVFsM2Yq">
-      <SUI-Segment oid="k9CqBWN2">
+      <SUI.Segment oid="k9CqBWN2">
         <LoremIpsum short oid="CbbJAp4M"/>
-        <SUI-Divider horizontal header size="large" oid="amBLn3pK">
+        <SUI.Divider horizontal header size="large" oid="amBLn3pK">
           And yet...
-        </SUI-Divider>
+        </SUI.Divider>
         <LoremIpsum short oid="n680C7ht"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
   </PageSection>
   <PageSection title="Variations" oid="rQUDuSqF">
     <Example title="Fitted" hint="<Divider appearance='fitted'/>" oid="p9XuKLCd">
-      <SUI-Segment oid="JxhlF8g4">
+      <SUI.Segment oid="JxhlF8g4">
         <LoremIpsum short oid="gRDUF7Qy"/>
-        <SUI-Divider appearance="fitted" oid="qE0oqgs6"/>
+        <SUI.Divider appearance="fitted" oid="qE0oqgs6"/>
         <LoremIpsum short oid="OMe3wSGw"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Section" hint="<Divider appearance='section'/>" oid="gsqrQHGQ">
-      <SUI-Segment oid="d4v0WQLg">
+      <SUI.Segment oid="d4v0WQLg">
         <LoremIpsum short oid="WXay8jEx"/>
-        <SUI-Divider appearance="section" oid="MiL0TAcL"/>
+        <SUI.Divider appearance="section" oid="MiL0TAcL"/>
         <LoremIpsum short oid="GZd12Qcf"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Hidden" hint="<Divider appearance='hidden'/>" oid="aLANpoet">
-      <SUI-Segment oid="jvq1FDFD">
+      <SUI.Segment oid="jvq1FDFD">
         <LoremIpsum short oid="QNfrL6D2"/>
-        <SUI-Divider appearance="hidden" oid="eMW8AOCY"/>
+        <SUI.Divider appearance="hidden" oid="eMW8AOCY"/>
         <LoremIpsum short oid="HdVjdOXA"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Clearing" hint="<Divider clearing/>  (Note: 'clearing' is true by default.)" oid="krPtycIC">
-      <SUI-Segment oid="Yi84q8jN">
-        <SUI-Header floated="right" oid="aBvJl0xk">
+      <SUI.Segment oid="Yi84q8jN">
+        <SUI.Header floated="right" oid="aBvJl0xk">
           Floating Header
-        </SUI-Header>
-        <SUI-Divider oid="TReIyuI5"/>
+        </SUI.Header>
+        <SUI.Divider oid="TReIyuI5"/>
         <LoremIpsum short oid="bU2AvSGq"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Inverted" hint="<Divider apperance='inverted'/>" oid="DGJ3K2g8">
-      <SUI-Segment appearance="inverted" oid="cMUl0yYV">
+      <SUI.Segment appearance="inverted" oid="cMUl0yYV">
         <LoremIpsum short oid="uuHhLIme"/>
-        <SUI-Divider appearance="inverted" oid="RKAIV9EH"/>
+        <SUI.Divider appearance="inverted" oid="RKAIV9EH"/>
         <LoremIpsum short oid="NiMOMqya"/>
-        <SUI-Divider horizontal appearance="inverted" oid="BiQZk1a3">
+        <SUI.Divider horizontal appearance="inverted" oid="BiQZk1a3">
           Horizontal
-        </SUI-Divider>
+        </SUI.Divider>
         <LoremIpsum short oid="e4RX1WCj"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

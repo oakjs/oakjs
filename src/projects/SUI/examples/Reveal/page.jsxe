@@ -1,4 +1,4 @@
-<Oak-Page id="Reveal" title="Reveal" oid="lOliTZiB">
+<Oak.Page id="Reveal" title="Reveal" oid="lOliTZiB">
   <PageTitle title="Reveal" oid="rJcZHtKb">
     A reveal displays additional content in place of previous content when activated.
     <Todo oid="mLco3pbs">
@@ -12,67 +12,67 @@
   </PageTitle>
   <PageSection title="Effects" oid="TRjlATFn">
     <Example title="Fade" hint="<Reveal effect='fade'/>" oid="p3C0ViM9">
-      <SUI-Reveal oid="MqdAXcmc">
-        <SUI-Image src={data.squareImage} size="small" oid="Y7ZmCdeX"/>
-        <SUI-Image src={data.joeAvatar} size="small" oid="d8mmWo36"/>
-      </SUI-Reveal>
-      <Oak-Spacer inline oid="hwB4mY1J"/>
-      <SUI-Reveal appearance="small image" oid="jwjHxAPX">
+      <SUI.Reveal oid="MqdAXcmc">
+        <SUI.Image src={data.squareImage} size="small" oid="Y7ZmCdeX"/>
+        <SUI.Image src={data.joeAvatar} size="small" oid="d8mmWo36"/>
+      </SUI.Reveal>
+      <Oak.Spacer inline oid="hwB4mY1J"/>
+      <SUI.Reveal appearance="small image" oid="jwjHxAPX">
         <img className="visible content" src={data.squareImage} oid="BKxuMcBO"/>
         <img className="hidden content" src={data.joeAvatar} oid="ibAtfTRJ"/>
-      </SUI-Reveal>
+      </SUI.Reveal>
     </Example>
     <Example title="Move" hint="<Reveal effect='move right'/>" oid="xajfZqu7">
-      <SUI-Reveal appearance="small image" effect="move" oid="GfPt4Zfq">
-        <SUI-Image src={data.squareImage} size="small" oid="glfg0fU7"/>
-        <SUI-Image src={data.joeAvatar} size="small" oid="iHN7Z2GP"/>
-      </SUI-Reveal>
-      <Oak-Spacer inline oid="BUnDW80F"/>
-      <SUI-Reveal appearance="small image" effect="move right" oid="mMkgGvb3">
-        <SUI-Image src={data.squareImage} size="small" oid="PHbqsGKk"/>
-        <SUI-Image src={data.joeAvatar} size="small" oid="gk3qjHLs"/>
-      </SUI-Reveal>
-      <Oak-Spacer inline oid="gJ9p3yP4"/>
-      <SUI-Reveal appearance="circular small image" effect="move up" oid="Qm9FRwHY">
+      <SUI.Reveal appearance="small image" effect="move" oid="GfPt4Zfq">
+        <SUI.Image src={data.squareImage} size="small" oid="glfg0fU7"/>
+        <SUI.Image src={data.joeAvatar} size="small" oid="iHN7Z2GP"/>
+      </SUI.Reveal>
+      <Oak.Spacer inline oid="BUnDW80F"/>
+      <SUI.Reveal appearance="small image" effect="move right" oid="mMkgGvb3">
+        <SUI.Image src={data.squareImage} size="small" oid="PHbqsGKk"/>
+        <SUI.Image src={data.joeAvatar} size="small" oid="gk3qjHLs"/>
+      </SUI.Reveal>
+      <Oak.Spacer inline oid="gJ9p3yP4"/>
+      <SUI.Reveal appearance="circular small image" effect="move up" oid="Qm9FRwHY">
         <img className="visible content" src={data.squareImage} oid="MHj0svFe"/>
         <img className="hidden content" src={data.joeAvatar} oid="qFMWr0jB"/>
-      </SUI-Reveal>
-      <Oak-Spacer inline oid="V3cDMWFa"/>
-      <SUI-Reveal appearance="circular small image" effect="move down" oid="RA0s8bcF">
+      </SUI.Reveal>
+      <Oak.Spacer inline oid="V3cDMWFa"/>
+      <SUI.Reveal appearance="circular small image" effect="move down" oid="RA0s8bcF">
         <img className="visible content" src={data.squareImage} oid="sae7gYJR"/>
         <img className="visible content" src={data.joeAvatar} oid="SEXfvsKw"/>
-      </SUI-Reveal>
+      </SUI.Reveal>
     </Example>
     <Example title="Rotate" hint="<Reveal effect='rotate left'/>" oid="EMVFpfVC">
-      <SUI-Reveal appearance="small image" effect="rotate left" oid="pt1k4sY6">
-        <SUI-Image src={data.squareImage} size="small" oid="PbIMZZfO"/>
-        <SUI-Image src={data.joeAvatar} size="small" oid="NJSS2Ut1"/>
-      </SUI-Reveal>
-      <Oak-Spacer inline oid="soIfe312"/>
-      <SUI-Reveal appearance="small image" effect="rotate" oid="EagIibxA">
-        <SUI-Image src={data.squareImage} size="small" oid="gYo15Md1"/>
-        <SUI-Image src={data.joeAvatar} size="small" oid="p9rP7JWF"/>
-      </SUI-Reveal>
-      <Oak-Spacer inline oid="QkDjHEAR"/>
-      <SUI-Reveal appearance="circular small image" effect="rotate left" oid="xBtX8LUg">
+      <SUI.Reveal appearance="small image" effect="rotate left" oid="pt1k4sY6">
+        <SUI.Image src={data.squareImage} size="small" oid="PbIMZZfO"/>
+        <SUI.Image src={data.joeAvatar} size="small" oid="NJSS2Ut1"/>
+      </SUI.Reveal>
+      <Oak.Spacer inline oid="soIfe312"/>
+      <SUI.Reveal appearance="small image" effect="rotate" oid="EagIibxA">
+        <SUI.Image src={data.squareImage} size="small" oid="gYo15Md1"/>
+        <SUI.Image src={data.joeAvatar} size="small" oid="p9rP7JWF"/>
+      </SUI.Reveal>
+      <Oak.Spacer inline oid="QkDjHEAR"/>
+      <SUI.Reveal appearance="circular small image" effect="rotate left" oid="xBtX8LUg">
         <img className="visible content" src={data.squareImage} oid="p5rScNIw"/>
         <img className="hidden content" src={data.joeAvatar} oid="XlAxyujc"/>
-      </SUI-Reveal>
-      <Oak-Spacer inline oid="HgDsWmYI"/>
-      <SUI-Reveal appearance="circular small image" effect="rotate" oid="JQIiJSKd">
+      </SUI.Reveal>
+      <Oak.Spacer inline oid="HgDsWmYI"/>
+      <SUI.Reveal appearance="circular small image" effect="rotate" oid="JQIiJSKd">
         <img className="visible content" src={data.squareImage} oid="XnVgbRY4"/>
         <img className="visible content" src={data.joeAvatar} oid="XAHl1Urs"/>
-      </SUI-Reveal>
+      </SUI.Reveal>
     </Example>
   </PageSection>
   <PageSection title="States" oid="eM6UQGin">
-    <SUI-Grid columns={2} oid="JHZdPWeD">
-      <SUI-Column oid="eeYWmFBh">
+    <SUI.Grid columns={2} oid="JHZdPWeD">
+      <SUI.Column oid="eeYWmFBh">
         <Example title="Active" hint="<Reveal active/>" oid="Qi5JDJG7">
-          <SUI-Reveal appearance="small image" active oid="PXcuEBv4">
+          <SUI.Reveal appearance="small image" active oid="PXcuEBv4">
             <img src={data.squareImage} oid="dlHV1DfN"/>
             <img src={data.joeAvatar} oid="STdPcmGU"/>
-          </SUI-Reveal>
+          </SUI.Reveal>
           <Info oid="mTvbUl0G">
             <b oid="BdpV5C5K">
               active
@@ -80,13 +80,13 @@
             reveals always show their content
           </Info>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="PxuiQtam">
+      </SUI.Column>
+      <SUI.Column oid="PxuiQtam">
         <Example title="Disabled" hint="<Reveal disabled/>" oid="isF62vhf">
-          <SUI-Reveal appearance="small image" disabled oid="Vuh8cMHy">
+          <SUI.Reveal appearance="small image" disabled oid="Vuh8cMHy">
             <img src={data.squareImage} oid="mWsabjCT"/>
             <img src={data.joeAvatar} oid="vKMmT2jq"/>
-          </SUI-Reveal>
+          </SUI.Reveal>
           <Info oid="KwbAkadF">
             <b oid="yyXUZ0b9">
               disabled
@@ -94,30 +94,30 @@
             reveals don&apos;t have a visual effect when hovered.
           </Info>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
   </PageSection>
   <PageSection title="Speeds" oid="iN8c5hU0">
-    <SUI-Grid columns={2} oid="Auib7wJH">
-      <SUI-Column oid="Umd3VpfB">
+    <SUI.Grid columns={2} oid="Auib7wJH">
+      <SUI.Column oid="Umd3VpfB">
         <Example title="Instant" hint="<Reveal effect='instant fade'/>" oid="ekplr59E">
-          <SUI-Reveal effect="instant fade" appearance="small image" oid="KWosqD0y">
+          <SUI.Reveal effect="instant fade" appearance="small image" oid="KWosqD0y">
             <img src={data.squareImage} oid="HxZUrXo2"/>
             <img src={data.joeAvatar} oid="eC2QbCDu"/>
-          </SUI-Reveal>
+          </SUI.Reveal>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="cCTVwH5u">
+      </SUI.Column>
+      <SUI.Column oid="cCTVwH5u">
         <Example title="Normal (for contrast)" oid="F3Oq5UFM">
-          <SUI-Reveal effect="fade" appearance="small image" oid="jDd49v2a">
+          <SUI.Reveal effect="fade" appearance="small image" oid="jDd49v2a">
             <img src={data.squareImage} oid="SrWyGyoB"/>
             <img src={data.joeAvatar} oid="GhOhSjm4"/>
-          </SUI-Reveal>
+          </SUI.Reveal>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
     <Bug oid="wl3a2kMZ">
       There doesn&apos;t appear to be a significant difference in an instant reveal
     </Bug>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

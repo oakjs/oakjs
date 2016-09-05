@@ -1,40 +1,40 @@
-<Oak-Page id="Cards" title="Cards" oid="m7OPrWF6">
+<Oak.Page id="Cards" title="Cards" oid="m7OPrWF6">
   <PageTitle title="Cards" oid="vVgAeBoQ">
     A group of cards
   </PageTitle>
   <PageSection title="Content" oid="boV6rsEU">
     <Example title="Cards match height" oid="VHlaLqG2">
-      <SUI-Cards oid="ipkkCw3u">
-        <SUI-Card header="Kristy" meta="Joined in 2013" description="Kristy is an art director living in New York." extra={<a oid="LkdvB8ou"><SUI-Icon icon="user" oid="jJ52GQr0"/>22 Friends</a>} image={data.kristyAvatar} oid="aHwESh7D"/>
-        <SUI-Card header="Elliot" meta="Joined in 2012" description="Elliot is a software manager living in New York.  His interests are gardening, chihchilla raising and knitting." extra={<a oid="GQcHN3TZ"><SUI-Icon icon="user" oid="ZKIwI75I"/>3,231 Friends</a>} image={data.elliotAvatar} oid="tLs0fD4G"/>
-      </SUI-Cards>
+      <SUI.Cards oid="ipkkCw3u">
+        <SUI.Card header="Kristy" meta="Joined in 2013" description="Kristy is an art director living in New York." extra={<a oid="LkdvB8ou"><SUI.Icon icon="user" oid="jJ52GQr0"/>22 Friends</a>} image={data.kristyAvatar} oid="aHwESh7D"/>
+        <SUI.Card header="Elliot" meta="Joined in 2012" description="Elliot is a software manager living in New York.  His interests are gardening, chihchilla raising and knitting." extra={<a oid="GQcHN3TZ"><SUI.Icon icon="user" oid="ZKIwI75I"/>3,231 Friends</a>} image={data.elliotAvatar} oid="tLs0fD4G"/>
+      </SUI.Cards>
     </Example>
     <Example title="Column Count" oid="wFwtW0Ai">
-      <SUI-Cards columns={3} oid="Iyx9KsA3">
-        <SUI-Card header="Alphabet Inc" meta="NASDAQ: GOOG" description="Alphabet Inc. is an American multinational conglomerate created in 2015 as the parent company of Google and several other companies previously owned by or tied to Google." href="https://abc.xyz/" target="_blank" oid="stkViYqx"/>
-        <SUI-Card header="Apple Inc" meta="NASDAQ: AAPL" description="Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services." href="https://apple.com/" target="_blank" oid="WCRbuQj0"/>
-        <SUI-Card header="Amazon" meta="NASDAQ: AMZN" description="Amazon.com, Inc., often referred to as simply Amazon, is an American electronic commerce and cloud computing company with headquarters in Seattle, Washington. It is the largest Internet-based retailer in the United States." href="https://amazon.ocm/" target="_blank" oid="hHAJKJEX"/>
-      </SUI-Cards>
+      <SUI.Cards columns={3} oid="Iyx9KsA3">
+        <SUI.Card header="Alphabet Inc" meta="NASDAQ: GOOG" description="Alphabet Inc. is an American multinational conglomerate created in 2015 as the parent company of Google and several other companies previously owned by or tied to Google." href="https://abc.xyz/" target="_blank" oid="stkViYqx"/>
+        <SUI.Card header="Apple Inc" meta="NASDAQ: AAPL" description="Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services." href="https://apple.com/" target="_blank" oid="WCRbuQj0"/>
+        <SUI.Card header="Amazon" meta="NASDAQ: AMZN" description="Amazon.com, Inc., often referred to as simply Amazon, is an American electronic commerce and cloud computing company with headquarters in Seattle, Washington. It is the largest Internet-based retailer in the United States." href="https://amazon.ocm/" target="_blank" oid="hHAJKJEX"/>
+      </SUI.Cards>
     </Example>
     <Example title="Stackable" oid="lnrC32eJ">
-      <SUI-Cards columns={3} appearance="stackable" oid="IRLXrjSC">
-        <SUI-Card image={data.elliotAvatar} oid="DNcCZ3lM"/>
-        <SUI-Card image={data.joeAvatar} oid="fU3DSilv"/>
-        <SUI-Card image={data.kristyAvatar} oid="R0jtqSOA"/>
-        <SUI-Card image={data.stevieAvatar} oid="nmPxkTSI"/>
-        <SUI-Card image={data.jennyAvatar} oid="UDPNvy5c"/>
-        <SUI-Card image={data.steveAvatar} oid="AmlxFTX5"/>
-      </SUI-Cards>
+      <SUI.Cards columns={3} appearance="stackable" oid="IRLXrjSC">
+        <SUI.Card image={data.elliotAvatar} oid="DNcCZ3lM"/>
+        <SUI.Card image={data.joeAvatar} oid="fU3DSilv"/>
+        <SUI.Card image={data.kristyAvatar} oid="R0jtqSOA"/>
+        <SUI.Card image={data.stevieAvatar} oid="nmPxkTSI"/>
+        <SUI.Card image={data.jennyAvatar} oid="UDPNvy5c"/>
+        <SUI.Card image={data.steveAvatar} oid="AmlxFTX5"/>
+      </SUI.Cards>
     </Example>
     <Example title="Doubling" oid="u7auiJ6L">
-      <SUI-Cards columns={6} appearance="doubling" oid="nl6Ft2Un">
-        <SUI-Card image={data.elliotAvatar} oid="uPLj0xwb"/>
-        <SUI-Card image={data.joeAvatar} oid="u54Pna1O"/>
-        <SUI-Card image={data.kristyAvatar} oid="qC8me8Jt"/>
-        <SUI-Card image={data.stevieAvatar} oid="X3gilBlZ"/>
-        <SUI-Card image={data.jennyAvatar} oid="nfvv5OTS"/>
-        <SUI-Card image={data.steveAvatar} oid="hFfwifOi"/>
-      </SUI-Cards>
+      <SUI.Cards columns={6} appearance="doubling" oid="nl6Ft2Un">
+        <SUI.Card image={data.elliotAvatar} oid="uPLj0xwb"/>
+        <SUI.Card image={data.joeAvatar} oid="u54Pna1O"/>
+        <SUI.Card image={data.kristyAvatar} oid="qC8me8Jt"/>
+        <SUI.Card image={data.stevieAvatar} oid="X3gilBlZ"/>
+        <SUI.Card image={data.jennyAvatar} oid="nfvv5OTS"/>
+        <SUI.Card image={data.steveAvatar} oid="hFfwifOi"/>
+      </SUI.Cards>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

@@ -1,6 +1,6 @@
-<Oak-Page id="editor" title="Editor Package Test" style={{ padding: "1em" }}>
+<Oak.Page id="editor" title="Editor Package Test" style={{ padding: "1em" }}>
   <h2>Editor Test</h2>
-  <Editor-Form
+  <Editor.Form
     data={data}
 
     schema={{
@@ -26,54 +26,54 @@
     }}>
 
     <h5>Wrapped generic Control</h5>
-    <Editor-Control name="foo" title="Foo:">
+    <Editor.Control name="foo" title="Foo:">
       <input/>
-    </Editor-Control>
+    </Editor.Control>
 
     <h5>Control Subclasses</h5>
-    <Editor-Output name="foo" title="Output Field:"/>
+    <Editor.Output name="foo" title="Output Field:"/>
 
-    <Editor-Text name="foo" title="Text Field:" width={10}/>
+    <Editor.Text name="foo" title="Text Field:" width={10}/>
 
-    <Editor-Password name="foo" title="Password Field:" tabIndex={20}
+    <Editor.Password name="foo" title="Password Field:" tabIndex={20}
       error={["Password doesn't match", "Password is not long enough"]}
       labelProps={{style:{color:"#999"}}} hint="At least 6 letters, numbers or special characters"/>
 
     <br/>
-    <Editor-Select name="select" title="Select:" options={["yes","no"]} inline/>
-    <Editor-Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
+    <Editor.Select name="select" title="Select:" options={["yes","no"]} inline/>
+    <Editor.Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Select name="select" title="Required Select:" required options={{ yes: "YES", no: "NO" }}  inline/>
-    <Editor-Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
+    <Editor.Select name="select" title="Required Select:" required options={{ yes: "YES", no: "NO" }}  inline/>
+    <Editor.Output name="select" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Select name="booleanSelect" title="Boolean Select:" options={[true, false]} inline/>
-    <Editor-Output name="booleanSelect" inline value={value => `(${typeof value}) ${value}`}/>
+    <Editor.Select name="booleanSelect" title="Boolean Select:" options={[true, false]} inline/>
+    <Editor.Output name="booleanSelect" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="checker" title="Checkbox" inline error={value => value === false && "FALSE"} width={3}/>
-    <Editor-Output name="checker" inline value={value => `(${typeof value}) ${value}`}/>
+    <Editor.Checkbox name="checker" title="Checkbox" inline error={value => value === false && "FALSE"} width={3}/>
+    <Editor.Output name="checker" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="yesno" title="Yes/No Checkbox" checkedValue="yes" uncheckedValue="no" inline width={3}/>
-    <Editor-Output name="yesno" inline value={value => `(${typeof value}) ${value}`}/>
+    <Editor.Checkbox name="yesno" title="Yes/No Checkbox" checkedValue="yes" uncheckedValue="no" inline width={3}/>
+    <Editor.Output name="yesno" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Checkbox name="trueUndefined" title="True/undefined Checkbox" uncheckedValue={undefined} inline width={3}/>
-    <Editor-Output name="trueUndefined" inline value={value => `(${typeof value}) ${value}`}/>
+    <Editor.Checkbox name="trueUndefined" title="True/undefined Checkbox" uncheckedValue={undefined} inline width={3}/>
+    <Editor.Output name="trueUndefined" inline value={value => `(${typeof value}) ${value}`}/>
 
     <br/>
-    <Editor-Group name="address" title="Address:" labelOn="top">
-      <Editor-Group name="street" title="Street:">
-        <Editor-Text name="0"/>
-        <Editor-Text name="1"/>
-      </Editor-Group>
-      <Editor-Text name="city" title="City:"/>
-      <Editor-Select name="state" title="State:" options={states}/>
-      <Editor-Text name="zip" title="Zip Code:" size="5"/>
-    </Editor-Group>
+    <Editor.Group name="address" title="Address:" labelOn="top">
+      <Editor.Group name="street" title="Street:">
+        <Editor.Text name="0"/>
+        <Editor.Text name="1"/>
+      </Editor.Group>
+      <Editor.Text name="city" title="City:"/>
+      <Editor.Select name="state" title="State:" options={states}/>
+      <Editor.Text name="zip" title="Zip Code:" size="5"/>
+    </Editor.Group>
 
 
-  </Editor-Form>
-</Oak-Page>
+  </Editor.Form>
+</Oak.Page>

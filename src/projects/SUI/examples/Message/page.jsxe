@@ -1,4 +1,4 @@
-<Oak-Page id="Message" title="Message" oid="IhDqyFsA">
+<Oak.Page id="Message" title="Message" oid="IhDqyFsA">
   <PageTitle title="Message" oid="Hd4HVfx6">
     A dimmer hides distractions to focus attention on particular content.
     <Todo oid="LdFWjkrp">
@@ -7,91 +7,91 @@
   </PageTitle>
   <PageSection title="Types" oid="ohrnHjid">
     <Example title="Inline content" hint="<Message>...</Message>" oid="tvkF3Q5a">
-      <SUI-Message oid="pZQMXr8O">
+      <SUI.Message oid="pZQMXr8O">
         Inline content.
-      </SUI-Message>
-      <SUI-Message oid="rIO3SvAJ">
+      </SUI.Message>
+      <SUI.Message oid="rIO3SvAJ">
         <div className="header" oid="MQfADAi6">
           Inline header
         </div>
         Inline content.
-      </SUI-Message>
+      </SUI.Message>
     </Example>
     <Example title="Content and header attributes" hint="<Message content='...' header='...'/>" oid="tkH2unJB">
-      <SUI-Message content="Content attribute." oid="si2nFrVo"/>
-      <SUI-Message header="Header attribute" content="Content attribute." oid="pV79beJs"/>
+      <SUI.Message content="Content attribute." oid="si2nFrVo"/>
+      <SUI.Message header="Header attribute" content="Content attribute." oid="pV79beJs"/>
     </Example>
     <Example title="Icon" hint="<Message icon='...'/>" oid="mQaD44tJ">
-      <SUI-Message icon="inbox" header="Have you heard about your mailing list?" content="Get the best news to your inbox every day." oid="XknnI0DB"/>
+      <SUI.Message icon="inbox" header="Have you heard about your mailing list?" content="Get the best news to your inbox every day." oid="XknnI0DB"/>
     </Example>
     <Example title="Closable" hint="<Dimmer closable onClose='...'/>" oid="mxsQguEt">
       <Enablers for="closable" ref="closableEnablers" visibleOnly oid="OHUwSbLF"/>
-      <SUI-Message closable onClose={()=>page.refs.closableEnablers.result = "onClose() called"} ref="closable" header="Welcome back!" content="Things have changed, have a look around" oid="PSpM3SsX"/>
+      <SUI.Message closable onClose={()=>page.refs.closableEnablers.result = "onClose() called"} ref="closable" header="Welcome back!" content="Things have changed, have a look around" oid="PSpM3SsX"/>
     </Example>
   </PageSection>
   <PageSection title="States" oid="UwjuadFC">
     <Example title="Visible" hint="<Message visible/>" oid="R4oyHnSf">
-      <SUI-Message visible content="I am initially visible!" oid="ZFOtC6Kt"/>
+      <SUI.Message visible content="I am initially visible!" oid="ZFOtC6Kt"/>
     </Example>
     <Example title="Hidden" hint="<Message visible={false}/>" oid="rQI6chLG">
-      <SUI-Label pointing="right" content="Hidden message here" oid="sKgiV3q6"/>
-      <SUI-Message visible={false} content="You can't see me!" oid="MihyCK6O"/>
-      <SUI-Label pointing="left" content="Hidden message here" oid="OUG6MbDL"/>
+      <SUI.Label pointing="right" content="Hidden message here" oid="sKgiV3q6"/>
+      <SUI.Message visible={false} content="You can't see me!" oid="MihyCK6O"/>
+      <SUI.Label pointing="left" content="Hidden message here" oid="OUG6MbDL"/>
     </Example>
   </PageSection>
   <PageSection title="Variations" oid="qRpBD750">
     <Example title="Floating" hint="<Message appearance='floating'/>" oid="Mi3wyyiP">
-      <SUI-Message appearance="floating" content="I appear to be floating above the page!" oid="Bo0UbQC4"/>
+      <SUI.Message appearance="floating" content="I appear to be floating above the page!" oid="Bo0UbQC4"/>
     </Example>
     <Example title="Compact" hint="<Message appearance='compact'/>" oid="oWJ0HVn4">
-      <SUI-Message appearance="compact" content="I'm compact so I dont take up the whole line." oid="sEa4yrqO"/>
+      <SUI.Message appearance="compact" content="I'm compact so I dont take up the whole line." oid="sEa4yrqO"/>
     </Example>
     <Example title="Attached" hint="<Message appearance='attached'/> or <Message appearance='bottom attached'/>" oid="IwyDa58g">
-      <SUI-Message appearance="attached" header="Welcome to our site!" oid="VIri3Eta"/>
-      <SUI-Segment appearance="attached" oid="QSYx6oLj">
+      <SUI.Message appearance="attached" header="Welcome to our site!" oid="VIri3Eta"/>
+      <SUI.Segment appearance="attached" oid="QSYx6oLj">
         <LoremIpsum oid="PhpcBiJ7"/>
-      </SUI-Segment>
-      <SUI-Message appearance="info bottom attached" icon="help" oid="TM71y8Qp">
+      </SUI.Segment>
+      <SUI.Message appearance="info bottom attached" icon="help" oid="TM71y8Qp">
         Want help?
         <a href="#" oid="eEls7byN">
           Click here!
         </a>
-      </SUI-Message>
+      </SUI.Message>
     </Example>
     <Example title="Warning" hint="<Message appearance='warning'/>" oid="hIhLOG2o">
-      <SUI-Message appearance="warning" closable header="Oops!" content="You must register before you can do that." oid="Aiy2CnxL"/>
+      <SUI.Message appearance="warning" closable header="Oops!" content="You must register before you can do that." oid="Aiy2CnxL"/>
     </Example>
     <Example title="Info" hint="<Message appearance='info'/>" oid="Dc9FF4AB">
-      <SUI-Message appearance="info" closable header="Howdy!" content="It's good to see you again!" oid="caOTB0TY"/>
+      <SUI.Message appearance="info" closable header="Howdy!" content="It's good to see you again!" oid="caOTB0TY"/>
     </Example>
     <Example title="Positive / Success" hint="<Message appearance='positive'/> or <Message appearance='success'/>" oid="pWsI69EP">
-      <SUI-Message appearance="positive" header="You've earned a reward" content="Log in to claim it!" oid="CYxyZgRs"/>
-      <SUI-Message appearance="success" closable icon="small dollar" content="The money was transferred into your account." oid="PaEhXiUh"/>
+      <SUI.Message appearance="positive" header="You've earned a reward" content="Log in to claim it!" oid="CYxyZgRs"/>
+      <SUI.Message appearance="success" closable icon="small dollar" content="The money was transferred into your account." oid="PaEhXiUh"/>
     </Example>
     <Example title="Negative / Error" hint="<Message appearance='negative'/> or <Message appearance='error'/>" oid="Svq8WLEo">
-      <SUI-Message appearance="negative" header="We're sorry..." content="That just won't work." oid="D6YLca3t"/>
-      <SUI-Message appearance="error" closable icon="small warning sign" content="Please enter a password that's at least 20 characters long." oid="qMDmX0Uu"/>
+      <SUI.Message appearance="negative" header="We're sorry..." content="That just won't work." oid="D6YLca3t"/>
+      <SUI.Message appearance="error" closable icon="small warning sign" content="Please enter a password that's at least 20 characters long." oid="qMDmX0Uu"/>
     </Example>
     <Example title="Colors" hint="<Message color='red'/>" oid="JvKCNWh6">
-      <SUI-Message color="red" content="Red" oid="d3jGiCsP"/>
-      <SUI-Message color="orange" content="Orange" oid="VpZQrVwH"/>
-      <SUI-Message color="yellow" content="Yellow" oid="Qjtm50yU"/>
-      <SUI-Message color="olive" content="Olive" oid="fvlR3rUD"/>
-      <SUI-Message color="green" content="Green" oid="TX8x60Lv"/>
-      <SUI-Message color="teal" content="Teal" oid="jAdvbeHk"/>
-      <SUI-Message color="blue" content="Blue" oid="ui5iVgx2"/>
-      <SUI-Message color="violet" content="Violet" oid="K3puwQkT"/>
-      <SUI-Message color="purple" content="Purple" oid="hKKOKki2"/>
-      <SUI-Message color="pink" content="Pink" oid="CRWDvCC9"/>
-      <SUI-Message color="brown" content="Brown" oid="TSYIcmak"/>
-      <SUI-Message color="black" content="Black" oid="XloFoP9H"/>
+      <SUI.Message color="red" content="Red" oid="d3jGiCsP"/>
+      <SUI.Message color="orange" content="Orange" oid="VpZQrVwH"/>
+      <SUI.Message color="yellow" content="Yellow" oid="Qjtm50yU"/>
+      <SUI.Message color="olive" content="Olive" oid="fvlR3rUD"/>
+      <SUI.Message color="green" content="Green" oid="TX8x60Lv"/>
+      <SUI.Message color="teal" content="Teal" oid="jAdvbeHk"/>
+      <SUI.Message color="blue" content="Blue" oid="ui5iVgx2"/>
+      <SUI.Message color="violet" content="Violet" oid="K3puwQkT"/>
+      <SUI.Message color="purple" content="Purple" oid="hKKOKki2"/>
+      <SUI.Message color="pink" content="Pink" oid="CRWDvCC9"/>
+      <SUI.Message color="brown" content="Brown" oid="TSYIcmak"/>
+      <SUI.Message color="black" content="Black" oid="XloFoP9H"/>
     </Example>
     <Example title="Sizes" hint="<Message size='large'/>" oid="lif0pqZR">
-      <SUI-Message size="small" icon="settings" content="A small message" oid="wvFWKS3x"/>
-      <SUI-Message size="medium" icon="settings" content="A medium message (default size)" oid="wPGVpicO"/>
-      <SUI-Message size="large" icon="settings" content="A large message" oid="IRmxMVXV"/>
-      <SUI-Message size="huge" icon="settings" content="A huge message" oid="hiS3SMeX"/>
-      <SUI-Message size="massive" icon="settings" content="A massive message" oid="YQWpynKO"/>
+      <SUI.Message size="small" icon="settings" content="A small message" oid="wvFWKS3x"/>
+      <SUI.Message size="medium" icon="settings" content="A medium message (default size)" oid="wPGVpicO"/>
+      <SUI.Message size="large" icon="settings" content="A large message" oid="IRmxMVXV"/>
+      <SUI.Message size="huge" icon="settings" content="A huge message" oid="hiS3SMeX"/>
+      <SUI.Message size="massive" icon="settings" content="A massive message" oid="YQWpynKO"/>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

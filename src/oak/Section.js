@@ -132,7 +132,7 @@ export class SectionElement extends JSXElement {
   }
 }
 
-// Register it so `<Oak-Section>` elements in a jsxe will use `SectionElement`.
+// Register it so `<Oak.Section>` elements in a jsxe will use `SectionElement`.
 import JSXParser from "./JSXParser";
 JSXParser.registerType("Section", SectionElement);
 JSXParser.registerType("Oak-Section", SectionElement);

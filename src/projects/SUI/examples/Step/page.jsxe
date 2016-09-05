@@ -1,46 +1,46 @@
-<Oak-Page id="Step" title="Step" oid="LWfMwwb0">
+<Oak.Page id="Step" title="Step" oid="LWfMwwb0">
   <PageTitle title="Step" oid="YrDyJr7r">
     A step shows the completion status of an activity in a series of activities
   </PageTitle>
   <PageSection title="Content" oid="dtkWWKPb">
     <Example title="Inline content" oid="Ja7XVb3U">
-      <SUI-Steps oid="L965WxJH">
-        <SUI-Step oid="wLDBTFFj">
+      <SUI.Steps oid="L965WxJH">
+        <SUI.Step oid="wLDBTFFj">
           Shipping
-        </SUI-Step>
-      </SUI-Steps>
+        </SUI.Step>
+      </SUI.Steps>
     </Example>
     <Example title="Title and Description" oid="EKdrgMrq">
-      <SUI-Steps oid="mf0Ax0US">
-        <SUI-Step title="Shipping" description="Choose your shipping options" oid="wZS7NW90"/>
-      </SUI-Steps>
+      <SUI.Steps oid="mf0Ax0US">
+        <SUI.Step title="Shipping" description="Choose your shipping options" oid="wZS7NW90"/>
+      </SUI.Steps>
     </Example>
     <Example title="Icon" oid="roKqp19D">
-      <SUI-Steps oid="m6W1arHq">
-        <SUI-Step icon="truck" title="Shipping" description="Choose your shipping options" oid="NPFU94LL"/>
-      </SUI-Steps>
+      <SUI.Steps oid="m6W1arHq">
+        <SUI.Step icon="truck" title="Shipping" description="Choose your shipping options" oid="NPFU94LL"/>
+      </SUI.Steps>
     </Example>
     <Example title="Link" oid="ijxPo11h">
-      <SUI-Steps oid="QUwboGS6">
-        <SUI-Step link="http://www.ups.com" target="_blank" icon="truck" title="Shipping" description="Choose your shipping options" oid="jGfTXYue"/>
-      </SUI-Steps>
+      <SUI.Steps oid="QUwboGS6">
+        <SUI.Step link="http://www.ups.com" target="_blank" icon="truck" title="Shipping" description="Choose your shipping options" oid="jGfTXYue"/>
+      </SUI.Steps>
     </Example>
   </PageSection>
   <PageSection title="States" oid="nTOj9W81">
     <Example title="Active" oid="pBsdU2Vh">
-      <SUI-Steps oid="DTXnoNGt">
-        <SUI-Step active icon="truck" title="Shipping" description="Choose your shipping options" oid="CugOf2v3"/>
-      </SUI-Steps>
+      <SUI.Steps oid="DTXnoNGt">
+        <SUI.Step active icon="truck" title="Shipping" description="Choose your shipping options" oid="CugOf2v3"/>
+      </SUI.Steps>
     </Example>
     <Example title="Completed" oid="O69pZVeo">
-      <SUI-Steps oid="FFWGE2rB">
-        <SUI-Step completed icon="truck" title="Shipping" description="Choose your shipping options" oid="uwOs6OBy"/>
-      </SUI-Steps>
+      <SUI.Steps oid="FFWGE2rB">
+        <SUI.Step completed icon="truck" title="Shipping" description="Choose your shipping options" oid="uwOs6OBy"/>
+      </SUI.Steps>
     </Example>
     <Example title="Disabled" oid="VDwLeSL8">
-      <SUI-Steps oid="NiDbUUrL">
-        <SUI-Step disabled icon="truck" title="Shipping" description="Choose your shipping options" oid="M5vqUUrw"/>
-      </SUI-Steps>
+      <SUI.Steps oid="NiDbUUrL">
+        <SUI.Step disabled icon="truck" title="Shipping" description="Choose your shipping options" oid="M5vqUUrw"/>
+      </SUI.Steps>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

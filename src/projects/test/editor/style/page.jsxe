@@ -1,11 +1,11 @@
-<Oak-Page id="style" title="style" oid="QDpptyeI">
-  <Editor-Form data={{ width: 100, height: "100px", left: "auto", right: "blorg" }} controlProps={{ labelOn: "left", labelProps: { style: { width: 100, paddingLeft: "1em" } } }} oid="jF1P7D2H">
-    <Editor-Select name="display" title="display" options={["inline", "block", "inline-block", "-", "flex", "inline-flex", "-", "list-item", "inline-list-item", "-", "table", "inline-table", "table-cell", "table-column", "table-column-group", "table-footer-group", "table-header-group", "table-row", "table-row-group", "table-caption", "-", "contents", ]} oid="wR0rF57t"/>
-    <Editor-CSSLength name="width" title="width" oid="ycsGB9oe"/>
-    <Editor-CSSLength name="height" title="height" oid="vaOwmudj"/>
-    <Editor-CSSLength name="left" title="left" oid="E1HLBS6r"/>
-    <Editor-CSSLength name="right" title="right" oid="hqOCU0bN"/>
-    <Editor-CSSLength name="top" title="top" oid="Dwia9lDk"/>
-    <Editor-CSSLength name="bottom" title="bottom" oid="wk2scoCb"/>
-  </Editor-Form>
-</Oak-Page>
+<Oak.Page id="style" title="style" oid="QDpptyeI">
+  <Editor.Form data={{ width: 100, height: "100px", left: "auto", right: "blorg" }} controlProps={{ labelOn: "left", labelProps: { style: { width: 100, paddingLeft: "1em" } } }} oid="jF1P7D2H">
+    <Editor.Select name="display" title="display" options={["inline", "block", "inline-block", "-", "flex", "inline-flex", "-", "list-item", "inline-list-item", "-", "table", "inline-table", "table-cell", "table-column", "table-column-group", "table-footer-group", "table-header-group", "table-row", "table-row-group", "table-caption", "-", "contents", ]} oid="wR0rF57t"/>
+    <Editor.CSSLength name="width" title="width" oid="ycsGB9oe"/>
+    <Editor.CSSLength name="height" title="height" oid="vaOwmudj"/>
+    <Editor.CSSLength name="left" title="left" oid="E1HLBS6r"/>
+    <Editor.CSSLength name="right" title="right" oid="hqOCU0bN"/>
+    <Editor.CSSLength name="top" title="top" oid="Dwia9lDk"/>
+    <Editor.CSSLength name="bottom" title="bottom" oid="wk2scoCb"/>
+  </Editor.Form>
+</Oak.Page>

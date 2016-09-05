@@ -1,4 +1,4 @@
-<Oak-Page id="Item" title="Item" oid="t9ypcwRN">
+<Oak.Page id="Item" title="Item" oid="t9ypcwRN">
   <PageTitle title="Item" oid="dGdcKi3u">
     An item view presents large collections of site content for display
     <Info oid="QTtHW77i">
@@ -11,8 +11,8 @@
   </PageTitle>
   <PageSection title="Content" oid="FioyJv29">
     <Example title="Inline Content" hint="<Item>...</Item>" oid="gBs5sNX2">
-      <SUI-Items oid="n5sPQK5t">
-        <SUI-Item oid="dZOub3pB">
+      <SUI.Items oid="n5sPQK5t">
+        <SUI.Item oid="dZOub3pB">
           <div className="image" oid="wdGj7gig">
             <img src={data.image} className="ui image" oid="mBumWTMh"/>
           </div>
@@ -30,8 +30,8 @@
               Additional Details
             </div>
           </div>
-        </SUI-Item>
-        <SUI-Item oid="NO1nhBIJ">
+        </SUI.Item>
+        <SUI.Item oid="NO1nhBIJ">
           <div className="image" oid="NF3UwlMI">
             <img src={data.image} className="ui image" oid="S5hUxsLG"/>
           </div>
@@ -49,52 +49,52 @@
               Additional Details
             </div>
           </div>
-        </SUI-Item>
-      </SUI-Items>
+        </SUI.Item>
+      </SUI.Items>
     </Example>
     <Example title="Image Attribute" hint="<Item image='...' imageAppearance='...'/>" oid="J4jpy9Nm">
-      <SUI-Items oid="ZqeJgS4o">
-        <SUI-Item image={data.joeAvatar} imageAppearance="tiny" oid="tS2luv9d"/>
-        <SUI-Item image={data.kristyAvatar} imageAppearance="tiny" oid="HfhuK5Qb"/>
-        <SUI-Item image={data.elliotAvatar} imageAppearance="tiny" oid="utI7VR7X"/>
-      </SUI-Items>
+      <SUI.Items oid="ZqeJgS4o">
+        <SUI.Item image={data.joeAvatar} imageAppearance="tiny" oid="tS2luv9d"/>
+        <SUI.Item image={data.kristyAvatar} imageAppearance="tiny" oid="HfhuK5Qb"/>
+        <SUI.Item image={data.elliotAvatar} imageAppearance="tiny" oid="utI7VR7X"/>
+      </SUI.Items>
     </Example>
     <Example title="Header Attribute" hint="<Item header='...'/>" oid="mhMPemtc">
-      <SUI-Items oid="fVmZA3Fc">
-        <SUI-Item header="Joe Constance" image={data.joeAvatar} imageAppearance="tiny" oid="sgXVy362"/>
-        <SUI-Item header="Kristy Bainbridge" image={data.kristyAvatar} imageAppearance="tiny" oid="bgFnuuwc"/>
-        <SUI-Item header="Elliot Fu" image={data.elliotAvatar} imageAppearance="tiny" oid="Jy0HsvGK"/>
-      </SUI-Items>
+      <SUI.Items oid="fVmZA3Fc">
+        <SUI.Item header="Joe Constance" image={data.joeAvatar} imageAppearance="tiny" oid="sgXVy362"/>
+        <SUI.Item header="Kristy Bainbridge" image={data.kristyAvatar} imageAppearance="tiny" oid="bgFnuuwc"/>
+        <SUI.Item header="Elliot Fu" image={data.elliotAvatar} imageAppearance="tiny" oid="Jy0HsvGK"/>
+      </SUI.Items>
     </Example>
     <Example title="Content Attribute" hint="<Item content='...'/>" oid="UDgNYTtG">
-      <SUI-Items oid="tyqe5HnQ">
-        <SUI-Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="Sas68dGu"/>
-        <SUI-Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="LqTlU5pV"/>
-        <SUI-Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="H2GMM0FN"/>
-      </SUI-Items>
+      <SUI.Items oid="tyqe5HnQ">
+        <SUI.Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="Sas68dGu"/>
+        <SUI.Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="LqTlU5pV"/>
+        <SUI.Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="H2GMM0FN"/>
+      </SUI.Items>
     </Example>
     <Example title="Meta Attribute" hint="<Item meta='...'/>" oid="AmGurtds">
-      <SUI-Items oid="GpXEERtS">
-        <SUI-Item meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} oid="xXZu75is"/>
-        <SUI-Item meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} oid="pWkN3Ddx"/>
-        <SUI-Item meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} oid="rB1b76uk"/>
-      </SUI-Items>
+      <SUI.Items oid="GpXEERtS">
+        <SUI.Item meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} oid="xXZu75is"/>
+        <SUI.Item meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} oid="pWkN3Ddx"/>
+        <SUI.Item meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} oid="rB1b76uk"/>
+      </SUI.Items>
     </Example>
     <Example title="Extra Attribute" hint="<Item extra='...'/>" oid="R3VMy9Fj">
-      <SUI-Items oid="ZSjs0LuU">
-        <SUI-Item extra={<a href="#" oid="fNaDVZk3">Add Friend</a>} meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} oid="ryvfsVKb"/>
-        <SUI-Item extra="Kristy has been your friend since 2014" meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} oid="tFaKyTCd"/>
-        <SUI-Item extra={<a href="#" oid="Nt1NTu1R">Add Friend</a>} meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} oid="hTg1Ml8d"/>
-      </SUI-Items>
+      <SUI.Items oid="ZSjs0LuU">
+        <SUI.Item extra={<a href="#" oid="fNaDVZk3">Add Friend</a>} meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} oid="ryvfsVKb"/>
+        <SUI.Item extra="Kristy has been your friend since 2014" meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} oid="tFaKyTCd"/>
+        <SUI.Item extra={<a href="#" oid="Nt1NTu1R">Add Friend</a>} meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} oid="hTg1Ml8d"/>
+      </SUI.Items>
     </Example>
   </PageSection>
   <PageSection title="Event Handling" oid="jAtTpNDC">
     <Example title="onClick" hint="<Item onClick={...}/>" oid="To5uvZ6o">
-      <SUI-Items appearance="link" oid="lAN2YiuN">
-        <SUI-Item onClick={()=> alert("Joe says Hi!")} meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} oid="GnBSnI1q"/>
-        <SUI-Item onClick={()=> alert("Kristy says Hey, You!")} extra="Kristy has been your friend since 2014" meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} oid="AiERXAer"/>
-        <SUI-Item onClick={()=> alert("Elliot says Howdy!")} meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} oid="ikk4XuOc"/>
-      </SUI-Items>
+      <SUI.Items appearance="link" oid="lAN2YiuN">
+        <SUI.Item onClick={()=> alert("Joe says Hi!")} meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} oid="GnBSnI1q"/>
+        <SUI.Item onClick={()=> alert("Kristy says Hey, You!")} extra="Kristy has been your friend since 2014" meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} oid="AiERXAer"/>
+        <SUI.Item onClick={()=> alert("Elliot says Howdy!")} meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} oid="ikk4XuOc"/>
+      </SUI.Items>
       <Info oid="wohn3bHm">
         If you have an &grave;onClick&grave;, the entire item is clickable.
         You should make sure any anchors or other elements inside your Item which might want intercept the click call &grave;event.preventDefault()&grave;.
@@ -103,11 +103,11 @@
   </PageSection>
   <PageSection title="Appearance" oid="YR3n0eqX">
     <Example title="Align attribute" hint="<Item align='top'/>" oid="KDjBC6TZ">
-      <SUI-Items oid="dB9sISlO">
-        <SUI-Item align="top" header="Top Aligned" image={data.joeAvatar} imageAppearance="tiny" oid="NZ1r2AOk"/>
-        <SUI-Item align="middle" header="Middle Aligned" image={data.kristyAvatar} imageAppearance="tiny" oid="KnMcOeMh"/>
-        <SUI-Item align="bottom" header="Bottom Aligned" image={data.elliotAvatar} imageAppearance="tiny" oid="mSfrxOoe"/>
-      </SUI-Items>
+      <SUI.Items oid="dB9sISlO">
+        <SUI.Item align="top" header="Top Aligned" image={data.joeAvatar} imageAppearance="tiny" oid="NZ1r2AOk"/>
+        <SUI.Item align="middle" header="Middle Aligned" image={data.kristyAvatar} imageAppearance="tiny" oid="KnMcOeMh"/>
+        <SUI.Item align="bottom" header="Bottom Aligned" image={data.elliotAvatar} imageAppearance="tiny" oid="mSfrxOoe"/>
+      </SUI.Items>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

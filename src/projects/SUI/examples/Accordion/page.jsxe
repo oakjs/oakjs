@@ -1,4 +1,4 @@
-<Oak-Page id="Accordion" title="Accordion" oid="O1jrNZ7G">
+<Oak.Page id="Accordion" title="Accordion" oid="O1jrNZ7G">
   <PageTitle title="Accordion" oid="OTNUHaZr">
     An accordion allows users to toggle the display of sections of content
     <Todo oid="CwAhPwNL">
@@ -6,32 +6,32 @@
     </Todo>
   </PageTitle>
   <PageSection title="Content" oid="mfpKZa5k">
-    <SUI-Grid columns={2} oid="rTL9IQfC">
-      <SUI-Column oid="tP6hr0uC">
+    <SUI.Grid columns={2} oid="rTL9IQfC">
+      <SUI.Column oid="tP6hr0uC">
         <Example title="Inline Content" oid="CjlfLYJ2">
-          <SUI-Accordion oid="VCo0R5E6">
-            <SUI-Title appearance="active" oid="llc8OTrX">
-              <SUI-Icon icon="dropdown" oid="igTsdWnM"/>
+          <SUI.Accordion oid="VCo0R5E6">
+            <SUI.Title appearance="active" oid="llc8OTrX">
+              <SUI.Icon icon="dropdown" oid="igTsdWnM"/>
               What is a dog?
-            </SUI-Title>
-            <SUI-Content appearance="active" oid="dFm7lNor">
+            </SUI.Title>
+            <SUI.Content appearance="active" oid="dFm7lNor">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness,
               it can be found as a welcome guest in many households across the world.
-            </SUI-Content>
-            <SUI-Title oid="vGC8AAKx">
-              <SUI-Icon icon="dropdown" oid="F1BhwwBF"/>
+            </SUI.Content>
+            <SUI.Title oid="vGC8AAKx">
+              <SUI.Icon icon="dropdown" oid="F1BhwwBF"/>
               What kinds of dogs are there?
-            </SUI-Title>
-            <SUI-Content oid="KcBBabQO">
+            </SUI.Title>
+            <SUI.Content oid="KcBBabQO">
               There are many breeds of dogs. Each breed varies in size and temperament.
               Owners often select a breed of dog that they find to be compatible with their own
               lifestyle and desires from a companion.
-            </SUI-Content>
-            <SUI-Title oid="w0w6rvD5">
-              <SUI-Icon icon="dropdown" oid="vYiq0BbL"/>
+            </SUI.Content>
+            <SUI.Title oid="w0w6rvD5">
+              <SUI.Icon icon="dropdown" oid="vYiq0BbL"/>
               How do you acquire a dog?
-            </SUI-Title>
-            <SUI-Content oid="CKiGstNB">
+            </SUI.Title>
+            <SUI.Content oid="CKiGstNB">
               <p oid="ysTQhH2M">
                 Three common ways for a prospective owner to acquire a dog
                 is from pet shops, private owners, or shelters.
@@ -43,18 +43,18 @@
                 finding your dog from a shelter, helps give a good home to a dog who
                 may not find one so readily.
               </p>
-            </SUI-Content>
-          </SUI-Accordion>
+            </SUI.Content>
+          </SUI.Accordion>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="RkNXjUMn">
+      </SUI.Column>
+      <SUI.Column oid="RkNXjUMn">
         <Example title="Content from a Map" oid="SuTtPbvf">
-          <SUI-Accordion items={data.dogStringMap} oid="QRG6AmNu"/>
+          <SUI.Accordion items={data.dogStringMap} oid="QRG6AmNu"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="ALblMCfg">
+      </SUI.Column>
+      <SUI.Column oid="ALblMCfg">
         <Example title="Content from Array of Elements" oid="qTm2e3cC">
-          <SUI-Accordion items={[
+          <SUI.Accordion items={[
             data.whatIsADogTitle,
             data.whatIsADogContent,
             data.kindsOfDogsTitle,
@@ -63,60 +63,60 @@
             data.acquiringADogContent,
           ]} oid="IvuAvgTM"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="cEVx5CB3">
+      </SUI.Column>
+      <SUI.Column oid="cEVx5CB3">
         <Example title="Content from Array of Strings" oid="VgZauCXb">
-          <SUI-Accordion items={data.dogStringArray} oid="rOHSSHP9"/>
+          <SUI.Accordion items={data.dogStringArray} oid="rOHSSHP9"/>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
     <Example title="Nested" oid="CMfT51lf">
-      <SUI-Accordion id="nested" appearance="styled" oid="JEXASXa7">
-        <SUI-Title oid="JHRGshfu">
-          <SUI-Icon icon="dropdown" oid="B3mOnpPE"/>
+      <SUI.Accordion id="nested" appearance="styled" oid="JEXASXa7">
+        <SUI.Title oid="JHRGshfu">
+          <SUI.Icon icon="dropdown" oid="B3mOnpPE"/>
           Level 1
-        </SUI-Title>
-        <SUI-Content oid="Ol2rya7t">
+        </SUI.Title>
+        <SUI.Content oid="Ol2rya7t">
           Welcome to level 1
-          <SUI-Accordion oid="iCoEmZj6">
-            <SUI-Title oid="heCSR1Dp">
-              <SUI-Icon icon="dropdown" oid="HXcpdWPG"/>
+          <SUI.Accordion oid="iCoEmZj6">
+            <SUI.Title oid="heCSR1Dp">
+              <SUI.Icon icon="dropdown" oid="HXcpdWPG"/>
               Level 1A
-            </SUI-Title>
-            <SUI-Content oid="Eahpvgs2">
+            </SUI.Title>
+            <SUI.Content oid="Eahpvgs2">
               Level 1A contents
-            </SUI-Content>
-            <SUI-Title oid="Ii7yB9TI">
-              <SUI-Icon icon="dropdown" oid="RY7PyMJf"/>
+            </SUI.Content>
+            <SUI.Title oid="Ii7yB9TI">
+              <SUI.Icon icon="dropdown" oid="RY7PyMJf"/>
               Level 1B
-            </SUI-Title>
-            <SUI-Content oid="BrdfbsDH">
+            </SUI.Title>
+            <SUI.Content oid="BrdfbsDH">
               Level 1B contents
-            </SUI-Content>
-          </SUI-Accordion>
-        </SUI-Content>
-        <SUI-Title oid="g7e3Pmba">
-          <SUI-Icon icon="dropdown" oid="fFM790qZ"/>
+            </SUI.Content>
+          </SUI.Accordion>
+        </SUI.Content>
+        <SUI.Title oid="g7e3Pmba">
+          <SUI.Icon icon="dropdown" oid="fFM790qZ"/>
           Level 2
-        </SUI-Title>
-        <SUI-Content oid="T8guJ25N">
+        </SUI.Title>
+        <SUI.Content oid="T8guJ25N">
           Welcome to level 2
-          <SUI-Title oid="pgyd6cwP">
-            <SUI-Icon icon="dropdown" oid="tJKcFuaK"/>
+          <SUI.Title oid="pgyd6cwP">
+            <SUI.Icon icon="dropdown" oid="tJKcFuaK"/>
             Level 2A
-          </SUI-Title>
-          <SUI-Content oid="a7oWmPAc">
+          </SUI.Title>
+          <SUI.Content oid="a7oWmPAc">
             Level 2A contents
-          </SUI-Content>
-          <SUI-Title oid="N6bXG4aO">
-            <SUI-Icon icon="dropdown" oid="vfGGwUVZ"/>
+          </SUI.Content>
+          <SUI.Title oid="N6bXG4aO">
+            <SUI.Icon icon="dropdown" oid="vfGGwUVZ"/>
             Level 2B
-          </SUI-Title>
-          <SUI-Content oid="ZpWjFfAN">
+          </SUI.Title>
+          <SUI.Content oid="ZpWjFfAN">
             Level 2B contents
-          </SUI-Content>
-        </SUI-Content>
-      </SUI-Accordion>
+          </SUI.Content>
+        </SUI.Content>
+      </SUI.Accordion>
     </Example>
     <Bug oid="IaEvuM0F">
       This is not working properly...  Do we have to further initialize the nested accordion?
@@ -124,27 +124,27 @@
   </PageSection>
   <PageSection title="Settings" oid="g4CSBGot">
     <Example title="Non-collapsible" hint="<Accordion collapsible={false}/>" oid="qFHjckNM">
-      <SUI-Accordion collapsible={false} appearance="styled" items={data.dogStringArray} oid="gXmjoyAA"/>
+      <SUI.Accordion collapsible={false} appearance="styled" items={data.dogStringArray} oid="gXmjoyAA"/>
     </Example>
     <Example title="Non-exclusive" hint="<Accordion exlusive={false}/>" oid="fKepyQFW">
-      <SUI-Accordion exclusive={false} appearance="styled" items={data.dogStringArray} oid="SX0ihMT2"/>
+      <SUI.Accordion exclusive={false} appearance="styled" items={data.dogStringArray} oid="SX0ihMT2"/>
     </Example>
     <Example title="Opening items at the start" hint="<Accordion open={0}/> or <Accordion exclusive={false} open={[0,1]}/>" oid="S7UsN483">
-      <SUI-Label pointing="down" color="teal" oid="OPOv8kPa">
+      <SUI.Label pointing="down" color="teal" oid="OPOv8kPa">
         open = 0
-      </SUI-Label>
-      <SUI-Accordion open={0} appearance="styled" items={data.dogStringArray} oid="vPZJIjWj"/>
-      <Oak-Spacer oid="OZXeS6oF"/>
-      <SUI-Label pointing="down" color="teal" oid="yteQUECG">
+      </SUI.Label>
+      <SUI.Accordion open={0} appearance="styled" items={data.dogStringArray} oid="vPZJIjWj"/>
+      <Oak.Spacer oid="OZXeS6oF"/>
+      <SUI.Label pointing="down" color="teal" oid="yteQUECG">
         open = [0, 1]
-      </SUI-Label>
-      <SUI-Accordion exclusive={false} open={[0,1]} appearance="styled" items={data.dogStringArray} oid="LxoYhFGn"/>
+      </SUI.Label>
+      <SUI.Accordion exclusive={false} open={[0,1]} appearance="styled" items={data.dogStringArray} oid="LxoYhFGn"/>
     </Example>
     <Example title="Show on hover" hint="<Accordion on='mouseenter'/>" oid="eWdsmIBm">
-      <SUI-Accordion on="mouseenter" appearance="styled" items={data.dogStringArray} oid="BXkKpw5R"/>
+      <SUI.Accordion on="mouseenter" appearance="styled" items={data.dogStringArray} oid="BXkKpw5R"/>
     </Example>
     <Example title="Non-animated children" hint="<Accordion animateChildren={false}/>" oid="tHjV4u43">
-      <SUI-Accordion animateChildren={false} appearance="styled" items={data.dogStringArray} oid="J0iSmHyf"/>
+      <SUI.Accordion animateChildren={false} appearance="styled" items={data.dogStringArray} oid="J0iSmHyf"/>
       <Bug oid="jRGed555">
         This doesn't seem to work.  Are we doing it right?
       </Bug>
@@ -152,29 +152,29 @@
   </PageSection>
   <PageSection title="Appearance" oid="sj2dpfam">
     <Example title="Styled" hint="<Accordion appearance='styled'/>" oid="pbOuOydX">
-      <SUI-Accordion appearance="styled" items={data.dogStringArray} oid="f3OGuSdg"/>
+      <SUI.Accordion appearance="styled" items={data.dogStringArray} oid="f3OGuSdg"/>
     </Example>
     <Example title="Fluid" hint="<Accordion appearance='fluid'/>" oid="iw30OtC4">
-      <SUI-Segment oid="ogBUARTe">
-        <SUI-Accordion appearance="styled fluid" items={data.dogStringArray} oid="NBu37qIw"/>
-      </SUI-Segment>
+      <SUI.Segment oid="ogBUARTe">
+        <SUI.Accordion appearance="styled fluid" items={data.dogStringArray} oid="NBu37qIw"/>
+      </SUI.Segment>
     </Example>
     <Example title="Inverted (inside inverted segment)" hint="<Accordion appearance='inverted'/>" oid="wEOW3HR2">
-      <SUI-Segment appearance="inverted" oid="EFZfu4GG">
-        <SUI-Accordion appearance="inverted" items={data.dogStringArray} oid="ldCixKYl"/>
-      </SUI-Segment>
-      <Oak-Spacer oid="Xn2CtfAK"/>
-      <SUI-Label pointing="down" color="teal" oid="kJpqZxia">
+      <SUI.Segment appearance="inverted" oid="EFZfu4GG">
+        <SUI.Accordion appearance="inverted" items={data.dogStringArray} oid="ldCixKYl"/>
+      </SUI.Segment>
+      <Oak.Spacer oid="Xn2CtfAK"/>
+      <SUI.Label pointing="down" color="teal" oid="kJpqZxia">
         Inverted styled
-      </SUI-Label>
-      <SUI-Segment appearance="inverted compact unpadded" oid="bUNdtoyp">
-        <SUI-Accordion appearance="inverted styled" items={data.dogStringArray} oid="mP7C16FW"/>
-      </SUI-Segment>
+      </SUI.Label>
+      <SUI.Segment appearance="inverted compact unpadded" oid="bUNdtoyp">
+        <SUI.Accordion appearance="inverted styled" items={data.dogStringArray} oid="mP7C16FW"/>
+      </SUI.Segment>
     </Example>
   </PageSection>
   <PageSection title="Events" oid="XjndiQAD">
     <Example title="All events (logged to console)" hint="<Accordion onChange={...} etc/>" oid="lP9eH4o3">
-      <SUI-Accordion appearance="styled" items={data.dogStringArray} onOpening={()=> console.log("opening")} onOpen={()=> console.log("open")} onClosing={()=> console.log("closing")} onClose={()=> console.log("close")} onChange={()=> console.log("changed")} oid="uQ4maIr2"/>
+      <SUI.Accordion appearance="styled" items={data.dogStringArray} onOpening={()=> console.log("opening")} onOpen={()=> console.log("open")} onClosing={()=> console.log("closing")} onClose={()=> console.log("close")} onChange={()=> console.log("changed")} oid="uQ4maIr2"/>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

@@ -1,7 +1,7 @@
 //////////////////////////////
 // Editor.Error class
 //
-//	Simple class to render one or more errors inside an `<Editor-Control>`
+//	Simple class to render one or more errors inside an `<Editor.Control>`
 //  We (currently) assuming that you're passing normalized props from a <Control> to its <Error>.
 //
 //////////////////////////////

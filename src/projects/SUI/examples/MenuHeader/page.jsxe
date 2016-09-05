@@ -1,48 +1,48 @@
-<Oak-Page id="MenuHeader" title="MenuHeader" oid="JxC22oSb">
+<Oak.Page id="MenuHeader" title="MenuHeader" oid="JxC22oSb">
   <PageTitle title="MenuHeader" oid="BilE5xLn">
     A MenuHeader shows a header inside a menu.
   </PageTitle>
   <PageSection title="Content" oid="u39jTCUg">
     <Example title="Inline contents" oid="Npp0kenH">
-      <SUI-Menu appearance="vertical" oid="PAT7cN4x">
-        <SUI-MenuHeader oid="SijstDH9">
+      <SUI.Menu appearance="vertical" oid="PAT7cN4x">
+        <SUI.MenuHeader oid="SijstDH9">
           Inline content
-        </SUI-MenuHeader>
-        <SUI-MenuHeader oid="VYK6Cbrw">
-          <SUI-Icon icon="checkmark" oid="ESufvkJ4"/>
+        </SUI.MenuHeader>
+        <SUI.MenuHeader oid="VYK6Cbrw">
+          <SUI.Icon icon="checkmark" oid="ESufvkJ4"/>
           Inline with icon
-        </SUI-MenuHeader>
-        <SUI-MenuHeader oid="POypClWd">
+        </SUI.MenuHeader>
+        <SUI.MenuHeader oid="POypClWd">
           <span oid="ccCcuRBh">
             Inline with
             <b oid="EFEi2UIN">
               nested html
             </b>
           </span>
-        </SUI-MenuHeader>
-      </SUI-Menu>
+        </SUI.MenuHeader>
+      </SUI.Menu>
     </Example>
     <Example title="Label and icon attributes" oid="J3PLAoes">
-      <SUI-Menu appearance="vertical" oid="v42ZOWbq">
-        <SUI-MenuHeader label="Label attribute" oid="GbrQ79M9"/>
-        <SUI-MenuHeader label="Label and icon" icon="checkmark" oid="yeqJhhSr"/>
-      </SUI-Menu>
+      <SUI.Menu appearance="vertical" oid="v42ZOWbq">
+        <SUI.MenuHeader label="Label attribute" oid="GbrQ79M9"/>
+        <SUI.MenuHeader label="Label and icon" icon="checkmark" oid="yeqJhhSr"/>
+      </SUI.Menu>
     </Example>
   </PageSection>
   <PageSection title="Appearance" oid="PBpDwfGo">
     <Example title="Inverted Color" hint="<Menu appearance='inverted'><MenuItem color='red'/></Menu>" oid="aZEDvYp4">
-      <SUI-Menu appearance="inverted" color="red" items={data.simpleItems} itemCount={4} oid="tqpL2WL8"/>
-      <SUI-Menu appearance="inverted" color="orange" items={data.simpleItems} itemCount={4} oid="mGcIWCul"/>
-      <SUI-Menu appearance="inverted" color="yellow" items={data.simpleItems} itemCount={4} oid="bYtrwwBZ"/>
-      <SUI-Menu appearance="inverted" color="olive" items={data.simpleItems} itemCount={4} oid="PBvPhG8T"/>
-      <SUI-Menu appearance="inverted" color="green" items={data.simpleItems} itemCount={4} oid="WXUGal7I"/>
-      <SUI-Menu appearance="inverted" color="teal" items={data.simpleItems} itemCount={4} oid="iBdjG5ej"/>
-      <SUI-Menu appearance="inverted" color="blue" items={data.simpleItems} itemCount={4} oid="OIIse4x2"/>
-      <SUI-Menu appearance="inverted" color="violet" items={data.simpleItems} itemCount={4} oid="I1Kj2YO6"/>
-      <SUI-Menu appearance="inverted" color="purple" items={data.simpleItems} itemCount={4} oid="qmApLLgq"/>
-      <SUI-Menu appearance="inverted" color="pink" items={data.simpleItems} itemCount={4} oid="ddJMEZCK"/>
-      <SUI-Menu appearance="inverted" color="brown" items={data.simpleItems} itemCount={4} oid="puxKo6BK"/>
-      <SUI-Menu appearance="inverted" color="grey" items={data.simpleItems} itemCount={4} oid="LPwLHPTx"/>
+      <SUI.Menu appearance="inverted" color="red" items={data.simpleItems} itemCount={4} oid="tqpL2WL8"/>
+      <SUI.Menu appearance="inverted" color="orange" items={data.simpleItems} itemCount={4} oid="mGcIWCul"/>
+      <SUI.Menu appearance="inverted" color="yellow" items={data.simpleItems} itemCount={4} oid="bYtrwwBZ"/>
+      <SUI.Menu appearance="inverted" color="olive" items={data.simpleItems} itemCount={4} oid="PBvPhG8T"/>
+      <SUI.Menu appearance="inverted" color="green" items={data.simpleItems} itemCount={4} oid="WXUGal7I"/>
+      <SUI.Menu appearance="inverted" color="teal" items={data.simpleItems} itemCount={4} oid="iBdjG5ej"/>
+      <SUI.Menu appearance="inverted" color="blue" items={data.simpleItems} itemCount={4} oid="OIIse4x2"/>
+      <SUI.Menu appearance="inverted" color="violet" items={data.simpleItems} itemCount={4} oid="I1Kj2YO6"/>
+      <SUI.Menu appearance="inverted" color="purple" items={data.simpleItems} itemCount={4} oid="qmApLLgq"/>
+      <SUI.Menu appearance="inverted" color="pink" items={data.simpleItems} itemCount={4} oid="ddJMEZCK"/>
+      <SUI.Menu appearance="inverted" color="brown" items={data.simpleItems} itemCount={4} oid="puxKo6BK"/>
+      <SUI.Menu appearance="inverted" color="grey" items={data.simpleItems} itemCount={4} oid="LPwLHPTx"/>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

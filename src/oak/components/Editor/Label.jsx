@@ -1,7 +1,7 @@
 //////////////////////////////
 // Editor.Label class
 //
-//	Simple label class rendered inside an `<Editor-Control>`
+//	Simple label class rendered inside an `<Editor.Control>`
 //  We (currently) assuming that you're passing normalized props from a <Control> to its <Editor_Label>.
 //
 //////////////////////////////

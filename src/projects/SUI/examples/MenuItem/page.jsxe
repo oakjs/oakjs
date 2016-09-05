@@ -1,95 +1,95 @@
-<Oak-Page id="MenuItem" title="MenuItem" oid="bqqrJ5bK">
+<Oak.Page id="MenuItem" title="MenuItem" oid="bqqrJ5bK">
   <PageTitle title="MenuItem" oid="R0cgv2KK">
     A MenuItem is one item in a menu.
   </PageTitle>
   <PageSection title="Content" oid="DFOy9YyD">
     <Example title="Inline contents" oid="OVOhnxXn">
-      <SUI-Menu appearance="vertical" oid="JMfNlPso">
-        <SUI-MenuItem oid="UPB0acg7">
+      <SUI.Menu appearance="vertical" oid="JMfNlPso">
+        <SUI.MenuItem oid="UPB0acg7">
           Inline content
-        </SUI-MenuItem>
-        <SUI-MenuItem oid="NafaUcab">
-          <SUI-Icon icon="checkmark" oid="YoAqgllo"/>
+        </SUI.MenuItem>
+        <SUI.MenuItem oid="NafaUcab">
+          <SUI.Icon icon="checkmark" oid="YoAqgllo"/>
           Inline with icon
-        </SUI-MenuItem>
-        <SUI-MenuItem oid="oe5V78Wm">
+        </SUI.MenuItem>
+        <SUI.MenuItem oid="oe5V78Wm">
           <span oid="AoCUjv2o">
             Inline with
             <b oid="O733vsul">
               nested html
             </b>
           </span>
-        </SUI-MenuItem>
-        <SUI-MenuItem oid="Psno0S6J">
-          <SUI-Header oid="qPTLNvcI">
+        </SUI.MenuItem>
+        <SUI.MenuItem oid="Psno0S6J">
+          <SUI.Header oid="qPTLNvcI">
             In-item header
-          </SUI-Header>
+          </SUI.Header>
           <p oid="i44t1TRX">
             Inline item text
           </p>
-        </SUI-MenuItem>
-      </SUI-Menu>
+        </SUI.MenuItem>
+      </SUI.Menu>
     </Example>
     <Example title="Label and icon attributes" oid="Ay5GegTr">
-      <SUI-Menu oid="WgPluGYJ">
-        <SUI-MenuItem label="Label attribute" oid="ZtflpLED"/>
-        <SUI-MenuItem label="Label and icon attributes" icon="checkmark" oid="iSjJYLvv"/>
-      </SUI-Menu>
+      <SUI.Menu oid="WgPluGYJ">
+        <SUI.MenuItem label="Label attribute" oid="ZtflpLED"/>
+        <SUI.MenuItem label="Label and icon attributes" icon="checkmark" oid="iSjJYLvv"/>
+      </SUI.Menu>
     </Example>
     <Example title="Menu" oid="y7bbk7aF">
-      <SUI-Menu oid="brllr8xm">
-        <SUI-MenuItem oid="MLEDKFE5">
+      <SUI.Menu oid="brllr8xm">
+        <SUI.MenuItem oid="MLEDKFE5">
           Left Item 1
-        </SUI-MenuItem>
-        <SUI-MenuItem oid="t9A3kYjH">
+        </SUI.MenuItem>
+        <SUI.MenuItem oid="t9A3kYjH">
           Left Item 2
-        </SUI-MenuItem>
-        <SUI-Menu appearance="right" oid="cw8higUN">
-          <SUI-MenuItem oid="RBb1Xgp3">
+        </SUI.MenuItem>
+        <SUI.Menu appearance="right" oid="cw8higUN">
+          <SUI.MenuItem oid="RBb1Xgp3">
             Right Item 1
-          </SUI-MenuItem>
-          <SUI-MenuItem oid="uKxXHshh">
+          </SUI.MenuItem>
+          <SUI.MenuItem oid="uKxXHshh">
             Right Item 2
-          </SUI-MenuItem>
-        </SUI-Menu>
-      </SUI-Menu>
+          </SUI.MenuItem>
+        </SUI.Menu>
+      </SUI.Menu>
     </Example>
     <Example title="Sub Menu" oid="TYoPnZfl">
-      <SUI-Menu appearance="vertical" oid="OdQIlN2k">
-        <SUI-MenuItem oid="mlEBvBef">
+      <SUI.Menu appearance="vertical" oid="OdQIlN2k">
+        <SUI.MenuItem oid="mlEBvBef">
           Home
-        </SUI-MenuItem>
-        <SUI-MenuItem oid="lAnJllZY">
+        </SUI.MenuItem>
+        <SUI.MenuItem oid="lAnJllZY">
           Browse
-        </SUI-MenuItem>
-        <SUI-Submenu label="More" oid="Z5txKAhE">
-          <SUI-MenuItem oid="TtI9x7K5">
+        </SUI.MenuItem>
+        <SUI.Submenu label="More" oid="Z5txKAhE">
+          <SUI.MenuItem oid="TtI9x7K5">
             Edit Profile
-          </SUI-MenuItem>
-          <SUI-MenuItem oid="E9lYadOX">
+          </SUI.MenuItem>
+          <SUI.MenuItem oid="E9lYadOX">
             Choose Language
-          </SUI-MenuItem>
-          <SUI-Divider oid="dJTZOk8Y"/>
-          <SUI-MenuItem oid="yDHdYxwq">
+          </SUI.MenuItem>
+          <SUI.Divider oid="dJTZOk8Y"/>
+          <SUI.MenuItem oid="yDHdYxwq">
             Account Settings
-          </SUI-MenuItem>
-        </SUI-Submenu>
-        <SUI-Submenu label="Yet More" items={["Edit Profile", "Choose Language", "-----", "Account Settings"]} oid="BY5byLmj"/>
-      </SUI-Menu>
+          </SUI.MenuItem>
+        </SUI.Submenu>
+        <SUI.Submenu label="Yet More" items={["Edit Profile", "Choose Language", "-----", "Account Settings"]} oid="BY5byLmj"/>
+      </SUI.Menu>
     </Example>
     <Example title="Input" oid="jkGKSVZR">
-      <SUI-Menu oid="HbCZWrFa">
-        <SUI-MenuItem oid="BQFrZm6U">
-          <SUI-Input placeholder="search" icon="search" oid="aYL7mjEy"/>
-        </SUI-MenuItem>
-      </SUI-Menu>
+      <SUI.Menu oid="HbCZWrFa">
+        <SUI.MenuItem oid="BQFrZm6U">
+          <SUI.Input placeholder="search" icon="search" oid="aYL7mjEy"/>
+        </SUI.MenuItem>
+      </SUI.Menu>
     </Example>
     <Example title="Button" oid="pNnL8Blg">
-      <SUI-Menu oid="bTA5KldH">
-        <SUI-MenuItem oid="F05PmRl8">
-          <SUI-Button appearance="primary" title="Sign up" oid="YmZcLoVD"/>
-        </SUI-MenuItem>
-      </SUI-Menu>
+      <SUI.Menu oid="bTA5KldH">
+        <SUI.MenuItem oid="F05PmRl8">
+          <SUI.Button appearance="primary" title="Sign up" oid="YmZcLoVD"/>
+        </SUI.MenuItem>
+      </SUI.Menu>
     </Example>
     <Example title="Dropdown" oid="qqTNe0kv">
       <Todo oid="SolZnlxM">
@@ -104,29 +104,29 @@
   </PageSection>
   <PageSection title="States" oid="voMRRVUR">
     <Example title="Hover" hint="<MenuItem href='...'/> or <MenuItem onClick='...'/> or <MenuItem appearance='link'/>" oid="srkTDK7Q">
-      <SUI-Menu appearance="compact" oid="RkcDY35p">
-        <SUI-MenuItem href="#" label="Anchor" oid="JNJJNE5Q"/>
-        <SUI-MenuItem onClick={Function.prototype} label="onClick item" oid="yj30LWj5"/>
-        <SUI-MenuItem appearance="link" label="appearance = link" oid="VkdiqbIb"/>
-      </SUI-Menu>
+      <SUI.Menu appearance="compact" oid="RkcDY35p">
+        <SUI.MenuItem href="#" label="Anchor" oid="JNJJNE5Q"/>
+        <SUI.MenuItem onClick={Function.prototype} label="onClick item" oid="yj30LWj5"/>
+        <SUI.MenuItem appearance="link" label="appearance = link" oid="VkdiqbIb"/>
+      </SUI.Menu>
     </Example>
     <Example title="Active" hint="<MenuItem active/>" oid="a1Z4uT5o">
-      <SUI-Menu appearance="compact" oid="JhWOoZJD">
-        <SUI-MenuItem appearance="link" label="Normal" oid="Ge7S8xK3"/>
-        <SUI-MenuItem active appearance="link" label="Active" oid="IdurthkI"/>
-      </SUI-Menu>
+      <SUI.Menu appearance="compact" oid="JhWOoZJD">
+        <SUI.MenuItem appearance="link" label="Normal" oid="Ge7S8xK3"/>
+        <SUI.MenuItem active appearance="link" label="Active" oid="IdurthkI"/>
+      </SUI.Menu>
     </Example>
     <Example title="Disabled" hint="<MenuItem disabled/>" oid="cYe0dCsT">
-      <SUI-Menu appearance="compact" oid="qxYJF0n6">
-        <SUI-MenuItem appearance="link" label="Normal" oid="oOkx23Vk"/>
-        <SUI-MenuItem disabled appearance="link" label="Disabled" oid="v7XePTSX"/>
-      </SUI-Menu>
+      <SUI.Menu appearance="compact" oid="qxYJF0n6">
+        <SUI.MenuItem appearance="link" label="Normal" oid="oOkx23Vk"/>
+        <SUI.MenuItem disabled appearance="link" label="Disabled" oid="v7XePTSX"/>
+      </SUI.Menu>
     </Example>
     <Example title="Down" hint="<MenuItem down/>" oid="rbT5WUMP">
-      <SUI-Menu appearance="compact" oid="A6fPi2dw">
-        <SUI-MenuItem appearance="link" label="Normal" oid="fgfmth2C"/>
-        <SUI-MenuItem down appearance="link" label="Down" oid="IJPOB7WL"/>
-      </SUI-Menu>
+      <SUI.Menu appearance="compact" oid="A6fPi2dw">
+        <SUI.MenuItem appearance="link" label="Normal" oid="fgfmth2C"/>
+        <SUI.MenuItem down appearance="link" label="Down" oid="IJPOB7WL"/>
+      </SUI.Menu>
       <Bug oid="sPtnuGPL">
         The &quot;down&quot; state doesn&apos;t seem to have an effect with the default SUI styles.
       </Bug>
@@ -134,75 +134,75 @@
   </PageSection>
   <PageSection title="Appearance" oid="LRgeHqhl">
     <Example title="Format as a link" hint="<MenuItem href='...'/> or <MenuItem appearance='link'/>" oid="TW1h7Iqc">
-      <SUI-Menu oid="bZZqTirL">
-        <SUI-MenuItem href="http://www.google.com" target="_blank" label="Visit Google" oid="OAHt8ljr"/>
-        <SUI-MenuItem appearance="link" label="Visit Google" oid="yUR5TXn5"/>
-      </SUI-Menu>
+      <SUI.Menu oid="bZZqTirL">
+        <SUI.MenuItem href="http://www.google.com" target="_blank" label="Visit Google" oid="OAHt8ljr"/>
+        <SUI.MenuItem appearance="link" label="Visit Google" oid="yUR5TXn5"/>
+      </SUI.Menu>
     </Example>
     <Example title="Alignment" hint="<MenuItem align='right'/>" oid="XRDmAFvx">
-      <SUI-Menu oid="drypxaSe">
-        <SUI-MenuItem align="left" label="Left Aligned" oid="F7XOoH0k"/>
-        <SUI-MenuItem align="center" label="Center Aligned" oid="y3xrUo2f"/>
-        <SUI-MenuItem align="justified" label="Completely Justified" oid="D4TGC3N6"/>
-        <SUI-MenuItem align="right" label="RightAligned" oid="NHGJpAdk"/>
-      </SUI-Menu>
-      <SUI-Menu itemCount={4} oid="GafORNLs">
-        <SUI-MenuItem align="left" label="Left Aligned" oid="SNqWKtIq"/>
-        <SUI-MenuItem align="center" label="Center Aligned" oid="P3X3UHiv"/>
-        <SUI-MenuItem align="justified" label="Completely Justified" oid="xgmc1fBR"/>
-        <SUI-MenuItem align="right" label="RightAligned" oid="EnWC60oX"/>
-      </SUI-Menu>
+      <SUI.Menu oid="drypxaSe">
+        <SUI.MenuItem align="left" label="Left Aligned" oid="F7XOoH0k"/>
+        <SUI.MenuItem align="center" label="Center Aligned" oid="y3xrUo2f"/>
+        <SUI.MenuItem align="justified" label="Completely Justified" oid="D4TGC3N6"/>
+        <SUI.MenuItem align="right" label="RightAligned" oid="NHGJpAdk"/>
+      </SUI.Menu>
+      <SUI.Menu itemCount={4} oid="GafORNLs">
+        <SUI.MenuItem align="left" label="Left Aligned" oid="SNqWKtIq"/>
+        <SUI.MenuItem align="center" label="Center Aligned" oid="P3X3UHiv"/>
+        <SUI.MenuItem align="justified" label="Completely Justified" oid="xgmc1fBR"/>
+        <SUI.MenuItem align="right" label="RightAligned" oid="EnWC60oX"/>
+      </SUI.Menu>
     </Example>
     <Example title="Color" hint="<MenuItem color='red'/>  NOTE: items are only colored when active." oid="x5FQKDAx">
-      <SUI-Menu oid="kY7PjiaY">
-        <SUI-MenuItem active color="red" oid="qLyXck7F">
+      <SUI.Menu oid="kY7PjiaY">
+        <SUI.MenuItem active color="red" oid="qLyXck7F">
           red
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="orange" oid="GqTmROvC">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="orange" oid="GqTmROvC">
           orange
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="yellow" oid="asQmBpV1">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="yellow" oid="asQmBpV1">
           yellow
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="olive" oid="R9p1beYl">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="olive" oid="R9p1beYl">
           olive
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="green" oid="rk2pQNph">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="green" oid="rk2pQNph">
           green
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="teal" oid="s4YclsPc">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="teal" oid="s4YclsPc">
           teal
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="blue" oid="dseLJjSc">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="blue" oid="dseLJjSc">
           blue
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="violet" oid="xOT55WuE">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="violet" oid="xOT55WuE">
           violet
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="purple" oid="BWIZSf3n">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="purple" oid="BWIZSf3n">
           purple
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="brown" oid="qwLm3W4N">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="brown" oid="qwLm3W4N">
           brown
-        </SUI-MenuItem>
-        <SUI-MenuItem active color="grey" oid="hRWv5u4o">
+        </SUI.MenuItem>
+        <SUI.MenuItem active color="grey" oid="hRWv5u4o">
           grey
-        </SUI-MenuItem>
-      </SUI-Menu>
+        </SUI.MenuItem>
+      </SUI.Menu>
     </Example>
     <Example title="Inverted Color" hint="<Menu appearance='inverted'><MenuItem color='red'/></Menu>" oid="TmlNpvHq">
-      <SUI-Menu appearance="inverted" color="red" items={data.simpleItems} itemCount={4} oid="EHrNUUgk"/>
-      <SUI-Menu appearance="inverted" color="orange" items={data.simpleItems} itemCount={4} oid="oCUrXcxm"/>
-      <SUI-Menu appearance="inverted" color="yellow" items={data.simpleItems} itemCount={4} oid="VdM0GEOj"/>
-      <SUI-Menu appearance="inverted" color="olive" items={data.simpleItems} itemCount={4} oid="AnCf9GmZ"/>
-      <SUI-Menu appearance="inverted" color="green" items={data.simpleItems} itemCount={4} oid="JGJOxhY4"/>
-      <SUI-Menu appearance="inverted" color="teal" items={data.simpleItems} itemCount={4} oid="xFBhyOI2"/>
-      <SUI-Menu appearance="inverted" color="blue" items={data.simpleItems} itemCount={4} oid="uJyMDDCD"/>
-      <SUI-Menu appearance="inverted" color="violet" items={data.simpleItems} itemCount={4} oid="eKMARyBa"/>
-      <SUI-Menu appearance="inverted" color="purple" items={data.simpleItems} itemCount={4} oid="Z60ScpxH"/>
-      <SUI-Menu appearance="inverted" color="pink" items={data.simpleItems} itemCount={4} oid="uv1mAs22"/>
-      <SUI-Menu appearance="inverted" color="brown" items={data.simpleItems} itemCount={4} oid="oOFAEgHu"/>
-      <SUI-Menu appearance="inverted" color="grey" items={data.simpleItems} itemCount={4} oid="vikmlthP"/>
+      <SUI.Menu appearance="inverted" color="red" items={data.simpleItems} itemCount={4} oid="EHrNUUgk"/>
+      <SUI.Menu appearance="inverted" color="orange" items={data.simpleItems} itemCount={4} oid="oCUrXcxm"/>
+      <SUI.Menu appearance="inverted" color="yellow" items={data.simpleItems} itemCount={4} oid="VdM0GEOj"/>
+      <SUI.Menu appearance="inverted" color="olive" items={data.simpleItems} itemCount={4} oid="AnCf9GmZ"/>
+      <SUI.Menu appearance="inverted" color="green" items={data.simpleItems} itemCount={4} oid="JGJOxhY4"/>
+      <SUI.Menu appearance="inverted" color="teal" items={data.simpleItems} itemCount={4} oid="xFBhyOI2"/>
+      <SUI.Menu appearance="inverted" color="blue" items={data.simpleItems} itemCount={4} oid="uJyMDDCD"/>
+      <SUI.Menu appearance="inverted" color="violet" items={data.simpleItems} itemCount={4} oid="eKMARyBa"/>
+      <SUI.Menu appearance="inverted" color="purple" items={data.simpleItems} itemCount={4} oid="Z60ScpxH"/>
+      <SUI.Menu appearance="inverted" color="pink" items={data.simpleItems} itemCount={4} oid="uv1mAs22"/>
+      <SUI.Menu appearance="inverted" color="brown" items={data.simpleItems} itemCount={4} oid="oOFAEgHu"/>
+      <SUI.Menu appearance="inverted" color="grey" items={data.simpleItems} itemCount={4} oid="vikmlthP"/>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

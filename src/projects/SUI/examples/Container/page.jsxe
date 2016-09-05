@@ -1,4 +1,4 @@
-<Oak-Page id="Container" title="Container" oid="ALLeKwM5">
+<Oak.Page id="Container" title="Container" oid="ALLeKwM5">
   <PageTitle title="Container" oid="G7jh369k">
     <p oid="TvS5ihtT">
       Containers limit content to a maximum width.
@@ -8,51 +8,51 @@
   </PageTitle>
   <PageSection title="Types" oid="XjMETe6Y">
     <Example title="Standard Container" oid="UePv9fGH">
-      <SUI-Container oid="xRxgoBIP">
-        <SUI-Header oid="gKRfrV2F">
+      <SUI.Container oid="xRxgoBIP">
+        <SUI.Header oid="gKRfrV2F">
           Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum oid="wnpy2ZJo"/>
-      </SUI-Container>
+      </SUI.Container>
     </Example>
     <Example title="Text Container" hint="<Container appearance='text'/>" oid="uVtYVTnC">
-      <SUI-Container appearance="text" oid="Q57pbWgN">
-        <SUI-Header oid="o20Eu3pd">
+      <SUI.Container appearance="text" oid="Q57pbWgN">
+        <SUI.Header oid="o20Eu3pd">
           Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum oid="MbAHpBpq"/>
-      </SUI-Container>
+      </SUI.Container>
     </Example>
   </PageSection>
   <PageSection title="Variations" oid="EMocbRRa">
     <Example title="Left | Center | Right Aligned" hint="<Container align='left'/>" oid="IuwvuvsG">
-      <SUI-Container align="left" oid="fJu1ZQLS">
+      <SUI.Container align="left" oid="fJu1ZQLS">
         Left Aligned
-      </SUI-Container>
-      <SUI-Container align="center" oid="dNMbePNB">
+      </SUI.Container>
+      <SUI.Container align="center" oid="dNMbePNB">
         Center Aligned
-      </SUI-Container>
-      <SUI-Container align="right" oid="Hum6EqQo">
+      </SUI.Container>
+      <SUI.Container align="right" oid="Hum6EqQo">
         Right Aligned
-      </SUI-Container>
+      </SUI.Container>
     </Example>
     <Example title="Justified" hint="<Container align='justified'/>" oid="u7dW0sMZ">
-      <SUI-Container align="justified" oid="V8t22HbY">
+      <SUI.Container align="justified" oid="V8t22HbY">
         <LoremIpsum oid="lmwsexTy"/>
-      </SUI-Container>
+      </SUI.Container>
     </Example>
     <Example title="Fluid" hint="<Container appearance='fluid'/>" oid="eImTfac7">
-      <SUI-Container appearance="fluid" oid="w9aTwIlv">
-        <SUI-Header oid="DLexqS1B">
+      <SUI.Container appearance="fluid" oid="w9aTwIlv">
+        <SUI.Header oid="DLexqS1B">
           Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum oid="wUqi7Xhj"/>
-      </SUI-Container>
+      </SUI.Container>
     </Example>
   </PageSection>
   <PageSection title="Combos" oid="VBRM9Ge9">
     <Example title="Containers + Grids" hint="<Container appearance='four column grid'>" oid="a7GnIPGH">
-      <SUI-Container appearance="four column grid" oid="g64xaq5F">
+      <SUI.Container appearance="four column grid" oid="g64xaq5F">
         <div className="column" oid="LaH9TAkB">
           <LoremIpsum oid="FZa2XStr"/>
         </div>
@@ -65,25 +65,25 @@
         <div className="column" oid="td5CTKIF">
           <LoremIpsum oid="bFE75lX6"/>
         </div>
-      </SUI-Container>
+      </SUI.Container>
     </Example>
     <Example title="Centering Menu in oak header" hint="<Menu appearance='attached stackable'><Container/></Menu>" oid="GA1qiDLw">
-      <SUI-Menu appearance="attached stackable" oid="YhNLQOC4">
-        <SUI-Container oid="yRrHvu7u">
-          <SUI-MenuItem icon="home" label="Home" oid="PBRjcHaC"/>
-          <SUI-MenuItem icon="grid layout" label="Browse" oid="a7V6eMdL"/>
-          <SUI-MenuItem icon="mail" label="Messages" oid="YWUqM2jT"/>
-          <SUI-MenuItem align="right" icon="settings" label="Settings" oid="aFhtUrXC"/>
-        </SUI-Container>
-      </SUI-Menu>
+      <SUI.Menu appearance="attached stackable" oid="YhNLQOC4">
+        <SUI.Container oid="yRrHvu7u">
+          <SUI.MenuItem icon="home" label="Home" oid="PBRjcHaC"/>
+          <SUI.MenuItem icon="grid layout" label="Browse" oid="a7V6eMdL"/>
+          <SUI.MenuItem icon="mail" label="Messages" oid="YWUqM2jT"/>
+          <SUI.MenuItem align="right" icon="settings" label="Settings" oid="aFhtUrXC"/>
+        </SUI.Container>
+      </SUI.Menu>
     </Example>
     <Example title="Containers and Segments" hint="<Segment appearance='...container'/>" oid="UARyilHS">
-      <SUI-Segment appearance="raised very padded text container" oid="NY0LHVhm">
-        <SUI-Header oid="A3hSSChP">
+      <SUI.Segment appearance="raised very padded text container" oid="NY0LHVhm">
+        <SUI.Header oid="A3hSSChP">
           Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum oid="nQJkS4G7"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

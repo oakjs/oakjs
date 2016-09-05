@@ -1,54 +1,54 @@
-<Oak-Page id="Submenu" title="Submenu" oid="ghiIcykh">
+<Oak.Page id="Submenu" title="Submenu" oid="ghiIcykh">
   <PageTitle title="Submenu" oid="viG2Xkli">
     A Submenu shows a nested menu
   </PageTitle>
   <PageSection title="Content" oid="vxY5WP7L">
     <Example title="Inline contents" oid="hvlDwB5l">
-      <SUI-Menu appearance="vertical" oid="Ul0qeOy6">
-        <SUI-MenuItem oid="KsGulisy">
+      <SUI.Menu appearance="vertical" oid="Ul0qeOy6">
+        <SUI.MenuItem oid="KsGulisy">
           A normal item
-        </SUI-MenuItem>
-        <SUI-Submenu oid="sYUF74ih">
+        </SUI.MenuItem>
+        <SUI.Submenu oid="sYUF74ih">
           More Stuff
-          <SUI-MenuHeader icon="newspaper" oid="ggdqjHN1">
+          <SUI.MenuHeader icon="newspaper" oid="ggdqjHN1">
             Breaking News
-          </SUI-MenuHeader>
-          <SUI-MenuItem icon="comment outline" oid="X542ymi2">
+          </SUI.MenuHeader>
+          <SUI.MenuItem icon="comment outline" oid="X542ymi2">
             Editorials
-          </SUI-MenuItem>
-          <SUI-MenuItem active icon="film" oid="nBEOQ1bW">
+          </SUI.MenuItem>
+          <SUI.MenuItem active icon="film" oid="nBEOQ1bW">
             Movie Reviews
-          </SUI-MenuItem>
-          <SUI-MenuItem icon="calendar" oid="h0lv9B01">
+          </SUI.MenuItem>
+          <SUI.MenuItem icon="calendar" oid="h0lv9B01">
             Current Events
-          </SUI-MenuItem>
-        </SUI-Submenu>
-        <SUI-MenuItem oid="NFxVMN6s">
+          </SUI.MenuItem>
+        </SUI.Submenu>
+        <SUI.MenuItem oid="NFxVMN6s">
           Another normal item
-        </SUI-MenuItem>
-      </SUI-Menu>
+        </SUI.MenuItem>
+      </SUI.Menu>
     </Example>
     <Example title="Items as MenuItem Elements" oid="O7bDVmNm">
-      <SUI-Menu appearance="vertical" oid="ZQXtVtZa">
-        <SUI-MenuItem oid="UGRMSaDi">
+      <SUI.Menu appearance="vertical" oid="ZQXtVtZa">
+        <SUI.MenuItem oid="UGRMSaDi">
           A normal item
-        </SUI-MenuItem>
-        <SUI-Submenu label="More Stuff" items={data.simpleItems} oid="GaYit1Yv"/>
-        <SUI-MenuItem oid="ekeqsypA">
+        </SUI.MenuItem>
+        <SUI.Submenu label="More Stuff" items={data.simpleItems} oid="GaYit1Yv"/>
+        <SUI.MenuItem oid="ekeqsypA">
           Another normal item
-        </SUI-MenuItem>
-      </SUI-Menu>
+        </SUI.MenuItem>
+      </SUI.Menu>
     </Example>
     <Example title="Items as Strings" oid="cFxaqgPU">
-      <SUI-Menu appearance="vertical" oid="q9ygiS8h">
-        <SUI-MenuItem oid="sm9xKQv9">
+      <SUI.Menu appearance="vertical" oid="q9ygiS8h">
+        <SUI.MenuItem oid="sm9xKQv9">
           A normal item
-        </SUI-MenuItem>
-        <SUI-Submenu label="More Stuff" items={["Breaking News", "Editorials", "Movie Reviews", "Current Events"]} oid="jGcj5Kdq"/>
-        <SUI-MenuItem oid="eq17rIIV">
+        </SUI.MenuItem>
+        <SUI.Submenu label="More Stuff" items={["Breaking News", "Editorials", "Movie Reviews", "Current Events"]} oid="jGcj5Kdq"/>
+        <SUI.MenuItem oid="eq17rIIV">
           Another normal item
-        </SUI-MenuItem>
-      </SUI-Menu>
+        </SUI.MenuItem>
+      </SUI.Menu>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

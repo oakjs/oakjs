@@ -360,7 +360,7 @@ export default class Control extends React.Component {
 	// Passed the normalized `props` from `normalizeProps()`.
 	renderHint(props) {
 		if (!props.hint) return undefined;
-// TODO:  <Editor-Hint> ???
+// TODO:  <Editor.Hint> ???
 		return (
 			<label {...this.getHintProps(props)}>
 				{props.hint}
@@ -476,7 +476,7 @@ export class Output extends Control {
 }
 
 
-// Generic `<Editor-Input>` class
+// Generic `<Editor.Input>` class
 export class Input extends Control {
 	// Add <input> specific propTypes
 	static propTypes = {
@@ -521,10 +521,10 @@ export class Input extends Control {
 }
 
 
-// `<Editor-Text>` class -- string text field.
+// `<Editor.Text>` class -- string text field.
 export class Text extends Input {}
 
-// `<Editor-Password>` class -- password text field.
+// `<Editor.Password>` class -- password text field.
 export class Password extends Text {
 	static defaultProps = {
 		inputType: "password"
@@ -533,7 +533,7 @@ export class Password extends Text {
 
 
 
-// `<Editor-Checkbox>` class
+// `<Editor.Checkbox>` class
 export class Checkbox extends Input {
 	static propTypes = {
 		...Input.propTypes,

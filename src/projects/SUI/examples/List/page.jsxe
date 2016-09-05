@@ -1,302 +1,302 @@
-<Oak-Page id="List" title="List" oid="fRq0xmNK">
+<Oak.Page id="List" title="List" oid="fRq0xmNK">
   <PageTitle title="List" oid="E1QANhFH">
     A list is used to group related content.
   </PageTitle>
   <PageSection title="Types" oid="MuXPaJkj">
-    <SUI-Grid columns={3} oid="iqnDqrZ7">
-      <SUI-Column oid="Z8d6GQ4b">
+    <SUI.Grid columns={3} oid="iqnDqrZ7">
+      <SUI.Column oid="Z8d6GQ4b">
         <Example title="Text / Icon only" oid="ZYKmu0Nh">
-          <SUI-List oid="T4hkKNWA">
-            <SUI-ListItem content="Semantic UI" icon="users" oid="jxBNcsn5"/>
-            <SUI-ListItem oid="IJnUntQh">
-              <SUI-Icon icon="marker" oid="Yet1f4MI"/>
+          <SUI.List oid="T4hkKNWA">
+            <SUI.ListItem content="Semantic UI" icon="users" oid="jxBNcsn5"/>
+            <SUI.ListItem oid="IJnUntQh">
+              <SUI.Icon icon="marker" oid="Yet1f4MI"/>
               Asheville, NC
-            </SUI-ListItem>
-            <SUI-ListItem icon="mail" oid="HCjrxtdn">
+            </SUI.ListItem>
+            <SUI.ListItem icon="mail" oid="HCjrxtdn">
               <a href="mailto:jack@semantic-ui.com" oid="AU2UBfbh">
                 jack@semantic0ui.com
               </a>
-            </SUI-ListItem>
-          </SUI-List>
+            </SUI.ListItem>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="OBgjMhxb">
+      </SUI.Column>
+      <SUI.Column oid="OBgjMhxb">
         <Example title="Link" hint="<List appearance='link'/>" oid="E6pQSfHV">
-          <SUI-List appearance="link" oid="DAGGh6wW">
-            <SUI-ListItem content="Home" href="http://google.com" target="_blank" oid="EAx1ZtDn"/>
-            <SUI-ListItem content="About" active href="http://google.com" target="_blank" oid="egu7u3w8"/>
-            <SUI-ListItem content="Jobs" href="http://google.com" target="_blank" oid="eEnMGqI8"/>
-            <SUI-ListItem content="Team" href="http://google.com" target="_blank" oid="haARM7TD"/>
-          </SUI-List>
+          <SUI.List appearance="link" oid="DAGGh6wW">
+            <SUI.ListItem content="Home" href="http://google.com" target="_blank" oid="EAx1ZtDn"/>
+            <SUI.ListItem content="About" active href="http://google.com" target="_blank" oid="egu7u3w8"/>
+            <SUI.ListItem content="Jobs" href="http://google.com" target="_blank" oid="eEnMGqI8"/>
+            <SUI.ListItem content="Team" href="http://google.com" target="_blank" oid="haARM7TD"/>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="aPTApaZU">
+      </SUI.Column>
+      <SUI.Column oid="aPTApaZU">
         <Example title="Fancy" oid="BKdj3qIs">
-          <SUI-List appearance="relaxed divided" oid="IR07e6Zc">
-            <SUI-ListItem icon="large github middle aligned" header="Semantic-UI" description="Updated 10 minutes ago" oid="KUlykfRC"/>
-            <SUI-ListItem icon="large github middle aligned" oid="xFVYuQX0">
+          <SUI.List appearance="relaxed divided" oid="IR07e6Zc">
+            <SUI.ListItem icon="large github middle aligned" header="Semantic-UI" description="Updated 10 minutes ago" oid="KUlykfRC"/>
+            <SUI.ListItem icon="large github middle aligned" oid="xFVYuQX0">
               <div className="header" oid="OhrXGfIb">
                 Semantic-UI-Docs
               </div>
               <div className="description" oid="bphUpaCH">
                 Updated 22 minutes ago
               </div>
-            </SUI-ListItem>
-          </SUI-List>
+            </SUI.ListItem>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column columns={5} oid="BqZTlwna">
+      </SUI.Column>
+      <SUI.Column columns={5} oid="BqZTlwna">
         <Example title="Bulleted Lists" hint="<List appearance='bulleted'/>" oid="xUQNLbmn">
-          <SUI-List appearance="bulleted" oid="iVhHcfLG">
-            <SUI-ListItem oid="kTa5n2ns">
+          <SUI.List appearance="bulleted" oid="iVhHcfLG">
+            <SUI.ListItem oid="kTa5n2ns">
               Gaining Access
-            </SUI-ListItem>
-            <SUI-ListItem oid="AhqydI7T">
+            </SUI.ListItem>
+            <SUI.ListItem oid="AhqydI7T">
               Inviting Friends
-            </SUI-ListItem>
-            <SUI-ListItem nestChildren={false} oid="R86ZMu87">
+            </SUI.ListItem>
+            <SUI.ListItem nestChildren={false} oid="R86ZMu87">
               Benefits
-              <SUI-List oid="XGb90XJ2">
-                <SUI-ListItem oid="x3YAgHUy">
+              <SUI.List oid="XGb90XJ2">
+                <SUI.ListItem oid="x3YAgHUy">
                   Use Anywhere
-                </SUI-ListItem>
-                <SUI-ListItem oid="OLRqs35o">
+                </SUI.ListItem>
+                <SUI.ListItem oid="OLRqs35o">
                   Rebates
-                </SUI-ListItem>
-                <SUI-ListItem oid="i3W5miPM">
+                </SUI.ListItem>
+                <SUI.ListItem oid="i3W5miPM">
                   Discounts
-                </SUI-ListItem>
-              </SUI-List>
-            </SUI-ListItem>
-            <SUI-ListItem oid="aYLC5buh">
+                </SUI.ListItem>
+              </SUI.List>
+            </SUI.ListItem>
+            <SUI.ListItem oid="aYLC5buh">
               Warranty
-            </SUI-ListItem>
-          </SUI-List>
+            </SUI.ListItem>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column columns={5} oid="K2LPf7YY">
+      </SUI.Column>
+      <SUI.Column columns={5} oid="K2LPf7YY">
         <Example title="Ordered Lists" hint="<List appearance='ordered'/>" oid="To7E9g0k">
-          <SUI-List appearance="ordered" oid="faZhkdi1">
-            <SUI-ListItem oid="c84RIDed">
+          <SUI.List appearance="ordered" oid="faZhkdi1">
+            <SUI.ListItem oid="c84RIDed">
               Gaining Access
-            </SUI-ListItem>
-            <SUI-ListItem oid="Npaakoea">
+            </SUI.ListItem>
+            <SUI.ListItem oid="Npaakoea">
               Inviting Friends
-            </SUI-ListItem>
-            <SUI-ListItem nestChildren={false} oid="tEEcT5Mo">
+            </SUI.ListItem>
+            <SUI.ListItem nestChildren={false} oid="tEEcT5Mo">
               Benefits
-              <SUI-List oid="MKq6Xu4s">
-                <SUI-ListItem oid="ya9dm5jH">
+              <SUI.List oid="MKq6Xu4s">
+                <SUI.ListItem oid="ya9dm5jH">
                   Use Anywhere
-                </SUI-ListItem>
-                <SUI-ListItem oid="XSndWoLo">
+                </SUI.ListItem>
+                <SUI.ListItem oid="XSndWoLo">
                   Rebates
-                </SUI-ListItem>
-                <SUI-ListItem oid="dcpoNXvI">
+                </SUI.ListItem>
+                <SUI.ListItem oid="dcpoNXvI">
                   Discounts
-                </SUI-ListItem>
-              </SUI-List>
-            </SUI-ListItem>
-            <SUI-ListItem oid="sAJx3nqk">
+                </SUI.ListItem>
+              </SUI.List>
+            </SUI.ListItem>
+            <SUI.ListItem oid="sAJx3nqk">
               Warranty
-            </SUI-ListItem>
-          </SUI-List>
+            </SUI.ListItem>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column columns={6} oid="WjTVYg9f">
+      </SUI.Column>
+      <SUI.Column columns={6} oid="WjTVYg9f">
         <Example title="Nested Lists" oid="gHcEhpEK">
-          <SUI-List oid="SuI631fD">
-            <SUI-ListItem icon="folder" header="src" description="Source files for project" oid="yfd9E1Un">
-              <SUI-List oid="lB3SlEfa">
-                <SUI-ListItem icon="folder" header="site" description="Your site's theme" oid="qNI0dxH7"/>
-                <SUI-ListItem icon="folder" header="themes" description="Packaged theme files" oid="MFN1tTnF">
-                  <SUI-List oid="n82Cx9FC">
-                    <SUI-ListItem icon="folder" header="default" description="Default theme" oid="n4S7jW4S"/>
-                    <SUI-ListItem icon="folder" header="my_theme" description="Custom themes" oid="brwb81ZU"/>
-                  </SUI-List>
-                </SUI-ListItem>
-                <SUI-ListItem icon="file" header="theme.config" description="Theme configuration file" oid="JFxCBD0u"/>
-              </SUI-List>
-            </SUI-ListItem>
-            <SUI-ListItem icon="folder" header="dist" description="Compiled CSS and JS files" oid="I1PlNxuo"/>
-          </SUI-List>
+          <SUI.List oid="SuI631fD">
+            <SUI.ListItem icon="folder" header="src" description="Source files for project" oid="yfd9E1Un">
+              <SUI.List oid="lB3SlEfa">
+                <SUI.ListItem icon="folder" header="site" description="Your site's theme" oid="qNI0dxH7"/>
+                <SUI.ListItem icon="folder" header="themes" description="Packaged theme files" oid="MFN1tTnF">
+                  <SUI.List oid="n82Cx9FC">
+                    <SUI.ListItem icon="folder" header="default" description="Default theme" oid="n4S7jW4S"/>
+                    <SUI.ListItem icon="folder" header="my_theme" description="Custom themes" oid="brwb81ZU"/>
+                  </SUI.List>
+                </SUI.ListItem>
+                <SUI.ListItem icon="file" header="theme.config" description="Theme configuration file" oid="JFxCBD0u"/>
+              </SUI.List>
+            </SUI.ListItem>
+            <SUI.ListItem icon="folder" header="dist" description="Compiled CSS and JS files" oid="I1PlNxuo"/>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
   </PageSection>
   <PageSection title="Appearance" oid="Ia1XqgmS">
     <Example title="Horizontal" hint="<List appearance='horizontal'/>" oid="uuGNvuPF">
-      <SUI-List appearance="horizontal" oid="sReQBdFJ">
-        <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="VtYY4jhZ"/>
-        <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="YtcWFyfc"/>
-        <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="L6UL6dqV"/>
-      </SUI-List>
-      <SUI-Divider oid="D2ad9AR7"/>
-      <SUI-List appearance="horizontal divided" oid="wRFtOJSl">
-        <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="m0KG0TvY"/>
-        <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="BlVxEnnS"/>
-        <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="Q1Vlfl3a"/>
-      </SUI-List>
-      <SUI-Divider oid="gcIo0qiN"/>
-      <SUI-List appearance="horizontal ordered" oid="sN07c0D4">
-        <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="50 points" oid="j1jquwLv"/>
-        <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="44 points" oid="BVkTaXs8"/>
-        <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="22 points" oid="EInmOQTj"/>
-      </SUI-List>
-      <SUI-Divider oid="KTWNBXFj"/>
-      <SUI-List appearance="horizontal bulleted link" oid="frBhrtkS">
-        <SUI-ListItem href="http://www.google.com" oid="gl2fmIqI">
+      <SUI.List appearance="horizontal" oid="sReQBdFJ">
+        <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="VtYY4jhZ"/>
+        <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="YtcWFyfc"/>
+        <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="L6UL6dqV"/>
+      </SUI.List>
+      <SUI.Divider oid="D2ad9AR7"/>
+      <SUI.List appearance="horizontal divided" oid="wRFtOJSl">
+        <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="m0KG0TvY"/>
+        <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="BlVxEnnS"/>
+        <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="Q1Vlfl3a"/>
+      </SUI.List>
+      <SUI.Divider oid="gcIo0qiN"/>
+      <SUI.List appearance="horizontal ordered" oid="sN07c0D4">
+        <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="50 points" oid="j1jquwLv"/>
+        <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="44 points" oid="BVkTaXs8"/>
+        <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="22 points" oid="EInmOQTj"/>
+      </SUI.List>
+      <SUI.Divider oid="KTWNBXFj"/>
+      <SUI.List appearance="horizontal bulleted link" oid="frBhrtkS">
+        <SUI.ListItem href="http://www.google.com" oid="gl2fmIqI">
           Terms and Conditions
-        </SUI-ListItem>
-        <SUI-ListItem href="http://www.google.com" oid="vt03bWWX">
+        </SUI.ListItem>
+        <SUI.ListItem href="http://www.google.com" oid="vt03bWWX">
           Privacy Policy
-        </SUI-ListItem>
-        <SUI-ListItem href="http://www.google.com" oid="LBRquJu5">
+        </SUI.ListItem>
+        <SUI.ListItem href="http://www.google.com" oid="LBRquJu5">
           Contact Us
-        </SUI-ListItem>
-      </SUI-List>
+        </SUI.ListItem>
+      </SUI.List>
     </Example>
-    <SUI-Grid columns={3} oid="dQiplasB">
-      <SUI-Column oid="Jd2A0eyN">
+    <SUI.Grid columns={3} oid="dQiplasB">
+      <SUI.Column oid="Jd2A0eyN">
         <Example title="Normal (non-relaxed)" oid="PMHTu6TI">
-          <SUI-List oid="x39ueUvu">
-            <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="PhZ4x9JP"/>
-            <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="ThRubpn8"/>
-            <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="JJIX0kPy"/>
-          </SUI-List>
+          <SUI.List oid="x39ueUvu">
+            <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="PhZ4x9JP"/>
+            <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="ThRubpn8"/>
+            <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="JJIX0kPy"/>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="gQRx0qa4">
+      </SUI.Column>
+      <SUI.Column oid="gQRx0qa4">
         <Example title="Relaxed" hint="<List appearance='relaxed'/>" oid="eKPRPukx">
-          <SUI-List appearance="relaxed" oid="UIv3S6W9">
-            <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="addk7bh2"/>
-            <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="C69cVK6M"/>
-            <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="d8RKlBbk"/>
-          </SUI-List>
+          <SUI.List appearance="relaxed" oid="UIv3S6W9">
+            <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="addk7bh2"/>
+            <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="C69cVK6M"/>
+            <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="d8RKlBbk"/>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="XSkdYGwR">
+      </SUI.Column>
+      <SUI.Column oid="XSkdYGwR">
         <Example title="Very Relaxed" hint="<List appearance='very relaxed'/>" oid="jO72wYAP">
-          <SUI-List appearance="very relaxed" oid="GQ79Ofbo">
-            <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="p3mKE8X0"/>
-            <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="P1HbqfaW"/>
-            <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="GDFafUPi"/>
-          </SUI-List>
+          <SUI.List appearance="very relaxed" oid="GQ79Ofbo">
+            <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="p3mKE8X0"/>
+            <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="P1HbqfaW"/>
+            <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="GDFafUPi"/>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="E7jRy6eh">
+      </SUI.Column>
+      <SUI.Column oid="E7jRy6eh">
         <Example title="Divided" hint="<List appearance='divided'/>" oid="AuRboxcm">
-          <SUI-List appearance="divided" oid="tgM1nWux">
-            <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="OJOjBcDv"/>
-            <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="meKuIe2y"/>
-            <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="OhPXxyQK"/>
-          </SUI-List>
+          <SUI.List appearance="divided" oid="tgM1nWux">
+            <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="OJOjBcDv"/>
+            <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="meKuIe2y"/>
+            <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="OhPXxyQK"/>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="lsjrIaIm">
+      </SUI.Column>
+      <SUI.Column oid="lsjrIaIm">
         <Example title="Celled" hint="<List appearance='celled'/>" oid="aIf9cdL0">
-          <SUI-List appearance="celled" oid="O47G75Zu">
-            <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="bjLfcyjZ"/>
-            <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="d6vfY1Wd"/>
-            <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="dGpiCIsn"/>
-          </SUI-List>
+          <SUI.List appearance="celled" oid="O47G75Zu">
+            <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="bjLfcyjZ"/>
+            <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="d6vfY1Wd"/>
+            <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="dGpiCIsn"/>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="TsmBUA7A">
+      </SUI.Column>
+      <SUI.Column oid="TsmBUA7A">
         <Example title="Inverted" hint="<List appearance='inverted'/>" oid="GsWGqv3t">
-          <SUI-Segment appearance="inverted" oid="GikIZsJN">
-            <SUI-List appearance="inverted divided" oid="mRtiOslt">
-              <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="tYWD7cr3"/>
-              <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="Ff8185NX"/>
-              <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="OMTlqImH"/>
-            </SUI-List>
-          </SUI-Segment>
+          <SUI.Segment appearance="inverted" oid="GikIZsJN">
+            <SUI.List appearance="inverted divided" oid="mRtiOslt">
+              <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="tYWD7cr3"/>
+              <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="Ff8185NX"/>
+              <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="OMTlqImH"/>
+            </SUI.List>
+          </SUI.Segment>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="MDcgwka3">
+      </SUI.Column>
+      <SUI.Column oid="MDcgwka3">
         <Example title="Selection" hint="<List appearance='selection'/>" oid="wSJA0lXs">
-          <SUI-List appearance="selection" oid="GZ60wZgm">
-            <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="AVJdw6ff"/>
-            <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="k0FrQ1qX"/>
-            <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="qMTkjhmF"/>
-          </SUI-List>
+          <SUI.List appearance="selection" oid="GZ60wZgm">
+            <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="AVJdw6ff"/>
+            <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="k0FrQ1qX"/>
+            <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="qMTkjhmF"/>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="pfvy4j4k">
+      </SUI.Column>
+      <SUI.Column oid="pfvy4j4k">
         <Example title="Animated" hint="<List appearance='animated'/>" oid="kDHxpxkv">
-          <SUI-List appearance="animated" oid="bjoGiKK2">
-            <SUI-ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="dll6LnVN"/>
-            <SUI-ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="VlDBA1dy"/>
-            <SUI-ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="ceJf2Qi6"/>
-          </SUI-List>
+          <SUI.List appearance="animated" oid="bjoGiKK2">
+            <SUI.ListItem image={data.joeAvatar} imageAppearance="avatar" header="Joe" description="Top contributor" oid="dll6LnVN"/>
+            <SUI.ListItem image={data.elliotAvatar} imageAppearance="avatar" header="Elliot" description="Top Admin" oid="VlDBA1dy"/>
+            <SUI.ListItem image={data.stevieAvatar} imageAppearance="avatar" header="Stevie" description="Top rated user" oid="ceJf2Qi6"/>
+          </SUI.List>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
     <Example title="Floating list" hint="<List floated='right'/>" oid="Xcse2NBS">
-      <SUI-Segment oid="AT86XfGp">
-        <SUI-List appearance="horizontal" oid="AXaB4ObF">
-          <SUI-ListItem oid="Ad1Tnn99">
+      <SUI.Segment oid="AT86XfGp">
+        <SUI.List appearance="horizontal" oid="AXaB4ObF">
+          <SUI.ListItem oid="Ad1Tnn99">
             Terms
-          </SUI-ListItem>
-          <SUI-ListItem oid="KR7FhjID">
+          </SUI.ListItem>
+          <SUI.ListItem oid="KR7FhjID">
             Privacy
-          </SUI-ListItem>
-          <SUI-ListItem oid="ReUwTBl1">
+          </SUI.ListItem>
+          <SUI.ListItem oid="ReUwTBl1">
             Contact
-          </SUI-ListItem>
-        </SUI-List>
-        <SUI-List floated="right" appearance="horizontal" oid="DoSFcHqv">
-          <SUI-ListItem oid="hCceCsKC">
+          </SUI.ListItem>
+        </SUI.List>
+        <SUI.List floated="right" appearance="horizontal" oid="DoSFcHqv">
+          <SUI.ListItem oid="hCceCsKC">
             About Us
-          </SUI-ListItem>
-          <SUI-ListItem oid="mmBqTNvw">
+          </SUI.ListItem>
+          <SUI.ListItem oid="mmBqTNvw">
             Jobs
-          </SUI-ListItem>
-        </SUI-List>
-      </SUI-Segment>
+          </SUI.ListItem>
+        </SUI.List>
+      </SUI.Segment>
     </Example>
     <Example title="Size" hint="<List size='large'/>" oid="af1HkNQg">
-      <SUI-List size="horizontal mini" oid="acY771ur">
-        <SUI-ListItem icon="mail" content="Mail" oid="YQW3xbWA"/>
-        <SUI-ListItem icon="user" content="Contacts" oid="mgKOEMYE"/>
-        <SUI-ListItem icon="calendar" content="Calendar" oid="kaHDawic"/>
-      </SUI-List>
-      <Oak-Spacer oid="VxHevxAi"/>
-      <SUI-List size="horizontal tiny" oid="YTEeKl8N">
-        <SUI-ListItem icon="mail" content="Mail" oid="Cv6ICYqY"/>
-        <SUI-ListItem icon="user" content="Contacts" oid="dDgrdr1E"/>
-        <SUI-ListItem icon="calendar" content="Calendar" oid="nDpdLq8V"/>
-      </SUI-List>
-      <Oak-Spacer oid="nWeG2tqR"/>
-      <SUI-List size="horizontal small" oid="XW4D55hW">
-        <SUI-ListItem icon="mail" content="Mail" oid="NB8VCAmj"/>
-        <SUI-ListItem icon="user" content="Contacts" oid="NGIM26bP"/>
-        <SUI-ListItem icon="calendar" content="Calendar" oid="Xd2RqaqB"/>
-      </SUI-List>
-      <Oak-Spacer oid="ZZ7YQ13o"/>
-      <SUI-List size="horizontal medium" oid="ZTUYSEVM">
-        <SUI-ListItem icon="mail" content="Mail" oid="OAqNukA8"/>
-        <SUI-ListItem icon="user" content="Contacts" oid="nGrpjBoi"/>
-        <SUI-ListItem icon="calendar" content="Calendar" oid="FusbZJ5p"/>
-      </SUI-List>
-      <Oak-Spacer oid="nWjaZqoM"/>
-      <SUI-List size="horizontal large" oid="o3b7hG6N">
-        <SUI-ListItem icon="mail" content="Mail" oid="K58gCXlJ"/>
-        <SUI-ListItem icon="user" content="Contacts" oid="lQr4PYd4"/>
-        <SUI-ListItem icon="calendar" content="Calendar" oid="YmLZLuNP"/>
-      </SUI-List>
-      <Oak-Spacer oid="iDpvGqaT"/>
-      <SUI-List size="horizontal huge" oid="UhtCRkuF">
-        <SUI-ListItem icon="mail" content="Mail" oid="Mlv6PyQq"/>
-        <SUI-ListItem icon="user" content="Contacts" oid="roYdPlIU"/>
-        <SUI-ListItem icon="calendar" content="Calendar" oid="VgE1TkeT"/>
-      </SUI-List>
-      <Oak-Spacer oid="YlAiKCUf"/>
-      <SUI-List size="horizontal massive" oid="l5yRdOxc">
-        <SUI-ListItem icon="mail" content="Mail" oid="XyjAIQ8Z"/>
-        <SUI-ListItem icon="user" content="Contacts" oid="GiU33qhp"/>
-        <SUI-ListItem icon="calendar" content="Calendar" oid="yEW9Y4xM"/>
-      </SUI-List>
+      <SUI.List size="horizontal mini" oid="acY771ur">
+        <SUI.ListItem icon="mail" content="Mail" oid="YQW3xbWA"/>
+        <SUI.ListItem icon="user" content="Contacts" oid="mgKOEMYE"/>
+        <SUI.ListItem icon="calendar" content="Calendar" oid="kaHDawic"/>
+      </SUI.List>
+      <Oak.Spacer oid="VxHevxAi"/>
+      <SUI.List size="horizontal tiny" oid="YTEeKl8N">
+        <SUI.ListItem icon="mail" content="Mail" oid="Cv6ICYqY"/>
+        <SUI.ListItem icon="user" content="Contacts" oid="dDgrdr1E"/>
+        <SUI.ListItem icon="calendar" content="Calendar" oid="nDpdLq8V"/>
+      </SUI.List>
+      <Oak.Spacer oid="nWeG2tqR"/>
+      <SUI.List size="horizontal small" oid="XW4D55hW">
+        <SUI.ListItem icon="mail" content="Mail" oid="NB8VCAmj"/>
+        <SUI.ListItem icon="user" content="Contacts" oid="NGIM26bP"/>
+        <SUI.ListItem icon="calendar" content="Calendar" oid="Xd2RqaqB"/>
+      </SUI.List>
+      <Oak.Spacer oid="ZZ7YQ13o"/>
+      <SUI.List size="horizontal medium" oid="ZTUYSEVM">
+        <SUI.ListItem icon="mail" content="Mail" oid="OAqNukA8"/>
+        <SUI.ListItem icon="user" content="Contacts" oid="nGrpjBoi"/>
+        <SUI.ListItem icon="calendar" content="Calendar" oid="FusbZJ5p"/>
+      </SUI.List>
+      <Oak.Spacer oid="nWjaZqoM"/>
+      <SUI.List size="horizontal large" oid="o3b7hG6N">
+        <SUI.ListItem icon="mail" content="Mail" oid="K58gCXlJ"/>
+        <SUI.ListItem icon="user" content="Contacts" oid="lQr4PYd4"/>
+        <SUI.ListItem icon="calendar" content="Calendar" oid="YmLZLuNP"/>
+      </SUI.List>
+      <Oak.Spacer oid="iDpvGqaT"/>
+      <SUI.List size="horizontal huge" oid="UhtCRkuF">
+        <SUI.ListItem icon="mail" content="Mail" oid="Mlv6PyQq"/>
+        <SUI.ListItem icon="user" content="Contacts" oid="roYdPlIU"/>
+        <SUI.ListItem icon="calendar" content="Calendar" oid="VgE1TkeT"/>
+      </SUI.List>
+      <Oak.Spacer oid="YlAiKCUf"/>
+      <SUI.List size="horizontal massive" oid="l5yRdOxc">
+        <SUI.ListItem icon="mail" content="Mail" oid="XyjAIQ8Z"/>
+        <SUI.ListItem icon="user" content="Contacts" oid="GiU33qhp"/>
+        <SUI.ListItem icon="calendar" content="Calendar" oid="yEW9Y4xM"/>
+      </SUI.List>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

@@ -1,4 +1,4 @@
-<Oak-Page id="Comments" title="Comments" oid="Kf1vCVoJ">
+<Oak.Page id="Comments" title="Comments" oid="Kf1vCVoJ">
   <PageTitle title="Comments" oid="O9VYHe1x">
     A list of comments.
     <Todo oid="fLA3ceCG">
@@ -7,83 +7,83 @@
   </PageTitle>
   <PageSection title="Content" oid="em8DEIrn">
     <Example title="Header attribute" oid="mYspQDWU">
-      <SUI-Comments header="Comments" oid="Grx1sCGj">
-        <SUI-Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="Super duper!" actions={data.actions} oid="JMosRY1T"/>
-        <SUI-Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" actions={data.actions} oid="exrwd31q"/>
-        <SUI-Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="That's rad!" actions={data.actions} oid="m5YHgoIM"/>
-      </SUI-Comments>
+      <SUI.Comments header="Comments" oid="Grx1sCGj">
+        <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="Super duper!" actions={data.actions} oid="JMosRY1T"/>
+        <SUI.Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" actions={data.actions} oid="exrwd31q"/>
+        <SUI.Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="That's rad!" actions={data.actions} oid="m5YHgoIM"/>
+      </SUI.Comments>
     </Example>
   </PageSection>
   <PageSection title="Apperance" oid="gAtinXgT">
-    <SUI-Grid columns={2} oid="Ad1HVmeU">
-      <SUI-Column oid="ibi07CQX">
+    <SUI.Grid columns={2} oid="Ad1HVmeU">
+      <SUI.Column oid="ibi07CQX">
         <Example title="Basic" oid="Eb1vHaI7">
-          <SUI-Comments oid="OujI2kKd">
-            <SUI-Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="Super duper!" actions={data.actions} oid="CDToA3uY"/>
-            <SUI-Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" actions={data.actions} oid="MhNkNGfQ"/>
-            <SUI-Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="That's rad!" actions={data.actions} oid="fSgdFy0T"/>
-          </SUI-Comments>
+          <SUI.Comments oid="OujI2kKd">
+            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="Super duper!" actions={data.actions} oid="CDToA3uY"/>
+            <SUI.Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" actions={data.actions} oid="MhNkNGfQ"/>
+            <SUI.Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="That's rad!" actions={data.actions} oid="fSgdFy0T"/>
+          </SUI.Comments>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="ix8YQcLQ">
+      </SUI.Column>
+      <SUI.Column oid="ix8YQcLQ">
         <Example title="Minimal" hint="<Comments appearance='minimal'/>" oid="AdPIODtO">
-          <SUI-Comments appearance="minimal" oid="Xo4s24NT">
-            <SUI-Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="Super duper!" actions={data.actions} oid="Cugsdbxx"/>
-            <SUI-Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" actions={data.actions} oid="vChapoZU"/>
-            <SUI-Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="That's rad!" actions={data.actions} oid="MRW1NL05"/>
-          </SUI-Comments>
+          <SUI.Comments appearance="minimal" oid="Xo4s24NT">
+            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="Super duper!" actions={data.actions} oid="Cugsdbxx"/>
+            <SUI.Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" actions={data.actions} oid="vChapoZU"/>
+            <SUI.Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="That's rad!" actions={data.actions} oid="MRW1NL05"/>
+          </SUI.Comments>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="weHSOAnE">
+      </SUI.Column>
+      <SUI.Column oid="weHSOAnE">
         <Example title="Nested" hint="<Comment...><Comments/></Comment>" oid="bwruLnDi">
-          <SUI-Comments oid="IjSdJ814">
-            <SUI-Comment metadata="Tuesday at 2pm" author="Stevie" avatar={data.stevieAvatar} text="Elliot, how did it go????" oid="SXi2c7Qw"/>
-            <SUI-Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!" oid="DREjSHfH">
-              <SUI-Comments oid="vgPjvNWM">
-                <SUI-Comment metadata="2 hours ago" author="Joe" avatar={data.joeAvatar} text="That's rad!" oid="FLpSdoQy">
-                  <SUI-Comments oid="vpdwwj5h">
-                    <SUI-Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="Yes it is!" oid="HcvJfAfw"/>
-                  </SUI-Comments>
-                </SUI-Comment>
-              </SUI-Comments>
-            </SUI-Comment>
-            <SUI-Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" oid="enhyKYFd">
-              <SUI-Comments oid="uLifOsGH">
-                <SUI-Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="I know, right?!?!" oid="QuitRJGq"/>
-              </SUI-Comments>
-            </SUI-Comment>
-            <SUI-Comment metadata="5 minutes ago" author="Matt" avatar={data.mattAvatar} text="Drinks are on Elliot!!" oid="UbTy7KFT"/>
-          </SUI-Comments>
+          <SUI.Comments oid="IjSdJ814">
+            <SUI.Comment metadata="Tuesday at 2pm" author="Stevie" avatar={data.stevieAvatar} text="Elliot, how did it go????" oid="SXi2c7Qw"/>
+            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!" oid="DREjSHfH">
+              <SUI.Comments oid="vgPjvNWM">
+                <SUI.Comment metadata="2 hours ago" author="Joe" avatar={data.joeAvatar} text="That's rad!" oid="FLpSdoQy">
+                  <SUI.Comments oid="vpdwwj5h">
+                    <SUI.Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="Yes it is!" oid="HcvJfAfw"/>
+                  </SUI.Comments>
+                </SUI.Comment>
+              </SUI.Comments>
+            </SUI.Comment>
+            <SUI.Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" oid="enhyKYFd">
+              <SUI.Comments oid="uLifOsGH">
+                <SUI.Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="I know, right?!?!" oid="QuitRJGq"/>
+              </SUI.Comments>
+            </SUI.Comment>
+            <SUI.Comment metadata="5 minutes ago" author="Matt" avatar={data.mattAvatar} text="Drinks are on Elliot!!" oid="UbTy7KFT"/>
+          </SUI.Comments>
         </Example>
         <Bug oid="ofsPY27U">
           There&apos;s some extraneous space under the nested comments.
         </Bug>
-      </SUI-Column>
-      <SUI-Column oid="rlNrUHx4">
+      </SUI.Column>
+      <SUI.Column oid="rlNrUHx4">
         <Example title="Threaded" hint="<Comments appearance='threaded'/>" oid="AB35EuWy">
-          <SUI-Comments appearance="threaded" oid="RLTiIpiG">
-            <SUI-Comment metadata="Tuesday at 2pm" author="Stevie" avatar={data.stevieAvatar} text="Elliot, how did it go????" oid="VptjVAbS"/>
-            <SUI-Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!" oid="nTTUCCZ0">
-              <SUI-Comments oid="qbR1MpY6">
-                <SUI-Comment metadata="2 hours ago" author="Joe" avatar={data.joeAvatar} text="That's rad!" oid="IKxajuiU">
-                  <SUI-Comments oid="F8lMX4nV">
-                    <SUI-Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="Yes it is!" oid="Baj6SnVh"/>
-                  </SUI-Comments>
-                </SUI-Comment>
-              </SUI-Comments>
-            </SUI-Comment>
-            <SUI-Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" oid="P9XW3skr">
-              <SUI-Comments oid="xYDJAAVR">
-                <SUI-Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="I know, right?!?!" oid="i7ZiZHOF"/>
-              </SUI-Comments>
-            </SUI-Comment>
-            <SUI-Comment metadata="5 minutes ago" author="Matt" avatar={data.mattAvatar} text="Drinks are on Elliot!!" oid="f6urlHXx"/>
-          </SUI-Comments>
+          <SUI.Comments appearance="threaded" oid="RLTiIpiG">
+            <SUI.Comment metadata="Tuesday at 2pm" author="Stevie" avatar={data.stevieAvatar} text="Elliot, how did it go????" oid="VptjVAbS"/>
+            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!" oid="nTTUCCZ0">
+              <SUI.Comments oid="qbR1MpY6">
+                <SUI.Comment metadata="2 hours ago" author="Joe" avatar={data.joeAvatar} text="That's rad!" oid="IKxajuiU">
+                  <SUI.Comments oid="F8lMX4nV">
+                    <SUI.Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="Yes it is!" oid="Baj6SnVh"/>
+                  </SUI.Comments>
+                </SUI.Comment>
+              </SUI.Comments>
+            </SUI.Comment>
+            <SUI.Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" oid="P9XW3skr">
+              <SUI.Comments oid="xYDJAAVR">
+                <SUI.Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="I know, right?!?!" oid="i7ZiZHOF"/>
+              </SUI.Comments>
+            </SUI.Comment>
+            <SUI.Comment metadata="5 minutes ago" author="Matt" avatar={data.mattAvatar} text="Drinks are on Elliot!!" oid="f6urlHXx"/>
+          </SUI.Comments>
           <Bug oid="bKPcwlw4">
             The extra line below Joe looks weird...
           </Bug>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

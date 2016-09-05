@@ -1,4 +1,4 @@
-<Oak-Page id="Nag" title="Nag">
+<Oak.Page id="Nag" title="Nag">
   <PageTitle title="Nag">
     A nag is an important message that persists until dismissed by a user
     <Bug>
@@ -19,4 +19,4 @@
     </Example>
 
   </PageSection>
-</Oak-Page>
+</Oak.Page>

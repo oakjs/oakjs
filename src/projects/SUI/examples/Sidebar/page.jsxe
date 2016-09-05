@@ -1,148 +1,148 @@
-<Oak-Page id="Sidbar" title="Sidbar" oid="Lm1m3W40">
+<Oak.Page id="Sidbar" title="Sidbar" oid="Lm1m3W40">
   <PageTitle title="Sidebar" oid="GXIyY9Ix">
     A sidebar hides additional content beside a page.
   </PageTitle>
   <PageSection title="Content" oid="Oe4MQlha">
     <Example title="Inline Content" hint="<Sidebar>...</Sidebar><Pusher>...</Pusher>" oid="T3d2HXQM">
-      <SUI-Menu appearance="top attached" oid="Z62jJvwo">
-        <SUI-MenuItem icon="sidebar" onClick={()=>page.refs.inline.toggle()} oid="HaWNihTF">
+      <SUI.Menu appearance="top attached" oid="Z62jJvwo">
+        <SUI.MenuItem icon="sidebar" onClick={()=>page.refs.inline.toggle()} oid="HaWNihTF">
           Menu
-        </SUI-MenuItem>
-      </SUI-Menu>
-      <SUI-Segment appearance="bottom attached " oid="Ay2LEdLt">
-        <SUI-Sidebar ref="inline" appearance="inverted labeled icon vertical menu" oid="f2r8NeRq">
-          <SUI-MenuItem icon="home" oid="jkFKLroP">
+        </SUI.MenuItem>
+      </SUI.Menu>
+      <SUI.Segment appearance="bottom attached " oid="Ay2LEdLt">
+        <SUI.Sidebar ref="inline" appearance="inverted labeled icon vertical menu" oid="f2r8NeRq">
+          <SUI.MenuItem icon="home" oid="jkFKLroP">
             Home
-          </SUI-MenuItem>
-          <SUI-MenuItem icon="block layout" oid="GTSfkatt">
+          </SUI.MenuItem>
+          <SUI.MenuItem icon="block layout" oid="GTSfkatt">
             Topics
-          </SUI-MenuItem>
-          <SUI-MenuItem icon="smile" oid="TSAbGmDy">
+          </SUI.MenuItem>
+          <SUI.MenuItem icon="smile" oid="TSAbGmDy">
             Friends
-          </SUI-MenuItem>
-          <SUI-MenuItem icon="calendar" oid="UrHakprK">
+          </SUI.MenuItem>
+          <SUI.MenuItem icon="calendar" oid="UrHakprK">
             History
-          </SUI-MenuItem>
-        </SUI-Sidebar>
-        <SUI-Pusher oid="wBgwL7Jq">
-          <SUI-Segment appearance="basic" oid="DbhrjCqu">
+          </SUI.MenuItem>
+        </SUI.Sidebar>
+        <SUI.Pusher oid="wBgwL7Jq">
+          <SUI.Segment appearance="basic" oid="DbhrjCqu">
             <LoremIpsum oid="iqilMbXN"/>
-          </SUI-Segment>
-        </SUI-Pusher>
-      </SUI-Segment>
+          </SUI.Segment>
+        </SUI.Pusher>
+      </SUI.Segment>
     </Example>
     <Example title="Content Attribute" hint="<Sidebar content={...}/><Pusher>...</Pusher>" oid="Bg1kawvq">
-      <SUI-Menu appearance="top attached" oid="vcumB8Cg">
-        <SUI-MenuItem icon="sidebar" onClick={()=>page.refs.content.toggle()} oid="sWFYif51">
+      <SUI.Menu appearance="top attached" oid="vcumB8Cg">
+        <SUI.MenuItem icon="sidebar" onClick={()=>page.refs.content.toggle()} oid="sWFYif51">
           Menu
-        </SUI-MenuItem>
-      </SUI-Menu>
-      <SUI-Segment appearance="bottom attached" oid="e2xqwM4o">
-        <SUI-Sidebar ref="content" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="hjZr3UTw"/>
-        <SUI-Pusher oid="GC1cq8RW">
-          <SUI-Segment appearance="basic" oid="MyWgQDBW">
+        </SUI.MenuItem>
+      </SUI.Menu>
+      <SUI.Segment appearance="bottom attached" oid="e2xqwM4o">
+        <SUI.Sidebar ref="content" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="hjZr3UTw"/>
+        <SUI.Pusher oid="GC1cq8RW">
+          <SUI.Segment appearance="basic" oid="MyWgQDBW">
             <LoremIpsum oid="gwBkf5wF"/>
-          </SUI-Segment>
-        </SUI-Pusher>
-      </SUI-Segment>
+          </SUI.Segment>
+        </SUI.Pusher>
+      </SUI.Segment>
     </Example>
   </PageSection>
   <PageSection title="Appearance" oid="wYIesr8l">
     <Example title="Start Visible" hint="<Sidebar visible/>" oid="MmrNg5I0">
-      <SUI-Menu appearance="top attached" oid="IqfQr8g0">
-        <SUI-MenuItem icon="sidebar" onClick={()=>page.refs.visible.toggle()} oid="K6rlWaMQ">
+      <SUI.Menu appearance="top attached" oid="IqfQr8g0">
+        <SUI.MenuItem icon="sidebar" onClick={()=>page.refs.visible.toggle()} oid="K6rlWaMQ">
           Left
-        </SUI-MenuItem>
-      </SUI-Menu>
-      <SUI-Segment appearance="bottom attached" oid="gUUvVcZ3">
-        <SUI-Sidebar ref="visible" visible direction="left" transition="push" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="WvHykL3E"/>
-        <SUI-Pusher oid="mPaKTb3f">
-          <SUI-Segment appearance="basic" oid="AJCivQBE">
+        </SUI.MenuItem>
+      </SUI.Menu>
+      <SUI.Segment appearance="bottom attached" oid="gUUvVcZ3">
+        <SUI.Sidebar ref="visible" visible direction="left" transition="push" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="WvHykL3E"/>
+        <SUI.Pusher oid="mPaKTb3f">
+          <SUI.Segment appearance="basic" oid="AJCivQBE">
             <LoremIpsum oid="FmgKj3ge"/>
-          </SUI-Segment>
-        </SUI-Pusher>
-      </SUI-Segment>
+          </SUI.Segment>
+        </SUI.Pusher>
+      </SUI.Segment>
     </Example>
     <Example title="Side" hint="<Sidebar side='left'/>" oid="RWIcScYW">
-      <SUI-Menu appearance="top attached" oid="Eas8HhHv">
-        <SUI-MenuItem icon="left arrow" onClick={()=>page.refs.left.toggle()} oid="RBqGy3sx">
+      <SUI.Menu appearance="top attached" oid="Eas8HhHv">
+        <SUI.MenuItem icon="left arrow" onClick={()=>page.refs.left.toggle()} oid="RBqGy3sx">
           Left
-        </SUI-MenuItem>
-        <SUI-MenuItem icon="up arrow" onClick={()=>page.refs.top.toggle()} oid="mNxlbAat">
+        </SUI.MenuItem>
+        <SUI.MenuItem icon="up arrow" onClick={()=>page.refs.top.toggle()} oid="mNxlbAat">
           Top
-        </SUI-MenuItem>
-        <SUI-MenuItem icon="down arrow" onClick={()=>page.refs.bottom.toggle()} oid="xE1dgVbi">
+        </SUI.MenuItem>
+        <SUI.MenuItem icon="down arrow" onClick={()=>page.refs.bottom.toggle()} oid="xE1dgVbi">
           Bottom
-        </SUI-MenuItem>
-        <SUI-MenuItem icon="right arrow" onClick={()=>page.refs.right.toggle()} oid="NQZes2PE">
+        </SUI.MenuItem>
+        <SUI.MenuItem icon="right arrow" onClick={()=>page.refs.right.toggle()} oid="NQZes2PE">
           Right
-        </SUI-MenuItem>
-      </SUI-Menu>
-      <SUI-Segment appearance="bottom attached" oid="rVkNO6Hs">
-        <SUI-Sidebar ref="left" direction="left" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="iuAWB7SF"/>
-        <SUI-Sidebar ref="top" direction="top" appearance="inverted labeled icon menu" content={data.iconMenu} oid="uOoEdDSt"/>
-        <SUI-Sidebar ref="bottom" direction="bottom" appearance="inverted labeled icon menu" content={data.iconMenu} oid="WXoVhQ5k"/>
-        <SUI-Sidebar ref="right" direction="right" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="CXxDtbV0"/>
-        <SUI-Pusher oid="vqdlpa4j">
-          <SUI-Segment appearance="basic" oid="kwyL7dgB">
+        </SUI.MenuItem>
+      </SUI.Menu>
+      <SUI.Segment appearance="bottom attached" oid="rVkNO6Hs">
+        <SUI.Sidebar ref="left" direction="left" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="iuAWB7SF"/>
+        <SUI.Sidebar ref="top" direction="top" appearance="inverted labeled icon menu" content={data.iconMenu} oid="uOoEdDSt"/>
+        <SUI.Sidebar ref="bottom" direction="bottom" appearance="inverted labeled icon menu" content={data.iconMenu} oid="WXoVhQ5k"/>
+        <SUI.Sidebar ref="right" direction="right" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="CXxDtbV0"/>
+        <SUI.Pusher oid="vqdlpa4j">
+          <SUI.Segment appearance="basic" oid="kwyL7dgB">
             <LoremIpsum oid="DGxxf9L2"/>
             <LoremIpsum oid="jXlvR2Rj"/>
-          </SUI-Segment>
-        </SUI-Pusher>
-      </SUI-Segment>
+          </SUI.Segment>
+        </SUI.Pusher>
+      </SUI.Segment>
     </Example>
     <Example title="Exclusive" hint="<Sidebar exclusive/>" oid="KJIturNx">
-      <SUI-Menu appearance="top attached" oid="QobsLNY6">
-        <SUI-MenuItem icon="left arrow" onClick={()=>page.refs.exclusiveLeft.toggle()} oid="tQKmjXZg">
+      <SUI.Menu appearance="top attached" oid="QobsLNY6">
+        <SUI.MenuItem icon="left arrow" onClick={()=>page.refs.exclusiveLeft.toggle()} oid="tQKmjXZg">
           Left
-        </SUI-MenuItem>
-        <SUI-MenuItem icon="right arrow" onClick={()=>page.refs.exclusiveRight.toggle()} oid="VdHWG6Af">
+        </SUI.MenuItem>
+        <SUI.MenuItem icon="right arrow" onClick={()=>page.refs.exclusiveRight.toggle()} oid="VdHWG6Af">
           Right
-        </SUI-MenuItem>
-      </SUI-Menu>
-      <SUI-Segment appearance="bottom attached" oid="yx8bm1CF">
-        <SUI-Sidebar ref="exclusiveLeft" exclusive direction="left" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="lUc4nwjb"/>
-        <SUI-Sidebar ref="exclusiveRight" exclusive direction="right" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="dEhNNaAc"/>
-        <SUI-Pusher oid="A8dohtas">
-          <SUI-Segment appearance="basic" oid="VreylNRZ">
+        </SUI.MenuItem>
+      </SUI.Menu>
+      <SUI.Segment appearance="bottom attached" oid="yx8bm1CF">
+        <SUI.Sidebar ref="exclusiveLeft" exclusive direction="left" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="lUc4nwjb"/>
+        <SUI.Sidebar ref="exclusiveRight" exclusive direction="right" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="dEhNNaAc"/>
+        <SUI.Pusher oid="A8dohtas">
+          <SUI.Segment appearance="basic" oid="VreylNRZ">
             <LoremIpsum oid="hkR8Ay4u"/>
-          </SUI-Segment>
-        </SUI-Pusher>
-      </SUI-Segment>
+          </SUI.Segment>
+        </SUI.Pusher>
+      </SUI.Segment>
     </Example>
     <Example title="Transition" hint="<Sidebar transition='push'/>" oid="IOBZDNJ9">
-      <SUI-Menu appearance="top attached" oid="REQo5rIA">
-        <SUI-MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "overlay")} oid="wEPE6sfV">
+      <SUI.Menu appearance="top attached" oid="REQo5rIA">
+        <SUI.MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "overlay")} oid="wEPE6sfV">
           Overlay
-        </SUI-MenuItem>
-        <SUI-MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "push")} oid="hXWFhnvA">
+        </SUI.MenuItem>
+        <SUI.MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "push")} oid="hXWFhnvA">
           Push
-        </SUI-MenuItem>
-        <SUI-MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "scale down")} oid="H39JaFkq">
+        </SUI.MenuItem>
+        <SUI.MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "scale down")} oid="H39JaFkq">
           Scale Down
-        </SUI-MenuItem>
-        <SUI-MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "uncover")} oid="w2HhUbN8">
+        </SUI.MenuItem>
+        <SUI.MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "uncover")} oid="w2HhUbN8">
           Uncover
-        </SUI-MenuItem>
-        <SUI-MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "slide along")} oid="MIq3cvTS">
+        </SUI.MenuItem>
+        <SUI.MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "slide along")} oid="MIq3cvTS">
           Slide Along
-        </SUI-MenuItem>
-        <SUI-MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "slide out")} oid="SxhwMnbU">
+        </SUI.MenuItem>
+        <SUI.MenuItem onClick={page.component && page.component.adjustTransitionAndShow("transition", "slide out")} oid="SxhwMnbU">
           Slide Out
-        </SUI-MenuItem>
-      </SUI-Menu>
-      <SUI-Segment appearance="bottom attached pushable" oid="TBxbogG6">
-        <SUI-Sidebar ref="transition" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="vaf9v8Dy"/>
-        <SUI-Pusher oid="aeeEaYJb">
-          <SUI-Segment appearance="basic" oid="kWfvo6E0">
+        </SUI.MenuItem>
+      </SUI.Menu>
+      <SUI.Segment appearance="bottom attached pushable" oid="TBxbogG6">
+        <SUI.Sidebar ref="transition" appearance="inverted labeled icon vertical menu" content={data.iconMenu} oid="vaf9v8Dy"/>
+        <SUI.Pusher oid="aeeEaYJb">
+          <SUI.Segment appearance="basic" oid="kWfvo6E0">
             <LoremIpsum oid="au3i4G0l"/>
-          </SUI-Segment>
-        </SUI-Pusher>
-      </SUI-Segment>
+          </SUI.Segment>
+        </SUI.Pusher>
+      </SUI.Segment>
       <Bug oid="TvFchiW7">
         SUI appears to scroll the page to the top on &grave;scale down&grave;.
-        <SUI-Icon icon="frown" oid="f2jhpwdA"/>
+        <SUI.Icon icon="frown" oid="f2jhpwdA"/>
       </Bug>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

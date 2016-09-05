@@ -1,4 +1,4 @@
-<Oak-Page id="Fields" title="Fields" oid="Q9DsV2ja">
+<Oak.Page id="Fields" title="Fields" oid="Q9DsV2ja">
   <PageTitle title="Fields" oid="j7n6h0bo">
     A set of fields can appear grouped together
     <Info oid="QZ92kTo7">
@@ -7,109 +7,109 @@
   </PageTitle>
   <PageSection title="Content" oid="sa9Huy34">
     <Example title="Simple" oid="esQId4Gs">
-      <SUI-Form oid="ENsfjuFR">
-        <SUI-Fields oid="FUYRLg1e">
-          <SUI-Field type="text" label="First Name" oid="oq0oY0ir"/>
-          <SUI-Field type="text" label="Middle Name" oid="IXQBjhPn"/>
-          <SUI-Field type="text" label="Last Name" oid="UA3kIlXu"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="ENsfjuFR">
+        <SUI.Fields oid="FUYRLg1e">
+          <SUI.Field type="text" label="First Name" oid="oq0oY0ir"/>
+          <SUI.Field type="text" label="Middle Name" oid="IXQBjhPn"/>
+          <SUI.Field type="text" label="Last Name" oid="UA3kIlXu"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
     <Example title="Label attribute" oid="e0BHFy7H">
-      <SUI-Form oid="ljrainB0">
-        <SUI-Fields label="Name" oid="HQEcgHQr">
-          <SUI-Field type="text" placeholder="First Name" oid="HTkKuP88"/>
-          <SUI-Field type="text" placeholder="Middle Name" oid="oxywQDG7"/>
-          <SUI-Field type="text" placeholder="Last Name" oid="Y3Y7QOJK"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="ljrainB0">
+        <SUI.Fields label="Name" oid="HQEcgHQr">
+          <SUI.Field type="text" placeholder="First Name" oid="HTkKuP88"/>
+          <SUI.Field type="text" placeholder="Middle Name" oid="oxywQDG7"/>
+          <SUI.Field type="text" placeholder="Last Name" oid="Y3Y7QOJK"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
   </PageSection>
   <PageSection title="States" oid="pHxuyjow">
     <Example title="Hidden" hint="<Fields hidden/>" oid="Jo5Amc9c">
-      <SUI-Form oid="WAv7Tn7Q">
-        <SUI-Fields hidden label="Enter your name:" oid="Fj6OYPGb">
-          <SUI-Field type="text" label="First Name" oid="LZ1fWcDd"/>
-          <SUI-Field type="text" label="Middle Name" oid="WnpBGxXJ"/>
-          <SUI-Field type="text" label="Last Name" oid="OFDDspNE"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="WAv7Tn7Q">
+        <SUI.Fields hidden label="Enter your name:" oid="Fj6OYPGb">
+          <SUI.Field type="text" label="First Name" oid="LZ1fWcDd"/>
+          <SUI.Field type="text" label="Middle Name" oid="WnpBGxXJ"/>
+          <SUI.Field type="text" label="Last Name" oid="OFDDspNE"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
     <Example title="Disabled" hint="<Fields disabled/>" oid="QYOrphl8">
-      <SUI-Form oid="yuOawKbr">
-        <SUI-Fields disabled label="Enter your name:" oid="Ag0bceMA">
-          <SUI-Field type="text" label="First Name" oid="YqHIc3Xn"/>
-          <SUI-Field type="text" label="Middle Name" oid="CrCwUdZ1"/>
-          <SUI-Field type="text" label="Last Name" oid="RBJrxaCT"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="yuOawKbr">
+        <SUI.Fields disabled label="Enter your name:" oid="Ag0bceMA">
+          <SUI.Field type="text" label="First Name" oid="YqHIc3Xn"/>
+          <SUI.Field type="text" label="Middle Name" oid="CrCwUdZ1"/>
+          <SUI.Field type="text" label="Last Name" oid="RBJrxaCT"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
     <Example title="Read-only" hint="<Fields readony/>" oid="QDs5XBOD">
-      <SUI-Form oid="v3snIfKk">
-        <SUI-Fields readonly label="Enter your name:" oid="eHLmrrD5">
-          <SUI-Field type="text" label="First Name" oid="GvxWqixO"/>
-          <SUI-Field type="text" label="Middle Name" oid="u4M32ATK"/>
-          <SUI-Field type="text" label="Last Name" oid="t5aquaxO"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="v3snIfKk">
+        <SUI.Fields readonly label="Enter your name:" oid="eHLmrrD5">
+          <SUI.Field type="text" label="First Name" oid="GvxWqixO"/>
+          <SUI.Field type="text" label="Middle Name" oid="u4M32ATK"/>
+          <SUI.Field type="text" label="Last Name" oid="t5aquaxO"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
     <Example title="Error" hint="<Fields error/>" oid="EuBQu3M9">
-      <SUI-Form oid="dunlraOm">
-        <SUI-Fields error label="Enter your name:" oid="Krb7EQlU">
-          <SUI-Field type="text" label="First Name" oid="jG634dYI"/>
-          <SUI-Field type="text" label="Middle Name" oid="OdxP28Lq"/>
-          <SUI-Field type="text" label="Last Name" oid="AJR3fWpM"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="dunlraOm">
+        <SUI.Fields error label="Enter your name:" oid="Krb7EQlU">
+          <SUI.Field type="text" label="First Name" oid="jG634dYI"/>
+          <SUI.Field type="text" label="Middle Name" oid="OdxP28Lq"/>
+          <SUI.Field type="text" label="Last Name" oid="AJR3fWpM"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
   </PageSection>
   <PageSection title="Appearance" oid="pwwpEPQX">
     <Example title="Evenly Divided" hint="<Fields count={3}/>" oid="IPTWfPMJ">
-      <SUI-Form oid="y1WAwnlM">
-        <SUI-Fields count={3} oid="XwD7nGPj">
-          <SUI-Field type="text" label="First Name" oid="F1HoARIT"/>
-          <SUI-Field type="text" label="Middle Name" oid="wTbn8q6S"/>
-          <SUI-Field type="text" label="Last Name" oid="okNrgVCE"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="y1WAwnlM">
+        <SUI.Fields count={3} oid="XwD7nGPj">
+          <SUI.Field type="text" label="First Name" oid="F1HoARIT"/>
+          <SUI.Field type="text" label="Middle Name" oid="wTbn8q6S"/>
+          <SUI.Field type="text" label="Last Name" oid="okNrgVCE"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
     <Example title="Equal Width" hint="<Fields appearance='equal width'/>" oid="V6tsfdnF">
-      <SUI-Form oid="jKtbxsaY">
-        <SUI-Fields appearance="equal width" oid="muHteIO4">
-          <SUI-Field type="text" label="Username" oid="XUqkOT4E"/>
-          <SUI-Field type="password" label="Password" oid="B5mXGL2h"/>
-        </SUI-Fields>
-        <SUI-Fields appearance="equal width" oid="uaWZSEga">
-          <SUI-Field type="text" label="First Name" oid="B31ifr0V"/>
-          <SUI-Field type="text" label="Middle Name" oid="w9yvrkML"/>
-          <SUI-Field type="text" label="Last Name" oid="TtDwqg52"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="jKtbxsaY">
+        <SUI.Fields appearance="equal width" oid="muHteIO4">
+          <SUI.Field type="text" label="Username" oid="XUqkOT4E"/>
+          <SUI.Field type="password" label="Password" oid="B5mXGL2h"/>
+        </SUI.Fields>
+        <SUI.Fields appearance="equal width" oid="uaWZSEga">
+          <SUI.Field type="text" label="First Name" oid="B31ifr0V"/>
+          <SUI.Field type="text" label="Middle Name" oid="w9yvrkML"/>
+          <SUI.Field type="text" label="Last Name" oid="TtDwqg52"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
     <Example title="Grouped" hint="<Fields appearance='grouped'/>" oid="gR0GanIj">
-      <SUI-Form oid="HXQpGvR2">
-        <SUI-Fields appearance="grouped" label="Favorite Fruit" oid="xKu3GehP">
-          <SUI-Field type="radio" name="fruit" rightLabel="Apples" oid="EZHPVPVg"/>
-          <SUI-Field type="radio" name="fruit" rightLabel="Oranges" oid="iQUhuZpl"/>
-          <SUI-Field type="radio" name="fruit" rightLabel="Pears" oid="xrH6vyxY"/>
-          <SUI-Field type="radio" name="fruit" rightLabel="Grapefruit" oid="ujNbN6QI"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="HXQpGvR2">
+        <SUI.Fields appearance="grouped" label="Favorite Fruit" oid="xKu3GehP">
+          <SUI.Field type="radio" name="fruit" rightLabel="Apples" oid="EZHPVPVg"/>
+          <SUI.Field type="radio" name="fruit" rightLabel="Oranges" oid="iQUhuZpl"/>
+          <SUI.Field type="radio" name="fruit" rightLabel="Pears" oid="xrH6vyxY"/>
+          <SUI.Field type="radio" name="fruit" rightLabel="Grapefruit" oid="ujNbN6QI"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
     <Example title="Inline" hint="<Fields inline/>" oid="sMqhy32g">
-      <SUI-Form oid="oZQpMkS4">
-        <SUI-Fields inline label="Phone Number" oid="yAtpxxLn">
-          <SUI-Field type="text" columns={2} oid="KTigV1wD"/>
-          <SUI-Field type="text" columns={2} oid="ShNQHIIk"/>
-          <SUI-Field type="text" columns={3} oid="xm15hiOO"/>
-        </SUI-Fields>
-        <SUI-Fields inline label="Favorite Fruit" oid="CjRMvvB1">
-          <SUI-Field type="radio" name="fruit" rightLabel="Apples" oid="a15jXmPy"/>
-          <SUI-Field type="radio" name="fruit" rightLabel="Oranges" oid="goosSh4R"/>
-          <SUI-Field type="radio" name="fruit" rightLabel="Pears" oid="aCKuZVHj"/>
-          <SUI-Field type="radio" name="fruit" rightLabel="Grapefruit" oid="m3f0GHFP"/>
-        </SUI-Fields>
-      </SUI-Form>
+      <SUI.Form oid="oZQpMkS4">
+        <SUI.Fields inline label="Phone Number" oid="yAtpxxLn">
+          <SUI.Field type="text" columns={2} oid="KTigV1wD"/>
+          <SUI.Field type="text" columns={2} oid="ShNQHIIk"/>
+          <SUI.Field type="text" columns={3} oid="xm15hiOO"/>
+        </SUI.Fields>
+        <SUI.Fields inline label="Favorite Fruit" oid="CjRMvvB1">
+          <SUI.Field type="radio" name="fruit" rightLabel="Apples" oid="a15jXmPy"/>
+          <SUI.Field type="radio" name="fruit" rightLabel="Oranges" oid="goosSh4R"/>
+          <SUI.Field type="radio" name="fruit" rightLabel="Pears" oid="aCKuZVHj"/>
+          <SUI.Field type="radio" name="fruit" rightLabel="Grapefruit" oid="m3f0GHFP"/>
+        </SUI.Fields>
+      </SUI.Form>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

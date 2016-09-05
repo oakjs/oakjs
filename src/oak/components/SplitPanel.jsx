@@ -1,11 +1,11 @@
 //////////////////////////////
 //
-//	<Oak-SplitPanel> component for use with oak e.g.:
+//	<Oak.SplitPanel> component for use with oak e.g.:
 //
-//    <Oak-SplitPanel>
+//    <Oak.SplitPanel>
 //      <Some-Element/>
 //      <Some-Other-Element/>
-//    </Oak-SplitPanel>
+//    </Oak.SplitPanel>
 //
 //  NOTE: only works with TWO internal components
 //

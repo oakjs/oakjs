@@ -1,97 +1,97 @@
-<Oak-Page id="Steps" title="Steps" oid="ujquQU5y">
+<Oak.Page id="Steps" title="Steps" oid="ujquQU5y">
   <PageTitle title="Steps" oid="N8mqt6pi">
     Steps show the completion status of an activity in a series of activities.
   </PageTitle>
   <PageSection title="Types" oid="DEaO63xW">
     <Example title="Single Step" oid="EABdr6vd">
-      <SUI-Steps oid="xBKDL9YN">
-        <SUI-Step description="Shipping" oid="Ul3i2bwJ"/>
-      </SUI-Steps>
+      <SUI.Steps oid="xBKDL9YN">
+        <SUI.Step description="Shipping" oid="Ul3i2bwJ"/>
+      </SUI.Steps>
     </Example>
     <Example title="Steps" oid="VHkiu37Q">
-      <SUI-Steps oid="dFdr0ph9">
-        <SUI-Step icon="truck" title="Shipping" description="Choose your shipping options" oid="CtPmbROY"/>
-        <SUI-Step icon="payment" active title="Billing" description="Enter billing information" oid="fw9QvXLs"/>
-        <SUI-Step icon="info" title="Confirm Order" oid="ZxwZmPIV"/>
-      </SUI-Steps>
+      <SUI.Steps oid="dFdr0ph9">
+        <SUI.Step icon="truck" title="Shipping" description="Choose your shipping options" oid="CtPmbROY"/>
+        <SUI.Step icon="payment" active title="Billing" description="Enter billing information" oid="fw9QvXLs"/>
+        <SUI.Step icon="info" title="Confirm Order" oid="ZxwZmPIV"/>
+      </SUI.Steps>
     </Example>
     <Example title="Ordered" hint="<Steps ordered/>" oid="U03fhe0n">
-      <SUI-Steps ordered oid="kMWT6pb5">
-        <SUI-Step completed title="Shipping" description="Choose your shipping options" oid="nR69N0UK"/>
-        <SUI-Step active title="Billing" description="Enter billing information" oid="jASQRNIZ"/>
-        <SUI-Step title="Confirm Order" oid="SX3XNMhD"/>
-      </SUI-Steps>
+      <SUI.Steps ordered oid="kMWT6pb5">
+        <SUI.Step completed title="Shipping" description="Choose your shipping options" oid="nR69N0UK"/>
+        <SUI.Step active title="Billing" description="Enter billing information" oid="jASQRNIZ"/>
+        <SUI.Step title="Confirm Order" oid="SX3XNMhD"/>
+      </SUI.Steps>
     </Example>
     <Example title="Vertical" hint="<Steps vertical/>" oid="gNEUQ3p9">
-      <SUI-Steps vertical oid="saqh8qbj">
-        <SUI-Step completed icon="truck" title="Shipping" description="Choose your shipping options" oid="LpvTIBdw"/>
-        <SUI-Step icon="payment" active title="Billing" description="Enter billing information" oid="oKO3c9ry"/>
-        <SUI-Step icon="info" title="Confirm Order" oid="MBEZ1YgE"/>
-      </SUI-Steps>
+      <SUI.Steps vertical oid="saqh8qbj">
+        <SUI.Step completed icon="truck" title="Shipping" description="Choose your shipping options" oid="LpvTIBdw"/>
+        <SUI.Step icon="payment" active title="Billing" description="Enter billing information" oid="oKO3c9ry"/>
+        <SUI.Step icon="info" title="Confirm Order" oid="MBEZ1YgE"/>
+      </SUI.Steps>
     </Example>
   </PageSection>
   <PageSection title="Appearance" oid="SyTW3Ihe">
     <Example title="Fluid" hint="<Steps appearance='fluid'/>" oid="VXBSXiYO">
-      <SUI-Grid columns={2} oid="EjF4iaWc">
-        <SUI-Column oid="j1baDYqR">
-          <SUI-Steps vertical appearance="fluid" oid="xspjrMxY">
-            <SUI-Step completed icon="soccer" title="Step 1" description="Collect Underpants" oid="xnClGAgu"/>
-            <SUI-Step icon="help" active title="Step 2" description="???" oid="gPMv5FNV"/>
-            <SUI-Step icon="dollar" title="Step 3" description="Profit!" oid="OyiQ5c9c"/>
-          </SUI-Steps>
-        </SUI-Column>
-        <SUI-Column oid="vZDnw2Fp">
-          <SUI-Segment oid="EuyYAeeQ">
+      <SUI.Grid columns={2} oid="EjF4iaWc">
+        <SUI.Column oid="j1baDYqR">
+          <SUI.Steps vertical appearance="fluid" oid="xspjrMxY">
+            <SUI.Step completed icon="soccer" title="Step 1" description="Collect Underpants" oid="xnClGAgu"/>
+            <SUI.Step icon="help" active title="Step 2" description="???" oid="gPMv5FNV"/>
+            <SUI.Step icon="dollar" title="Step 3" description="Profit!" oid="OyiQ5c9c"/>
+          </SUI.Steps>
+        </SUI.Column>
+        <SUI.Column oid="vZDnw2Fp">
+          <SUI.Segment oid="EuyYAeeQ">
             The steps on the left take up the whole column
-          </SUI-Segment>
-        </SUI-Column>
-      </SUI-Grid>
+          </SUI.Segment>
+        </SUI.Column>
+      </SUI.Grid>
     </Example>
     <Example title="Evenly divided" hint="<Steps quantity={4}/>" oid="tTiXLa7V">
-      <SUI-Steps quantity={4} oid="jGycPPwE">
-        <SUI-Step icon="truck" title="Shipping" description="Choose your shipping options" oid="ggHEJrng"/>
-        <SUI-Step icon="payment" active title="Billing" description="Enter billing information" oid="ahax386k"/>
-        <SUI-Step icon="info" title="Confirm Order" oid="VrtPZXEA"/>
-      </SUI-Steps>
+      <SUI.Steps quantity={4} oid="jGycPPwE">
+        <SUI.Step icon="truck" title="Shipping" description="Choose your shipping options" oid="ggHEJrng"/>
+        <SUI.Step icon="payment" active title="Billing" description="Enter billing information" oid="ahax386k"/>
+        <SUI.Step icon="info" title="Confirm Order" oid="VrtPZXEA"/>
+      </SUI.Steps>
     </Example>
     <Example title="Stackable" hint="<Steps appearance='tablet stackable'/>" oid="csAQO72E">
-      <SUI-Steps appearance="tablet stackable" oid="CHgMbNHE">
-        <SUI-Step icon="truck" title="Shipping" description="Choose your shipping options" oid="gAFqUZnm"/>
-        <SUI-Step icon="payment" active title="Billing" description="Enter billing information" oid="Hi3CLnJM"/>
-        <SUI-Step icon="info" title="Confirm Order" oid="FJroIOlt"/>
-      </SUI-Steps>
+      <SUI.Steps appearance="tablet stackable" oid="CHgMbNHE">
+        <SUI.Step icon="truck" title="Shipping" description="Choose your shipping options" oid="gAFqUZnm"/>
+        <SUI.Step icon="payment" active title="Billing" description="Enter billing information" oid="Hi3CLnJM"/>
+        <SUI.Step icon="info" title="Confirm Order" oid="FJroIOlt"/>
+      </SUI.Steps>
     </Example>
     <Example title="Attached" hint="<Steps appearance='top attached'/>" oid="b2IxP2MI">
-      <SUI-Steps appearance="top attached" quantity={3} oid="eklX8KkV">
-        <SUI-Step icon="truck" title="Shipping" description="Choose your shipping options" oid="iRZRlOLC"/>
-        <SUI-Step icon="payment" active title="Billing" description="Enter billing information" oid="rGlpwaPn"/>
-        <SUI-Step icon="info" title="Confirm Order" oid="JJ3XjDVS"/>
-      </SUI-Steps>
-      <SUI-Segment appearance="attached" oid="yGU4KeJ3">
+      <SUI.Steps appearance="top attached" quantity={3} oid="eklX8KkV">
+        <SUI.Step icon="truck" title="Shipping" description="Choose your shipping options" oid="iRZRlOLC"/>
+        <SUI.Step icon="payment" active title="Billing" description="Enter billing information" oid="rGlpwaPn"/>
+        <SUI.Step icon="info" title="Confirm Order" oid="JJ3XjDVS"/>
+      </SUI.Steps>
+      <SUI.Segment appearance="attached" oid="yGU4KeJ3">
         <LoremIpsum oid="mJKHkPKH"/>
-      </SUI-Segment>
-      <SUI-Steps appearance="bottom attached" quantity={3} oid="jZGIj7TO">
-        <SUI-Step icon="truck" title="Shipping" description="Choose your shipping options" oid="rXlelFyg"/>
-        <SUI-Step icon="payment" active title="Billing" description="Enter billing information" oid="Oq1reaiN"/>
-        <SUI-Step icon="info" title="Confirm Order" oid="p1n0Ui1K"/>
-      </SUI-Steps>
+      </SUI.Segment>
+      <SUI.Steps appearance="bottom attached" quantity={3} oid="jZGIj7TO">
+        <SUI.Step icon="truck" title="Shipping" description="Choose your shipping options" oid="rXlelFyg"/>
+        <SUI.Step icon="payment" active title="Billing" description="Enter billing information" oid="Oq1reaiN"/>
+        <SUI.Step icon="info" title="Confirm Order" oid="p1n0Ui1K"/>
+      </SUI.Steps>
     </Example>
     <Example title="Sizes" hint="<Steps size='small'/> or <Steps size='large'/>" oid="pnB6Ytfy">
-      <SUI-Steps size="small" oid="AjIunYqj">
-        <SUI-Step icon="truck" title="Shipping" description="Choose your shipping options" oid="ygyZ6D5y"/>
-        <SUI-Step icon="payment" active title="Billing" description="Enter billing information" oid="Hilw92Zv"/>
-        <SUI-Step icon="info" title="Confirm Order" oid="WY4H4Ol5"/>
-      </SUI-Steps>
-      <SUI-Steps size="medium" oid="KJOvIRmg">
-        <SUI-Step icon="truck" title="Shipping" description="Choose your shipping options" oid="TWunx2He"/>
-        <SUI-Step icon="payment" active title="Billing" description="Enter billing information" oid="twVhEkH2"/>
-        <SUI-Step icon="info" title="Confirm Order" oid="DxVbxPZy"/>
-      </SUI-Steps>
-      <SUI-Steps size="large" oid="RV1qHdhI">
-        <SUI-Step icon="truck" title="Shipping" description="Choose your shipping options" oid="VF4dS0Im"/>
-        <SUI-Step icon="payment" active title="Billing" description="Enter billing information" oid="Q7qxHM1P"/>
-        <SUI-Step icon="info" title="Confirm Order" oid="JpiQhSDN"/>
-      </SUI-Steps>
+      <SUI.Steps size="small" oid="AjIunYqj">
+        <SUI.Step icon="truck" title="Shipping" description="Choose your shipping options" oid="ygyZ6D5y"/>
+        <SUI.Step icon="payment" active title="Billing" description="Enter billing information" oid="Hilw92Zv"/>
+        <SUI.Step icon="info" title="Confirm Order" oid="WY4H4Ol5"/>
+      </SUI.Steps>
+      <SUI.Steps size="medium" oid="KJOvIRmg">
+        <SUI.Step icon="truck" title="Shipping" description="Choose your shipping options" oid="TWunx2He"/>
+        <SUI.Step icon="payment" active title="Billing" description="Enter billing information" oid="twVhEkH2"/>
+        <SUI.Step icon="info" title="Confirm Order" oid="DxVbxPZy"/>
+      </SUI.Steps>
+      <SUI.Steps size="large" oid="RV1qHdhI">
+        <SUI.Step icon="truck" title="Shipping" description="Choose your shipping options" oid="VF4dS0Im"/>
+        <SUI.Step icon="payment" active title="Billing" description="Enter billing information" oid="Q7qxHM1P"/>
+        <SUI.Step icon="info" title="Confirm Order" oid="JpiQhSDN"/>
+      </SUI.Steps>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

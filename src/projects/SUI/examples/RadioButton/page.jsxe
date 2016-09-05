@@ -1,31 +1,31 @@
-<Oak-Page id="RadioButton" title="RadioButton" oid="s63uZB5U">
+<Oak.Page id="RadioButton" title="RadioButton" oid="s63uZB5U">
   <PageTitle title="Radio Button" oid="AblGenmL">
     A radio button allows a user to select a single value from a small set of options
   </PageTitle>
   <PageSection title="States" oid="ejBY4Uyf">
-    <Oak-Columns oid="VwTiB01W">
+    <Oak.Columns oid="VwTiB01W">
       <Example title="Unchecked" oid="RQUq0etF">
-        <SUI-RadioButton label="Unchecked Radio Button" oid="veFgx9hZ"/>
+        <SUI.RadioButton label="Unchecked Radio Button" oid="veFgx9hZ"/>
       </Example>
       <Example title="Checked" hint="<RadioButton checked/>" oid="TjiCIKsQ">
-        <SUI-RadioButton checked label="Checked Radio Button" oid="W8m4dIwb"/>
+        <SUI.RadioButton checked label="Checked Radio Button" oid="W8m4dIwb"/>
       </Example>
-    </Oak-Columns>
-    <Oak-Columns oid="uRbZUQmb">
+    </Oak.Columns>
+    <Oak.Columns oid="uRbZUQmb">
       <Example title="Read-only" hint="<RadioButton readonly/>" oid="L38WMEAU">
-        <SUI-RadioButton readonly label="Read-only Radio Button" oid="elHHgy3S"/>
+        <SUI.RadioButton readonly label="Read-only Radio Button" oid="elHHgy3S"/>
       </Example>
       <Example title="Disabled" hint="<RadioButton disabled/>" oid="AJPb3Ex4">
-        <SUI-RadioButton disabled label="Disabled Radio Button" oid="pTZ4mRaV"/>
+        <SUI.RadioButton disabled label="Disabled Radio Button" oid="pTZ4mRaV"/>
       </Example>
-    </Oak-Columns>
-    <Oak-Columns oid="uSV6fg3H">
+    </Oak.Columns>
+    <Oak.Columns oid="uSV6fg3H">
       <Example title="Hidden" hint="<RadioButton hidden/>" oid="VtbG93VM">
-        <SUI-RadioButton hidden label="Hidden Radio Button" oid="DdjfSETn"/>
+        <SUI.RadioButton hidden label="Hidden Radio Button" oid="DdjfSETn"/>
       </Example>
       <Example title="Error" hint="<RadioButton error/>" oid="SgrWmZEl">
-        <SUI-RadioButton error="Something went wrong" label="Error Radio Button" oid="wb89rbds"/>
+        <SUI.RadioButton error="Something went wrong" label="Error Radio Button" oid="wb89rbds"/>
       </Example>
-    </Oak-Columns>
+    </Oak.Columns>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

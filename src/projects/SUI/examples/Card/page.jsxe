@@ -1,192 +1,192 @@
-<Oak-Page id="Card" title="Card" oid="ZWBiBXs2">
+<Oak.Page id="Card" title="Card" oid="ZWBiBXs2">
   <PageTitle title="Card" oid="vF9CtUja">
     A card displays site content in a manner similar to a playing card
   </PageTitle>
   <PageSection title="Content" oid="fk2ukrKB">
-    <SUI-Grid columns={2} oid="vDhYP6pQ">
-      <SUI-Column oid="wgwIHj1H">
+    <SUI.Grid columns={2} oid="vDhYP6pQ">
+      <SUI.Column oid="wgwIHj1H">
         <Example title="Inline Content" oid="NX5aTa7e">
-          <SUI-Card oid="qR8DT8Jq">
-            <SUI-Image src={data.kristyAvatar} oid="PlVFejtU"/>
-            <SUI-Content oid="Gyv31tSg">
-              <SUI-Header oid="Dm14LetO">
+          <SUI.Card oid="qR8DT8Jq">
+            <SUI.Image src={data.kristyAvatar} oid="PlVFejtU"/>
+            <SUI.Content oid="Gyv31tSg">
+              <SUI.Header oid="Dm14LetO">
                 Kristy
-              </SUI-Header>
-              <SUI-Meta oid="Iknw0WQO">
+              </SUI.Header>
+              <SUI.Meta oid="Iknw0WQO">
                 Joined in 2013
-              </SUI-Meta>
-              <SUI-Description oid="KFlwIsdm">
+              </SUI.Meta>
+              <SUI.Description oid="KFlwIsdm">
                 Kristy is an art director living in New York.
-              </SUI-Description>
-            </SUI-Content>
-            <SUI-Content appearance="extra" oid="LDnplQ1n">
+              </SUI.Description>
+            </SUI.Content>
+            <SUI.Content appearance="extra" oid="LDnplQ1n">
               <a oid="QnL7hBVO">
-                <SUI-Icon icon="user" oid="DVpkDfnn"/>
+                <SUI.Icon icon="user" oid="DVpkDfnn"/>
                 22 Friends
               </a>
-            </SUI-Content>
-          </SUI-Card>
+            </SUI.Content>
+          </SUI.Card>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="ohGbV5S5">
+      </SUI.Column>
+      <SUI.Column oid="ohGbV5S5">
         <Example title="Attributes" oid="OINgoDg5">
-          <SUI-Card header="Kristy" meta="Joined in 2013" description="Kristy is an art director living in New York." extra={<a oid="K2mV70wW"><SUI-Icon icon="user" oid="YCoAKYcJ"/>22 Friends</a>} image={data.kristyAvatar} oid="o2w2eonW"/>
+          <SUI.Card header="Kristy" meta="Joined in 2013" description="Kristy is an art director living in New York." extra={<a oid="K2mV70wW"><SUI.Icon icon="user" oid="YCoAKYcJ"/>22 Friends</a>} image={data.kristyAvatar} oid="o2w2eonW"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="ka2Wjutq">
+      </SUI.Column>
+      <SUI.Column oid="ka2Wjutq">
         <Example title="Link" oid="PXyqn3E3">
-          <SUI-Card header="Alphabet Inc" meta="NASDAQ: GOOG" description="Alphabet Inc. is an American multinational conglomerate created in 2015 as the parent company of Google and several other companies previously owned by or tied to Google." href="https://abc.xyz/" target="_blank" oid="NkJ3aLIo"/>
+          <SUI.Card header="Alphabet Inc" meta="NASDAQ: GOOG" description="Alphabet Inc. is an American multinational conglomerate created in 2015 as the parent company of Google and several other companies previously owned by or tied to Google." href="https://abc.xyz/" target="_blank" oid="NkJ3aLIo"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="Kqp1KeFe">
+      </SUI.Column>
+      <SUI.Column oid="Kqp1KeFe">
         <Example title="Extra content" oid="KuLSD3Ky">
-          <SUI-Card header="Elliot" meta="Friend of Veronika" description="Elliot requested permisson to view your contact details" headerImage={<SUI-Image src={data.elliotAvatar} floated="right" size="mini" oid="bVUMbSr2"/>} oid="mjNkaLbv">
-            <SUI-Content appearance="extra" oid="tefWWHsQ">
-              <SUI-Buttons count={2} oid="sZy6mdgl">
-                <SUI-Button appearance="basic" color="green" oid="YJ1ylXJO">
+          <SUI.Card header="Elliot" meta="Friend of Veronika" description="Elliot requested permisson to view your contact details" headerImage={<SUI.Image src={data.elliotAvatar} floated="right" size="mini" oid="bVUMbSr2"/>} oid="mjNkaLbv">
+            <SUI.Content appearance="extra" oid="tefWWHsQ">
+              <SUI.Buttons count={2} oid="sZy6mdgl">
+                <SUI.Button appearance="basic" color="green" oid="YJ1ylXJO">
                   Approve
-                </SUI-Button>
-                <SUI-Button appearance="basic" color="red" oid="wnhlpc98">
+                </SUI.Button>
+                <SUI.Button appearance="basic" color="red" oid="wnhlpc98">
                   Decline
-                </SUI-Button>
-              </SUI-Buttons>
-            </SUI-Content>
-          </SUI-Card>
+                </SUI.Button>
+              </SUI.Buttons>
+            </SUI.Content>
+          </SUI.Card>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="yAJqKFrK">
+      </SUI.Column>
+      <SUI.Column oid="yAJqKFrK">
         <Example title="Buttons" oid="meNHkyLx">
-          <SUI-Card header="Kristy" meta="Joined in 2013" description="Kristy is an art director living in New York." oid="fme4DKxI">
-            <SUI-Button appearance="bottom attached" icon="plus" title="Add friend" oid="eidsdONw"/>
-          </SUI-Card>
-          <SUI-Card header="Elliot" meta="Joined in 2015" description="Elliot is a software manager." oid="YrCocUrf">
-            <SUI-Buttons appearance="bottom attached" oid="VqrWeB90">
-              <SUI-Button icon="plus" title="Add friend" oid="WYSVO0nQ"/>
-              <SUI-Button icon="email" title="Send Message" oid="Z7yu09nT"/>
-            </SUI-Buttons>
-          </SUI-Card>
+          <SUI.Card header="Kristy" meta="Joined in 2013" description="Kristy is an art director living in New York." oid="fme4DKxI">
+            <SUI.Button appearance="bottom attached" icon="plus" title="Add friend" oid="eidsdONw"/>
+          </SUI.Card>
+          <SUI.Card header="Elliot" meta="Joined in 2015" description="Elliot is a software manager." oid="YrCocUrf">
+            <SUI.Buttons appearance="bottom attached" oid="VqrWeB90">
+              <SUI.Button icon="plus" title="Add friend" oid="WYSVO0nQ"/>
+              <SUI.Button icon="email" title="Send Message" oid="Z7yu09nT"/>
+            </SUI.Buttons>
+          </SUI.Card>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="lvc3varZ">
+      </SUI.Column>
+      <SUI.Column oid="lvc3varZ">
         <Example title="Mulitple Content Regions" oid="YFR9plt6">
-          <SUI-Card oid="G7ojBZ0o">
-            <SUI-Content oid="OhIFZZ2B">
-              <SUI-Image src={data.elliotAvatar} appearance="avatar" oid="y3MhAJGP"/>
+          <SUI.Card oid="G7ojBZ0o">
+            <SUI.Content oid="OhIFZZ2B">
+              <SUI.Image src={data.elliotAvatar} appearance="avatar" oid="y3MhAJGP"/>
               Elliot
-              <SUI-Meta floated="right" oid="HNMp2qbo">
+              <SUI.Meta floated="right" oid="HNMp2qbo">
                 14h
-              </SUI-Meta>
-            </SUI-Content>
-            <SUI-Image src={data.image} oid="gb6dagwU"/>
-            <SUI-Content oid="VXauhYTq">
+              </SUI.Meta>
+            </SUI.Content>
+            <SUI.Image src={data.image} oid="gb6dagwU"/>
+            <SUI.Content oid="VXauhYTq">
               <span style={{float: "right"}} oid="oJMYQ6Li">
-                <SUI-Icon icon="heart outline" oid="p1WbaC8j"/>
+                <SUI.Icon icon="heart outline" oid="p1WbaC8j"/>
                 17 likes
               </span>
               <span oid="qMhevde1">
-                <SUI-Icon icon="comment" oid="UqmxOlxD"/>
+                <SUI.Icon icon="comment" oid="UqmxOlxD"/>
                 3 comments
               </span>
-            </SUI-Content>
-            <SUI-Content appearance="extra" oid="Eu3JUtMp">
-              <SUI-Input appearance="large transparent" icon="open heart" iconOn="left" placeholder="Add comment..." oid="Ui8i1rpE"/>
-            </SUI-Content>
-          </SUI-Card>
+            </SUI.Content>
+            <SUI.Content appearance="extra" oid="Eu3JUtMp">
+              <SUI.Input appearance="large transparent" icon="open heart" iconOn="left" placeholder="Add comment..." oid="Ui8i1rpE"/>
+            </SUI.Content>
+          </SUI.Card>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="Ufbt3rbJ">
+      </SUI.Column>
+      <SUI.Column oid="Ufbt3rbJ">
         <Example title="Image with Reveal" oid="J32uuO7P">
-          <SUI-Card header="Team Jones & Fu" meta="Established 2012" childrenOn="top" oid="eFCwQ3XA">
-            <SUI-Reveal effect="slide" oid="Gp0bRrXs">
-              <SUI-Image src={data.joeAvatar} oid="c5sXvtyt"/>
-              <SUI-Image src={data.elliotAvatar} oid="TVFRcfA9"/>
-            </SUI-Reveal>
-          </SUI-Card>
+          <SUI.Card header="Team Jones & Fu" meta="Established 2012" childrenOn="top" oid="eFCwQ3XA">
+            <SUI.Reveal effect="slide" oid="Gp0bRrXs">
+              <SUI.Image src={data.joeAvatar} oid="c5sXvtyt"/>
+              <SUI.Image src={data.elliotAvatar} oid="TVFRcfA9"/>
+            </SUI.Reveal>
+          </SUI.Card>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="wnHPorl0">
+      </SUI.Column>
+      <SUI.Column oid="wnHPorl0">
         <Example title="Image with Dimmer" oid="haYcZeXC">
-          <SUI-Card header="Team Jones & Fu" meta="Established 2012" childrenOn="top" oid="NFOlTg5q">
-            <SUI-Image src={data.joeAvatar} appearance="dimmable" oid="Md1KrJo2"/>
-          </SUI-Card>
+          <SUI.Card header="Team Jones & Fu" meta="Established 2012" childrenOn="top" oid="NFOlTg5q">
+            <SUI.Image src={data.joeAvatar} appearance="dimmable" oid="Md1KrJo2"/>
+          </SUI.Card>
           <Todo oid="kqjujnp8">
             How to do dimmable?
           </Todo>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
   </PageSection>
   <PageSection title="Appearance" oid="VJB4SicK">
-    <SUI-Grid columns={2} oid="uZ7VvwNa">
-      <SUI-Column oid="Pn5GWNdA">
+    <SUI.Grid columns={2} oid="uZ7VvwNa">
+      <SUI.Column oid="Pn5GWNdA">
         <Example title="Centered" oid="pKHURgBS">
-          <SUI-Card appearance="centered" header="Elliot Fu" image={data.elliotAvatar} oid="YnEPDDgN"/>
+          <SUI.Card appearance="centered" header="Elliot Fu" image={data.elliotAvatar} oid="YnEPDDgN"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="wFL8n2iU">
+      </SUI.Column>
+      <SUI.Column oid="wFL8n2iU">
         <Example title="Fluid" oid="ChMJUDaD">
-          <SUI-Card appearance="fluid" header="Elliot Fu" image={data.elliotAvatar} oid="aFbPrEtG"/>
+          <SUI.Card appearance="fluid" header="Elliot Fu" image={data.elliotAvatar} oid="aFbPrEtG"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="ZAOrv5IN">
+      </SUI.Column>
+      <SUI.Column oid="ZAOrv5IN">
         <Example title="Alignment" oid="uFRdO5XU">
-          <SUI-Card oid="Yr0beXWj">
-            <SUI-Header align="center" oid="DkuCgnKW">
+          <SUI.Card oid="Yr0beXWj">
+            <SUI.Header align="center" oid="DkuCgnKW">
               Kristy York
-            </SUI-Header>
-            <SUI-Content align="left" oid="FcaiSD9y">
+            </SUI.Header>
+            <SUI.Content align="left" oid="FcaiSD9y">
               Liberal
-            </SUI-Content>
-          </SUI-Card>
-          <SUI-Card oid="AJPqiOjA">
-            <SUI-Header align="center" oid="rx6Ufxyl">
+            </SUI.Content>
+          </SUI.Card>
+          <SUI.Card oid="AJPqiOjA">
+            <SUI.Header align="center" oid="rx6Ufxyl">
               Joe Jones
-            </SUI-Header>
-            <SUI-Content align="center" oid="dpcQbXgR">
+            </SUI.Header>
+            <SUI.Content align="center" oid="dpcQbXgR">
               Independent
-            </SUI-Content>
-          </SUI-Card>
-          <SUI-Card oid="xRkURk6Y">
-            <SUI-Header align="center" oid="cYJBaOp9">
+            </SUI.Content>
+          </SUI.Card>
+          <SUI.Card oid="xRkURk6Y">
+            <SUI.Header align="center" oid="cYJBaOp9">
               Joe Jones
-            </SUI-Header>
-            <SUI-Content align="right" oid="K4TfK4Xy">
+            </SUI.Header>
+            <SUI.Content align="right" oid="K4TfK4Xy">
               Conservative
-            </SUI-Content>
-          </SUI-Card>
+            </SUI.Content>
+          </SUI.Card>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="IQVWHEgJ">
+      </SUI.Column>
+      <SUI.Column oid="IQVWHEgJ">
         <Example title="Floated Content" oid="lFS1UYAO">
-          <SUI-Card oid="GD4BI8yb">
-            <SUI-Content oid="QSXBDZmm">
-              <SUI-Header oid="bwj9ayvE">
+          <SUI.Card oid="GD4BI8yb">
+            <SUI.Content oid="QSXBDZmm">
+              <SUI.Header oid="bwj9ayvE">
                 Kristy York
-              </SUI-Header>
-              <SUI-Meta floated="right" oid="bNnTBchH">
+              </SUI.Header>
+              <SUI.Meta floated="right" oid="bNnTBchH">
                 24 Friends
-              </SUI-Meta>
-            </SUI-Content>
-          </SUI-Card>
+              </SUI.Meta>
+            </SUI.Content>
+          </SUI.Card>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
     <Example title="Colors" oid="ULdQ6kvB">
-      <SUI-Cards columns={5} oid="Q8wZbSsX">
-        <SUI-Card color="red" header="Red" image={data.whiteImage} oid="jO4HnAxy"/>
-        <SUI-Card color="orange" header="Orange" image={data.whiteImage} oid="Y4yeDFt5"/>
-        <SUI-Card color="yellow" header="Yellow" image={data.whiteImage} oid="Sn4o1YXq"/>
-        <SUI-Card color="olive" header="Olive" image={data.whiteImage} oid="LWHfisW8"/>
-        <SUI-Card color="green" header="Green" image={data.whiteImage} oid="CelASbQJ"/>
-        <SUI-Card color="teal" header="Teal" image={data.whiteImage} oid="PpAv63TW"/>
-        <SUI-Card color="blue" header="Blue" image={data.whiteImage} oid="t1gNnryI"/>
-        <SUI-Card color="violet" header="Violet" image={data.whiteImage} oid="y4TF6wt3"/>
-        <SUI-Card color="purple" header="Purple" image={data.whiteImage} oid="rBoBm5c1"/>
-        <SUI-Card color="pink" header="Pink" image={data.whiteImage} oid="vtalsE9H"/>
-        <SUI-Card color="brown" header="Brown" image={data.whiteImage} oid="buM49oqt"/>
-        <SUI-Card color="grey" header="Grey" image={data.whiteImage} oid="wjDM7QE8"/>
-        <SUI-Card color="black" header="Black" image={data.whiteImage} oid="SxcOeOC7"/>
-      </SUI-Cards>
+      <SUI.Cards columns={5} oid="Q8wZbSsX">
+        <SUI.Card color="red" header="Red" image={data.whiteImage} oid="jO4HnAxy"/>
+        <SUI.Card color="orange" header="Orange" image={data.whiteImage} oid="Y4yeDFt5"/>
+        <SUI.Card color="yellow" header="Yellow" image={data.whiteImage} oid="Sn4o1YXq"/>
+        <SUI.Card color="olive" header="Olive" image={data.whiteImage} oid="LWHfisW8"/>
+        <SUI.Card color="green" header="Green" image={data.whiteImage} oid="CelASbQJ"/>
+        <SUI.Card color="teal" header="Teal" image={data.whiteImage} oid="PpAv63TW"/>
+        <SUI.Card color="blue" header="Blue" image={data.whiteImage} oid="t1gNnryI"/>
+        <SUI.Card color="violet" header="Violet" image={data.whiteImage} oid="y4TF6wt3"/>
+        <SUI.Card color="purple" header="Purple" image={data.whiteImage} oid="rBoBm5c1"/>
+        <SUI.Card color="pink" header="Pink" image={data.whiteImage} oid="vtalsE9H"/>
+        <SUI.Card color="brown" header="Brown" image={data.whiteImage} oid="buM49oqt"/>
+        <SUI.Card color="grey" header="Grey" image={data.whiteImage} oid="wjDM7QE8"/>
+        <SUI.Card color="black" header="Black" image={data.whiteImage} oid="SxcOeOC7"/>
+      </SUI.Cards>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

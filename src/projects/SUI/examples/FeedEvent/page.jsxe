@@ -1,4 +1,4 @@
-<Oak-Page id="FeedEvent" title="FeedEvent" oid="rp0ZuhKO">
+<Oak.Page id="FeedEvent" title="FeedEvent" oid="rp0ZuhKO">
   <PageTitle title="FeedEvent" oid="bWx5H0Do">
     Single event in a feed.
     <Info oid="r6pHFeqj">
@@ -7,53 +7,53 @@
   </PageTitle>
   <PageSection title="Content" oid="uWV3KQ83">
     <Example title="Summary attribute" oid="CdXJ5ZAM">
-      <SUI-Feed oid="VOKAufbc">
-        <SUI-FeedEvent summary="Simple feed event summary" oid="PKtiomMv"/>
-        <SUI-FeedEvent summary={<span oid="SvQq3XeA"><a href="#" oid="KOBl32E6">
+      <SUI.Feed oid="VOKAufbc">
+        <SUI.FeedEvent summary="Simple feed event summary" oid="PKtiomMv"/>
+        <SUI.FeedEvent summary={<span oid="SvQq3XeA"><a href="#" oid="KOBl32E6">
   Joe
 </a>added<a href="#" oid="in1FZYfb">
   2 new illustrations
 </a>to his page</span>} oid="CF6fJHF2"/>
-      </SUI-Feed>
+      </SUI.Feed>
     </Example>
     <Example title="Author and authorLink attributes" oid="I78wHGAE">
-      <SUI-Feed oid="WQckZjPq">
-        <SUI-FeedEvent author="Joe" summary="posted something without an authorLink" oid="ujTySypL"/>
-        <SUI-FeedEvent author="Joe" authorLink="/joe" summary="posted something with an authorLink" oid="xfaMOPNy"/>
-      </SUI-Feed>
+      <SUI.Feed oid="WQckZjPq">
+        <SUI.FeedEvent author="Joe" summary="posted something without an authorLink" oid="ujTySypL"/>
+        <SUI.FeedEvent author="Joe" authorLink="/joe" summary="posted something with an authorLink" oid="xfaMOPNy"/>
+      </SUI.Feed>
     </Example>
     <Example title="Avatar attribute" oid="idwAHhJD">
-      <SUI-Feed oid="FEuhZ8yn">
-        <SUI-FeedEvent author="Joe" avatar={data.joeAvatar} summary="posted something without an authorLink" oid="GW23vjcG"/>
-        <SUI-FeedEvent author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="posted something with an authorLink" oid="ssdwZY78"/>
-      </SUI-Feed>
+      <SUI.Feed oid="FEuhZ8yn">
+        <SUI.FeedEvent author="Joe" avatar={data.joeAvatar} summary="posted something without an authorLink" oid="GW23vjcG"/>
+        <SUI.FeedEvent author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="posted something with an authorLink" oid="ssdwZY78"/>
+      </SUI.Feed>
     </Example>
     <Example title="Icon attribute" oid="bgYuDoCu">
-      <SUI-Feed oid="Vu943x9U">
-        <SUI-FeedEvent author="Joe" icon="pencil" summary="You posted on your friend's wall." oid="XVBd9ekg"/>
-      </SUI-Feed>
+      <SUI.Feed oid="Vu943x9U">
+        <SUI.FeedEvent author="Joe" icon="pencil" summary="You posted on your friend's wall." oid="XVBd9ekg"/>
+      </SUI.Feed>
     </Example>
     <Example title="Date attribute" hint="<FeedEvent date='...'/>" oid="rgko20Qd">
-      <SUI-Feed oid="WZF2gq01">
-        <SUI-FeedEvent date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added you as a friend" oid="UCY244bS"/>
-        <SUI-FeedEvent date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="signed up for the site" oid="xaMIC0Al"/>
-      </SUI-Feed>
+      <SUI.Feed oid="WZF2gq01">
+        <SUI.FeedEvent date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added you as a friend" oid="UCY244bS"/>
+        <SUI.FeedEvent date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="signed up for the site" oid="xaMIC0Al"/>
+      </SUI.Feed>
     </Example>
     <Example title="Date attribute dateOn=top" hint="<FeedEvent date='...' dateOn='top'/>" oid="sSY2x3DC">
-      <SUI-Feed oid="f1jDvcGN">
-        <SUI-FeedEvent dateOn="top" date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added you as a friend" oid="Rc83AEfX"/>
-        <SUI-FeedEvent dateOn="top" date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="signed up for the site" oid="QMJCMFQ1"/>
-      </SUI-Feed>
+      <SUI.Feed oid="f1jDvcGN">
+        <SUI.FeedEvent dateOn="top" date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added you as a friend" oid="Rc83AEfX"/>
+        <SUI.FeedEvent dateOn="top" date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="signed up for the site" oid="QMJCMFQ1"/>
+      </SUI.Feed>
     </Example>
     <Example title="Meta content" hint="<FeedEvent meta='...'/>" oid="qS92JXur">
-      <SUI-Feed oid="i5KitAwS">
-        <SUI-FeedEvent meta={<a oid="xYoWGe2g"><i className="like icon" oid="ompSpHVp"/>4 likes</a>} date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added you as a friend" oid="t6FWhgSu"/>
-        <SUI-FeedEvent meta={<a oid="NLZ2cjhM"><i className="check icon" oid="ftxdyPpp"/>approve mebership</a>} dateOn="top" date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="signed up for the site" oid="scArji13"/>
-      </SUI-Feed>
+      <SUI.Feed oid="i5KitAwS">
+        <SUI.FeedEvent meta={<a oid="xYoWGe2g"><i className="like icon" oid="ompSpHVp"/>4 likes</a>} date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added you as a friend" oid="t6FWhgSu"/>
+        <SUI.FeedEvent meta={<a oid="NLZ2cjhM"><i className="check icon" oid="ftxdyPpp"/>approve mebership</a>} dateOn="top" date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="signed up for the site" oid="scArji13"/>
+      </SUI.Feed>
     </Example>
     <Example title="Extra content" hint="<FeedEvent><div className='extra ...'>...</div></FeedEvent>" oid="N93jaN3f">
-      <SUI-Feed oid="EhrmDcLt">
-        <SUI-FeedEvent meta={<a oid="wOuf14cl"><i className="like icon" oid="YjEFRKAg"/>4 likes</a>} dateOn="top" date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images" oid="taQf24SZ">
+      <SUI.Feed oid="EhrmDcLt">
+        <SUI.FeedEvent meta={<a oid="wOuf14cl"><i className="like icon" oid="YjEFRKAg"/>4 likes</a>} dateOn="top" date="Yesterday" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images" oid="taQf24SZ">
           <div className="extra images" oid="y5HKL6Bq">
             <a oid="O6QRPCtE">
               <img src={data.image} oid="OyHxn5E6"/>
@@ -62,13 +62,13 @@
               <img src={data.image} oid="QrKoNRSF"/>
             </a>
           </div>
-        </SUI-FeedEvent>
-        <SUI-FeedEvent meta={<a oid="gKEZEeoA"><i className="reply icon" oid="t9rS4ZkU"/>reply</a>} dateOn="top" date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="created a post" oid="wGbAolGE">
+        </SUI.FeedEvent>
+        <SUI.FeedEvent meta={<a oid="gKEZEeoA"><i className="reply icon" oid="t9rS4ZkU"/>reply</a>} dateOn="top" date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="created a post" oid="wGbAolGE">
           <div className="extra text" oid="SXR4JkFh">
             Can you believe what JLaw said at the Oscars???
           </div>
-        </SUI-FeedEvent>
-      </SUI-Feed>
+        </SUI.FeedEvent>
+      </SUI.Feed>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

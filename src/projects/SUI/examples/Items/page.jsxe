@@ -1,42 +1,42 @@
-<Oak-Page id="Items" title="Items" oid="GfbpmdsI">
+<Oak.Page id="Items" title="Items" oid="GfbpmdsI">
   <PageTitle title="Items" oid="nRfsQPtt">
     A group of items.
   </PageTitle>
   <PageSection title="Appearance" oid="YYxQBtns">
     <Example title="Items" hint="<Items/>" oid="feQ8Q3d4">
-      <SUI-Items oid="eQsqAbvi">
-        <SUI-Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="i5MCXP9N"/>
-        <SUI-Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="VpmF5KJZ"/>
-        <SUI-Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="lpiR5ImS"/>
-      </SUI-Items>
+      <SUI.Items oid="eQsqAbvi">
+        <SUI.Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="i5MCXP9N"/>
+        <SUI.Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="VpmF5KJZ"/>
+        <SUI.Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="lpiR5ImS"/>
+      </SUI.Items>
     </Example>
     <Example title="Divided" hint="<Items divided/>" oid="QIPniHoE">
-      <SUI-Items divided oid="qcVLUpWW">
-        <SUI-Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="l2OycCDs"/>
-        <SUI-Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="vuYKMgFn"/>
-        <SUI-Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="DWDSsFYs"/>
-      </SUI-Items>
+      <SUI.Items divided oid="qcVLUpWW">
+        <SUI.Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="l2OycCDs"/>
+        <SUI.Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="vuYKMgFn"/>
+        <SUI.Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="DWDSsFYs"/>
+      </SUI.Items>
     </Example>
     <Example title="Link" hint="<Items appearance='link'/>" oid="UKBHqvWX">
-      <SUI-Items appearance="link" oid="msrclO37">
-        <SUI-Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="igRIN5jJ"/>
-        <SUI-Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="P6a8KtbL"/>
-        <SUI-Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="Le0xJkPZ"/>
-      </SUI-Items>
+      <SUI.Items appearance="link" oid="msrclO37">
+        <SUI.Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="igRIN5jJ"/>
+        <SUI.Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="P6a8KtbL"/>
+        <SUI.Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="Le0xJkPZ"/>
+      </SUI.Items>
     </Example>
     <Example title="Relaxed" hint="<Items appearance='relaxed'/>" oid="d9tKZVTe">
-      <SUI-Items appearance="relaxed" oid="j4isL86w">
-        <SUI-Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="kYZDim3K"/>
-        <SUI-Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="vPgLiIuO"/>
-        <SUI-Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="lbwFClSq"/>
-      </SUI-Items>
+      <SUI.Items appearance="relaxed" oid="j4isL86w">
+        <SUI.Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="kYZDim3K"/>
+        <SUI.Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="vPgLiIuO"/>
+        <SUI.Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="lbwFClSq"/>
+      </SUI.Items>
     </Example>
     <Example title="Relaxed" hint="<Items appearance='very relaxed'/>" oid="HATEGJ1f">
-      <SUI-Items appearance="very relaxed" oid="lRueP0He">
-        <SUI-Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="aoX85VVa"/>
-        <SUI-Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="nwxYVs19"/>
-        <SUI-Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="NEAvV414"/>
-      </SUI-Items>
+      <SUI.Items appearance="very relaxed" oid="lRueP0He">
+        <SUI.Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="aoX85VVa"/>
+        <SUI.Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="nwxYVs19"/>
+        <SUI.Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="NEAvV414"/>
+      </SUI.Items>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

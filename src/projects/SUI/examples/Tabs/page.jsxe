@@ -1,4 +1,4 @@
-<Oak-Page id="Tabs" title="Tabs" oid="ZH4QW6Rd">
+<Oak.Page id="Tabs" title="Tabs" oid="ZH4QW6Rd">
   <PageTitle title="Tabs" oid="KVaW2Zkc">
     Tabs is a hidden section of content activated by a menu.
     <Todo oid="meqNQio7">
@@ -17,54 +17,54 @@
   </PageTitle>
   <PageSection title="Content" oid="pattOZoE">
     <Example title="Normal" oid="dhXRX4ix">
-      <SUI-Tabs ref="normal" active="a" oid="JqS1LLK2">
-        <SUI-Tab name="a" title="A tab" oid="mWgGplvR">
-          <SUI-Header oid="xctMRoE5">
+      <SUI.Tabs ref="normal" active="a" oid="JqS1LLK2">
+        <SUI.Tab name="a" title="A tab" oid="mWgGplvR">
+          <SUI.Header oid="xctMRoE5">
             ZAAAAAAAYYYYYYY
-          </SUI-Header>
+          </SUI.Header>
           <LoremIpsum short oid="pbTC06sS"/>
-        </SUI-Tab>
-        <SUI-Tab name="b" title="B tab" oid="mu0yZySW">
-          <SUI-Header oid="xhrEFh7X">
+        </SUI.Tab>
+        <SUI.Tab name="b" title="B tab" oid="mu0yZySW">
+          <SUI.Header oid="xhrEFh7X">
             Bedebedebede
-          </SUI-Header>
+          </SUI.Header>
           <LoremIpsum short oid="YwaHN4xE"/>
-        </SUI-Tab>
-      </SUI-Tabs>
+        </SUI.Tab>
+      </SUI.Tabs>
     </Example>
     <Example title="Nested" oid="tsf1o8FU">
-      <SUI-Tabs ref="nested1" active={2} oid="bKiv24PE">
-        <SUI-Tab name="a" title="A tab" oid="O9IwXFOW">
-          <SUI-Header oid="IWFmNsTa">
+      <SUI.Tabs ref="nested1" active={2} oid="bKiv24PE">
+        <SUI.Tab name="a" title="A tab" oid="O9IwXFOW">
+          <SUI.Header oid="IWFmNsTa">
             AAAAAAAYYYYYYY
-          </SUI-Header>
-          <SUI-Tabs ref="nestedA" barOn="top" oid="mgGLx5EX">
-            <SUI-Tab name="AA" title="A - A" active oid="cF0wup7Z">
+          </SUI.Header>
+          <SUI.Tabs ref="nestedA" barOn="top" oid="mgGLx5EX">
+            <SUI.Tab name="AA" title="A - A" active oid="cF0wup7Z">
               B tab item A
-            </SUI-Tab>
-            <SUI-Tab name="AB" title="A - B" oid="XR75LUsq">
+            </SUI.Tab>
+            <SUI.Tab name="AB" title="A - B" oid="XR75LUsq">
               B tab item B
-            </SUI-Tab>
-          </SUI-Tabs>
-        </SUI-Tab>
-        <SUI-Tab name="b" title="B tab" oid="yAJdkYjL">
-          <SUI-Header oid="dQl86NY4">
+            </SUI.Tab>
+          </SUI.Tabs>
+        </SUI.Tab>
+        <SUI.Tab name="b" title="B tab" oid="yAJdkYjL">
+          <SUI.Header oid="dQl86NY4">
             Bedebedebede
-          </SUI-Header>
-          <SUI-Tabs ref="nestedB" barOn="top" oid="i4Y0j8nV">
-            <SUI-Tab name="AA" title="B - A" active oid="b5b4iuHr">
+          </SUI.Header>
+          <SUI.Tabs ref="nestedB" barOn="top" oid="i4Y0j8nV">
+            <SUI.Tab name="AA" title="B - A" active oid="b5b4iuHr">
               B tab item A
-            </SUI-Tab>
-            <SUI-Tab name="AB" title="B - B" oid="ZQeJA0DS">
+            </SUI.Tab>
+            <SUI.Tab name="AB" title="B - B" oid="ZQeJA0DS">
               B tab item B
-            </SUI-Tab>
-          </SUI-Tabs>
-        </SUI-Tab>
-      </SUI-Tabs>
+            </SUI.Tab>
+          </SUI.Tabs>
+        </SUI.Tab>
+      </SUI.Tabs>
       <Bug oid="CSnARAkW">
         Nested tabs should have names of, eg, &grave;a/B&grave;, but that doesn&apos;t seem to work.
         Maybe it&apos;s because the outer context is looking in the inner tabs?
       </Bug>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

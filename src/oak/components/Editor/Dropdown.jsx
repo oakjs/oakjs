@@ -13,7 +13,7 @@ import SUIDropdown from "themes/SUI/Dropdown";
 
 import Control from "./Control";
 
-// "<Dropdown>" Control subclass based on <SUI-Dropdown>.
+// "<Dropdown>" Control subclass based on <SUI.Dropdown>.
 export default class Dropdown extends Control {
 	// Add <Select> specific propTypes
 	static propTypes = {

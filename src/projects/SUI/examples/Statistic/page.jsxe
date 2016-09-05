@@ -1,4 +1,4 @@
-<Oak-Page id="Statistic" title="Statistic" oid="UIslT3Hx">
+<Oak.Page id="Statistic" title="Statistic" oid="UIslT3Hx">
   <PageTitle title="Statistic" oid="eOb1VfSL">
     A statistic emphasizes the current value of an attribute
     <Info oid="CKqpN2mJ">
@@ -8,16 +8,16 @@
   </PageTitle>
   <PageSection title="Content" oid="aNEvxijh">
     <Example title="Inline content" oid="lyeUkxPD">
-      <SUI-Statistics oid="xJNregCk">
-        <SUI-Statistic oid="HbBaWuiG">
+      <SUI.Statistics oid="xJNregCk">
+        <SUI.Statistic oid="HbBaWuiG">
           <div className="value" oid="OGpGRM2t">
             5,500
           </div>
           <div className="label" oid="M1SIqZB0">
             Downloads
           </div>
-        </SUI-Statistic>
-        <SUI-Statistic oid="lPh2XGJB">
+        </SUI.Statistic>
+        <SUI.Statistic oid="lPh2XGJB">
           <div className="text value" oid="jDbwppxs">
             Three
             <br oid="fgH8oEQ4"/>
@@ -26,103 +26,103 @@
           <div className="label" oid="IYIYWg8E">
             Downloads
           </div>
-        </SUI-Statistic>
-      </SUI-Statistics>
+        </SUI.Statistic>
+      </SUI.Statistics>
     </Example>
     <Example title="Value, and Label and LabelOn attributes" hint="<Statistic value='...' label='...' labelOn='top'/>" oid="KJQbPmKc">
-      <SUI-Statistics oid="DHuOQhyD">
-        <SUI-Statistic value="5,500" label="Downloads" oid="qctVrHP7"/>
-        <SUI-Statistic labelOn="top" value="5,500" label="Downloads" oid="a3e2u2Og"/>
-      </SUI-Statistics>
+      <SUI.Statistics oid="DHuOQhyD">
+        <SUI.Statistic value="5,500" label="Downloads" oid="qctVrHP7"/>
+        <SUI.Statistic labelOn="top" value="5,500" label="Downloads" oid="a3e2u2Og"/>
+      </SUI.Statistics>
     </Example>
     <Example title="Icon attribute" hint="<Statistic icon='...' decorationOn='right'/>" oid="WZ1LsR58">
-      <SUI-Statistic icon="world" value="500" label="Countries Represented" oid="FaGaTSCE"/>
-      <SUI-Statistic icon="world" decorationOn="right" value="500" label="Countries Represented" oid="gDerVYfm"/>
+      <SUI.Statistic icon="world" value="500" label="Countries Represented" oid="FaGaTSCE"/>
+      <SUI.Statistic icon="world" decorationOn="right" value="500" label="Countries Represented" oid="gDerVYfm"/>
     </Example>
     <Example title="Image attribute" hint="<Statistic image='...' imageAppearance='...' decorationOn='right'/>" oid="l07RR7ee">
-      <SUI-Statistic image={data.joeAvatar} imageAppearance="ui circular inline image" value="42" label="Team members" oid="stZOkD3P"/>
-      <SUI-Statistic image={data.joeAvatar} decorationOn="right" imageAppearance="ui circular inline image" value="42" label="Team members" oid="pvFj7OYM"/>
+      <SUI.Statistic image={data.joeAvatar} imageAppearance="ui circular inline image" value="42" label="Team members" oid="stZOkD3P"/>
+      <SUI.Statistic image={data.joeAvatar} decorationOn="right" imageAppearance="ui circular inline image" value="42" label="Team members" oid="pvFj7OYM"/>
     </Example>
   </PageSection>
   <PageSection title="Appearance" oid="rG3c2Pnc">
     <Example title="Horizontal" hint="<Statistic appearance='horizontal'/>" oid="ZxFgxLt7">
-      <SUI-Statistic value="5,500" label="Downloads" appearance="horizontal" oid="YbAoAj3B"/>
-      <Oak-Spacer oid="WGGqDcO1"/>
-      <SUI-Statistic value="8,900" label="Signups" appearance="horizontal" oid="LQjAQXEl"/>
-      <Oak-Spacer oid="F2Zl6JTj"/>
-      <SUI-Statistic value="10,400" label="Messages sent" appearance="horizontal" oid="k6p17MvC"/>
+      <SUI.Statistic value="5,500" label="Downloads" appearance="horizontal" oid="YbAoAj3B"/>
+      <Oak.Spacer oid="WGGqDcO1"/>
+      <SUI.Statistic value="8,900" label="Signups" appearance="horizontal" oid="LQjAQXEl"/>
+      <Oak.Spacer oid="F2Zl6JTj"/>
+      <SUI.Statistic value="10,400" label="Messages sent" appearance="horizontal" oid="k6p17MvC"/>
     </Example>
     <Example title="Colored" hint="<Statistic color='red'/>" oid="l67xqd9K">
-      <SUI-Statistics columns={6} oid="NjJ1GPBb">
-        <SUI-Statistic color="red" value="87" label="People like red" oid="OUT7CTsW"/>
-        <SUI-Statistic color="orange" value="94" label="People like orange" oid="rJGKqyrb"/>
-        <SUI-Statistic color="yellow" value="13" label="People like yellow" oid="Um28T7LA"/>
-        <SUI-Statistic color="olive" value="8" label="People like olive" oid="flNclHkp"/>
-        <SUI-Statistic color="green" value="48" label="People like green" oid="pJMNg6Ib"/>
-        <SUI-Statistic color="teal" value="98" label="People like teal" oid="wlkPbP8m"/>
-        <SUI-Statistic color="blue" value="34" label="People like blue" oid="qN20okf4"/>
-        <SUI-Statistic color="violet" value="82" label="People like violet" oid="bCxBNQe2"/>
-        <SUI-Statistic color="purple" value="100" label="People like purple" oid="KOw7LPBu"/>
-        <SUI-Statistic color="pink" value="6" label="People like pink" oid="JfKjpW8V"/>
-        <SUI-Statistic color="brown" value="42" label="People like brown" oid="w9kK04yZ"/>
-        <SUI-Statistic color="grey" value="87" label="People like grey" oid="viu2ggvT"/>
-      </SUI-Statistics>
+      <SUI.Statistics columns={6} oid="NjJ1GPBb">
+        <SUI.Statistic color="red" value="87" label="People like red" oid="OUT7CTsW"/>
+        <SUI.Statistic color="orange" value="94" label="People like orange" oid="rJGKqyrb"/>
+        <SUI.Statistic color="yellow" value="13" label="People like yellow" oid="Um28T7LA"/>
+        <SUI.Statistic color="olive" value="8" label="People like olive" oid="flNclHkp"/>
+        <SUI.Statistic color="green" value="48" label="People like green" oid="pJMNg6Ib"/>
+        <SUI.Statistic color="teal" value="98" label="People like teal" oid="wlkPbP8m"/>
+        <SUI.Statistic color="blue" value="34" label="People like blue" oid="qN20okf4"/>
+        <SUI.Statistic color="violet" value="82" label="People like violet" oid="bCxBNQe2"/>
+        <SUI.Statistic color="purple" value="100" label="People like purple" oid="KOw7LPBu"/>
+        <SUI.Statistic color="pink" value="6" label="People like pink" oid="JfKjpW8V"/>
+        <SUI.Statistic color="brown" value="42" label="People like brown" oid="w9kK04yZ"/>
+        <SUI.Statistic color="grey" value="87" label="People like grey" oid="viu2ggvT"/>
+      </SUI.Statistics>
     </Example>
     <Example title="Inverted" hint="<Statistic appearance='inverted'/>" oid="u7CBK48Q">
-      <SUI-Segment appearance="inverted" oid="VKVlylsv">
-        <SUI-Statistics columns={5} oid="RqxJ2wMn">
-          <SUI-Statistic appearance="inverted" value="93" label="inverted" oid="O2Q7h9qX"/>
-          <SUI-Statistic appearance="inverted" color="red" value="87" label="inverted red" oid="vYbG1xVI"/>
-          <SUI-Statistic appearance="inverted" color="orange" value="94" label="inverted orange" oid="J1jBTaZF"/>
-          <SUI-Statistic appearance="inverted" color="yellow" value="13" label="inverted yellow" oid="qffoJVNR"/>
-          <SUI-Statistic appearance="inverted" color="olive" value="8" label="inverted olive" oid="ihv4FnfV"/>
-          <SUI-Statistic appearance="inverted" color="green" value="48" label="inverted green" oid="UmmoR3a5"/>
-          <SUI-Statistic appearance="inverted" color="teal" value="98" label="inverted teal" oid="kj86i1vA"/>
-          <SUI-Statistic appearance="inverted" color="blue" value="34" label="inverted blue" oid="Xm5itApB"/>
-          <SUI-Statistic appearance="inverted" color="violet" value="82" label="inverted violet" oid="DYT7caoR"/>
-          <SUI-Statistic appearance="inverted" color="purple" value="100" label="inverted purple" oid="CI3mjLxb"/>
-          <SUI-Statistic appearance="inverted" color="pink" value="6" label="inverted pink" oid="kTyXWHId"/>
-          <SUI-Statistic appearance="inverted" color="brown" value="42" label="inverted brown" oid="dSEd9WfI"/>
-          <SUI-Statistic appearance="inverted" color="grey" value="87" label="inverted grey" oid="vJG6KubI"/>
-        </SUI-Statistics>
-      </SUI-Segment>
+      <SUI.Segment appearance="inverted" oid="VKVlylsv">
+        <SUI.Statistics columns={5} oid="RqxJ2wMn">
+          <SUI.Statistic appearance="inverted" value="93" label="inverted" oid="O2Q7h9qX"/>
+          <SUI.Statistic appearance="inverted" color="red" value="87" label="inverted red" oid="vYbG1xVI"/>
+          <SUI.Statistic appearance="inverted" color="orange" value="94" label="inverted orange" oid="J1jBTaZF"/>
+          <SUI.Statistic appearance="inverted" color="yellow" value="13" label="inverted yellow" oid="qffoJVNR"/>
+          <SUI.Statistic appearance="inverted" color="olive" value="8" label="inverted olive" oid="ihv4FnfV"/>
+          <SUI.Statistic appearance="inverted" color="green" value="48" label="inverted green" oid="UmmoR3a5"/>
+          <SUI.Statistic appearance="inverted" color="teal" value="98" label="inverted teal" oid="kj86i1vA"/>
+          <SUI.Statistic appearance="inverted" color="blue" value="34" label="inverted blue" oid="Xm5itApB"/>
+          <SUI.Statistic appearance="inverted" color="violet" value="82" label="inverted violet" oid="DYT7caoR"/>
+          <SUI.Statistic appearance="inverted" color="purple" value="100" label="inverted purple" oid="CI3mjLxb"/>
+          <SUI.Statistic appearance="inverted" color="pink" value="6" label="inverted pink" oid="kTyXWHId"/>
+          <SUI.Statistic appearance="inverted" color="brown" value="42" label="inverted brown" oid="dSEd9WfI"/>
+          <SUI.Statistic appearance="inverted" color="grey" value="87" label="inverted grey" oid="vJG6KubI"/>
+        </SUI.Statistics>
+      </SUI.Segment>
     </Example>
     <Example title="Floated" hint="<Statistic floated='right'/>" oid="mMZcse8X">
-      <SUI-Statistic value="5,500" label="Downloads" floated="right" oid="CoGcuUBp"/>
+      <SUI.Statistic value="5,500" label="Downloads" floated="right" oid="CoGcuUBp"/>
       <LoremIpsum short oid="wlZpHSHQ"/>
-      <Oak-Spacer oid="enBC8bsU"/>
-      <SUI-Statistic value="5,500" label="Downloads" floated="left" oid="IIPsddmJ"/>
+      <Oak.Spacer oid="enBC8bsU"/>
+      <SUI.Statistic value="5,500" label="Downloads" floated="left" oid="IIPsddmJ"/>
       <LoremIpsum oid="kp4MnM7k"/>
     </Example>
     <Example title="Sizes" hint="<Statistic size='mini'/>" oid="KYDF7rU9">
-      <SUI-Grid columns={2} oid="ix1JfatQ">
-        <SUI-Column oid="DMf1k8nt">
-          <SUI-Statistic size="mini" icon="unhide" value="503" label="mini" oid="Cffaja1k"/>
-          <Oak-Spacer tiny oid="klESN1WY"/>
-          <SUI-Statistic size="tiny" icon="unhide" value="503" label="tiny" oid="Oo3ibAgM"/>
-          <Oak-Spacer tiny oid="vm4xVpB6"/>
-          <SUI-Statistic size="small" icon="unhide" value="503" label="small" oid="JbARgLCe"/>
-          <Oak-Spacer tiny oid="iZT2wtag"/>
-          <SUI-Statistic size="medium" icon="unhide" value="503" label="medium" oid="CAeXvB5e"/>
-          <Oak-Spacer tiny oid="jYr2XO8P"/>
-          <SUI-Statistic size="large" icon="unhide" value="503" label="large" oid="meoMfOWo"/>
-          <Oak-Spacer tiny oid="Dqo5xWxw"/>
-          <SUI-Statistic size="huge" icon="unhide" value="503" label="huge" oid="BoSLF56U"/>
-        </SUI-Column>
-        <SUI-Column oid="ZoT1LR57">
-          <SUI-Statistic appearance="horizontal" size="mini" icon="unhide" value="503" label="mini" oid="xwI4GeZF"/>
-          <Oak-Spacer tiny oid="o9nmCG5R"/>
-          <SUI-Statistic appearance="horizontal" size="tiny" icon="unhide" value="503" label="tiny" oid="pjiE2656"/>
-          <Oak-Spacer tiny oid="PIc7vJTr"/>
-          <SUI-Statistic appearance="horizontal" size="small" icon="unhide" value="503" label="small" oid="sf8wdZ01"/>
-          <Oak-Spacer tiny oid="BoFRh5CO"/>
-          <SUI-Statistic appearance="horizontal" size="medium" icon="unhide" value="503" label="medium" oid="EScfswlb"/>
-          <Oak-Spacer tiny oid="frIaLswk"/>
-          <SUI-Statistic appearance="horizontal" size="large" icon="unhide" value="503" label="large" oid="rEAy2pHi"/>
-          <Oak-Spacer tiny oid="Z96htSr3"/>
-          <SUI-Statistic appearance="horizontal" size="huge" icon="unhide" value="503" label="huge" oid="NKatoI6f"/>
-        </SUI-Column>
-      </SUI-Grid>
+      <SUI.Grid columns={2} oid="ix1JfatQ">
+        <SUI.Column oid="DMf1k8nt">
+          <SUI.Statistic size="mini" icon="unhide" value="503" label="mini" oid="Cffaja1k"/>
+          <Oak.Spacer tiny oid="klESN1WY"/>
+          <SUI.Statistic size="tiny" icon="unhide" value="503" label="tiny" oid="Oo3ibAgM"/>
+          <Oak.Spacer tiny oid="vm4xVpB6"/>
+          <SUI.Statistic size="small" icon="unhide" value="503" label="small" oid="JbARgLCe"/>
+          <Oak.Spacer tiny oid="iZT2wtag"/>
+          <SUI.Statistic size="medium" icon="unhide" value="503" label="medium" oid="CAeXvB5e"/>
+          <Oak.Spacer tiny oid="jYr2XO8P"/>
+          <SUI.Statistic size="large" icon="unhide" value="503" label="large" oid="meoMfOWo"/>
+          <Oak.Spacer tiny oid="Dqo5xWxw"/>
+          <SUI.Statistic size="huge" icon="unhide" value="503" label="huge" oid="BoSLF56U"/>
+        </SUI.Column>
+        <SUI.Column oid="ZoT1LR57">
+          <SUI.Statistic appearance="horizontal" size="mini" icon="unhide" value="503" label="mini" oid="xwI4GeZF"/>
+          <Oak.Spacer tiny oid="o9nmCG5R"/>
+          <SUI.Statistic appearance="horizontal" size="tiny" icon="unhide" value="503" label="tiny" oid="pjiE2656"/>
+          <Oak.Spacer tiny oid="PIc7vJTr"/>
+          <SUI.Statistic appearance="horizontal" size="small" icon="unhide" value="503" label="small" oid="sf8wdZ01"/>
+          <Oak.Spacer tiny oid="BoFRh5CO"/>
+          <SUI.Statistic appearance="horizontal" size="medium" icon="unhide" value="503" label="medium" oid="EScfswlb"/>
+          <Oak.Spacer tiny oid="frIaLswk"/>
+          <SUI.Statistic appearance="horizontal" size="large" icon="unhide" value="503" label="large" oid="rEAy2pHi"/>
+          <Oak.Spacer tiny oid="Z96htSr3"/>
+          <SUI.Statistic appearance="horizontal" size="huge" icon="unhide" value="503" label="huge" oid="NKatoI6f"/>
+        </SUI.Column>
+      </SUI.Grid>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

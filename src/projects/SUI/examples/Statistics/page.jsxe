@@ -1,80 +1,80 @@
-<Oak-Page id="Statistics" title="Statistics" oid="LcXvsM0c">
+<Oak.Page id="Statistics" title="Statistics" oid="LcXvsM0c">
   <PageTitle title="Statistics" oid="ARmJL1dK">
     A group of statistics
   </PageTitle>
   <PageSection title="Appearance" oid="SiL3dXp6">
     <Example title="Normal" oid="ER5aw3D8">
-      <SUI-Statistics oid="WYjfsiHc">
-        <SUI-Statistic value="5,500" label="Downloads" oid="owi6HQ67"/>
-        <SUI-Statistic value="12,000" label="New Accounts" oid="DLdiLdKh"/>
-        <SUI-Statistic value="32,129" label="Images Served" oid="txF5ko5D"/>
-      </SUI-Statistics>
+      <SUI.Statistics oid="WYjfsiHc">
+        <SUI.Statistic value="5,500" label="Downloads" oid="owi6HQ67"/>
+        <SUI.Statistic value="12,000" label="New Accounts" oid="DLdiLdKh"/>
+        <SUI.Statistic value="32,129" label="Images Served" oid="txF5ko5D"/>
+      </SUI.Statistics>
     </Example>
     <Example title="Horizontal" hint="<Statistics appearance='horizontal'/>" oid="HMFmqNi0">
-      <SUI-Statistics appearance="horizontal" oid="wl4W3x89">
-        <SUI-Statistic value="5,500" label="Downloads" oid="kE02tERQ"/>
-        <SUI-Statistic value="12,000" label="New Accounts" oid="d0qwi0FQ"/>
-        <SUI-Statistic value="32,129" label="Images Served" oid="CZyfby5M"/>
-      </SUI-Statistics>
+      <SUI.Statistics appearance="horizontal" oid="wl4W3x89">
+        <SUI.Statistic value="5,500" label="Downloads" oid="kE02tERQ"/>
+        <SUI.Statistic value="12,000" label="New Accounts" oid="d0qwi0FQ"/>
+        <SUI.Statistic value="32,129" label="Images Served" oid="CZyfby5M"/>
+      </SUI.Statistics>
     </Example>
     <Example title="Evenly Spaced" hint="<Statistics columns={3}/>" oid="ot51mMun">
-      <SUI-Statistics columns={3} oid="mVJK80qq">
-        <SUI-Statistic value="5,500" label="Downloads" oid="VD6VRUCn"/>
-        <SUI-Statistic value="12,000" label="New Accounts" oid="bUyBCQJC"/>
-        <SUI-Statistic value="32,129" label="Images Served" oid="RjdMdJTa"/>
-        <SUI-Statistic value="213" label="Bugs Reported" oid="L6oxtyhZ"/>
-        <SUI-Statistic value="417" label="Bugs Fixed" oid="I2G003Td"/>
-      </SUI-Statistics>
+      <SUI.Statistics columns={3} oid="mVJK80qq">
+        <SUI.Statistic value="5,500" label="Downloads" oid="VD6VRUCn"/>
+        <SUI.Statistic value="12,000" label="New Accounts" oid="bUyBCQJC"/>
+        <SUI.Statistic value="32,129" label="Images Served" oid="RjdMdJTa"/>
+        <SUI.Statistic value="213" label="Bugs Reported" oid="L6oxtyhZ"/>
+        <SUI.Statistic value="417" label="Bugs Fixed" oid="I2G003Td"/>
+      </SUI.Statistics>
     </Example>
     <Example title="Sizes" hint="<Statistics size='small'/>" oid="r0B8O05k">
-      <SUI-Header appearance="dividing" oid="gfx4cSV5">
+      <SUI.Header appearance="dividing" oid="gfx4cSV5">
         Mini
-      </SUI-Header>
-      <SUI-Statistics size="mini" oid="Eeivlxko">
-        <SUI-Statistic value="5,500" label="Downloads" oid="WqvQdGsg"/>
-        <SUI-Statistic value="12,000" label="New Accounts" oid="mdaXCACC"/>
-        <SUI-Statistic value="32,129" label="Images Served" oid="tSoCLVnS"/>
-      </SUI-Statistics>
-      <SUI-Header appearance="dividing" oid="uJv2m09g">
+      </SUI.Header>
+      <SUI.Statistics size="mini" oid="Eeivlxko">
+        <SUI.Statistic value="5,500" label="Downloads" oid="WqvQdGsg"/>
+        <SUI.Statistic value="12,000" label="New Accounts" oid="mdaXCACC"/>
+        <SUI.Statistic value="32,129" label="Images Served" oid="tSoCLVnS"/>
+      </SUI.Statistics>
+      <SUI.Header appearance="dividing" oid="uJv2m09g">
         Tiny
-      </SUI-Header>
-      <SUI-Statistics size="tiny" oid="DgecpHV9">
-        <SUI-Statistic value="5,500" label="Downloads" oid="epbxHBXU"/>
-        <SUI-Statistic value="12,000" label="New Accounts" oid="XkKT4xBT"/>
-        <SUI-Statistic value="32,129" label="Images Served" oid="IOJY8KIT"/>
-      </SUI-Statistics>
-      <SUI-Header appearance="dividing" oid="Uo8yW7D4">
+      </SUI.Header>
+      <SUI.Statistics size="tiny" oid="DgecpHV9">
+        <SUI.Statistic value="5,500" label="Downloads" oid="epbxHBXU"/>
+        <SUI.Statistic value="12,000" label="New Accounts" oid="XkKT4xBT"/>
+        <SUI.Statistic value="32,129" label="Images Served" oid="IOJY8KIT"/>
+      </SUI.Statistics>
+      <SUI.Header appearance="dividing" oid="Uo8yW7D4">
         Small
-      </SUI-Header>
-      <SUI-Statistics size="small" oid="dpdaSIDF">
-        <SUI-Statistic value="5,500" label="Downloads" oid="LNQ3nC01"/>
-        <SUI-Statistic value="12,000" label="New Accounts" oid="GH0IXw4Q"/>
-        <SUI-Statistic value="32,129" label="Images Served" oid="R54ZGMfZ"/>
-      </SUI-Statistics>
-      <SUI-Header appearance="dividing" oid="KsaNYXvx">
+      </SUI.Header>
+      <SUI.Statistics size="small" oid="dpdaSIDF">
+        <SUI.Statistic value="5,500" label="Downloads" oid="LNQ3nC01"/>
+        <SUI.Statistic value="12,000" label="New Accounts" oid="GH0IXw4Q"/>
+        <SUI.Statistic value="32,129" label="Images Served" oid="R54ZGMfZ"/>
+      </SUI.Statistics>
+      <SUI.Header appearance="dividing" oid="KsaNYXvx">
         Medium
-      </SUI-Header>
-      <SUI-Statistics size="medium" oid="mlCl79FP">
-        <SUI-Statistic value="5,500" label="Downloads" oid="OmofQ5XR"/>
-        <SUI-Statistic value="12,000" label="New Accounts" oid="bGoRWXIV"/>
-        <SUI-Statistic value="32,129" label="Images Served" oid="TtPdhr4S"/>
-      </SUI-Statistics>
-      <SUI-Header appearance="dividing" oid="SqFgMk3F">
+      </SUI.Header>
+      <SUI.Statistics size="medium" oid="mlCl79FP">
+        <SUI.Statistic value="5,500" label="Downloads" oid="OmofQ5XR"/>
+        <SUI.Statistic value="12,000" label="New Accounts" oid="bGoRWXIV"/>
+        <SUI.Statistic value="32,129" label="Images Served" oid="TtPdhr4S"/>
+      </SUI.Statistics>
+      <SUI.Header appearance="dividing" oid="SqFgMk3F">
         Large
-      </SUI-Header>
-      <SUI-Statistics size="large" oid="tXJoXJc9">
-        <SUI-Statistic value="5,500" label="Downloads" oid="Iapyjl0e"/>
-        <SUI-Statistic value="12,000" label="New Accounts" oid="OrNIUHCP"/>
-        <SUI-Statistic value="32,129" label="Images Served" oid="C3JoxvvB"/>
-      </SUI-Statistics>
-      <SUI-Header appearance="dividing" oid="e51vb8wX">
+      </SUI.Header>
+      <SUI.Statistics size="large" oid="tXJoXJc9">
+        <SUI.Statistic value="5,500" label="Downloads" oid="Iapyjl0e"/>
+        <SUI.Statistic value="12,000" label="New Accounts" oid="OrNIUHCP"/>
+        <SUI.Statistic value="32,129" label="Images Served" oid="C3JoxvvB"/>
+      </SUI.Statistics>
+      <SUI.Header appearance="dividing" oid="e51vb8wX">
         Huge
-      </SUI-Header>
-      <SUI-Statistics size="huge" oid="yGS6WcWb">
-        <SUI-Statistic value="5,500" label="Downloads" oid="Jxdqq3a8"/>
-        <SUI-Statistic value="12,000" label="New Accounts" oid="rGXtRRlC"/>
-        <SUI-Statistic value="32,129" label="Images Served" oid="yfu9G6h6"/>
-      </SUI-Statistics>
+      </SUI.Header>
+      <SUI.Statistics size="huge" oid="yGS6WcWb">
+        <SUI.Statistic value="5,500" label="Downloads" oid="Jxdqq3a8"/>
+        <SUI.Statistic value="12,000" label="New Accounts" oid="rGXtRRlC"/>
+        <SUI.Statistic value="32,129" label="Images Served" oid="yfu9G6h6"/>
+      </SUI.Statistics>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

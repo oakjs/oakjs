@@ -1,4 +1,4 @@
-<Oak-Page id="Table" title="Table" oid="v3r9m4l4">
+<Oak.Page id="Table" title="Table" oid="v3r9m4l4">
   <PageTitle title="Table" oid="t8TVHp1A">
     A table displays a collections of data grouped into rows
     <Info oid="c1pL82B6">
@@ -73,7 +73,7 @@
   </PageTitle>
   <PageSection title="Content" oid="XRLUIEE3">
     <Example title="Fully Inline Table Definition" oid="IKttDLXZ">
-      <SUI-Table oid="WS6X7v5w">
+      <SUI.Table oid="WS6X7v5w">
         <thead oid="omM0SwOQ">
           <tr oid="v0J47K9c">
             <th oid="aJ7mEFVC">
@@ -135,13 +135,13 @@
             </th>
           </tr>
         </tfoot>
-      </SUI-Table>
+      </SUI.Table>
     </Example>
     <Example title="Header, Body, Footer elements" hint="<Table header={...} footer={...}>{body}</Table>" oid="HZmo8dKI">
-      <SUI-Table header={data.headerElement} footer={data.footerElement} body={data.bodyElement} oid="QR6Op1UR"/>
+      <SUI.Table header={data.headerElement} footer={data.footerElement} body={data.bodyElement} oid="QR6Op1UR"/>
     </Example>
     <Example title="Header, Body, Footer arrays" hint="<Table header={...} body={...} footer={...}/>" oid="yflgx6HT">
-      <SUI-Table header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="tfGh8rXw"/>
+      <SUI.Table header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="tfGh8rXw"/>
       <Bug oid="LAIru3j8">
         Not sure why that bottom-left cell isn&apos;t working...
       </Bug>
@@ -149,7 +149,7 @@
   </PageSection>
   <PageSection title="Functionality" oid="UbI1iUKw">
     <Example title="Sortable" hint="<Table sorting/>" oid="y3Wam3je">
-      <SUI-Table sorting header={data.headerElement} body={data.bodyElement} footer={data.footerElement} oid="Z73J2ZJT"/>
+      <SUI.Table sorting header={data.headerElement} body={data.bodyElement} footer={data.footerElement} oid="Z73J2ZJT"/>
     </Example>
     <Bug oid="CbAwtW1j">
       What do we have to do to turn soring on?
@@ -157,110 +157,110 @@
   </PageSection>
   <PageSection title="Appearance" oid="jnJeBcMv">
     <Example title="Fixed" hint="<Table appearance='fixed'/>" oid="uYHWKeaA">
-      <SUI-Table appearance="fixed" header={data.headerArray} body={data.bodyArray} oid="DO69opvx"/>
+      <SUI.Table appearance="fixed" header={data.headerArray} body={data.bodyArray} oid="DO69opvx"/>
     </Example>
     <Example title="Column Count" hint="<Table columns='2'/>" oid="ZDlaAOsy">
-      <SUI-Table columns={5} header={data.headerArray} body={data.bodyArray} oid="GgvjlmIG"/>
+      <SUI.Table columns={5} header={data.headerArray} body={data.bodyArray} oid="GgvjlmIG"/>
     </Example>
     <Example title="Collapsing" hint="<Table appearance='collapsing'/>" oid="ed1w3wSQ">
-      <SUI-Table appearance="collapsing" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="U55dhOq3"/>
+      <SUI.Table appearance="collapsing" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="U55dhOq3"/>
     </Example>
-    <SUI-Grid columns={2} oid="a7EIxO34">
-      <SUI-Column oid="TPqbJW7e">
+    <SUI.Grid columns={2} oid="a7EIxO34">
+      <SUI.Column oid="TPqbJW7e">
         <Example title="Striped" hint="<Table appearance='striped'/>" oid="By9TIF3S">
-          <SUI-Table appearance="striped" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="DrytkBjS"/>
+          <SUI.Table appearance="striped" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="DrytkBjS"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="Q75T3OSJ">
+      </SUI.Column>
+      <SUI.Column oid="Q75T3OSJ">
         <Example title="Celled" hint="<Table appearance='celled'/>" oid="R9fb8Es3">
-          <SUI-Table appearance="celled" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="Php59LhE"/>
+          <SUI.Table appearance="celled" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="Php59LhE"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="sMNTDQvV">
+      </SUI.Column>
+      <SUI.Column oid="sMNTDQvV">
         <Example title="Basic" hint="<Table appearance='basic'/>" oid="FrNPiZEZ">
-          <SUI-Table appearance="basic" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="u5pfFPHR"/>
+          <SUI.Table appearance="basic" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="u5pfFPHR"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="VNDhWT4I">
+      </SUI.Column>
+      <SUI.Column oid="VNDhWT4I">
         <Example title="Very Basic" hint="<Table appearance='very basic'/>" oid="qAy3tFLo">
-          <SUI-Table appearance="very basic" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="LXW4PAoy"/>
+          <SUI.Table appearance="very basic" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="LXW4PAoy"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="NTmvTEHG">
+      </SUI.Column>
+      <SUI.Column oid="NTmvTEHG">
         <Example title="Definition" hint="<Table appearance='definition'/>" oid="kJGvgfT4">
-          <SUI-Table appearance="definition" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="v3PRuUTk"/>
+          <SUI.Table appearance="definition" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="v3PRuUTk"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="QS5QfY6H">
+      </SUI.Column>
+      <SUI.Column oid="QS5QfY6H">
         <Example title="Single Line" hint="<Table appearance='single line'/>" oid="mdSuanru">
-          <SUI-Table appearance="single line" header={data.headerArray} body={data.bodyArray} oid="ZVnfco7U"/>
+          <SUI.Table appearance="single line" header={data.headerArray} body={data.bodyArray} oid="ZVnfco7U"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="fS0yUjUM">
+      </SUI.Column>
+      <SUI.Column oid="fS0yUjUM">
         <Example title="Padded" hint="<Table appearance='padded'/>" oid="e8LwFuOf">
-          <SUI-Table appearance="padded" header={data.headerArray} body={data.bodyArray} oid="bSHSTFVJ"/>
+          <SUI.Table appearance="padded" header={data.headerArray} body={data.bodyArray} oid="bSHSTFVJ"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="JeirD7En">
+      </SUI.Column>
+      <SUI.Column oid="JeirD7En">
         <Example title="Very Padded" hint="<Table appearance='very padded'/>" oid="pD9mtYf1">
-          <SUI-Table appearance="very padded" header={data.headerArray} body={data.bodyArray} oid="o3kRRYYv"/>
+          <SUI.Table appearance="very padded" header={data.headerArray} body={data.bodyArray} oid="o3kRRYYv"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="nL9J8JXy">
+      </SUI.Column>
+      <SUI.Column oid="nL9J8JXy">
         <Example title="Compact" hint="<Table appearance='compact'/>" oid="o2nNbVnv">
-          <SUI-Table appearance="compact" header={data.headerArray} body={data.bodyArray} oid="Y3w7u7Nd"/>
+          <SUI.Table appearance="compact" header={data.headerArray} body={data.bodyArray} oid="Y3w7u7Nd"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="g8bm1gig">
+      </SUI.Column>
+      <SUI.Column oid="g8bm1gig">
         <Example title="Very Compact" hint="<Table appearance='very compact'/>" oid="OtJVd0MF">
-          <SUI-Table appearance="very compact" header={data.headerArray} body={data.bodyArray} oid="cerb7qP1"/>
+          <SUI.Table appearance="very compact" header={data.headerArray} body={data.bodyArray} oid="cerb7qP1"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="S6HeSo5Z">
+      </SUI.Column>
+      <SUI.Column oid="S6HeSo5Z">
         <Example title="Size=small" hint="<Table size='small'/>" oid="kUYlPMY2">
-          <SUI-Table size="small" header={data.headerElement} body={data.bodyElement} oid="QaIXvee9"/>
+          <SUI.Table size="small" header={data.headerElement} body={data.bodyElement} oid="QaIXvee9"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="j25JoEbc">
+      </SUI.Column>
+      <SUI.Column oid="j25JoEbc">
         <Example title="Size=large" hint="<Table size='small'/>" oid="hsoPlBwQ">
-          <SUI-Table size="large" header={data.headerElement} body={data.bodyElement} oid="tUiL4yTd"/>
+          <SUI.Table size="large" header={data.headerElement} body={data.bodyElement} oid="tUiL4yTd"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="s0wX1qVd">
+      </SUI.Column>
+      <SUI.Column oid="s0wX1qVd">
         <Example title="Colored" hint="<Table color='red'/>" oid="AqxfF1xv">
-          <SUI-Table color="red" header={data.headerElement} body={data.bodyElement} oid="W6LlBPG5"/>
-          <SUI-Table color="orange" header={data.headerElement} body={data.bodyElement} oid="ZVkdP1bN"/>
-          <SUI-Table color="yellow" header={data.headerElement} body={data.bodyElement} oid="AESOdVMS"/>
-          <SUI-Table color="olive" header={data.headerElement} body={data.bodyElement} oid="WtrfXkp2"/>
-          <SUI-Table color="green" header={data.headerElement} body={data.bodyElement} oid="IfHXp2U5"/>
-          <SUI-Table color="teal" header={data.headerElement} body={data.bodyElement} oid="WGgyDYjV"/>
-          <SUI-Table color="blue" header={data.headerElement} body={data.bodyElement} oid="v8eNe8Z3"/>
-          <SUI-Table color="violet" header={data.headerElement} body={data.bodyElement} oid="Fmxcy3sk"/>
-          <SUI-Table color="purple" header={data.headerElement} body={data.bodyElement} oid="MUeeOTa7"/>
-          <SUI-Table color="pink" header={data.headerElement} body={data.bodyElement} oid="fIlDveiI"/>
-          <SUI-Table color="brown" header={data.headerElement} body={data.bodyElement} oid="shCmlT1O"/>
-          <SUI-Table color="grey" header={data.headerElement} body={data.bodyElement} oid="hri9lckf"/>
-          <SUI-Table color="black" header={data.headerElement} body={data.bodyElement} oid="hqI5iwfX"/>
+          <SUI.Table color="red" header={data.headerElement} body={data.bodyElement} oid="W6LlBPG5"/>
+          <SUI.Table color="orange" header={data.headerElement} body={data.bodyElement} oid="ZVkdP1bN"/>
+          <SUI.Table color="yellow" header={data.headerElement} body={data.bodyElement} oid="AESOdVMS"/>
+          <SUI.Table color="olive" header={data.headerElement} body={data.bodyElement} oid="WtrfXkp2"/>
+          <SUI.Table color="green" header={data.headerElement} body={data.bodyElement} oid="IfHXp2U5"/>
+          <SUI.Table color="teal" header={data.headerElement} body={data.bodyElement} oid="WGgyDYjV"/>
+          <SUI.Table color="blue" header={data.headerElement} body={data.bodyElement} oid="v8eNe8Z3"/>
+          <SUI.Table color="violet" header={data.headerElement} body={data.bodyElement} oid="Fmxcy3sk"/>
+          <SUI.Table color="purple" header={data.headerElement} body={data.bodyElement} oid="MUeeOTa7"/>
+          <SUI.Table color="pink" header={data.headerElement} body={data.bodyElement} oid="fIlDveiI"/>
+          <SUI.Table color="brown" header={data.headerElement} body={data.bodyElement} oid="shCmlT1O"/>
+          <SUI.Table color="grey" header={data.headerElement} body={data.bodyElement} oid="hri9lckf"/>
+          <SUI.Table color="black" header={data.headerElement} body={data.bodyElement} oid="hqI5iwfX"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="GluVLXQZ">
+      </SUI.Column>
+      <SUI.Column oid="GluVLXQZ">
         <Example title="Inverted" hint="<Table color='red'/>" oid="VvfuFZZp">
-          <SUI-Table appearance="inverted" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="yFXXYp8e"/>
-          <SUI-Table appearance="inverted striped" color="red" header={data.headerElement} body={data.bodyElement} oid="ZK4rXNns"/>
-          <SUI-Table appearance="inverted striped" color="orange" header={data.headerElement} body={data.bodyElement} oid="vYyqymXf"/>
-          <SUI-Table appearance="inverted striped" color="yellow" header={data.headerElement} body={data.bodyElement} oid="SOOVgit1"/>
-          <SUI-Table appearance="inverted striped" color="olive" header={data.headerElement} body={data.bodyElement} oid="mqRUUHR5"/>
-          <SUI-Table appearance="inverted striped" color="green" header={data.headerElement} body={data.bodyElement} oid="HuomK0IQ"/>
-          <SUI-Table appearance="inverted striped" color="teal" header={data.headerElement} body={data.bodyElement} oid="D0Xil8Jy"/>
-          <SUI-Table appearance="inverted striped" color="blue" header={data.headerElement} body={data.bodyElement} oid="QQ8QWT8t"/>
-          <SUI-Table appearance="inverted striped" color="violet" header={data.headerElement} body={data.bodyElement} oid="ljXjF1qJ"/>
-          <SUI-Table appearance="inverted striped" color="purple" header={data.headerElement} body={data.bodyElement} oid="ofoOUVTE"/>
-          <SUI-Table appearance="inverted striped" color="pink" header={data.headerElement} body={data.bodyElement} oid="ChflWsY5"/>
-          <SUI-Table appearance="inverted striped" color="brown" header={data.headerElement} body={data.bodyElement} oid="YRVgwYVZ"/>
-          <SUI-Table appearance="inverted striped" color="grey" header={data.headerElement} body={data.bodyElement} oid="jUDHLpZ2"/>
-          <SUI-Table appearance="inverted striped" color="black" header={data.headerElement} body={data.bodyElement} oid="ND3GUss0"/>
+          <SUI.Table appearance="inverted" header={data.headerArray} body={data.bodyArray} footer={data.footerArray} oid="yFXXYp8e"/>
+          <SUI.Table appearance="inverted striped" color="red" header={data.headerElement} body={data.bodyElement} oid="ZK4rXNns"/>
+          <SUI.Table appearance="inverted striped" color="orange" header={data.headerElement} body={data.bodyElement} oid="vYyqymXf"/>
+          <SUI.Table appearance="inverted striped" color="yellow" header={data.headerElement} body={data.bodyElement} oid="SOOVgit1"/>
+          <SUI.Table appearance="inverted striped" color="olive" header={data.headerElement} body={data.bodyElement} oid="mqRUUHR5"/>
+          <SUI.Table appearance="inverted striped" color="green" header={data.headerElement} body={data.bodyElement} oid="HuomK0IQ"/>
+          <SUI.Table appearance="inverted striped" color="teal" header={data.headerElement} body={data.bodyElement} oid="D0Xil8Jy"/>
+          <SUI.Table appearance="inverted striped" color="blue" header={data.headerElement} body={data.bodyElement} oid="QQ8QWT8t"/>
+          <SUI.Table appearance="inverted striped" color="violet" header={data.headerElement} body={data.bodyElement} oid="ljXjF1qJ"/>
+          <SUI.Table appearance="inverted striped" color="purple" header={data.headerElement} body={data.bodyElement} oid="ofoOUVTE"/>
+          <SUI.Table appearance="inverted striped" color="pink" header={data.headerElement} body={data.bodyElement} oid="ChflWsY5"/>
+          <SUI.Table appearance="inverted striped" color="brown" header={data.headerElement} body={data.bodyElement} oid="YRVgwYVZ"/>
+          <SUI.Table appearance="inverted striped" color="grey" header={data.headerElement} body={data.bodyElement} oid="jUDHLpZ2"/>
+          <SUI.Table appearance="inverted striped" color="black" header={data.headerElement} body={data.bodyElement} oid="ND3GUss0"/>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

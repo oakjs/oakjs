@@ -1,58 +1,58 @@
-<Oak-Page id="Embed" title="Embed" oid="vjIbegis">
+<Oak.Page id="Embed" title="Embed" oid="vjIbegis">
   <PageTitle title="Embed" oid="eJcVdaR8"></PageTitle>
   <PageSection title="Sources" oid="CiaMarmt">
     <Example title="YouTube" oid="XvWBmCXu">
-      <SUI-Embed source="youtube" embedId="pfdu_gTry8E" placeholder="http://semantic-ui.com/images/image-16by9.png" oid="jD7yjKX5"/>
+      <SUI.Embed source="youtube" embedId="pfdu_gTry8E" placeholder="http://semantic-ui.com/images/image-16by9.png" oid="jD7yjKX5"/>
     </Example>
     <Example title="Vimeo" oid="hsZ93uTB">
-      <SUI-Embed source="vimeo" embedId="125292332" placeholder="http://semantic-ui.com/images/vimeo-example.jpg" oid="fTJl4mRj"/>
+      <SUI.Embed source="vimeo" embedId="125292332" placeholder="http://semantic-ui.com/images/vimeo-example.jpg" oid="fTJl4mRj"/>
     </Example>
     <Example title="Custom Content" oid="lk32GwmN">
-      <SUI-Embed url="http://www.myfav.es/jack" icon="right circle arrow" placeholder="http://semantic-ui.com/images/image-16by9.png" oid="stYm9USC"/>
+      <SUI.Embed url="http://www.myfav.es/jack" icon="right circle arrow" placeholder="http://semantic-ui.com/images/image-16by9.png" oid="stYm9USC"/>
     </Example>
   </PageSection>
   <PageSection title="Behavior" oid="Ps5pgUFt">
     <Example title="Change behavior" hint="<Embed aspectRatio='4:3'/>" oid="JmNdAjNx">
-      <SUI-Embed ref="behavior" source="youtube" embedId="pfdu_gTry8E" placeholder="http://semantic-ui.com/images/image-16by9.png" oid="sF84uWc4"/>
-      <Oak-Spacer oid="de0BKQMw"/>
-      <SUI-Buttons oid="HA3JTl1J">
-        <SUI-Button onClick={()=> page.refs.behavior.change("youtube", "HTZudKi36bo")} title="Change" oid="tqn3msPe"/>
-        <SUI-Button onClick={()=> page.refs.behavior.reset()} title="Reset" oid="qSqdrwbe"/>
-        <SUI-Button onClick={()=> page.refs.behavior.show()} title="Show" oid="hBhXGLcq"/>
-        <SUI-Button onClick={()=> page.refs.behavior.hide()} title="Hide" oid="c8TsIxKq"/>
-        <SUI-Button onClick={()=> page.refs.behavior.destroy()} title="Destroy" oid="Xutvsmpx"/>
-      </SUI-Buttons>
-      <Oak-Spacer oid="pL4n67CT"/>
-      <SUI-Buttons oid="TYDacPcY">
-        <SUI-Button onClick={()=> console.log(page.refs.behavior.getId())} title="getId" oid="jsB5DT7F"/>
-        <SUI-Button onClick={()=> console.log(page.refs.behavior.getPlaceholder())} title="getPlaceholder" oid="L2CbvScc"/>
-        <SUI-Button onClick={()=> console.log(page.refs.behavior.getSource())} title="getSource" oid="vJOKFWWa"/>
-        <SUI-Button onClick={()=> console.log(page.refs.behavior.getType())} title="getType" oid="O1yospH7"/>
-        <SUI-Button onClick={()=> console.log(page.refs.behavior.getUrl())} title="getUrl" oid="O4kNTOBX"/>
-        <SUI-Button onClick={()=> console.log(page.refs.behavior.hasPlaceholder())} title="hasPlaceholder" oid="aOo92j8k"/>
-      </SUI-Buttons>
+      <SUI.Embed ref="behavior" source="youtube" embedId="pfdu_gTry8E" placeholder="http://semantic-ui.com/images/image-16by9.png" oid="sF84uWc4"/>
+      <Oak.Spacer oid="de0BKQMw"/>
+      <SUI.Buttons oid="HA3JTl1J">
+        <SUI.Button onClick={()=> page.refs.behavior.change("youtube", "HTZudKi36bo")} title="Change" oid="tqn3msPe"/>
+        <SUI.Button onClick={()=> page.refs.behavior.reset()} title="Reset" oid="qSqdrwbe"/>
+        <SUI.Button onClick={()=> page.refs.behavior.show()} title="Show" oid="hBhXGLcq"/>
+        <SUI.Button onClick={()=> page.refs.behavior.hide()} title="Hide" oid="c8TsIxKq"/>
+        <SUI.Button onClick={()=> page.refs.behavior.destroy()} title="Destroy" oid="Xutvsmpx"/>
+      </SUI.Buttons>
+      <Oak.Spacer oid="pL4n67CT"/>
+      <SUI.Buttons oid="TYDacPcY">
+        <SUI.Button onClick={()=> console.log(page.refs.behavior.getId())} title="getId" oid="jsB5DT7F"/>
+        <SUI.Button onClick={()=> console.log(page.refs.behavior.getPlaceholder())} title="getPlaceholder" oid="L2CbvScc"/>
+        <SUI.Button onClick={()=> console.log(page.refs.behavior.getSource())} title="getSource" oid="vJOKFWWa"/>
+        <SUI.Button onClick={()=> console.log(page.refs.behavior.getType())} title="getType" oid="O1yospH7"/>
+        <SUI.Button onClick={()=> console.log(page.refs.behavior.getUrl())} title="getUrl" oid="O4kNTOBX"/>
+        <SUI.Button onClick={()=> console.log(page.refs.behavior.hasPlaceholder())} title="hasPlaceholder" oid="aOo92j8k"/>
+      </SUI.Buttons>
     </Example>
   </PageSection>
   <PageSection title="Appearance" oid="haoUCEx5">
-    <SUI-Grid columns={2} oid="iApwWXt4">
-      <SUI-Column oid="hsVoZxSK">
+    <SUI.Grid columns={2} oid="iApwWXt4">
+      <SUI.Column oid="hsVoZxSK">
         <Example title="Aspect Ratio" hint="<Embed aspectRatio='4:3'/>" oid="GWMDq4Ef">
-          <SUI-Embed aspectRatio="4:3" source="youtube" embedId="HTZudKi36bo" placeholder="http://semantic-ui.com/images/4by3.jpg" oid="HsTANsAv"/>
+          <SUI.Embed aspectRatio="4:3" source="youtube" embedId="HTZudKi36bo" placeholder="http://semantic-ui.com/images/4by3.jpg" oid="HsTANsAv"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="IbrCfYIv">
+      </SUI.Column>
+      <SUI.Column oid="IbrCfYIv">
         <Example title="Icon" hint="<Embed icon='...'/>" oid="KN5HGnIk">
-          <SUI-Embed url="#" icon="chevron right" placeholder="http://semantic-ui.com/images/image-16by9.png" oid="OG65Elok"/>
+          <SUI.Embed url="#" icon="chevron right" placeholder="http://semantic-ui.com/images/image-16by9.png" oid="OG65Elok"/>
         </Example>
-      </SUI-Column>
-      <SUI-Column oid="ByB3WUMR">
+      </SUI.Column>
+      <SUI.Column oid="ByB3WUMR">
         <Example title="Color" hint="<Embed color='...'/>" oid="cvEHVrrf">
-          <SUI-Embed source="youtube" embedId="pfdu_gTry8E" autoplay={false} color="#cc00cc" oid="WJQsUlkI"/>
+          <SUI.Embed source="youtube" embedId="pfdu_gTry8E" autoplay={false} color="#cc00cc" oid="WJQsUlkI"/>
           <Bug oid="Qr9BCM1W">
             Not sure how this is supposed to work...
           </Bug>
         </Example>
-      </SUI-Column>
-    </SUI-Grid>
+      </SUI.Column>
+    </SUI.Grid>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

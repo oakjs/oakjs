@@ -1,12 +1,12 @@
-<Oak-Page id="Feed" title="Feed" oid="YGRFXuJv">
+<Oak.Page id="Feed" title="Feed" oid="YGRFXuJv">
   <PageTitle title="Feed" oid="WGdBpf5n">
     A feed presents user activity chronologically.
   </PageTitle>
   <PageSection title="Types" oid="i3y8Mtrr">
     <Example title="Normal" oid="cJFAkKLE">
-      <SUI-Feed oid="eB6gVoJk">
-        <SUI-FeedEvent meta={<a oid="BsIS4Pfu"><i className="thumbs up icon" oid="IZ8uVTPe"/>like</a>} date="Yesterday" author="Stevie" avatar={data.stevieAvatar} authorLink="/joe" summary="added you as a friend" oid="J7XouYS1"/>
-        <SUI-FeedEvent meta={<a oid="fFiW4tl0"><i className="like icon" oid="P1WdQoVD"/>4 likes</a>} date="3:30pm" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images" oid="UKfQCXVB">
+      <SUI.Feed oid="eB6gVoJk">
+        <SUI.FeedEvent meta={<a oid="BsIS4Pfu"><i className="thumbs up icon" oid="IZ8uVTPe"/>like</a>} date="Yesterday" author="Stevie" avatar={data.stevieAvatar} authorLink="/joe" summary="added you as a friend" oid="J7XouYS1"/>
+        <SUI.FeedEvent meta={<a oid="fFiW4tl0"><i className="like icon" oid="P1WdQoVD"/>4 likes</a>} date="3:30pm" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images" oid="UKfQCXVB">
           <div className="extra images" oid="xWgpnw4E">
             <a oid="tcCByJi4">
               <img src={data.image} oid="EI9uhICA"/>
@@ -15,19 +15,19 @@
               <img src={data.image} oid="n5OsSwvX"/>
             </a>
           </div>
-        </SUI-FeedEvent>
-        <SUI-FeedEvent meta={<a oid="sLer66g3"><i className="reply icon" oid="wbS5m2mP"/>reply</a>} date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="posted on his page" oid="HkWThWTT">
+        </SUI.FeedEvent>
+        <SUI.FeedEvent meta={<a oid="sLer66g3"><i className="reply icon" oid="wbS5m2mP"/>reply</a>} date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="posted on his page" oid="HkWThWTT">
           <div className="extra text" oid="CtK6wqFV">
             Ours is a life of constant reruns. We&apos;re always circling back to where we&apos;d we started, then starting all over again. Even if we don&apos;t run extra laps that day, we surely will come back for more of the same another day soon.
           </div>
-        </SUI-FeedEvent>
-      </SUI-Feed>
+        </SUI.FeedEvent>
+      </SUI.Feed>
     </Example>
     <Example title="Header" hint="<Feed header='...'/>" oid="B9TT4gfj">
-      <SUI-Segment appearance="compact" oid="sV9hQVwS">
-        <SUI-Feed header="Your Feed" oid="t48x10tu">
-          <SUI-FeedEvent meta={<a oid="oRUvFcHF"><i className="thumbs up icon" oid="iumZOUVi"/>like</a>} date="Yesterday" author="Stevie" avatar={data.stevieAvatar} authorLink="/joe" summary="added you as a friend" oid="sXiF36JF"/>
-          <SUI-FeedEvent meta={<a oid="Uprc1rH7"><i className="like icon" oid="JrNNlbSk"/>4 likes</a>} date="3:30pm" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images" oid="dqO6RUsf">
+      <SUI.Segment appearance="compact" oid="sV9hQVwS">
+        <SUI.Feed header="Your Feed" oid="t48x10tu">
+          <SUI.FeedEvent meta={<a oid="oRUvFcHF"><i className="thumbs up icon" oid="iumZOUVi"/>like</a>} date="Yesterday" author="Stevie" avatar={data.stevieAvatar} authorLink="/joe" summary="added you as a friend" oid="sXiF36JF"/>
+          <SUI.FeedEvent meta={<a oid="Uprc1rH7"><i className="like icon" oid="JrNNlbSk"/>4 likes</a>} date="3:30pm" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images" oid="dqO6RUsf">
             <div className="extra images" oid="pZF3l5IP">
               <a oid="hCkLQe15">
                 <img src={data.image} oid="Pm7atckN"/>
@@ -36,28 +36,28 @@
                 <img src={data.image} oid="y2e7QUAG"/>
               </a>
             </div>
-          </SUI-FeedEvent>
-          <SUI-FeedEvent meta={<a oid="YsOAw1DM"><i className="reply icon" oid="DArr5hST"/>reply</a>} date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="posted on his page" oid="B9buVgwc">
+          </SUI.FeedEvent>
+          <SUI.FeedEvent meta={<a oid="YsOAw1DM"><i className="reply icon" oid="DArr5hST"/>reply</a>} date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="posted on his page" oid="B9buVgwc">
             <div className="extra text" oid="XEdLvfvb">
               Ours is a life of constant reruns. We&apos;re always circling back to where we&apos;d we started, then starting all over again. Even if we don&apos;t run extra laps that day, we surely will come back for more of the same another day soon.
             </div>
-          </SUI-FeedEvent>
-        </SUI-Feed>
-      </SUI-Segment>
+          </SUI.FeedEvent>
+        </SUI.Feed>
+      </SUI.Segment>
     </Example>
     <Example title="Sizes" hint="<Feed size='small'/>" oid="K9YVS3F1">
-      <Oak-Spacer oid="HqhiOYlp"/>
-      <SUI-Feed size="small" header="Followers activity" headerAppearance="" oid="qX001RSn">
-        <SUI-FeedEvent author="Stevie" authorLink="/joe" summary="added you as a friend" oid="vLe7oetD"/>
-        <SUI-FeedEvent author="Joe" authorLink="/joe" summary="added two new images" oid="WFwKqhyZ"/>
-        <SUI-FeedEvent author="Elliot" authorLink="/elliot" summary="posted on his page" oid="OExmVdok"/>
-      </SUI-Feed>
-      <Oak-Spacer oid="gfBTcNIy"/>
-      <SUI-Divider oid="O08gUQI8"/>
-      <Oak-Spacer oid="v5Irx3M8"/>
-      <SUI-Feed size="large" oid="IN8GlXZb">
-        <SUI-FeedEvent meta={<a oid="rdOpSKL9"><i className="thumbs up icon" oid="ybn8lHt7"/>like</a>} date="Yesterday" author="Stevie" avatar={data.stevieAvatar} authorLink="/joe" summary="added you as a friend" oid="U8mCla79"/>
-        <SUI-FeedEvent meta={<a oid="gDQW9rVT"><i className="like icon" oid="hPwDUsAg"/>4 likes</a>} date="3:30pm" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images" oid="IgjxYZ1v">
+      <Oak.Spacer oid="HqhiOYlp"/>
+      <SUI.Feed size="small" header="Followers activity" headerAppearance="" oid="qX001RSn">
+        <SUI.FeedEvent author="Stevie" authorLink="/joe" summary="added you as a friend" oid="vLe7oetD"/>
+        <SUI.FeedEvent author="Joe" authorLink="/joe" summary="added two new images" oid="WFwKqhyZ"/>
+        <SUI.FeedEvent author="Elliot" authorLink="/elliot" summary="posted on his page" oid="OExmVdok"/>
+      </SUI.Feed>
+      <Oak.Spacer oid="gfBTcNIy"/>
+      <SUI.Divider oid="O08gUQI8"/>
+      <Oak.Spacer oid="v5Irx3M8"/>
+      <SUI.Feed size="large" oid="IN8GlXZb">
+        <SUI.FeedEvent meta={<a oid="rdOpSKL9"><i className="thumbs up icon" oid="ybn8lHt7"/>like</a>} date="Yesterday" author="Stevie" avatar={data.stevieAvatar} authorLink="/joe" summary="added you as a friend" oid="U8mCla79"/>
+        <SUI.FeedEvent meta={<a oid="gDQW9rVT"><i className="like icon" oid="hPwDUsAg"/>4 likes</a>} date="3:30pm" author="Joe" avatar={data.joeAvatar} authorLink="/joe" summary="added two new images" oid="IgjxYZ1v">
           <div className="extra images" oid="LmU4oNh4">
             <a oid="UIopoqFA">
               <img src={data.image} oid="aen7xNf7"/>
@@ -66,13 +66,13 @@
               <img src={data.image} oid="RyEVM3YN"/>
             </a>
           </div>
-        </SUI-FeedEvent>
-        <SUI-FeedEvent meta={<a oid="tWSt2hEv"><i className="reply icon" oid="rf3Afl6q"/>reply</a>} date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="posted on his page" oid="UMfG0eUM">
+        </SUI.FeedEvent>
+        <SUI.FeedEvent meta={<a oid="tWSt2hEv"><i className="reply icon" oid="rf3Afl6q"/>reply</a>} date="1 hour ago" author="Elliot" avatar={data.elliotAvatar} authorLink="/elliot" summary="posted on his page" oid="UMfG0eUM">
           <div className="extra text" oid="TirvtXCN">
             Ours is a life of constant reruns. We&apos;re always circling back to where we&apos;d we started, then starting all over again. Even if we don&apos;t run extra laps that day, we surely will come back for more of the same another day soon.
           </div>
-        </SUI-FeedEvent>
-      </SUI-Feed>
+        </SUI.FeedEvent>
+      </SUI.Feed>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

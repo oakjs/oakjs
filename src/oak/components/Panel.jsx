@@ -1,14 +1,14 @@
 //////////////////////////////
 //
-//	<Oak-Panel> component for use with oak e.g.:
+//	<Oak.Panel> component for use with oak e.g.:
 //
-//    <Oak-Panel>
-//      <Oak-PanelHeader>...</Oak-PanelHeader>
-//      <Oak-LeftSidebar>...</Oak-LeftSidebar>
-//      <Oak-RightSidebar>...</Oak-RightSidebar>
-//      <Oak-PanelFooter>...</Oak-PanelFooter>
+//    <Oak.Panel>
+//      <Oak.PanelHeader>...</Oak.PanelHeader>
+//      <Oak.LeftSidebar>...</Oak.LeftSidebar>
+//      <Oak.RightSidebar>...</Oak.RightSidebar>
+//      <Oak.PanelFooter>...</Oak.PanelFooter>
 //      ...main content elements...
-//    </Oak-Panel>
+//    </Oak.Panel>
 //
 //  Note that order is not important.
 //
@@ -17,9 +17,9 @@
 //  - sidebars inside vs. outside headers?
 //  - non-`scrolling` sidebars should always scroll?  be sticky?
 //  - different scrolling scenarios
-//  - <Oak-Panel title> auto-create <Oak-PanelHeader><h2>{title}</h2></Oak-PanelHeader>
-//  - <Oak-Panel closeable>   => set hidden dynamically?  how do we re-show it?  pref?
-//  - <Oak-Toolbar> ?  <Oak-TopToolbar> vs <Oak-BottomToolbar> ?
+//  - <Oak.Panel title> auto-create <Oak.PanelHeader><h2>{title}</h2></Oak.PanelHeader>
+//  - <Oak.Panel closeable>   => set hidden dynamically?  how do we re-show it?  pref?
+//  - <Oak.Toolbar> ?  <Oak.TopToolbar> vs <Oak.BottomToolbar> ?
 //  - better name for "fluid`?  default to "fluid" and have "compact" ?
 //  - padding?  applies to body only, with separate setting for header/sidebars/etc?
 //      - "tight" | ("normal") | "relaxed" ?
@@ -233,7 +233,7 @@ export class RightSidebar extends OakComponent {
 
 //
 //  Panel sizing:
-//  Set ALL <Oak-Panel scrolling> body element heights, from the outside in.
+//  Set ALL <Oak.Panel scrolling> body element heights, from the outside in.
 //  This is called on a slight delay after drawing.
 //
 

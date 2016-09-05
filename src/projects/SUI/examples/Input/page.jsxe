@@ -1,4 +1,4 @@
-<Oak-Page id="Input" title="Input" oid="QgDHen7G">
+<Oak.Page id="Input" title="Input" oid="QgDHen7G">
   <PageTitle title="Input" oid="NP0HPVFe">
     An input is a field used to elicit a response from a user.
     <Todo oid="tEpWB3sr">
@@ -14,198 +14,198 @@
   </PageTitle>
   <PageSection grid title="Types" oid="CXTwUyhS">
     <Example columns={5} oid="MGBgk1tH">
-      <Oak-Spacer oid="g18BAsaW"/>
-      <SUI-Label pointing="down" oid="YMT01vnb">
+      <Oak.Spacer oid="g18BAsaW"/>
+      <SUI.Label pointing="down" oid="YMT01vnb">
         type=text or unspecified
-      </SUI-Label>
+      </SUI.Label>
       <br oid="l45HRnPT"/>
-      <SUI-Input type="text" oid="Je4JPvLj"/>
+      <SUI.Input type="text" oid="Je4JPvLj"/>
     </Example>
     <Example columns={5} oid="L1UKjy0F">
-      <Oak-Spacer oid="TMei4vEs"/>
-      <SUI-Label pointing="down" oid="Wh1Zo7A9">
+      <Oak.Spacer oid="TMei4vEs"/>
+      <SUI.Label pointing="down" oid="Wh1Zo7A9">
         type=button
-      </SUI-Label>
+      </SUI.Label>
       <br oid="mIn1ok9q"/>
-      <SUI-Input type="button" value="OK" oid="EZv1lg0o"/>
+      <SUI.Input type="button" value="OK" oid="EZv1lg0o"/>
     </Example>
     <Example columns={5} oid="D3lBxDVi">
-      <Oak-Spacer oid="L6aY5F2s"/>
-      <SUI-Label pointing="down" oid="sR3SHneK">
+      <Oak.Spacer oid="L6aY5F2s"/>
+      <SUI.Label pointing="down" oid="sR3SHneK">
         type=checkbox
-      </SUI-Label>
+      </SUI.Label>
       <br oid="kfMKmZaw"/>
-      <SUI-Input type="checkbox" rightLabel="Checkbox label" oid="eys2BJev"/>
+      <SUI.Input type="checkbox" rightLabel="Checkbox label" oid="eys2BJev"/>
     </Example>
     <Example columns={5} oid="b2Vy8Sn6">
-      <Oak-Spacer oid="OfpMUKim"/>
-      <SUI-Label pointing="down" oid="WmAG5yim">
+      <Oak.Spacer oid="OfpMUKim"/>
+      <SUI.Label pointing="down" oid="WmAG5yim">
         type=date
-      </SUI-Label>
+      </SUI.Label>
       <br oid="c3IkfRAO"/>
-      <SUI-Input type="date" oid="TCqrhnnj"/>
+      <SUI.Input type="date" oid="TCqrhnnj"/>
     </Example>
     <Example columns={5} oid="uuT9E0bQ">
-      <Oak-Spacer oid="s63h6vCQ"/>
-      <SUI-Label pointing="down" oid="peH17U9m">
+      <Oak.Spacer oid="s63h6vCQ"/>
+      <SUI.Label pointing="down" oid="peH17U9m">
         type=datetime
-      </SUI-Label>
+      </SUI.Label>
       <br oid="sVBoZO0E"/>
-      <SUI-Input type="datetime" oid="WSSBn9J6"/>
+      <SUI.Input type="datetime" oid="WSSBn9J6"/>
     </Example>
     <Example columns={5} oid="ddXlRyt8">
-      <Oak-Spacer oid="fH9yE29J"/>
-      <SUI-Label pointing="down" oid="X613SK2E">
+      <Oak.Spacer oid="fH9yE29J"/>
+      <SUI.Label pointing="down" oid="X613SK2E">
         type=datetime-local
-      </SUI-Label>
+      </SUI.Label>
       <br oid="uFAgcehL"/>
-      <SUI-Input type="datetime-local" oid="Xhhs4NDF"/>
+      <SUI.Input type="datetime-local" oid="Xhhs4NDF"/>
     </Example>
     <Example columns={5} oid="ZQjbBt7D">
-      <Oak-Spacer oid="BGC5P3Ab"/>
-      <SUI-Label pointing="down" oid="xEbloHbY">
+      <Oak.Spacer oid="BGC5P3Ab"/>
+      <SUI.Label pointing="down" oid="xEbloHbY">
         type=email
-      </SUI-Label>
+      </SUI.Label>
       <br oid="jIQSEfkd"/>
-      <SUI-Input type="email" oid="HhGpkwi5"/>
+      <SUI.Input type="email" oid="HhGpkwi5"/>
     </Example>
     <Example columns={10} oid="ikT9oNXj">
-      <Oak-Spacer oid="NAl0DURE"/>
-      <SUI-Label pointing="down" oid="UeQ2Teao">
+      <Oak.Spacer oid="NAl0DURE"/>
+      <SUI.Label pointing="down" oid="UeQ2Teao">
         type=file
-      </SUI-Label>
+      </SUI.Label>
       <br oid="FrvN0YuE"/>
-      <SUI-Input type="file" oid="ER3pJaMN"/>
+      <SUI.Input type="file" oid="ER3pJaMN"/>
     </Example>
     <Example columns={5} oid="E1cIyM6r">
-      <Oak-Spacer oid="VpFsmM8X"/>
-      <SUI-Label pointing="down" oid="qrl935WM">
+      <Oak.Spacer oid="VpFsmM8X"/>
+      <SUI.Label pointing="down" oid="qrl935WM">
         type=hidden
-      </SUI-Label>
+      </SUI.Label>
       <br oid="o7C8o47x"/>
-      <SUI-Input type="hidden" oid="eqqxqHXd"/>
+      <SUI.Input type="hidden" oid="eqqxqHXd"/>
     </Example>
     <Example columns={5} oid="sBtEyY6M">
-      <Oak-Spacer oid="qcl6aEDo"/>
-      <SUI-Label pointing="down" oid="n3HmCST1">
+      <Oak.Spacer oid="qcl6aEDo"/>
+      <SUI.Label pointing="down" oid="n3HmCST1">
         type=image
-      </SUI-Label>
+      </SUI.Label>
       <br oid="Bem5kDPT"/>
-      <SUI-Input type="image" oid="m3CbIV2C"/>
+      <SUI.Input type="image" oid="m3CbIV2C"/>
     </Example>
     <Example columns={5} oid="TnknrPxP">
-      <Oak-Spacer oid="o6NYB008"/>
-      <SUI-Label pointing="down" oid="V6NTSoUA">
+      <Oak.Spacer oid="o6NYB008"/>
+      <SUI.Label pointing="down" oid="V6NTSoUA">
         type=month
-      </SUI-Label>
+      </SUI.Label>
       <br oid="tTKgCclZ"/>
-      <SUI-Input type="month" oid="DBAXr5y5"/>
+      <SUI.Input type="month" oid="DBAXr5y5"/>
     </Example>
     <Example columns={5} oid="VCaT0Wwg">
-      <Oak-Spacer oid="H8C5Pwg7"/>
-      <SUI-Label pointing="down" oid="IBDPY33G">
+      <Oak.Spacer oid="H8C5Pwg7"/>
+      <SUI.Label pointing="down" oid="IBDPY33G">
         type=password
-      </SUI-Label>
+      </SUI.Label>
       <br oid="kuVCSYoo"/>
-      <SUI-Input type="password" oid="nvoQT1oR"/>
+      <SUI.Input type="password" oid="nvoQT1oR"/>
     </Example>
     <Example columns={5} oid="kSQpgj2O">
-      <Oak-Spacer oid="vgeTqflK"/>
-      <SUI-Label pointing="down" oid="vS1soQE2">
+      <Oak.Spacer oid="vgeTqflK"/>
+      <SUI.Label pointing="down" oid="vS1soQE2">
         type=number
-      </SUI-Label>
+      </SUI.Label>
       <br oid="s14qCMd4"/>
-      <SUI-Input type="number" min={0} max={10} oid="Y2jJ9ywq"/>
+      <SUI.Input type="number" min={0} max={10} oid="Y2jJ9ywq"/>
     </Example>
     <Example columns={5} oid="hu8g6Jpt">
-      <Oak-Spacer oid="StMZs1dE"/>
-      <SUI-Label pointing="down" oid="P6G1J3qZ">
+      <Oak.Spacer oid="StMZs1dE"/>
+      <SUI.Label pointing="down" oid="P6G1J3qZ">
         type=password
-      </SUI-Label>
+      </SUI.Label>
       <br oid="YeoJVEd8"/>
-      <SUI-Input type="password" oid="kOC4ChrJ"/>
+      <SUI.Input type="password" oid="kOC4ChrJ"/>
     </Example>
     <Example columns={5} oid="pPBMRPc5">
-      <Oak-Spacer oid="YiEEE74w"/>
-      <SUI-Label pointing="down" oid="iRUa3Tfp">
+      <Oak.Spacer oid="YiEEE74w"/>
+      <SUI.Label pointing="down" oid="iRUa3Tfp">
         type=radio
-      </SUI-Label>
+      </SUI.Label>
       <br oid="lGltCbSG"/>
-      <SUI-Input type="radio" name="a" value="1" rightLabel="Option 1" oid="LRCaZ0MN"/>
+      <SUI.Input type="radio" name="a" value="1" rightLabel="Option 1" oid="LRCaZ0MN"/>
       <br oid="Uv1UunjU"/>
-      <SUI-Input type="radio" name="a" value="2" rightLabel="Option 2" oid="FZNDV3EQ"/>
+      <SUI.Input type="radio" name="a" value="2" rightLabel="Option 2" oid="FZNDV3EQ"/>
       <br oid="hrtabv8S"/>
     </Example>
     <Example columns={5} oid="VnPstBoP">
-      <Oak-Spacer oid="GryvZ1db"/>
-      <SUI-Label pointing="down" oid="d0IaTC3v">
+      <Oak.Spacer oid="GryvZ1db"/>
+      <SUI.Label pointing="down" oid="d0IaTC3v">
         type=range
-      </SUI-Label>
+      </SUI.Label>
       <br oid="Udhiaprs"/>
-      <SUI-Input type="range" min={0} max={10} oid="y61B76vQ"/>
+      <SUI.Input type="range" min={0} max={10} oid="y61B76vQ"/>
     </Example>
     <Example columns={5} oid="HtBFPQuT">
-      <Oak-Spacer oid="Cye7mgrA"/>
-      <SUI-Label pointing="down" oid="Tw90nHdS">
+      <Oak.Spacer oid="Cye7mgrA"/>
+      <SUI.Label pointing="down" oid="Tw90nHdS">
         type=reset
-      </SUI-Label>
+      </SUI.Label>
       <br oid="xrlXj81d"/>
-      <SUI-Input type="reset" value="Reset" oid="vkaT6gov"/>
+      <SUI.Input type="reset" value="Reset" oid="vkaT6gov"/>
     </Example>
     <Example columns={5} oid="rhQEZmqO">
-      <Oak-Spacer oid="BS6y4TNb"/>
-      <SUI-Label pointing="down" oid="HNE3tmB5">
+      <Oak.Spacer oid="BS6y4TNb"/>
+      <SUI.Label pointing="down" oid="HNE3tmB5">
         type=search
-      </SUI-Label>
+      </SUI.Label>
       <br oid="DJamPhEn"/>
-      <SUI-Input type="search" oid="S1TNhWGf"/>
+      <SUI.Input type="search" oid="S1TNhWGf"/>
     </Example>
     <Example columns={5} oid="nDrbJe35">
-      <Oak-Spacer oid="O7Z3nB6E"/>
-      <SUI-Label pointing="down" oid="cTT7Edba">
+      <Oak.Spacer oid="O7Z3nB6E"/>
+      <SUI.Label pointing="down" oid="cTT7Edba">
         type=submit
-      </SUI-Label>
+      </SUI.Label>
       <br oid="DpNpHgUO"/>
-      <SUI-Input type="submit" value="Save" oid="h3vNshwt"/>
+      <SUI.Input type="submit" value="Save" oid="h3vNshwt"/>
     </Example>
     <Example columns={5} oid="fKdn8fiW">
-      <Oak-Spacer oid="sxwdjD63"/>
-      <SUI-Label pointing="down" oid="kZvEZ5SY">
+      <Oak.Spacer oid="sxwdjD63"/>
+      <SUI.Label pointing="down" oid="kZvEZ5SY">
         type=tel
-      </SUI-Label>
+      </SUI.Label>
       <br oid="h0KsgbFB"/>
-      <SUI-Input type="tel" oid="Gm4QIZEx"/>
+      <SUI.Input type="tel" oid="Gm4QIZEx"/>
     </Example>
     <Example columns={5} oid="UA1w5N6t">
-      <Oak-Spacer oid="LNjKL4Z0"/>
-      <SUI-Label pointing="down" oid="jlByIjHA">
+      <Oak.Spacer oid="LNjKL4Z0"/>
+      <SUI.Label pointing="down" oid="jlByIjHA">
         type=time
-      </SUI-Label>
+      </SUI.Label>
       <br oid="jUPUHPsc"/>
-      <SUI-Input type="time" oid="SdOGu9aL"/>
+      <SUI.Input type="time" oid="SdOGu9aL"/>
     </Example>
     <Example columns={5} oid="WldZWQ3J">
-      <Oak-Spacer oid="P1jwDQdC"/>
-      <SUI-Label pointing="down" oid="TPMMGc2k">
+      <Oak.Spacer oid="P1jwDQdC"/>
+      <SUI.Label pointing="down" oid="TPMMGc2k">
         type=url
-      </SUI-Label>
+      </SUI.Label>
       <br oid="QFyUex1V"/>
-      <SUI-Input type="url" oid="JCXKpTy0"/>
+      <SUI.Input type="url" oid="JCXKpTy0"/>
     </Example>
     <Example columns={5} oid="V7vyIvDL">
-      <Oak-Spacer oid="DRbhtCG9"/>
-      <SUI-Label pointing="down" oid="BovbOHlu">
+      <Oak.Spacer oid="DRbhtCG9"/>
+      <SUI.Label pointing="down" oid="BovbOHlu">
         type=week
-      </SUI-Label>
+      </SUI.Label>
       <br oid="G9YPhKix"/>
-      <SUI-Input type="week" oid="KryIOcsD"/>
+      <SUI.Input type="week" oid="KryIOcsD"/>
     </Example>
     <Example columns={8} oid="M73w3PVl">
-      <SUI-Label pointing="down" oid="tkmVrHvN">
+      <SUI.Label pointing="down" oid="tkmVrHvN">
         type=textarea
-      </SUI-Label>
+      </SUI.Label>
       <br oid="FKiVdCdx"/>
-      <SUI-Input type="textarea" oid="uQCy9y3I"/>
+      <SUI.Input type="textarea" oid="uQCy9y3I"/>
       <Todo oid="CaBO5S5C">
         Add styling for textarea to semantic ui?
       </Todo>
@@ -213,142 +213,142 @@
   </PageSection>
   <PageSection grid title="States" oid="PRJthOrH">
     <Example title="Normal" hint="<Input/>" columns={5} oid="sEwRTa6W">
-      <SUI-Input oid="Rs0XYVUG"/>
+      <SUI.Input oid="Rs0XYVUG"/>
     </Example>
     <Example title="Disabled" hint="<Input disabled/>" columns={5} oid="sslnEVw5">
-      <SUI-Input disabled value="text" oid="AFIlQNXq"/>
+      <SUI.Input disabled value="text" oid="AFIlQNXq"/>
     </Example>
     <Example title="Hidden" hint="<Input hidden/>" columns={5} oid="lBPlo6rR">
-      <SUI-Input hidden value="text" oid="eaCkaKlh"/>
+      <SUI.Input hidden value="text" oid="eaCkaKlh"/>
     </Example>
     <Example title="Loading" hint="<Input loading icon='search'/>" columns={5} oid="RaGn4Squ">
-      <SUI-Input loading icon="search" oid="LRJ7qSht"/>
+      <SUI.Input loading icon="search" oid="LRJ7qSht"/>
     </Example>
     <Example title="Focused" hint="<Input focused/>" columns={5} oid="QAN0uDQ4">
-      <SUI-Input focused oid="k9dnA4ch"/>
+      <SUI.Input focused oid="k9dnA4ch"/>
     </Example>
     <Example title="Error" hint="<Input error/>" columns={5} oid="CG2yNunE">
-      <SUI-Input error="A value is required" value="text" oid="hkj9CZcu"/>
+      <SUI.Input error="A value is required" value="text" oid="hkj9CZcu"/>
     </Example>
   </PageSection>
   <PageSection title="Appearance" oid="Sx3lKMgU">
     <Example title="Icon" hint="<Input icon='search' iconOn='right'/>" oid="VsnrmuaL">
-      <SUI-Grid columns={3} oid="MksAKQYp">
-        <SUI-Column oid="SUnOqNy3">
-          <SUI-Input icon="search" oid="fn9xEjgN"/>
-        </SUI-Column>
-        <SUI-Column oid="SqYmFJZg">
-          <SUI-Input icon="search" iconOn="left" oid="aSpElnQH"/>
-        </SUI-Column>
-        <SUI-Column oid="L8abTvaG">
-          <SUI-Input icon="inverted circular search link icon" oid="X6E1pDgb"/>
-        </SUI-Column>
-      </SUI-Grid>
+      <SUI.Grid columns={3} oid="MksAKQYp">
+        <SUI.Column oid="SUnOqNy3">
+          <SUI.Input icon="search" oid="fn9xEjgN"/>
+        </SUI.Column>
+        <SUI.Column oid="SqYmFJZg">
+          <SUI.Input icon="search" iconOn="left" oid="aSpElnQH"/>
+        </SUI.Column>
+        <SUI.Column oid="L8abTvaG">
+          <SUI.Input icon="inverted circular search link icon" oid="X6E1pDgb"/>
+        </SUI.Column>
+      </SUI.Grid>
     </Example>
     <Example title="Labelled" hint="<Input leftLabel='...' rightLabel='...'/>" oid="CnJavIy5">
-      <SUI-Grid columns={3} oid="Xr5xXRlk">
-        <SUI-Column oid="y2VsyHr7">
-          <SUI-Input leftLabel="http://" oid="NbRBTgFG"/>
-        </SUI-Column>
-        <SUI-Column oid="Q5kQZ3bH">
-          <SUI-Input rightLabel=".com" oid="Ts91usju"/>
-        </SUI-Column>
-        <SUI-Column oid="qlM6XjXq">
-          <SUI-Input leftLabel="$" rightLabel="kg" labelAppearance="basic" oid="SlqRjXfe"/>
-        </SUI-Column>
-        <SUI-Column oid="mrIVsQbT">
-          <SUI-Input maxLength={5} icon="tags" iconOn="left" appearance="fluid" rightLabel="Tags" labelAppearance="tag" oid="eR3UPqaO"/>
-        </SUI-Column>
-        <SUI-Column oid="pDavQqGN">
-          <SUI-Input appearance="left corner labeled" oid="rkHfHMuO">
+      <SUI.Grid columns={3} oid="Xr5xXRlk">
+        <SUI.Column oid="y2VsyHr7">
+          <SUI.Input leftLabel="http://" oid="NbRBTgFG"/>
+        </SUI.Column>
+        <SUI.Column oid="Q5kQZ3bH">
+          <SUI.Input rightLabel=".com" oid="Ts91usju"/>
+        </SUI.Column>
+        <SUI.Column oid="qlM6XjXq">
+          <SUI.Input leftLabel="$" rightLabel="kg" labelAppearance="basic" oid="SlqRjXfe"/>
+        </SUI.Column>
+        <SUI.Column oid="mrIVsQbT">
+          <SUI.Input maxLength={5} icon="tags" iconOn="left" appearance="fluid" rightLabel="Tags" labelAppearance="tag" oid="eR3UPqaO"/>
+        </SUI.Column>
+        <SUI.Column oid="pDavQqGN">
+          <SUI.Input appearance="left corner labeled" oid="rkHfHMuO">
             <div className="ui left corner label" oid="C4YL5duP">
-              <SUI-Icon icon="asterisk" oid="Eowk0KTF"/>
+              <SUI.Icon icon="asterisk" oid="Eowk0KTF"/>
             </div>
-          </SUI-Input>
-        </SUI-Column>
-        <SUI-Column oid="aiW754UN">
-          <SUI-Input appearance="corner labeled" oid="vHnPM6sA">
+          </SUI.Input>
+        </SUI.Column>
+        <SUI.Column oid="aiW754UN">
+          <SUI.Input appearance="corner labeled" oid="vHnPM6sA">
             <div className="ui corner label" oid="GxOPIGxH">
-              <SUI-Icon icon="asterisk" oid="dfV9gi8i"/>
+              <SUI.Icon icon="asterisk" oid="dfV9gi8i"/>
             </div>
-          </SUI-Input>
-        </SUI-Column>
-      </SUI-Grid>
+          </SUI.Input>
+        </SUI.Column>
+      </SUI.Grid>
     </Example>
     <Example title="Action" hint="<Input><Button></Input>" oid="j0VKgNAK">
-      <SUI-Grid columns={2} oid="h806vT4o">
-        <SUI-Column oid="qaAM8t8b">
-          <SUI-Input placeholder="Search..." appearance="action" oid="UFLdRJeC">
-            <SUI-Button title="Search" oid="G9OEZCCy"/>
-          </SUI-Input>
-        </SUI-Column>
-        <SUI-Column oid="rxWxnwNw">
-          <SUI-Input value="$52.03" appearance="fluid left action" childrenOn="left" oid="ti6NqsfT">
-            <SUI-Button color="teal" title="Checkout" oid="Cgt1gISN"/>
-          </SUI-Input>
-        </SUI-Column>
-        <SUI-Column oid="kYCXymdm">
-          <SUI-Input icon="search" iconOn="left" placeholder="search" appearance="fluid right action" oid="hms7Tc5g">
+      <SUI.Grid columns={2} oid="h806vT4o">
+        <SUI.Column oid="qaAM8t8b">
+          <SUI.Input placeholder="Search..." appearance="action" oid="UFLdRJeC">
+            <SUI.Button title="Search" oid="G9OEZCCy"/>
+          </SUI.Input>
+        </SUI.Column>
+        <SUI.Column oid="rxWxnwNw">
+          <SUI.Input value="$52.03" appearance="fluid left action" childrenOn="left" oid="ti6NqsfT">
+            <SUI.Button color="teal" title="Checkout" oid="Cgt1gISN"/>
+          </SUI.Input>
+        </SUI.Column>
+        <SUI.Column oid="kYCXymdm">
+          <SUI.Input icon="search" iconOn="left" placeholder="search" appearance="fluid right action" oid="hms7Tc5g">
             <div className="ui floating dropdown button" oid="J9851nky">
               <div className="text" oid="BnjsnPWp">
                 This Page
               </div>
-              <SUI-Icon icon="dropdown" oid="LX0A7u9a"/>
+              <SUI.Icon icon="dropdown" oid="LX0A7u9a"/>
             </div>
-          </SUI-Input>
-        </SUI-Column>
-      </SUI-Grid>
+          </SUI.Input>
+        </SUI.Column>
+      </SUI.Grid>
     </Example>
     <Example title="Transparent" hint="<Input appearance='transparent'/>" oid="udwvjgc3">
-      <SUI-Grid columns={3} oid="WV8s6FmT">
-        <SUI-Column oid="ne7J7laR">
-          <SUI-Input placeholder="Search..." appearance="transparent" oid="sKFj8CVb"/>
-        </SUI-Column>
-        <SUI-Column oid="aF5xonop">
-          <SUI-Input placeholder="Search..." icon="search" iconOn="left" appearance="transparent" oid="sIHxEWwD"/>
-        </SUI-Column>
-        <SUI-Column oid="cy8M6aHW">
-          <SUI-Input placeholder="Search..." icon="search" appearance="transparent" oid="eCkHofjT"/>
-        </SUI-Column>
-      </SUI-Grid>
+      <SUI.Grid columns={3} oid="WV8s6FmT">
+        <SUI.Column oid="ne7J7laR">
+          <SUI.Input placeholder="Search..." appearance="transparent" oid="sKFj8CVb"/>
+        </SUI.Column>
+        <SUI.Column oid="aF5xonop">
+          <SUI.Input placeholder="Search..." icon="search" iconOn="left" appearance="transparent" oid="sIHxEWwD"/>
+        </SUI.Column>
+        <SUI.Column oid="cy8M6aHW">
+          <SUI.Input placeholder="Search..." icon="search" appearance="transparent" oid="eCkHofjT"/>
+        </SUI.Column>
+      </SUI.Grid>
     </Example>
     <Example title="Inverted" hint="<Input appearance='inverted'/>" oid="RTIiD6OQ">
-      <SUI-Segment appearance="inverted" oid="DsGt1lQ0">
-        <SUI-Grid columns={3} appearance="inverted" oid="hU1vyN57">
-          <SUI-Column oid="KUauomht">
-            <SUI-Input placeholder="Search..." appearance="inverted" oid="hnqee21V"/>
-          </SUI-Column>
-          <SUI-Column oid="htwj4kap">
-            <SUI-Input placeholder="Search..." icon="search" iconOn="left" appearance="inverted" oid="fDxQVgi4"/>
-          </SUI-Column>
-          <SUI-Column oid="nt7ipGVY">
-            <SUI-Input placeholder="Search..." icon="search" appearance="inverted transparent" oid="E4A5qUcW"/>
-          </SUI-Column>
-        </SUI-Grid>
-      </SUI-Segment>
+      <SUI.Segment appearance="inverted" oid="DsGt1lQ0">
+        <SUI.Grid columns={3} appearance="inverted" oid="hU1vyN57">
+          <SUI.Column oid="KUauomht">
+            <SUI.Input placeholder="Search..." appearance="inverted" oid="hnqee21V"/>
+          </SUI.Column>
+          <SUI.Column oid="htwj4kap">
+            <SUI.Input placeholder="Search..." icon="search" iconOn="left" appearance="inverted" oid="fDxQVgi4"/>
+          </SUI.Column>
+          <SUI.Column oid="nt7ipGVY">
+            <SUI.Input placeholder="Search..." icon="search" appearance="inverted transparent" oid="E4A5qUcW"/>
+          </SUI.Column>
+        </SUI.Grid>
+      </SUI.Segment>
     </Example>
     <Example title="Fluid" hint="<Input appearance='fluid'/>" oid="i7CdQ9nU">
-      <SUI-Input placeholder="Search..." icon="search" appearance="fluid" oid="XKu3Z3cI"/>
-      <Oak-Spacer oid="tM9PEGXU"/>
-      <SUI-Input placeholder="Search..." icon="search" iconOn="left" appearance="fluid action" oid="oR9WSOYf">
-        <SUI-Button oid="NsvMDO34">
+      <SUI.Input placeholder="Search..." icon="search" appearance="fluid" oid="XKu3Z3cI"/>
+      <Oak.Spacer oid="tM9PEGXU"/>
+      <SUI.Input placeholder="Search..." icon="search" iconOn="left" appearance="fluid action" oid="oR9WSOYf">
+        <SUI.Button oid="NsvMDO34">
           Search
-        </SUI-Button>
-      </SUI-Input>
+        </SUI.Button>
+      </SUI.Input>
     </Example>
     <Example title="Sizes" hint="<Input size='mini'/>" oid="dsL5usLC">
-      <SUI-Input placeholder="Mini" icon="search" size="mini" oid="b5BAfGuo"/>
-      <Oak-Spacer oid="QbyDnqTN"/>
-      <SUI-Input placeholder="Small" icon="search" size="small" oid="ieLv6sQR"/>
-      <Oak-Spacer oid="IWKNrvvt"/>
-      <SUI-Input placeholder="Medium" icon="search" size="medium" oid="feD7ORtl"/>
-      <Oak-Spacer oid="vmXkITD4"/>
-      <SUI-Input placeholder="Large" icon="search" size="large" oid="EIttWhwt"/>
-      <Oak-Spacer oid="wdw97cmi"/>
-      <SUI-Input placeholder="Huge" icon="search" size="huge" oid="SOYL7lvV"/>
-      <Oak-Spacer oid="R1O4txIW"/>
-      <SUI-Input placeholder="Massive" icon="search" size="massive" oid="rp64shQl"/>
-      <Oak-Spacer oid="qnv5O552"/>
+      <SUI.Input placeholder="Mini" icon="search" size="mini" oid="b5BAfGuo"/>
+      <Oak.Spacer oid="QbyDnqTN"/>
+      <SUI.Input placeholder="Small" icon="search" size="small" oid="ieLv6sQR"/>
+      <Oak.Spacer oid="IWKNrvvt"/>
+      <SUI.Input placeholder="Medium" icon="search" size="medium" oid="feD7ORtl"/>
+      <Oak.Spacer oid="vmXkITD4"/>
+      <SUI.Input placeholder="Large" icon="search" size="large" oid="EIttWhwt"/>
+      <Oak.Spacer oid="wdw97cmi"/>
+      <SUI.Input placeholder="Huge" icon="search" size="huge" oid="SOYL7lvV"/>
+      <Oak.Spacer oid="R1O4txIW"/>
+      <SUI.Input placeholder="Massive" icon="search" size="massive" oid="rp64shQl"/>
+      <Oak.Spacer oid="qnv5O552"/>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

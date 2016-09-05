@@ -1,6 +1,6 @@
 //////////////////////////////
 //  Menubar for the entire app.
-//  TODO: make <Oak-AppMenubar> and <Oak-AppMenu> components.
+//  TODO: make <Oak.AppMenubar> and <Oak.AppMenu> components.
 //  TODO: the actual <AppMenu> contents should come from a dynamic component.
 //////////////////////////////
 

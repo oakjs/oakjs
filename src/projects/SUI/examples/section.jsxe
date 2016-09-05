@@ -1,12 +1,12 @@
-<Oak-Section id="examples" title="Examples" oid="SMaT8WT0">
+<Oak.Section id="examples" title="Examples" oid="SMaT8WT0">
   <div id="PageSidebar" oid="TfyyiBgF">
-    <SUI-Menu id="PageSidebarMenu" appearance="inverted attached vertical sticky" oid="we40f12G">
-      <SUI-MenuHeader oid="IanBiOwq">
+    <SUI.Menu id="PageSidebarMenu" appearance="inverted attached vertical sticky" oid="we40f12G">
+      <SUI.MenuHeader oid="IanBiOwq">
         Components
-      </SUI-MenuHeader>
-      <Oak-PageMenu appearance="inverted vertical" oid="VEL5c4kJ"/>
-      <Oak-Spacer large oid="kILJxOdp"/>
-    </SUI-Menu>
+      </SUI.MenuHeader>
+      <Oak.PageMenu appearance="inverted vertical" oid="VEL5c4kJ"/>
+      <Oak.Spacer large oid="kILJxOdp"/>
+    </SUI.Menu>
   </div>
-  <Oak-CurrentPage oid="VJfF0xbf"/>
-</Oak-Section>
+  <Oak.CurrentPage oid="VJfF0xbf"/>
+</Oak.Section>

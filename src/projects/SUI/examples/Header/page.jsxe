@@ -1,4 +1,4 @@
-<Oak-Page id="Header" title="Header" oid="CpPO1Xi3">
+<Oak.Page id="Header" title="Header" oid="CpPO1Xi3">
   <PageTitle title="Header" oid="vPX4j7H4">
     A header provides a short summary of content.
     <ul oid="dpF6LSJf">
@@ -32,28 +32,28 @@
         </b>
         affected by surrounding content size.
       </Info>
-      <SUI-Segment oid="tYcNmmM7">
-        <SUI-Header size="huge" oid="e92jh2L1">
+      <SUI.Segment oid="tYcNmmM7">
+        <SUI.Header size="huge" oid="e92jh2L1">
           First Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="PqWICnwI"/>
-        <SUI-Header size="large" oid="YKaMgnKX">
+        <SUI.Header size="large" oid="YKaMgnKX">
           Second Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="pVftoEaO"/>
-        <SUI-Header size="medium" oid="dZCw3AVZ">
+        <SUI.Header size="medium" oid="dZCw3AVZ">
           Third Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="v49UOchu"/>
-        <SUI-Header size="small" oid="qtQj2E2H">
+        <SUI.Header size="small" oid="qtQj2E2H">
           Fourth Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="QQU8aQGL"/>
-        <SUI-Header size="tiny" oid="Y54pjj6G">
+        <SUI.Header size="tiny" oid="Y54pjj6G">
           Fifth Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="CdEJUnuV"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Page Headers" hint="<Header page size='huge'/>" oid="C4umCQ2d">
       <Info appearance="info" oid="NwVIojC3">
@@ -63,289 +63,289 @@
         </b>
         affected by surrounding content size.
       </Info>
-      <SUI-Segment oid="A3SOQ766">
-        <SUI-Header page size="huge" oid="C8lmc9uI">
+      <SUI.Segment oid="A3SOQ766">
+        <SUI.Header page size="huge" oid="C8lmc9uI">
           First Page Header
-        </SUI-Header>
-        <SUI-Header page size="large" oid="GyYlAPVU">
+        </SUI.Header>
+        <SUI.Header page size="large" oid="GyYlAPVU">
           Second Page Header
-        </SUI-Header>
-        <SUI-Header page size="medium" oid="hdfxcDsw">
+        </SUI.Header>
+        <SUI.Header page size="medium" oid="hdfxcDsw">
           Third Page Header
-        </SUI-Header>
-        <SUI-Header page size="small" oid="cSliklhG">
+        </SUI.Header>
+        <SUI.Header page size="small" oid="cSliklhG">
           Fourth Page Header
-        </SUI-Header>
-        <SUI-Header page size="tiny" oid="IZNZ2MvO">
+        </SUI.Header>
+        <SUI.Header page size="tiny" oid="IZNZ2MvO">
           Fifth Page Header
-        </SUI-Header>
-      </SUI-Segment>
+        </SUI.Header>
+      </SUI.Segment>
     </Example>
     <Example title="Sub Headers" hint="<Header sub size='huge'/>" oid="Ww1TFFGl">
-      <SUI-Segment oid="DVS1HNLG">
-        <SUI-Header sub size="huge" oid="tglkBO1r">
+      <SUI.Segment oid="DVS1HNLG">
+        <SUI.Header sub size="huge" oid="tglkBO1r">
           First Sub Header
-        </SUI-Header>
-        <SUI-Header sub size="large" oid="d0L1Nybs">
+        </SUI.Header>
+        <SUI.Header sub size="large" oid="d0L1Nybs">
           Second Sub Header
-        </SUI-Header>
-        <SUI-Header sub size="medium" oid="slytsYWZ">
+        </SUI.Header>
+        <SUI.Header sub size="medium" oid="slytsYWZ">
           Third Sub Header
-        </SUI-Header>
-        <SUI-Header sub size="small" oid="j1xjMMP8">
+        </SUI.Header>
+        <SUI.Header sub size="small" oid="j1xjMMP8">
           Fourth Sub Header
-        </SUI-Header>
-        <SUI-Header sub size="tiny" oid="p0onAiaO">
+        </SUI.Header>
+        <SUI.Header sub size="tiny" oid="p0onAiaO">
           Fifth Sub Header
-        </SUI-Header>
-      </SUI-Segment>
+        </SUI.Header>
+      </SUI.Segment>
     </Example>
     <Example title="Icon Headers" hint="<Header appearance='icon' icon='settings'/>" oid="L6F7mgop">
-      <SUI-Segment oid="Ws5GqFUh">
-        <SUI-Grid oid="poD9JDXp">
-          <SUI-Column width={3} oid="UVHbx0nQ">
-            <SUI-Header page appearance="icon" icon="settings" align="center" size="small" oid="auJcvu1h">
+      <SUI.Segment oid="Ws5GqFUh">
+        <SUI.Grid oid="poD9JDXp">
+          <SUI.Column width={3} oid="UVHbx0nQ">
+            <SUI.Header page appearance="icon" icon="settings" align="center" size="small" oid="auJcvu1h">
               Account Settings
-            </SUI-Header>
-          </SUI-Column>
-          <SUI-Column width={13} oid="CbD8pCkj">
+            </SUI.Header>
+          </SUI.Column>
+          <SUI.Column width={13} oid="CbD8pCkj">
             <LoremIpsum medium oid="KNHlIJlF"/>
-          </SUI-Column>
-        </SUI-Grid>
-      </SUI-Segment>
-      <SUI-Segment oid="CGU2TgEb">
-        <SUI-Header appearance="icon" icon="circular users" align="center" size="huge" oid="pm5uv3vh">
+          </SUI.Column>
+        </SUI.Grid>
+      </SUI.Segment>
+      <SUI.Segment oid="CGU2TgEb">
+        <SUI.Header appearance="icon" icon="circular users" align="center" size="huge" oid="pm5uv3vh">
           Friends
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="Sf7Q7Yux"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
   </PageSection>
   <PageSection title="Content" oid="eZjoFQ62">
     <Example title="Subheader" hint="<Header>Header Text<Subheader>Sub header text</Subheader></Header>" oid="GDBDpukX">
-      <SUI-Segment oid="tRNqcbEC">
-        <SUI-Header size="huge" oid="n4V4BJ8x">
+      <SUI.Segment oid="tRNqcbEC">
+        <SUI.Header size="huge" oid="n4V4BJ8x">
           Account Settings
-          <SUI-Subheader oid="UUaWtjx0">
+          <SUI.Subheader oid="UUaWtjx0">
             Manage your settings and e-mail preferences.
-          </SUI-Subheader>
-        </SUI-Header>
+          </SUI.Subheader>
+        </SUI.Header>
         <LoremIpsum short oid="YVoJkbsk"/>
-      </SUI-Segment>
-      <SUI-Segment oid="PNI34IS3">
-        <SUI-Header size="huge" dividing oid="AtExCKGE">
+      </SUI.Segment>
+      <SUI.Segment oid="PNI34IS3">
+        <SUI.Header size="huge" dividing oid="AtExCKGE">
           H1
-          <SUI-Subheader oid="V6HGnPMg">
+          <SUI.Subheader oid="V6HGnPMg">
             Sub Header
-          </SUI-Subheader>
-        </SUI-Header>
-        <SUI-Header size="large" dividing oid="Yx86D76k">
+          </SUI.Subheader>
+        </SUI.Header>
+        <SUI.Header size="large" dividing oid="Yx86D76k">
           H2
-          <SUI-Subheader oid="TkSTZkD7">
+          <SUI.Subheader oid="TkSTZkD7">
             Sub Header
-          </SUI-Subheader>
-        </SUI-Header>
-        <SUI-Header size="medium" dividing oid="FiAjrakg">
+          </SUI.Subheader>
+        </SUI.Header>
+        <SUI.Header size="medium" dividing oid="FiAjrakg">
           H3
-          <SUI-Subheader oid="NnKxKuq5">
+          <SUI.Subheader oid="NnKxKuq5">
             Sub Header
-          </SUI-Subheader>
-        </SUI-Header>
-        <SUI-Header size="small" dividing oid="kygqHDi8">
+          </SUI.Subheader>
+        </SUI.Header>
+        <SUI.Header size="small" dividing oid="kygqHDi8">
           H4
-          <SUI-Subheader oid="BWmkx542">
+          <SUI.Subheader oid="BWmkx542">
             Sub Header
-          </SUI-Subheader>
-        </SUI-Header>
-        <SUI-Header size="tiny" oid="Q2FbZ1Nq">
+          </SUI.Subheader>
+        </SUI.Header>
+        <SUI.Header size="tiny" oid="Q2FbZ1Nq">
           H5
-          <SUI-Subheader oid="My5ay9DD">
+          <SUI.Subheader oid="My5ay9DD">
             Sub Header
-          </SUI-Subheader>
-        </SUI-Header>
-      </SUI-Segment>
+          </SUI.Subheader>
+        </SUI.Header>
+      </SUI.Segment>
     </Example>
     <Example title="Icon" hint="<Header icon='...'/>" oid="HnNmFRYJ">
-      <SUI-Segment oid="O0oC4uhN">
-        <SUI-Header size="huge" icon="settings" oid="TWuHjulS">
+      <SUI.Segment oid="O0oC4uhN">
+        <SUI.Header size="huge" icon="settings" oid="TWuHjulS">
           Settings
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="H6pZG6rX"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Image" hint="<Header image='...'/>" oid="r1nFLI1i">
-      <SUI-Segment oid="e8knfkFk">
-        <SUI-Header size="huge" image="http://semantic-ui.com/images/avatar2/large/patrick.png" oid="Hy3gFQFG">
+      <SUI.Segment oid="e8knfkFk">
+        <SUI.Header size="huge" image="http://semantic-ui.com/images/avatar2/large/patrick.png" oid="Hy3gFQFG">
           Patrick
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="TturiDKJ"/>
-      </SUI-Segment>
-      <SUI-Segment oid="OqZ7OUO4">
-        <SUI-Header size="huge" image="http://semantic-ui.com/images/avatar2/large/patrick.png" imageAppearance="ui circular image" oid="hVP6M7CQ">
+      </SUI.Segment>
+      <SUI.Segment oid="OqZ7OUO4">
+        <SUI.Header size="huge" image="http://semantic-ui.com/images/avatar2/large/patrick.png" imageAppearance="ui circular image" oid="hVP6M7CQ">
           Patrick
-          <SUI-Subheader oid="ZMDJLH6i">
+          <SUI.Subheader oid="ZMDJLH6i">
             A really spiffy guy
-          </SUI-Subheader>
-        </SUI-Header>
+          </SUI.Subheader>
+        </SUI.Header>
         <LoremIpsum short oid="AwlL0dhw"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
   </PageSection>
   <PageSection title="Variations" oid="jYutH2nI">
     <Example title="Text alignment" hint="<Header align='left'/>" oid="MrNpUTKg">
-      <SUI-Segment oid="LCUYpev5">
-        <SUI-Header align="left" oid="MON4q04C">
+      <SUI.Segment oid="LCUYpev5">
+        <SUI.Header align="left" oid="MON4q04C">
           Left
-        </SUI-Header>
-        <SUI-Header align="center" oid="ZFY1FThK">
+        </SUI.Header>
+        <SUI.Header align="center" oid="ZFY1FThK">
           Center
-        </SUI-Header>
-        <SUI-Header align="right" oid="Kpv05myW">
+        </SUI.Header>
+        <SUI.Header align="right" oid="Kpv05myW">
           Right
-        </SUI-Header>
-        <SUI-Header align="justified" oid="Qaoj7t5n">
+        </SUI.Header>
+        <SUI.Header align="justified" oid="Qaoj7t5n">
           Justified Text Can Have Lots Of Spaces
-        </SUI-Header>
-      </SUI-Segment>
+        </SUI.Header>
+      </SUI.Segment>
     </Example>
     <Example title="Floating" hint="<Header floated='left'/>" oid="Xf9MeNww">
-      <SUI-Segment clearing oid="i07n9Rcq">
-        <SUI-Header floated="left" oid="cMVFnJta">
+      <SUI.Segment clearing oid="i07n9Rcq">
+        <SUI.Header floated="left" oid="cMVFnJta">
           Go Back
-        </SUI-Header>
-        <SUI-Header floated="right" oid="xr5ft3Gg">
+        </SUI.Header>
+        <SUI.Header floated="right" oid="xr5ft3Gg">
           Go Forward
-        </SUI-Header>
-      </SUI-Segment>
+        </SUI.Header>
+      </SUI.Segment>
     </Example>
     <Example title="Dividing" hint="<Header dividing/>" oid="sqUKPoxf">
-      <SUI-Segment oid="k2ZUqWVc">
+      <SUI.Segment oid="k2ZUqWVc">
         <LoremIpsum short oid="SITiOjFg"/>
-        <SUI-Header dividing oid="RGw9sAMp">
+        <SUI.Header dividing oid="RGw9sAMp">
           Dividing Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="Wv4js6ip"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Block" hint="<Header appearance='block'/>" oid="SJaDm5cC">
-      <Oak-Spacer oid="XCcZHwpg"/>
-      <SUI-Segment appearance="basic unpadded" oid="IDuxKnHR">
-        <SUI-Header appearance="block" oid="ZZsUpL0w">
+      <Oak.Spacer oid="XCcZHwpg"/>
+      <SUI.Segment appearance="basic unpadded" oid="IDuxKnHR">
+        <SUI.Header appearance="block" oid="ZZsUpL0w">
           Block Header
-        </SUI-Header>
+        </SUI.Header>
         <LoremIpsum short oid="bIP6CRKF"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Attached" hint="<Header appearance='top attached'/>" oid="DE8Kxuto">
-      <SUI-Header appearance="top attached" oid="F9e23XFM">
+      <SUI.Header appearance="top attached" oid="F9e23XFM">
         Top Attached
-      </SUI-Header>
-      <SUI-Segment appearance="attached" oid="gBwemmB4">
+      </SUI.Header>
+      <SUI.Segment appearance="attached" oid="gBwemmB4">
         <LoremIpsum short oid="Cdvc8aqO"/>
-      </SUI-Segment>
-      <SUI-Header appearance="attached" oid="bYDbfsFh">
+      </SUI.Segment>
+      <SUI.Header appearance="attached" oid="bYDbfsFh">
         Attached
-      </SUI-Header>
-      <SUI-Segment appearance="attached" oid="nBGGBFiv">
+      </SUI.Header>
+      <SUI.Segment appearance="attached" oid="nBGGBFiv">
         <LoremIpsum short oid="wuiPXCqe"/>
-      </SUI-Segment>
-      <SUI-Header appearance="bottom attached" oid="MT5mrCHV">
+      </SUI.Segment>
+      <SUI.Header appearance="bottom attached" oid="MT5mrCHV">
         Bottom Attached
-      </SUI-Header>
+      </SUI.Header>
     </Example>
     <Example title="Disabled" hint="<Header disabled/>" oid="FUe9sqEZ">
-      <SUI-Segment oid="wAKnvAGY">
-        <SUI-Header disabled oid="pJ6aCJUd">
+      <SUI.Segment oid="wAKnvAGY">
+        <SUI.Header disabled oid="pJ6aCJUd">
           Disabled Header
-          <SUI-Subheader oid="TMTm5UMT">
+          <SUI.Subheader oid="TMTm5UMT">
             Manage your settings and e-mail preferences.
-          </SUI-Subheader>
-        </SUI-Header>
+          </SUI.Subheader>
+        </SUI.Header>
         <LoremIpsum short oid="L35s5IxG"/>
-      </SUI-Segment>
+      </SUI.Segment>
     </Example>
     <Example title="Colored" hint="<Header color='red'/>" oid="f3ZI14q5">
-      <SUI-Segment oid="w2JcjhbS">
-        <SUI-Header size="tiny" color="red" dividing oid="DTKGwSSp">
+      <SUI.Segment oid="w2JcjhbS">
+        <SUI.Header size="tiny" color="red" dividing oid="DTKGwSSp">
           Red
-        </SUI-Header>
-        <SUI-Header size="tiny" color="orange" dividing oid="kuNNmGZR">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="orange" dividing oid="kuNNmGZR">
           Orange
-        </SUI-Header>
-        <SUI-Header size="tiny" color="yellow" dividing oid="KSQoNjL8">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="yellow" dividing oid="KSQoNjL8">
           Yellow
-        </SUI-Header>
-        <SUI-Header size="tiny" color="olive" dividing oid="p5gG9Jg5">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="olive" dividing oid="p5gG9Jg5">
           Olive
-        </SUI-Header>
-        <SUI-Header size="tiny" color="green" dividing oid="gFeo39hO">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="green" dividing oid="gFeo39hO">
           Green
-        </SUI-Header>
-        <SUI-Header size="tiny" color="teal" dividing oid="oS05BNLG">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="teal" dividing oid="oS05BNLG">
           Teal
-        </SUI-Header>
-        <SUI-Header size="tiny" color="blue" dividing oid="c4lxxF4L">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="blue" dividing oid="c4lxxF4L">
           Blue
-        </SUI-Header>
-        <SUI-Header size="tiny" color="purple" dividing oid="pBkJ1F99">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="purple" dividing oid="pBkJ1F99">
           Purple
-        </SUI-Header>
-        <SUI-Header size="tiny" color="violet" dividing oid="VoJP6Cmv">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="violet" dividing oid="VoJP6Cmv">
           Violet
-        </SUI-Header>
-        <SUI-Header size="tiny" color="pink" dividing oid="OAWAXsfx">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="pink" dividing oid="OAWAXsfx">
           Pink
-        </SUI-Header>
-        <SUI-Header size="tiny" color="brown" dividing oid="LUNnnIaP">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="brown" dividing oid="LUNnnIaP">
           Brown
-        </SUI-Header>
-        <SUI-Header size="tiny" color="grey" dividing oid="jNaujV3R">
+        </SUI.Header>
+        <SUI.Header size="tiny" color="grey" dividing oid="jNaujV3R">
           Grey
-        </SUI-Header>
-      </SUI-Segment>
+        </SUI.Header>
+      </SUI.Segment>
     </Example>
     <Example title="Inverted" hint="<Header appearance='inverted'/>" oid="mtC0pZ8P">
-      <SUI-Segment appearance="inverted" oid="H57cSvJP">
-        <SUI-Header appearance="inverted" size="tiny" oid="enOU8AjU">
+      <SUI.Segment appearance="inverted" oid="H57cSvJP">
+        <SUI.Header appearance="inverted" size="tiny" oid="enOU8AjU">
           Normal
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="red" oid="hQiI6ZxT">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="red" oid="hQiI6ZxT">
           Red
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="orange" oid="VJ5Z0kV8">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="orange" oid="VJ5Z0kV8">
           Orange
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="yellow" oid="SLcJ6SEp">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="yellow" oid="SLcJ6SEp">
           Yellow
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="olive" oid="rY8cD1mb">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="olive" oid="rY8cD1mb">
           Olive
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="green" oid="f4bg32HH">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="green" oid="f4bg32HH">
           Green
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="teal" oid="M6eLTlZh">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="teal" oid="M6eLTlZh">
           Teal
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="blue" oid="bPxIPxhq">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="blue" oid="bPxIPxhq">
           Blue
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="purple" oid="L61TT429">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="purple" oid="L61TT429">
           Purple
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="violet" oid="T8Td5ipC">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="violet" oid="T8Td5ipC">
           Violet
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="pink" oid="UOylBhDh">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="pink" oid="UOylBhDh">
           Pink
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="brown" oid="EpyrE73h">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="brown" oid="EpyrE73h">
           Brown
-        </SUI-Header>
-        <SUI-Header appearance="inverted" size="tiny" color="grey" oid="tDgMS8v1">
+        </SUI.Header>
+        <SUI.Header appearance="inverted" size="tiny" color="grey" oid="tDgMS8v1">
           Grey
-        </SUI-Header>
-      </SUI-Segment>
+        </SUI.Header>
+      </SUI.Segment>
     </Example>
   </PageSection>
-</Oak-Page>
+</Oak.Page>

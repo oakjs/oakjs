@@ -119,7 +119,7 @@ export class HTMLSelect extends React.Component {
 //	whose value will be `undefined` when it is selected.
 //
 // Note: the values you get back will NOT necessarily be strings if your options/enum are not strings,
-//				e.g.  <Editor-Select options={[ true, false ]}
+//				e.g.  <Editor.Select options={[ true, false ]}
 export class Select extends Control {
 	// Add <Select> specific propTypes
 	static propTypes = {
