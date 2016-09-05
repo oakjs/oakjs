@@ -30,47 +30,77 @@ export default class Dropdown extends Control {
 	}
 
 	static defaultProps = {
+	  selection: true,
 	  delimiter: ","
 	}
 
 	// Properties passed to control.
 	static controlProps = [
-		...Control.controlProps, "allowAdditions", "multiple", "search", "selection"
+		...Control.controlProps, "allowAdditions", "items", "multiple", "search", "selection"
 	];
 
 
   // Return true if 2 values are the same.
   // Arrays will be joined
-  valuesAreTheSame(value1, value2) {
-    if (Array.isArray(value1)) value1 = value1.join(this.props.delimiter);
-    if (Array.isArray(value2)) value2 = value2.join(this.props.delimiter);
+  valuesAreTheSame(value1, value2, delimiter) {
+    if (Array.isArray(value1)) value1 = value1.join(delimiter);
+    if (Array.isArray(value2)) value2 = value2.sort().join(delimiter);
     return value1 === value2;
   }
 
   getCurrentValue(props) {
     const value = super.getCurrentValue(props);
-    // if multi-select, convert non-arrays to arrays
-    if (props.multiple && !Array.isArray(value)) {
-      if (typeof value === "string") {
-        if (value === "") return [];
-        return value.split(props.delimiter);
-      }
+    return this.normalizeValue(value, props.multiple, props.delimiter);
+  }
+
+  // Normalize `value` according to `multiple`
+  //  - value is `null/undefined/""`, return `undefined`
+  //  - if `multiple` is `true`, we'll always return a NEW array (splitting by `delimiter` if necessary)
+  //  - otherwise we'll return the value passed in.
+  normalizeValue(value, multiple, delimiter) {
+    if (value === null || value === undefined || value === "") return undefined;
+    if (multiple) {
+      if (Array.isArray(value)) return [...value];
+      if (typeof value === "string") return value.split(delimiter);
       return [value];
     }
     return value;
   }
 
   // Custom event for dropdown change which we pass up to the control.
-  @debounce(10)
-  onDropdownChanged(value) {
-    if (this.valuesAreTheSame(value, this._renderValue)) {
+  onDropdownChanged = (value, text, $control) => {
+    const props = this._props;
+    value = this.normalizeValue(value, props.multiple, props.delimiter);
+
+    if (this.valuesAreTheSame(value, props.value, props.delimiter)) {
       return console.warn("onDropdownChanged: skipping change with same value ", value);
     }
-
-    if (this._props.multiple) {
-      if (typeof value === "string" && value !== "") value = value.split(",");
+    else {
+      console.info("onDropdownChanged: changing value to ", value, typeof value);
     }
-    this._handleEvent("onChange", this._props, undefined, {}, value);
+
+    this._handleEvent("onChange", props, undefined, {}, value);
+  }
+
+  onDropdownAdd = (addedValue, addedText, $control) => {
+    const props = this._props;
+console.info("onDropdownAdd", addedValue, props.value);
+    let values = this.normalizeValue(props.value, true, props.delimiter) || [];
+    if (values.includes(addedValue)) return console.warn("Attempting to re-add value ", addedValue);
+    values = [...values, addedValue];
+console.info("changing to ", values);
+    this._handleEvent("onChange", props, undefined, {}, values);
+  };
+
+  onDropdownRemove = (removedValue, removedText, $control) => {
+    const props = this._props;
+    let values = this.normalizeValue(props.value, true, props.delimiter) || [];
+    const index = values.indexOf(removedValue);
+console.warn("onDropdownRemove", removedValue, values, index);
+    if (index === -1) return console.warn("Attempting to remove missing value ", removedValue);
+    values.splice(index, 1);
+console.info("changing to ", values);
+    this._handleEvent("onChange", props, undefined, {}, values);
   }
 
   renderControl(props) {
@@ -78,13 +108,19 @@ export default class Dropdown extends Control {
 
     // pass `options` and/or `enum` down as `items` if items wasn't specified
     if (!controlProps.items) controlProps.items = (props.options || props["enum"]);
-    controlProps.onChange = (value) => this.onDropdownChanged(value);
 
-    controlProps.label = { duration: 0 };
+    // onChange or onAdd/onRemove for multi-select
+    if (props.multiple) {
+      controlProps.onAdd = this.onDropdownAdd;
+      controlProps.onRemove = this.onDropdownRemove;
+      controlProps.onChange = Function.prototype;
 
-    // remember the value we were rendered with to avoid endless loop in `onDropdownChanged`
-    this._renderValue = props.value;
-
+      // don't animate in labels
+      controlProps.label = { duration: 0 };
+    }
+    else {
+      controlProps.onChange = this.onDropdownChanged;
+    }
     return React.createElement(SUIDropdown, controlProps);
   }
 

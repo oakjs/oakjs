@@ -13,8 +13,9 @@ import { getPath, getParent, setPath } from "oak-roots/util/path";
 // TODO: For loading purposes, PropTypes-patch has been globalized...
 //import { schemaForComponent } from "oak-roots/PropTypes-patch";
 
-import Form from "./Form";
 import { Output, Text, Checkbox, } from "./Control";
+import Dropdown from "./Dropdown";
+import Form from "./Form";
 import { Select, } from "./Select";
 
 import "./ElementEditor.less";
@@ -121,7 +122,15 @@ export default class ElementEditor extends Form {
     // skip certain properties
     if (this.IGNORED_PROPERTIES.includes(key)) return undefined;
     if (property.type === "boolean") return <Checkbox name={key} title={property.title || key} />;
-    if (property.enum) return <Select name={key} title={property.title || key} />;
+    if (property.type === "array") {
+      if (property.items && property.items.enum) {
+        return <Dropdown id={key} multiple search name={key} title={property.title || key} items={property.items.enum} />;
+      }
+    }
+
+    if (property.enum) {
+      return <Select name={key} title={property.title || key} />;
+    }
     return <Text name={key} title={property.title || key} />;
   }
 
@@ -170,8 +179,9 @@ export default class ElementEditor extends Form {
     // If no controller, we can't update...
     if (!element || !controller) return;
 
-    // clone props and update the value
-    oak.actions.setElementProps({
+    // Reset the cloned element to our props
+    // (if we just dis a `setElementProps()`, clearing values wouldn't work.
+    oak.actions.resetElementProps({
       context: this.props.controller,
       elements: [ this.props.element ],
       props: { ...this.data }
