@@ -277,12 +277,9 @@ class OakJS extends Eventful(Object) {
     return undefined;
   }
 
-  getComponentConstructorForOid(oid) {
-    const component = this.getComponentForOid(oid);
-    if (component) return this.getComponentConstructorForType(component.type);
-  }
-
 // DEPRECATE???
+  // Return the `editorProps` for a given constructor.
+  // This tells us, eg, if we can drag into them, etc.
   getEditorProps(constructor) {
     if (typeof constructor === "string") {
       if (HTML_EDITOR_SETTINGS[constructor]) return HTML_EDITOR_SETTINGS[constructor];
