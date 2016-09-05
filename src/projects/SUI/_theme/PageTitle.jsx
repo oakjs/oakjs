@@ -1,4 +1,5 @@
-export default class PageTitle extends oak.components.OakComponent {
+const OakComponent = oak.components.OakComponent;
+export default class PageTitle extends OakComponent {
   render() {
     const { page, components:c } = this.context;
     const { title, children, ...extraProps } = this.props;

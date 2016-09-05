@@ -1,5 +1,6 @@
 import "./Cropper.css";
-export default class Cropper extends oak.components.OakComponent {
+const OakComponent = oak.components.OakComponent;
+export default class Cropper extends OakComponent {
   render() {
     const { width, height, children, showOnHover, ...cropperProps } = this.props;
 

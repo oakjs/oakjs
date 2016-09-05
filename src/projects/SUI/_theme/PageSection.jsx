@@ -1,4 +1,5 @@
-export default class PageSection extends oak.components.OakComponent {
+const OakComponent = oak.components.OakComponent;
+export default class PageSection extends OakComponent {
   render() {
     const { components: c } = this.context;
     const { "data-oid": oid, id, title, children, grid, appearance, ...segmentProps } = this.props;
