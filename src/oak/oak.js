@@ -258,16 +258,6 @@ class OakJS extends Eventful(Object) {
     return oak.__PROJECT_THEMES__[projectId] || this.components;
   }
 
-  _createElement(controller, components, args) {
-    const [ type, props, ...children ] = args;
-    let constructor = this.getComponentConstructorForType(type, "", components);
-    if (!constructor) {
-      console.warn(`${controller}: Component '${type}' not found, using <Stub>`);
-      constructor = Stub;
-    }
-    return React.createElement(constructor, props, ...children);
-  }
-
   // Given a string `type` from a JSXE, return the `Component` class it corresponds to.
   getComponentConstructorForType(type, errorMessage, components) {
     // If we got a function (or a class), just use that.
@@ -289,7 +279,7 @@ class OakJS extends Eventful(Object) {
     // log an error if they gave us an errorMessage
     if (errorMessage) console.error(`${errorMessage}: type = '${type}'`);
 
-    return undefined;
+    return Stub;
   }
 
 // DEPRECATE???
