@@ -12,13 +12,13 @@ import ReactDOM from "react-dom";
 import fn from "oak-roots/util/fn";
 import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
 
-import Hideable from "./Hideable";
+import OakComponent from "./OakComponent";
 
 import "./FixedPanel.less";
 
-export default class FixedPanel extends Hideable {
+export default class FixedPanel extends OakComponent {
   static propTypes = {
-    ...Hideable.propTypes,
+    ...OakComponent.propTypes,
 
     // fixedPanel appearance
     appearance: PropTypes.string,
@@ -29,26 +29,29 @@ export default class FixedPanel extends Hideable {
   }
 
   componentDidMount() {
+    super.componentDidMount();
     this.setPanelSize();
   }
 
   componentDidUpdate() {
+    super.componentDidUpdate();
     this.setPanelSize();
   }
 
   setPanelSize() {
-    const $root = $(ReactDOM.findDOMNode(this));
-    const $popout = $(ReactDOM.findDOMNode(this.refs.popout));
-
-    // transfer the offset size of the root element to the popout
+    // get the size of our root element
+    const $root = this.$ref();
     const size = $root.offset();
     size.width = $root.outerWidth();
     size.height = $root.outerHeight();
 
-    $popout.css(size);
+    // transfer the offset size of the root element to our `popout`
+    this.$ref("popout").css(size);
   }
 
   render() {
+    if (this.hidden) return null;
+
     const { appearance, width, height, children, ...props } = this.props;
     return (
       <div className={classNames("oak", appearance, "FixedPanel")} style={{ width, height }}>

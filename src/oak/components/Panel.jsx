@@ -13,8 +13,8 @@
 //  Note that order is not important.
 //
 // TODO:
+//  - rename to QuadPanel or something?
 //  - sidebars inside vs. outside headers?
-//  - abstract out Hideable?
 //  - non-`scrolling` sidebars should always scroll?  be sticky?
 //  - different scrolling scenarios
 //  - <Panel title> auto-create <PanelHeader><h2>{title}</h2></PanelHeader>
@@ -33,7 +33,7 @@ import { Children, Component, PropTypes } from "react";
 import fn from "oak-roots/util/fn";
 import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
 
-import Hideable from "./Hideable";
+import OakComponent from "./OakComponent";
 
 import "./Panel.less";
 
@@ -41,9 +41,9 @@ import "./Panel.less";
 //
 //  Panel class
 //
-export default class Panel extends Hideable {
+export default class Panel extends OakComponent {
   static propTypes = {
-    ...Hideable.propTypes,
+    ...OakComponent.propTypes,
 
     // take up full height?
     // TODO: name???
@@ -55,27 +55,21 @@ export default class Panel extends Hideable {
 
 
   componentDidMount() {
+    super.componentDidMount();
     setScrollBodyHeights();
   }
 
   // if "scrolling" changes, clear explicitly body height
   // TESTME
   componentWillReceiveProps(nextProps) {
-    if (this.props.scrolling !== nextProps.scrolling && this.props.scrolling) {
-      $(this.refs.body).height("auto");
+    if (this.props.scrolling && !nextProps.scrolling) {
+      this.$ref("body").height("auto");
     }
   }
 
-  componentWillUpdate() {
-//    this.resetBodyHeight();
-  }
-
   componentDidUpdate() {
+    super.componentDidUpdate();
     setScrollBodyHeights();
-  }
-
-  resetBodyHeight() {
-    $(this.refs && this.refs.body).height(1);
   }
 
   // Munge children into:
@@ -119,9 +113,8 @@ export default class Panel extends Hideable {
     return children;
   }
 
-  getRenderProps() {
-    const props = super.getRenderProps();
-    if (props.hidden) return props;
+  getRenderProps(props) {
+    props = { ...props };
 
     const { fluid, scrolling } = props;
     props.className = classNames(
@@ -136,8 +129,8 @@ export default class Panel extends Hideable {
   }
 
   render() {
-    const props = this.getRenderProps();
-    if (props.hidden) return null;
+    if (this.hidden) return;
+    const props = this.getRenderProps(this.props);
     return React.createElement("div", props, ...props.children);
   }
 }
@@ -145,89 +138,94 @@ export default class Panel extends Hideable {
 
 // <PanelHeader> class inside a <Panel>
 // TODO: <PanelHeader> ???
-export class PanelHeader extends Hideable {
-  getRenderProps() {
-    const { className, height, ...props } = super.getRenderProps();
+export class PanelHeader extends OakComponent {
+  getRenderProps(props) {
+    props = { ...props };
 
     // Add known className
-    props.className = classNames("oak PanelHeader", className);
+    props.className = classNames("oak PanelHeader", props.className);
 
     // height => style.height
-    if (height) {
-      props.style = mergeProps(props.style, { height: height });
+    if (props.height) {
+      props.style = mergeProps(props.style, { height: props.height });
+      delete props.height;
     }
 
     return props;
   }
 
 	render() {
-    const props = this.getRenderProps();
-    if (props.hidden) return null;
+	  if (this.hidden) return null;
+    const props = this.getRenderProps(this.props);
     return React.createElement("header", props, ...props.children);
   }
 }
 
 
 // <PanelFooter> class inside a <Panel>
-export class PanelFooter extends Hideable {
-  getRenderProps() {
-    const props = super.getRenderProps();
+export class PanelFooter extends OakComponent {
+  getRenderProps(props) {
+    props = { ...props };
     props.className = classNames("oak PanelFooter", props.className);
+
     // height => style.height
     if (props.height) {
       props.style = mergeProps(props.style, { height: props.height });
+      delete props.height;
     }
     return props;
   }
 
 	render() {
-    const props = this.getRenderProps();
-    if (props.hidden) return null;
+	  if (this.hidden) return null;
+    const props = this.getRenderProps(this.props);
     return React.createElement("footer", props, props.children);
   }
 }
 
 
 // <LeftSidebar> class inside a <Panel>
-export class LeftSidebar extends Hideable {
+export class LeftSidebar extends OakComponent {
   static propTypes = {
-    ...Hideable.propTypes,
+    ...OakComponent.propTypes,
     width: PropTypes.number,
   }
 
-  getRenderProps() {
-    const props = super.getRenderProps();
+  getRenderProps(props) {
+    props = { ...props };
     props.className = classNames("oak LeftSidebar", props.className);
     // width => style.width
     if (props.width) {
       props.style = mergeProps(props.style, { width: props.width });
+      delete props.width;
     }
     return props;
   }
 
 	render() {
-    const props = this.getRenderProps();
-    if (props.hidden) return null;
+	  if (this.hidden) return null;
+    const props = this.getRenderProps(this.props);
     return React.createElement("div", props, props.children);
   }
 }
 
 
 // <RightSidebar> class inside a <Panel>
-export class RightSidebar extends Hideable {
-  getRenderProps() {
-    const props = super.getRenderProps();
+export class RightSidebar extends OakComponent {
+  getRenderProps(props) {
+    props = { ...props };
     props.className = classNames("oak RightSidebar", props.className);
     // width => style.width
     if (props.width) {
       props.style = mergeProps(props.style, { width: props.width });
+      delete props.width;
     }
     return props;
   }
 
 	render() {
-    const props = this.getRenderProps();
-    if (props.hidden) return null;
+	  if (this.hidden) return null;
+    const props = this.getRenderProps(this.props);
     return React.createElement("div", props, props.children);
   }
 }
@@ -239,7 +237,7 @@ export class RightSidebar extends Hideable {
 //  This is called on a slight delay after drawing.
 //
 
-const DEBUG_SCROLL = false;
+const DEBUG_SCROLL = true;
 function _setScrollBodyHeights() {
   const $scrollingPanels = $(".oak.scrolling.Panel");
   if (DEBUG_SCROLL) console.info("setScrollBodyHeights", $scrollingPanels);

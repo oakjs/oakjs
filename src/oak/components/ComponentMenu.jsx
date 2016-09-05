@@ -144,6 +144,8 @@ class ComponentMenuItem extends OakComponent {
   }
 
   render() {
+    if (this.hidden) return null;
+
     const { menu, item } = this.props;
     // Pull out components used below.
     const { Icon } = this.context.components;

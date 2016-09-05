@@ -21,15 +21,15 @@ import { Children, Component, PropTypes } from "react";
 import ReactDOM from "react-dom";
 
 import fn from "oak-roots/util/fn";
-import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
+import { classNames } from "oak-roots/util/react";
 
-import Hideable from "./Hideable";
+import OakComponent from "./OakComponent";
 
 import "./SplitPanel.less";
 
-export default class SplitPanel extends Hideable {
+export default class SplitPanel extends OakComponent {
   static propTypes = {
-    ...Hideable.propTypes,
+    ...OakComponent.propTypes,
 
     // direction? e.g. direction="vertical" means divide panel up into vertical chunks.
     direction: PropTypes.oneOf(["horizontal","vertical"]),
@@ -52,10 +52,12 @@ export default class SplitPanel extends Hideable {
 
 
   componentDidMount() {
+    super.componentDidMount();
     this.setChildSizes();
   }
 
   componentDidUpdate() {
+    super.componentDidUpdate();
     this.setChildSizes();
   }
 
@@ -98,9 +100,9 @@ export default class SplitPanel extends Hideable {
     return children;
   }
 
-  getRenderProps() {
-    const props = super.getRenderProps();
-    let { direction, resizable, scrolling } = props;
+  getRenderProps(props) {
+    props = { ...props };
+    let { resizable, scrolling, direction, className } = props;
 
     // Add standard classNames to those passed in with `props`
     props.className = classNames(
@@ -108,7 +110,7 @@ export default class SplitPanel extends Hideable {
       { scrolling, resizable },
       direction,
       "SplitPanel",
-      props.className
+      className
     );
 
     props.children = this.mungeChildren(props);
@@ -117,10 +119,10 @@ export default class SplitPanel extends Hideable {
   }
 
   render() {
-    this._props = this.getRenderProps();
-    if (this._props.hidden) return null;
+    if (this.hidden) return null;
+    const props = this._props = this.getRenderProps(this.props);
     // remove props we don't want to apply to main element
-    const { direction, children, hidden, scrolling, sizes, ...elementProps } = this._props;
+    const { direction, children, hidden, scrolling, sizes, ...elementProps } = props;
     return React.createElement("div", elementProps, ...children);
   }
 
