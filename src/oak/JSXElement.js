@@ -184,7 +184,7 @@ export default class JSXElement {
     // add return + renders at the end
     output.push(`${indent}return ${renderExpression}`);
 
-console.info(output.join("\n"));
+//console.info(output.join("\n"));
     return output.join("\n");
   }
 

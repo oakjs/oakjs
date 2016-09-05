@@ -1,5 +1,4 @@
-// custom section components
-
+// custom project components
 
 import Bug from "./Bug.jsx"
 import Cropper from "./Cropper.jsx"
@@ -16,8 +15,6 @@ import Todo from "./Todo.jsx"
 import Warning from "./Warning.jsx"
 
 oak.setProjectTheme("SUI", {
-  ...SUI.components,
-
   ...oak.components,
 
   Bug,

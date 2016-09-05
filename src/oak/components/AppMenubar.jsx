@@ -1,6 +1,6 @@
 //////////////////////////////
 //  Menubar for the entire app.
-//  TODO: make <AppMenubar> and <AppMenu> components.
+//  TODO: make <Oak-AppMenubar> and <Oak-AppMenu> components.
 //  TODO: the actual <AppMenu> contents should come from a dynamic component.
 //////////////////////////////
 
@@ -14,97 +14,97 @@ import "./AppMenubar.less";
 
 export default class AppMenubar extends OakComponent {
   render() {
-    const { oak, components: c } = this.context;
-    const { ActionItem, Divider, Dropdown, FixedPanel, Menu, MenuItem, Submenu } = c;
+    const { oak, components } = this.context;
+    const { Oak, SUI } = components;
     return (
-      <FixedPanel id="AppMenubar">
-        <Dropdown text="OakJS" showArrow={false} action="hide">
-          <Menu>
-            <MenuItem disabled>About OakJS</MenuItem>
-            <MenuItem disabled>Get Help</MenuItem>
-          </Menu>
-        </Dropdown>
-        <Dropdown text="File" showArrow={false} action="hide">
-          <Menu>
-            <MenuItem disabled>Open Project...</MenuItem>
-            <Submenu disabled>Open Recent...</Submenu>
-            <MenuItem disabled>Close Project</MenuItem>
-          </Menu>
-        </Dropdown>
-        <Dropdown text="Edit" showArrow={false} action="hide">
-          <Menu>
-            <ActionItem id="oak.undo"/>
-            <ActionItem id="oak.redo"/>
-            <Divider/>
-            <ActionItem id="oak.cutElements"/>
-            <ActionItem id="oak.copyElements"/>
-            <ActionItem id="oak.pasteElements"/>
-            <ActionItem id="oak.removeElements"/>
-            <Divider/>
-            <ActionItem id="oak.selectAll"/>
-            <ActionItem id="oak.deselectAll"/>
-          </Menu>
-        </Dropdown>
-        <Dropdown text="Project" showArrow={false} action="hide">
-          <Menu>
-            <ActionItem id="oak.showFirstProject"/>
-            <ActionItem id="oak.showPreviousProject"/>
-            <ActionItem id="oak.showNextProject"/>
-            <ActionItem id="oak.showLastProject"/>
-            <Divider/>
-            <ActionItem id="oak.startEditingProject"/>
-            <ActionItem id="oak.stopEditingProject"/>
-            <MenuItem disabled>Project Settings...</MenuItem>
-            <Divider/>
-            <ActionItem id="oak.saveProject"/>
-            <ActionItem id="oak.createProject"/>
-            <ActionItem id="oak.deleteProject"/>
-            <ActionItem id="oak.renameProject"/>
-            <ActionItem id="oak.duplicateProject"/>
-          </Menu>
-        </Dropdown>
-        <Dropdown text="Section" showArrow={false} action="hide">
-          <Menu>
-            <ActionItem id="oak.showFirstSection"/>
-            <ActionItem id="oak.showPreviousSection"/>
-            <ActionItem id="oak.showNextSection"/>
-            <ActionItem id="oak.showLastSection"/>
-            <Divider/>
-            <ActionItem id="oak.startEditingSection"/>
-            <ActionItem id="oak.stopEditingSection"/>
-            <Divider/>
-            <MenuItem disabled>Section Settings...</MenuItem>
-            <Submenu disabled>Jump to Section</Submenu>
-            <Divider/>
-            <ActionItem id="oak.saveSection"/>
-            <ActionItem id="oak.createSection"/>
-            <ActionItem id="oak.deleteSection"/>
-            <ActionItem id="oak.renameSection"/>
-            <ActionItem id="oak.duplicateSection"/>
-            <MenuItem disabled>Rearrange Sections...</MenuItem>
-          </Menu>
-        </Dropdown>
-        <Dropdown text="Page" showArrow={false} action="hide">
-          <Menu>
-            <ActionItem id="oak.showFirstPage"/>
-            <ActionItem id="oak.showPreviousPage"/>
-            <ActionItem id="oak.showNextPage"/>
-            <ActionItem id="oak.showLastPage"/>
-            <Divider/>
-            <ActionItem id="oak.startEditingPage"/>
-            <ActionItem id="oak.stopEditingPage"/>
-            <MenuItem disabled>Page Settings...</MenuItem>
-            <Submenu disabled>Jump to Page</Submenu>
-            <Divider/>
-            <ActionItem id="oak.savePage"/>
-            <ActionItem id="oak.createPage"/>
-            <ActionItem id="oak.deletePage"/>
-            <ActionItem id="oak.renamePage"/>
-            <ActionItem id="oak.duplicatePage"/>
-            <MenuItem disabled>Rearrange Pages...</MenuItem>
-          </Menu>
-        </Dropdown>
-      </FixedPanel>
+      <Oak.FixedPanel id="AppMenubar">
+        <SUI.Dropdown text="OakJS" showArrow={false} action="hide">
+          <SUI.Menu>
+            <SUI.MenuItem disabled>About OakJS</SUI.MenuItem>
+            <SUI.MenuItem disabled>Get Help</SUI.MenuItem>
+          </SUI.Menu>
+        </SUI.Dropdown>
+        <SUI.Dropdown text="File" showArrow={false} action="hide">
+          <SUI.Menu>
+            <SUI.MenuItem disabled>Open Project...</SUI.MenuItem>
+            <SUI.Submenu disabled>Open Recent...</SUI.Submenu>
+            <SUI.MenuItem disabled>Close Project</SUI.MenuItem>
+          </SUI.Menu>
+        </SUI.Dropdown>
+        <SUI.Dropdown text="Edit" showArrow={false} action="hide">
+          <SUI.Menu>
+            <Oak.ActionItem id="oak.undo"/>
+            <Oak.ActionItem id="oak.redo"/>
+            <SUI.Divider/>
+            <Oak.ActionItem id="oak.cutElements"/>
+            <Oak.ActionItem id="oak.copyElements"/>
+            <Oak.ActionItem id="oak.pasteElements"/>
+            <Oak.ActionItem id="oak.removeElements"/>
+            <SUI.Divider/>
+            <Oak.ActionItem id="oak.selectAll"/>
+            <Oak.ActionItem id="oak.deselectAll"/>
+          </SUI.Menu>
+        </SUI.Dropdown>
+        <SUI.Dropdown text="Project" showArrow={false} action="hide">
+          <SUI.Menu>
+            <Oak.ActionItem id="oak.showFirstProject"/>
+            <Oak.ActionItem id="oak.showPreviousProject"/>
+            <Oak.ActionItem id="oak.showNextProject"/>
+            <Oak.ActionItem id="oak.showLastProject"/>
+            <SUI.Divider/>
+            <Oak.ActionItem id="oak.startEditingProject"/>
+            <Oak.ActionItem id="oak.stopEditingProject"/>
+            <SUI.MenuItem disabled>Project Settings...</SUI.MenuItem>
+            <SUI.Divider/>
+            <Oak.ActionItem id="oak.saveProject"/>
+            <Oak.ActionItem id="oak.createProject"/>
+            <Oak.ActionItem id="oak.deleteProject"/>
+            <Oak.ActionItem id="oak.renameProject"/>
+            <Oak.ActionItem id="oak.duplicateProject"/>
+          </SUI.Menu>
+        </SUI.Dropdown>
+        <SUI.Dropdown text="Section" showArrow={false} action="hide">
+          <SUI.Menu>
+            <Oak.ActionItem id="oak.showFirstSection"/>
+            <Oak.ActionItem id="oak.showPreviousSection"/>
+            <Oak.ActionItem id="oak.showNextSection"/>
+            <Oak.ActionItem id="oak.showLastSection"/>
+            <SUI.Divider/>
+            <Oak.ActionItem id="oak.startEditingSection"/>
+            <Oak.ActionItem id="oak.stopEditingSection"/>
+            <SUI.Divider/>
+            <SUI.MenuItem disabled>Section Settings...</SUI.MenuItem>
+            <SUI.Submenu disabled>Jump to Section</SUI.Submenu>
+            <SUI.Divider/>
+            <Oak.ActionItem id="oak.saveSection"/>
+            <Oak.ActionItem id="oak.createSection"/>
+            <Oak.ActionItem id="oak.deleteSection"/>
+            <Oak.ActionItem id="oak.renameSection"/>
+            <Oak.ActionItem id="oak.duplicateSection"/>
+            <SUI.MenuItem disabled>Rearrange Sections...</SUI.MenuItem>
+          </SUI.Menu>
+        </SUI.Dropdown>
+        <SUI.Dropdown text="Page" showArrow={false} action="hide">
+          <SUI.Menu>
+            <Oak.ActionItem id="oak.showFirstPage"/>
+            <Oak.ActionItem id="oak.showPreviousPage"/>
+            <Oak.ActionItem id="oak.showNextPage"/>
+            <Oak.ActionItem id="oak.showLastPage"/>
+            <SUI.Divider/>
+            <Oak.ActionItem id="oak.startEditingPage"/>
+            <Oak.ActionItem id="oak.stopEditingPage"/>
+            <SUI.MenuItem disabled>Page Settings...</SUI.MenuItem>
+            <SUI.Submenu disabled>Jump to Page</SUI.Submenu>
+            <SUI.Divider/>
+            <Oak.ActionItem id="oak.savePage"/>
+            <Oak.ActionItem id="oak.createPage"/>
+            <Oak.ActionItem id="oak.deletePage"/>
+            <Oak.ActionItem id="oak.renamePage"/>
+            <Oak.ActionItem id="oak.duplicatePage"/>
+            <SUI.MenuItem disabled>Rearrange Pages...</SUI.MenuItem>
+          </SUI.Menu>
+        </SUI.Dropdown>
+      </Oak.FixedPanel>
     );
   }
 }

@@ -32,8 +32,11 @@ for (let key in exports) {
   const component = exports[key];
   component.package = "Oak"
   // export under "package name" as well
-  exports[`Oak-${key}`] = component;
+  exports[`Oak-${key}`] = component;		// DEPRECATED
+  exports[`Oak.${key}`] = component;		// DEPRECATED
 }
+// Export all as a lump off of `Oak`
+exports.Oak = Object.assign({}, exports);
 
 // NOTE: do NOT set Oak.Component package since project-specific components base off of that
 export OakComponent from "./OakComponent";
@@ -46,8 +49,11 @@ for (let key in Editor) {
   const component = Editor[key];
   component.package = Editor;
   // export under "package name" as well
-  exports[`Editor-${key}`] = component;
+  exports[`Editor-${key}`] = component;		// DEPRECATED
+  exports[`Editor.${key}`] = component;		// DEPRECATED
 }
+// Export all as a lump off of Editor
+exports.Editor = Editor;
 
 
 //
@@ -60,9 +66,12 @@ for (let key in SUIComponents) {
   const component = SUIComponents[key];
   component.package = "SUI"
   // export under "package name" as well
-  exports[`SUI-${key}`] = component;
+  exports[`SUI-${key}`] = component;		// DEPRECATED
+  exports[`SUI.${key}`] = component;		// DEPRECATED
+  exports[key] = component;							// DEPRECATED
 }
-
+// Export all as a lump off of SUI
+exports.SUI = SUI;
 
 // Export all as a map
-export default Object.assign({}, SUIComponents, exports);
+export default Object.assign({}, exports);
