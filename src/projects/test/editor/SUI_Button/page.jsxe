@@ -20,6 +20,7 @@
       Appearance
     </h4>
     <Editor-Dropdown name="appearance" title="appearance" search selection multiple items="circular,basic,inverted,fluid,labeled icon,right labeled icon,facebook,twitter,google plus,vk,linkedin,instagram,youtube"/>
+    <Editor-Text name="appearance" title="appearance" oid="XXXX"/>
     <Editor-Select name="size" title="size" options="mini,tiny,small,medium,large,big,huge,massive" oid="nhfFfRPX"/>
     <Editor-Select name="color" title="color" options="primary,secondary,-,positive,negative,-,red,orange,yellow,olive,green,teal,blue,violet,purple,pink,brown,grey,black" oid="Tf8i0Nux"/>
     <Editor-Select name="floated" title="floated" options="left,right" oid="JEuDs7rb"/>

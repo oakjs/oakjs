@@ -122,7 +122,8 @@ class SUIDropdown extends SUIModuleComponent {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.state.value !== nextProps.value) {
+    if (!this.valuesAreTheSame(this.state.value, nextProps.value)) {
+      this._lastStateValue = this.state.value;
       this.setState( { value: nextProps.value });
     }
   }
@@ -133,8 +134,28 @@ class SUIDropdown extends SUIModuleComponent {
 
 
   //////////////////////////////
-  // Syntactic sugar
+  // Value manipulation
   //////////////////////////////
+
+  valuesAreTheSame(value1, value2, delimiter = ",") {
+    if (Array.isArray(value1)) value1 = value1.join(delimiter);
+    if (Array.isArray(value2)) value2 = value2.sort().join(delimiter);
+    return value1 === value2;
+  }
+
+  // Normalize `value` according to `multiple`
+  //  - if `multiple` is `true`, we'll always return a NEW array (splitting by `delimiter` if necessary)
+  //  - otherwise we'll return the value passed in.
+  normalizeValue(value, multiple, delimiter = ",") {
+    if (multiple) {
+      if (value === null || value === undefined || value === "") return [];
+      if (Array.isArray(value)) return [...value];
+      if (typeof value === "string") return value.split(delimiter);
+      return [value];
+    }
+    if (value === null || value === undefined || value === "") return undefined;
+    return value;
+  }
 
 
   //////////////////////////////
@@ -147,13 +168,43 @@ class SUIDropdown extends SUIModuleComponent {
     this.$ref().dropdown(...args);
   }
 
+//   setModuleProps(props) {
+//     super.setModuleProps(props);
+//     const { multiple, delimiter } = this.props;
+//
+//     let value = this.normalizeValue(this.state.value, multiple, delimiter);
+//     let lastValue = this.normalizeValue(this._lastStateValue, multiple, delimiter);
+//
+//     if (this.valuesAreTheSame(value, lastValue)) return;
+//     this.setSelected(value);
+//
+//     this._lastStateValue = value;
+//   }
+
   setModuleProps(props) {
     super.setModuleProps(props);
 
-    const { value } = this.state;
-    if (value !== undefined) {
+    const { multiple, delimiter } = this.props;
+
+    let value = this.normalizeValue(this.state.value, multiple, delimiter);
+    let lastValue = this.normalizeValue(this._lastStateValue, multiple, delimiter);
+
+    if (this.valuesAreTheSame(value, lastValue)) return;
+
+    if (!multiple) {
+      if (lastValue) this.removeSelected(lastValue);
       this.setSelected(value);
     }
+    else {
+      // remove items which are in `lastValue` but not in `value`
+      lastValue.filter(value => !value.includes(value) )
+        .forEach( value => this.removeSelected(value) );
+
+      // add items which are in `value` but not in `lastValue`
+      value.filter(value => !lastValue.includes(value) )
+        .forEach( value => this.setSelected(value) );
+    }
+    this._lastStateValue = value;
   }
 
   //////////////////////////////

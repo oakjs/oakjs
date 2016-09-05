@@ -72,23 +72,22 @@ export default class Dropdown extends Control {
     const props = this._props;
     value = this.normalizeValue(value, props.multiple, props.delimiter);
 
-    if (this.valuesAreTheSame(value, props.value, props.delimiter)) {
-      return console.warn("onDropdownChanged: skipping change with same value ", value);
-    }
-    else {
-      console.info("onDropdownChanged: changing value to ", value, typeof value);
-    }
+    if (this.valuesAreTheSame(value, props.value, props.delimiter)) return;
+//       return console.warn("onDropdownChanged: skipping change with same value ", value);
+//     }
+//     else {
+//       console.info("onDropdownChanged: changing value to ", value, typeof value);
+//     }
 
     this._handleEvent("onChange", props, undefined, {}, value);
   }
 
   onDropdownAdd = (addedValue, addedText, $control) => {
     const props = this._props;
-console.info("onDropdownAdd", addedValue, props.value);
     let values = this.normalizeValue(props.value, true, props.delimiter) || [];
-    if (values.includes(addedValue)) return console.warn("Attempting to re-add value ", addedValue);
+    if (values.includes(addedValue)) return;// console.warn("Attempting to re-add value ", addedValue);
+
     values = [...values, addedValue];
-console.info("changing to ", values);
     this._handleEvent("onChange", props, undefined, {}, values);
   };
 
@@ -96,10 +95,9 @@ console.info("changing to ", values);
     const props = this._props;
     let values = this.normalizeValue(props.value, true, props.delimiter) || [];
     const index = values.indexOf(removedValue);
-console.warn("onDropdownRemove", removedValue, values, index);
-    if (index === -1) return console.warn("Attempting to remove missing value ", removedValue);
+    if (index === -1) return;// console.warn("Attempting to remove missing value ", removedValue);
+
     values.splice(index, 1);
-console.info("changing to ", values);
     this._handleEvent("onChange", props, undefined, {}, values);
   }
 
@@ -114,9 +112,6 @@ console.info("changing to ", values);
       controlProps.onAdd = this.onDropdownAdd;
       controlProps.onRemove = this.onDropdownRemove;
       controlProps.onChange = Function.prototype;
-
-      // don't animate in labels
-      controlProps.label = { duration: 0 };
     }
     else {
       controlProps.onChange = this.onDropdownChanged;
