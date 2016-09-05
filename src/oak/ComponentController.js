@@ -84,11 +84,6 @@ export default class ComponentController extends Eventful(ChildController) {
     if (this.component) oak.updateSoon();
   }
 
-  // Given a component `type` name, return the component class it corresponds to.
-  getComponentConstructorForType(type, errorMessage) {
-    return oak.getComponentConstructorForType(type, errorMessage, this.components);
-  }
-
   // Return all `oids` this component knows about.
   get oids() {
     return this.jsxFragment && this.jsxFragment.oids

@@ -21,6 +21,7 @@ import Project from "./Project";
 import Section from "./Section";
 
 import oakComponents from "./components";
+import Stub from "./components/Stub";
 import HTML_EDITOR_SETTINGS from "./components/theme/html";
 
 let oak;
@@ -257,8 +258,21 @@ class OakJS extends Eventful(Object) {
     return oak.__PROJECT_THEMES__[projectId] || this.components;
   }
 
+  _createElement(controller, components, args) {
+    const [ type, props, ...children ] = args;
+    let constructor = this.getComponentConstructorForType(type, "", components);
+    if (!constructor) {
+      console.warn(`${controller}: Component '${type}' not found, using <Stub>`);
+      constructor = Stub;
+    }
+    return React.createElement(constructor, props, ...children);
+  }
+
   // Given a string `type` from a JSXE, return the `Component` class it corresponds to.
   getComponentConstructorForType(type, errorMessage, components) {
+    // If we got a function (or a class), just use that.
+    if (typeof type === "function") return type;
+
     if (!components) components = (this.editContext ? this.editContext.components : this.components);
 
     // return non-string component immediately

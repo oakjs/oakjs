@@ -163,10 +163,15 @@ export default class JSXElement {
 //    output.push("console.groupEnd();");
 
     // add ``renderVars` to the function
+    output.push(`${indent}// variables for use in expressions below`);
     const renderVars = this.constructor.renderVars;
     Object.keys(renderVars).forEach(
       key => output.push(`${indent}var ${key} = ${renderVars[key]};`)
     );
+
+		// set up `createElement()` method
+//    output.push(`${indent}console.info(''+_controller, components);`);
+    output.push(`${indent}function createElement() { return oak._createElement(_controller, components, arguments) }`);
 
     // figure out the source for the elements
     const renderExpression = this._elementsToSource(options, indent);
@@ -174,6 +179,7 @@ export default class JSXElement {
     // add return + renders at the end
     output.push(`${indent}return ${renderExpression}`);
 
+//console.info(output.join("\n"));
     return output.join("\n");
   }
 
@@ -185,7 +191,7 @@ export default class JSXElement {
 
     // output on one line if no children
     if (!this.children || this.children.length === 0) {
-      return "this.createElement(" + typeExpression + ", "+ attrExpression + ")";
+      return "createElement(" + typeExpression + ", "+ attrExpression + ")";
     }
 
     const childIndent = indent + "  ";
@@ -196,7 +202,7 @@ export default class JSXElement {
       })
       .join(",\n" + childIndent);
 
-    return "this.createElement(\n"
+    return "createElement(\n"
       + childIndent + typeExpression + ",\n"
       + childIndent + attrExpression + ",\n"
       + childIndent + childExpressions + "\n"

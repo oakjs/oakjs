@@ -91,26 +91,6 @@ export default class OakComponent extends React.Component {
   // Rendering
   //////////////////////////////
 
-  // Return a component... TODOC
-  getComponentConstructorForType(type) {
-    if (typeof type === "function") return type;
-
-    let component = type;
-    if (this.controller) {
-      component = this.controller.getComponentConstructorForType(type);
-    }
-    if (!component) {
-      console.warn(`${this}.getComponentConstructorForType(${type}): cant find component, returning <Stub/>`);
-      component = Stub;
-    }
-    return component;
-  }
-
-  // Create an element, using our controller's `components` as necessary.
-  createElement(type, props, ...children) {
-    const Component = this.getComponentConstructorForType(type);
-    return React.createElement(Component, props, ...children);
-  }
 
   // Override to add class name bits to all subclasses.
   // Results of this are processed with `classNames()`,
