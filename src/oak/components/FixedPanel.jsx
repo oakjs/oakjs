@@ -20,6 +20,9 @@ export default class FixedPanel extends Hideable {
   static propTypes = {
     ...Hideable.propTypes,
 
+    // fixedPanel appearance
+    appearance: PropTypes.string,
+
     // explicit width/height of the outer div
     width: PropTypes.any,
     height: PropTypes.any
@@ -46,9 +49,9 @@ export default class FixedPanel extends Hideable {
   }
 
   render() {
-    const { width, height, children, ...props } = this.props;
+    const { appearance, width, height, children, ...props } = this.props;
     return (
-      <div className="oak FixedPanel" style={{ width, height }}>
+      <div className={classNames("oak", appearance, "FixedPanel")} style={{ width, height }}>
         <div {...props} ref="popout">
           {children}
         </div>
