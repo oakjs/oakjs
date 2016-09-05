@@ -1,21 +1,22 @@
 const OakComponent = oak.components.OakComponent;
 export default class PageTitle extends OakComponent {
   render() {
-    const { page, components:c } = this.context;
+    const { page } = this.context;
+    const { SUI } = this.context.components;
     const { title, children, ...extraProps } = this.props;
     return (
-      <c.Segment appearance="basic unpadded" {...extraProps}>
-        <c.Segment appearance="basic very padded">
-          <c.Header size="huge">
-            <c.Button floated="right" onClick={()=>page.forceUpdate()}>Force Update</c.Button>
+      <SUI.Segment appearance="basic unpadded" {...extraProps}>
+        <SUI.Segment appearance="basic very padded">
+          <SUI.Header size="huge">
+            <SUI.Button floated="right" onClick={()=>page.forceUpdate()}>Force Update</SUI.Button>
             {title}
-            <c.Subheader>
+            <SUI.Subheader>
               {children}
-            </c.Subheader>
-          </c.Header>
-        </c.Segment>
-        <c.Divider/>
-      </c.Segment>
+            </SUI.Subheader>
+          </SUI.Header>
+        </SUI.Segment>
+        <SUI.Divider/>
+      </SUI.Segment>
     );
   }
 };

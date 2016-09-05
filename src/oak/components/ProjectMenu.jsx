@@ -3,7 +3,8 @@ import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
 function ProjectMenu(props, context) {
-  const { oak, components: c } = context;
+  const { oak } = context;
+  const { SUI } = context.components;
 
   // pass all other props along
   const menuProps = Object.assign({}, props);
@@ -11,8 +12,8 @@ function ProjectMenu(props, context) {
 
   const menuItems = oak.projects
                       .filter(project => !project.isPrivate)
-                      .map(project => <c.ProjectMenuItem key={project.path} project={project}/>);
-  return React.createElement(c.Menu, menuProps, menuItems);
+                      .map(project => <SUI.ProjectMenuItem key={project.path} project={project}/>);
+  return React.createElement(SUI.Menu, menuProps, menuItems);
 }
 
 // Pull context in so we can get components and pointer to the current section.

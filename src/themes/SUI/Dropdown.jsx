@@ -168,19 +168,8 @@ class SUIDropdown extends SUIModuleComponent {
     this.$ref().dropdown(...args);
   }
 
-//   setModuleProps(props) {
-//     super.setModuleProps(props);
-//     const { multiple, delimiter } = this.props;
-//
-//     let value = this.normalizeValue(this.state.value, multiple, delimiter);
-//     let lastValue = this.normalizeValue(this._lastStateValue, multiple, delimiter);
-//
-//     if (this.valuesAreTheSame(value, lastValue)) return;
-//     this.setSelected(value);
-//
-//     this._lastStateValue = value;
-//   }
-
+  // Update `value` as parsimoniously as possible to minimize
+  //  spurious `onChange` and `onAdd` et events.
   setModuleProps(props) {
     super.setModuleProps(props);
 

@@ -1,7 +1,7 @@
 //import { COUNTRY_NAME_MAP } from "themes/SUI/CountryMap";
 getInitialData(context) {
-  const components = context.components;
-  const COUNTRY_NAME_MAP = components.CountryMap.COUNTRY_NAME_MAP;
+  const { SUI } = context.components;
+  const COUNTRY_NAME_MAP = SUI.CountryMap.COUNTRY_NAME_MAP;
 
   return {
     countryNames: Object.keys(COUNTRY_NAME_MAP).map( key => { return { title: COUNTRY_NAME_MAP[key] } } ),

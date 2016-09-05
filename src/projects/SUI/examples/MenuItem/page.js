@@ -1,11 +1,11 @@
 getInitialData(context) {
-  const c = context.components;
+  const { SUI } = context.components;
   return {
     simpleItems: [
-      <c.MenuHeader>News</c.MenuHeader>,
-      <c.MenuItem active>Editorials</c.MenuItem>,
-      <c.MenuItem>Reviews</c.MenuItem>,
-      <c.MenuItem>Events</c.MenuItem>
+      <SUI.MenuHeader>News</SUI.MenuHeader>,
+      <SUI.MenuItem active>Editorials</SUI.MenuItem>,
+      <SUI.MenuItem>Reviews</SUI.MenuItem>,
+      <SUI.MenuItem>Events</SUI.MenuItem>
     ],
   };
 }

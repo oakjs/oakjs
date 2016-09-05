@@ -1,10 +1,11 @@
-getInitialData({ page, components:c }) {
+getInitialData(context) {
+  const { SUI } = context.components;
   return {
     iconMenu: [
-      <c.MenuItem icon="home">Home</c.MenuItem>,
-      <c.MenuItem icon="block layout">Topics</c.MenuItem>,
-      <c.MenuItem icon="smile">Friends</c.MenuItem>,
-      <c.MenuItem icon="calendar">History</c.MenuItem>,
+      <SUI.MenuItem icon="home">Home</SUI.MenuItem>,
+      <SUI.MenuItem icon="block layout">Topics</SUI.MenuItem>,
+      <SUI.MenuItem icon="smile">Friends</SUI.MenuItem>,
+      <SUI.MenuItem icon="calendar">History</SUI.MenuItem>,
     ],
   }
 }

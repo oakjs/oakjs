@@ -1,7 +1,8 @@
 const OakComponent = oak.components.OakComponent;
 export default class Enablers extends OakComponent {
   render() {
-    const { components:c, page } = this.context;
+    const { page } = this.context;
+    const { Oak, SUI } = this.context.components;
 
     // id of the thing we're enabling/disabling
     const { "for":ref, visibleOnly, enabledOnly } = this.props;
@@ -17,8 +18,8 @@ export default class Enablers extends OakComponent {
       return "Set " + properties.join(" and ");
     }
 
-    const elements = new c.ElementBuffer({
-      type: c.Segment,
+    const elements = new SUI.ElementBuffer({
+      type: SUI.Segment,
       props: {
         appearance: "basic unpadded"
       }
@@ -27,27 +28,27 @@ export default class Enablers extends OakComponent {
     elements.append(
       <div style={{float:"right", textAlign:"right", fontWeight:"bold"}}>
         {result}
-        {result && <c.Button appearance="transparent" icon="close" onClick={page.deferredSet(ref+".result", "")}/>}
+        {result && <SUI.Button appearance="transparent" icon="close" onClick={page.deferredSet(ref+".result", "")}/>}
       </div>
     );
 
     if (!enabledOnly) {
       elements.append(
-        <c.Buttons>
-          <c.Button title="Show" onClick={page.deferredSet(ref+".visible", true)}/>
-          <c.Button title="Hide" onClick={page.deferredSet(ref+".visible", false)}/>
-        </c.Buttons>,
-        <c.Spacer inline/>
+        <SUI.Buttons>
+          <SUI.Button title="Show" onClick={page.deferredSet(ref+".visible", true)}/>
+          <SUI.Button title="Hide" onClick={page.deferredSet(ref+".visible", false)}/>
+        </SUI.Buttons>,
+        <Oak.Spacer inline/>
       );
     }
 
     if (!visibleOnly) {
       elements.append(
-        <c.Buttons>
-          <c.Button title="Enable" onClick={page.deferredSet(ref+".disabled", false)}/>
-          <c.Button title="Disable" onClick={page.deferredSet(ref+".disabled", true)}/>
-        </c.Buttons>,
-        <c.Spacer inline/>
+        <SUI.Buttons>
+          <SUI.Button title="Enable" onClick={page.deferredSet(ref+".disabled", false)}/>
+          <SUI.Button title="Disable" onClick={page.deferredSet(ref+".disabled", true)}/>
+        </SUI.Buttons>,
+        <Oak.Spacer inline/>
       );
     }
 

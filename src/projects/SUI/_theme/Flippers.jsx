@@ -1,30 +1,31 @@
 const OakComponent = oak.components.OakComponent;
 export default class Flippers extends OakComponent {
   render() {
-    const { components:c, page } = this.context;
+    const { page } = this.context;
+    const { Oak, SUI } = this.context.components;
 
     // id of the thing we're enabling/disabling
     const { "for":ref } = this.props;
 
     return (
       <div>
-        <c.Spacer/>
-        <c.Buttons appearance="icon">
-          <c.Button icon="arrow left" onClick={()=>page.refs[ref].flipLeft()}/>
-          <c.Button icon="arrow right" onClick={()=>page.refs[ref].flipRight()}/>
-        </c.Buttons>
+        <Oak.Spacer/>
+        <SUI.Buttons appearance="icon">
+          <SUI.Button icon="arrow left" onClick={()=>page.refs[ref].flipLeft()}/>
+          <SUI.Button icon="arrow right" onClick={()=>page.refs[ref].flipRight()}/>
+        </SUI.Buttons>
 
-        <c.Spacer inline/>
-        <c.Buttons appearance="icon">
-          <c.Button icon="arrow up" onClick={()=>page.refs[ref].flipUp()}/>
-          <c.Button icon="arrow down" onClick={()=>page.refs[ref].flipDown()}/>
-        </c.Buttons>
+        <Oak.Spacer inline/>
+        <SUI.Buttons appearance="icon">
+          <SUI.Button icon="arrow up" onClick={()=>page.refs[ref].flipUp()}/>
+          <SUI.Button icon="arrow down" onClick={()=>page.refs[ref].flipDown()}/>
+        </SUI.Buttons>
 
-        <c.Spacer inline/>
-        <c.Buttons appearance="icon">
-          <c.Button icon="retweet" onClick={()=>page.refs[ref].flipOver()}/>
-          <c.Button icon="flipped retweet" onClick={()=>page.refs[ref].flipBack()}/>
-        </c.Buttons>
+        <Oak.Spacer inline/>
+        <SUI.Buttons appearance="icon">
+          <SUI.Button icon="retweet" onClick={()=>page.refs[ref].flipOver()}/>
+          <SUI.Button icon="flipped retweet" onClick={()=>page.refs[ref].flipBack()}/>
+        </SUI.Buttons>
       </div>
     );
   }

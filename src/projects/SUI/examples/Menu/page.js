@@ -1,80 +1,80 @@
 getInitialData(context) {
-  const c = context.components;
+  const { SUI } = context.components;
   return {
 
     simpleItems: [
-      <c.MenuHeader>News</c.MenuHeader>,
-      <c.MenuItem active>Editorials</c.MenuItem>,
-      <c.MenuItem>Reviews</c.MenuItem>,
-      <c.MenuItem>Events</c.MenuItem>
+      <SUI.MenuHeader>News</SUI.MenuHeader>,
+      <SUI.MenuItem active>Editorials</SUI.MenuItem>,
+      <SUI.MenuItem>Reviews</SUI.MenuItem>,
+      <SUI.MenuItem>Events</SUI.MenuItem>
     ],
 
     homeToLogoutItems: [
-      <c.MenuItem active>Home</c.MenuItem>,
-      <c.MenuItem>Messages</c.MenuItem>,
-      <c.MenuItem>Friends</c.MenuItem>,
-      <c.Menu appearance="right">
-        <c.MenuItem>
-          <c.Input icon="search" iconOn="right" placeholder="Search"/>
-        </c.MenuItem>
-        <c.MenuItem>Logout</c.MenuItem>
-      </c.Menu>,
+      <SUI.MenuItem active>Home</SUI.MenuItem>,
+      <SUI.MenuItem>Messages</SUI.MenuItem>,
+      <SUI.MenuItem>Friends</SUI.MenuItem>,
+      <SUI.Menu appearance="right">
+        <SUI.MenuItem>
+          <SUI.Input icon="search" iconOn="right" placeholder="Search"/>
+        </SUI.MenuItem>
+        <SUI.MenuItem>Logout</SUI.MenuItem>
+      </SUI.Menu>,
     ],
 
     topTabItems: [
-      <c.MenuItem active>Bio</c.MenuItem>,
-      <c.MenuItem>Photos</c.MenuItem>,
-      <c.MenuItem appearance="right">
-        <c.Input appearance="transparent" icon="search" iconOn="right" placeholder="Search users..."/>
-      </c.MenuItem>
+      <SUI.MenuItem active>Bio</SUI.MenuItem>,
+      <SUI.MenuItem>Photos</SUI.MenuItem>,
+      <SUI.MenuItem appearance="right">
+        <SUI.Input appearance="transparent" icon="search" iconOn="right" placeholder="Search users..."/>
+      </SUI.MenuItem>
     ],
 
     bottomTabItems: [
-      <c.MenuItem active>Active Project</c.MenuItem>,
-      <c.MenuItem>Project #2</c.MenuItem>,
-      <c.MenuItem>Project #3</c.MenuItem>,
-      <c.Menu appearance="right">
-        <c.MenuItem icon="plus">New Tab</c.MenuItem>
-      </c.Menu>
+      <SUI.MenuItem active>Active Project</SUI.MenuItem>,
+      <SUI.MenuItem>Project #2</SUI.MenuItem>,
+      <SUI.MenuItem>Project #3</SUI.MenuItem>,
+      <SUI.Menu appearance="right">
+        <SUI.MenuItem icon="plus">New Tab</SUI.MenuItem>
+      </SUI.Menu>
     ],
 
     textItems: [
-      <c.MenuHeader>Sort by</c.MenuHeader>,
-      <c.MenuItem active>Closest</c.MenuItem>,
-      <c.MenuItem>Most Comments</c.MenuItem>,
-      <c.MenuItem>Most Popular</c.MenuItem>,
+      <SUI.MenuHeader>Sort by</SUI.MenuHeader>,
+      <SUI.MenuItem active>Closest</SUI.MenuItem>,
+      <SUI.MenuItem>Most Comments</SUI.MenuItem>,
+      <SUI.MenuItem>Most Popular</SUI.MenuItem>,
     ],
 
     verticalItems: [
-      <c.MenuItem active>Account</c.MenuItem>,
-      <c.MenuItem>Settings</c.MenuItem>,
-      <c.MenuItem>Options...</c.MenuItem>,
+      <SUI.MenuItem active>Account</SUI.MenuItem>,
+      <SUI.MenuItem>Settings</SUI.MenuItem>,
+      <SUI.MenuItem>Options...</SUI.MenuItem>,
     ],
 
     paginationItems: [
-      <c.MenuItem disabled icon="left chevron"/>,
-      <c.MenuItem active>1</c.MenuItem>,
-      <c.MenuItem>2</c.MenuItem>,
-      <c.MenuItem>3</c.MenuItem>,
-      <c.MenuItem>...</c.MenuItem>,
-      <c.MenuItem>10</c.MenuItem>,
-      <c.MenuItem>11</c.MenuItem>,
-      <c.MenuItem>12</c.MenuItem>,
-      <c.MenuItem icon="right chevron"/>
+      <SUI.MenuItem disabled icon="left chevron"/>,
+      <SUI.MenuItem active>1</SUI.MenuItem>,
+      <SUI.MenuItem>2</SUI.MenuItem>,
+      <SUI.MenuItem>3</SUI.MenuItem>,
+      <SUI.MenuItem>...</SUI.MenuItem>,
+      <SUI.MenuItem>10</SUI.MenuItem>,
+      <SUI.MenuItem>11</SUI.MenuItem>,
+      <SUI.MenuItem>12</SUI.MenuItem>,
+      <SUI.MenuItem icon="right chevron"/>
     ],
 
     iconItems: [
-      <c.MenuItem icon="gamepad"/>,
-      <c.MenuItem icon="camera"/>,
-      <c.MenuItem icon="video camera"/>,
-      <c.MenuItem icon="video play"/>,
+      <SUI.MenuItem icon="gamepad"/>,
+      <SUI.MenuItem icon="camera"/>,
+      <SUI.MenuItem icon="video camera"/>,
+      <SUI.MenuItem icon="video play"/>,
     ],
 
     labeledIconItems: [
-      <c.MenuItem icon="gamepad">Games</c.MenuItem>,
-      <c.MenuItem icon="camera">Photos</c.MenuItem>,
-      <c.MenuItem icon="video camera">Channels</c.MenuItem>,
-      <c.MenuItem icon="video play">Videos</c.MenuItem>,
+      <SUI.MenuItem icon="gamepad">Games</SUI.MenuItem>,
+      <SUI.MenuItem icon="camera">Photos</SUI.MenuItem>,
+      <SUI.MenuItem icon="video camera">Channels</SUI.MenuItem>,
+      <SUI.MenuItem icon="video play">Videos</SUI.MenuItem>,
     ]
 
   }

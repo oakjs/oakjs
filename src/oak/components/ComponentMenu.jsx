@@ -148,9 +148,9 @@ class ComponentMenuItem extends OakComponent {
 
     const { menu, item } = this.props;
     // Pull out components used below.
-    const { Icon } = this.context.components;
+    const { SUI } = this.context.components;
 
-    if (typeof item === "string") return <div className='textNode'><Icon icon="none"/>“{item}”</div>;
+    if (typeof item === "string") return <div className='textNode'><SUI.Icon icon="none"/>“{item}”</div>;
 
     const { children } = item;
     const childCount = (children && children.length) || 0;
@@ -167,7 +167,7 @@ class ComponentMenuItem extends OakComponent {
     return (
       <div className={elementClass}>
         <div className="name">
-          {showChildren ? <Icon icon={openIcon} onClick={() => menu.toggle(oid)}/> : <Icon icon="none"/>}
+          {showChildren ? <SUI.Icon icon={openIcon} onClick={() => menu.toggle(oid)}/> : <SUI.Icon icon="none"/>}
           <span className="type" onClick={() => menu.select(oid)}>{item.type}</span>
           {id && <span className="id">#{id}</span>}
           {className && <span className="className">.{className.split(" ").join(".")}</span>}

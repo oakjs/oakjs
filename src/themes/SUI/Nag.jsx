@@ -13,7 +13,7 @@ import ElementBuffer from "./ElementBuffer";
 import SUIModuleComponent from "./SUIModuleComponent";
 
 const moduleProps = {
-  key: PropTypes.string,                // default: false?	  Name of the cookie to track the nag.
+  cookie: PropTypes.string,             // default: false?	  Name of the cookie to track the nag.
   value: PropTypes.any,                 // default: false?	  Value of the cookie when they've dismissed the nag.
 }
 
@@ -42,7 +42,16 @@ class SUINag extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().sticky(...args);
+    return this.$ref().nag(...args);
+  }
+
+  // Convert "cookie" property to "key" for sending in to nag()
+  setModuleProps(props) {
+    if (props && props.cookie) {
+      props.key = props.cookie;
+      delete props.cookie;
+    }
+    return super.setModuleProps(props);
   }
 
 

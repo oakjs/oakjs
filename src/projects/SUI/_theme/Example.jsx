@@ -2,7 +2,7 @@ import "./Example.css";
 const OakComponent = oak.components.OakComponent;
 export default class Example extends OakComponent {
   render() {
-    const { components: c } = this.context;
+    const { Oak, SUI, InfoHint } = this.context.components;
     const {
       title, hint,
       className, appearance, compact, columns,
@@ -12,19 +12,19 @@ export default class Example extends OakComponent {
 
     divProps.className = roots.react.classNames(
         className, appearance,
-  //      (columns ? [c.SUI.getColumnWidthClass(columns), "column", "unpadded"] : undefined),
+  //      (columns ? [SUI.getColumnWidthClass(columns), "column", "unpadded"] : undefined),
         "Example"
     );
 
-    const infoHint = hint && <c.InfoHint content={hint}/>;
-    const header = (title ? <c.Header size="medium" dividing>{title}{infoHint}</c.Header> : undefined);
+    const infoHint = hint && <InfoHint content={hint}/>;
+    const header = (title ? <SUI.Header size="medium" dividing>{title}{infoHint}</SUI.Header> : undefined);
 
     return (
       <div {...divProps}>
         {header}
-        <c.Spacer/>
+        <Oak.Spacer/>
         {children}
-        <c.Spacer massive/>
+        <Oak.Spacer massive/>
       </div>
     );
   }

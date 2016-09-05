@@ -124,11 +124,6 @@ class SUICheckbox extends SUIModuleComponent {
     return this.$ref().checkbox(...args);
   }
 
-  setModuleProps(props) {
-//    if (props) props.checked = this.state.checked;
-    super.setModuleProps(props);
-  }
-
   //////////////////////////////
   // Syntactic sugar
   //////////////////////////////
