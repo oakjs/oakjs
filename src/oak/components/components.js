@@ -27,12 +27,6 @@ export PageMenu from "./PageMenu";
 export Stub from "./Stub";
 export SplitPanel from "./SplitPanel";
 
-// Set "package" of the components
-// DEPRECATED?
-for (let key in exports) {
-  exports[key].package = "Oak";
-}
-
 // Do `OakComponent` AFTER doing the package stuff
 //  so we don't bleed that package through to project-specific components.
 export OakComponent from "./OakComponent";

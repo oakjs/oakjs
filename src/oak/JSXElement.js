@@ -102,18 +102,6 @@ export default class JSXElement {
     return oak.getComponentConstructorForType(this.type);
   }
 
-	// Return our type with the `package` appended to the beginning
-	get packageType() {
-		// FIXME: Convert things to their full package name for components created when we weren't doing that.
-		//				Remove this code once everything has been properly namespaced.
-    const pkg = this.componentConstructor && this.componentConstructor.package;
-    if (pkg && typeof pkg === "string" && !this.type.startsWith(pkg+"-")) {
-  		return `${constructor.package}-${this.type}`
-		}
-
-		return this.type;
-	}
-
   get editorProps() {
     return oak.getEditorProps(this.componentConstructor);
   }
@@ -289,9 +277,8 @@ export default class JSXElement {
   // NOTE: this will normalize the JSX to a canonical format, this is desired.
 	toJSX(indent = "", dontNest) {
     const props = this._propsToJSX(indent);
-    let type = this.packageType;
+    const tagPrefix = indent + "<" + this.type + (props ? " "+props : "");
 
-    const tagPrefix = indent + "<" + type + (props ? " "+props : "");
     if (this.selfClosing) {
       return tagPrefix + "/>";
     }
@@ -304,7 +291,7 @@ export default class JSXElement {
       children = this._childrenToJSX(indent+"  ");
       if (children) children += "\n" + indent;
     }
-    return tagPrefix + ">" + ( children || "" ) + "</" + type + ">";
+    return tagPrefix + ">" + ( children || "" ) + "</" + this.type + ">";
 	}
 
   // Convert our props to a JSX string.

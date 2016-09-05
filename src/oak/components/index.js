@@ -29,9 +29,7 @@ exports.SUI = SUI;
 // Mark all of the SUI components as coming from the "SUI" package
 // and export under their "package name".
 for (let key in SUI) {
-  const component = SUI[key];
-  component.package = "SUI"
-  exports[`SUI.${key}`] = component;		// DEPRECATED
+  exports[`SUI.${key}`] = SUI[key];
 }
 
 // Export all as a map
