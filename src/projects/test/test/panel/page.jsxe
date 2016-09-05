@@ -6,7 +6,6 @@
       <Oak-Panel scrolling>
         <Oak-PanelHeader>
           <h2>Left Sidebar</h2>
-          <Blorg>foo</Blorg>
         </Oak-PanelHeader>
         <img src="http://foo.bar" style={{ width:100, height: 400, border:"1px solid red", margin: 5}}/>
       </Oak-Panel>

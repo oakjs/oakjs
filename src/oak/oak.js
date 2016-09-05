@@ -264,14 +264,12 @@ class OakJS extends Eventful(Object) {
   getComponentConstructorForType(type, errorMessage, components) {
     // If we got a function (or a class), just use that.
     if (typeof type === "function") return type;
+    if (typeof type === "string" && type.toLowerCase() === type) return type;
 
 // TODO: we should arguably fail if they didn't pass in components...
     if (!components) components = (this.editContext ? this.editContext.components : this.components);
 
     if (typeof type === "string") {
-      // if all lower case, it's an HTML element -- just return it
-      if (type.toLowerCase() === type) return type;
-
       // return it if we can find it in our `components`
       if (components[type]) return components[type];
     }
