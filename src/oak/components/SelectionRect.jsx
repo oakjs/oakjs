@@ -2,10 +2,6 @@
 // Overlay which shows/manages selection
 //////////////////////////////
 
-import { autobind } from "oak-roots/util/decorators";
-
-import OakComponent from "./OakComponent";
-
 import "./SelectionRect.css";
 
 export default class SelectionRect extends React.Component {

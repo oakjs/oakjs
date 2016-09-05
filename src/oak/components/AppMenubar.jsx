@@ -1,5 +1,7 @@
 //////////////////////////////
-// Sample editor toolbar
+//  Menubar for the entire app.
+//  TODO: make <AppMenubar> and <AppMenu> components.
+//  TODO: the actual <AppMenu> contents should come from a dynamic component.
 //////////////////////////////
 
 import React, { PropTypes } from "react";

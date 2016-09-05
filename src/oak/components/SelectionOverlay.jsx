@@ -17,7 +17,6 @@ import Resizer from "./Resizer";
 
 import "./SelectionOverlay.css";
 
-
 export default class SelectionOverlay extends OakComponent {
   constructor() {
     super(...arguments);

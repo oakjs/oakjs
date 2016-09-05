@@ -1,5 +1,6 @@
 //////////////////////////////
 // Sample editor toolbar
+// TODO:  actual contents should come from a dynamic structure...
 //////////////////////////////
 
 import React, { PropTypes } from "react";
