@@ -248,12 +248,14 @@ class OakJS extends Eventful(Object) {
   components = Object.assign({}, oakComponents)
 
   // Define a theme-ful of `components` for a `project`.
+// DEPRECATE?
   setProjectTheme(projectId, components) {
     const themes = this.__PROJECT_THEMES__ || (this.__PROJECT_THEMES__ = {});
     themes[projectId] = components;
   }
 
   // Return theme components defined for a `project`.
+// DEPRECATE?
   getProjectTheme(projectId) {
     return oak.__PROJECT_THEMES__[projectId] || this.components;
   }
@@ -263,10 +265,8 @@ class OakJS extends Eventful(Object) {
     // If we got a function (or a class), just use that.
     if (typeof type === "function") return type;
 
+// TODO: we should arguably fail if they didn't pass in components...
     if (!components) components = (this.editContext ? this.editContext.components : this.components);
-
-    // return non-string component immediately
-    if (type && typeof type !== "string") return type;
 
     if (typeof type === "string") {
       // if all lower case, it's an HTML element -- just return it
@@ -279,6 +279,7 @@ class OakJS extends Eventful(Object) {
     // log an error if they gave us an errorMessage
     if (errorMessage) console.error(`${errorMessage}: type = '${type}'`);
 
+    // Return <Stub>
     return Stub;
   }
 

@@ -1,3 +1,3 @@
-<Project id="_runner" title="OakJS Runner / Editor UI">
+<Oak-Project id="_runner" title="OakJS Runner / Editor UI">
   <RunnerSection/>
-</Project>
+</Oak-Project>

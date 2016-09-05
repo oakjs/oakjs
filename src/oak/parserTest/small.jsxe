@@ -1,4 +1,4 @@
-<Page id="small" obj={{a:1, b:2}} bool a={<div/>} data-foo="bar" func={()=>{return true}} {...bunk} {...bunk.foo.bar()}>
+<Oak-Page id="small" obj={{a:1, b:2}} bool a={<div/>} data-foo="bar" func={()=>{return true}} {...bunk} {...bunk.foo.bar()}>
   <div {...spread} />
   <div {...spread} a {...spread} />
   <div a {...spread} b />
@@ -14,4 +14,4 @@
       <Label>Label with inline content</Label>
     </Example>
   </PageSection>
-</Page>
+</Oak-Page>
