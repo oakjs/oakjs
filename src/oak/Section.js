@@ -136,3 +136,4 @@ export class SectionElement extends JSXElement {
 import JSXParser from "./JSXParser";
 JSXParser.registerType("Section", SectionElement);
 JSXParser.registerType("Oak-Section", SectionElement);
+JSXParser.registerType("Oak.Section", SectionElement);

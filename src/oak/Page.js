@@ -123,3 +123,4 @@ export class PageElement extends JSXElement {
 import JSXParser from "./JSXParser";
 JSXParser.registerType("Page", PageElement);
 JSXParser.registerType("Oak-Page", PageElement);
+JSXParser.registerType("Oak.Page", PageElement);
