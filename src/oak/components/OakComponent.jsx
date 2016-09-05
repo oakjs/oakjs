@@ -76,7 +76,7 @@ export default class OakComponent extends React.Component {
     if (!this._isMounted) return undefined;
     const ref = (refName ? this.refs[refName] : this);
     if (!ref) return $();
-    return $(ReactDOM.findDOMNode(ref));
+    return ReactDOM.findDOMNode(ref);
 
   }
 
