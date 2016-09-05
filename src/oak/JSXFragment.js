@@ -25,7 +25,8 @@ export default class JSXFragment {
   //  - `props` are arbitrary properties
   //  - `root` is a JSXElement
   //  - `oids` is a map of oids contained in `roots`
-  constructor(props, root, oids) {
+  constructor({ controller, props, root, oids } = {}) {
+    this.controller = controller;
     this.root = root;
     this.props = Object.assign({}, props);
     this.oids = Object.assign({}, oids);
@@ -34,12 +35,18 @@ export default class JSXFragment {
   // Clone this JSXFragment
   // NOTE: we'll clone the `oids`, but all of the elements we point to will be the same.
   clone() {
-    return new JSXFragment(this.props, this.root, this.oids);
+    return new JSXFragment({
+    	controller: this.controller,
+    	props: this.props,
+    	root: this.root,
+    	oids: this.oids
+    });
   }
 
   // Parse some JSX `code`, returning a new `JSXFragment`.
-  static parse(code, props) {
-    const fragment = new JSXFragment(props);
+  // `options` will be passed to the `new JSXFragment` call.
+  static parse(code, options) {
+    const fragment = new JSXFragment(options);
 
     const parser = new JSXParser();
     fragment.root = parser.parse(code, {
@@ -310,7 +317,7 @@ if (!element) debugger;
 			Constructor = babel.createClass(classScript, SuperConstructor, componentName);
 
 			// Get the `__render` routine from our root element
-			Constructor.prototype.__render = this.root.getRenderMethod();
+			Constructor.prototype.__render = this.root.getRenderMethod({ controller: this.controller });
 
 			// make sure we've got a `createElement` routine since `_renderChildren` expects one.
 			if (!Constructor.prototype.createElement) {

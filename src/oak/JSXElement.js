@@ -149,14 +149,15 @@ export default class JSXElement {
   // ASSUMES: that the end class this will be added to has a `createElement()` method
   //  with the same signature as `React.createElement()`, but that is aware of the
   //  `components` which are in scope.
-  getRenderMethod(indent) {
-    const source = this._getRenderMethodSource(indent);
+  getRenderMethod(options) {
+    const source = this._getRenderMethodSource(options);
     return new Function(source);
   }
 
-  _getRenderMethodSource(indent = "  ") {
+  _getRenderMethodSource(options = {}) {
+  	const indent = ("indent" in options ? options.indent : "  ");
+  	const controllerName = (options.controller ? ""+options.controller : "[unknown controller]");
     const output = [];
-    const options = {}
 
 //    output.push("console.log('Rendering: ',this);");
 //    output.push("console.dir(this.context);");
@@ -169,9 +170,13 @@ export default class JSXElement {
       key => output.push(`${indent}var ${key} = ${renderVars[key]};`)
     );
 
+		// debug: MUST have `_controller` and `components` in renderVars
+		if (! ("_controller" in renderVars)) console.error(`${controllerName}: '_controller' not specified in renderVars`, this);
+		if (! ("components" in renderVars)) console.error(`${controllerName}: 'components' not specified in renderVars`, this);
+
 		// set up `createElement()` method
-//    output.push(`${indent}console.info(''+_controller, components);`);
-    output.push(`${indent}function createElement() { return oak._createElement(_controller, components, arguments) }`);
+		const errorMessage = `"${controllerName}: Can't find component"`;
+    output.push(`${indent}function getComponent(type) { return oak.getComponentConstructorForType(type, ${errorMessage}, components) }`);
 
     // figure out the source for the elements
     const renderExpression = this._elementsToSource(options, indent);
@@ -179,19 +184,20 @@ export default class JSXElement {
     // add return + renders at the end
     output.push(`${indent}return ${renderExpression}`);
 
-//console.info(output.join("\n"));
+console.info(output.join("\n"));
     return output.join("\n");
   }
 
   // Output an expression which will render this element and its children.
   _elementsToSource(options = {}, indent = "") {
     const type = this.renderType || this.type;
-    const typeExpression = JSON.stringify(type);
+    // if not a lower case string, call the `getComponent()` method to yield the actual constructor
+    const typeExpression = (type === type.toLowerCase() ? `"${type}"` : `getComponent("${type}")`);
     const attrExpression = this._propsToSource(options, indent);
 
     // output on one line if no children
     if (!this.children || this.children.length === 0) {
-      return "createElement(" + typeExpression + ", "+ attrExpression + ")";
+      return "React.createElement( " + typeExpression + ", "+ attrExpression + ")";
     }
 
     const childIndent = indent + "  ";
@@ -202,7 +208,7 @@ export default class JSXElement {
       })
       .join(",\n" + childIndent);
 
-    return "createElement(\n"
+    return "React.createElement(\n"
       + childIndent + typeExpression + ",\n"
       + childIndent + attrExpression + ",\n"
       + childIndent + childExpressions + "\n"

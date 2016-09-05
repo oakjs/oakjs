@@ -96,7 +96,7 @@ export default new API({
       .then(jsxe => {
         if (controller.controller && controller.controller.toString() === jsxe) return controller.controller;
         try {
-          return JSXFragment.parse(jsxe);
+          return JSXFragment.parse(jsxe, { controller });
         }
         catch (e) {
           console.group(`Error parsing JSXE from ${controller.componentUrl}`);

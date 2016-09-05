@@ -173,7 +173,7 @@ export default class ComponentController extends Eventful(ChildController) {
 
   // Called when your loaded bundle specifies "jsxe".
   _loadedJSXE(jsxe) {
-    this.jsxFragment = JSXFragment.parse(jsxe);
+    this.jsxFragment = JSXFragment.parse(jsxe, { controller: this });
   }
 
   // Return JSXE data to save.

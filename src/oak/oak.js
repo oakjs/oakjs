@@ -285,6 +285,7 @@ class OakJS extends Eventful(Object) {
       // return it if we can find it in our `components`
       if (components[type]) return components[type];
     }
+
     // log an error if they gave us an errorMessage
     if (errorMessage) console.error(`${errorMessage}: type = '${type}'`);
 
