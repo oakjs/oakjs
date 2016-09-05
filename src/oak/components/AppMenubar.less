@@ -1,23 +1,9 @@
-/* Container for the menubar: this takes up space to push the body down
-  so the -fixed bit below doesn't overlap the body. */
 #AppMenubar {
-  position: relative;
-  flex: 0 0 30px;
-  margin: 0;
-  z-index: 10001;  // must be above #EditorToolbar and #SelectionSidebar
-  background-color: #333;
-}
-
-/* The menubar itself is fixed, so it pops out of its container */
-#AppMenubar-fixed {
-  position: fixed;
-  left: 0; top: 0; right: 0; height: 30px;
-  margin: 0;
+  z-index: 10000000;    // TODO: set z-index dynamically?
   padding: 0px 5px;
-  background-color: #333;
+  background-color: black;
   border-width: 0px;
   border-bottom: 1px solid #222;
-
 
   .ui.dropdown {
     height: 30px;

@@ -20,6 +20,7 @@ export default class Form extends React.Component {
     id: PropTypes.string,             // id for the wrapper element
     className: PropTypes.string,      // css class for the wrapper element
     style: PropTypes.object,          // style for the wrapper element
+    appearance: PropTypes.string,     // random appearance stuff
 
   // data semantics
     data: PropTypes.any,              // object we're editing
@@ -180,6 +181,7 @@ export default class Form extends React.Component {
   getFormClassName(props) {
     return classNames(
       "oak Editor",
+      props.appearance,
       props.className,
       props.mode
     );

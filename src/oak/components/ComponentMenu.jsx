@@ -22,7 +22,8 @@ import "./ComponentMenu.less";
 export default class ComponentMenu extends PreferentialComponent(OakComponent) {
 
   static propTypes = {
-    controller: PropTypes.object
+    controller: PropTypes.object,
+    appearance: PropTypes.string,
   }
 
 //
@@ -117,13 +118,13 @@ export default class ComponentMenu extends PreferentialComponent(OakComponent) {
 //
 
   render() {
-    const { oak, controllers: c } = this.context;
-//    const { } = c;
-    const { controller } = this.props;
-    if (!controller) return null;
+    if (!this.props.controller) return null;
+
+    const { controller, className, appearance, ...props } = this.props;
+    props.className = classNames("oak", appearance, props.className, "ComponentMenu");
 
     return (
-      <div className="oak ComponentMenu">
+      <div {...props}>
         <ComponentMenuItem menu={this} controller={controller} item={controller.jsxFragment.root}/>
       </div>
     );

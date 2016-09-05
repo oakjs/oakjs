@@ -1,25 +1,11 @@
-/* Container for the toolbar: this takes up space to push the body down
-  so the -fixed bit below doesn't overlap the body. */
 #EditorToolbar {
-  position: relative;
-  height: 35px;
-  margin: 0;
-  background-color: #333;
-  z-index: 10000;  // must be below #AppMenubar
-}
-
-/* The toolbar itself is fixed, so it pops out of its container */
-#EditorToolbar-fixed {
-  position: fixed;
-  left: 300px; top: 30px; right: 0;  width: auto !important;
   min-height: 35px;
   max-height: 35px;
   margin: 0;
   z-index: 10000;
-  background-color: #333;
   border-width: 0px;
   border-bottom: 1px solid #222;
-  box-shadow: 0 2px 2px rgba(0,0,0,.3);
+  box-shadow: 0 2px 2px gba(0,0,0,.3);
   overflow: hidden;
 
   .ui.buttons {

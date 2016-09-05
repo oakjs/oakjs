@@ -407,6 +407,15 @@ class OakJS extends Eventful(Object) {
     return oids.map(oid => oak.cloneOid(oid)).filter(Boolean);
   }
 
+  //
+  //  Event handling
+  //
+
+  // Force a redraw when window is resized.
+  @debounce(100)
+  onWindowResized(event) {
+    oak.forceUpdate();
+  }
 
   //////////////////////////////
   //  Debug
@@ -420,6 +429,10 @@ class OakJS extends Eventful(Object) {
 // Create an instance and export it
 oak = new OakJS();
 export default oak;
+
+
+// When window is resized, update everything. (???)
+$(window).on("resize", oak.onWindowResized);
 
 // globalize for reflection
 global.oak = oak;

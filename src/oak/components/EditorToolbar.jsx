@@ -14,8 +14,8 @@ export default class EditorToolbar extends OakComponent {
   render() {
     const { oak, components: c } = this.context;
     return (
-      <div id="EditorToolbar">
-        <c.Menu id="EditorToolbar-fixed" appearance="attached">
+      <c.FixedPanel id="EditorToolbar" height={35}>
+        <c.Menu appearance="attached inverted">
           <c.Buttons appearance="transparent">
             <c.Button onClick={oak.actions.stopEditing} icon="pointing up" active={!oak.state.editing}/>
             <c.Button onClick={oak.actions.startEditing} icon="configure" active={oak.state.editing}/>
@@ -26,11 +26,11 @@ export default class EditorToolbar extends OakComponent {
             <c.Button onClick={oak.redo} icon="repeat" disabled={!oak.canRedo}/>
             <c.Spacer inline/>
           </c.Buttons>
-          <c.Buttons appearance="transparent" visible={oak.state.editing && oak.selectionIsEmpty} color="red">
+          <c.Buttons appearance="transparent" visible={oak.state.editing && !oak.selectionIsEmpty} color="red">
             <c.Button onClick={oak.actions.removeElements} icon="remove"/>
           </c.Buttons>
         </c.Menu>
-      </div>
+      </c.FixedPanel>
     );
   }
 }
