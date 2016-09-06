@@ -303,6 +303,11 @@ if (!element) debugger;
   }
 
 
+
+  //////////////////////////////
+  //  Creating a Component constructor for this fragment.
+  //////////////////////////////
+
   //  Return a React Component for the current state of this JSXFragment
   createComponent(componentName, SuperConstructor, script) {
     let Constructor;
@@ -318,13 +323,6 @@ if (!element) debugger;
 
 			// Get the `__render` routine from our root element
 			Constructor.prototype.__render = this.root.getRenderMethod({ controller: this.controller });
-
-			// make sure we've got a `createElement` routine since `_renderChildren` expects one.
-			if (!Constructor.prototype.createElement) {
-				Constructor.prototype.createElement = function(type, props, ...children) {
-					return React.createElement(type, props, ...children);
-				}
-			}
     }
     catch (error) {
       console.error("Error creating component constructor: ", error);
