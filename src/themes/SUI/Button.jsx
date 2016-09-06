@@ -14,7 +14,12 @@ import ElementBuffer from "./ElementBuffer";
 import "./Button.css";
 
 
-const APPEARANCES = [ "circular", "basic", "inverted", "fluid", "facebook", "twitter", "google plus", "vk", "linkedin", "instagram", "youtube" ];
+const APPEARANCES = [
+  "circular", "basic", "inverted", "fluid",
+  "labeled icon", "right labeled icon",
+  "facebook", "twitter", "google plus", "vk", "linkedin", "instagram", "youtube",
+  "animated", "vertical animated", "animated fade"
+  ];
 
 // `appearance`:  any combination of:
 //    - `primary`, `secondary`

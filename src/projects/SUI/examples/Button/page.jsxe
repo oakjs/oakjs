@@ -115,23 +115,23 @@
         <SUI.Button appearance="inverted" color="black" title="Black" oid="elJoYEoV"/>
       </SUI.Segment>
       <SUI.Segment appearance="inverted" oid="bREGJIBE">
-        <SUI.Button appearance="inverted basic" icon="user" oid="DhsoZdYv">
+        <SUI.Button appearance={["inverted", "basic"]} icon="user" oid="DhsoZdYv">
           Add
         </SUI.Button>
-        <SUI.Button appearance="inverted basic" color="red" title="Basic Red" oid="kbmE2d0W"/>
-        <SUI.Button appearance="inverted basic" color="orange" title="Basic Orange" oid="HnZWBcDp"/>
-        <SUI.Button appearance="inverted basic" color="yellow" title="Basic Yellow" oid="knTAxCZU"/>
-        <SUI.Button appearance="inverted basic" color="olive" title="Basic Olive" oid="wCfNRpaL"/>
-        <SUI.Button appearance="inverted basic" color="green" title="Basic Green" oid="IVsZI4w1"/>
-        <SUI.Button appearance="inverted basic" color="teal" title="Basic Teal" oid="LKRDhKqp"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="red" title="Basic Red" oid="kbmE2d0W"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="orange" title="Basic Orange" oid="HnZWBcDp"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="yellow" title="Basic Yellow" oid="knTAxCZU"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="olive" title="Basic Olive" oid="wCfNRpaL"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="green" title="Basic Green" oid="IVsZI4w1"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="teal" title="Basic Teal" oid="LKRDhKqp"/>
         <Oak.Spacer oid="W8ZGkerr"/>
-        <SUI.Button appearance="inverted basic" color="blue" title="Basic Blue" oid="ot2NAEPd"/>
-        <SUI.Button appearance="inverted basic" color="violet" title="Basic Violet" oid="ujcvoKb0"/>
-        <SUI.Button appearance="inverted basic" color="purple" title="Basic Purple" oid="TJqjLe7n"/>
-        <SUI.Button appearance="inverted basic" color="pink" title="Basic Pink" oid="MnQxsbdW"/>
-        <SUI.Button appearance="inverted basic" color="brown" title="Basic Brown" oid="HB9yNJud"/>
-        <SUI.Button appearance="inverted basic" color="grey" title="Basic Grey" oid="nJIH31Jb"/>
-        <SUI.Button appearance="inverted basic" color="black" title="Basic Black" oid="IRBnXVft"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="blue" title="Basic Blue" oid="ot2NAEPd"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="violet" title="Basic Violet" oid="ujcvoKb0"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="purple" title="Basic Purple" oid="TJqjLe7n"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="pink" title="Basic Pink" oid="MnQxsbdW"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="brown" title="Basic Brown" oid="HB9yNJud"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="grey" title="Basic Grey" oid="nJIH31Jb"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="black" title="Basic Black" oid="IRBnXVft"/>
       </SUI.Segment>
     </Example>
     <Example title="Social" oid="CpMpYec9">
@@ -175,10 +175,10 @@
     </Example>
     <Example title="Circular" oid="YJNVExtb">
       <SUI.Button appearance="circular" icon="settings" oid="chJYP7Tv"/>
-      <SUI.Button appearance="circular facebook" icon="facebook" oid="s2rcvowS"/>
-      <SUI.Button appearance="circular twitter" icon="twitter" oid="C47WX0pk"/>
-      <SUI.Button appearance="circular linkedin" icon="linkedin" oid="M5hLQXiQ"/>
-      <SUI.Button appearance="circular google plus" icon="google plus" oid="VlOZ11vs"/>
+      <SUI.Button appearance={["circular", "facebook"]} icon="facebook" oid="s2rcvowS"/>
+      <SUI.Button appearance={["circular", "twitter"]} icon="twitter" oid="C47WX0pk"/>
+      <SUI.Button appearance={["circular", "linkedin"]} icon="linkedin" oid="M5hLQXiQ"/>
+      <SUI.Button appearance={["circular", "google plus"]} icon="google plus" oid="VlOZ11vs"/>
     </Example>
     <Example title="Vertically Attached" oid="bUV171ij">
       <SUI.Button attached="top" title="Top" oid="tOn4q7iT"/>
