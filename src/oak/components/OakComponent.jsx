@@ -18,6 +18,7 @@ export default class OakComponent extends React.Component {
     className: PropTypes.string,
     style: PropTypes.object,
 
+		children: PropTypes.any,
     // Are we currently hidden?  You can pass a function which will be called with scope `this`.
     hidden: PropTypes.oneOfType([ PropTypes.bool, PropTypes.func ]),
   }
