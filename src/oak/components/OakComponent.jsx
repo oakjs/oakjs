@@ -36,19 +36,19 @@ export default class OakComponent extends React.Component {
   // Syntactic sugar
   //////////////////////////////
 
-	// Return whether or not we should be currently `hidden`.
-	// NOTE: if we ARE hidden, `render()` will return without actually rendering.
-	get hidden() {
+  // Return whether or not we should be currently `hidden`.
+  // NOTE: if we ARE hidden, `render()` will return without actually rendering.
+  get hidden() {
     const { hidden } = this.props;
     if (typeof hidden === "function") return hidden.call(this);
     if (hidden !== undefined) return !!hidden;
-	}
+  }
 
   //////////////////////////////
   // Component Lifecycle
   //////////////////////////////
 
-	// Maintain an `_isMounted` flag so we can know when it's safe to get refs
+  // Maintain an `_isMounted` flag so we can know when it's safe to get refs
   componentDidMount() {
     this._isMounted = true;
   }
@@ -69,9 +69,9 @@ export default class OakComponent extends React.Component {
   // Manipulating rendered elements
   //////////////////////////////
 
-	// Return one of our refs as a DOM node.
+  // Return one of our refs as a DOM node.
   // If you don't pass a `refName` string, we'll get the root node.
-	// Returns `undefined` if we're not rendered or we can't find the ref.
+  // Returns `undefined` if we're not rendered or we can't find the ref.
   ref(refName) {
     if (!this._isMounted) return undefined;
     const ref = (refName ? this.refs[refName] : this);
@@ -84,7 +84,7 @@ export default class OakComponent extends React.Component {
   // ALWAYS returns a jQuery vector, but it may be empty.
   // DEPRECATED
   $ref(refName) {
-  	return $(this.ref(refName));
+    return $(this.ref(refName));
   }
 
   //////////////////////////////
@@ -94,12 +94,12 @@ export default class OakComponent extends React.Component {
 
   // Override to add class name bits to all subclasses.
   // Results of this are processed with `classNames()`,
-  //	so you can return an array if you like...
+  //  so you can return an array if you like...
   getClassName(props) {
     return props.className;
   }
 
-	//
+  //
   getRenderProps(props) {
     const { id, style } = props;
     return {
@@ -111,9 +111,9 @@ export default class OakComponent extends React.Component {
     }
   }
 
-	// Default render, which just wraps our children in a named `<div>`.
+  // Default render, which just wraps our children in a named `<div>`.
   render() {
-  	if (this.hidden) return null;
+    if (this.hidden) return null;
 
     const props = this.getRenderProps(this.props);
     return <div {...props}>{this.props.children}</div>;

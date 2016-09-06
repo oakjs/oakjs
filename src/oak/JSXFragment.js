@@ -1,12 +1,12 @@
 //////////////////////////////
 // JSXFragment class
 //
-//	This attempts to strike a balance between structural sharing and encapsulation.
+//  This attempts to strike a balance between structural sharing and encapsulation.
 //
-//	Possible optimizations:
-//		- text / etc nodes are currently not JSXElements -- some logic would get cleaner if they were
-//		- JSXElements don't point directly to children (requires "remove" to yield a JSXFragment)
-//		- JSXElements hold their code and forget it on clone()
+//  Possible optimizations:
+//    - text / etc nodes are currently not JSXElements -- some logic would get cleaner if they were
+//    - JSXElements don't point directly to children (requires "remove" to yield a JSXFragment)
+//    - JSXElements hold their code and forget it on clone()
 //
 //////////////////////////////
 
@@ -36,10 +36,10 @@ export default class JSXFragment {
   // NOTE: we'll clone the `oids`, but all of the elements we point to will be the same.
   clone() {
     return new JSXFragment({
-    	controller: this.controller,
-    	props: this.props,
-    	root: this.root,
-    	oids: this.oids
+      controller: this.controller,
+      props: this.props,
+      root: this.root,
+      oids: this.oids
     });
   }
 
@@ -108,40 +108,40 @@ export default class JSXFragment {
     return parents;
   }
 
-	// Given a list of elements or oids, return as a list of elements.
-	getElements(elementsOrOids = []) {
-		return elementsOrOids.map( elementOrOid => this.getElement(elementOrOid) )
-			.filter(Boolean);
-	}
+  // Given a list of elements or oids, return as a list of elements.
+  getElements(elementsOrOids = []) {
+    return elementsOrOids.map( elementOrOid => this.getElement(elementOrOid) )
+      .filter(Boolean);
+  }
 
-	// Return an array of the element children of an element.
-	// Returns `undefined` if element not found or element has no children.
-	getChildren(elementOrOid) {
-		// get children, bailing if not found or no kids
-		const element = this.getElement(elementOrOid);
-		if (element) return element.children;
-		return undefined;
-	}
+  // Return an array of the element children of an element.
+  // Returns `undefined` if element not found or element has no children.
+  getChildren(elementOrOid) {
+    // get children, bailing if not found or no kids
+    const element = this.getElement(elementOrOid);
+    if (element) return element.children;
+    return undefined;
+  }
 
-	// Execute callback for each element child of an element.
-	// Fails silently if element can't be found.
-	forEachChild(elementOrOid, callback) {
-		const children = this.getChildren(elementOrOid);
-		if (!children) return;
-		children.forEach( child => callback(child) );
-	}
+  // Execute callback for each element child of an element.
+  // Fails silently if element can't be found.
+  forEachChild(elementOrOid, callback) {
+    const children = this.getChildren(elementOrOid);
+    if (!children) return;
+    children.forEach( child => callback(child) );
+  }
 
-	// Execute callback for each descendent elements of an element.
-	// NOTE: does NOT include the element itself!
-	// Fails silently if element can't be found.
-	forEachDescendent(elementOrOid, callback) {
-		const children = this.getChildren(elementOrOid);
-		if (!children) return;
-		// do the callback breadth-first across children first
-		children.forEach( child => callback(child) );
-		// recurse for kids of kids
-		children.forEach( child => this.forEachDescendent(child, callback) );
-	}
+  // Execute callback for each descendent elements of an element.
+  // NOTE: does NOT include the element itself!
+  // Fails silently if element can't be found.
+  forEachDescendent(elementOrOid, callback) {
+    const children = this.getChildren(elementOrOid);
+    if (!children) return;
+    // do the callback breadth-first across children first
+    children.forEach( child => callback(child) );
+    // recurse for kids of kids
+    children.forEach( child => this.forEachDescendent(child, callback) );
+  }
 
 
   //////////////////////////////
@@ -183,7 +183,7 @@ export default class JSXFragment {
 
   // Add a clone of `elements` to `parent` at `position`.
   // Attempts to keep the oids of `elements` and children,
-  //	but will generate new oids if oids are already present.
+  //  but will generate new oids if oids are already present.
   //
   // Returns an array of the clones actually added.
   //
@@ -196,25 +196,25 @@ export default class JSXFragment {
 
     if (typeof position !== "number") position = parentClone.children.length;
 
-		const _cloneAndUniquify = (element, parentOid) => {
-			const clone = this.cloneElement(element);
-			if (clone instanceof JSXElement) {
-				clone._parent = parentOid;
-				if (clone instanceof JSXElement) {
-					// make sure clone has a unique oid within this fragment
-					clone.oid = this.getUniqueOid(clone.oid);
-					this._addOid(clone);
-					// recurse for children
-					if (clone.children) {
-						clone.children = clone.children.map( child => _cloneAndUniquify(child, clone.oid) );
-					}
-				}
-			}
-			return clone;
-		};
+    const _cloneAndUniquify = (element, parentOid) => {
+      const clone = this.cloneElement(element);
+      if (clone instanceof JSXElement) {
+        clone._parent = parentOid;
+        if (clone instanceof JSXElement) {
+          // make sure clone has a unique oid within this fragment
+          clone.oid = this.getUniqueOid(clone.oid);
+          this._addOid(clone);
+          // recurse for children
+          if (clone.children) {
+            clone.children = clone.children.map( child => _cloneAndUniquify(child, clone.oid) );
+          }
+        }
+      }
+      return clone;
+    };
 
     return elements.map( (element, index) => {
-    	const clone = _cloneAndUniquify(element, parentClone.oid);
+      const clone = _cloneAndUniquify(element, parentClone.oid);
       parentClone.children.splice(position + index, 0, clone);
       return clone;
     });
@@ -234,8 +234,8 @@ export default class JSXFragment {
 
     // clone and clear parent
     if (element instanceof JSXElement) {
-    	element = element.clone();
-    	delete element._parent;
+      element = element.clone();
+      delete element._parent;
     }
 
     // recursively remove all `oids` for element and its children
@@ -277,7 +277,7 @@ if (!element) debugger;
 
   // Return an unique `oid` which is not already contained in our `oids`.
   // If you already have an `oid` which may or may not be used,
-  //	pass that and if it IS already not in our `oids`, you'll get it back.
+  //  pass that and if it IS already not in our `oids`, you'll get it back.
   getUniqueOid(oid) {
     while (!oid || this.oids[oid]) {
       oid = this.getRandomOid();
@@ -295,9 +295,9 @@ if (!element) debugger;
     return this.oidPrefix + JSXFragment.getRandomOid();
   }
 
-	// Base random id routine.
-	// The `8` below is a compromise between stupidly long IDs and chance of collisions.
-	// Adjust up if collisions are rampant.
+  // Base random id routine.
+  // The `8` below is a compromise between stupidly long IDs and chance of collisions.
+  // Adjust up if collisions are rampant.
   static getRandomOid() {
     return ids.generateRandomId(8);
   }
@@ -310,24 +310,24 @@ if (!element) debugger;
 
   // Return a React Component for the current state of this JSXFragment.
   // We do this by combining the `script` and a `render()` function
-  //	created by generating source from our `root` `JSXElement`
-  //	and using `Babel` to compile that all into a class.
+  //  created by generating source from our `root` `JSXElement`
+  //  and using `Babel` to compile that all into a class.
   //
-  //	This lets us get arrow functions, etc on platforms that don't support them.
+  //  This lets us get arrow functions, etc on platforms that don't support them.
   createComponent(componentName, SuperConstructor = OakComponent, script) {
     let Constructor;
 
     const renderSource = this._getRenderSource();
-		//console.warn(renderSource);
+    //console.warn(renderSource);
 
     try {
-			// NOTE: we have to manually stick in a `render()` function here
-			//       because React barfs if we try to set `render()` directly.
-			let classScript = [
-				script || "",
-				renderSource,
-			].join("\n");
-			Constructor = babel.createClass(classScript, SuperConstructor, componentName);
+      // NOTE: we have to manually stick in a `render()` function here
+      //       because React barfs if we try to set `render()` directly.
+      let classScript = [
+        script || "",
+        renderSource,
+      ].join("\n");
+      Constructor = babel.createClass(classScript, SuperConstructor, componentName);
 
 //window.Constructor = Constructor;
     }
@@ -340,27 +340,27 @@ if (!element) debugger;
   }
 
   _getRenderSource(indent = "") {
-		// set up `getComponent()` method
-		const errorMessage = `${""+this.controller}: Can't find component`;
-		const childIndent = indent + "  ";
-  	return [
-  		`${indent}render() {`,
-			this._getRenderVars(childIndent),
-			"",
-			`${childIndent}// get a component constructor given a string type`,
-    	`${childIndent}function getComponent(type) { `,
-    	`${childIndent}  return oak.lookupComponent(type, components, "${errorMessage}");`,
-    	`${childIndent}}`,
-    	"",
-    	`${indent}return ${this.root._elementsToSource(childIndent)}`,
-    	`${indent}}`
-		].join("\n");
-	}
+    // set up `getComponent()` method
+    const errorMessage = `${""+this.controller}: Can't find component`;
+    const childIndent = indent + "  ";
+    return [
+      `${indent}render() {`,
+      this._getRenderVars(childIndent),
+      "",
+      `${childIndent}// get a component constructor given a string type`,
+      `${childIndent}function getComponent(type) { `,
+      `${childIndent}  return oak.lookupComponent(type, components, "${errorMessage}");`,
+      `${childIndent}}`,
+      "",
+      `${indent}return ${this.root._elementsToSource(childIndent)}`,
+      `${indent}}`
+    ].join("\n");
+  }
 
   // Set up ``renderVars` for the `render` function.
   _getRenderVars(indent = "  ") {
     const renderVars = this.controller.constructor.renderVars;
-  	const output = [];
+    const output = [];
     output.push(`${indent}// variables for use in expressions below`);
     Object.keys(renderVars).forEach(
       key => output.push(`${indent}var ${key} = ${renderVars[key]};`)
@@ -421,17 +421,17 @@ if (!element) debugger;
     this._forEachDescendant(element, (element) => this._removeOid(element));
   }
 
-	// Given a possibly mixed list of parents and their descendents as oids or elements, throw out children.
-	// Eg: after this call, nothing left in the list will be a descendent of anything else.
-	_removeDescendents(elements = []) {
-		if (elements.length === 0) return [];
+  // Given a possibly mixed list of parents and their descendents as oids or elements, throw out children.
+  // Eg: after this call, nothing left in the list will be a descendent of anything else.
+  _removeDescendents(elements = []) {
+    if (elements.length === 0) return [];
 
-		const oids = elements.map( elementOrOid => JSXElement.getOid(elementOrOid) ).filter(Boolean);
+    const oids = elements.map( elementOrOid => JSXElement.getOid(elementOrOid) ).filter(Boolean);
 
-		return elements.filter( (element) => {
-			return !this.getParentsOrDie(element).some( parent => oids.includes(parent.oid) );
-		});
-	}
+    return elements.filter( (element) => {
+      return !this.getParentsOrDie(element).some( parent => oids.includes(parent.oid) );
+    });
+  }
 
   //////////////////////////////
   //  Debug
@@ -477,7 +477,7 @@ if (!element) debugger;
   }
 
   toJSX() {
-  	return this.root.toJSX();
+    return this.root.toJSX();
   }
 
 }

@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<List> component for use with SemanticUI
+//  <List> component for use with SemanticUI
 //
 //////////////////////////////
 

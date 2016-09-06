@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Reveal> component for use with SemanticUI
+//  <Reveal> component for use with SemanticUI
 //
 //////////////////////////////
 

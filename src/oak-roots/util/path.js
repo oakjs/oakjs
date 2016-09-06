@@ -1,7 +1,7 @@
 "use strict";
 
 // Split a `dotted.object[path][0].foo` into an array of numbers and strings:
-//		["dotted","object","path",0,"foo"]
+//    ["dotted","object","path",0,"foo"]
 const PATH_PATTERN = /(\.|\[[^\]]+\])/;
 const PATH_REGISTRY = {};
 
@@ -95,8 +95,12 @@ export function setPath(value, pathString, object) {
 
       // create arrays or objects as necessary
       if (target[key] == null) {
-        if (typeof path[i+1] === "number") 	target[key] = [];
-        else								target[key] = {};
+        if (typeof path[i+1] === "number") {
+          target[key] = [];
+        }
+        else {
+          target[key] = {};
+        }
       }
       target = target[key];
     }

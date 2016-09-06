@@ -1,8 +1,8 @@
 "use strict";
 //////////////////////////////
 //
-//	SemanticUI React framework root singleton.
-//	All other widgets/etc get hung off of this.
+//  SemanticUI React framework root singleton.
+//  All other widgets/etc get hung off of this.
 //
 //////////////////////////////
 
@@ -107,7 +107,7 @@ export function diffObjects(newProps, oldProps, checkOldProps=false) {
   return (deltaFound ? deltas : undefined);
 }
 
-//	Return `true` if the `thing` passed in appears to be a rendered React element.
+//  Return `true` if the `thing` passed in appears to be a rendered React element.
 //  Must also match the `type`, if specified.
 export function isElement(thing, type) {
   if (!thing) return false;

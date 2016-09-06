@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Label> component for use with SemanticUI
+//  <Label> component for use with SemanticUI
 //
 //////////////////////////////
 

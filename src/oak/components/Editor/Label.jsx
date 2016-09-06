@@ -1,7 +1,7 @@
 //////////////////////////////
 // Editor.Label class
 //
-//	Simple label class rendered inside an `<Editor.Control>`
+//  Simple label class rendered inside an `<Editor.Control>`
 //  We (currently) assuming that you're passing normalized props from a <Control> to its <Editor_Label>.
 //
 //////////////////////////////
@@ -11,24 +11,24 @@ import React, { PropTypes } from "react";
 import { classNames, mergeProps } from "oak-roots/util/react";
 
 export default class Label extends React.Component {
-	static propTypes = {
+  static propTypes = {
   // content
     title: PropTypes.string,              // string label to display
-	  children: PropTypes.any,              // custom children (will be placed BEFORE the label)
+    children: PropTypes.any,              // custom children (will be placed BEFORE the label)
 
   // schema properties
     hidden: PropTypes.bool,               // Hide the label?
     disabled: PropTypes.bool,             // Show as disabled?
-		required: PropTypes.bool,             // Show as required?
+    required: PropTypes.bool,             // Show as required?
 
   // display
-    id: PropTypes.string,									// HTML `id` of label
-    className: PropTypes.string,					// HTML class of label
-    style: PropTypes.object,							// HTML style of label
+    id: PropTypes.string,                  // HTML `id` of label
+    className: PropTypes.string,          // HTML class of label
+    style: PropTypes.object,              // HTML style of label
 
     labelOn: PropTypes.string,
-		inline: PropTypes.bool,								// `true` == { display: inline-block} , `false` = { display: block }
-		width: PropTypes.number,							// # of columns of 20-column grid for display (including label)
+    inline: PropTypes.bool,                // `true` == { display: inline-block} , `false` = { display: block }
+    width: PropTypes.number,              // # of columns of 20-column grid for display (including label)
   }
 
   getRenderClass(props) {
@@ -41,7 +41,7 @@ export default class Label extends React.Component {
       },
       props.labelOn,
       "label",
-			props.width && `width-${props.width}`
+      props.width && `width-${props.width}`
     );
   }
 

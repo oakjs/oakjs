@@ -34,11 +34,11 @@ export default class JSXElement {
 
   get oid() { return this.props && this.props.oid }
   set oid(oid) {
-  	if (!this.props) this.props = {};
-  	this.props.oid = oid;
+    if (!this.props) this.props = {};
+    this.props.oid = oid;
   }
 
-	get childOids() { return this.children && this.children.map(child => JSXElement.getOid(child) ) }
+  get childOids() { return this.children && this.children.map(child => JSXElement.getOid(child) ) }
 
   // Given a JSXElement, `oid` string, return an oid string.
   // Returns `undefined` if none of the above.
@@ -80,13 +80,13 @@ export default class JSXElement {
     return descendents;
   }
 
-	// Do we recursively contain some child oid?
-	// NOTE: includes this element!
-	contains(oid) {
-		if (this.oid === oid) return true;
-		if (!this.children) return false;
-		return this.children.some(child => child instanceof JSXElement && child.contains(oid) );
-	}
+  // Do we recursively contain some child oid?
+  // NOTE: includes this element!
+  contains(oid) {
+    if (this.oid === oid) return true;
+    if (!this.children) return false;
+    return this.children.some(child => child instanceof JSXElement && child.contains(oid) );
+  }
 
   //////////////////////////////
   //  Edit settings  (NOTE: this is highly oak specific)
@@ -114,13 +114,13 @@ export default class JSXElement {
     return this.editorProps.canDrop(this, elements);
   }
 
-	get dragType() {
+  get dragType() {
     return this.editorProps.dragType;
-	}
+  }
 
-	get dropTypes() {
+  get dropTypes() {
     return this.editorProps.dropTypes;
-	}
+  }
 
   //////////////////////////////
   //  Render method
@@ -129,7 +129,7 @@ export default class JSXElement {
   // Output an expression which will render this element and its children.
   _elementsToSource(indent = "") {
 //    const type = this.renderType || this.type;
-		const type = this.type;
+    const type = this.type;
     // if not a lower case string, call the `getComponent()` method to yield the actual constructor
     const typeExpression = (type === type.toLowerCase() ? `"${type}"` : `getComponent("${type}")`);
     const attrExpression = this._propsToSource(indent);
@@ -226,7 +226,7 @@ export default class JSXElement {
 
   // Render this element as a string, close to the code we parsed it from.
   // NOTE: this will normalize the JSX to a canonical format, this is desired.
-	toJSX(indent = "", dontNest) {
+  toJSX(indent = "", dontNest) {
     const props = this._propsToJSX(indent);
     const tagPrefix = indent + "<" + this.type + (props ? " "+props : "");
 
@@ -243,7 +243,7 @@ export default class JSXElement {
       if (children) children += "\n" + indent;
     }
     return tagPrefix + ">" + ( children || "" ) + "</" + this.type + ">";
-	}
+  }
 
   // Convert our props to a JSX string.
   _propsToJSX(indent, props = this.props) {
@@ -290,9 +290,9 @@ export default class JSXElement {
     if (!children || children.length === 0) return "";
 
     const childExpressions = children.map(child => {
-    	// use "he" library to encode entities in the string
+      // use "he" library to encode entities in the string
       if (typeof child === "string") {
-      	return indent + he.encode(child, { useNamedReferences: true, decimal: true });
+        return indent + he.encode(child, { useNamedReferences: true, decimal: true });
       }
       return child.toJSX(indent);
     })

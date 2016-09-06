@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Spacer> component for use with oak.
+//  <Spacer> component for use with oak.
 //
 //////////////////////////////
 

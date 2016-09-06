@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Statistic> component for use with SemanticUI
+//  <Statistic> component for use with SemanticUI
 //
 //////////////////////////////
 

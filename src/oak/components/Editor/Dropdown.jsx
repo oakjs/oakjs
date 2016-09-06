@@ -1,7 +1,7 @@
 //////////////////////////////
 // Editor.Dropdown class
 //
-//	Select
+//  Select
 //
 //////////////////////////////
 
@@ -15,29 +15,29 @@ import Control from "./Control";
 
 // "<Dropdown>" Control subclass based on <SUI.Dropdown>.
 export default class Dropdown extends Control {
-	// Add <Select> specific propTypes
-	static propTypes = {
-		...Control.propTypes,
-		"enum": PropTypes.any,								// List of valid `enum` values from JSON schema.
-		options: PropTypes.any,								// Specifier for HTML options, overides `enum`.
+  // Add <Select> specific propTypes
+  static propTypes = {
+    ...Control.propTypes,
+    "enum": PropTypes.any,                // List of valid `enum` values from JSON schema.
+    options: PropTypes.any,                // Specifier for HTML options, overides `enum`.
 
-		allowAdditions: PropTypes.bool,       // allow additions to pre-set values?
-		multiple: PropTypes.bool,							// multi-select?
-		search: PropTypes.bool, 							// search-style: allows them to type
-		selection: PropTypes.bool,  					// looks like a <select>
+    allowAdditions: PropTypes.bool,       // allow additions to pre-set values?
+    multiple: PropTypes.bool,              // multi-select?
+    search: PropTypes.bool,               // search-style: allows them to type
+    selection: PropTypes.bool,            // looks like a <select>
 
-		delimiter: PropTypes.string,          // Delimiter for multiple options specified as string
-	}
+    delimiter: PropTypes.string,          // Delimiter for multiple options specified as string
+  }
 
-	static defaultProps = {
-	  selection: true,
-	  delimiter: ","
-	}
+  static defaultProps = {
+    selection: true,
+    delimiter: ","
+  }
 
-	// Properties passed to control.
-	static controlProps = [
-		...Control.controlProps, "allowAdditions", "items", "multiple", "search", "selection"
-	];
+  // Properties passed to control.
+  static controlProps = [
+    ...Control.controlProps, "allowAdditions", "items", "multiple", "search", "selection"
+  ];
 
 
   // Return true if 2 values are the same.

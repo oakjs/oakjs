@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Buttons> component for use with SemanticUI
+//  <Buttons> component for use with SemanticUI
 //
 // TODO: add `visible` to examples stack
 // TODO: `enabled`

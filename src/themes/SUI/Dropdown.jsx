@@ -52,7 +52,7 @@ const moduleProps = {
   onLabelCreate: PropTypes.func,          // Args: $label                 Allows you to modify a label before it is added. Expects $label to be returned.
   onLabelRemove: PropTypes.func,          // Args: $label                 Called when a label is remove, return false; will prevent the label from being removed.
   onLabelSelect: PropTypes.func,          // Args: $selectedLabels        Is called after a label is selected by a user
-  onNoResults: PropTypes.func,            // Args: searchValue	          Is called after a dropdown is searched with no matching values
+  onNoResults: PropTypes.func,            // Args: searchValue            Is called after a dropdown is searched with no matching values
   onShow: PropTypes.func,                 // Args:                        Is called before a dropdown is shown. If false is returned, dropdown will not be shown.
   onHide: PropTypes.func,                 // Args:                        Is called before a dropdown is hidden. If false is returned, dropdown will not be hidden.
 

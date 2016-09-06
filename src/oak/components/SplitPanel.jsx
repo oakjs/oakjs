@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Oak.SplitPanel> component for use with oak e.g.:
+//  <Oak.SplitPanel> component for use with oak e.g.:
 //
 //    <Oak.SplitPanel>
 //      <Some-Element/>

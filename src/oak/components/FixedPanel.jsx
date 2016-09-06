@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Oak.FixedPanel> component
+//  <Oak.FixedPanel> component
 //
 //  Renders children inside a `position:fixed` panel so they pop out.
 //

@@ -1,7 +1,7 @@
 "use strict";
 //////////////////////////////
 //
-//	<Breadcrumb> component for use with SemanticUI
+//  <Breadcrumb> component for use with SemanticUI
 //
 //////////////////////////////
 

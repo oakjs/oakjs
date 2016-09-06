@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Segment> component for use with SemanticUI
+//  <Segment> component for use with SemanticUI
 //
 //////////////////////////////
 

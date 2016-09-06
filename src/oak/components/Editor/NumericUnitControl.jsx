@@ -15,7 +15,7 @@ import Control from "./Control";
 import { HTMLSelect } from "./Select";
 
 export default class NumericUnitControl extends Control {
-	static propTypes = {
+  static propTypes = {
     ...Control.propTypes,
 
     // Logical name of this type, for error messages
@@ -127,7 +127,7 @@ export default class NumericUnitControl extends Control {
     }
 
 //    console.warn("NUC onChange", fieldValue, newValue);
-		return this._handleEvent("onChange", props, controlHandler, event, newValue);
+    return this._handleEvent("onChange", props, controlHandler, event, newValue);
   }
 
   // Add `split` value to the normalized props.

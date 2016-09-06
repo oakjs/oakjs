@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Ad> component for use with SemanticUI
+//  <Ad> component for use with SemanticUI
 //
 //////////////////////////////
 

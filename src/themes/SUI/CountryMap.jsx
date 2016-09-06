@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<CountryMenu> component for use with SemanticUI
+//  <CountryMenu> component for use with SemanticUI
 //
 //////////////////////////////
 

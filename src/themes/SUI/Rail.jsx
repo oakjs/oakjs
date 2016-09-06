@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Rail> component for use with SemanticUI
+//  <Rail> component for use with SemanticUI
 //
 //////////////////////////////
 

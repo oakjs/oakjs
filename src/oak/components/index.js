@@ -1,5 +1,5 @@
 //
-//	"Oak" package
+//  "Oak" package
 //
 import Oak from "./components";
 exports.Oak = Oak;

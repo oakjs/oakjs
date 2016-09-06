@@ -43,13 +43,13 @@ const moduleProps = {
                                     //                        right center forces the popup to use this position as a last resort
                                     //                        even if it is partially offstage. Setting this to true will use
                                     //                        the last attempted position.
-  on: PropTypes.any,                // default: "hover"	      Event used to trigger popup. Can be either focus, click, hover, or manual.
+  on: PropTypes.any,                // default: "hover"        Event used to trigger popup. Can be either focus, click, hover, or manual.
                                     //                        Manual popups must be triggered with $('.element').popup('show');
   delay: PropTypes.object,          // default: { show: 50, hide: 0 }
                                     //                        Delay in milliseconds before showing or hiding a popup on hover or focus
-  transition: PropTypes.string,     // default: "slide down"	Named transition to use when animating menu in and out.
+  transition: PropTypes.string,     // default: "slide down"  Named transition to use when animating menu in and out.
                                     //                        Fade and slide down are available without including ui transitions
-  duration: PropTypes.number,       // default: 200	          Duration of animation events
+  duration: PropTypes.number,       // default: 200            Duration of animation events
   setFluidWidth: PropTypes.bool,    // default: true          Whether popup should set fluid popup variation width on load
                                     //                        to avoid width: 100% including padding
   hoverable: PropTypes.bool,        // default: false         Whether popup should not close on hover (useful for popup navigation menus)
@@ -60,21 +60,21 @@ const moduleProps = {
                                     //                        auto only hides for popups without on: 'click'.
                                     //                        Set this to false to prevent mobile browsers from closing popups
                                     //                        when you tap inside input fields.
-  distanceAway: PropTypes.number,   // default:	0	            Offset for distance of popup from element
-  offset: PropTypes.number,         // default:	0	            Offset in pixels from calculated position
-  maxSearchDepth: PropTypes.number, // default:	10	          Number of iterations before giving up search for popup position
+  distanceAway: PropTypes.number,   // default:  0              Offset for distance of popup from element
+  offset: PropTypes.number,         // default:  0              Offset in pixels from calculated position
+  maxSearchDepth: PropTypes.number, // default:  10            Number of iterations before giving up search for popup position
                                     //                        when a popup cannot fit on screen
 
   variation: PropTypes.any,         // default: undefined     Popup variation to use, can use multiple variations with a space delimiter
                                     //                        NOTE: preferred to use `appearance` instead...
   // SUI Callbacks
-  onCreate: PropTypes.func,         // Args:	$module	        Callback on popup element creation, with created popup
-  onRemove: PropTypes.func,         // Args:	$module	        Callback immediately before Popup is removed from DOM
-  onShow: PropTypes.func,           // Args:	$module	        Callback before popup is shown. Returning false from this callback will cancel the popup from showing.
-  onVisible: PropTypes.func,        // Args:	$module	        Callback after popup is shown
-  onHide: PropTypes.func,           // Args:	$module	        Callback before popup is hidden. Returning false from this callback will cancel the popup from hiding.
-  onHidden: PropTypes.func,         // Args:	$module	        Callback after popup is hidden
-  onUnplaceable: PropTypes.func,    // Args:	$module	        Callback after popup cannot be plaed on screen
+  onCreate: PropTypes.func,         // Args:  $module          Callback on popup element creation, with created popup
+  onRemove: PropTypes.func,         // Args:  $module          Callback immediately before Popup is removed from DOM
+  onShow: PropTypes.func,           // Args:  $module          Callback before popup is shown. Returning false from this callback will cancel the popup from showing.
+  onVisible: PropTypes.func,        // Args:  $module          Callback after popup is shown
+  onHide: PropTypes.func,           // Args:  $module          Callback before popup is hidden. Returning false from this callback will cancel the popup from hiding.
+  onHidden: PropTypes.func,         // Args:  $module          Callback after popup is hidden
+  onUnplaceable: PropTypes.func,    // Args:  $module          Callback after popup cannot be plaed on screen
 }
 
 

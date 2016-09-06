@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Comment> component for use with SemanticUI
+//  <Comment> component for use with SemanticUI
 //
 //////////////////////////////
 

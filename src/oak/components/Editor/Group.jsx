@@ -1,7 +1,7 @@
 //////////////////////////////
 // Editor.Group class
 //
-//	Render a group of controls.
+//  Render a group of controls.
 //
 //////////////////////////////
 
@@ -10,15 +10,15 @@ import React, { PropTypes } from "react";
 import Control from "./Control";
 
 const stringOrFn = PropTypes.oneOfType([
-	PropTypes.string,
-	PropTypes.func
+  PropTypes.string,
+  PropTypes.func
 ]);
 
 export default class Group extends Control {
-	static propTypes = {
-	  ...Control.propTypes,
-		bordered: PropTypes.bool,							// Show border?
-	}
+  static propTypes = {
+    ...Control.propTypes,
+    bordered: PropTypes.bool,              // Show border?
+  }
 
   // Pass our `props.name` down as the `namePrefix` of any children.
   static childContextTypes = {

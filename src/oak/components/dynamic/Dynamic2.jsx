@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Columns> component for use with oak.
+//  <Columns> component for use with oak.
 //
 //  Divides the child elements equally.
 //  TODO: column count & wrap?

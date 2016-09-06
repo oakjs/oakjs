@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Card> component for use with SemanticUI
+//  <Card> component for use with SemanticUI
 //
 //////////////////////////////
 

@@ -13,8 +13,8 @@ import ElementBuffer from "./ElementBuffer";
 import SUIModuleComponent from "./SUIModuleComponent";
 
 const moduleProps = {
-  cookie: PropTypes.string,             // default: false?	  Name of the cookie to track the nag.
-  value: PropTypes.any,                 // default: false?	  Value of the cookie when they've dismissed the nag.
+  cookie: PropTypes.string,             // default: false?    Name of the cookie to track the nag.
+  value: PropTypes.any,                 // default: false?    Value of the cookie when they've dismissed the nag.
 }
 
 

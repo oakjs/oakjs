@@ -1,7 +1,7 @@
 "use strict";
 //////////////////////////////
 //
-//	<Form> component for use with SemanticUI
+//  <Form> component for use with SemanticUI
 //
 //////////////////////////////
 

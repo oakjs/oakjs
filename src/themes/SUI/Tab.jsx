@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Tab> component for use with SemanticUI
+//  <Tab> component for use with SemanticUI
 //
 //////////////////////////////
 

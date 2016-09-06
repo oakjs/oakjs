@@ -606,8 +606,8 @@ export default class OakEvent {
     "39": "Right",
     "40": "Down",
     "46": "Delete",
-    "59": "Semicolon",		// firefox mac
-    "61": "Equal",				// firefox mac
+    "59": "Semicolon",    // firefox mac
+    "61": "Equal",        // firefox mac
     "91": "Meta",         // chrome mac
     "93": "Meta",         // chrome mac
     "96": "Numpad0",
@@ -646,11 +646,11 @@ export default class OakEvent {
     "129": "F18",
     "130": "F19",
     "145": "F14",         // firefox mac
-    "173": "Minus",				// firefox mac
-    "186": "Semicolon",		// chrome, safari mac
-    "187": "Equal",				// chrome, safari mac
+    "173": "Minus",        // firefox mac
+    "186": "Semicolon",    // chrome, safari mac
+    "187": "Equal",        // chrome, safari mac
     "188": "Comma",
-    "189": "Minus",				// safari mac
+    "189": "Minus",        // safari mac
     "190": "Period",
     "191": "Slash",
     "192": "Backquote",

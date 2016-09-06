@@ -1,7 +1,7 @@
 "use strict";
 //////////////////////////////
 //
-//	<Feed> component for use with SemanticUI
+//  <Feed> component for use with SemanticUI
 //
 //////////////////////////////
 

@@ -1,7 +1,7 @@
 "use strict";
 //////////////////////////////
 //
-//	<Comments> component for use with SemanticUI
+//  <Comments> component for use with SemanticUI
 //
 //////////////////////////////
 

@@ -15,8 +15,8 @@ import { classNames, mergeProps } from "oak-roots/util/react";
 
 export default class Form extends React.Component {
 
-	static propTypes = {
-	// wrapper appearance/attributes
+  static propTypes = {
+  // wrapper appearance/attributes
     id: PropTypes.string,             // id for the wrapper element
     className: PropTypes.string,      // css class for the wrapper element
     style: PropTypes.object,          // style for the wrapper element
@@ -194,7 +194,7 @@ export default class Form extends React.Component {
       style: props.style,
       className: this.getFormClassName(props),
 // TODO: add all unknown props... ???
-			"data-oid": props["data-oid"]
+      "data-oid": props["data-oid"]
     }
   }
 

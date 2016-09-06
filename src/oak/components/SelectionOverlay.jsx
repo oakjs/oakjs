@@ -277,7 +277,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
     // if we started moving...
     if (this.state.dragMoveStarted) {
       // ALWAYS undo the initial remove
- 	  	oak.undo();
+       oak.undo();
 
       // if we actually dropped,
       if (this.state.dropParent) {

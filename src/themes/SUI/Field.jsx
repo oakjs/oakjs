@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Field> component for use with SemanticUI
+//  <Field> component for use with SemanticUI
 //
 //////////////////////////////
 

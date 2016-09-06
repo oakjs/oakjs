@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Loader> component for use with SemanticUI
+//  <Loader> component for use with SemanticUI
 //
 //////////////////////////////
 

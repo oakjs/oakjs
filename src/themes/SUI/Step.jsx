@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Step> component for use with SemanticUI
+//  <Step> component for use with SemanticUI
 //
 //////////////////////////////
 

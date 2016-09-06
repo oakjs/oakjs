@@ -1,6 +1,6 @@
 "use strict";
 //////////////////////////////
-//	<Divider> component
+//  <Divider> component
 //////////////////////////////
 
 import React, { PropTypes } from "react";

@@ -1,7 +1,7 @@
 "use strict";
 //////////////////////////////
 //
-//	<Fields> component for use with SemanticUI
+//  <Fields> component for use with SemanticUI
 //
 //////////////////////////////
 

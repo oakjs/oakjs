@@ -41,8 +41,8 @@ const propTypes = {
   oneOfType: PT.oneOfType([PT.string, PT.number]),
   requiredOneOfType: PT.oneOfType([PT.string, PT.number]).isRequired,
 
-	shape: PT.shape({ color: PT.string, size: PT.number.isRequired }),
-	requiredShape: PT.shape({ color: PT.string, size: PT.number.isRequired }).isRequired,
+  shape: PT.shape({ color: PT.string, size: PT.number.isRequired }),
+  requiredShape: PT.shape({ color: PT.string, size: PT.number.isRequired }).isRequired,
 
 }
 console.dir(propTypesToSchema(propTypes));

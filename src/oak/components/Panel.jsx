@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Oak.Panel> component for use with oak e.g.:
+//  <Oak.Panel> component for use with oak e.g.:
 //
 //    <Oak.Panel>
 //      <Oak.PanelHeader>...</Oak.PanelHeader>
@@ -154,8 +154,8 @@ export class PanelHeader extends OakComponent {
     return props;
   }
 
-	render() {
-	  if (this.hidden) return null;
+  render() {
+    if (this.hidden) return null;
     const props = this.getRenderProps(this.props);
     return React.createElement("header", props, ...props.children);
   }
@@ -176,8 +176,8 @@ export class PanelFooter extends OakComponent {
     return props;
   }
 
-	render() {
-	  if (this.hidden) return null;
+  render() {
+    if (this.hidden) return null;
     const props = this.getRenderProps(this.props);
     return React.createElement("footer", props, props.children);
   }
@@ -202,8 +202,8 @@ export class LeftSidebar extends OakComponent {
     return props;
   }
 
-	render() {
-	  if (this.hidden) return null;
+  render() {
+    if (this.hidden) return null;
     const props = this.getRenderProps(this.props);
     return React.createElement("div", props, props.children);
   }
@@ -223,8 +223,8 @@ export class RightSidebar extends OakComponent {
     return props;
   }
 
-	render() {
-	  if (this.hidden) return null;
+  render() {
+    if (this.hidden) return null;
     const props = this.getRenderProps(this.props);
     return React.createElement("div", props, props.children);
   }

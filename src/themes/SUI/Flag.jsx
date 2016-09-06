@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Flag> component for use with SemanticUI
+//  <Flag> component for use with SemanticUI
 //
 //////////////////////////////
 

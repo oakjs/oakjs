@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Images> component for use with SemanticUI
+//  <Images> component for use with SemanticUI
 //
 //////////////////////////////
 

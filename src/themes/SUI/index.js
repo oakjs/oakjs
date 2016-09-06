@@ -1,7 +1,7 @@
 "use strict";
 //////////////////////////////
 //
-//	Pull all SemanticUI widgets into one file for easy include.
+//  Pull all SemanticUI widgets into one file for easy include.
 //
 //  You can simply import `SUI` and use all of the components with the `SUI.` prefix:
 //

@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<FeedEvent> component for use with SemanticUI
+//  <FeedEvent> component for use with SemanticUI
 //
 //////////////////////////////
 

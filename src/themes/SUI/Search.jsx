@@ -17,19 +17,19 @@ import { renderError } from "./Input"
 import { isElement, hasClass } from "./SUI";
 
 const moduleProps = {
-  source: PropTypes.any,                // default: false	          Specify a Javascript object which will be searched locally
+  source: PropTypes.any,                // default: false            Specify a Javascript object which will be searched locally
   apiSettings: PropTypes.object,        // default: (object)        Settings for API call.
-  minCharacters: PropTypes.number,      // default: 1	              Minimum characters to query for results
-  transition: PropTypes.string,         // default: "fade"	        Named transition to use when animating menu in and out. Fade and slide down are available without including ui transitions
-  duration: PropTypes.number,           // default: 300	            Duration of animation events
-  maxResults: PropTypes.number,         // default: 7	              Maximum results to display when using local and simple search, maximum category count for category search
-  cache: PropTypes.bool,                // default: true	          Caches results locally to avoid requerying server
-  searchFullText: PropTypes.bool,       // default: true	          Return local results that match anywhere inside your content
+  minCharacters: PropTypes.number,      // default: 1                Minimum characters to query for results
+  transition: PropTypes.string,         // default: "fade"          Named transition to use when animating menu in and out. Fade and slide down are available without including ui transitions
+  duration: PropTypes.number,           // default: 300              Duration of animation events
+  maxResults: PropTypes.number,         // default: 7                Maximum results to display when using local and simple search, maximum category count for category search
+  cache: PropTypes.bool,                // default: true            Caches results locally to avoid requerying server
+  searchFullText: PropTypes.bool,       // default: true            Return local results that match anywhere inside your content
   fields: PropTypes.object,             // default: (object)        List mapping display content to JSON property, either with API or source.
   searchFields: PropTypes.array,        // default: (array)         Specify object properties inside local source object which will be searched
-  hideDelay: PropTypes.number,          // default: 0	              Delay before hiding results after search blur
-  searchDelay: PropTypes.number,        // default: 100	            Delay before querying results on inputchange
-  easing: PropTypes.string,             // default: easeOutExpo	    Easing equation when using fallback Javascript animation
+  hideDelay: PropTypes.number,          // default: 0                Delay before hiding results after search blur
+  searchDelay: PropTypes.number,        // default: 100              Delay before querying results on inputchange
+  easing: PropTypes.string,             // default: easeOutExpo      Easing equation when using fallback Javascript animation
 
   templates: PropTypes.object,          // default: (object)        Templates used to generate the HTML structures for search results
 

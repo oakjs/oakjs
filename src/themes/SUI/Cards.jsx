@@ -1,7 +1,7 @@
 "use strict";
 //////////////////////////////
 //
-//	<Cards> component for use with SemanticUI
+//  <Cards> component for use with SemanticUI
 //
 //////////////////////////////
 

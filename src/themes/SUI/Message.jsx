@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Message> component for use with SemanticUI
+//  <Message> component for use with SemanticUI
 //
 //////////////////////////////
 

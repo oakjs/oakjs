@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<ListItem> component for use with SemanticUI
+//  <ListItem> component for use with SemanticUI
 //
 //////////////////////////////
 

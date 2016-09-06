@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Dimmer> component for use with SemanticUI
+//  <Dimmer> component for use with SemanticUI
 //
 //////////////////////////////
 
@@ -16,18 +16,18 @@ import "./Dimmer.css";
 const moduleProps = {
   opacity: PropTypes.any,               // default: "auto"      Dimmers opacity from 0-1. Defaults to auto which uses the CSS specified opacity
   variation: PropTypes.string,          // default: false       Specify a variation to add when generating dimmer, like inverted
-  dimmerName: PropTypes.any,            // default: false	      If initializing a dimmer on a dimmable context, you can use dimmerName to distinguish between multiple dimmers in that context.
-  on: PropTypes.any,                    // default: false	      Can be set to hover or click to show/hide dimmer on dimmable event
-  useCSS: PropTypes.bool,               // default: true	      Whether to dim dimmers using CSS transitions.
+  dimmerName: PropTypes.any,            // default: false        If initializing a dimmer on a dimmable context, you can use dimmerName to distinguish between multiple dimmers in that context.
+  on: PropTypes.any,                    // default: false        Can be set to hover or click to show/hide dimmer on dimmable event
+  useCSS: PropTypes.bool,               // default: true        Whether to dim dimmers using CSS transitions.
   duration: PropTypes.object,           // default: (object)    Animation duration of dimming. If an integer is used, that value will apply to both show and hide animations.
-  transition: PropTypes.string,         // default: "fade"	    Named transition to use when animating menu in and out. Fade and slide down are available without including ui transitions
+  transition: PropTypes.string,         // default: "fade"      Named transition to use when animating menu in and out. Fade and slide down are available without including ui transitions
 
   // We take these over to work with React.
   // TODO: is this really necessary?
-//  closable: PropTypes.any,            // default: auto	      Whether clicking on the dimmer should hide the dimmer (Defaults to auto, closable only when settings.on is not hover)
-//  onChange: PropTypes.func,           // Args:	              Callback on element show or hide
-//  onShow: PropTypes.func,             // Args:	              Callback on element show
-//  onHide: PropTypes.func,             // Args:	              Callback on element hide
+//  closable: PropTypes.any,            // default: auto        Whether clicking on the dimmer should hide the dimmer (Defaults to auto, closable only when settings.on is not hover)
+//  onChange: PropTypes.func,           // Args:                Callback on element show or hide
+//  onShow: PropTypes.func,             // Args:                Callback on element show
+//  onHide: PropTypes.func,             // Args:                Callback on element hide
 }
 
 

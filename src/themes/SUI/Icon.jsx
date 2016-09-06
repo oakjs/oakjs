@@ -1,6 +1,6 @@
 //////////////////////////////
 //
-//	<Icon> component for use with SemanticUI
+//  <Icon> component for use with SemanticUI
 //
 //////////////////////////////
 

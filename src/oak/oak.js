@@ -116,7 +116,7 @@ class OakJS extends Eventful(Object) {
     return this.state.selection;
   }
 
-	// Syntactic sugar for enabling actions, etc.
+  // Syntactic sugar for enabling actions, etc.
   get selectionIsEmpty() {
     return this.selection.length === 0;
   }

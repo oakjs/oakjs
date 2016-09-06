@@ -1,7 +1,7 @@
 "use strict";
 //////////////////////////////
 //
-//	<Statistics> component for use with SemanticUI
+//  <Statistics> component for use with SemanticUI
 //
 //////////////////////////////
 

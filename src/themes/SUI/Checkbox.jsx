@@ -21,22 +21,22 @@ const moduleProps = {
   fireOnInit: PropTypes.bool,           // default: true          Whether callbacks for checked status should be fired on init as well as change
 
   // SUI Callbacks
-  onChange: PropTypes.func,             // Args:	input element   Callback after a checkbox is either checked or unchecked.
+  onChange: PropTypes.func,             // Args:  input element   Callback after a checkbox is either checked or unchecked.
 
-  beforeChecked: PropTypes.func,        // Args:	input element   Callback before a checkbox is checked. Can cancel change by returning `false`
-  onChecked: PropTypes.func,            // Args:	input element   Callback after a checkbox is checked.
+  beforeChecked: PropTypes.func,        // Args:  input element   Callback before a checkbox is checked. Can cancel change by returning `false`
+  onChecked: PropTypes.func,            // Args:  input element   Callback after a checkbox is checked.
 
-  beforeUnchecked: PropTypes.func,      // Args:	input element   Callback before a checkbox is unchecked. Can cancel change by returning `false`
-  onUnchecked: PropTypes.func,          // Args:	input element   Callback after a checkbox is unchecked.
+  beforeUnchecked: PropTypes.func,      // Args:  input element   Callback before a checkbox is unchecked. Can cancel change by returning `false`
+  onUnchecked: PropTypes.func,          // Args:  input element   Callback after a checkbox is unchecked.
 
-  beforeIndeterminate: PropTypes.func,  // Args:	input element   Callback before a checkbox is set to undeterminate. Can cancel change by returning `false`
-  onIndeterminate: PropTypes.func,      // Args:	input element   Callback after a checkbox is set to undeterminate.
+  beforeIndeterminate: PropTypes.func,  // Args:  input element   Callback before a checkbox is set to undeterminate. Can cancel change by returning `false`
+  onIndeterminate: PropTypes.func,      // Args:  input element   Callback after a checkbox is set to undeterminate.
 
-  beforeDeterminate: PropTypes.func,    // Args:	input element   Callback before a checkbox is set to determinate. Can cancel change by returning `false`
-  onDeterminate: PropTypes.func,        // Args:	input element   Callback after a checkbox is set to determinate.
+  beforeDeterminate: PropTypes.func,    // Args:  input element   Callback before a checkbox is set to determinate. Can cancel change by returning `false`
+  onDeterminate: PropTypes.func,        // Args:  input element   Callback after a checkbox is set to determinate.
 
-  onEnable: PropTypes.func,             // Args:	input element   Callback after a checkbox is enabled.
-  onDisable: PropTypes.func,            // Args:	input element   Callback after a checkbox is disabled.
+  onEnable: PropTypes.func,             // Args:  input element   Callback after a checkbox is enabled.
+  onDisable: PropTypes.func,            // Args:  input element   Callback after a checkbox is disabled.
 }
 
 
