@@ -22,7 +22,7 @@ export default class OakComponent extends React.Component {
     hidden: PropTypes.oneOfType([ PropTypes.bool, PropTypes.func ]),
   }
 
-  // Pull context in so we can get components and other juicy stuffs.
+  // Pull context in so we can get `components` and other juicy stuffs.
   static contextTypes = {
     _controller: React.PropTypes.any,
     oak: React.PropTypes.any,
@@ -37,7 +37,7 @@ export default class OakComponent extends React.Component {
   //////////////////////////////
 
   // Return whether or not we should be currently `hidden`.
-  // NOTE: if we ARE hidden, `render()` will return without actually rendering.
+  // NOTE: if we ARE hidden, `render()` should return without actually rendering.
   get hidden() {
     const { hidden } = this.props;
     if (typeof hidden === "function") return hidden.call(this);
