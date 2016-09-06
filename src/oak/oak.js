@@ -261,7 +261,7 @@ class OakJS extends Eventful(Object) {
   }
 
   // Given a string `type` from a JSXE, return the `Component` class it corresponds to.
-  getComponentConstructorForType(type, errorMessage, components) {
+  getComponentConstructorForType(type, components, errorMessage) {
     // If we got a function (or a class), just use that.
     if (typeof type === "function") return type;
     if (typeof type === "string" && type.toLowerCase() === type) return type;

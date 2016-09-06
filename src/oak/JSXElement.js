@@ -162,9 +162,9 @@ export default class JSXElement {
 		if (! ("_controller" in renderVars)) console.error(`${controllerName}: '_controller' not specified in renderVars`, this);
 		if (! ("components" in renderVars)) console.error(`${controllerName}: 'components' not specified in renderVars`, this);
 
-		// set up `createElement()` method
+		// set up `getComponent()` method
 		const errorMessage = `"${controllerName}: Can't find component"`;
-    output.push(`${indent}function getComponent(type) { return oak.getComponentConstructorForType(type, ${errorMessage}, components) }`);
+    output.push(`${indent}function getComponent(type) { return oak.getComponentConstructorForType(type, components, ${errorMessage}) }`);
 
     // figure out the source for the elements
     const renderExpression = this._elementsToSource(options, indent);
