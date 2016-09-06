@@ -16,17 +16,6 @@ import Section from "./Section";
 import ProjectComponent from "./components/Project";
 
 export default class Project extends ComponentController {
-  static renderVars = {
-    ...ComponentController.renderVars,
-    _controller: "context._controller",
-    oak: "context.oak",
-    page: "context.page",
-    section: "context.section",
-    project: "context.project",
-    components: "context.components",
-    data: "this.data || {}"
-  }
-
   constructor(props) {
     super(props);
     dieIfMissing(this, "new Project", ["projectId"]);

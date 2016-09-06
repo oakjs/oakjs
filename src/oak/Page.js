@@ -12,17 +12,6 @@ import oak from "./oak";
 import PageComponent from "./components/Page";
 
 export default class Page extends ComponentController {
-  static renderVars = {
-    ...ComponentController.renderVars,
-    oak: "context.oak",
-    _controller: "context._controller",
-    page: "context.page",
-    section: "context.section",
-    project: "context.project",
-    components: "context.components",
-    data: "this.data || {}"
-  }
-
   constructor(props) {
     dieIfMissing(props, "new Page", ["pageId", "sectionId", "projectId"]);
     super(props);

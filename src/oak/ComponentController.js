@@ -22,7 +22,14 @@ export default class ComponentController extends Eventful(ChildController) {
   static renderVars = {
     props: "this.props",
     state: "this.state",
-    context: "this.context"
+    context: "this.context",
+    _controller: "context._controller",
+    oak: "context.oak",
+    page: "context.page",
+    section: "context.section",
+    project: "context.project",
+    components: "context.components",
+    data: "this.data || {}"
   };
 
   constructor(props) {
