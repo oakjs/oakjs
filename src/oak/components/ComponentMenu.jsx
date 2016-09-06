@@ -118,7 +118,7 @@ export default class ComponentMenu extends PreferentialComponent(OakComponent) {
 //
 
   render() {
-    if (!this.props.controller) return null;
+    if (this.hidden || !this.props.controller) return null;
 
     const { controller, className, appearance, ...props } = this.props;
     props.className = classNames("oak", appearance, props.className, "ComponentMenu");

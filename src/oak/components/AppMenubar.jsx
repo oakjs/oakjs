@@ -14,6 +14,7 @@ import "./AppMenubar.less";
 
 export default class AppMenubar extends OakComponent {
   render() {
+    if (this.hidden) return null;
     const { oak, components } = this.context;
     const { Oak, SUI } = components;
     return (

@@ -13,6 +13,8 @@ import "./EditorToolbar.less";
 
 export default class EditorToolbar extends OakComponent {
   render() {
+    if (this.hidden) return null;
+
     const { oak } = this.context;
     const { Oak, SUI } = this.context.components;
     return (

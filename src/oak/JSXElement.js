@@ -98,6 +98,7 @@ export default class JSXElement {
   }
 
   // Return the component constructor class or string type for an html element.
+// DEPRECATED:  this is not valid if we don't know our controller / components!!!
   get componentConstructor() {
     return oak.lookupComponent(this.type);
   }
