@@ -102,25 +102,3 @@ export default class Page extends ComponentController {
 
 }
 
-
-//////////////////////////////
-// PageElement class
-//////////////////////////////
-
-// Create a specialized `PageElement` and export it
-export class PageElement extends JSXElement {
-//   Render out outer element as a div with only a few properties
-//   renderType = "div";
-//
-//   Use `getRenderProps()` to massage the props passed in
-//   _propsToSource(options, indent) {
-//     const propSource = super._propsToSource(options, indent);
-//     return `this.getRenderProps(${propSource})`;
-//   }
-}
-
-// Register it so `<Oak.Page>` elements in a jsxe will use `PageElement`.
-import JSXParser from "./JSXParser";
-JSXParser.registerType("Page", PageElement);
-JSXParser.registerType("Oak-Page", PageElement);
-JSXParser.registerType("Oak.Page", PageElement);

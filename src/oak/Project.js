@@ -100,26 +100,3 @@ export default class Project extends ComponentController {
   get component() { if (oak.project === this) return oak._projectComponent }
 
 }
-
-//////////////////////////////
-// ProjectElement class
-//////////////////////////////
-
-// Create a specialized `ProjectElement` and export it
-export class ProjectElement extends JSXElement {
-
-//   Render out outer element as a div with only a few properties
-//   renderType = "div";
-//
-//   Use `getRenderProps()` to massage the props passed in
-//   _propsToSource(options, indent) {
-//     const propSource = super._propsToSource(options, indent);
-//     return `this.getRenderProps(${propSource})`;
-//   }
-}
-
-// Register it so `<Oak.Project>` elements in a jsxe will use `ProjectElement`.
-import JSXParser from "./JSXParser";
-JSXParser.registerType("Project", ProjectElement);
-JSXParser.registerType("Oak-Project", ProjectElement);
-JSXParser.registerType("Oak.Project", ProjectElement);

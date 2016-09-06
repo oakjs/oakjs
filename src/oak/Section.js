@@ -115,26 +115,3 @@ export default class Section extends ComponentController {
   }
 }
 
-
-//////////////////////////////
-// SectionElement class
-//////////////////////////////
-
-
-// Create a specialized `SectionElement` and export it
-export class SectionElement extends JSXElement {
-//   Render out outer element as a div with only a few properties
-//   renderType = "div";
-//
-//   Use `getRenderProps()` to massage the props passed in
-//   _propsToSource(options, indent) {
-//     const propSource = super._propsToSource(options, indent);
-//     return `this.getRenderProps(${propSource})`;
-//   }
-}
-
-// Register it so `<Oak.Section>` elements in a jsxe will use `SectionElement`.
-import JSXParser from "./JSXParser";
-JSXParser.registerType("Section", SectionElement);
-JSXParser.registerType("Oak-Section", SectionElement);
-JSXParser.registerType("Oak.Section", SectionElement);
