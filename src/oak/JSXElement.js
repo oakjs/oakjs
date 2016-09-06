@@ -99,7 +99,7 @@ export default class JSXElement {
 
   // Return the component constructor class or string type for an html element.
   get componentConstructor() {
-    return oak.getComponentConstructorForType(this.type);
+    return oak.lookupComponent(this.type);
   }
 
   get editorProps() {

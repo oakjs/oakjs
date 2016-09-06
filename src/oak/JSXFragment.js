@@ -314,7 +314,7 @@ if (!element) debugger;
   //	and using `Babel` to compile that all into a class.
   //
   //	This lets us get arrow functions, etc on platforms that don't support them.
-  createComponent(componentName, SuperConstructor, script) {
+  createComponent(componentName, SuperConstructor = OakComponent, script) {
     let Constructor;
 
     const renderSource = this._getRenderSource();
@@ -349,7 +349,7 @@ if (!element) debugger;
 			"",
 			`${childIndent}// get a component constructor given a string type`,
     	`${childIndent}function getComponent(type) { `,
-    	`${childIndent}  return oak.getComponentConstructorForType(type, components, "${errorMessage}");`,
+    	`${childIndent}  return oak.lookupComponent(type, components, "${errorMessage}");`,
     	`${childIndent}}`,
     	"",
     	`${indent}return ${this.root._elementsToSource(childIndent)}`,

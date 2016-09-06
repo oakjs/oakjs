@@ -24,9 +24,6 @@ export default class Project extends ComponentController {
   @proto
   type = "project";
 
-  @proto
-  ComponentSuperConstructor = ProjectComponent;
-
   //////////////////////////////
   //  ChildController stuff
   //////////////////////////////

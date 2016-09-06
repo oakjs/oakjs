@@ -24,10 +24,6 @@ export default class Section extends ComponentController {
   @proto
   type = "section";
 
-  @proto
-  ComponentSuperConstructor = SectionComponent;
-
-
   //////////////////////////////
   //  Standard Component Identity stuff
   //////////////////////////////

@@ -202,8 +202,11 @@ export default class ComponentController extends Eventful(ChildController) {
     if (!this.isLoaded || !this.jsxFragment) return Stub;
 
     if (!this.cache.Component) {
-      const classId = this.type + "_" +  ids.normalizeIdentifier(this.path);
-      const Component = this.jsxFragment.createComponent(classId, this.ComponentSuperConstructor, this._script);
+      const superType = this.jsxFragment.root.type;
+      const errorMessage = `${this}.Component: can't find component`;
+      const Super = oak.lookupComponent(superType, this.components, errorMessage);
+      const classId = ids.normalizeIdentifier(`${superType}_${this.path}`);
+      const Component = this.jsxFragment.createComponent(classId, Super, this._script);
       Component.controller = this;
       this.cache.Component = Component;
     }

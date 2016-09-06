@@ -20,9 +20,6 @@ export default class Page extends ComponentController {
   @proto
   type = "page";
 
-  @proto
-  ComponentSuperConstructor = PageComponent;
-
   //////////////////////////////
   //  ChildController stuff
   //////////////////////////////
