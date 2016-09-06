@@ -15,13 +15,8 @@ export default class JSXParser extends AcornParser {
   //  as:  `JSXParser.registerType("YourTypeName", YourSubclass);`
   //////////////////////////////
 
-  static TYPE_REGISTRY = {};
-  static registerType(type, constructor) {
-    JSXParser.TYPE_REGISTRY[type] = constructor;
-  }
-
   getElementConstructor(type) {
-    return JSXParser.TYPE_REGISTRY[type] || JSXElement;
+    return JSXElement;
   }
 
   // Add a unique-ish `oid` property to all nodes as we parse node props.
