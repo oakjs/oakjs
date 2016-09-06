@@ -18,6 +18,13 @@ import Stub from "./components/Stub";
 
 
 export default class ComponentController extends Eventful(ChildController) {
+  // Your subclass should override to add variables that you want to expose to the render() method.
+  static renderVars = {
+    props: "this.props",
+    state: "this.state",
+    context: "this.context"
+  };
+
   constructor(props) {
     super();
     Object.assign(this, props);

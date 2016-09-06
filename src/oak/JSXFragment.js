@@ -308,21 +308,28 @@ if (!element) debugger;
   //  Creating a Component constructor for this fragment.
   //////////////////////////////
 
-  //  Return a React Component for the current state of this JSXFragment
+  // Return a React Component for the current state of this JSXFragment.
+  // We do this by combining the `script` and a `render()` function
+  //	created by generating source from our `root` `JSXElement`
+  //	and using `Babel` to compile that all into a class.
+  //
+  //	This lets us get arrow functions, etc on platforms that don't support them.
   createComponent(componentName, SuperConstructor, script) {
     let Constructor;
-//console.info("creating component ",componentName);
+
+    const renderSource = this._getRenderSource();
+		//console.warn(renderSource);
+
     try {
 			// NOTE: we have to manually stick in a `render()` function here
 			//       because React barfs if we try to set `render()` directly.
 			let classScript = [
 				script || "",
-				"render() { return this.__render() }"
+				renderSource,
 			].join("\n");
 			Constructor = babel.createClass(classScript, SuperConstructor, componentName);
 
-			// Get the `__render` routine from our root element
-			Constructor.prototype.__render = this.root.getRenderMethod({ controller: this.controller });
+//window.Constructor = Constructor;
     }
     catch (error) {
       console.error("Error creating component constructor: ", error);
@@ -331,6 +338,36 @@ if (!element) debugger;
 
     return Constructor;
   }
+
+  _getRenderSource(indent = "") {
+		// set up `getComponent()` method
+		const errorMessage = `${""+this.controller}: Can't find component`;
+		const childIndent = indent + "  ";
+  	return [
+  		`${indent}render() {`,
+			this._getRenderVars(childIndent),
+			"",
+			`${childIndent}// get a component constructor given a string type`,
+    	`${childIndent}function getComponent(type) { `,
+    	`${childIndent}  return oak.getComponentConstructorForType(type, components, "${errorMessage}");`,
+    	`${childIndent}}`,
+    	"",
+    	`${indent}return ${this.root._elementsToSource(childIndent)}`,
+    	`${indent}}`
+		].join("\n");
+	}
+
+  // Set up ``renderVars` for the `render` function.
+  _getRenderVars(indent = "  ") {
+    const renderVars = this.controller.constructor.renderVars;
+  	const output = [];
+    output.push(`${indent}// variables for use in expressions below`);
+    Object.keys(renderVars).forEach(
+      key => output.push(`${indent}var ${key} = ${renderVars[key]};`)
+    );
+    return output.join("\n");
+  }
+
 
 
   //////////////////////////////

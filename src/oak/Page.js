@@ -6,11 +6,23 @@ import { proto, debounce   } from "oak-roots/util/decorators";
 import { dieIfMissing } from "oak-roots/util/die";
 
 import ComponentController from "./ComponentController";
+import JSXElement from "./JSXElement";
 import oak from "./oak";
 
 import PageComponent from "./components/Page";
 
 export default class Page extends ComponentController {
+  static renderVars = {
+    ...ComponentController.renderVars,
+    oak: "context.oak",
+    _controller: "context._controller",
+    page: "context.page",
+    section: "context.section",
+    project: "context.project",
+    components: "context.components",
+    data: "this.data || {}"
+  }
+
   constructor(props) {
     dieIfMissing(props, "new Page", ["pageId", "sectionId", "projectId"]);
     super(props);
@@ -95,28 +107,16 @@ export default class Page extends ComponentController {
 // PageElement class
 //////////////////////////////
 
-import JSXElement from "./JSXElement";
-
 // Create a specialized `PageElement` and export it
 export class PageElement extends JSXElement {
-  static renderVars = {
-    ...JSXElement.renderVars,
-    oak: "context.oak",
-    _controller: "context._controller",
-    page: "context.page",
-    section: "context.section",
-    project: "context.project",
-    components: "context.components",
-    data: "this.data || {}"
-  }
-  // Render out outer element as a div with only a few properties
-  renderType = "div";
-
-  // Use `getRenderProps()` to massage the props passed in
-  _propsToSource(options, indent) {
-    const propSource = super._propsToSource(options, indent);
-    return `this.getRenderProps(${propSource})`;
-  }
+//   Render out outer element as a div with only a few properties
+//   renderType = "div";
+//
+//   Use `getRenderProps()` to massage the props passed in
+//   _propsToSource(options, indent) {
+//     const propSource = super._propsToSource(options, indent);
+//     return `this.getRenderProps(${propSource})`;
+//   }
 }
 
 // Register it so `<Oak.Page>` elements in a jsxe will use `PageElement`.

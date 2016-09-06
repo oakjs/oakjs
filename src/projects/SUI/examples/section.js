@@ -1,15 +1,17 @@
+get stickyContext() {
+  return $("#PageSidebarMenu")
+    .closest(".oak.Section")
+    .find(".oak.Page");
+}
+
 componentDidMount() {
-   $("#PageSidebarMenu").sticky({
-     context: ".oak.current.Page"
-   });
+  $("#PageSidebarMenu").sticky({
+    context: this.stickyContext
+  });
 }
 
 componentDidUpdate() {
-   $("#PageSidebarMenu").sticky({
-     context: ".oak.current.Page"
-   });
-}
-
-componentWillUnmount() {
-  console.warn("examples section unmount");
+  $("#PageSidebarMenu").sticky({
+    context: this.stickyContext
+  });
 }

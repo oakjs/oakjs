@@ -126,62 +126,13 @@ export default class JSXElement {
   //  Render method
   //////////////////////////////
 
-  // Your subclass should override to add variables that you want to expose to the render() method.
-  static renderVars = {
-    props: "this.props",
-    state: "this.state",
-    context: "this.context"
-  };
-
-  // Return a function to draw this element and its children.
-  // ASSUMES: that the end class this will be added to has a `createElement()` method
-  //  with the same signature as `React.createElement()`, but that is aware of the
-  //  `components` which are in scope.
-  getRenderMethod(options) {
-    const source = this._getRenderMethodSource(options);
-    return new Function(source);
-  }
-
-  _getRenderMethodSource(options = {}) {
-  	const indent = ("indent" in options ? options.indent : "  ");
-  	const controllerName = (options.controller ? ""+options.controller : "[unknown controller]");
-    const output = [];
-
-//    output.push("console.log('Rendering: ',this);");
-//    output.push("console.dir(this.context);");
-//    output.push("console.groupEnd();");
-
-    // add ``renderVars` to the function
-    output.push(`${indent}// variables for use in expressions below`);
-    const renderVars = this.constructor.renderVars;
-    Object.keys(renderVars).forEach(
-      key => output.push(`${indent}var ${key} = ${renderVars[key]};`)
-    );
-
-		// debug: MUST have `_controller` and `components` in renderVars
-		if (! ("_controller" in renderVars)) console.error(`${controllerName}: '_controller' not specified in renderVars`, this);
-		if (! ("components" in renderVars)) console.error(`${controllerName}: 'components' not specified in renderVars`, this);
-
-		// set up `getComponent()` method
-		const errorMessage = `"${controllerName}: Can't find component"`;
-    output.push(`${indent}function getComponent(type) { return oak.getComponentConstructorForType(type, components, ${errorMessage}) }`);
-
-    // figure out the source for the elements
-    const renderExpression = this._elementsToSource(options, indent);
-
-    // add return + renders at the end
-    output.push(`${indent}return ${renderExpression}`);
-
-//console.info(output.join("\n"));
-    return output.join("\n");
-  }
-
   // Output an expression which will render this element and its children.
-  _elementsToSource(options = {}, indent = "") {
-    const type = this.renderType || this.type;
+  _elementsToSource(indent = "") {
+//    const type = this.renderType || this.type;
+		const type = this.type;
     // if not a lower case string, call the `getComponent()` method to yield the actual constructor
     const typeExpression = (type === type.toLowerCase() ? `"${type}"` : `getComponent("${type}")`);
-    const attrExpression = this._propsToSource(options, indent);
+    const attrExpression = this._propsToSource(indent);
 
     // output on one line if no children
     if (!this.children || this.children.length === 0) {
@@ -192,7 +143,7 @@ export default class JSXElement {
     const childExpressions =
       this.children.map(child => {
         if (typeof child === "string") return JSON.stringify(child);
-        return child._elementsToSource(options, childIndent);
+        return child._elementsToSource(childIndent);
       })
       .join(",\n" + childIndent);
 
@@ -204,7 +155,7 @@ export default class JSXElement {
   }
 
   // Convert our props for use in our render method.
-  _propsToSource(options, indent, props = this.props) {
+  _propsToSource(indent, props = this.props) {
     if (!props) return null;
 
     let keys = Object.keys(props);
@@ -213,12 +164,12 @@ export default class JSXElement {
     const propSets = groups.map(group => {
       // if we got just a string, it's an object spread expression
       if (typeof group === "string") {
-        return this._propValueToSource("...", props[group], options, indent);
+        return this._propValueToSource("...", props[group], indent);
       }
 
       const attrExpressions = [];
       group.forEach(key => {
-        let value = this._propValueToSource(key, props[key], options, indent);
+        let value = this._propValueToSource(key, props[key], indent);
         if (key === "oid") key = "data-oid";
         if (value !== undefined) attrExpressions.push(`"${key}": ${value}`);
       });
@@ -257,13 +208,13 @@ export default class JSXElement {
     return groups;
   }
 
-  _propValueToSource(key, value, options, indent) {
+  _propValueToSource(key, value, indent) {
     if (value === undefined) return undefined;
     if (value instanceof acorn.Node) {
       return value._code;
     }
     if (value instanceof JSXElement) {
-      return value._elementsToSource(options, indent);
+      return value._elementsToSource(indent);
     }
     return JSON.stringify(value);
   }

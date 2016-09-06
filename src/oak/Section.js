@@ -9,12 +9,24 @@ import { dieIfMissing } from "oak-roots/util/die";
 
 import api from "./api";
 import ComponentController from "./ComponentController";
+import JSXElement from "./JSXElement";
 import oak from "./oak";
 import Page from "./Page";
 
 import SectionComponent from "./components/Section";
 
 export default class Section extends ComponentController {
+  static renderVars = {
+    ...ComponentController.renderVars,
+    _controller: "context._controller",
+    oak: "context.oak",
+    page: "context.page",
+    section: "context.section",
+    project: "context.project",
+    components: "context.components",
+    data: "this.data || {}"
+  }
+
   constructor(props) {
     super(props);
     dieIfMissing(this, "new Section", ["sectionId", "projectId"]);
@@ -108,28 +120,17 @@ export default class Section extends ComponentController {
 // SectionElement class
 //////////////////////////////
 
-import JSXElement from "./JSXElement";
 
 // Create a specialized `SectionElement` and export it
 export class SectionElement extends JSXElement {
-  static renderVars = {
-    ...JSXElement.renderVars,
-    _controller: "context._controller",
-    oak: "context.oak",
-    page: "context.page",
-    section: "context.section",
-    project: "context.project",
-    components: "context.components",
-    data: "this.data || {}"
-  }
-  // Render out outer element as a div with only a few properties
-  renderType = "div";
-
-  // Use `getRenderProps()` to massage the props passed in
-  _propsToSource(options, indent) {
-    const propSource = super._propsToSource(options, indent);
-    return `this.getRenderProps(${propSource})`;
-  }
+//   Render out outer element as a div with only a few properties
+//   renderType = "div";
+//
+//   Use `getRenderProps()` to massage the props passed in
+//   _propsToSource(options, indent) {
+//     const propSource = super._propsToSource(options, indent);
+//     return `this.getRenderProps(${propSource})`;
+//   }
 }
 
 // Register it so `<Oak.Section>` elements in a jsxe will use `SectionElement`.

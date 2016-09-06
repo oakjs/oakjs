@@ -9,12 +9,24 @@ import { dieIfMissing } from "oak-roots/util/die";
 
 import api from "./api";
 import ComponentController from "./ComponentController";
+import JSXElement from "./JSXElement";
 import oak from "./oak";
 import Section from "./Section";
 
 import ProjectComponent from "./components/Project";
 
 export default class Project extends ComponentController {
+  static renderVars = {
+    ...ComponentController.renderVars,
+    _controller: "context._controller",
+    oak: "context.oak",
+    page: "context.page",
+    section: "context.section",
+    project: "context.project",
+    components: "context.components",
+    data: "this.data || {}"
+  }
+
   constructor(props) {
     super(props);
     dieIfMissing(this, "new Project", ["projectId"]);
@@ -93,29 +105,17 @@ export default class Project extends ComponentController {
 // ProjectElement class
 //////////////////////////////
 
-import JSXElement from "./JSXElement";
-
 // Create a specialized `ProjectElement` and export it
 export class ProjectElement extends JSXElement {
-  static renderVars = {
-    ...JSXElement.renderVars,
-    _controller: "context._controller",
-    oak: "context.oak",
-    page: "context.page",
-    section: "context.section",
-    project: "context.project",
-    components: "context.components",
-    data: "this.data || {}"
-  }
 
-  // Render out outer element as a div with only a few properties
-  renderType = "div";
-
-  // Use `getRenderProps()` to massage the props passed in
-  _propsToSource(options, indent) {
-    const propSource = super._propsToSource(options, indent);
-    return `this.getRenderProps(${propSource})`;
-  }
+//   Render out outer element as a div with only a few properties
+//   renderType = "div";
+//
+//   Use `getRenderProps()` to massage the props passed in
+//   _propsToSource(options, indent) {
+//     const propSource = super._propsToSource(options, indent);
+//     return `this.getRenderProps(${propSource})`;
+//   }
 }
 
 // Register it so `<Oak.Project>` elements in a jsxe will use `ProjectElement`.

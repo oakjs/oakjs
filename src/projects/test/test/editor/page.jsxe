@@ -1,4 +1,4 @@
-<Oak.Page id="editor" title="Editor Package Test" style={{ padding: "1em" }}>
+<Oak.Page id="editor" title="Editor Package Test" style={{ padding: "1em" }} test={()=>this.props}>
   <h2>Editor Test</h2>
   <Editor.Form
     data={data}
