@@ -42,7 +42,7 @@ export default class ElementEditor extends Form {
       labelProps: {
         style: {
           width: 80,
-          wordWrap: "nowrap",
+          whiteSpace: "nowrap",
           overflow: "hidden",
           textOverflow: "ellipsis"
         }
