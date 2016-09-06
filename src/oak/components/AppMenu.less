@@ -1,0 +1,39 @@
+.ui.dropdown.AppMenu {
+  height: 30px;
+  padding: 5px 10px;
+  color: #eee;
+  user-select: none;
+
+  &.active {
+    background-color: #333;
+  }
+
+  // scootch the first guy over a bit...
+  &:first-child {
+    margin-left: 5px;
+  }
+
+  .ui.menu {
+    user-select: none;
+    background-color: #333;
+    padding-top: .4em;
+    padding-bottom: .6em;
+    box-shadow: 2px 2px 5px black;
+
+    .item {
+      user-select: none;
+      background-color: transparent;
+      color: #eee;
+      padding: .35rem 1.5rem !important;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, .1);
+      }
+    }
+  }
+
+  & > .ui.menu {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}

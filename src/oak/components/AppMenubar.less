@@ -1,34 +1,7 @@
 #AppMenubar {
-  z-index: 10000000;    // TODO: set z-index dynamically?
-  padding: 0px 5px;
-  background-color: black;
+  user-select: none;
 
-  .ui.dropdown {
-    height: 30px;
-    padding: 5px 10px;
-    color: #eee;
-
-    .ui.menu {
-      background-color: #333;
-      padding-top: .4em;
-      padding-bottom: .6em;
-      box-shadow: 2px 2px 5px black;
-
-      .item {
-        background-color: transparent;
-        color: #eee;
-        padding: .35rem 1.5rem !important;
-
-        &:hover {
-          background-color: rgba(255, 255, 255, .1);
-        }
-      }
-    }
-
-    & > .ui.menu {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
+  & > .popout {
+    border-bottom: 1px solid #555;
   }
-
 }

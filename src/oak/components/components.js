@@ -1,5 +1,6 @@
 // All public oak components.
 export ActionItem from "./ActionItem";
+export AppMenu from "./AppMenu";
 export AppMenubar from "./AppMenubar";
 export Columns from "./Columns";
 export ComponentMenu from "./ComponentMenu";

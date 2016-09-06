@@ -18,8 +18,8 @@ export default class EditorToolbar extends OakComponent {
     const { oak } = this.context;
     const { Oak, SUI } = this.context.components;
     return (
-      <Oak.FixedPanel id="EditorToolbar" height={35}>
-        <SUI.Menu appearance="attached inverted">
+      <Oak.FixedPanel height={35} appearance="inverted">
+        <SUI.Menu id="EditorToolbar" appearance="attached inverted">
           <SUI.Buttons appearance="transparent">
             <SUI.Button onClick={oak.actions.stopEditing} icon="pointing up" active={!oak.state.editing}/>
             <SUI.Button onClick={oak.actions.startEditing} icon="configure" active={oak.state.editing}/>
