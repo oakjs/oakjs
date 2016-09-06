@@ -1,9 +1,9 @@
 <Oak.Page id="runner" data-editing={oak.state.editing}>
-  <Oak.SplitPanel direction="vertical" sizes={[30, "100%"]}>
+  <Oak.SplitPanel direction="vertical" appearance="inverted bordered" sizes={[30, "100%"]}>
     <Oak.AppMenubar ref="appMenubar"/>
     <Oak.SplitPanel direction="horizontal" sizes={window.innerWidth > 1600 ? [600, "100%"] : [300, "100%"]}>
       <Oak.FixedPanel id="SelectionSidebar" appearance="inverted">
-        <Oak.SplitPanel direction={window.innerWidth > 1600 ? "horizontal" : "vertical"} resizable scrolling>
+        <Oak.SplitPanel resizable scrolling appearance="inverted" direction={window.innerWidth > 1600 ? "horizontal" : "vertical"}>
           <Oak.ComponentMenu controller={oak.editContext} appearance="inverted"/>
           <Editor.ElementEditor controller={oak.editContext} element={oak.selectedComponents[0]} appearance="inverted"/>
         </Oak.SplitPanel>
@@ -16,5 +16,5 @@
         <Oak.SelectionOverlay ref="selectionOverlay"/>
       </Oak.Panel>
     </Oak.SplitPanel>
-    </Oak.SplitPanel>
+  </Oak.SplitPanel>
 </Oak.Page>

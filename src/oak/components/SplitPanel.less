@@ -16,19 +16,25 @@
     flex-direction: row;
   }
 
-  & > .oak.Splitter {
-    flex: 0 0 0;
+  & > .oak.divider {
+    background-color: #ccc;
   }
 
-  &.resizable > .oak.Splitter {
-    cursor: row-resize;;
+  &.inverted > .divider {
+    background-color: #555;
+  }
+
+  &.bordered > .oak.divider {
+    flex: 0 0 1px;
+  }
+
+  &.resizable > .oak.divider {
     flex: 0 0 6px;
-    background-color: rgba(0, 0, 0, 0.25);
-  }
-
-  &.horizontal.resizable > .oak.Splitter {
     cursor: col-resize;
   }
 
+  &.horizontal.resizable > .oak.divider {
+    cursor: row-resize;
+  }
 
 }
