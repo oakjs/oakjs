@@ -1,15 +1,14 @@
 .oak.FixedPanel {
   position: relative;
-  height: 100%;
-  overflow: hidden;
-  border: 1px solid red;
+  height: 100%;     // TODO: why???
 
-  // Wrapper pops out of the FixedPanel and is sized dynamically
-  & > div {
-    position:fixed;
+  & > .popout {
+    position: fixed;
+    z-index: 1001;
   }
 
-  &.inverted {
+  &.inverted,
+  &.inverted > .popout {
     background-color: black;
     color: white;
   }

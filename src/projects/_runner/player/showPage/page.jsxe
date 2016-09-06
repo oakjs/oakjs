@@ -1,5 +1,5 @@
 <Oak.Page id="runner" data-editing={oak.state.editing}>
-  <Oak.SplitPanel direction="vertical" appearance="inverted bordered" sizes={[30, "100%"]}>
+  <Oak.SplitPanel direction="vertical" appearance="inverted" sizes={[30, "100%"]}>
     <Oak.AppMenubar ref="appMenubar"/>
     <Oak.SplitPanel direction="horizontal" sizes={window.innerWidth > 1600 ? [600, "100%"] : [300, "100%"]}>
       <Oak.FixedPanel id="SelectionSidebar" appearance="inverted">

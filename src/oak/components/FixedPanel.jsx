@@ -10,7 +10,7 @@ import { Children, Component, PropTypes } from "react";
 import ReactDOM from "react-dom";
 
 import fn from "oak-roots/util/fn";
-import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
+import { classNames, unknownProps } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
 
@@ -20,7 +20,7 @@ export default class FixedPanel extends OakComponent {
   static propTypes = {
     ...OakComponent.propTypes,
 
-    // fixedPanel appearance
+    // FixedPanel appearance:  "inverted"
     appearance: PropTypes.string,
 
     // explicit width/height of the outer div
@@ -39,24 +39,31 @@ export default class FixedPanel extends OakComponent {
   }
 
   setPanelSize() {
-    // get the size of our root element
+    // transfer the css of the root element to our `popout`
     const $root = this.$ref();
-    const size = $root.offset();
-    size.width = $root.outerWidth();
-    size.height = $root.outerHeight();
+    const style = $root.offset();
+    style.width = $root.outerWidth();
+    style.height = $root.outerHeight();
 
-    // transfer the offset size of the root element to our `popout`
-    this.$ref("popout").css(size);
+    this.$ref("popout").css(style);
   }
 
   render() {
     if (this.hidden) return null;
 
-    const { appearance, width, height, children, ...props } = this.props;
+    const { appearance, className, height, id, width, style } = this.props;
+
+    const wrapperProps = {
+      id,
+      className: classNames("oak", appearance, "FixedPanel", className),
+      style: { ...style, width, height },
+      ...unknownProps(this.props, this.constructor)
+    }
+
     return (
-      <div className={classNames("oak", appearance, "FixedPanel")} style={{ width, height }}>
-        <div {...props} ref="popout">
-          {children}
+      <div {...wrapperProps}>
+        <div className="popout" ref="popout">
+          {this.props.children}
         </div>
       </div>
     );
