@@ -189,7 +189,7 @@ export default class ComponentController extends Eventful(ChildController) {
 
     if (!this.cache.Component) {
       const classId = this.type + "_" +  ids.normalizeIdentifier(this.path);
-      const Component = this.jsxFragment.getComponent(classId, this.ComponentSuperConstructor, this._script);
+      const Component = this.jsxFragment.createComponent(classId, this.ComponentSuperConstructor, this._script);
       Component.controller = this;
       this.cache.Component = Component;
     }

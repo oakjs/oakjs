@@ -304,7 +304,7 @@ if (!element) debugger;
 
 
   //  Return a React Component for the current state of this JSXFragment
-  getComponent(componentName, SuperConstructor, script) {
+  createComponent(componentName, SuperConstructor, script) {
     let Constructor;
 //console.info("creating component ",componentName);
     try {
