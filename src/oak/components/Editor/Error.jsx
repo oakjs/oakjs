@@ -8,7 +8,7 @@
 
 import React, { PropTypes } from "react";
 
-import { classNames, mergeProps } from "oak-roots/util/react";
+import { classNames, unknownProps } from "oak-roots/util/react";
 
 export default class Error extends React.Component {
   static propTypes = {
@@ -26,43 +26,31 @@ export default class Error extends React.Component {
     style: PropTypes.object,              // HTML style of error
   }
 
-  getRenderClass(props) {
-    return classNames(
-      "oak",
-      {
-        disabled: props.disabled,
-        required: props.required,
-      },
-      "error"
-    );
-  }
-
-  getRenderProps(props) {
-    return {
-      id: props.id,
-      style: props.style,
-      className: this.getRenderClass(props)
-    }
-  }
-
   render() {
     const { hidden, error } = this.props;
 
     // forget it if we're `hidden` or no error was specified
     if (hidden || !error) return null;
 
-    const errorProps = this.getRenderProps(this.props);
+    const { id, style, className, disabled, required } = this.props;
 
     // render array of errors with bullets
-    let errorElements;
+    let children;
     if (Array.isArray(error)) {
-      errorElements = error.map( error => <li>{error}</li> );
+      children = error.map( error => <li>{error}</li> );
     }
     else {
-      errorElements = [ error ];
+      children = [ error ];
     }
 
-    return React.createElement("div", errorProps, ...errorElements);
+    const errorProps = {
+      id,
+      style,
+      className: classNames( "oak", { disabled, required }, "error", className),
+      ...unknownProps(this.props, this.constructor)
+    }
+
+    return React.createElement("div", errorProps, ...children);
   }
 
 }

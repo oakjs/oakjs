@@ -8,7 +8,7 @@
 
 import React, { PropTypes } from "react";
 
-import { classNames, mergeProps } from "oak-roots/util/react";
+import { classNames, unknownProps } from "oak-roots/util/react";
 
 export default class Label extends React.Component {
   static propTypes = {
@@ -31,35 +31,20 @@ export default class Label extends React.Component {
     width: PropTypes.number,              // # of columns of 20-column grid for display (including label)
   }
 
-  getRenderClass(props) {
-    return classNames(
-      "oak",
-      {
-        disabled: props.disabled,
-        required: props.required,
-        inline: props.inline
-      },
-      props.labelOn,
-      "label",
-      props.width && `width-${props.width}`
-    );
-  }
-
-  getRenderProps(props) {
-    return {
-      id: props.id,
-      style: props.style,
-      className: this.getRenderClass(props)
-    }
-  }
-
   render() {
-    const { hidden, title, children, labelOn } = this.props;
+    const { hidden, title, children } = this.props;
 
     // forget it if we're `hidden` or have neither `title` nor `children`.
     if (hidden || ((title === null || title === undefined) && !children)) return null;
 
-    const labelProps = this.getRenderProps(this.props);
+    const { id, style, className, labelOn, disabled, required, inline, width } = this.props;
+    const labelProps = {
+      id,
+      style,
+      className: classNames("oak", { disabled, required, inline }, labelOn, "label", width && `width-${width}`),
+      ...unknownProps(this.props, this.constructor)
+    }
+
     if (labelOn === "right") {
       return <label {...labelProps}>{children}{title}</label>;
     }
