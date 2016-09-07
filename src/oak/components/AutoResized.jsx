@@ -44,20 +44,24 @@ const RESIZE_THROTTLE_DELAY = 100;
 //
 
 // Call the `onResized` handler for each element with a `data-resized` attribute.
+const TIME_RESIZE = false;
 let last = Date.now();
 function resizeElements() {
-  const now = Date.now();
-  const message = `resizeElements delta = ${now - last}`;
-  last = now;
+  if (TIME_RESIZE){
+    const now = Date.now();
+    const message = `resizeElements delta = ${now - last}`;
+    last = now;
+    console.time(message);
+  }
 
-  console.time(message);
   $("[data-resized]").each((index, element) => {
     const handler = element.onResize;
     if (typeof handler === "function") {
       handler(element);
     }
   });
-  console.timeEnd(message);
+
+  if (TIME_RESIZE) console.timeEnd(message);
 }
 
 // Throttle the `resizeElements` call so it's not called hyperspastically.
