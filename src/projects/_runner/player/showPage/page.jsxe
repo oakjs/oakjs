@@ -3,12 +3,12 @@
     <Oak.AppMenubar ref="appMenubar"/>
     <Oak.SplitPanel direction="horizontal" sizes={window.innerWidth > 1600 ? [600, "100%"] : [300, "100%"]}>
       <Oak.FixedPanel id="SelectionSidebar" appearance="inverted">
-        <Oak.SplitPanel resizable scrolling appearance="inverted" direction={window.innerWidth > 1600 ? "horizontal" : "vertical"}>
+        <Oak.SplitPanel resizable scrolling appearance={["fluid", "inverted"]} direction={window.innerWidth > 1600 ? "horizontal" : "vertical"}>
           <Oak.ComponentMenu controller={oak.editContext} appearance="inverted"/>
           <Editor.ElementEditor controller={oak.editContext} element={oak.selectedComponents[0]} appearance="inverted"/>
         </Oak.SplitPanel>
       </Oak.FixedPanel>
-      <Oak.Panel fluid>
+      <Oak.Panel fluid scrolling>
         <Oak.PanelHeader>
           <Oak.EditorToolbar ref="editorToolbar"/>
         </Oak.PanelHeader>

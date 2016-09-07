@@ -2,6 +2,7 @@
 export ActionItem from "./ActionItem";
 export AppMenu from "./AppMenu";
 export AppMenubar from "./AppMenubar";
+export AutoResized from "./AutoResized";
 export Columns from "./Columns";
 export ComponentMenu from "./ComponentMenu";
 export CurrentPage from "./CurrentPage";

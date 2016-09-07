@@ -33,6 +33,7 @@ import { Children, Component, PropTypes } from "react";
 import fn from "oak-roots/util/fn";
 import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
 
+import AutoResized from "./AutoResized";
 import OakComponent from "./OakComponent";
 
 import "./Panel.less";
@@ -41,35 +42,47 @@ import "./Panel.less";
 //
 //  Panel class
 //
-export default class Panel extends OakComponent {
+export default class Panel extends AutoResized(OakComponent) {
   static propTypes = {
     ...OakComponent.propTypes,
 
     // take up full height?
-    // TODO: name???
+    // TODO: rename???
     fluid: PropTypes.bool,
 
     // Scroll body?
     scrolling: PropTypes.bool,
   }
 
+  // For scrolling panels, set the height of the `<.body>` to account for header/footer
+  // when window is resized (and after draw/update).
+// TODO: this mixes setting/reading DOM sizes in a way which is inherently inefficient... :-(
+  onResize(rootElement) {
+    if (this.hidden || !this.props.scrolling) return;
 
-  componentDidMount() {
-    super.componentDidMount();
-    setScrollBodyHeights();
+
+    const $panel = $(rootElement);
+    const $body = $panel.children(".body");
+
+    // reset the height of the body so we get an accurate measurement
+    $body.height(1);
+
+    // size body according to panel size - (header + footer)
+    const panelHeight = $panel.innerHeight();
+    const headerHeight = $panel.children(".oak.PanelHeader").outerHeight();
+    const footerHeight = $panel.children(".oak.PanelFooter").outerHeight();
+    const bodyHeight = panelHeight - headerHeight - footerHeight;
+
+//console.info(`${this}: setting height to ${bodyHeight}`);
+    $body.height(bodyHeight);
   }
 
   // if "scrolling" changes, clear explicitly body height
   // TESTME
   componentWillReceiveProps(nextProps) {
     if (this.props.scrolling && !nextProps.scrolling) {
-      this.$ref("body").height("auto");
+      this.$ref("body").height("");
     }
-  }
-
-  componentDidUpdate() {
-    super.componentDidUpdate();
-    setScrollBodyHeights();
   }
 
   // Munge children into:
@@ -229,39 +242,3 @@ export class RightSidebar extends OakComponent {
     return React.createElement("div", props, props.children);
   }
 }
-
-
-//
-//  Panel sizing:
-//  Set ALL <Oak.Panel scrolling> body element heights, from the outside in.
-//  This is called on a slight delay after drawing.
-//
-
-const DEBUG_SCROLL = true;
-function _setScrollBodyHeights() {
-  const $scrollingPanels = $(".oak.scrolling.Panel");
-  if (DEBUG_SCROLL) console.info("setScrollBodyHeights", $scrollingPanels);
-  if ($scrollingPanels.length === 0) return;
-
-  // first reset all body heights so we get an accurate measurement
-  $scrollingPanels.children(".body").height(1);
-
-  // now size bodies according to panel size
-  $scrollingPanels.each(function (index, panel) {
-    const $panel = $(panel);
-    const panelHeight = $panel.innerHeight();
-    const headerHeight = $panel.children(".oak.PanelHeader").outerHeight();
-    const footerHeight = $panel.children(".oak.PanelFooter").outerHeight();
-    const bodyHeight = panelHeight - headerHeight - footerHeight;
-
-    const $body = $panel.children(".body");
-    $body.height(bodyHeight);
-  });
-}
-
-// Actually set scrollBodyHeights on an immediate debounce.
-const setScrollBodyHeights = fn.debounce(_setScrollBodyHeights, 0);
-
-// And make sure heights are set on resize with a larger throttle.
-$(window).on("resize", fn.throttle(_setScrollBodyHeights, 100));
-

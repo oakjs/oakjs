@@ -4,19 +4,21 @@
 //
 //  Renders children inside a `position:fixed` panel so they pop out.
 //
+//  TODO: copy id / styles / className to the popout???
+//
 //////////////////////////////
 
 import { Children, Component, PropTypes } from "react";
 import ReactDOM from "react-dom";
 
-import fn from "oak-roots/util/fn";
 import { classNames, unknownProps } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
+import AutoResized from "./AutoResized";
 
 import "./FixedPanel.less";
 
-export default class FixedPanel extends OakComponent {
+export default class FixedPanel extends AutoResized(OakComponent) {
   static propTypes = {
     ...OakComponent.propTypes,
 
@@ -28,24 +30,18 @@ export default class FixedPanel extends OakComponent {
     height: PropTypes.any
   }
 
-  componentDidMount() {
-    super.componentDidMount();
-    this.setPanelSize();
-  }
+  // When window is resized, size our `popout` to the same size as our root element.
+  onResize(rootElement) {
+//console.info(`${this}.onResize`);
+    // transfer the size of the root element to our `popout`
+    const $root = $(rootElement);
+    const size = $root.offset();
+    if (!size) return;
 
-  componentDidUpdate() {
-    super.componentDidUpdate();
-    this.setPanelSize();
-  }
+    size.width = $root.outerWidth();
+    size.height = $root.outerHeight();
 
-  setPanelSize() {
-    // transfer the css of the root element to our `popout`
-    const $root = this.$ref();
-    const style = $root.offset();
-    style.width = $root.outerWidth();
-    style.height = $root.outerHeight();
-
-    this.$ref("popout").css(style);
+    this.$ref("popout").css(size);
   }
 
   render() {

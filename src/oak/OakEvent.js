@@ -16,6 +16,7 @@
 //
 //////////////////////////////
 
+
 import Action from "oak-roots/Action";
 import Point from "oak-roots/Point";
 import Rect from "oak-roots/Rect";
@@ -769,7 +770,7 @@ export default class OakEvent {
   }
 
   // Capture window `resize` event.
-  static _captureRezize(event) {}
+  static _captureResize(event) {}
 
   // Capture document `zoom` event (which we generate -- see `initializeEvents()`.
   static _captureZoom(event) {}

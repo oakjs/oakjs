@@ -40,7 +40,7 @@ export default function PreferentialComponent(Component = React.Component) {
     // When `props` change, apply new preferences.
     componentWillReceiveProps(nextProps) {
       // call super method only if defined
-      if (Component.prototype.componentWillReceiveProps) this.super(nextProps);
+      if (Component.prototype.componentWillReceiveProps) super.componentWillReceiveProps(nextProps);
 
       const prefs = this.loadPrefs(nextProps);
       if (prefs) this._savePrefs(prefs);

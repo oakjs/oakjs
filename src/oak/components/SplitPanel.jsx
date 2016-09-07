@@ -40,7 +40,7 @@ export default class SplitPanel extends OakComponent {
     // Can the user resize the panes?
     resizable: PropTypes.bool,
 
-    // Appearance:  "inverted", "bordered"
+    // Appearance:  "inverted", "bordered", "fluid"
     appearance: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string)
