@@ -47,6 +47,10 @@ export default class Component {
   // Note that a new one is created each time you call this.
   get childIndex() { throw new TypeError("You must implement get childIndex()") }
 
+  // Return index data for this component in our parent's index.
+  getIndexData(id = this.id, title = this.title || id) {
+    return { type: this.type, id, title }
+  }
 
   //
   //  Server file paths
@@ -119,7 +123,7 @@ export default class Component {
   // Create a new component given a JSON blob and position within our parent.
   // Adds the component to the parent's childIndex.
   // `data` is the same as for `save()`.
-  create({ data = {}, indexData = { type: "Component", id: this.id, title: this.id }, position } = {}) {
+  create({ data = {}, indexData = this.getIndexData(), position } = {}) {
 //TODO: uniqify id within parent!
     // Make sure we at least have a minimal JSXE file.
     if (!data.jsxe) {
@@ -134,6 +138,7 @@ export default class Component {
       // create a blank child and save it
       .then(() => {
         const child = this.createBlankChild();
+if (child) console.info(child.getIndexData());
         if (child) return child.create();
       })
       .catch(logAndReThrowError);
@@ -141,7 +146,7 @@ export default class Component {
 
   // Duplicate this component.
   // Adds the component to the parent's childIndex.
-  duplicate({ newId, indexData = { type: "Component", id: this.id, title: this.id }, position } = {}) {
+  duplicate({ newId, indexData = this.getIndexData(), position } = {}) {
 //TODO: uniqify newId within parent!?!?!
     const clone = this.clone({ id: newId });
 
