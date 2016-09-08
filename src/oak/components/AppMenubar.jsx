@@ -20,14 +20,14 @@ export default class AppMenubar extends OakComponent {
       <Oak.FixedPanel id="AppMenubar" appearance="inverted" style={{ zIndex: 100000 }}>
 
         <Oak.AppMenu text="OakJS">
-          <SUI.MenuItem disabled>About OakJS</SUI.MenuItem>
-          <SUI.MenuItem disabled>Get Help</SUI.MenuItem>
+          <SUI.MenuItem disabled label="About OakJS"/>
+          <SUI.MenuItem disabled label="Get Help"/>
         </Oak.AppMenu>
 
         <Oak.AppMenu text="File">
-          <SUI.MenuItem disabled>Open Project...</SUI.MenuItem>
-          <SUI.Submenu disabled>Open Recent...</SUI.Submenu>
-          <SUI.MenuItem disabled>Close Project</SUI.MenuItem>
+          <SUI.MenuItem disabled label="Open Project..."/>
+          <SUI.Submenu disabled label="Open Recent..."/>
+          <SUI.MenuItem disabled label="Close Project"/>
         </Oak.AppMenu>
 
         <Oak.AppMenu text="Edit">
@@ -44,16 +44,18 @@ export default class AppMenubar extends OakComponent {
         </Oak.AppMenu>
 
         <Oak.AppMenu text="Project">
+          <SUI.MenuItem disabled label={`Project: “${oak.project && oak.project.title}”`}/>
+          <SUI.MenuItem disabled label="Project Settings..."/>
+          <Oak.ActionItem id="oak.saveProject"/>
+          <Oak.ActionItem id="oak.startEditingProject"/>
+          <Oak.ActionItem id="oak.stopEditingProject"/>
+          <SUI.Divider/>
+          <SUI.Submenu disabled label="Jump to Project"/>
           <Oak.ActionItem id="oak.showFirstProject"/>
           <Oak.ActionItem id="oak.showPreviousProject"/>
           <Oak.ActionItem id="oak.showNextProject"/>
           <Oak.ActionItem id="oak.showLastProject"/>
           <SUI.Divider/>
-          <Oak.ActionItem id="oak.startEditingProject"/>
-          <Oak.ActionItem id="oak.stopEditingProject"/>
-          <SUI.MenuItem disabled>Project Settings...</SUI.MenuItem>
-          <SUI.Divider/>
-          <Oak.ActionItem id="oak.saveProject"/>
           <Oak.ActionItem id="oak.createProject"/>
           <Oak.ActionItem id="oak.deleteProject"/>
           <Oak.ActionItem id="oak.renameProject"/>
@@ -61,42 +63,43 @@ export default class AppMenubar extends OakComponent {
         </Oak.AppMenu>
 
         <Oak.AppMenu text="Section">
+          <SUI.MenuItem disabled label={`Section: “${oak.section && oak.section.title}”`}/>
+          <SUI.MenuItem disabled label="Section Settings..."/>
+          <Oak.ActionItem id="oak.saveSection"/>
+          <Oak.ActionItem id="oak.startEditingSection"/>
+          <Oak.ActionItem id="oak.stopEditingSection"/>
+          <SUI.Divider/>
+          <SUI.Submenu disabled label="Jump to Section"/>
           <Oak.ActionItem id="oak.showFirstSection"/>
           <Oak.ActionItem id="oak.showPreviousSection"/>
           <Oak.ActionItem id="oak.showNextSection"/>
           <Oak.ActionItem id="oak.showLastSection"/>
           <SUI.Divider/>
-          <Oak.ActionItem id="oak.startEditingSection"/>
-          <Oak.ActionItem id="oak.stopEditingSection"/>
-          <SUI.Divider/>
-          <SUI.MenuItem disabled>Section Settings...</SUI.MenuItem>
-          <SUI.Submenu disabled>Jump to Section</SUI.Submenu>
-          <SUI.Divider/>
-          <Oak.ActionItem id="oak.saveSection"/>
           <Oak.ActionItem id="oak.createSection"/>
           <Oak.ActionItem id="oak.deleteSection"/>
           <Oak.ActionItem id="oak.renameSection"/>
           <Oak.ActionItem id="oak.duplicateSection"/>
-          <SUI.MenuItem disabled>Rearrange Sections...</SUI.MenuItem>
+          <SUI.MenuItem disabled label="Rearrange Sections..."/>
         </Oak.AppMenu>
 
         <Oak.AppMenu text="Page">
+          <SUI.MenuItem disabled label={`Page: “${oak.page && oak.page.title}”`}/>
+          <SUI.MenuItem disabled label="Page Settings..."/>
+          <Oak.ActionItem id="oak.savePage"/>
+          <Oak.ActionItem id="oak.startEditingPage"/>
+          <Oak.ActionItem id="oak.stopEditingPage"/>
+          <SUI.Divider/>
+          <SUI.Submenu disabled label="Jump to Page"/>
           <Oak.ActionItem id="oak.showFirstPage"/>
           <Oak.ActionItem id="oak.showPreviousPage"/>
           <Oak.ActionItem id="oak.showNextPage"/>
           <Oak.ActionItem id="oak.showLastPage"/>
           <SUI.Divider/>
-          <Oak.ActionItem id="oak.startEditingPage"/>
-          <Oak.ActionItem id="oak.stopEditingPage"/>
-          <SUI.MenuItem disabled>Page Settings...</SUI.MenuItem>
-          <SUI.Submenu disabled>Jump to Page</SUI.Submenu>
-          <SUI.Divider/>
-          <Oak.ActionItem id="oak.savePage"/>
           <Oak.ActionItem id="oak.createPage"/>
           <Oak.ActionItem id="oak.deletePage"/>
           <Oak.ActionItem id="oak.renamePage"/>
           <Oak.ActionItem id="oak.duplicatePage"/>
-          <SUI.MenuItem disabled>Rearrange Pages...</SUI.MenuItem>
+          <SUI.MenuItem disabled label="Rearrange Pages..."/>
         </Oak.AppMenu>
       </Oak.FixedPanel>
     );
