@@ -13,17 +13,20 @@ import { classNames } from "oak-roots/util/react";
 function PageMenuItem(props, context) {
   if (!props.page || !context.components) return null;
 
-  const { page, label, children, ...extraProps } = props;
+  const { page, label, children, checkSelected, ...menuProps } = props;
   const { SUI } = context.components;
 
+  menuProps.className = classNames("PageMenuItem", {active}, menuProps.className);
+  menuProps.onClick = () => oak.actions.navigateTo({ route: page.route });
+
   const active = (context.page ? context.page.path === page.path : undefined);
-  extraProps.className = classNames("PageMenuItem", {active}, extraProps.className);
+  if (checkSelected) menuProps.icon = (active ? "checkmark" : "none");
+  else if (active) menuProps.className += " active";
 
   const itemText = (children || label || page.title);
-  const handleClick = () => oak.actions.navigateTo({ route: page.route });
 
   return (
-    <SUI.MenuItem {...extraProps} onClick={handleClick}>
+    <SUI.MenuItem {...menuProps}>
       {itemText}
     </SUI.MenuItem>
   );

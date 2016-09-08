@@ -4,15 +4,20 @@ import { classNames } from "oak-roots/util/react";
 
 function ProjectMenu(props, context) {
   const { oak } = context;
-  const { SUI } = context.components;
+  const { Oak, SUI } = context.components;
 
-  // pass all other props along
+// TODO: get `account` from context?
+  const projects = oak.projects;
+  if (!projects) return null;
+
+  const menuItems = projects
+                      .filter(project => !project.isPrivate)
+                      .map(project => <SUI.ProjectMenuItem key={project.path} project={project}/>);
+
+  // pass all props along to menu
   const menuProps = Object.assign({}, props);
   menuProps.className = classNames("ProjectMenu", props.className);
 
-  const menuItems = oak.projects
-                      .filter(project => !project.isPrivate)
-                      .map(project => <SUI.ProjectMenuItem key={project.path} project={project}/>);
   return React.createElement(SUI.Menu, menuProps, menuItems);
 }
 

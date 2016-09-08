@@ -12,22 +12,24 @@ export EditorToolbar from "./EditorToolbar";
 export FixedPanel from "./FixedPanel";
 export Link, { AnchorLink, PageLink, ProjectLink, RouteLink, SectionLink } from "./Link";
 export Page from "./Page";
+export PageMenu from "./PageMenu";
+export PageMenuItem from "./PageMenuItem";
 export Panel, { PanelFooter, PanelHeader, LeftSidebar, RightSidebar } from "./Panel";
 export Project from "./Project";
-export Section from "./Section";
-export PageMenuItem from "./PageMenuItem";
 export ProjectMenu from "./ProjectMenu";
 export ProjectMenuItem from "./ProjectMenuItem";
-export Resizer from "./Resizer";
 export ResizeHandle from "./ResizeHandle";
+export Resizer from "./Resizer";
 export RunnerPage from "./RunnerPage";
 export RunnerProject from "./RunnerProject";
 export RunnerSection from "./RunnerSection";
-export Spacer from "./Spacer";
+export Section from "./Section";
+export SectionMenu from "./SectionMenu";
+export SectionMenuItem from "./SectionMenuItem";
 export SelectionOverlay from "./SelectionOverlay";
-export PageMenu from "./PageMenu";
-export Stub from "./Stub";
+export Spacer from "./Spacer";
 export SplitPanel from "./SplitPanel";
+export Stub from "./Stub";
 
 // Do `OakComponent` AFTER doing the package stuff
 //  so we don't bleed that package through to project-specific components.

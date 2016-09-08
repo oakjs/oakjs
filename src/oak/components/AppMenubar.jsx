@@ -8,40 +8,26 @@ import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
+import PageMenuItem from "./PageMenuItem";
+import ProjectMenuItem from "./ProjectMenuItem";
+import SectionMenuItem from "./SectionMenuItem";
+
 import "./AppMenubar.less";
 
 export default class AppMenubar extends OakComponent {
   getProjectItems() {
     if (!oak.account || !oak.account.projects) return undefined;
-    return oak.account.projects.map(project => {
-      return {
-        label: project.title,
-        onClick: () => oak.actions.showProject({ project }),
-        icon: (oak.project === project ? "checkmark" : "none")
-      };
-    })
+    return oak.account.projects.map(project => <ProjectMenuItem key={project.path} project={project} checkSelected/>);
   }
 
   getSectionItems() {
     if (!oak.project || !oak.project.sections) return undefined;
-    return oak.project.sections.map(section => {
-      return {
-        label: section.title,
-        onClick: () => oak.actions.showSection({ section }),
-        icon: (oak.section === section ? "checkmark" : "none")
-      };
-    })
+    return oak.project.sections.map(section => <SectionMenuItem key={section.path} section={section} checkSelected/>);
   }
 
   getPageItems() {
     if (!oak.section || !oak.section.pages) return undefined;
-    return oak.section.pages.map(page => {
-      return {
-        label: page.title,
-        onClick: () => oak.actions.showPage({ page }),
-        icon: (oak.page === page ? "checkmark" : "none")
-      };
-    })
+    return oak.section.pages.map(page => <PageMenuItem key={page.path} page={page} checkSelected/>);
   }
 
   render() {

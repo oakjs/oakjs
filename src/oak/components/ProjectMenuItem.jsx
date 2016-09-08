@@ -13,17 +13,19 @@ import { classNames } from "oak-roots/util/react";
 function ProjectMenuItem(props, context) {
   if (!props.project || !context.components) return null;
 
-  const { project, label, children, ...extraProps } = props;
+  const { project, label, children, checkSelected, ...menuProps } = props;
   const { SUI } = context.components;
 
+  menuProps.className = classNames("ProjectMenuItem", {active}, menuProps.className);
+  menuProps.onClick = () => oak.actions.navigateTo({ route: project.route });
+
   const active = (context.project ? context.project.path === project.path : undefined);
-  extraProps.className = classNames("ProjectMenuItem", {active}, extraProps.className);
+  if (checkSelected) menuProps.icon = (active ? "checkmark" : "none");
+  else if (active) menuProps.className += " active";
 
   const itemText = (children || label || project.title);
-  const handleClick = () => oak.actions.navigateTo({ route: project.route });
-
   return (
-    <SUI.MenuItem {...extraProps} onClick={handleClick}>
+    <SUI.MenuItem {...menuProps}>
       {itemText}
     </SUI.MenuItem>
   );
