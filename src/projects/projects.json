@@ -6,14 +6,17 @@
   },
   {
     "id": "SUI",
-    "title": "Semantic UI"
+    "title": "Semantic UI",
+    "type": "Project"
   },
   {
     "id": "_editor",
-    "title": "Editor"
+    "title": "Editor",
+    "type": "Project"
   },
   {
     "id": "_runner",
-    "title": "OakJS Runner / Editor UI"
+    "title": "OakJS Runner / Editor UI",
+    "type": "Project"
   }
 ]
