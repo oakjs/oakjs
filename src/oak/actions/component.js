@@ -109,7 +109,7 @@ export function _renameComponent(options) {
       component.parentIndex.changeId(component.id, newId, newTitle);
 
       // 2: update component AND ALL CHILDREN in place
-      utils.updateComponentAndChildren(component, updateInstance, [newId, newTitle]);
+      utils.updateComponentAndChildren(component, updateInstance, [newId]);
 
       // 4: update parentIndex with data we got back
       component.parentIndex.loaded(parentIndexJSON);
