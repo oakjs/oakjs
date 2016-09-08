@@ -45,17 +45,13 @@ function SUISubmenu(props, context) {
     elements.appendWrapped("div", "text", childLabel);
   }
 
+// TODO: don't append menu until shown????
 
   const menuItems = children || renderItems(items);
 //  if (!menuItems) console.warn("SubMenu.render(): neither children nor items returned anything", children, items);
   if (menuItems) elements.appendWrapped("div", "menu", menuItems);
 
   return elements.render();
-}
-
-SUISubmenu.defaultProps = {
-  // having the "simple" appeareance means the submenu will show automatically
-  appearance: "simple"
 }
 
 SUISubmenu.propTypes = {

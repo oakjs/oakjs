@@ -11,6 +11,39 @@ import OakComponent from "./OakComponent";
 import "./AppMenubar.less";
 
 export default class AppMenubar extends OakComponent {
+  getProjectItems() {
+    if (!oak.account || !oak.account.projects) return undefined;
+    return oak.account.projects.map(project => {
+      return {
+        label: project.title,
+        onClick: () => oak.actions.showProject({ project }),
+        icon: (oak.project === project ? "checkmark" : "none")
+      };
+    })
+  }
+
+  getSectionItems() {
+    if (!oak.project || !oak.project.sections) return undefined;
+    return oak.project.sections.map(section => {
+      return {
+        label: section.title,
+        onClick: () => oak.actions.showSection({ section }),
+        icon: (oak.section === section ? "checkmark" : "none")
+      };
+    })
+  }
+
+  getPageItems() {
+    if (!oak.section || !oak.section.pages) return undefined;
+    return oak.section.pages.map(page => {
+      return {
+        label: page.title,
+        onClick: () => oak.actions.showPage({ page }),
+        icon: (oak.page === page ? "checkmark" : "none")
+      };
+    })
+  }
+
   render() {
     if (this.hidden) return null;
     const { oak, components } = this.context;
@@ -50,7 +83,8 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.startEditingProject"/>
           <Oak.ActionItem id="oak.stopEditingProject"/>
           <SUI.Divider/>
-          <SUI.Submenu disabled label="Jump to Project"/>
+          <SUI.Submenu label="Show Project:" items={this.getProjectItems()}/>
+          <SUI.Divider/>
           <Oak.ActionItem id="oak.showFirstProject"/>
           <Oak.ActionItem id="oak.showPreviousProject"/>
           <Oak.ActionItem id="oak.showNextProject"/>
@@ -69,7 +103,8 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.startEditingSection"/>
           <Oak.ActionItem id="oak.stopEditingSection"/>
           <SUI.Divider/>
-          <SUI.Submenu disabled label="Jump to Section"/>
+          <SUI.Submenu label="Show Section:" items={this.getSectionItems()}/>
+          <SUI.Divider/>
           <Oak.ActionItem id="oak.showFirstSection"/>
           <Oak.ActionItem id="oak.showPreviousSection"/>
           <Oak.ActionItem id="oak.showNextSection"/>
@@ -89,7 +124,8 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.startEditingPage"/>
           <Oak.ActionItem id="oak.stopEditingPage"/>
           <SUI.Divider/>
-          <SUI.Submenu disabled label="Jump to Page"/>
+          <SUI.Submenu label="Show Page:" items={this.getPageItems()}/>
+          <SUI.Divider/>
           <Oak.ActionItem id="oak.showFirstPage"/>
           <Oak.ActionItem id="oak.showPreviousPage"/>
           <Oak.ActionItem id="oak.showNextPage"/>

@@ -1,5 +1,5 @@
 //////////////////////////////
-// ActionItem -- MenuItem which encapsulates an Action
+// ActionItem -- MenuItem (for Menu or toolbar) which encapsulates an Action
 //////////////////////////////
 
 import React, { PropTypes } from "react";
