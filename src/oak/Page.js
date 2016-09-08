@@ -17,9 +17,6 @@ export default class Page extends ComponentController {
     super(props);
   }
 
-  @proto
-  type = "page";
-
   //////////////////////////////
   //  ChildController stuff
   //////////////////////////////
@@ -37,8 +34,6 @@ export default class Page extends ComponentController {
 
   get parent() { return this.section }
   get parentIndex() { return this.section.childIndex }
-
-  getIndexData() { return { id: this.pageId, title: this.title } }
 
   get route() { return oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
 

@@ -382,7 +382,7 @@ export function _duplicateComponentTransaction(options) {
 export function _duplicateComponent({ component, newId, indexData, position, navigate }) {
   if (DEBUG) console.info(`_duplicateComponent({ component: ${component}, newId: ${newId}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
 
-  return api.duplicateComponent({ type:   component.type, path: component.path, newId, indexData, position })
+  return api.duplicateComponent({ type: component.type, path: component.path, newId, indexData, position })
     // returns json with:  `{ path, component, parentIndex }`
     .then( response => {
 // REFACTOR: most of this is similar to createComponent...

@@ -22,6 +22,9 @@ export default class Page extends Component {
     paths.dieIfInvalidId(this.pageId, "pageId");
   }
 
+  @proto
+  type = "Page";
+
   get id() { return this.pageId }
   set id(id) { this.pageId = id }
 
@@ -36,15 +39,6 @@ export default class Page extends Component {
   get parent() { return new Section({ projectId: this.projectId, sectionId: this.sectionId }) }
   get section() { return this.parent }
   get project() { return this.parent.parent }
-
-  @proto
-  jsxeFileName = "page.jsxe";
-
-  @proto
-  stylesFileName = "page.css";
-
-  @proto
-  scriptFileName = "page.js";
 
   getBundle(response, force) {
     return bundler.bundlePage({ page: this, response, force })

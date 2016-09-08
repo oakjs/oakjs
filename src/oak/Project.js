@@ -21,9 +21,6 @@ export default class Project extends ComponentController {
     dieIfMissing(this, "new Project", ["projectId"]);
   }
 
-  @proto
-  type = "project";
-
   //////////////////////////////
   //  ChildController stuff
   //////////////////////////////
@@ -55,8 +52,6 @@ export default class Project extends ComponentController {
   }
 
   get parent() { return oak.account }
-
-  getIndexData() { return { id: this.projectId, title: this.title } }
 
   get route() { return oak.getPageRoute(this.projectId) }
 

@@ -38,9 +38,12 @@ export default class ComponentController extends Eventful(ChildController) {
     this.cache = {};
   }
 
-  @proto
-  type = "component";
-
+  // Return the `type` of this component, which is our constructor's name.
+  // This will, eg, be used to load the component, for filenames on the server, etc.
+  // NOTE: this will be `Page` rather than `Oak.Page`, which is non-optimal but should work.
+  get type() {
+    return this.constructor.name;
+  }
 
   //////////////////////////////
   //  ChildController stuff
@@ -54,6 +57,10 @@ export default class ComponentController extends Eventful(ChildController) {
   _makeIndex() {
     console.warn("You must implement `_makeIndex()`");
   }
+
+  // Return the data to save in our PARENT's index for this object.
+  // Override if you need to save something else...
+  getIndexData() { return { type: this.type, id: this.id, title: this.title } }
 
   static splitPath() { throw new TypeError("You must implement splitPath()") }
   get route() { throw new TypeError("You must implement get route()") }
@@ -128,7 +135,7 @@ export default class ComponentController extends Eventful(ChildController) {
   //    - `styles` as CSS styles
   //    - `index` as a LoadableIndex
   loadData() {
-    return api.loadComponentBundle({ type: this.type, path: this.path });
+    return api.loadComponentBundle({ type: this.type.toLowerCase(), path: this.path });
   }
 
   onLoaded(bundle) {
@@ -168,7 +175,7 @@ export default class ComponentController extends Eventful(ChildController) {
     const data = this.getDataToSave();
     console.warn(`${this}.saveData(): `, data);
 //TODO: update data from returned bundle???
-    return api.saveComponentBundle({ type: this.type, path: this.path, data });
+    return api.saveComponentBundle({ type: this.type.toLowerCase(), path: this.path, data });
   }
 
   // Clear our cache when we're marked as dirty
@@ -270,7 +277,7 @@ export default class ComponentController extends Eventful(ChildController) {
   //////////////////////////////
 
   toString() {
-    return `[${this.type} ${this.path}]`;
+    return `<${this.type} ${this.path}/>`;
   }
 
 }

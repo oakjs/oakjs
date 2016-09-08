@@ -21,9 +21,6 @@ export default class Section extends ComponentController {
     dieIfMissing(this, "new Section", ["sectionId", "projectId"]);
   }
 
-  @proto
-  type = "section";
-
   //////////////////////////////
   //  Standard Component Identity stuff
   //////////////////////////////
@@ -40,8 +37,6 @@ export default class Section extends ComponentController {
   get parentIndex() { return this.project.childIndex }
   get childIndex() { return this.pageIndex }
   get children() { return this.pages }
-
-  getIndexData() { return { id: this.sectionId, title: this.title } }
 
   get route() { return oak.getPageRoute(this.projectId, this.sectionId) }
 

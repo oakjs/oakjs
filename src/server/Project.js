@@ -20,6 +20,9 @@ export default class Project extends Component {
     paths.dieIfInvalidId(this.projectId, "projectId");
   }
 
+  @proto
+  type = "Project";
+
   get id() { return this.projectId }
   set id(id) { this.projectId = id }
 
@@ -33,18 +36,6 @@ export default class Project extends Component {
 
   get parentIndex() { return new ComponentIndex({ path: paths.projectIndexPath }) }
   get childIndex() { return new ComponentIndex({ path: this.childIndexPath }) }
-
-  @proto
-  jsxeFileName = "project.jsxe";
-
-  @proto
-  stylesFileName = "project.css";
-
-  @proto
-  scriptFileName = "project.js";
-
-  @proto
-  childIndexFileName = "index.json";
 
   getBundle(response, force) {
     return bundler.bundleProject({ project: this, response, force })

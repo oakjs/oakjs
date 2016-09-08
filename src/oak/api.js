@@ -88,7 +88,7 @@ export default new API({
   //////////////////////////////
 
   loadControllerJSXE(controller) {
-    const url = `/api/${controller.type}/${controller.path}/jsxe`;
+    const url = `/api/${controller.type.toLowerCase()}/${controller.path}/jsxe`;
     const errorMessage = `Error loading ${controller.type} component`;
     return this.getText(url)
       // Go from JSX to a JSXElement
@@ -111,7 +111,7 @@ export default new API({
   },
 
 //   saveControllerJSXE(controller) {
-//     const url = `/api/${controller.type}/${controller.path}/jsxe`;
+//     const url = `/api/${controller.type.toLowerCase()}/${controller.path}/jsxe`;
 //     if (controller.component === undefined) return;
 //     console.info(`Saving ${controller.type} component`);
 //     return this.post(url, controller.component.toString());
@@ -123,14 +123,14 @@ export default new API({
   //////////////////////////////
 
   loadControllerStyles(controller) {
-    const url = `/api/${controller.type}/${controller.path}/styles`;
+    const url = `/api/${controller.type.toLowerCase()}/${controller.path}/styles`;
     // Attempt to load the CSS file but swallow any errors (assuming the file doesn't exist).
     return this.getText(url)
             .catch( error => { return undefined });
   },
 
 //   saveControllerStyles(controller) {
-//     const url = `/api/${controller.type}/${controller.path}/styles`;
+//     const url = `/api/${controller.type.toLowerCase()}/${controller.path}/styles`;
 //     if (controller.styles === undefined) return;
 //     console.info(`Saving ${controller.type} styles`);
 //     return this.post(url, controller.styles);
@@ -142,14 +142,14 @@ export default new API({
   //////////////////////////////
 
   loadControllerScript(controller) {
-    const url = `/api/${controller.type}/${controller.path}/script`;
+    const url = `/api/${controller.type.toLowerCase()}/${controller.path}/script`;
     // Attempt to load script but swallow any errors, assuming the file doesn't exist).
     return this.getText(url)
             .catch( error => { return undefined });
   },
 
 //   saveControllerScript(controller) {
-//     const url = `/api/${controller.type}/${controller.path}/script`;
+//     const url = `/api/${controller.type.toLowerCase()}/${controller.path}/script`;
 //     if (controller.script === undefined) return;
 //     console.info(`Saving ${controller.type} script`);
 //     return this.post(url, controller.script);

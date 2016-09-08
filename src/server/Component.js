@@ -29,6 +29,12 @@ export default class Component {
     return new (this.constructor)(this, props);
   }
 
+  // Type of this component.  May be overridden when we're loaded from the index.
+  // This will affect the `*FileName`s below.
+  // Use @proto to override.
+  @proto
+  type = "Component";
+
   //
   //  Syntactic sugar
   //
@@ -44,24 +50,22 @@ export default class Component {
 
   //
   //  Server file paths
+  //  Define getters to override paths!
   //
   getFilePath(fileName = "") { throw new TypeError("You must implement getFilePath()") }
 
-  // Filename for your jsxe file.  Use `@proto` to override!
-  @proto
-  jsxeFileName = "component.jsxe";
+  // Filename for your jsxe file.
+  get jsxeFileName() { return `${this.type}.jsxe`; }
 
-  // Filename for your styles file.  Use `@proto` to override!
-  @proto
-  stylesFileName = "component.css";
+  // Filename for your styles file.
+  get stylesFileName() { return `${this.type}.css`; }
 
-  // Filename for your script file.  Use `@proto` to override!
-  @proto
-  scriptFileName = "component.js";
+  // Filename for your script file.
+  get scriptFileName() { return `${this.type}.js`; }
 
-  // Filename for your index file.  Use `@proto` to override!
-  @proto
-  childIndexFileName = undefined;
+  // Filename for your index file.
+  get childIndexFileName() { return `index.json`; }
+
 
   getBundle(response, force) { throw new TypeError("You must implement getBundle()") }
 

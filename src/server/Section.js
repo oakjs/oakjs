@@ -22,6 +22,9 @@ export default class Section extends Component {
     paths.dieIfInvalidId(this.sectionId, "sectionId");
   }
 
+  @proto
+  type = "Section";
+
   get id() { return this.sectionId }
   set id(id) { this.sectionId = id }
 
@@ -37,18 +40,6 @@ export default class Section extends Component {
   get project() { return this.parent }
 
   get childIndex() { return new ComponentIndex({ path: this.childIndexPath }) }
-
-  @proto
-  jsxeFileName = "section.jsxe";
-
-  @proto
-  stylesFileName = "section.css";
-
-  @proto
-  scriptFileName = "section.js";
-
-  @proto
-  childIndexFileName = "index.json";
 
   getBundle(response, force) {
     return bundler.bundleSection({ section: this, response, force })
