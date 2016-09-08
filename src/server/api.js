@@ -109,7 +109,7 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
                         .then( newPage => newPage.getBundleAndParentIndex(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
-    case "rename":    return page.changeId(data.newId, data.newTitle)
+    case "rename":    return page.changeId(data)
                         .then( newPage => newPage.parentIndex.getFile(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
@@ -164,7 +164,7 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
                         .then( newSection => newSection.getBundleAndParentIndex(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
-    case "rename":    return section.changeId(data.newId, data.newTitle)
+    case "rename":    return section.changeId(data)
                         .then( newSection => newSection.parentIndex.getFile(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
@@ -217,7 +217,7 @@ router.post("/project/:projectId/:action", bodyTextParser, (request, response) =
                         .then( newProject => newProject.getBundleAndParentIndex(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 
-    case "rename":    return project.changeId(data.newId, data.newTitle)
+    case "rename":    return project.changeId(data)
                         .then( newProject => newProject.parentIndex.getFile(response) )
                         .catch( error => { console.error(error); throw new Error(error)} );
 

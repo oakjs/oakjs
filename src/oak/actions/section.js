@@ -128,7 +128,7 @@ export function createSection(options = {}) {
 
   return component._createComponentTransaction({
     parent: project,
-    type: "section",
+    type: "Section",
     newId: sectionId,
     title,
     prompt,

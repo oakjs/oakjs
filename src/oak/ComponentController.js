@@ -38,12 +38,10 @@ export default class ComponentController extends Eventful(ChildController) {
     this.cache = {};
   }
 
-  // Return the `type` of this component, which is our constructor's name.
+  // Return the `type` of this component, which is our generally constructor's name.
   // This will, eg, be used to load the component, for filenames on the server, etc.
-  // NOTE: this will be `Page` rather than `Oak.Page`, which is non-optimal but should work.
-  get type() {
-    return this.constructor.name;
-  }
+  @proto
+  type = "Component";
 
   //////////////////////////////
   //  ChildController stuff
@@ -135,7 +133,7 @@ export default class ComponentController extends Eventful(ChildController) {
   //    - `styles` as CSS styles
   //    - `index` as a LoadableIndex
   loadData() {
-    return api.loadComponentBundle({ type: this.type.toLowerCase(), path: this.path });
+    return api.loadComponentBundle({ component: this });
   }
 
   onLoaded(bundle) {
@@ -175,7 +173,7 @@ export default class ComponentController extends Eventful(ChildController) {
     const data = this.getDataToSave();
     console.warn(`${this}.saveData(): `, data);
 //TODO: update data from returned bundle???
-    return api.saveComponentBundle({ type: this.type.toLowerCase(), path: this.path, data });
+    return api.saveComponentBundle({ component: this, data });
   }
 
   // Clear our cache when we're marked as dirty

@@ -130,7 +130,7 @@ export function createProject(options = {}) {
 
   return component._createComponentTransaction({
     parent: account,
-    type: "project",
+    type: "Project",
     newId: projectId,
     title,
     prompt,

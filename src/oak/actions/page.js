@@ -123,7 +123,7 @@ export function createPage(options = {}) {
 
   return component._createComponentTransaction({
     parent: section,
-    type: "page",
+    type: "Page",
     newId: pageId,
     title,
     prompt,

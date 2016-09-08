@@ -15,8 +15,9 @@ export default new API({
 
   // Load a bundle for some ComponentController as a JSON blob.
   // No argument normalization.
-  loadComponentBundle({ type, path }, fetchParams) {
-    const url = `/api/${type}/${path}/bundle`;
+  loadComponentBundle({ component }, fetchParams) {
+    const { type, path } = component;
+    const url = `/api/${type.toLowerCase()}/${path}/bundle`;
     const errorMessage = `Error loading ${type} ${path} bundle`;
     return this.getJSON(url, fetchParams, errorMessage);
   },
@@ -24,8 +25,9 @@ export default new API({
   // Save `data` as a JSON blob for some ComponentController.
   // Response returns the component's bundle.
   // No argument normalization.
-  saveComponentBundle({ type, path, data }, fetchParams) {
-    const url = `/api/${type}/${path}/save`;
+  saveComponentBundle({ component, data}, fetchParams) {
+    const { type, path } = component;
+    const url = `/api/${type.toLowerCase()}/${path}/save`;
     const errorMessage = `Error saving ${type} ${path}`;
     return this.post(url, data, fetchParams, errorMessage)
             .then( response => response.json() );
@@ -34,7 +36,7 @@ export default new API({
   // Create a new component (Project, Section, Page)
   // No argument normalization.
   createComponent({ type, path, data, indexData, position }, fetchParams) {
-    const url = `/api/${type}/${path}/create`;
+    const url = `/api/${type.toLowerCase()}/${path}/create`;
     const postData = { data, indexData, position };
     const errorMessage = `Error creating ${type} at ${path}`;
     return this.post(url, postData, fetchParams, errorMessage)
@@ -44,7 +46,7 @@ export default new API({
   // Duplicate a component and all children (Project, Section, Page)
   // No argument normalization.
   duplicateComponent({ type, path, newId, indexData, position }, fetchParams) {
-    const url = `/api/${type}/${path}/duplicate`;
+    const url = `/api/${type.toLowerCase()}/${path}/duplicate`;
     const postData = { newId, indexData, position };
     const errorMessage = `Error duplicating ${type}`;
     return this.post(url, postData, fetchParams, errorMessage)
@@ -56,7 +58,7 @@ export default new API({
   // NOTE: does not affect client indices...
   // No argument normalization.
   renameComponent({ type, path, newId, newTitle }, fetchParams) {
-    const url = `/api/${type}/${path}/rename`;
+    const url = `/api/${type.toLowerCase()}/${path}/rename`;
     const postData = { newId, newTitle };
     const errorMessage = `Error changing id of ${type} ${path}`;
     return this.post(url, postData, fetchParams, errorMessage)
@@ -66,7 +68,7 @@ export default new API({
   // Delete a component (Project, Section, Page)
   // No argument normalization.
   deleteComponent({ type, path }, fetchParams) {
-    const url = `/api/${type}/${path}/delete`;
+    const url = `/api/${type.toLowerCase()}/${path}/delete`;
     const errorMessage = `Error deleting ${type}`;
     return this.post(url, "", fetchParams, errorMessage)
             .then( response => response.json() );
@@ -75,7 +77,7 @@ export default new API({
   // UNdelete a component (Project, Section, Page)
   // No argument normalization.
   undeleteComponent({ type, path, indexData, position }, fetchParams) {
-    const url = `/api/${type}/${path}/undelete`;
+    const url = `/api/${type.toLowerCase()}/${path}/undelete`;
     const postData = { indexData, position };
     const errorMessage = `Error undeleting ${type}`;
     return this.post(url, postData, fetchParams, errorMessage)

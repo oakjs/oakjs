@@ -21,6 +21,9 @@ export default class Project extends ComponentController {
     dieIfMissing(this, "new Project", ["projectId"]);
   }
 
+  @proto
+  type = "Project";
+
   //////////////////////////////
   //  ChildController stuff
   //////////////////////////////

@@ -17,6 +17,9 @@ export default class Page extends ComponentController {
     super(props);
   }
 
+  @proto
+  type = "Page";
+
   //////////////////////////////
   //  ChildController stuff
   //////////////////////////////

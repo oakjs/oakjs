@@ -272,7 +272,8 @@ export function _createComponentTransaction(options) {
     type,
     path,
     data,
-    indexData: { id: newId, title: (title || newId) },
+    // TODO: this won't pick up indexData which varies by component... :-(
+    indexData: { type, id: newId, title: (title || newId) },
     position,
     navigate
   };

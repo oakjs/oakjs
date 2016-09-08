@@ -21,6 +21,9 @@ export default class Section extends ComponentController {
     dieIfMissing(this, "new Section", ["sectionId", "projectId"]);
   }
 
+  @proto
+  type = "Section";
+
   //////////////////////////////
   //  Standard Component Identity stuff
   //////////////////////////////
