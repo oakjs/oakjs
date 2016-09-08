@@ -188,13 +188,14 @@ new Action({
 
 
 //////////////////////////////
-//  Rename project (change it's id)
+//  Rename project (change it's title + id)
 //////////////////////////////
 export function renameProject(options = {}) {
   let {
     project = oak.project,  // Project to change
-    newId,                  // New id for the project
-    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
+    newTitle,               // New title for the project.  Will be generated from `newTitle` if not provided.
+    newId,                  // New id for the project.  Will be generated from `newTitle` if not provided.
+    prompt,                 // If `true`, we'll prompt for a new name if neither `newTitle` nor `newId` is set.
     actionName,
     autoExecute
   } = options
@@ -205,8 +206,10 @@ export function renameProject(options = {}) {
 
   return component._renameComponentTransaction({
     component: project,
+    newTitle,
     newId,
     updateInstance: function(component, id) { component.projectId = id },
+    prompt,
     navigate: (project === oak.project),
     actionName,
     autoExecute

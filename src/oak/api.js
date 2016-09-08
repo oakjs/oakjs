@@ -55,9 +55,9 @@ export default new API({
   // Response returns the parent index JSON data.
   // NOTE: does not affect client indices...
   // No argument normalization.
-  renameComponent({ type, path, newId }, fetchParams) {
+  renameComponent({ type, path, newId, newTitle }, fetchParams) {
     const url = `/api/${type}/${path}/rename`;
-    const postData = { newId };
+    const postData = { newId, newTitle };
     const errorMessage = `Error changing id of ${type} ${path}`;
     return this.post(url, postData, fetchParams, errorMessage)
             .then( response => response.json() );

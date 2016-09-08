@@ -36,26 +36,37 @@ export function _renameComponentTransaction(options) {
     component,                        // REQUIRED: Component to change
     updateInstance,                   // REQUIRED: Method to update component and children
     newId,                            // OPTIONAL: New id for the component.
-    prompt = !oak.event.optionKey,    // OPTIONA:  If `true`, we'll prompt for a new name if newId is not set.
+    newTitle,                         // OPTIONAL: New id for the component.
+    prompt = !oak.event.optionKey,    // OPTIONAL: If `true`, we'll prompt for a new name if neither `newId` nor `newId` is set.
                                       //           Default is to confirm unless the option key is down.
     navigate = false,                 // OPTIONAL: If true, we'll update the url after renaming.
     actionName = `Rename ${component.type}`,
     autoExecute
   } = options
 
-  // if `newId` was not specified, prompt
-  if (!newId && prompt) {
-    newId = window.prompt(`New name for ${component.type}?`, component.id);
-    if (!newId) return;
+  // Default `newTitle` if they only specified `newId`.
+  if (newId && !newTitle) {
+    newTitle = ids.normalizeIdentifier(newId);
   }
 
-  // default to component's id, and make sure it's unique within the parent
-  if (!newId) newId = component.id;
+  // if `newTitle` was not specified, prompt
+  if (!newTitle && prompt) {
+    newTitle = window.prompt(`New name for ${component.type}?`, component.props.title || component.id);
+    if (!newTitle) return;
+  }
+
+  // Default `newId` if they only specified `newTitle`.
+  if (newTitle && !newId) {
+    newId = ids.normalizeIdentifier(newTitle);
+  }
+
+  // Make sure `newId` is unique within the parent
   newId = component.parent.uniquifyChildId(newId)
 
   const redoParams = {
     component,
     newId,
+    newTitle,
     updateInstance,
     navigate
   }
@@ -63,6 +74,7 @@ export function _renameComponentTransaction(options) {
   const undoParams = {
     component,
     newId: component.id,
+    newTitle: component.props.title,
     updateInstance,
     navigate
   }
@@ -78,25 +90,33 @@ export function _renameComponentTransaction(options) {
 // Rename a component and optionally navigate to a new route.
 // No parameter normalization!
 export function _renameComponent(options) {
-  dieIfMissing(options, "_renameComponent", ["component", "newId", "updateInstance"]);
-  const { component, newId, updateInstance, navigate } = options;
+  dieIfMissing(options, "_renameComponent", ["component", "newId", "newTitle", "updateInstance"]);
+  const { component, newId, newTitle, updateInstance, navigate } = options;
   if (DEBUG) console.info(`renameComponent({ component: ${component}, newId: ${newId}, navigate: ${navigate}  })`);
 
   return api.renameComponent({
       type: component.type,
       path: component.path,
-      newId
+      newId,
+      newTitle
     })
     // response returns the parentIndex JSON data
     .then( parentIndexJSON => {
       // NOTE: the order is important here!
-      // 1: changeId() in the parentIndex
-      component.parentIndex.changeId(component.id, newId);
+      // 1: changeId() in the in-memory parentIndex
+      component.parentIndex.changeId(component.id, newId, newTitle);
 
-      // 2: update component and children in place
-      utils.updateComponentAndChildren(component, updateInstance, [newId]);
+      // 2: update component AND ALL CHILDREN in place
+      utils.updateComponentAndChildren(component, updateInstance, [newId, newTitle]);
 
-      // 3: update parentIndex with data we got back
+      // 3. Change the component's properties
+      component.props.id = newId;
+      component.props.title = newTitle;
+
+      // 4. Save the component (but don't wait for it).
+      component.save("FORCE");
+
+      // 5: update parentIndex with data we got back
       component.parentIndex.loaded(parentIndexJSON);
 
       if (DEBUG) console.info("component renamed" + (navigate ? ", navigating..." : ""));

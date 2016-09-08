@@ -192,8 +192,9 @@ new Action({
 export function renameSection(options = {}) {
   let {
     section = oak.section,  // Section to change
-    newId,                  // New id for the section
-    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
+    newTitle,               // New title for the section.  Will be generated from `newTitle` if not provided.
+    newId,                  // New id for the section.  Will be generated from `newTitle` if not provided.
+    prompt,                 // If `true`, we'll prompt for a new name if neither `newTitle` nor `newId` is set.
     actionName,
     autoExecute
   } = options
@@ -204,8 +205,10 @@ export function renameSection(options = {}) {
 
   return component._renameComponentTransaction({
     component: section,
+    newTitle,
     newId,
     updateInstance: function(component, id) { component.sectionId = id },
+    prompt,
     navigate: (section === oak.section),
     actionName,
     autoExecute

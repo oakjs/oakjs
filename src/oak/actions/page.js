@@ -185,8 +185,9 @@ new Action({
 export function renamePage(options = {}) {
   let {
     page = oak.page,        // Page to change
-    newId,                  // New id for the page
-    prompt,                 // If `true`, we'll prompt for a new name if newId is not set.
+    newTitle,               // New title for the page.  Will be generated from `newTitle` if not provided.
+    newId,                  // New id for the page.  Will be generated from `newTitle` if not provided.
+    prompt,                 // If `true`, we'll prompt for a new name if neither `newTitle` nor `newId` is set.
     actionName,
     autoExecute
   } = options
@@ -197,8 +198,10 @@ export function renamePage(options = {}) {
 
   return component._renameComponentTransaction({
     component: page,
+    newTitle,
     newId,
     updateInstance: function(component, id) { component.pageId = id },
+    prompt,
     navigate: (page === oak.page),
     actionName,
     autoExecute

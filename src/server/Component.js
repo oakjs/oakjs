@@ -191,16 +191,18 @@ export default class Component {
   // Change the id of this component.
   // Updates parent's childIndex.
   // Returns a new component with the specified id.
-  changeId(newId) {
+  changeId(newId, newTitle) {
 //TODO: uniqify newId within parent!?!?!
     // Clone this item and update the id.
-    const clone = this.clone({ id: newId });
+    const cloneProps = { newId };
+    if (newTitle !== undefined) cloneProps.newTitle = newTitle;
+    const clone = this.clone(cloneProps);
 
     // move the folder first
     return paths.renameFile(this.rootPath, clone.rootPath)
       // then update the parent's childIndex
       .then(() => {
-        return this.parentIndex.changeId(this.id, newId, "SAVE")
+        return this.parentIndex.changeId(this.id, newId, newTitle, "SAVE")
       })
       // return the clone
       .then(() => clone)

@@ -166,7 +166,7 @@ export default class ComponentController extends Eventful(ChildController) {
 
   saveData() {
     const data = this.getDataToSave();
-    console.warn("saving: ", data);
+    console.warn(`${this}.saveData(): `, data);
 //TODO: update data from returned bundle???
     return api.saveComponentBundle({ type: this.type, path: this.path, data });
   }

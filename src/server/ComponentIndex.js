@@ -91,14 +91,17 @@ export default class ComponentIndex {
       });
   }
 
-  // Change the id of some item.
+  // Change the `id` and `title` of some item.
   //
   // If `save` is truthy, we'll auto-save this file.
-  changeId(oldId, newId, save) {
+  changeId(oldId, newId, newTitle, save) {
     return this.load()
       .then( () => {
         const item = this.get(oldId);
-        if (item) item.id = newId;
+        if (item) {
+          item.id = newId;
+          if (newTitle !== undefined) item.title = newTitle;
+        }
         if (save) return this.save();
       });
   }
