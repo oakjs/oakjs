@@ -1,3 +1,4 @@
 [
-  {"id" : "player", "title": "Player" }
+  {"id" : "player", "title": "Player" },
+  {"id" : "editors", "title": "Editors" }
 ]
