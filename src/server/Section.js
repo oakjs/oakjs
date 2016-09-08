@@ -48,7 +48,7 @@ export default class Section extends Component {
   scriptFileName = "section.js";
 
   @proto
-  childIndexFileName = "pages.json";
+  childIndexFileName = "index.json";
 
   getBundle(response, force) {
     return bundler.bundleSection({ section: this, response, force })

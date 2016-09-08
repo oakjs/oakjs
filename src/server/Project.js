@@ -44,7 +44,7 @@ export default class Project extends Component {
   scriptFileName = "project.js";
 
   @proto
-  childIndexFileName = "sections.json";
+  childIndexFileName = "index.json";
 
   getBundle(response, force) {
     return bundler.bundleProject({ project: this, response, force })
