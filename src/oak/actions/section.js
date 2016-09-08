@@ -153,8 +153,7 @@ new Action({
 export function duplicateSection(options = {}) {
   let {
     section = oak.section,          // default to current section
-    sectionId,
-                                    // default to section's name, duplicateSection will uniquify.
+    sectionId,                      // id for new section (may end up derived from title)
     position,                       // 1-based numeric position within the section, undefined = place after current section
     title,                          // title for the new section, defaults to same as current section
     prompt,                         // if true and title is not specified, we'll prompt for section title

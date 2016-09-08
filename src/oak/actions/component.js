@@ -67,6 +67,7 @@ export function _renameComponentTransaction(options) {
     component,
     newId,
     newTitle,
+    indexData: { ...component.getIndexData(), id: newId, title: newTitle },
     updateInstance,
     navigate
   }
@@ -75,6 +76,7 @@ export function _renameComponentTransaction(options) {
     component,
     newId: component.id,
     newTitle: component.props.title,
+    indexData: component.getIndexData(),
     updateInstance,
     navigate
   }
@@ -91,14 +93,14 @@ export function _renameComponentTransaction(options) {
 // No parameter normalization!
 export function _renameComponent(options) {
   dieIfMissing(options, "_renameComponent", ["component", "newId", "newTitle", "updateInstance"]);
-  const { component, newId, newTitle, updateInstance, navigate } = options;
+  const { component, newId, newTitle, indexData, updateInstance, navigate } = options;
   if (DEBUG) console.info(`renameComponent({ component: ${component}, newId: ${newId}, navigate: ${navigate}  })`);
 
   return api.renameComponent({
       type: component.type,
       path: component.path,
       newId,
-      newTitle
+      indexData
     })
     // response returns the parentIndex JSON data
     .then( parentIndexJSON => {
@@ -109,15 +111,15 @@ export function _renameComponent(options) {
       // 2: update component AND ALL CHILDREN in place
       utils.updateComponentAndChildren(component, updateInstance, [newId, newTitle]);
 
-      // 3. Change the component's properties
+      // 4: update parentIndex with data we got back
+      component.parentIndex.loaded(parentIndexJSON);
+
+      // 5. Change the component's properties
       component.props.id = newId;
       component.props.title = newTitle;
 
-      // 4. Save the component (but don't wait for it).
+      // 6. Save the component (but don't wait for it).
       component.save("FORCE");
-
-      // 5: update parentIndex with data we got back
-      component.parentIndex.loaded(parentIndexJSON);
 
       if (DEBUG) console.info("component renamed" + (navigate ? ", navigating..." : ""));
 
@@ -351,14 +353,15 @@ export function _duplicateComponentTransaction(options) {
     if (title)  newId = ids.normalizeIdentifier(title);
     else        newId = JSXFragment.getRandomOid();
   }
-
   // make sure newId is unique within the parent
   newId = component.parent.uniquifyChildId(newId);
 
   const duplicateParams = {
     component,
     newId,
-    indexData: { id: newId, title: (title || newId) },
+    title,
+    // TODO: this won't pick up indexData which varies by component... :-(
+    indexData: { type: component.type, id: newId, title },
     position,
     navigate
   };
@@ -380,8 +383,8 @@ export function _duplicateComponentTransaction(options) {
 // Create a component.
 // NOTE: it's up to you to make sure there's not already a component at `newId`!
 // No parameter normalization or checking!
-export function _duplicateComponent({ component, newId, indexData, position, navigate }) {
-  if (DEBUG) console.info(`_duplicateComponent({ component: ${component}, newId: ${newId}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
+export function _duplicateComponent({ component, newId, title, indexData, position, navigate }) {
+  if (DEBUG) console.info(`_duplicateComponent({ component: ${component}, newId: ${newId}, title: ${title}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
 
   return api.duplicateComponent({ type: component.type, path: component.path, newId, indexData, position })
     // returns json with:  `{ path, component, parentIndex }`
@@ -401,6 +404,13 @@ export function _duplicateComponent({ component, newId, indexData, position, nav
 
       // 3. have the newComponent update with the response data
       newComponent.loaded(response.component);
+
+      // 4. Change the component's properties
+      newComponent.props.id = newId;
+      newComponent.props.title = title;
+
+      // 5. Save the component (but don't wait for it).
+      newComponent.save("FORCE");
 
       if (DEBUG) console.info("component duplicated" + (navigate ? ", navigating..." : ""));
 

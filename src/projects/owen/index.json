@@ -1,5 +1,6 @@
 [
   {
+    "type": "Section",
     "id": "test",
     "title": "Loading Test"
   }

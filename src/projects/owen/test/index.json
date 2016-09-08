@@ -1,17 +1,21 @@
 [
   {
+    "type": "Page",
     "id": "test",
     "title": "Simple Test Card"
   },
   {
+    "type": "Page",
     "id": "editor",
     "title": "Editor Package Test"
   },
   {
+    "type": "Page",
     "id": "component",
     "title": "component"
   },
   {
+    "type": "Page",
     "id": "panel",
     "title": "panel"
   }

@@ -200,18 +200,16 @@ if (child) console.info(child.getIndexData());
   // Change the id of this component.
   // Updates parent's childIndex.
   // Returns a new component with the specified id.
-  changeId({ newId, newTitle }) {
+  changeId({ newId, indexData }) {
 //TODO: uniqify newId within parent!?!?!
     // Clone this item and update the id.
-    const cloneProps = { newId };
-    if (newTitle !== undefined) cloneProps.newTitle = newTitle;
-    const clone = this.clone(cloneProps);
+    const clone = this.clone(indexData);
 
     // move the folder first
     return paths.renameFile(this.rootPath, clone.rootPath)
       // then update the parent's childIndex
       .then(() => {
-        return this.parentIndex.changeId(this.id, newId, newTitle, "SAVE")
+        return this.parentIndex.changeId(this.id, newId, indexData, "SAVE")
       })
       // return the clone
       .then(() => clone)

@@ -147,7 +147,7 @@ new Action({
 export function duplicatePage(options = {}) {
   let {
     page = oak.page,                // default to current page
-    pageId = page && page.pageId,   // default to page's name, duplicatePage will uniquify.
+    pageId,                         // id for new page (may end up derived from title)
     position,                       // numeric position within the section, undefined = place after current page
     title,                          // title for the new page, defaults to same as current page
     prompt,                         // if true and title is not specified, we'll prompt for page title
