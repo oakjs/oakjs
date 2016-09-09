@@ -64,7 +64,7 @@ export function _renameComponentTransaction(options) {
   newId = component.parent.uniquifyChildId(newId)
 
   const redoParams = {
-    component,
+    path: component.path,
     newId,
     newTitle,
     indexData: { ...component.getIndexData(), id: newId, title: newTitle },
@@ -73,7 +73,7 @@ export function _renameComponentTransaction(options) {
   }
 
   const undoParams = {
-    component,
+    path: component.parent.getChildPath(newId),
     newId: component.id,
     newTitle: component.props.title,
     indexData: component.getIndexData(),
@@ -92,9 +92,14 @@ export function _renameComponentTransaction(options) {
 // Rename a component and optionally navigate to a new route.
 // No parameter normalization!
 export function _renameComponent(options) {
-  dieIfMissing(options, "_renameComponent", ["component", "newId", "newTitle", "updateInstance"]);
-  const { component, newId, newTitle, indexData, updateInstance, navigate } = options;
-  if (DEBUG) console.info(`renameComponent({ component: ${component}, newId: ${newId}, navigate: ${navigate}  })`);
+  dieIfMissing(options, "_renameComponent", ["path", "newId", "newTitle", "updateInstance"]);
+  const { path, newId, newTitle, indexData, updateInstance, navigate } = options;
+  if (DEBUG) console.info(`renameComponent({ path: ${path}, newId: ${newId}, navigate: ${navigate}  })`);
+
+  // Get the current version of the component.
+  // Important because   `rename => delete => undo`  will return a different component instance with the same path.
+  const component = oak.get(path);
+  if (!component) throw new TypeError(`actions._renameComponent(${path}): component not found`);
 
   return api.renameComponent({
       type: component.type,
@@ -120,6 +125,8 @@ export function _renameComponent(options) {
 
       // 6. Save the component (but don't wait for it).
       component.save("FORCE");
+
+window.renamed = component;
 
       if (DEBUG) console.info("component renamed" + (navigate ? ", navigating..." : ""));
 
@@ -159,12 +166,12 @@ export function _deleteComponentTransaction(options) {
   }
 
   const deleteParams = {
-    component,
+    path: component.path,
     route
   }
 
   const undeleteParams = {
-    parent: component.parent,
+    parentPath: component.parent.path,
     type: component.type,
     path: component.path,
     indexData: component.getIndexData(),
@@ -183,11 +190,11 @@ export function _deleteComponentTransaction(options) {
 
 // Delete a component and optionally navigate to a new route.
 // No parameter normalization!
-export function _deleteComponent({ component, route }) {
-  if (DEBUG) console.info(`_deleteComponent({ component: ${component}, route: ${route} })`);
+export function _deleteComponent({ path, route }) {
+  if (DEBUG) console.info(`_deleteComponent({ path: ${path}, route: ${route} })`);
 
-  if (typeof component === "string") component = oak.get(component);
-  if (!component) throw new TypeError(`actions utils._deleteComponent(${component}): component not found`);
+  const component = oak.get(path);
+  if (!component) throw new TypeError(`actions._deleteComponent(${path}): component not found`);
 
   return api.deleteComponent({ type: component.type, path: component.path })
     // response returns the parentIndex JSON data
@@ -206,8 +213,12 @@ export function _deleteComponent({ component, route }) {
 // UNdelete a component (get it back from the trash).
 // NOTE: this is very likely to fail...
 // No parameter normalization or checking!
-export function _undeleteComponent({ parent, type, path, indexData, position, navigate }) {
-  if (DEBUG) console.info(`_undeleteComponent({ parent: ${parent}, path: ${path}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
+export function _undeleteComponent({ parentPath, type, path, indexData, position, navigate }) {
+  if (DEBUG) console.info(`_undeleteComponent({ parentPath: ${parentPath}, path: ${path}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
+
+  const parent = oak.get(parentPath);
+  if (!parent) throw new TypeError(`actions._undeleteComponent(): parent component '${parentPath}' not found`);
+
   return api.undeleteComponent({ type, path, indexData, position })
     // returns json with:  `{ path, component, parentIndex }`
     .then( response => {
@@ -224,6 +235,8 @@ export function _undeleteComponent({ parent, type, path, indexData, position, na
       }
       // 3. have the component update with the response data
       newComponent.loaded(response.component);
+
+window.undeleted = newComponent;
 
       if (DEBUG) console.info("component undeleted" + (navigate ? ", navigating..." : ""));
 
@@ -270,7 +283,7 @@ export function _createComponentTransaction(options) {
   const path = parent.getChildPath(newId);
 
   const createParams = {
-    parent,
+    parentPath: parent.path,
     type,
     path,
     data,
@@ -282,7 +295,7 @@ export function _createComponentTransaction(options) {
 
   // On undo, go back to the current component if we're navigating
   const deleteParams = {
-    component: path,
+    path,
     route: navigate && oak.page && oak.page.route
   }
 
@@ -297,8 +310,12 @@ export function _createComponentTransaction(options) {
 // Create a component.
 // NOTE: it's up to you to make sure there's not already a component at `path`!
 // No parameter normalization or checking!
-export function _createComponent({ parent, type, path, data, indexData, position, navigate }) {
+export function _createComponent({ parentPath, type, path, data, indexData, position, navigate }) {
   if (DEBUG) console.info(`_createComponent({ path: ${path}, data: ${data}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
+
+  const parent = oak.get(parentPath);
+  if (!parent) throw new TypeError(`actions._createComponent(): parent component '${parentPath}' not found`);
+
   return api.createComponent({ type, path, data, indexData, position })
     // returns json with:  `{ path, component, parentIndex }`
     .then( response => {
@@ -357,7 +374,7 @@ export function _duplicateComponentTransaction(options) {
   newId = component.parent.uniquifyChildId(newId);
 
   const duplicateParams = {
-    component,
+    path: component.path,
     newId,
     title,
     // TODO: this won't pick up indexData which varies by component... :-(
@@ -368,7 +385,7 @@ export function _duplicateComponentTransaction(options) {
 
   // On undo, go back to the current component if we're navigating
   const deleteParams = {
-    component: component.parent.getChildPath(newId),
+    path: component.parent.getChildPath(newId),
     route: navigate && oak.page && oak.page.route
   }
 
@@ -383,8 +400,12 @@ export function _duplicateComponentTransaction(options) {
 // Create a component.
 // NOTE: it's up to you to make sure there's not already a component at `newId`!
 // No parameter normalization or checking!
-export function _duplicateComponent({ component, newId, title, indexData, position, navigate }) {
-  if (DEBUG) console.info(`_duplicateComponent({ component: ${component}, newId: ${newId}, title: ${title}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
+export function _duplicateComponent({ path, newId, title, indexData, position, navigate }) {
+  if (DEBUG) console.info(`_duplicateComponent({ path: ${path}, newId: ${newId}, title: ${title}, indexData: ${indexData}, position: ${position}, navigate: ${navigate} })`);
+
+  // Get the current version of the component.
+  const component = oak.get(path);
+  if (!component) throw new TypeError(`actions._duplicateComponent(${path}): component not found`);
 
   return api.duplicateComponent({ type: component.type, path: component.path, newId, indexData, position })
     // returns json with:  `{ path, component, parentIndex }`
