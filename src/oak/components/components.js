@@ -4,7 +4,7 @@ export AppMenu from "./AppMenu";
 export AppMenubar from "./AppMenubar";
 export AutoResized from "./AutoResized";
 export Columns from "./Columns";
-export ComponentMenu from "./ComponentMenu";
+export ComponentTree from "./ComponentTree";
 export CurrentPage from "./CurrentPage";
 export CurrentProject from "./CurrentProject";
 export CurrentSection from "./CurrentSection";

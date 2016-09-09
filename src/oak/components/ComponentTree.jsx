@@ -15,11 +15,11 @@ import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
 
-import "./ComponentMenu.less";
+import "./ComponentTree.less";
 
 
 
-export default class ComponentMenu extends PreferentialComponent(OakComponent) {
+export default class ComponentTree extends PreferentialComponent(OakComponent) {
 
   static propTypes = {
     controller: PropTypes.object,
@@ -35,7 +35,7 @@ export default class ComponentMenu extends PreferentialComponent(OakComponent) {
 
 
 //
-//  Remember `opens` map for all `<ComponentMenus>` with the same root `oid`.
+//  Remember `opens` map for all `<ComponentTrees>` with the same root `oid`.
 //
 
   // Remember opens across sessions.
@@ -43,7 +43,7 @@ export default class ComponentMenu extends PreferentialComponent(OakComponent) {
 
   getPrefId(props) {
     const root = this.getRootElement(props);
-    if (root) return `oak.ComponentMenu.opensFor.${root.props.oid}`;
+    if (root) return `oak.ComponentTree.opensFor.${root.props.oid}`;
   }
 
   getDefaultPrefs(props) {
@@ -121,24 +121,24 @@ export default class ComponentMenu extends PreferentialComponent(OakComponent) {
     if (this.hidden || !this.props.controller) return null;
 
     const { controller, className, appearance, ...props } = this.props;
-    props.className = classNames("oak", appearance, props.className, "ComponentMenu");
+    props.className = classNames("oak", appearance, props.className, "ComponentTree");
 
     return (
       <div {...props}>
-        <ComponentMenuItem menu={this} controller={controller} item={controller.jsxFragment.root}/>
+        <ComponentTreeItem menu={this} controller={controller} item={controller.jsxFragment.root}/>
       </div>
     );
   }
 }
 
-class ComponentMenuItem extends OakComponent {
+class ComponentTreeItem extends OakComponent {
   renderChildren(menu, item) {
     if (!item || !item.children) return null;
     // singleton text child will be rendered in the "<div.type>" below.
     if (item.children.length === 1 && typeof item.children[0] === "string") return null;
     return (
       <div className="children">
-        {item.children.map( (child, index) => <ComponentMenuItem key={index} menu={menu} item={child} /> )}
+        {item.children.map( (child, index) => <ComponentTreeItem key={index} menu={menu} item={child} /> )}
       </div>
     );
   }
@@ -182,4 +182,4 @@ class ComponentMenuItem extends OakComponent {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: true }, ComponentMenu);
+editify({ draggable: false, droppable: true }, ComponentTree);
