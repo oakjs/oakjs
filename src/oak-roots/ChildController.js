@@ -44,7 +44,7 @@ export default class ChildController extends Savable(Loadable()) {
   //  Parents & Paths
   //////////////////////////////
 
-  getChildPath(childId) { throw new TypeError("You must implement getChildPath()") }
+  getChildPath(childId) { return `${this.path}/${childId}` }
   get path() { return this.parent ? this.parent.getChildPath(this.id) : this.id; }
 
   // Return our parent's index, which will include us.

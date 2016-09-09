@@ -164,6 +164,11 @@ export default class Account extends ChildController {
   //  Standard ChildController stuff
   //////////////////////////////
 
+  static ACCOUNT_PATH_FLAG = { ACCOUNT: true };
+
+  // Return the ACCOUNT_PATH_FLAG for our path.  `oak.get()` special cases this...
+  get path() { return Account.ACCOUNT_PATH_FLAG }
+
   // Currently no account prefix on project paths
   getChildPath(projectId) { return projectId }
 

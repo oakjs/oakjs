@@ -47,8 +47,6 @@ export default class ComponentController extends Eventful(ChildController) {
   //  ChildController stuff
   //////////////////////////////
 
-  getChildPath(childId) { return `${this.path}/${childId}` }
-
   // Override to make the index for this type of thing.
   // Depending on your logic, you may want to call this in your `constructor`
   //  so the index is always available.

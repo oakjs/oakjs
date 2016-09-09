@@ -220,6 +220,10 @@ class OakJS extends Eventful(Object) {
       if (split.sectionId) return this.getSection(split.projectId, split.sectionId);
       if (split.projectId) return this.getProject(split.projectId);
     }
+    // Special case for account (which is not a real path).
+    if (path === Account.ACCOUNT_PATH_FLAG) return oak.account;
+
+    // Unclear what to do here...
     console.warn(`oak.get(${path}): path not understood`);
     return undefined;
   }
