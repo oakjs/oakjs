@@ -126,8 +126,6 @@ export function _renameComponent(options) {
       // 6. Save the component (but don't wait for it).
       component.save("FORCE");
 
-window.renamed = component;
-
       if (DEBUG) console.info("component renamed" + (navigate ? ", navigating..." : ""));
 
       // navigate if desired
@@ -235,8 +233,6 @@ export function _undeleteComponent({ parentPath, type, path, indexData, position
       }
       // 3. have the component update with the response data
       newComponent.loaded(response.component);
-
-window.undeleted = newComponent;
 
       if (DEBUG) console.info("component undeleted" + (navigate ? ", navigating..." : ""));
 
