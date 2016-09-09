@@ -8,36 +8,15 @@ import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
-import PageMenuItem from "./PageMenuItem";
-import ProjectMenuItem from "./ProjectMenuItem";
-import SectionMenuItem from "./SectionMenuItem";
-
-import "./AppMenubar.less";
 
 export default class AppMenubar extends OakComponent {
-  getProjectItems() {
-    if (!oak.account || !oak.account.projects) return undefined;
-    return oak.account.projects.map(project => <ProjectMenuItem key={project.path} project={project} checkSelected/>);
-  }
-
-  getSectionItems() {
-    if (!oak.project || !oak.project.sections) return undefined;
-    return oak.project.sections.map(section => <SectionMenuItem key={section.path} section={section} checkSelected/>);
-  }
-
-  getPageItems() {
-    if (!oak.section || !oak.section.pages) return undefined;
-    return oak.section.pages.map(page => <PageMenuItem key={page.path} page={page} checkSelected/>);
-  }
-
   render() {
     if (this.hidden) return null;
     const { oak, components } = this.context;
     const { Oak, SUI } = components;
     // NOTE: Zindex MUST be above the <EditorToolbar> and <SelectionSidebar>
     return (
-      <Oak.FixedPanel id="AppMenubar" appearance="inverted" style={{ zIndex: 100000 }}>
-
+      <div>
         <Oak.AppMenu text="OakJS">
           <SUI.MenuItem disabled label="About OakJS"/>
           <SUI.MenuItem disabled label="Get Help"/>
@@ -69,7 +48,9 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.startEditingProject"/>
           <Oak.ActionItem id="oak.stopEditingProject"/>
           <SUI.Divider/>
-          <SUI.Submenu label="Show Project:" items={this.getProjectItems()}/>
+          <SUI.Submenu label="Show Project:">
+            <Oak.ProjectMenu publicOnly={false} checkSelected={true}/>
+          </SUI.Submenu>
           <SUI.Divider/>
           <Oak.ActionItem id="oak.showFirstProject"/>
           <Oak.ActionItem id="oak.showPreviousProject"/>
@@ -89,7 +70,9 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.startEditingSection"/>
           <Oak.ActionItem id="oak.stopEditingSection"/>
           <SUI.Divider/>
-          <SUI.Submenu label="Show Section:" items={this.getSectionItems()}/>
+          <SUI.Submenu label="Show Section:">
+            <Oak.SectionMenu publicOnly={false} checkSelected={true}/>
+          </SUI.Submenu>
           <SUI.Divider/>
           <Oak.ActionItem id="oak.showFirstSection"/>
           <Oak.ActionItem id="oak.showPreviousSection"/>
@@ -110,7 +93,9 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.startEditingPage"/>
           <Oak.ActionItem id="oak.stopEditingPage"/>
           <SUI.Divider/>
-          <SUI.Submenu label="Show Page:" items={this.getPageItems()}/>
+          <SUI.Submenu label="Show Page:">
+            <Oak.PageMenu publicOnly={false} checkSelected={true}/>
+          </SUI.Submenu>
           <SUI.Divider/>
           <Oak.ActionItem id="oak.showFirstPage"/>
           <Oak.ActionItem id="oak.showPreviousPage"/>
@@ -123,7 +108,7 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.duplicatePage"/>
           <SUI.MenuItem disabled label="Rearrange Pages..."/>
         </Oak.AppMenu>
-      </Oak.FixedPanel>
+      </div>
     );
   }
 }
