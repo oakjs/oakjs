@@ -3,25 +3,27 @@
     A Submenu shows a nested menu
   </PageTitle>
   <PageSection title="Content" oid="vxY5WP7L">
-    <Example title="Inline contents" oid="hvlDwB5l">
+    <Example title="Inline contents as a <Menu>" oid="hvlDwB5l">
       <SUI.Menu appearance="vertical" oid="Ul0qeOy6">
         <SUI.MenuItem oid="KsGulisy">
           A normal item
         </SUI.MenuItem>
         <SUI.Submenu oid="sYUF74ih">
           More Stuff
-          <SUI.MenuHeader icon="newspaper" oid="ggdqjHN1">
-            Breaking News
-          </SUI.MenuHeader>
-          <SUI.MenuItem icon="comment outline" oid="X542ymi2">
-            Editorials
-          </SUI.MenuItem>
-          <SUI.MenuItem active icon="film" oid="nBEOQ1bW">
-            Movie Reviews
-          </SUI.MenuItem>
-          <SUI.MenuItem icon="calendar" oid="h0lv9B01">
-            Current Events
-          </SUI.MenuItem>
+          <SUI.Menu>
+            <SUI.MenuHeader icon="newspaper" oid="ggdqjHN1">
+              Breaking News
+            </SUI.MenuHeader>
+            <SUI.MenuItem icon="comment outline" oid="X542ymi2">
+              Editorials
+            </SUI.MenuItem>
+            <SUI.MenuItem active icon="film" oid="nBEOQ1bW">
+              Movie Reviews
+            </SUI.MenuItem>
+            <SUI.MenuItem icon="calendar" oid="h0lv9B01">
+              Current Events
+            </SUI.MenuItem>
+          </SUI.Menu>
         </SUI.Submenu>
         <SUI.MenuItem oid="NFxVMN6s">
           Another normal item

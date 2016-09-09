@@ -26,7 +26,7 @@ function SUISubmenu(props, context) {
   const elements = new ElementBuffer({
     props : {
       ...extraProps,
-      className: [className, "ui", appearance, { disabled }, "dropdown item"]
+      className: [className, "ui", "simple", appearance, { disabled }, "dropdown item"]
     }
   });
 
@@ -47,9 +47,16 @@ function SUISubmenu(props, context) {
 
 // TODO: don't append menu until shown????
 
-  const menuItems = children || renderItems(items);
-//  if (!menuItems) console.warn("SubMenu.render(): neither children nor items returned anything", children, items);
-  if (menuItems) elements.appendWrapped("div", "menu", menuItems);
+  // if we got a `menu`, use that as our submenu
+  if (items) {
+    const menuItems = renderItems(items);
+    if (menuItems) elements.appendWrapped("div", "menu", menuItems);
+  }
+  // otherwise assume that they've embedded a <Menu> ???
+  // TODO: allow them to embed simply <MenuItems> ???
+  else if (children) {
+    elements.append(children);
+  }
 
   return elements.render();
 }
