@@ -26,7 +26,7 @@ const DEBUG = false;
 // Optional options:  `elements`, `context`, `autoExecute`, `actionName`
 export function copyElements(options = {}) {
   const {
-   context, elements = oak.selectedComponents,
+    context, elements = oak.selectedComponents,
     actionName = "Copy", autoExecute
   } = options;
 
@@ -60,7 +60,7 @@ new Action({
 // Optional options:  `elements`, `context`, `autoExecute`, `actionName`
 export function cutElements(options = {}) {
   const {
-   context, elements = oak.selectedComponents,
+    context, elements = oak.selectedComponents,
     actionName = "Cut", autoExecute
   } = options;
 
@@ -89,7 +89,7 @@ new Action({
 // Optional options:  `context`, `autoExecute`, `actionName`
 export function pasteElements(options = {}) {
   const {
-   context, position,
+    context, position,
     actionName = "Paste", autoExecute
   } = options;
 

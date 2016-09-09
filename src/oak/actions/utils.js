@@ -47,6 +47,7 @@ export function getFragmentOrDie(context, operation) {
 //  Component utilities
 //////////////////////////////
 
+// Execute `update(updateArgs)` for the `component` and recursively for all its children.
 export function updateComponentAndChildren(component, update, updateArgs) {
   if (!component) return;
   update(component, ...updateArgs);
