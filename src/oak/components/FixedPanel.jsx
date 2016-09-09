@@ -27,7 +27,10 @@ export default class FixedPanel extends AutoResized(OakComponent) {
 
     // explicit width/height of the outer div
     width: PropTypes.any,
-    height: PropTypes.any
+    height: PropTypes.any,
+
+    // Properties to apply to the popout
+    popoutProps: PropTypes.any
   }
 
   // When window is resized, size our `popout` to the same size as our root element.
@@ -47,7 +50,7 @@ export default class FixedPanel extends AutoResized(OakComponent) {
   render() {
     if (this.hidden) return null;
 
-    const { appearance, className, height, id, width, style } = this.props;
+    const { appearance, className, height, id, popoutProps, style, width } = this.props;
 
     const wrapperProps = {
       id,
@@ -58,7 +61,7 @@ export default class FixedPanel extends AutoResized(OakComponent) {
 
     return (
       <div {...wrapperProps}>
-        <div className="popout" ref="popout">
+        <div {...popoutProps} ref="popout">
           {this.props.children}
         </div>
       </div>
