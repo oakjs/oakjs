@@ -5,6 +5,11 @@
 
 import React, { PropTypes } from "react";
 
+import Page from "./Page";
+import Placeholder from "./Placeholder";
+import Project from "./Project";
+import Section from "./Section";
+
 export class ComponentProxy extends React.Component {
   // You must implement the following methods:
   getController() {
@@ -76,14 +81,60 @@ export class RunnerPage extends ComponentProxy {
 
 export class CurrentProject extends ComponentProxy {
   getController() { return oak.project; }
+  render() {
+    const controller = this.getController();
+    if (!controller) return null;
+
+    // if the current project is also the runner project, return a stub so we don't recurse
+    if (controller === oak.runner.project) {
+      return (
+        <Project>
+          <CurrentSection/>
+        </Project>
+      );
+    }
+    else {
+      return super.render()
+    }
+  }
 }
 
 export class CurrentSection extends ComponentProxy {
   getController() { return oak.section; }
+
+  render() {
+    const controller = this.getController();
+    if (!controller) return null;
+
+    // if the current section is also the runner section, return a stub so we don't recurse
+    if (controller === oak.runner.section) {
+      return (
+        <Section>
+          <CurrentPage/>
+        </Section>
+      );
+    }
+    else {
+      return super.render()
+    }
+  }
 }
 
 export class CurrentPage extends ComponentProxy {
   getController() { return oak.page; }
+
+  render() {
+    const controller = this.getController();
+    if (!controller) return null;
+
+    // if the current page is also the runner page, return a <Placeholder>
+    if (controller === oak.runner.page) {
+      return <Placeholder label="Current Page"/>
+    }
+    else {
+      return super.render()
+    }
+  }
 }
 
 
