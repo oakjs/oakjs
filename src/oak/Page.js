@@ -55,10 +55,6 @@ export default class Page extends ComponentController {
   // TODO: dynamic components
   get components() { return this.section.components }
 
-  // REFACTOR: rename this?
-  // REFACTOR: this will be a problem with runner or showing many pages at once
-  get component() { if (oak.page === this) return oak._pageComponent }
-
 
   //////////////////////////////
   //  Data manipulation

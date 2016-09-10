@@ -1,5 +1,5 @@
 //////////////////////////////
-// Project class
+// Project[Controller] class
 //////////////////////////////
 
 import ids from "oak-roots/util/ids";
@@ -81,6 +81,5 @@ export default class Project extends ComponentController {
 
   // TODO: dynamic components
   get components() { return oak.getProjectTheme(this.projectId) }
-  get component() { if (oak.project === this) return oak._projectComponent }
 
 }

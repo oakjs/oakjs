@@ -357,7 +357,7 @@ class OakJS extends Eventful(Object) {
   // Pass an `onlyOids` map to restrict to only those elements.
   // Pass an `intersectingClientRect` to restrict to only oids which intersect that rect.
   getOidRects(onlyOids, intersectingClientRect) {
-    if (!this._projectComponent) return undefined;
+    if (!this.page || !this.page.component) return undefined;
 //    console.time("oidRects");
     //TODO: somehow we want to know the root element on the page so don't include toolbars...
     const oidElements = document.querySelectorAll("[data-oid]");

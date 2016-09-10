@@ -57,8 +57,6 @@ export default class Section extends ComponentController {
   // TODO: dynamic components
   get components() { return this.project.components }
 
-  get component() { if (oak.section === this) return oak._sectionComponent }
-
   //////////////////////////////
   //  Pages
   //////////////////////////////
