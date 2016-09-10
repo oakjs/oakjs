@@ -52,9 +52,9 @@ export default class UIRoute extends AppRoute {
     // attempt to load the App Page
     //
     // NOTE: account for numeric indexes sent as params
-    const appProjectId = _normalizeInt(params.appProjectId);
-    const appSectionId = _normalizeInt(params.appSectionId);
-    const appPageId = _normalizeInt(params.appPageId);
+    const appProjectId = _normalizeInt(params.appProjectId) || 1;
+    const appSectionId = _normalizeInt(params.appSectionId) || 1;
+    const appPageId = _normalizeInt(params.appPageId) || 1;
 
     if (runnerPage && appProjectId !== undefined) {
       const appPage = oak.account.getPage(appProjectId, appSectionId, appPageId);

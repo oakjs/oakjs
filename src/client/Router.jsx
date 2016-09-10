@@ -16,9 +16,9 @@ const history = useQueries(createHistory)();
 
 const routes = (
   <Route path="/">
-    <Route path="project" component={UIRoute} appProjectId={1} appSectionId={1} appPageId={1} />
-    <Route path="project/:appProjectId" component={UIRoute} appSectionId={1} appPageId={1} />
-    <Route path="project/:appProjectId/:appSectionId" component={UIRoute} appPageId={1} />
+    <Route path="project" component={UIRoute} />
+    <Route path="project/:appProjectId" component={UIRoute} runnerPageId="projectThumbs" />
+    <Route path="project/:appProjectId/:appSectionId" component={UIRoute} />
     <Route path="project/:appProjectId/:appSectionId/:appPageId" component={UIRoute} />
 
     <IndexRoute component={UIRoute} runnerPageId="projectSelector" />

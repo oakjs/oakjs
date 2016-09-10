@@ -220,6 +220,12 @@ class OakJS extends Eventful(Object) {
       if (split.sectionId) return this.getSection(split.projectId, split.sectionId);
       if (split.projectId) return this.getProject(split.projectId);
     }
+
+    // if we got an instance of Project, Section or Page, just return that
+    if (path instanceof Project) return path;
+    if (path instanceof Section) return path;
+    if (path instanceof Page) return path;
+
     // Special case for account (which is not a real path).
     if (path === Account.ACCOUNT_PATH_FLAG) return oak.account;
 

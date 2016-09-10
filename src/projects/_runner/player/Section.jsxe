@@ -1,5 +1,5 @@
 <Oak.Section id="player" title="Player">
-  <Oak.SplitPanel direction="vertical" appearance="fluid inverted" sizes={[35, "100%"]}>
+  <Oak.SplitPanel direction="vertical" appearance="fluid" sizes={[35, "100%"]}>
     <Oak.FixedPanel appearance="inverted bottom-border bottom-shadow" style={{ zIndex: 100000 }}>
       <Oak.SplitPanel direction="horizontal" appearance="inverted bordered" sizes={window.innerWidth > 1600 ? [599, "100%"] : [349, "100%"]}>
         <Oak.AppMenubar ref="appMenubar"/>

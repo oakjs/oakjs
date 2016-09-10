@@ -14,7 +14,8 @@ export default class AppMenubar extends OakComponent {
     if (this.hidden) return null;
     const { oak, components } = this.context;
     const { Oak, SUI } = components;
-    // NOTE: Zindex MUST be above the <EditorToolbar> and <SelectionSidebar>
+
+    // TODO: this should be inside a Menu or Toolbar... ???
     return (
       <div style={{ whiteSpace: "nowrap" }}>
         <Oak.AppMenu text="OakJS">

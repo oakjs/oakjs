@@ -1,0 +1,27 @@
+.oak.PageThumb {
+  position: relative;
+  display: inline-block;
+  width: 300px;
+  height: 300px;
+  margin: 10px;
+  padding-top: 5px;
+  vertical-align: top;
+
+  & > .body {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    overflow: hidden;
+  }
+
+  & > .mask {
+    z-index: 100000;
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    cursor: pointer;
+  }
+}
+
+
+.oak.SectionThumb {
+  margin: 10px;
+}

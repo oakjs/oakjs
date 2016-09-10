@@ -1,0 +1,3 @@
+<Oak.Page id="projectThumbs" title="projectThumbs">
+  <Oak.ProjectThumb component={oak.project}/>
+</Oak.Page>

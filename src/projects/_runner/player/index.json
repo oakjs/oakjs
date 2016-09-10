@@ -1,4 +1,15 @@
 [
-  { "id": "projectSelector", "title": "Project Selector" },
-  { "id": "showPage", "title": "Current Page Display" }
+  {
+    "id": "projectSelector",
+    "title": "Project Selector"
+  },
+  {
+    "type": "Page",
+    "id": "projectThumbs",
+    "title": "projectThumbs"
+  },
+  {
+    "id": "showPage",
+    "title": "Current Page Display"
+  }
 ]

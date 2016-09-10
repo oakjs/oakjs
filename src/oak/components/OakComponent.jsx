@@ -8,6 +8,7 @@
 
 import React, { PropTypes } from "react";
 
+import { debounce } from "oak-roots/util/decorators";
 import { classNames, unknownProps } from "oak-roots/util/react";
 
 import Stub from "./Stub";
@@ -65,6 +66,14 @@ export default class OakComponent extends React.Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
+
+
+	// Update this component soon, but only if it's still mounted.
+//	@debounce(0)
+	updateSoon = () => {
+		if (this._isMounted) this.forceUpdate();
+	}
+
 
   //////////////////////////////
   // Manipulating rendered elements
