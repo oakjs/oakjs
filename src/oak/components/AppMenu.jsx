@@ -19,6 +19,8 @@ export default class AppMenu extends Dropdown {
   }
 
   render() {
+    if (this.props.hidden) return null;
+
     return (
       <Dropdown {...this.props}>
         <Menu>

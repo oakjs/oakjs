@@ -42,7 +42,8 @@ export default class AppMenubar extends OakComponent {
         </Oak.AppMenu>
 
         <Oak.AppMenu text="Project">
-          <SUI.MenuItem disabled label={`Project: “${oak.project && oak.project.title}”`} hidden={!oak.project}/>
+          <SUI.MenuHeader disabled label={`Project: “${oak.project && oak.project.title}”`} hidden={!oak.project}/>
+          <SUI.Divider hidden={!oak.project}/>
           <SUI.MenuItem disabled label="Project Settings..." hidden={!oak.project}/>
           <Oak.ActionItem id="oak.saveProject" hidden={!oak.project}/>
           <Oak.ActionItem id="oak.startEditingProject" hidden={!oak.project}/>
@@ -59,7 +60,8 @@ export default class AppMenubar extends OakComponent {
         </Oak.AppMenu>
 
         <Oak.AppMenu text="Section" hidden={!oak.section}>
-          <SUI.MenuItem disabled label={`Section: “${oak.section && oak.section.title}”`}/>
+          <SUI.MenuHeader disabled label={`Section: “${oak.section && oak.section.title}”`}/>
+          <SUI.Divider/>
           <SUI.MenuItem disabled label="Section Settings..."/>
           <Oak.ActionItem id="oak.saveSection"/>
           <Oak.ActionItem id="oak.startEditingSection"/>
@@ -82,7 +84,8 @@ export default class AppMenubar extends OakComponent {
         </Oak.AppMenu>
 
         <Oak.AppMenu text="Page" hidden={!oak.page}>
-          <SUI.MenuItem disabled label={`Page: “${oak.page && oak.page.title}”`}/>
+          <SUI.MenuHeader disabled label={`Page: “${oak.page && oak.page.title}”`}/>
+          <SUI.Divider/>
           <SUI.MenuItem disabled label="Page Settings..."/>
           <Oak.ActionItem id="oak.savePage"/>
           <Oak.ActionItem id="oak.startEditingPage"/>

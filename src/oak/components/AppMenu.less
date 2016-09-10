@@ -32,9 +32,20 @@
       padding: .35rem 1.5rem !important;
 
       // lighten a bit on hover
-      &:hover {
+      &:not(".header"):hover {
         background-color: rgba(255, 255, 255, .1) !important;
       }
+    }
+  }
+
+  .ui.menu > .header {
+    cursor: default !important;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+
+    &.disabled,
+    &[disabled] {
+      opacity: 0.45;
     }
   }
 
