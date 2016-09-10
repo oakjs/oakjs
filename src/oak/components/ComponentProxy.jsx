@@ -127,7 +127,8 @@ export class CurrentPage extends ComponentProxy {
     const controller = this.getController();
     if (!controller) return null;
 
-    // if the current page is also the runner page, return a <Placeholder>
+    // if the current page is also the runner page, or if we're editing the currentSection,
+    //  return a <Placeholder>
     if (controller === oak.runner.page) {
       return <Placeholder label="Current Page"/>
     }

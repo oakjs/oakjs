@@ -28,6 +28,7 @@ export function stopEditing(options = {}) {
 }
 
 
+// Start/stop editing project
 new Action({
   id: "oak.startEditingPage", title: "Start Editing Page", shortcut: "Meta E",
   handler: () => startEditing({editController:"page"}),
@@ -40,27 +41,37 @@ new Action({
   hidden:() => !oak.state.editing || oak.state.editController !== "page"
 });
 
+
+// Start/stop editing current section
+// NOTE: this is not really working yet...
 new Action({
   id: "oak.startEditingSection", title: "Start Editing Section",
   handler: () => startEditing({editController:"section"}),
+  disabled: () => true,
   hidden:() => oak.state.editing && oak.state.editController === "section"
 });
 
 new Action({
   id: "oak.stopEditingSection", title: "Stop Editing Section",
   handler: stopEditing,
+  disabled: () => true,
   hidden:() => !oak.state.editing || oak.state.editController !== "section"
 });
 
+
+// Start/stop editing current project
+// NOTE: this is not really working yet...
 new Action({
   id: "oak.startEditingProject", title: "Start Editing Project",
   handler: () => startEditing({editController:"project"}),
+  disabled: () => true,
   hidden:() => oak.state.editing && oak.state.editController === "project"
 });
 
 new Action({
   id: "oak.stopEditingProject", title: "Stop Editing Project",
   handler: stopEditing,
+  disabled: () => true,
   hidden:() => !oak.state.editing || oak.state.editController !== "project"
 });
 
