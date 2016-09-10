@@ -67,13 +67,13 @@ export default class DragSelectRect extends React.Component {
   // Figure out the intersection of the current `clientRect` and whatever we're selecting.
   // Must return a map of: `{ selection, selectionRects }` (which are both arrays).
   //
-  // Defaults to finding all intersecting `oid` elements in the current `oak.editContext`.
+  // Defaults to finding all intersecting `oid` elements in the current `oak.editController`.
   // Pass a `getSelectionForRect()` function in your props to do something different.
   getSelectionForRect(clientRect) {
     // Defer to property function if passed
     if (this.props.getSelectionForRect) return this.props.getSelectionForRect(clientRect);
 
-    const { oids, rects } = oak.getOidRectsForController(oak.editContext, clientRect);
+    const { oids, rects } = oak.getOidRectsForController(oak.editController, clientRect);
     return { selection: oids, selectionRects: rects };
   }
 

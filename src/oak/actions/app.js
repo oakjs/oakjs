@@ -17,51 +17,51 @@ import utils from "./utils";
 
 export function startEditing(options = {}) {
   const state = { editing: true };
-  if (options.editContext) state.editContext = options.editContext;
+  if (options.editController) state.editController = options.editController;
   return setAppStateTransaction({ state, ...options });
 }
 
 export function stopEditing(options = {}) {
   const state = { editing: false };
-  if (options.editContext) state.editContext = options.editContext;
+  if (options.editController) state.editController = options.editController;
   return setAppStateTransaction({ state, ...options });
 }
 
 
 new Action({
   id: "oak.startEditingPage", title: "Start Editing Page", shortcut: "Meta E",
-  handler: ()=> startEditing({editContext:"page"}),
-  visible:()=>!(oak.state.editing && oak.state.editContext === "page")
+  handler: ()=> startEditing({editController:"page"}),
+  visible:()=>!(oak.state.editing && oak.state.editController === "page")
 });
 
 new Action({
   id: "oak.stopEditingPage", title: "Stop Editing Page", shortcut: "Meta E",
   handler: stopEditing,
-  visible:()=>oak.state.editing && oak.state.editContext === "page"
+  visible:()=>oak.state.editing && oak.state.editController === "page"
 });
 
 new Action({
   id: "oak.startEditingSection", title: "Start Editing Section",
-  handler: ()=> startEditing({editContext:"section"}),
-  visible:()=>!(oak.state.editing && oak.state.editContext === "section")
+  handler: ()=> startEditing({editController:"section"}),
+  visible:()=>!(oak.state.editing && oak.state.editController === "section")
 });
 
 new Action({
   id: "oak.stopEditingSection", title: "Stop Editing Section",
   handler: stopEditing,
-  visible:()=>oak.state.editing && oak.state.editContext === "section"
+  visible:()=>oak.state.editing && oak.state.editController === "section"
 });
 
 new Action({
   id: "oak.startEditingProject", title: "Start Editing Project",
-  handler: ()=> startEditing({editContext:"project"}),
-  visible:()=>!(oak.state.editing && oak.state.editContext === "project")
+  handler: ()=> startEditing({editController:"project"}),
+  visible:()=>!(oak.state.editing && oak.state.editController === "project")
 });
 
 new Action({
   id: "oak.stopEditingProject", title: "Stop Editing Project",
   handler: stopEditing,
-  visible:()=>oak.state.editing && oak.state.editContext === "project"
+  visible:()=>oak.state.editing && oak.state.editController === "project"
 });
 
 

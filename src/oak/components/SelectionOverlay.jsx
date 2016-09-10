@@ -39,7 +39,7 @@ export default class SelectionOverlay extends OakComponent {
   }
 
   getElement(oid) {
-    return oak.editContext.jsxFragment.getElement(oid);
+    return oak.editController.jsxFragment.getElement(oid);
   }
 
   //////////////////////////////
@@ -118,9 +118,9 @@ export default class SelectionOverlay extends OakComponent {
   //////////////////////////////
 
   onSelectionDown = (event) => {
-    // if they went down on the editContext root element, start drag selecting
+    // if they went down on the editController root element, start drag selecting
     const oid = oak.event._downOid;
-    if (!oid || oak.editContext && oak.editContext.oid === oid) {
+    if (!oid || oak.editController && oak.editController.oid === oid) {
       return this.startDragSelecting(event);
     }
 //console.info("onSelectionDown", oid);
@@ -542,7 +542,7 @@ console.warn(elements);
       id: "SelectionOverlay",
       onMouseDown: this.onMouseDown,
       onMouseMove: this.onMouseMove,
-      style: oak.getRectForOid(oak.editContext && oak.editContext.oid)
+      style: oak.getRectForOid(oak.editController && oak.editController.oid)
     }
 
     return (

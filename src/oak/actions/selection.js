@@ -116,10 +116,10 @@ export function setSelection(options = {}) {
 }
 
 
-// Select everything in the current editContext
+// Select everything in the current editController
 export function selectAll(options = {}) {
   const {
-    controller = oak.editContext,
+    controller = oak.editController,
     operation = "selectAll", autoExecute = true
   } = options;
 
@@ -180,7 +180,7 @@ function selectAllAction(options = {}) {
 new Action({
   id: "oak.selectAll", title: "Select All", shortcut: "Meta A",
   handler: selectAllAction,
-  enabled:()=>oak.editContext
+  enabled:()=>oak.editController
 });
 
 new Action({

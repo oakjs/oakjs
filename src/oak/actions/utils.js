@@ -31,7 +31,7 @@ export function getOidsOrDie(_things, operation) {
 //  Guards
 //////////////////////////////
 
-export function getControllerOrDie(controller = oak.editContext, operation) {
+export function getControllerOrDie(controller = oak.editController, operation) {
   if (controller instanceof ComponentController) return controller;
   if (typeof controller === "string") return ProjectRegistry.get(controller);
   die(oak, operation, controller, "Couldn't get controller -- is this a valid path?");

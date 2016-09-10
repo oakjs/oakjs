@@ -72,7 +72,7 @@ class OakJS extends Eventful(Object) {
 
   static DEFAULT_STATE = {
     editing: false,         // Are we currently editing?
-    editContext: "page",    // What we're editing: "page", "section", "project". "component"?
+    editController: "page",    // What we're editing: "page", "section", "project". "component"?
     selection: [],          // Array of `oid`s selected in the editor.
   }
 
@@ -97,16 +97,16 @@ class OakJS extends Eventful(Object) {
   //  State syntactic sugar
   //////////////////////////////
 
-  // Return the `ComponentController` for the current `appState.editContext`,
+  // Return the `ComponentController` for the current `appState.editController`,
   //  a `page`, `section` or `project`.
   // Returns `undefined` if the specified context is not found.
-  get editContext() {
-    switch (this.state.editContext) {
+  get editController() {
+    switch (this.state.editController) {
       case "page": return this.page;
       case "section": return this.section;
       case "project": return this.project;
     }
-    console.warn(`oak.editContext(): state ${this.state.editContext} not understood`);
+    console.warn(`oak.editController(): state ${this.state.editController} not understood`);
     return undefined;
   }
 
@@ -271,7 +271,7 @@ class OakJS extends Eventful(Object) {
     if (typeof type === "string" && type.toLowerCase() === type) return type;
 
 // TODO: we should arguably fail if they didn't pass in components...
-    if (!components) components = (this.editContext ? this.editContext.components : this.components);
+    if (!components) components = (this.editController ? this.editController.components : this.components);
 
     if (typeof type === "string") {
       // return it if we can find it in our `components`
@@ -307,7 +307,7 @@ class OakJS extends Eventful(Object) {
   // Return the JSXElement `Component` for an `oid`,
   // but only for components which are editable.
   getEditableComponentForOid(oid) {
-    return this.getComponentForOid(oid, [ this.editContext ]);
+    return this.getComponentForOid(oid, [ this.editController ]);
   }
 
   // Given an oid, return the component that it corresponds to.
@@ -384,7 +384,7 @@ class OakJS extends Eventful(Object) {
   }
 
   // Return a map of `{ oids, rects }` for all `oid` elements on the specified `controller`.
-  getOidRectsForController(controller = this.editContext, intersectingClientRect, includeContextRoot = false) {
+  getOidRectsForController(controller = this.editController, intersectingClientRect, includeContextRoot = false) {
     const { oids, rects } = this.getOidRects(controller.oids, intersectingClientRect) || {};
 
     // Remove the controller root oid if specified

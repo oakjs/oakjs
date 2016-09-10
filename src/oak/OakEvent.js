@@ -178,7 +178,7 @@ export default class OakEvent {
   }
 
   // Return the `oid` of the closest element with a `data-oid` attribute to the `target` element.
-  // NOTE: only returns elements in the current `oak.editContext`.
+  // NOTE: only returns elements in the current `oak.editController`.
   static _getClosestOid(target) {
     if (!target) return undefined;
 
@@ -186,7 +186,7 @@ export default class OakEvent {
     if (!oidTarget) return undefined;
 
     const oid = oidTarget.getAttribute("data-oid");
-    if (oak.state.editContext) {
+    if (oak.state.editController) {
       const component = oak.getEditableComponentForOid(oid);
       if (component) return oid;
     }

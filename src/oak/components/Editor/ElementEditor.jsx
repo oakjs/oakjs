@@ -27,7 +27,7 @@ export default class ElementEditor extends Form {
     // Component element instance we're editing.
     element: PropTypes.object,
 
-    // Controller which owns that element, for saving (e.g. `oak.editContext`)
+    // Controller which owns that element, for saving (e.g. `oak.editController`)
     controller: PropTypes.object
   }
 
