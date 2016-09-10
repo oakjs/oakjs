@@ -20,7 +20,8 @@ import "./MenuItem.css";
 //    - `inverted`, `red`, `blue`, etc
 //    -
 function SUIMenuItem(props) {
- const {
+  if (props.hidden) return null;
+  const {
     className,
     value, label = value, hint, children,
     appearance, color, icon, image,

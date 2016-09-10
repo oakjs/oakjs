@@ -8,8 +8,9 @@ import { classNames } from "oak-roots/util/react";
 import ElementBuffer from "./ElementBuffer";
 
 function SUIMenuHeader(props) {
+  if (props.hidden) return null;
   const {
-    className,
+    hidden, className,
     icon, label, children,
     // including id, style
     ...extraProps

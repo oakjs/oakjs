@@ -9,13 +9,13 @@ import { classNames } from "oak-roots/util/react";
 import ElementBuffer from "./ElementBuffer";
 
 function SUIDivider(props) {
+  if (props.hidden) return null;
   const {
     id, className, style,
     title, icon, children,
-    appearance, vertical, horizontal, header, size, clearing,
+    hidden, appearance, vertical, horizontal, header, size, clearing,
     ...extraProps
   } = props;
-
 
   const elements = new ElementBuffer({
     type: (header ? "h4" : "div"),

@@ -75,11 +75,12 @@ export function renderItemsMap(itemsMap) {
 //    - `borderless`, `secondary`, `inverted`
 //    - `stackable`, `top fixed`, `left fixed`, etc
 function SUIMenu(props, context) {
+  if (props.hidden) return null;
   const {
     className,
     items, header, headerIcon, children,
     appearance, color, size, itemCount,
-    disabled,
+    hidden, disabled,
     // including id, style
     ...extraProps
   } = props;

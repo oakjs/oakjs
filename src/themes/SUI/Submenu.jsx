@@ -16,12 +16,15 @@ import { renderItems } from "./Menu";
 import "./Menu.css";
 
 function SUISubmenu(props, context) {
+  if (props.hidden) return null;
   let {
     label, items, children,
-    className, appearance, disabled,
+    hidden, className, appearance, disabled,
     // including id, style
     ...extraProps
   } = props;
+
+  if (hidden) return null;
 
   const elements = new ElementBuffer({
     props : {
