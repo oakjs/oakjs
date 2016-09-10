@@ -22,7 +22,7 @@ export default class FixedPanel extends AutoResized(OakComponent) {
   static propTypes = {
     ...OakComponent.propTypes,
 
-    // FixedPanel appearance:  "inverted"
+    // FixedPanel appearance:  "inverted", "bordered", "right-border", "bottom-shadow", etc.
     appearance: PropTypes.string,
 
     // explicit width/height of the outer div

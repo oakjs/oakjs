@@ -1,13 +1,13 @@
 <Oak.Page id="runner" data-editing={oak.state.editing}>
   <Oak.SplitPanel direction="vertical" appearance="inverted" sizes={[35, "100%"]}>
-    <Oak.FixedPanel appearance="inverted" style={{ zIndex: 100000 }} popoutProps={{ style: { borderBottomWidth: "1px", boxShadow: "0 2px 2px rgba(0,0,0,.3)" } }}>
+    <Oak.FixedPanel appearance="inverted bottom-border bottom-shadow" style={{ zIndex: 100000 }}>
       <Oak.SplitPanel direction="horizontal" appearance="inverted bordered" sizes={window.innerWidth > 1600 ? [599, "100%"] : [299, "100%"]}>
         <Oak.AppMenubar ref="appMenubar"/>
         <Oak.EditorToolbar ref="editorToolbar"/>
       </Oak.SplitPanel>
     </Oak.FixedPanel>
     <Oak.SplitPanel direction="horizontal" sizes={window.innerWidth > 1600 ? [600, "100%"] : [300, "100%"]}>
-      <Oak.FixedPanel id="SelectionSidebar" appearance="inverted" popoutProps={{ style: { borderRightWidth: "1px", boxShadow: "2px 0px 2px rgba(0,0,0,.3)" } }}>
+      <Oak.FixedPanel id="SelectionSidebar" appearance="inverted right-border right-shadow">
         <Oak.SplitPanel resizable scrolling appearance={["fluid", "inverted"]} direction={window.innerWidth > 1600 ? "horizontal" : "vertical"}>
           <Oak.ComponentTree controller={oak.editController} appearance="inverted"/>
           <Editor.ElementEditor controller={oak.editController} element={oak.selectedComponents[0]} appearance="inverted"/>

@@ -1,3 +1,4 @@
+
 .oak.FixedPanel {
   position: relative;
 
@@ -5,13 +6,59 @@
   & > div {
     position: fixed;
     z-index: 1001;
+  }
+
+  &,
+  & > div {
+    background-color: #white;
     border: 0px solid #ccc;
   }
 
   &.inverted,
   &.inverted > div {
     background-color: #333;
-    color: white;
     border-color: #444;
+    color: white;
   }
+
+  &.bordered > div {
+    border-width: 1px;
+  }
+
+  &.top-border > div {
+    border-top-width: 1px;
+  }
+
+  &.bottom-border > div {
+    border-bottom-width: 1px;
+  }
+
+  &.left-border > div {
+    border-left-width: 1px;
+  }
+
+  &.right-border > div {
+    border-right-width: 1px;
+  }
+
+
+  @SHADOW_DISTANCE: 2px;
+  @SHADOW_COLOR: rgba(0,0,0,.3);
+
+  &.top-shadow > div {
+    box-shadow: 0 -@SHADOW_DISTANCE @SHADOW_DISTANCE @SHADOW_COLOR;
+  }
+
+  &.bottom-shadow > div {
+    box-shadow: 0 @SHADOW_DISTANCE @SHADOW_DISTANCE @SHADOW_COLOR;
+  }
+
+  &.left-shadow > div {
+    box-shadow: -@SHADOW_DISTANCE 0 @SHADOW_DISTANCE @SHADOW_COLOR;
+  }
+
+  &.right-shadow > div {
+    box-shadow: @SHADOW_DISTANCE 0px @SHADOW_DISTANCE @SHADOW_COLOR;
+  }
+
 }
