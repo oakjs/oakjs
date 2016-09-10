@@ -34,7 +34,7 @@ export default class Action {
   // Keyboard shortcut for the action.
   // Can be overridden in ActionItem or ActionButton.
 //REFACTOR: PC & Mac specific keys?
-//REFACTOR: multiple shortcuts?
+//REFACTOR: auto-split for multiple shortcuts?
   @proto
   shortcut = undefined
 
@@ -58,7 +58,7 @@ export default class Action {
   @proto
   whenFocused = false;
 
-  constructor(props) {
+  constructor(props, skipRegistration) {
     dieIfMissing(props, "new Action", ["id", "handler"]);
     Object.assign(this, props);
 
@@ -66,7 +66,20 @@ export default class Action {
     if (typeof this.shortcut === "string") this.shortcut = this.shortcut.split(" ");
 
     // Register this action
-    Action.register(this);
+    if (!skipRegistration) Action.register(this);
+  }
+
+  // Clone an action, adding `props` passed in to the clone.
+  // Does NOT register the clone globally!
+  clone(props) {
+    return new (this.constructor)({ ...this, ...props }, "SKIP_REGISTRATION");
+  }
+
+  // Execute the action.
+  // NOTE: we late-bind the `handler` to the action,
+  //  so we'll pick up any instance-specific props assigned when the action was created.
+  get execute() {
+    return this.handler.bind(this);
   }
 
   // Does this action's `shortcut` match all of the specified `keys`?
@@ -153,10 +166,16 @@ export default class Action {
     Action.REGISTRY[action.id] = action;
   }
 
-  // Return an action specified by id.
-  static get(id) {
+  // Return an action specified by action `id`.
+  // If you pass `props`, we'll clone the object and add the props.
+  static get(id, props) {
     const action = Action.REGISTRY[id];
-    if (!action) console.warn(`Action.get(${id}): action not found`);
+    if (!action) {
+      console.warn(`Action.get(${id}): action not found`);
+      return undefined;
+    }
+
+    if (props) return action.clone(props);
     return action;
   }
 
@@ -192,7 +211,7 @@ export default class Action {
     if (!bestMatch) return false;
 
     try {
-      bestMatch.handler();
+      bestMatch.execute();
       return true;
     } catch (e) {
       console.error(`Error firing action ${bestMatch.id}`, e);

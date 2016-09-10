@@ -9,8 +9,10 @@ import SUIMenuItem from "themes/SUI/MenuItem";
 
 export default class ActionItem extends React.Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,       // `id` of the Action in question.
-//REFACTOR: override title, enabled, etc here?
+    id: PropTypes.string.isRequired,        // `id` of the Action in question.
+    props: PropTypes.object,                // optional map of argumnts to pass to the action
+
+    // NOTE: you can override any of the MenuItem props as well (label, hidden, etc)...
   }
 
   //////////////////////////////
@@ -19,42 +21,43 @@ export default class ActionItem extends React.Component {
 
   // Activate this action when the menu item is shown, so we'll get shortcut keys.
   componentDidMount() {
-    Action.activate(this.props.id);
+    if (!this.props.hidden) Action.activate(this.props.id);
   }
 
   // Deactivate this action when the menu item is hidden.
   componentWillUnmount() {
-    Action.deactivate(this.props.id);
-  }
-
-  //////////////////////////////
-  // Syntactic sugar
-  //////////////////////////////
-
-  get id() {
-    return this.props.id;
-  }
-  get action() {
-    return Action.get(this.id);
-  }
-
-  toString() {
-    return `<Oak.ActionItem ${this.id}/>`;
+    if (!this.props.hidden) Action.deactivate(this.props.id);
   }
 
   render() {
-    const action = this.action;
+    let { id, props, ...menuProps } = this.props;
+    const action = Action.get(id, props);
+
     if (!action) {
       console.warn(`${this}: action not found`);
       return null;
     }
-    return SUIMenuItem({
+
+    // add action props to the menuProps, allowing explicit props to win
+    // (this lets you, eg, override the label or hidden)
+    menuProps = {
       label: action.title,
       hint: action.shortcutHint,
       hidden: action.hidden,
       disabled: action.disabled,
-      onClick: action.handler
-    });
+      onClick: action.execute,
+      ...menuProps
+    }
+
+    return <SUIMenuItem {...menuProps}/>
+  }
+
+  //////////////////////////////
+  // Debug
+  //////////////////////////////
+
+  toString() {
+    return `<Oak.ActionItem ${this.props.id}/>`;
   }
 }
 
