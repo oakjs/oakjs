@@ -46,26 +46,26 @@ export class PageThumb extends OakComponent {
     const { oak, components } = this.context;
     const { Oak, SUI } = components;
 
-    let { className, showTitle } = this.props;
     const component = oak.get(this.props.component);
     if (!component) {
       console.warn(`${this}: can't find`, this.props.component);
       return null;
     }
 
-    if (!component.isLoaded) {
+    if (!component.isLoaded && !component.isLoading) {
       component.load().then( this.updateSoon );
     }
 
 //console.warn("showing thumbs for ", component);
+    let { className, showTitle } = this.props;
+    className = classNames("oak", className, component.isLoading && "loading", "PageThumb");
     return (
-      <SUI.Segment className={`oak ${className} PageThumb`}>
+      <SUI.Segment className={className}>
         { showTitle && this.renderTitle(component) }
-        {component.isLoaded
-          ? <div className="body"><component.Component ref="component"/></div>
-          : <SUI.Loader/>
-        }
-        <div className="mask" onClick={ () => console.warn(component) } />
+        <div className="body">
+          {component.isLoaded && <component.Component ref="component"/>}
+        </div>
+        <div className="mask" onClick={ () => oak.actions.showPage({ page: component }) } />
       </SUI.Segment>
     );
   }
@@ -113,7 +113,7 @@ export class ChildThumbs extends OakComponent {
       ? component.children.map( child => <ChildThumbComponent key={child.path} component={child}/> )
       : <SUI.Loader/>;
 
-//console.warn("showing thumbs for ", component);
+//componentconsole.warn("showing thumbs for ", component);
     return (
       <div className={`oak ${className}`}>
         { showTitle && this.renderTitle(component) }
