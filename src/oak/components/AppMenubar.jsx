@@ -23,9 +23,9 @@ export default class AppMenubar extends OakComponent {
         </Oak.AppMenu>
 
         <Oak.AppMenu text="File">
-          <SUI.MenuItem disabled label="Open Project..."/>
+          <Oak.ActionItem id="oak.navigateTo" props={{ route: "/", title:"Open Project..." }}/>
           <SUI.Submenu disabled label="Open Recent..."/>
-          <SUI.MenuItem disabled label="Close Project"/>
+          <Oak.ActionItem id="oak.navigateTo" props={{ route: "/", title:"Close Project" }}/>
         </Oak.AppMenu>
 
         <Oak.AppMenu text="Edit">
@@ -42,12 +42,12 @@ export default class AppMenubar extends OakComponent {
         </Oak.AppMenu>
 
         <Oak.AppMenu text="Project">
-          <SUI.MenuItem disabled label={`Project: “${oak.project && oak.project.title}”`}/>
-          <SUI.MenuItem disabled label="Project Settings..."/>
-          <Oak.ActionItem id="oak.saveProject"/>
-          <Oak.ActionItem id="oak.startEditingProject"/>
-          <Oak.ActionItem id="oak.stopEditingProject"/>
-          <SUI.Divider/>
+          <SUI.MenuItem disabled label={`Project: “${oak.project && oak.project.title}”`} hidden={!oak.project}/>
+          <SUI.MenuItem disabled label="Project Settings..." hidden={!oak.project}/>
+          <Oak.ActionItem id="oak.saveProject" hidden={!oak.project}/>
+          <Oak.ActionItem id="oak.startEditingProject" hidden={!oak.project}/>
+          <Oak.ActionItem id="oak.stopEditingProject" hidden={!oak.project}/>
+          <SUI.Divider hidden={!oak.project}/>
           <Oak.ActionItem id="oak.createProject"/>
           <Oak.ActionItem id="oak.deleteProject"/>
           <Oak.ActionItem id="oak.renameProject"/>
@@ -58,7 +58,7 @@ export default class AppMenubar extends OakComponent {
           </SUI.Submenu>
         </Oak.AppMenu>
 
-        <Oak.AppMenu text="Section">
+        <Oak.AppMenu text="Section" hidden={!oak.section}>
           <SUI.MenuItem disabled label={`Section: “${oak.section && oak.section.title}”`}/>
           <SUI.MenuItem disabled label="Section Settings..."/>
           <Oak.ActionItem id="oak.saveSection"/>
@@ -81,7 +81,7 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.showLastSection"/>
         </Oak.AppMenu>
 
-        <Oak.AppMenu text="Page">
+        <Oak.AppMenu text="Page" hidden={!oak.page}>
           <SUI.MenuItem disabled label={`Page: “${oak.page && oak.page.title}”`}/>
           <SUI.MenuItem disabled label="Page Settings..."/>
           <Oak.ActionItem id="oak.savePage"/>

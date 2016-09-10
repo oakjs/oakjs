@@ -253,6 +253,8 @@ class SUIDropdown extends SUIModuleComponent {
   //////////////////////////////
 
   render() {
+    if (this.props.hidden) return null;
+
     const {
       oid, id, className, style,
       type, selection, multiple, search,
