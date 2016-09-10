@@ -8,6 +8,8 @@ import oak from "../oak";
 
 import OakComponent from "./OakComponent";
 
+import "./Page.less";
+
 export default class Page extends OakComponent {
   static propTypes = {
     ...OakComponent.propTypes,

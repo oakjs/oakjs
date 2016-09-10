@@ -1,5 +1,5 @@
 import oak from "oak/oak";
-import RunnerProject from "oak/components/RunnerProject";
+import { RunnerProject } from "oak/components/ComponentProxy";
 
 import AppRoute from "./AppRoute";
 

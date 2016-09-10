@@ -3,8 +3,7 @@ import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
 
-// Import custom CSS for all sections.
-import "./Section.css";
+import "./Section.less";
 
 export default class Section extends OakComponent {
   // Oak editor prefs
