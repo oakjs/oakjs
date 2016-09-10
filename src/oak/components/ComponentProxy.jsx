@@ -19,12 +19,12 @@ export class ComponentProxy extends React.Component {
   // TODO: rename `_controller`
   // TODO: this isn't actually used anywhere... ????
   static childContextTypes = {
-    _controller: PropTypes.any,
+    controller: PropTypes.any,
   }
 
   getChildContext() {
     return {
-      _controller: this.getController()
+      controller: this.getController()
     }
   }
 

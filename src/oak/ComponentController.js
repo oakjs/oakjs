@@ -23,7 +23,7 @@ export default class ComponentController extends Eventful(ChildController) {
     props: "this.props",
     state: "this.state",
     context: "this.context",
-    _controller: "context._controller",
+    controller: "context.controller",
     oak: "context.oak",
     page: "context.page",
     section: "context.section",

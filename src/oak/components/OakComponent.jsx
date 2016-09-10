@@ -25,7 +25,7 @@ export default class OakComponent extends React.Component {
 
   // Pull context in so we can get `components` and other juicy stuffs.
   static contextTypes = {
-    _controller: React.PropTypes.any,
+    controller: React.PropTypes.any,
     oak: React.PropTypes.any,
     project: React.PropTypes.any,
     section: React.PropTypes.any,
