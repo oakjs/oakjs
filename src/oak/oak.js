@@ -323,10 +323,11 @@ class OakJS extends Eventful(Object) {
     }
   }
 
-  // Given an oid, return the `context` it belongs to:
+  // Given an oid, return the `controller` it belongs to:
   //  - the `page`, `section` or `project`.
   // Returns `undefined` if not found.
-  getContextForOid(oid) {
+// DEPRECATED?
+  getControllerForOid(oid) {
     if (!oid) return undefined;
 
     if (this.page && this.page.getComponentForOid(oid)) {
@@ -382,13 +383,13 @@ class OakJS extends Eventful(Object) {
     return { oids, rects };
   }
 
-  // Return a map of `{ oids, rects }` for all `oid` elements on the specified `context`.
-  getOidRectsForContext(context = this.editContext, intersectingClientRect, includeContextRoot = false) {
-    const { oids, rects } = this.getOidRects(context.oids, intersectingClientRect) || {};
+  // Return a map of `{ oids, rects }` for all `oid` elements on the specified `controller`.
+  getOidRectsForController(controller = this.editContext, intersectingClientRect, includeContextRoot = false) {
+    const { oids, rects } = this.getOidRects(controller.oids, intersectingClientRect) || {};
 
-    // Remove the context root oid if specified
+    // Remove the controller root oid if specified
     if (!includeContextRoot) {
-      const index = oids.indexOf(context.oid);
+      const index = oids.indexOf(controller.oid);
       if (index !== -1) {
         oids.splice(index, 1);
         rects.splice(index, 1);

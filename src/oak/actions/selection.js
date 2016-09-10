@@ -119,11 +119,11 @@ export function setSelection(options = {}) {
 // Select everything in the current editContext
 export function selectAll(options = {}) {
   const {
-    context = oak.editContext,
+    controller = oak.editContext,
     operation = "selectAll", autoExecute = true
   } = options;
 
-  const selection = utils.getOidsOrDie(context.descendentOids, operation);
+  const selection = utils.getOidsOrDie(controller.descendentOids, operation);
 
   return _setSelectionTransaction({
     selection,

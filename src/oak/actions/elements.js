@@ -24,12 +24,12 @@ const DEBUG = false;
 // You can specify an `oid` string or a `JSXElement` or an array of same.
 //
 // Required options:  `elements`, `props`
-// Optional options:  `context`, `autoExecute`, `actionName`
+// Optional options:  `controller`, `autoExecute`, `actionName`
 //
-// NOTE: throws if `elements` are not found in `context`.
+// NOTE: throws if `elements` are not found in `controller`.
 export function setElementProps(options) {
   const {
-   context, elements, props,
+   controller, elements, props,
     actionName = "Set Properties", autoExecute
   } = options;
 
@@ -37,7 +37,7 @@ export function setElementProps(options) {
 
   return changeFragmentTransaction({
     actionName,
-    context,
+    controller,
     autoExecute,
     transformer: (fragment) => {
       fragment.setProps(props, elements);
@@ -51,12 +51,12 @@ export function setElementProps(options) {
 // You can specify an `oid` string or a `JSXElement`.
 //
 // Required options:  `elements`, `props`
-// Optional options:  `context`, `autoExecute`, `actionName`
+// Optional options:  `controller`, `autoExecute`, `actionName`
 //
-// NOTE: throws if `elements` are not found in `context`.
+// NOTE: throws if `elements` are not found in `controller`.
 export function resetElementProps(options) {
   const {
-    context, elements, props,
+    controller, elements, props,
     actionName = "Set Properties", autoExecute
   } = options;
 
@@ -64,7 +64,7 @@ export function resetElementProps(options) {
 
   return changeFragmentTransaction({
     actionName,
-    context,
+    controller,
     autoExecute,
     transformer: (fragment) => {
       fragment.resetProps(props, elements);
@@ -78,16 +78,16 @@ export function resetElementProps(options) {
 //  Removing children
 //////////////////////////////
 
-// Remove list of `elements` passed as `oid` string or by reference from the `context`.
+// Remove list of `elements` passed as `oid` string or by reference from the `controller`.
 //
 // Required options:  `elements`
-// Optional options:  `context`, `autoExecute`, `actionName`
+// Optional options:  `controller`, `autoExecute`, `actionName`
 //
 // NOTE: You cannot reliably use this to remove non-element children,
 //       use `removeChildrenAtPositions()` instead.
 export function removeElements(options = {}) {
   const {
-    context, elements = oak.selectedComponents,
+    controller, elements = oak.selectedComponents,
     actionName = "Delete Elements", autoExecute
   } = options;
 
@@ -95,7 +95,7 @@ export function removeElements(options = {}) {
 
   return changeFragmentTransaction({
     actionName,
-    context,
+    controller,
     autoExecute,
     transformer: (fragment) => {
       // remove the descendents of the elements or we'll get an error removing children
@@ -108,7 +108,7 @@ export function removeElements(options = {}) {
 new Action({
   id: "oak.removeElements", title: "Delete", shortcut: "Meta Backspace",
   handler: removeElements,
-  enabled: () => oak.selectionIsEmpty
+  enabled: () => !oak.selectionIsEmpty
 });
 
 
@@ -123,10 +123,10 @@ new Action({
 // NOTE: this does NOT clone or otherwise modify the elements!
 //
 // Required options:  `parent`, `position`, `elements`
-// Optional options:  `context`, `autoExecute`, `actionName`
+// Optional options:  `controller`, `autoExecute`, `actionName`
 export function addElements(options = {}) {
   const {
-    context, parent, position, elements, autoSelect,
+    controller, parent, position, elements, autoSelect,
     actionName = "Add Elements", autoExecute
   } = options;
 
@@ -134,7 +134,7 @@ export function addElements(options = {}) {
 
   return changeFragmentTransaction({
     actionName,
-    context,
+    controller,
     autoSelect,
     autoExecute,
     transformer: (fragment) => {
@@ -156,10 +156,10 @@ export function addElements(options = {}) {
 //
 // NOTE: don't call this directly, use one of the `setElement*()` or `*Element()` calls.
 export function changeFragmentTransaction({
-  context, transformer, autoSelect,
+  controller, transformer, autoSelect,
   actionName, autoExecute
 }) {
-  const controller = utils.getControllerOrDie(context, actionName);
+  controller = utils.getControllerOrDie(controller, actionName);
   const originalFragment = controller.jsxFragment;
   const originalSelection = autoSelect && oak.selection;
 

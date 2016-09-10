@@ -31,15 +31,14 @@ export function getOidsOrDie(_things, operation) {
 //  Guards
 //////////////////////////////
 
-export function getControllerOrDie(context = oak.editContext, operation) {
-  if (context instanceof ComponentController) return context;
-  if (typeof context === "string") return ProjectRegistry.get(context);
-  die(oak, operation, context, "Couldn't get controller -- is this a valid path?");
+export function getControllerOrDie(controller = oak.editContext, operation) {
+  if (controller instanceof ComponentController) return controller;
+  if (typeof controller === "string") return ProjectRegistry.get(controller);
+  die(oak, operation, controller, "Couldn't get controller -- is this a valid path?");
 }
 
-export function getFragmentOrDie(context, operation) {
-  const controller = getControllerOrDie(context, operation);
-  return controller.jsxFragment;
+export function getFragmentOrDie(controller, operation) {
+  return getControllerOrDie(controller, operation).jsxFragment;
 }
 
 

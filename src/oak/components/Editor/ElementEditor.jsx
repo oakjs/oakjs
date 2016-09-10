@@ -182,7 +182,7 @@ export default class ElementEditor extends Form {
     // Reset the cloned element to our props
     // (if we just dis a `setElementProps()`, clearing values wouldn't work.
     oak.actions.resetElementProps({
-      context: this.props.controller,
+      controller: this.props.controller,
       elements: [ this.props.element ],
       props: { ...this.data }
     });

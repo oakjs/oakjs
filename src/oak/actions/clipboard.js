@@ -23,10 +23,10 @@ const DEBUG = false;
 // Copy `elements` into the `oak.clipboard`.
 // Default is to copy `oak.selection`.
 //
-// Optional options:  `elements`, `context`, `autoExecute`, `actionName`
+// Optional options:  `elements`, `controller`, `autoExecute`, `actionName`
 export function copyElements(options = {}) {
   const {
-    context, elements = oak.selectedComponents,
+    controller, elements = oak.selectedComponents,
     actionName = "Copy", autoExecute
   } = options;
 
@@ -35,8 +35,8 @@ export function copyElements(options = {}) {
   const oldClipboard = [].concat(oak.clipboard);
   const newClipboard = [].concat(elements);
 
-  function redo() { oak.clipboard = newClipboard }
-  function undo() { oak.clipboard = oldClipboard }
+  function redo() { oak.clipboard = newClipboard; oak.updateSoon(); }
+  function undo() { oak.clipboard = oldClipboard; oak.updateSoon(); }
 
   return new UndoTransaction({
     redoActions:[redo],
@@ -49,18 +49,18 @@ export function copyElements(options = {}) {
 new Action({
   id: "oak.copyElements", title: "Copy", shortcut: "Meta C",
   handler: copyElements,
-  enabled: () => oak.selectionIsEmpty
+  enabled: () => !oak.selectionIsEmpty
 });
 
 
 
-// Remove `elements` from `context` and place in `oak.clipboard`.
+// Remove `elements` from `controller` and place in `oak.clipboard`.
 // Default is to cut `oak.selection`.
 //
-// Optional options:  `elements`, `context`, `autoExecute`, `actionName`
+// Optional options:  `elements`, `controller`, `autoExecute`, `actionName`
 export function cutElements(options = {}) {
   const {
-    context, elements = oak.selectedComponents,
+    controller, elements = oak.selectedComponents,
     actionName = "Cut", autoExecute
   } = options;
 
@@ -69,8 +69,8 @@ export function cutElements(options = {}) {
   return new UndoTransaction({
     actionName: "Cut",
     transactions: [
-      copyElements({ context, elements, actionName, autoExecute: false }),
-      actions.removeElements({ context, elements, actionName, autoExecute: false }),
+      copyElements({ controller, elements, actionName, autoExecute: false }),
+      actions.removeElements({ controller, elements, actionName, autoExecute: false }),
       actions.clearSelection({ autoExecute: false })
     ],
     autoExecute
@@ -80,16 +80,16 @@ export function cutElements(options = {}) {
 new Action({
   id: "oak.cutElements", title: "Cut", shortcut: "Meta X",
   handler: cutElements,
-  enabled: () => oak.selectionIsEmpty
+  enabled: () => !oak.selectionIsEmpty
 });
 
 
 // Paste `elements` from the `oak.clipboard` inside `parent` at `position`.
 // Required options:  `parent`, `position`
-// Optional options:  `context`, `autoExecute`, `actionName`
+// Optional options:  `controller`, `autoExecute`, `actionName`
 export function pasteElements(options = {}) {
   const {
-    context, position,
+    controller, position,
     actionName = "Paste", autoExecute
   } = options;
 
@@ -97,9 +97,10 @@ export function pasteElements(options = {}) {
   const elements = oak.clipboard;
   if (!elements || elements.length === 0) die(oak, actionName, options, "Nothing to paste");
 
-  const fragment = utils.getFragmentOrDie(context, actionName);
+  const fragment = utils.getFragmentOrDie(controller, actionName);
 
   // default to the first selected thing (or whoever of it's parents can accept the elements).
+// TODO: paste OVER (replace) selection?  Paste immediately AFTER selection?
   let parent = options.parent || oak.selectedComponents[0];
   if (typeof parent === "string") parent = fragment.getElementOrDie(parent, actionName);
 
@@ -108,7 +109,7 @@ export function pasteElements(options = {}) {
   }
 
   return actions.addElements({
-    context,
+    controller,
     parent,
     position,
     elements: oak.clipboard,
@@ -121,7 +122,7 @@ export function pasteElements(options = {}) {
 new Action({
   id: "oak.pasteElements", title: "Paste", shortcut: "Meta V",
   handler: pasteElements,
-  enabled: () => oak.selectionIsEmpty
+  enabled: () => oak.clipboard && oak.clipboard.length > 0
 });
 
 

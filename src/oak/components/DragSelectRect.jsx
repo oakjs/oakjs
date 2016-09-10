@@ -73,7 +73,7 @@ export default class DragSelectRect extends React.Component {
     // Defer to property function if passed
     if (this.props.getSelectionForRect) return this.props.getSelectionForRect(clientRect);
 
-    const { oids, rects } = oak.getOidRectsForContext(oak.editContext, clientRect);
+    const { oids, rects } = oak.getOidRectsForController(oak.editContext, clientRect);
     return { selection: oids, selectionRects: rects };
   }
 
