@@ -87,7 +87,7 @@ export default function AutoResized(Component = React.Component, options = { res
     // After draw, set up event and schedule us to resize `soon`.
     componentDidMount() {
       // call super method only if defined
-      if (Component.prototype.componentDidMount) super.componentDidUpdate();
+      if (Component.prototype.componentDidMount) super.componentDidMount();
 
       const root = ReactDOM.findDOMNode(this);
       if (!root) return console.warn("AutoResized: can't find DOM node for ", this);

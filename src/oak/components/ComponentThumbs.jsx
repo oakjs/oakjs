@@ -11,12 +11,13 @@ import React, { PropTypes } from "react";
 import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
+import RenderWhenVisible from "./RenderWhenVisible";
 
 import "./ComponentThumbs.less";
 
 
 // Show thumb for one particular page (specified as `component` :-( ).
-export class PageThumb extends OakComponent {
+export class PageThumb extends RenderWhenVisible(OakComponent) {
   static propTypes = {
     component: PropTypes.any,           // String path or page pointer
     showTitle: PropTypes.bool,          // If true, we'll show the title of the component above the children.
@@ -28,48 +29,118 @@ export class PageThumb extends OakComponent {
     className: ""
   }
 
-  renderTitle(component) {
-    if (!component.title) return undefined;
-
-    const { SUI } = this.context.components;
-    return (
-      <SUI.Label appearance="fluid top attached">
-        {`${component.type}: ${component.title}`}
-      </SUI.Label>
-    );
+  get component() {
+    const component = oak.get(this.props.component);
+    if (!component) console.warn(`${this}: can't find`, this.props.component);
+    return component;
   }
 
+  renderPlaceholder() {
+    const { Oak, SUI } = this.context.components;
 
-  render() {
-    if (this.hidden || !this.props.component) return null;
+    const component = this.component;
+    if (!component) return null;
 
-    const { oak, components } = this.context;
-    const { Oak, SUI } = components;
+    return this.renderWrapper(component, <Oak.Placeholder/>);
+//    return this.renderWrapper(component, <Oak.Placeholder className="small" label={component.title}/>);
+  }
 
-    const component = oak.get(this.props.component);
-    if (!component) {
-      console.warn(`${this}: can't find`, this.props.component);
-      return null;
-    }
+  renderContents() {
+    const { Oak, SUI } = this.context.components;
+
+    const component = this.component;
+    if (!component) return null;
 
     if (!component.isLoaded && !component.isLoading) {
       component.load().then( this.updateSoon );
     }
+    if (component.isLoaded) {
+      return this.renderWrapper(component, <component.Component/>);
+    }
+    return this.renderPlaceholder();
+  }
 
+  renderWrapper(component, children) {
+    const { Oak, SUI } = this.context.components;
 //console.warn("showing thumbs for ", component);
     let { className, showTitle } = this.props;
-    className = classNames("oak", className, component.isLoading && "loading", "PageThumb");
+
+    className = classNames(
+      "oak",
+      className,
+//      this.state.onScreen ? "green inverted" : "red inverted",
+      !component.isLoaded && "loading",
+      "PageThumb"
+    );
+
+    let title;
+    if (showTitle && component.title) {
+      title = (
+        <SUI.Label appearance="fluid top attached">
+          {`${component.type}: ${component.title}`}
+        </SUI.Label>
+      );
+    }
+
     return (
       <SUI.Segment className={className}>
-        { showTitle && this.renderTitle(component) }
+        {title}
         <div className="body">
-          {component.isLoaded && <component.Component ref="component"/>}
+          {children}
         </div>
         <div className="mask" onClick={ () => oak.actions.showPage({ page: component }) } />
       </SUI.Segment>
-    );
+    )
+  }
+
+  toString() {
+    return `<PageThumb ${this.component ? this.component.title : "unknown"}/>`;
   }
 }
+
+//
+//   render() {
+//     if (this.hidden || !this.props.component) return null;
+//
+//     const { oak, components } = this.context;
+//     const { Oak, SUI } = components;
+//
+//     const component = oak.get(this.props.component);
+//     if (!component) {
+//       console.warn(`${this}: can't find`, this.props.component);
+//       return null;
+//     }
+//
+//     // don't actually draw until we're visible on screen
+//     let children;
+//     if (this.state.onScreen) {
+// //       if (!component.isLoaded && !component.isLoading) {
+// //         component.load().then( this.updateSoon );
+// //       }
+// //       if (component.isLoaded) children = <component.Component ref="component"/>;
+//     }
+//     children = this.state.onScreen ? "shown" : "hidden";
+//
+// //console.warn("showing thumbs for ", component);
+//     let { className, showTitle } = this.props;
+//     className = classNames(
+//       "oak",
+//       className,
+//       this.state.onScreen ? "green" : "red",
+//       "inverted",
+//       //!component.isLoaded && "loading",
+//       "PageThumb"
+//     );
+//     return (
+//       <SUI.Segment className={className}>
+//         { showTitle && this.renderTitle(component) }
+//         <div className="body">
+//           {<component.Component ref="component"/>}
+//         </div>
+//       </SUI.Segment>
+//     );
+//   }
+//}
 
 
 // Show thumbs for children of `component`.
