@@ -5,10 +5,11 @@
 
 import React, { PropTypes } from "react";
 
-class ComponentProxy extends React.Component {
+export class ComponentProxy extends React.Component {
   // You must implement the following methods:
-  getController() { throw new TypeError("Your subclass must implement `getController()`") }
-  render() { throw new TypeError("Your subclass must implement `render()`") }
+  getController() {
+    return this.props.component;
+  }
 
   // TODO: rename `_controller`
   // TODO: this isn't actually used anywhere... ????
