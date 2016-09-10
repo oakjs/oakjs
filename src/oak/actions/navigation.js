@@ -52,5 +52,22 @@ export function navigateTo(options) {
 }
 
 
+new Action({
+  id: "oak.navigateTo",
+  title: "UNDEFINED oak.navigateTo.title",
+  route: "UNDEFINED oak.navigateTo.route",
+  replace: false,
+  handler: function() {
+    return _navigateToRouteTransaction({
+      route: this.route,
+      replace: this.replace,
+      actionName: this.title
+    })
+  },
+//  disabled:() => !oak.page || oak.page.isFirst
+});
+
+
+
 // Export all as a lump
 export default Object.assign({}, exports);
