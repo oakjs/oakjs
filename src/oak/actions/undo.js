@@ -23,13 +23,13 @@ export function redo() {
 new Action({
   id: "oak.undo", title: "Undo", shortcut: "Meta Z",
   handler: undo,
-  disabled:()=>!oak.canUndo
+  disabled: () => !oak.canUndo
 });
 
 new Action({
   id: "oak.redo", title: "Redo", shortcut: "Meta Shift Z",
   handler: redo,
-  disabled:()=>!oak.canRedo
+  disabled: () => !oak.canRedo
 });
 
 // Export all as a lump

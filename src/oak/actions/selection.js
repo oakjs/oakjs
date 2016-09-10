@@ -180,13 +180,13 @@ function selectAllAction(options = {}) {
 new Action({
   id: "oak.selectAll", title: "Select All", shortcut: "Meta A",
   handler: selectAllAction,
-  disabled:()=>!oak.editController
+  disabled: () => !oak.editController
 });
 
 new Action({
   id: "oak.deselectAll", title: "Deselect All", shortcut: "Meta Shift A",
   handler: clearSelection,
-  disabled:() => !oak.state.editing || oak.selectionIsEmpty
+  disabled: () => !oak.state.editing || oak.selectionIsEmpty
 });
 
 

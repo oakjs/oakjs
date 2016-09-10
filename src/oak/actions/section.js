@@ -52,30 +52,30 @@ export function showSection(options = {}) {
 
 new Action({
   id: "oak.showFirstSection", title: "Show First Section",
-  handler: ()=>showSection({ section: "FIRST" }),
+  handler: () => showSection({ section: "FIRST" }),
   hidden: () => oak.sectionCount < 3,
-  disabled:()=>!oak.section || oak.section.isFirst
+  disabled: () => !oak.section || oak.section.isFirst
 });
 
 new Action({
   id: "oak.showPreviousSection", title: "Show Previous Section",
-  handler: ()=>showSection({ section: "PREV" }),
+  handler: () => showSection({ section: "PREV" }),
   hidden: () => oak.sectionCount < 2,
-  disabled:()=>!oak.section || oak.section.isFirst
+  disabled: () => !oak.section || oak.section.isFirst
 });
 
 new Action({
   id: "oak.showNextSection", title: "Show Next Section",
-  handler: ()=>showSection({ section: "NEXT" }),
+  handler: () => showSection({ section: "NEXT" }),
   hidden: () => oak.sectionCount < 2,
-  disabled:()=>!oak.section || oak.section.isLast
+  disabled: () => !oak.section || oak.section.isLast
 });
 
 new Action({
   id: "oak.showLastSection", title: "Show Last Section",
-  handler: ()=>showSection({ section: "LAST" }),
+  handler: () => showSection({ section: "LAST" }),
   hidden: () => oak.sectionCount < 3,
-  disabled:()=>!oak.section || oak.section.isLast
+  disabled: () => !oak.section || oak.section.isLast
 });
 
 
@@ -101,7 +101,7 @@ export function saveSection(options = {}) {
 new Action({
   id: "oak.saveSection", title: "Save Section",
   handler: saveSection,
-  disabled:()=>!oak.section
+  disabled: () => !oak.section
 });
 
 
@@ -147,7 +147,7 @@ export function createSection(options = {}) {
 new Action({
   id: "oak.createSection", title: "New Section...",
   handler: createSection,
-  disabled:()=>!oak.project
+  disabled: () => !oak.project
 });
 
 
@@ -185,7 +185,7 @@ export function duplicateSection(options = {}) {
 new Action({
   id: "oak.duplicateSection", title: "Duplicate Section...",
   handler: duplicateSection,
-  disabled:()=>!oak.section
+  disabled: () => !oak.section
 });
 
 
@@ -221,7 +221,7 @@ export function renameSection(options = {}) {
 new Action({
   id: "oak.renameSection", title: "Rename Section...",
   handler: renameSection,
-  disabled:()=>!oak.section
+  disabled: () => !oak.section
 });
 
 
@@ -252,7 +252,7 @@ export function deleteSection(options = {}) {
 new Action({
   id: "oak.deleteSection", title: "Delete Section",
   handler: deleteSection,
-  disabled:()=>!oak.section
+  disabled: () => !oak.section
 });
 
 

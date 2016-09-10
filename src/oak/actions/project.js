@@ -53,30 +53,30 @@ export function showProject(options = {}) {
 
 new Action({
   id: "oak.showFirstProject", title: "Show First Project",
-  handler: ()=>showProject({ project: "FIRST" }),
+  handler: () => showProject({ project: "FIRST" }),
   hidden: () => oak.projectCount < 3,
-  disabled:()=>!oak.project || oak.project.isFirst
+  disabled: () => !oak.project || oak.project.isFirst
 });
 
 new Action({
   id: "oak.showPreviousProject", title: "Show Previous Project",
-  handler: ()=>showProject({ project: "PREV" }),
+  handler: () => showProject({ project: "PREV" }),
   hidden: () => oak.projectCount < 2,
-  disabled:()=>!oak.project || oak.project.isFirst
+  disabled: () => !oak.project || oak.project.isFirst
 });
 
 new Action({
   id: "oak.showNextProject", title: "Show Next Project",
-  handler: ()=>showProject({ project: "NEXT" }),
+  handler: () => showProject({ project: "NEXT" }),
   hidden: () => oak.projectCount < 2,
-  disabled:()=>!oak.project || oak.project.isLast
+  disabled: () => !oak.project || oak.project.isLast
 });
 
 new Action({
   id: "oak.showLastProject", title: "Show Last Project",
-  handler: ()=>showProject({ project: "LAST" }),
+  handler: () => showProject({ project: "LAST" }),
   hidden: () => oak.projectCount < 3,
-  disabled:()=>!oak.project || oak.project.isLast
+  disabled: () => !oak.project || oak.project.isLast
 });
 
 
@@ -103,7 +103,7 @@ export function saveProject(options = {}) {
 new Action({
   id: "oak.saveProject", title: "Save Project",
   handler: saveProject,
-  disabled:()=>!oak.project
+  disabled: () => !oak.project
 });
 
 
@@ -187,7 +187,7 @@ export function duplicateProject(options = {}) {
 new Action({
   id: "oak.duplicateProject", title: "Duplicate Project...",
   handler: duplicateProject,
-  disabled:()=>!oak.project
+  disabled: () => !oak.project
 });
 
 
@@ -223,7 +223,7 @@ export function renameProject(options = {}) {
 new Action({
   id: "oak.renameProject", title: "Rename Project...",
   handler: renameProject,
-  disabled:()=>!oak.project
+  disabled: () => !oak.project
 });
 
 
@@ -254,7 +254,7 @@ export function deleteProject(options = {}) {
 new Action({
   id: "oak.deleteProject", title: "Delete Project",
   handler: deleteProject,
-  disabled:()=>!oak.project
+  disabled: () => !oak.project
 });
 
 
