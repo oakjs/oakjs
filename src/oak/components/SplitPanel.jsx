@@ -95,7 +95,7 @@ export default class SplitPanel extends OakComponent {
     }
 
     // if resizable, interleave `<div.oak.divider>` divs.
-    if (resizable || (appearance && appearance.includes("bordered"))) {
+    if (resizable || (appearance && appearance.split(" ").includes("bordered"))) {
       const interleaved = children.map( (child, index) => {
         if (index === 0) return child;
         return [<div className="oak divider"/>, child];
