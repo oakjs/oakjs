@@ -1,3 +1,11 @@
 <Oak.Section id="player" title="Player">
-  <Oak.RunnerPage/>
+  <Oak.SplitPanel direction="vertical" appearance="fluid inverted" sizes={[35, "100%"]}>
+    <Oak.FixedPanel appearance="inverted bottom-border bottom-shadow" style={{ zIndex: 100000 }}>
+      <Oak.SplitPanel direction="horizontal" appearance="inverted bordered" sizes={window.innerWidth > 1600 ? [599, "100%"] : [349, "100%"]}>
+        <Oak.AppMenubar ref="appMenubar"/>
+        <Oak.EditorToolbar ref="editorToolbar"/>
+      </Oak.SplitPanel>
+    </Oak.FixedPanel>
+    <Oak.RunnerPage/>
+  </Oak.SplitPanel>
 </Oak.Section>

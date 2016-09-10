@@ -1,23 +1,28 @@
 .oak.SplitPanel {
   display: flex;
 
-  & > .oak.Scroller {
-    position: relative;
-    overflow: auto;
-  }
-
-  &.fluid {
-    height: 100%;
-  }
-
   &.vertical {
     height: 100%;
     flex-direction: column;
+
+    &.fluid {
+      width: 100%;
+    }
   }
 
   &.horizontal {
     width: 100%;
     flex-direction: row;
+
+    &.fluid {
+      height: 100%;
+    }
+  }
+
+  // Nested scroller div
+  & > .oak.Scroller {
+    position: relative;
+    overflow: auto;
   }
 
   & > .oak.divider {
