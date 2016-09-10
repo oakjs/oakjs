@@ -49,26 +49,30 @@ export function showPage(options = {}) {
 
 new Action({
   id: "oak.showFirstPage", title: "Show First Page",
-  handler: ()=>showPage({ page: "FIRST" }),
-  enabled:()=>oak.page && !oak.page.isFirst
+  handler: () => showPage({ page: "FIRST" }),
+  hidden: () => oak.pageCount < 3,
+  disabled:() => !oak.page || oak.page.isFirst
 });
 
 new Action({
   id: "oak.showPreviousPage", title: "Show Previous Page",
-  handler: ()=>showPage({ page: "PREV" }),
-  enabled:()=>oak.page && !oak.page.isFirst
+  handler: () => showPage({ page: "PREV" }),
+  hidden: () => oak.pageCount < 2,
+  disabled:() => !oak.page || oak.page.isFirst
 });
 
 new Action({
   id: "oak.showNextPage", title: "Show Next Page",
-  handler: ()=>showPage({ page: "NEXT" }),
-  enabled:()=>oak.page && !oak.page.isLast
+  handler: () => showPage({ page: "NEXT" }),
+  hidden: () => oak.pageCount < 2,
+  disabled:() => !oak.page || oak.page.isLast
 });
 
 new Action({
   id: "oak.showLastPage", title: "Show Last Page",
-  handler: ()=>showPage({ page: "LAST" }),
-  enabled:()=>oak.page && !oak.page.isLast
+  handler: () => showPage({ page: "LAST" }),
+  hidden: () => oak.pageCount < 3,
+  disabled:() => !oak.page || oak.page.isLast
 });
 
 
@@ -92,9 +96,9 @@ export function savePage(options = {}) {
 }
 
 new Action({
-  id: "oak.savePage", title: "Save Page",
+  id: "oak.savePage", title: "Save Page", shortcut: "Meta S",
   handler: savePage,
-  enabled:()=>oak.page
+  disabled:() => !oak.page
 });
 
 
@@ -138,7 +142,7 @@ export function createPage(options = {}) {
 new Action({
   id: "oak.createPage", title: "New Page...",
   handler: createPage,
-  enabled:()=>oak.section
+  disabled:() => !oak.section
 });
 
 //////////////////////////////
@@ -175,7 +179,7 @@ export function duplicatePage(options = {}) {
 new Action({
   id: "oak.duplicatePage", title: "Duplicate Page...",
   handler: duplicatePage,
-  enabled:()=>oak.page
+  disabled:() => !oak.page
 });
 
 
@@ -211,7 +215,7 @@ export function renamePage(options = {}) {
 new Action({
   id: "oak.renamePage", title: "Rename Page...",
   handler: renamePage,
-  enabled:()=>oak.page
+  disabled:() => !oak.page
 });
 
 
@@ -242,7 +246,7 @@ export function deletePage(options = {}) {
 new Action({
   id: "oak.deletePage", title: "Delete Page",
   handler: deletePage,
-  enabled:()=>oak.page
+  disabled:() => !oak.page
 });
 
 

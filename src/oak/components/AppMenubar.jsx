@@ -48,15 +48,15 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.startEditingProject"/>
           <Oak.ActionItem id="oak.stopEditingProject"/>
           <SUI.Divider/>
-          <SUI.Submenu label="Show Project:">
+          <SUI.Submenu label="Show Project:" hidden={oak.projectCount < 2}>
             <Oak.ProjectMenu publicOnly={false} checkSelected={true}/>
           </SUI.Submenu>
-          <SUI.Divider/>
+          <SUI.Divider hidden={oak.projectCount < 2}/>
           <Oak.ActionItem id="oak.showFirstProject"/>
           <Oak.ActionItem id="oak.showPreviousProject"/>
           <Oak.ActionItem id="oak.showNextProject"/>
           <Oak.ActionItem id="oak.showLastProject"/>
-          <SUI.Divider/>
+          <SUI.Divider hidden={oak.projectCount < 2}/>
           <Oak.ActionItem id="oak.createProject"/>
           <Oak.ActionItem id="oak.deleteProject"/>
           <Oak.ActionItem id="oak.renameProject"/>
@@ -70,15 +70,15 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.startEditingSection"/>
           <Oak.ActionItem id="oak.stopEditingSection"/>
           <SUI.Divider/>
-          <SUI.Submenu label="Show Section:">
+          <SUI.Submenu label="Show Section:" hidden={oak.sectionCount < 2}>
             <Oak.SectionMenu publicOnly={false} checkSelected={true}/>
           </SUI.Submenu>
-          <SUI.Divider/>
+          <SUI.Divider hidden={oak.sectionCount < 2} />
           <Oak.ActionItem id="oak.showFirstSection"/>
           <Oak.ActionItem id="oak.showPreviousSection"/>
           <Oak.ActionItem id="oak.showNextSection"/>
           <Oak.ActionItem id="oak.showLastSection"/>
-          <SUI.Divider/>
+          <SUI.Divider hidden={oak.sectionCount < 2} />
           <Oak.ActionItem id="oak.createSection"/>
           <Oak.ActionItem id="oak.deleteSection"/>
           <Oak.ActionItem id="oak.renameSection"/>
@@ -93,15 +93,15 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.startEditingPage"/>
           <Oak.ActionItem id="oak.stopEditingPage"/>
           <SUI.Divider/>
-          <SUI.Submenu label="Show Page:">
+          <SUI.Submenu label="Show Page:" hidden={oak.pageCount < 2}>
             <Oak.PageMenu publicOnly={false} checkSelected={true}/>
           </SUI.Submenu>
-          <SUI.Divider/>
+          <SUI.Divider hidden={oak.pageCount < 2}/>
           <Oak.ActionItem id="oak.showFirstPage"/>
           <Oak.ActionItem id="oak.showPreviousPage"/>
           <Oak.ActionItem id="oak.showNextPage"/>
           <Oak.ActionItem id="oak.showLastPage"/>
-          <SUI.Divider/>
+          <SUI.Divider hidden={oak.pageCount < 2}/>
           <Oak.ActionItem id="oak.createPage"/>
           <Oak.ActionItem id="oak.deletePage"/>
           <Oak.ActionItem id="oak.renamePage"/>

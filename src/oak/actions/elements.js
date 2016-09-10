@@ -108,7 +108,7 @@ export function removeElements(options = {}) {
 new Action({
   id: "oak.removeElements", title: "Delete", shortcut: "Meta Backspace",
   handler: removeElements,
-  enabled: () => !oak.selectionIsEmpty
+  disabled: () => oak.selectionIsEmpty
 });
 
 

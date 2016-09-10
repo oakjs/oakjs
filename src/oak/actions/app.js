@@ -30,38 +30,38 @@ export function stopEditing(options = {}) {
 
 new Action({
   id: "oak.startEditingPage", title: "Start Editing Page", shortcut: "Meta E",
-  handler: ()=> startEditing({editController:"page"}),
-  visible:()=>!(oak.state.editing && oak.state.editController === "page")
+  handler: () => startEditing({editController:"page"}),
+  hidden:() => oak.state.editing && oak.state.editController === "page"
 });
 
 new Action({
   id: "oak.stopEditingPage", title: "Stop Editing Page", shortcut: "Meta E",
   handler: stopEditing,
-  visible:()=>oak.state.editing && oak.state.editController === "page"
+  hidden:() => !oak.state.editing || oak.state.editController !== "page"
 });
 
 new Action({
   id: "oak.startEditingSection", title: "Start Editing Section",
-  handler: ()=> startEditing({editController:"section"}),
-  visible:()=>!(oak.state.editing && oak.state.editController === "section")
+  handler: () => startEditing({editController:"section"}),
+  hidden:() => oak.state.editing && oak.state.editController === "section"
 });
 
 new Action({
   id: "oak.stopEditingSection", title: "Stop Editing Section",
   handler: stopEditing,
-  visible:()=>oak.state.editing && oak.state.editController === "section"
+  hidden:() => !oak.state.editing || oak.state.editController !== "section"
 });
 
 new Action({
   id: "oak.startEditingProject", title: "Start Editing Project",
-  handler: ()=> startEditing({editController:"project"}),
-  visible:()=>!(oak.state.editing && oak.state.editController === "project")
+  handler: () => startEditing({editController:"project"}),
+  hidden:() => oak.state.editing && oak.state.editController === "project"
 });
 
 new Action({
   id: "oak.stopEditingProject", title: "Stop Editing Project",
   handler: stopEditing,
-  visible:()=>oak.state.editing && oak.state.editController === "project"
+  hidden:() => !oak.state.editing || oak.state.editController !== "project"
 });
 
 

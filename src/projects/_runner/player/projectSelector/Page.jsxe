@@ -1,9 +1,11 @@
-<Oak.Page id="projectSelector">
-  <br/>
-  <SUI.Container>
-    <SUI.Segment>
-      <SUI.Header>Choose a project:</SUI.Header>
-      <Oak.ProjectMenu appearance="vertical"/>
+<Oak.Page id="projectSelector" oid="eiARtii2">
+  <br oid="eWqYIMpd"/>
+  <SUI.Container oid="kg0nCl8T">
+    <SUI.Segment oid="Rg5ym3lD">
+      <SUI.Header oid="H6A0EU8x">
+        Choose a project:
+      </SUI.Header>
+      <Oak.ProjectMenu appearance="vertical" oid="vHT5ckHh"/>
     </SUI.Segment>
   </SUI.Container>
 </Oak.Page>

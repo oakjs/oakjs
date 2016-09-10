@@ -49,7 +49,7 @@ export function copyElements(options = {}) {
 new Action({
   id: "oak.copyElements", title: "Copy", shortcut: "Meta C",
   handler: copyElements,
-  enabled: () => !oak.selectionIsEmpty
+  disabled: () => oak.selectionIsEmpty
 });
 
 
@@ -80,7 +80,7 @@ export function cutElements(options = {}) {
 new Action({
   id: "oak.cutElements", title: "Cut", shortcut: "Meta X",
   handler: cutElements,
-  enabled: () => !oak.selectionIsEmpty
+  disabled: () => oak.selectionIsEmpty
 });
 
 
@@ -101,7 +101,7 @@ export function pasteElements(options = {}) {
 
   // default to the first selected thing (or whoever of it's parents can accept the elements).
 // TODO: paste OVER (replace) selection?  Paste immediately AFTER selection?
-  let parent = options.parent || oak.selectedComponents[0];
+  let parent = options.parent || oak.selectedComponents[0] || oak.editController.oid;
   if (typeof parent === "string") parent = fragment.getElementOrDie(parent, actionName);
 
   while (parent && !parent.canDrop(oak.clipboard)) {
@@ -122,7 +122,7 @@ export function pasteElements(options = {}) {
 new Action({
   id: "oak.pasteElements", title: "Paste", shortcut: "Meta V",
   handler: pasteElements,
-  enabled: () => oak.clipboard && oak.clipboard.length > 0
+  disabled: () => !oak.clipboard || oak.clipboard.length === 0
 });
 
 

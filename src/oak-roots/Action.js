@@ -38,15 +38,15 @@ export default class Action {
   @proto
   shortcut = undefined
 
-  // Whether this action is currently visible.
+  // Whether this action is currently hidden.
   // Pass an expression to be dynamically evaluated.
-  get visible() { return true }
-  set visible(expression) { defineGetter(this, "visible", expression) }
+  get hidden() { return false }
+  set hidden(expression) { defineGetter(this, "hidden", expression) }
 
-  // Whether this action is currently enabled.
+  // Whether this action is currently disabled.
   // Pass an expression to be dynamically evaluated.
-  get enabled() { return true }
-  set enabled(expression) { defineGetter(this, "enabled", expression) }
+  get disabled() { return false }
+  set disabled(expression) { defineGetter(this, "disabled", expression) }
 
   // Whether this action is currently checked.
   // Pass an expression to be dynamically evaluated.
@@ -71,11 +71,11 @@ export default class Action {
 
   // Does this action's `shortcut` match all of the specified `keys`?
   // On sucess, returns array of keys matched.
-  // If: no match, disabled, not visible, or `isFocused` doesn't match `whenFocused`, returns `undefined`.
+  // If: no match, disabled, not hidden, or `isFocused` doesn't match `whenFocused`, returns `undefined`.
   matchKeys(keys, isFocused) {
     if (!this.shortcut) return;
-    if (!this.visible) return;
-    if (!this.enabled) return;
+    if (this.hidden) return;
+    if (this.disabled) return;
     if (isFocused && !this.whenFocused) return;
 
   //REFACTOR: multiple shortcuts?

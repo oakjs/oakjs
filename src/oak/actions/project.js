@@ -54,25 +54,29 @@ export function showProject(options = {}) {
 new Action({
   id: "oak.showFirstProject", title: "Show First Project",
   handler: ()=>showProject({ project: "FIRST" }),
-  enabled:()=>oak.project && !oak.project.isFirst
+  hidden: () => oak.projectCount < 3,
+  disabled:()=>!oak.project || oak.project.isFirst
 });
 
 new Action({
   id: "oak.showPreviousProject", title: "Show Previous Project",
   handler: ()=>showProject({ project: "PREV" }),
-  enabled:()=>oak.project && !oak.project.isFirst
+  hidden: () => oak.projectCount < 2,
+  disabled:()=>!oak.project || oak.project.isFirst
 });
 
 new Action({
   id: "oak.showNextProject", title: "Show Next Project",
   handler: ()=>showProject({ project: "NEXT" }),
-  enabled:()=>oak.project && !oak.project.isLast
+  hidden: () => oak.projectCount < 2,
+  disabled:()=>!oak.project || oak.project.isLast
 });
 
 new Action({
   id: "oak.showLastProject", title: "Show Last Project",
   handler: ()=>showProject({ project: "LAST" }),
-  enabled:()=>oak.project && !oak.project.isLast
+  hidden: () => oak.projectCount < 3,
+  disabled:()=>!oak.project || oak.project.isLast
 });
 
 
@@ -99,7 +103,7 @@ export function saveProject(options = {}) {
 new Action({
   id: "oak.saveProject", title: "Save Project",
   handler: saveProject,
-  enabled:()=>oak.project
+  disabled:()=>!oak.project
 });
 
 
@@ -183,7 +187,7 @@ export function duplicateProject(options = {}) {
 new Action({
   id: "oak.duplicateProject", title: "Duplicate Project...",
   handler: duplicateProject,
-  enabled:()=>oak.project
+  disabled:()=>!oak.project
 });
 
 
@@ -219,7 +223,7 @@ export function renameProject(options = {}) {
 new Action({
   id: "oak.renameProject", title: "Rename Project...",
   handler: renameProject,
-  enabled:()=>oak.project
+  disabled:()=>!oak.project
 });
 
 
@@ -250,7 +254,7 @@ export function deleteProject(options = {}) {
 new Action({
   id: "oak.deleteProject", title: "Delete Project",
   handler: deleteProject,
-  enabled:()=>oak.project
+  disabled:()=>!oak.project
 });
 
 
