@@ -34,6 +34,9 @@ export default class ChildController extends Savable(Loadable()) {
   get firstChild() { const children = this.children; return children && children[0] }
   get lastChild() { const children = this.children; return children && children[children.length-1] }
 
+  get childCount() { return (this.children ? this.children.length : 0) }
+  get hasChildren() { return this.childCount > 0 }
+
   // Given a possible childId, modify it (minmally) to make sure it's unique
   //  within our current children's ids.
   // NOTE: its possible that you will still get a colision on the server... ????

@@ -243,6 +243,16 @@ class OakJS extends Eventful(Object) {
   getPage(projectId, sectionId, pageId) { return this.account.getPage(...arguments) }
 
 
+  // Return the number of projects in the current account.  (Used in menus).
+  get projectCount() { return (oak.account ? oak.account.childCount : 0) }
+
+  // Return the number of sections in the current project.  (Used in menus).
+  get sectionCount() { return (oak.project ? oak.project.childCount : 0) }
+
+  // Return the number of pages in the current section.  (Used in menus).
+  get pageCount() { return (oak.section ? oak.section.childCount : 0) }
+
+
   //////////////////////////////
   //  Syntactic sugar for getting components
   //////////////////////////////
