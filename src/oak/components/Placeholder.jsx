@@ -2,12 +2,14 @@
 //  Placeholder component -- shows as an `[X]` to represent some un-drawable component.
 //////////////////////////////
 
+import { classNames } from "oak-roots/util/react";
+
 import "./Placeholder.less";
 
 export default function Placeholder(props, context) {
-  const { label } = props;
+  const { className, label } = props;
   return (
-    <div className="oak Placeholder">
+    <div className={classNames("oak", className, "Placeholder")}>
       <div className="inset">
         <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
           <path width="100" height="100"
@@ -17,7 +19,7 @@ export default function Placeholder(props, context) {
             d="M0,0 L99,0 L99,99 L0,99 L0,0 M0,0 L99,99 M0,99 L99,0" />
         </svg>
       </div>
-      <label>{label}</label>
+      {label && <label>{label}</label>}
     </div>
   );
 }
