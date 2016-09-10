@@ -10,11 +10,6 @@
     "type": "Project"
   },
   {
-    "id": "_editor",
-    "title": "Editor",
-    "type": "Project"
-  },
-  {
     "id": "_runner",
     "title": "OakJS Runner / Editor UI",
     "type": "Project"
