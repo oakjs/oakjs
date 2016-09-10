@@ -168,11 +168,12 @@ class ComponentTreeItem extends OakComponent {
       <div className={elementClass}>
         <div className="name">
           {showChildren ? <SUI.Icon icon={openIcon} onClick={() => menu.toggle(oid)}/> : <SUI.Icon icon="none"/>}
-          <span className="type" onClick={() => menu.select(oid)}>{item.type}</span>
-          {id && <span className="id">#{id}</span>}
-          {className && <span className="className">.{className.split(" ").join(".")}</span>}
-          {singleTextChild && <span className="innerText">“{children[0]}”</span>}
-          {!singleTextChild && title && <span className="title">“{title}”</span>}
+          <span className="type" onClick={() => menu.select(oid)}>{item.type}
+            {id && <span className="id">#{id}</span>}
+            {className && <span className="className">.{className.split(" ").join(".")}</span>}
+            {singleTextChild && <span className="innerText">“{children[0]}”</span>}
+            {!singleTextChild && title && <span className="title">“{title}”</span>}
+          </span>
         </div>
         {open && showChildren && this.renderChildren(menu, item)}
       </div>
