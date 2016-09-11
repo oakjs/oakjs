@@ -18,9 +18,8 @@ function SUIContainer(props) {
     id,
     className: classNames(className, "ui", appearance, classMap, "container"),
     style,
-    ...unknownProps(props, SUIContainer.propTypes)
+    ...unknownProps(props, SUIContainer)
   };
-
   return <div {...containerProps}>{children}</div>;
 }
 

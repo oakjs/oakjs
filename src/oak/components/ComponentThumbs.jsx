@@ -157,6 +157,16 @@ export class ChildThumbs extends OakComponent {
     return <h2>{component.title}</h2>
   }
 
+
+  renderWrapper(compnent, className, title, children) {
+    return (
+      <div className={className}>
+        { title }
+        { children }
+      </div>
+    );
+  }
+
   render() {
     if (this.hidden) return null;
     if (!this.props.component) {
@@ -180,17 +190,13 @@ export class ChildThumbs extends OakComponent {
       component.load().then( this.updateSoon );
     }
 
+    className = `oak ${className}`;
+    const title = (showTitle && this.renderTitle(component)) || undefined;
     const children = component.isLoaded
       ? component.children.map( child => <ChildThumbComponent key={child.path} component={child}/> )
       : <SUI.Loader/>;
 
-//componentconsole.warn("showing thumbs for ", component);
-    return (
-      <div className={`oak ${className}`}>
-        { showTitle && this.renderTitle(component) }
-        { children }
-      </div>
-    );
+    return this.renderWrapper(component, className, title, children)
   }
 }
 
@@ -208,6 +214,7 @@ export class SectionThumb extends ChildThumbs {
   }
 }
 
+
 // Show thumbs for all children of project (specified as `component` :-( ).
 export class ProjectThumb extends ChildThumbs {
   static defaultProps = {
@@ -219,6 +226,16 @@ export class ProjectThumb extends ChildThumbs {
   renderTitle(component) {
     if (!component.title) return;
     return <h2>{`${component.type}: ${component.title}`}</h2>;
+  }
+
+  renderWrapper(component, className, title, children) {
+    const { Oak, SUI } = this.context.components;
+    return (
+      <SUI.Container className={className}>
+        { title }
+        { children }
+      </SUI.Container>
+    );
   }
 }
 

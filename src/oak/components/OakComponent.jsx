@@ -69,9 +69,8 @@ export default class OakComponent extends React.Component {
 
 
 	// Update this component soon, but only if it's still mounted.
-//	@debounce(0)
 	updateSoon = () => {
-		if (this._isMounted) this.forceUpdate();
+		if (this._isMounted) this.setState({});
 	}
 
 
