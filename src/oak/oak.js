@@ -62,6 +62,29 @@ class OakJS extends Eventful(Object) {
 
 
   //////////////////////////////
+  //  "Current" + "Runner" project / section / page
+  //  Many bits of the UI need to coordinate on what it is that we're displaying right now.
+  //  We set `oak.page` to the current page we're displaying and drive other things from that.
+  //////////////////////////////
+
+  // Set the "current" page.
+  //  Also sets `project` and `section` pointers for expediency. (???)
+  setCurrentPage(page) {
+    this.page = page;
+    this.project = page && page.project;
+    this.section = page && page.section;
+  }
+
+  // Set the page that's being shown by the runner meta-application.
+  //  Also sets `project` and `section` pointers for expediency. (???)
+  setRunnerPage(page) {
+    this.runner.page = page;
+    this.runner.project = page && page.project;
+    this.runner.section = page && page.section;
+  }
+
+
+  //////////////////////////////
   //  App State
   //////////////////////////////
 
@@ -196,7 +219,7 @@ class OakJS extends Eventful(Object) {
 
   //////////////////////////////
   //  Syntactic sugar for getting project/section/page components
-  //  All of these defer to the current account...
+  //  All of these defer to `oak.account`...
   //////////////////////////////
 
   // Get project, section, component specified by path.
@@ -289,6 +312,7 @@ class OakJS extends Eventful(Object) {
 
   //////////////////////////////
   //  Oid => Component => Oid
+  // TODO: move these into `UI` or some such???
   //////////////////////////////
 
   // Return the JSXElement `Component` for an `oid`,

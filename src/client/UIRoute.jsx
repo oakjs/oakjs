@@ -26,9 +26,7 @@ export default class UIRoute extends AppRoute {
     // if we got a loaded page:
     if (runnerPage && runnerPage.isLoaded) {
       // assign it to `oak.runner.page` so we'll show it below
-      oak.runner.page = runnerPage;
-      oak.runner.section = runnerPage.section;
-      oak.runner.project = runnerPage.project;
+      oak.setRunnerPage(runnerPage);
     }
     else {
       // Otherwise if we didn't get a page, or the page hasn't started loading yet
@@ -61,9 +59,7 @@ export default class UIRoute extends AppRoute {
       // if we got a loaded page
       if (appPage && appPage.isLoaded) {
         // assign it to `oak.page` so `<CurrentPage>` will show it
-        oak.page = appPage;
-        oak.section = appPage.section;
-        oak.project = appPage.project;
+        oak.setCurrentPage(appPage);
       }
       else {
         // Otherwise if we didn't get a page, or the page hasn't started loading yet
