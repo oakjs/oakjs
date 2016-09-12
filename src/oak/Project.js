@@ -58,6 +58,7 @@ export default class Project extends ComponentController {
         return new Constructor({
           sectionId,
           projectId: this.projectId,
+          account: this.account,
           ...props,
         });
       }

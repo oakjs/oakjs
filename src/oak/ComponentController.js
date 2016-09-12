@@ -47,10 +47,6 @@ export default class ComponentController extends Eventful(ChildController) {
   //  ChildController stuff
   //////////////////////////////
 
-  // Currently everything is in one account.
-  // This might change soon, if so, `_makeIndex()` should probably set the account.
-  get account() { return oak.account }
-
   // Override to make the index for the children of this Component.
   // If you don't override, we'll assume you don't have any children that you manage.
   // If you do have children, call this in your `constructor` so the index is always available.
@@ -58,9 +54,9 @@ export default class ComponentController extends Eventful(ChildController) {
 
   // Return the data to save in our PARENT's index for this object.
   // Override if you need to save something else...
+  // NOTE: server assumes we're only saving this as well for all components...
   getIndexData() { return { type: this.type, id: this.id, title: this.title } }
 
-  static splitPath(path) { throw new TypeError("You must implement splitPath()") }
   get route() { throw new TypeError("You must implement get route()") }
 
 
@@ -98,7 +94,8 @@ export default class ComponentController extends Eventful(ChildController) {
   //  Components
   //////////////////////////////
 
-  // Called when our component JSX, Script or Styles change.  Forces full page update.
+  // Called when our component JSX, Script or Styles change.
+  // Forces full page update.
   onComponentChanged() {
     if (this.component) oak.updateSoon();
   }

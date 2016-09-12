@@ -60,6 +60,7 @@ export default class Section extends ComponentController {
           pageId,
           sectionId: this.sectionId,
           projectId: this.projectId,
+          account: this.account,
           ...props,
         });
       }

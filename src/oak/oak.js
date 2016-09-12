@@ -195,35 +195,14 @@ class OakJS extends Eventful(Object) {
 
 
   //////////////////////////////
-  //  Routing
-  //////////////////////////////
-
-  get projects() { return this.account.children }
-
-  //////////////////////////////
   //  Syntactic sugar for getting project/section/page components
+  //  All of these defer to the current account...
   //////////////////////////////
 
   // Get project, section, component specified by path.
+  // NOTE: we defer to the current account for this...
   get(path) {
-    if (typeof path === "string") {
-      const split = Account.splitPath(path);
-      if (split.pageId) return this.getPage(split.projectId, split.sectionId, split.pageId);
-      if (split.sectionId) return this.getSection(split.projectId, split.sectionId);
-      if (split.projectId) return this.getProject(split.projectId);
-    }
-
-    // if we got an instance of Project, Section or Page, just return that
-    if (path instanceof Project) return path;
-    if (path instanceof Section) return path;
-    if (path instanceof Page) return path;
-
-    // Special case for account (which is not a real path).
-    if (path === Account.ACCOUNT_PATH_FLAG) return oak.account;
-
-    // Unclear what to do here...
-    console.warn(`oak.get(${path}): path not understood`);
-    return undefined;
+    return this.account.get(...arguments);
   }
 
   // All known projects.

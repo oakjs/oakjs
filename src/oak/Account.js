@@ -21,8 +21,37 @@ export default class Account extends ChildController {
 
 
   //////////////////////////////
-  //  Paths / Routes
+  //  Nested Children / Paths / Routes
   //////////////////////////////
+
+
+  // Get project, section, component specified by path.
+  get(path) {
+    if (!path) return undefined;
+
+    // If we got a string, assume it's a `project/section/page` path.
+    if (typeof path === "string") path = Account.splitPath(path);
+
+    // if we got an object with `projectId`, assume it's the results of `Account.splitPath()`.
+    if (path.projectId) {
+      if (path.pageId) return this.getPage(path.projectId, path.sectionId, path.pageId);
+      if (path.sectionId) return this.getSection(path.projectId, path.sectionId);
+      if (path.projectId) return this.getProject(path.projectId);
+    }
+
+    // if we got an instance of Project, Section or Page, just return that
+    if (path instanceof Project) return path;
+    if (path instanceof Section) return path;
+    if (path instanceof Page) return path;
+
+    // Special case for account (which is not a real path).
+    if (path === Account.ACCOUNT_PATH_FLAG) return oak.account;
+
+    // Unclear what to do here...
+    console.warn(`account.get(${path}): path not understood`);
+    return undefined;
+  }
+
 
   // Split a project, page, section path into `{ projectId, sectionId, pageId }`.
   // TODO: how to distinguish components here???
@@ -207,6 +236,7 @@ export default class Account extends ChildController {
         const Constructor = (props.type === "Component" ? ComponentController : Project);
         return new Constructor({
           projectId,
+          account: this,
           ...props,
         });
       }
