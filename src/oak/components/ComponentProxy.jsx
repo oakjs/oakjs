@@ -16,18 +16,14 @@ export class ComponentProxy extends React.Component {
     return this.props.component;
   }
 
-  // TODO: rename `_controller`
-  // TODO: this isn't actually used anywhere... ????
-  static childContextTypes = {
-    controller: PropTypes.any,
+  static contextTypes = {
+    oak: PropTypes.any,
   }
 
-  getChildContext() {
-    return {
-      controller: this.getController()
-    }
-  }
-
+  //
+  // When we mount / unmount / update,
+  // update our `controller.component` with the pointer to our live component.
+  //
   componentDidMount() {
     const controller = this.getController();
     if (controller) controller.component = this.refs.component;
@@ -62,15 +58,15 @@ export class ComponentProxy extends React.Component {
 //////////////////////////////
 
 export class RunnerProject extends ComponentProxy {
-  getController() { return oak.runner.project; }
+  getController() { return this.context.oak.runner.project; }
 }
 
 export class RunnerSection extends ComponentProxy {
-  getController() { return oak.runner.section; }
+  getController() { return this.context.oak.runner.section; }
 }
 
 export class RunnerPage extends ComponentProxy {
-  getController() { return oak.runner.page; }
+  getController() { return this.context.oak.runner.page; }
 }
 
 
@@ -81,6 +77,7 @@ export class RunnerPage extends ComponentProxy {
 
 export class CurrentProject extends ComponentProxy {
   static contextTypes = {
+    ...ComponentProxy.contextTypes,
     page: PropTypes.any
   }
 
@@ -111,7 +108,7 @@ export class CurrentProject extends ComponentProxy {
 
     // If the current project is also the runner project,
     //  return a stub so we don't recurse.
-    if (controller === oak.runner.project) {
+    if (controller === this.context.oak.runner.project) {
       return (
         <Project>
           <CurrentSection/>
@@ -126,6 +123,7 @@ export class CurrentProject extends ComponentProxy {
 
 export class CurrentSection extends ComponentProxy {
   static contextTypes = {
+    ...ComponentProxy.contextTypes,
     page: PropTypes.any
   }
 
@@ -156,7 +154,7 @@ export class CurrentSection extends ComponentProxy {
 
     // If the current section is also the runner section,
     //  return a stub so we don't recurse.
-    if (controller === oak.runner.section) {
+    if (controller === this.context.oak.runner.section) {
       return (
         <Section>
           <CurrentPage/>
@@ -171,6 +169,7 @@ export class CurrentSection extends ComponentProxy {
 
 export class CurrentPage extends ComponentProxy {
   static contextTypes = {
+    ...ComponentProxy.contextTypes,
     page: PropTypes.any
   }
 
@@ -200,7 +199,7 @@ export class CurrentPage extends ComponentProxy {
 
     // if the current page is also the runner page,
     //  return a <Placeholder> so we don't recurse
-    if (controller === oak.runner.page) {
+    if (controller === this.context.oak.runner.page) {
       return <Placeholder label="Current Page"/>
     }
     else {

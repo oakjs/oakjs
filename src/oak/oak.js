@@ -69,6 +69,9 @@ class OakJS extends Eventful(Object) {
 
   // Set the "current" page.
   //  Also sets `project` and `section` pointers for expediency. (???)
+  //  NOTE: better would be to derive project/section from the page,
+  //        buts lots of UI code (eg: menus) look at `oak.project`,
+  //        so that might be slow.
   setCurrentPage(page) {
     this.page = page;
     this.project = page && page.project;
@@ -76,7 +79,9 @@ class OakJS extends Eventful(Object) {
   }
 
   // Set the page that's being shown by the runner meta-application.
-  //  Also sets `project` and `section` pointers for expediency. (???)
+  //  Also sets `project` and `section` pointers.
+  //  We only expect to have one `runner page` open at a time,
+  //  so pointing directly to those pages is probably fine.
   setRunnerPage(page) {
     this.runner.page = page;
     this.runner.project = page && page.project;
