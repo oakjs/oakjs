@@ -18,7 +18,7 @@ import SectionComponent from "./components/Section";
 export default class Section extends ComponentController {
   constructor(props) {
     super(props);
-    dieIfMissing(this, "new Section", ["sectionId", "projectId"]);
+    dieIfMissing(this, "new Section", ["account", "sectionId", "projectId"]);
   }
 
   @proto

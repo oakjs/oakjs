@@ -18,7 +18,7 @@ import ProjectComponent from "./components/Project";
 export default class Project extends ComponentController {
   constructor(props) {
     super(props);
-    dieIfMissing(this, "new Project", ["projectId"]);
+    dieIfMissing(this, "new Project", ["account", "projectId"]);
   }
 
   @proto

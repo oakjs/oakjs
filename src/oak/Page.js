@@ -13,7 +13,7 @@ import PageComponent from "./components/Page";
 
 export default class Page extends ComponentController {
   constructor(props) {
-    dieIfMissing(props, "new Page", ["pageId", "sectionId", "projectId"]);
+    dieIfMissing(props, "new Page", ["account", "pageId", "sectionId", "projectId"]);
     super(props);
   }
 
