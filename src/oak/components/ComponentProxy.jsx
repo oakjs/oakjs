@@ -80,12 +80,37 @@ export class RunnerPage extends ComponentProxy {
 //////////////////////////////
 
 export class CurrentProject extends ComponentProxy {
-  getController() { return oak.project; }
+  static contextTypes = {
+    page: PropTypes.any
+  }
+
+  static childContextTypes = {
+    controller: PropTypes.any,
+    project: PropTypes.any,
+    components: PropTypes.any
+  }
+
+  getChildContext() {
+    const project = this.getController();
+    return {
+      controller: project,
+      project,
+      components: project && project.components
+    }
+  }
+
+  // Drive the controller off of `props.page` or `context.page`.
+  getController() {
+    const page = this.props.page || this.context.page;
+    return page && page.project;
+  }
+
   render() {
     const controller = this.getController();
     if (!controller) return null;
 
-    // if the current project is also the runner project, return a stub so we don't recurse
+    // If the current project is also the runner project,
+    //  return a stub so we don't recurse.
     if (controller === oak.runner.project) {
       return (
         <Project>
@@ -100,14 +125,37 @@ export class CurrentProject extends ComponentProxy {
 }
 
 export class CurrentSection extends ComponentProxy {
-  getController() { return oak.section; }
+  static contextTypes = {
+    page: PropTypes.any
+  }
+
+  static childContextTypes = {
+    controller: PropTypes.any,
+    section: PropTypes.any,
+    components: PropTypes.any
+  }
+
+  getChildContext() {
+    const section = this.getController();
+    return {
+      controller: section,
+      section,
+      components: section && section.components
+    }
+  }
+
+  // Drive the controller off of `props.page` or `context.page`.
+  getController() {
+    const page = this.props.page || this.context.page;
+    return page && page.section;
+  }
 
   render() {
     const controller = this.getController();
     if (!controller) return null;
 
-    // if the current section is also the runner section,
-    //  return a <Placeholder> so we don't recurse
+    // If the current section is also the runner section,
+    //  return a stub so we don't recurse.
     if (controller === oak.runner.section) {
       return (
         <Section>
@@ -122,7 +170,29 @@ export class CurrentSection extends ComponentProxy {
 }
 
 export class CurrentPage extends ComponentProxy {
-  getController() { return oak.page; }
+  static contextTypes = {
+    page: PropTypes.any
+  }
+
+  static childContextTypes = {
+    controller: PropTypes.any,
+    page: PropTypes.any,
+    components: PropTypes.any
+  }
+
+  getChildContext() {
+    const page = this.getController();
+    return {
+      controller: page,
+      page,
+      components: page && page.components
+    }
+  }
+
+  // Drive the controller off of `props.page` or `context.page`.
+  getController() {
+    return this.props.page || this.context.page;
+  }
 
   render() {
     const controller = this.getController();
