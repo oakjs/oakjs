@@ -43,7 +43,7 @@ export default class Project extends ComponentController {
   set id(id) { this.projectId = id }
 
   get parent() { return this.account }
-  get route() { return oak.getPageRoute(this.projectId) }
+  get route() { return this.account.getPageRoute(this.projectId) }
 
   // Create the index of Sections/Components on demand
   _makeIndex() {

@@ -31,6 +31,14 @@ export default class Account extends ChildController {
     return { projectId: split[0], sectionId: split[1], pageId: split[2] }
   }
 
+  // Return URL for page, section or project
+  getPageRoute(projectId, sectionId, pageId) {
+    if (pageId !== undefined) return `/project/${projectId}/${sectionId}/${pageId}`;
+    if (sectionId !== undefined) return `/project/${projectId}/${sectionId}`;
+    if (projectId !== undefined) return `/project/${projectId}`;
+    throw new TypeError(`account.getPageRoute(${arguments}): invalid params`);
+  }
+
 
   //////////////////////////////
   //  "Project" Syntactic sugar

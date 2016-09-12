@@ -38,7 +38,7 @@ export default class Page extends ComponentController {
   set id(id) { this.pageId = id }
 
   get parent() { return this.account.getSection(this.projectId, this.sectionId) }
-  get route() { return oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
+  get route() { return this.account.getPageRoute(this.projectId, this.sectionId, this.pageId) }
 
 
   //////////////////////////////

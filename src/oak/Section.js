@@ -44,7 +44,7 @@ export default class Section extends ComponentController {
   set id(id) { this.sectionId = id }
 
   get parent() { return this.account.getProject(this.projectId) }
-  get route() { return oak.getPageRoute(this.projectId, this.sectionId) }
+  get route() { return this.account.getPageRoute(this.projectId, this.sectionId) }
 
   // Create the index of Pages/Components on demand.
   _makeIndex() {

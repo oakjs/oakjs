@@ -40,7 +40,7 @@ export function showPage(options = {}) {
   const { projectId, sectionId, pageId } = Account.splitPath(page);
 
   return navigation._navigateToRouteTransaction({
-    route: oak.getPageRoute(projectId, sectionId, pageId),
+    route: oak.account.getPageRoute(projectId, sectionId, pageId),
     replace,
     actionName,
     autoExecute

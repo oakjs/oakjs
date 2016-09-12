@@ -200,14 +200,6 @@ class OakJS extends Eventful(Object) {
 
   get projects() { return this.account.children }
 
-  // Return URL for page, section or project
-  getPageRoute(projectId, sectionId, pageId) {
-    if (pageId !== undefined) return `/project/${projectId}/${sectionId}/${pageId}`;
-    if (sectionId !== undefined) return `/project/${projectId}/${sectionId}`;
-    if (projectId !== undefined) return `/project/${projectId}`;
-    throw new TypeError(`oak.getPageRoute(${projectId}, ${sectionId}, ${pageId}): invalid params`);
-  }
-
   //////////////////////////////
   //  Syntactic sugar for getting project/section/page components
   //////////////////////////////
