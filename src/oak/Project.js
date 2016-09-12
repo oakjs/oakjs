@@ -36,7 +36,9 @@ export default class Project extends ComponentController {
         return api.loadSectionIndex(this.projectId);
       },
       createItem: (sectionId, props) => {
-        return new Section({
+        // Create a Section or a generic ComponentController?
+        const Constructor = (props.type === "Component" ? ComponentController : Section);
+        return new Constructor({
           sectionId,
           projectId: this.projectId,
           ...props,

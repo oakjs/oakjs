@@ -85,7 +85,9 @@ export default class Section extends ComponentController {
         return api.loadPageIndex(this.path);
       },
       createItem: (pageId, props) => {
-        return new Page({
+        // Create a Page or a generic ComponentController?
+        const Constructor = (props.type === "Component" ? ComponentController : Page);
+        return new Constructor({
           pageId,
           sectionId: this.sectionId,
           projectId: this.projectId,

@@ -183,7 +183,9 @@ export default class Account extends ChildController {
         return api.saveProjectIndex(this.getIndexData());
       },
       createItem: (projectId, props) => {
-        return new Project({
+        // Create a Project or a generic ComponentController?
+        const Constructor = (props.type === "Component" ? ComponentController : Project);
+        return new Constructor({
           projectId,
           ...props,
         });
