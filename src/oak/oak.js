@@ -198,7 +198,7 @@ class OakJS extends Eventful(Object) {
   //  Routing
   //////////////////////////////
 
-  get projects() { return this.projectIndex.items }
+  get projects() { return this.account.children }
 
   // Return URL for page, section or project
   getPageRoute(projectId, sectionId, pageId) {

@@ -20,32 +20,30 @@ export default class Page extends ComponentController {
   @proto
   type = "Page";
 
+
+  //////////////////////////////
+  //  Project + Page Syntactic sugar
+  //////////////////////////////
+
+  get section() { return this.parent }
+  get project() { return this.section.project }
+
+
   //////////////////////////////
   //  ChildController stuff
   //////////////////////////////
 
-  // No child index.
-  _makeIndex() { return undefined }
+  // Map `id` to `sectionId`
+  get id() { return this.pageId }
+  set id(id) { this.pageId = id }
+
+  get parent() { return this.account.getSection(this.projectId, this.sectionId) }
+  get route() { return oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
 
   static splitPath(path) {
     const split = path.split("/");
     return { projectId: split[0], sectionId: split[1], pageId: split[2] }
   }
-
-  get id() { return this.pageId }
-  set id(id) { this.pageId = id }
-
-  get parent() { return this.section }
-  get parentIndex() { return this.section.childIndex }
-
-  get route() { return oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
-
-  //////////////////////////////
-  //  Syntactic sugar
-  //////////////////////////////
-
-  get project() { return oak.account.getProject(this.projectId) }
-  get section() { return oak.account.getSection(this.projectId, this.sectionId) }
 
 
   //////////////////////////////
@@ -60,6 +58,7 @@ export default class Page extends ComponentController {
   //  Data manipulation
   //////////////////////////////
 
+//DEPRECATED... ???
   get data() {
     const component = this.component;
     if (component) return component.data;

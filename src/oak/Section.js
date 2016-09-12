@@ -25,59 +25,33 @@ export default class Section extends ComponentController {
   type = "Section";
 
   //////////////////////////////
-  //  Standard Component Identity stuff
+  //  Project + Page Syntactic sugar
   //////////////////////////////
+
+  get project() { return this.parent }
+  get pages() { return this.children }
+
+  getPage(pageId) { return this.getChild(pageId) }
+  loadPage(pageId) { return this.loadChild(pageId) }
+
+
+  //////////////////////////////
+  //  ChildController stuff
+  //////////////////////////////
+
+  // Map `id` to `sectionId`
+  get id() { return this.sectionId }
+  set id(id) { this.sectionId = id }
+
+  get parent() { return this.account.getProject(this.projectId) }
+  get route() { return oak.getPageRoute(this.projectId, this.sectionId) }
 
   static splitPath(path) {
     const split = path.split("/");
     return { projectId: split[0], sectionId: split[1] }
   }
 
-  get id() { return this.sectionId }
-  set id(id) { this.sectionId = id }
-
-  get parent() { return this.project }
-  get parentIndex() { return this.project.childIndex }
-  get childIndex() { return this.pageIndex }
-  get children() { return this.pages }
-
-  get route() { return oak.getPageRoute(this.projectId, this.sectionId) }
-
-  //////////////////////////////
-  //  Syntactic sugar
-  //////////////////////////////
-
-  get project() { return oak.account.getProject(this.projectId) }
-  get pageIds() { return this.childIds }
-
-  //////////////////////////////
-  //  Components
-  //////////////////////////////
-
-  // TODO: dynamic components
-  get components() { return this.project.components }
-
-  //////////////////////////////
-  //  Pages
-  //////////////////////////////
-
-  get pageIndex() { return this._index || (this._index = this._makeIndex()) }
-
-  get pages() { return this.pageIndex.items }
-
-  getPage(pageIdentifier) {
-    return this.pageIndex.getItem(pageIdentifier);
-  }
-
-  loadPage(pageIdentifier) {
-    return this.pageIndex.loadItem(pageIdentifier);
-  }
-
-  //////////////////////////////
-  //  Initialization / Loading / Saving
-  //////////////////////////////
-
-  // Create the pageIndex on demand.
+  // Create the index of Pages/Components on demand.
   _makeIndex() {
     return new LoadableIndex({
       itemType: "page",
@@ -96,5 +70,13 @@ export default class Section extends ComponentController {
       }
     });
   }
+
+  //////////////////////////////
+  //  Components
+  //////////////////////////////
+
+  // TODO: after load, include section non-Page Components in our components list
+  get components() { return this.project.components }
+
 }
 

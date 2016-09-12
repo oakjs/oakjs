@@ -78,6 +78,7 @@ export function copyFile(path, newPath) {
 
 // Lightweight object which vends paths
 //  eg:   const path = paths.projects().projectIndexPath;
+// TODO: `AppPaths`
 export class appPaths {
   get projectIndex() { return projectsPath("projects.json") }
 }
@@ -90,6 +91,7 @@ export function projectsPath(filename = "") {
   return fsPath.join(config.paths.projects, filename);
 }
 
+// TODO: return this as a function of `appPaths`
 export const projectIndexPath = projectsPath("projects.json");
 
 //////////////////////////////

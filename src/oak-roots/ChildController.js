@@ -42,6 +42,17 @@ export default class ChildController extends Savable(Loadable()) {
   // NOTE: its possible that you will still get a colision on the server... ????
   uniquifyChildId(childId) { return ids.uniquifyId(childId, this.childIds) }
 
+  // Return a pointer to one of our children specified by string id or numeric index.
+  // If not found, returns `undefined`.
+  // Always returns `undefined` if we haven't already loaded.
+  getChild(childId) { return this.childIndex.getItem(childId) }
+
+  // Return a promise which loads one of our items.
+  // If we can't find the item in our index, the promise will reject.
+  // NOTE: the promise resolves with the ITEM, not with the item's loaded data.
+  // If you call with the same `childId` later, you'll get the same object back.
+  loadChild(childId) { return this.childIndex.loadItem(childId) }
+
 
   //////////////////////////////
   //  Parents & Paths

@@ -25,10 +25,32 @@ export default class Project extends ComponentController {
   type = "Project";
 
   //////////////////////////////
+  //  Account + Section syntactic sugar
+  //////////////////////////////
+
+  get sections() { return this.children }
+
+  getSection(sectionId) { return this.getChild(sectionId) }
+  loadSection(sectionId) { return this.loadChild(SectionId) }
+
+
+  //////////////////////////////
   //  ChildController stuff
   //////////////////////////////
 
-  // Create the sectionIndex on demand
+  // map `projectId` to `id`
+  get id() { return this.projectId }
+  set id(id) { this.projectId = id }
+
+  get parent() { return this.account }
+  get route() { return oak.getPageRoute(this.projectId) }
+
+  static splitPath(path) {
+    const split = path.split("/");
+    return { projectId: split[0] }
+  }
+
+  // Create the index of Sections/Components on demand
   _makeIndex() {
     return new LoadableIndex({
       itemType: "section",
@@ -45,35 +67,6 @@ export default class Project extends ComponentController {
         });
       }
     });
-  }
-
-  // map `projectId` to `id`
-  get id() { return this.projectId }
-  set id(id) { this.projectId = id }
-
-  static splitPath(path) {
-    const split = path.split("/");
-    return { projectId: split[0] }
-  }
-
-  get parent() { return oak.account }
-
-  get route() { return oak.getPageRoute(this.projectId) }
-
-
-  //////////////////////////////
-  //  Sections syntactic sugar
-  //////////////////////////////
-
-  get sectionIndex() { return this.childIndex }
-  get sections() { return this.children }
-
-  getSection(sectionIdentifier) {
-    return this.sectionIndex.getItem(sectionIdentifier);
-  }
-
-  loadSection(sectionIdentifier) {
-    return this.sectionIndex.loadItem(sectionIdentifier);
   }
 
 

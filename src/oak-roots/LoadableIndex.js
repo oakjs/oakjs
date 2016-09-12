@@ -33,6 +33,7 @@ export default class LoadableIndex extends Savable(Loadable()) {
   //  Getting items
   //////////////////////////////
 
+// DEPRECATED
   get firstChild() { return this.items && this.items[0] }
   get lastChild() { return this.items && this.items[this.items.length - 1]; }
 
@@ -53,8 +54,9 @@ export default class LoadableIndex extends Savable(Loadable()) {
   }
 
   // Return a promise which makes an item and loads it.
-  // NOTE: the promise resolves with the ITEM, not with the item's loaded data.
   // If you call with the same `itemIdentifier` later, you'll get the same object back.
+  // If we can't find the item in our index, the promise will reject.
+  // NOTE: the promise resolves with the ITEM, not with the item's loaded data.
   loadItem(itemIdentifier) {
     if (this.isLoaded) {
       const item = this.getItem(itemIdentifier);

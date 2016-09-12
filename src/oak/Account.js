@@ -19,12 +19,17 @@ export default class Account extends ChildController {
     Object.assign(this, props);
   }
 
+
+  //////////////////////////////
+  //  Paths / Routes
+  //////////////////////////////
+
+
   //////////////////////////////
   //  "Project" Syntactic sugar
   //////////////////////////////
 
-  get projectIndex() { return this.childIndex }
-  get projects() { return this.projectIndex.items }
+  get projects() { return this.children }
 
   // Return a project, which may or may not be loaded.
   // You can pass string id or *1-based* numeric index, or a single project/section/page path.
@@ -39,7 +44,7 @@ export default class Account extends ChildController {
     // convert 1-based URLs to 0-based indices
     if (typeof projectId === "number") projectId--;
 
-    return this.projectIndex.getItem(projectId);
+    return this.getChild(projectId);
   }
 
   // Return a promise which resolves with a loaded project.
@@ -54,7 +59,7 @@ export default class Account extends ChildController {
     // convert 1-based URLs to 0-based indices
     if (typeof projectId === "number") projectId--;
 
-    return this.projectIndex.loadItem(projectId)
+    return this.loadChild(projectId)
 //       .catch(error => {
 //         console.group(`Error loading project ${projectId}:`);
 //         console.error(error);
@@ -172,7 +177,7 @@ export default class Account extends ChildController {
   // Currently no account prefix on project paths
   getChildPath(projectId) { return projectId }
 
-  // Create the projectIndex on demand
+  // Create the index of Projects / Components on demand
   _makeIndex() {
     return new LoadableIndex({
       itemType: "project",

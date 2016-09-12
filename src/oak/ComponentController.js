@@ -47,12 +47,14 @@ export default class ComponentController extends Eventful(ChildController) {
   //  ChildController stuff
   //////////////////////////////
 
-  // Override to make the index for this type of thing.
-  // Depending on your logic, you may want to call this in your `constructor`
-  //  so the index is always available.
-  _makeIndex() {
-    console.warn("You must implement `_makeIndex()`");
-  }
+  // Currently everything is in one account.
+  // This might change soon, if so, `_makeIndex()` should probably set the account.
+  get account() { return oak.account }
+
+  // Override to make the index for the children of this Component.
+  // If you don't override, we'll assume you don't have any children that you manage.
+  // If you do have children, call this in your `constructor` so the index is always available.
+  _makeIndex() {}
 
   // Return the data to save in our PARENT's index for this object.
   // Override if you need to save something else...
