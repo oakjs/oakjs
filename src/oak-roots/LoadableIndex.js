@@ -27,6 +27,8 @@ export default class LoadableIndex extends Savable(Loadable()) {
     dieIfMissing(this, "constructor", ["itemType", "createItem", "loadData"]);
   }
 
+  // TODOC: creatItem, loadData
+
   //////////////////////////////
   //  Getting items
   //////////////////////////////
