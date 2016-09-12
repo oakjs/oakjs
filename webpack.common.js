@@ -18,7 +18,7 @@ const paths = {
 // Add paths based on the above
 Object.assign(paths, {
   server:       path.join(paths.src, "server"),
-  client:       path.join(paths.src, "client"),
+  router:       path.join(paths.src, "router"),
   projects:     path.join(paths.src, "projects"),
   oak:          path.join(paths.src, "oak"),
   "oak-roots":  path.join(paths.src, "oak-roots"),
@@ -32,8 +32,8 @@ module.exports = {
   // NOTE: not part of the webpack standard!
   paths: Object.assign({}, paths, {
     // webpack input files
-    oakWebpackEntryRoot: path.join(paths.client, "index.js"),
-    oakWebackHTMLTemplate: path.join(paths.client, "index.template.html"),
+    oakWebpackEntryRoot: path.join(paths.router, "index.js"),
+    oakWebackHTMLTemplate: path.join(paths.router, "index.template.html"),
     // webpack output files
     oakBuildHTMLFile: path.join(paths.build, "index.html"),
   }),

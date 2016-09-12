@@ -1,3 +1,5 @@
+import React, { PropTypes } from "react";
+
 import oak from "oak/oak";
 import { RunnerProject } from "oak/components/ComponentProxy";
 
@@ -12,14 +14,27 @@ function _normalizeInt(value) {
 }
 
 export default class UIRoute extends AppRoute {
-  render() {
+  static childContextTypes = {
+    ...AppRoute.childContextTypes,
+    page: PropTypes.any,
+    components: PropTypes.any
+  }
 
+  getChildContext() {
+    return {
+      ...super.getChildContext(),
+      page: oak.page,
+      components: oak.components
+    }
+  }
+
+  render() {
     // get params from the URL and extra stuff stuck directly on the <Route> object
     const params = Object.assign({}, this.props.params, this.props.route);
 //    console.dir(params);
 
     //
-    // attempt to load the runner Page
+    // attempt to load the "Runner" Page
     //
     const { runnerProjectId = "_runner", runnerSectionId = "player", runnerPageId = "showPage" } = params;
     const runnerPage = oak.account.getPage(runnerProjectId, runnerSectionId, runnerPageId);
@@ -47,7 +62,7 @@ export default class UIRoute extends AppRoute {
     }
 
     //
-    // attempt to load the App Page
+    // attempt to load the "Current" Page
     //
     // NOTE: account for numeric indexes sent as params
     const appProjectId = _normalizeInt(params.appProjectId) || 1;
@@ -80,7 +95,7 @@ export default class UIRoute extends AppRoute {
       }
     }
 
-    // if we're currently showing a page, keep that visible until we load
+    // Render the runner, which will (eventually) render the current page.
     if (oak.runner.page && oak.runner.page.project) {
       return React.createElement(RunnerProject, params);
     }

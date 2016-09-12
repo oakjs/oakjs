@@ -17,20 +17,12 @@ export default class AppRoute extends React.Component {
   }
 
   static childContextTypes = {
-    oak: PropTypes.any,
-    project: PropTypes.any,
-    section: PropTypes.any,
-    page: PropTypes.any,
-    components: PropTypes.any
+    oak: PropTypes.any
   };
 
   getChildContext() {
     return {
-      oak,
-      project: oak.project,
-      section: oak.section,
-      page: oak.page,
-      components: (oak.page ? oak.page.components : oak.components)
+      oak
     };
   }
 
