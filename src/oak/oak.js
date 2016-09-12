@@ -214,8 +214,8 @@ class OakJS extends Eventful(Object) {
 
   // Get project, section, component specified by path.
   get(path) {
-    if (path && typeof path === "string") {
-      const split = Page.splitPath(path);
+    if (typeof path === "string") {
+      const split = Account.splitPath(path);
       if (split.pageId) return this.getPage(split.projectId, split.sectionId, split.pageId);
       if (split.sectionId) return this.getSection(split.projectId, split.sectionId);
       if (split.projectId) return this.getProject(split.projectId);

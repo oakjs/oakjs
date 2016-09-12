@@ -24,6 +24,13 @@ export default class Account extends ChildController {
   //  Paths / Routes
   //////////////////////////////
 
+  // Split a project, page, section path into `{ projectId, sectionId, pageId }`.
+  // TODO: how to distinguish components here???
+  static splitPath(path) {
+    const split = path.split("/");
+    return { projectId: split[0], sectionId: split[1], pageId: split[2] }
+  }
+
 
   //////////////////////////////
   //  "Project" Syntactic sugar
@@ -38,7 +45,7 @@ export default class Account extends ChildController {
   getProject(projectId) {
     // Normalize in case they passed, eg, a page path.
     if (typeof projectId === "string") {
-      projectId = Project.splitPath(projectId).projectId;
+      projectId = Account.splitPath(projectId).projectId;
     }
 
     // convert 1-based URLs to 0-based indices
@@ -53,7 +60,7 @@ export default class Account extends ChildController {
   loadProject(projectId) {
     // Normalize in case they passed, eg, a page path.
     if (typeof projectId === "string") {
-      projectId = Project.splitPath(projectId).projectId;
+      projectId = Account.splitPath(projectId).projectId;
     }
 
     // convert 1-based URLs to 0-based indices
@@ -80,7 +87,7 @@ export default class Account extends ChildController {
   getSection(projectId, sectionId) {
     // If they passed a single string argument, assume it's a project/section/page path.
     if (arguments.length === 1 && typeof projectId === "string") {
-      const path = Section.split(projectId);
+      const path = Account.splitPath(projectId);
       return this.getSection(path.projectId, path.sectionId);
     }
     // convert 1-based URLs to 0-based indices
@@ -96,7 +103,7 @@ export default class Account extends ChildController {
   loadSection(projectId, sectionId) {
     // If they passed a single string argument, assume it's a project/section/page path.
     if (arguments.length === 1 && typeof projectId === "string") {
-      const path = Section.split(projectId);
+      const path = Account.splitPath(projectId);
       return this.loadSection(path.projectId, path.sectionId);
     }
 
@@ -130,7 +137,7 @@ export default class Account extends ChildController {
   getPage(projectId, sectionId, pageId) {
     // If they passed a single string argument, assume it's a project/section/page path.
     if (arguments.length === 1 && typeof projectId === "string") {
-      const path = Page.splitPath(projectId);
+      const path = Account.splitPath(projectId);
       return this.getPage(path.projectId, path.sectionId, path.pageId);
     }
     // convert 1-based URLs to 0-based indices
@@ -146,7 +153,7 @@ export default class Account extends ChildController {
   loadPage(projectId, sectionId, pageId) {
     // If they passed a single string argument, assume it's a project/section/page path.
     if (arguments.length === 1 && typeof projectId === "string") {
-      const path = Page.split(projectId);
+      const path = Account.splitPath(projectId);
       return this.loadPage(path.projectId, path.sectionId, path.pageId);
     }
 

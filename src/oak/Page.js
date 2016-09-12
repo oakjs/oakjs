@@ -40,11 +40,6 @@ export default class Page extends ComponentController {
   get parent() { return this.account.getSection(this.projectId, this.sectionId) }
   get route() { return oak.getPageRoute(this.projectId, this.sectionId, this.pageId) }
 
-  static splitPath(path) {
-    const split = path.split("/");
-    return { projectId: split[0], sectionId: split[1], pageId: split[2] }
-  }
-
 
   //////////////////////////////
   //  Components

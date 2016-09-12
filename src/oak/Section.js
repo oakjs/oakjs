@@ -46,11 +46,6 @@ export default class Section extends ComponentController {
   get parent() { return this.account.getProject(this.projectId) }
   get route() { return oak.getPageRoute(this.projectId, this.sectionId) }
 
-  static splitPath(path) {
-    const split = path.split("/");
-    return { projectId: split[0], sectionId: split[1] }
-  }
-
   // Create the index of Pages/Components on demand.
   _makeIndex() {
     return new LoadableIndex({

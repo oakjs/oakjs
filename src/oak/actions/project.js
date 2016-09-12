@@ -41,7 +41,7 @@ export function showProject(options = {}) {
   if (project instanceof Project) project = project.path;
   if (typeof project !== "string") die(oak, "actions.showProject", [options], "you must specify a project");
 
-  const { projectId } = Project.splitPath(project);
+  const { projectId } = Account.splitPath(project);
 
   return navigation._navigateToRouteTransaction({
     route: oak.getPageRoute(projectId),

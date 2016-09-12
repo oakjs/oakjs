@@ -6,6 +6,7 @@
 import Action from "oak-roots/Action";
 import { die, dieIfMissing } from "oak-roots/util/die";
 
+import Account from "../Account";
 import Page from "../Page";
 import oak from "../oak";
 
@@ -36,7 +37,7 @@ export function showPage(options = {}) {
   if (page instanceof Page) page = page.path;
   if (typeof page !== "string") die(oak, "actions.showPage", [options], "you must specify a page");
 
-  const { projectId, sectionId, pageId } = Page.splitPath(page);
+  const { projectId, sectionId, pageId } = Account.splitPath(page);
 
   return navigation._navigateToRouteTransaction({
     route: oak.getPageRoute(projectId, sectionId, pageId),

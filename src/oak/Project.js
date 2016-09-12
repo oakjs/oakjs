@@ -45,11 +45,6 @@ export default class Project extends ComponentController {
   get parent() { return this.account }
   get route() { return oak.getPageRoute(this.projectId) }
 
-  static splitPath(path) {
-    const split = path.split("/");
-    return { projectId: split[0] }
-  }
-
   // Create the index of Sections/Components on demand
   _makeIndex() {
     return new LoadableIndex({
