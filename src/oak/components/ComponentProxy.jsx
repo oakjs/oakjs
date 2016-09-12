@@ -106,7 +106,8 @@ export class CurrentSection extends ComponentProxy {
     const controller = this.getController();
     if (!controller) return null;
 
-    // if the current section is also the runner section, return a stub so we don't recurse
+    // if the current section is also the runner section,
+    //  return a <Placeholder> so we don't recurse
     if (controller === oak.runner.section) {
       return (
         <Section>
@@ -127,8 +128,8 @@ export class CurrentPage extends ComponentProxy {
     const controller = this.getController();
     if (!controller) return null;
 
-    // if the current page is also the runner page, or if we're editing the currentSection,
-    //  return a <Placeholder>
+    // if the current page is also the runner page,
+    //  return a <Placeholder> so we don't recurse
     if (controller === oak.runner.page) {
       return <Placeholder label="Current Page"/>
     }

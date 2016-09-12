@@ -63,6 +63,9 @@ ComponentMenu.contextTypes = {
 
 
 // Export subclasses for Projects | Sections | Pages
+// These default to showing the `current` project/section/page,
+//  you can show a different one by passing in (a pointer to) any arbitrary component controller.
+// TODO: pass in string component path and auto-load as necessary.
 export function ProjectMenu(props, context) {
   return <ComponentMenu className="ProjectMenu" components={oak.projects} selected={oak.project} {...props}/>;
 }
