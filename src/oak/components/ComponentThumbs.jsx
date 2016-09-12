@@ -18,6 +18,24 @@ import "./ComponentThumbs.less";
 
 // Show thumb for one particular page (specified as `component` :-( ).
 export class PageThumb extends RenderWhenVisible(OakComponent) {
+  static childContextTypes = {
+    controller: PropTypes.any,
+    project: PropTypes.any,
+    section: PropTypes.any,
+    page: PropTypes.any,
+    components: PropTypes.any
+  }
+
+  getChildContext() {
+    const page = this.props.component;
+    return {
+      controller: page,
+      project: page && page.project,
+      section: page && page.section,
+      components: page && page.components
+    }
+  }
+
   static propTypes = {
     component: PropTypes.any,           // String path or page pointer
     showTitle: PropTypes.bool,          // If true, we'll show the title of the component above the children.
@@ -202,6 +220,23 @@ export class ChildThumbs extends OakComponent {
 
 // Show thumbs for all children of section (specified as `component` :-( ).
 export class SectionThumb extends ChildThumbs {
+  static childContextTypes = {
+    controller: PropTypes.any,
+    project: PropTypes.any,
+    section: PropTypes.any,
+    components: PropTypes.any
+  }
+
+  getChildContext() {
+    const section = this.props.component;
+    return {
+      controller: section,
+      project: section && section.project,
+      section: section,
+      components: section && section.components
+    }
+  }
+
   static defaultProps = {
     className: "SectionThumb",
     ChildThumbComponent: PageThumb,
@@ -217,6 +252,21 @@ export class SectionThumb extends ChildThumbs {
 
 // Show thumbs for all children of project (specified as `component` :-( ).
 export class ProjectThumb extends ChildThumbs {
+  static childContextTypes = {
+    controller: PropTypes.any,
+    project: PropTypes.any,
+    components: PropTypes.any
+  }
+
+  getChildContext() {
+    const project = this.props.component;
+    return {
+      controller: project,
+      project,
+      components: project && project.components
+    }
+  }
+
   static defaultProps = {
     className: "ProjectThumb",
     ChildThumbComponent: SectionThumb,
