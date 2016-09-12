@@ -58,7 +58,7 @@ export default class ComponentController extends Eventful(ChildController) {
   // Override if you need to save something else...
   getIndexData() { return { type: this.type, id: this.id, title: this.title } }
 
-  static splitPath() { throw new TypeError("You must implement splitPath()") }
+  static splitPath(path) { throw new TypeError("You must implement splitPath()") }
   get route() { throw new TypeError("You must implement get route()") }
 
 

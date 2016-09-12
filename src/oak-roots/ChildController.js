@@ -45,7 +45,12 @@ export default class ChildController extends Savable(Loadable()) {
 
   //////////////////////////////
   //  Parents & Paths
+  //
+  // NOTE: You MUST have either a pointer or (better) a getter for your `parent`
+  //       for all of the `parent` stuff below to work!
+  //
   //////////////////////////////
+
 
   getChildPath(childId) { return `${this.path}/${childId}` }
   get path() { return this.parent ? this.parent.getChildPath(this.id) : this.id; }
