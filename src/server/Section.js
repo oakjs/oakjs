@@ -4,6 +4,7 @@
 //////////////////////////////
 
 import { proto } from "../oak-roots/util/decorators";
+import ids from "../oak-roots/util/ids";
 
 import bundler from "./bundler";
 import Component from "./Component";
@@ -46,7 +47,7 @@ export default class Section extends Component {
   }
 
   getDefaultJSXE({ id, title }) {
-    return `<Oak.Section id="${id}" title="${title}"><Oak.CurrentPage/></Oak.Section>`;
+    return `<Oak.Section id="${id}" title="${title}" oid="${ids.generateRandomId()}"><Oak.CurrentPage/></Oak.Section>`;
   }
 
   createBlankChild() {

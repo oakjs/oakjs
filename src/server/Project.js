@@ -4,6 +4,7 @@
 //////////////////////////////
 
 import { proto } from "../oak-roots/util/decorators";
+import ids from "../oak-roots/util/ids";
 
 import bundler from "./bundler";
 import Component from "./Component";
@@ -42,7 +43,7 @@ export default class Project extends Component {
   }
 
   getDefaultJSXE({ id, title }) {
-    return `<Oak.Project id="${id}" title="${title}"><Oak.CurrentSection/></Oak.Project>`;
+    return `<Oak.Project id="${id}" title="${title}" oid="${ids.generateRandomId()}"><Oak.CurrentSection/></Oak.Project>`;
   }
 
   createBlankChild() {

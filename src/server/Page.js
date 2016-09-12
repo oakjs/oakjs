@@ -4,6 +4,7 @@
 //////////////////////////////
 
 import { proto } from "../oak-roots/util/decorators";
+import ids from "../oak-roots/util/ids";
 
 import bundler from "./bundler";
 import paths from "./paths";
@@ -45,6 +46,6 @@ export default class Page extends Component {
   }
 
   getDefaultJSXE({ id, title }) {
-    return `<Oak.Page id="${id}" title="${title}"></Oak.Page>`;
+    return `<Oak.Page id="${id}" title="${title}" oid="${ids.generateRandomId()}"></Oak.Page>`;
   }
 }
