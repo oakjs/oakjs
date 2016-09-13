@@ -36,6 +36,13 @@ export default class Project extends ComponentController {
   //  ChildController stuff
   //////////////////////////////
 
+  // We only think of our `sections` as `children`.
+  // This ignores our `components`.
+  get children() {
+    return this.childIndex
+        && this.childIndex.items.filter(item => item instanceof Section)
+  }
+
   // map `projectId` to `id`
   get id() { return this.projectId }
   set id(id) { this.projectId = id }
@@ -52,33 +59,26 @@ export default class Project extends ComponentController {
         return api.loadSectionIndex(this.projectId);
       },
 
-      createItem: (sectionId, props) => {
+      createItem: (id, props) => {
         // Create a Section or a generic ComponentController?
         const Constructor = (props.type === "Component" ? ComponentController : Section);
-        return new Constructor({
-          sectionId,
+        const item = new Constructor({
+          id,
           projectId: this.projectId,
           account: this.account,
           ...props,
         });
-      },
 
-      // Split loaded index into `items` (for sections) and `components`
-// TODO: move this into a base class...
-      onLoaded(jsonItems) {
-        const items = LoadableIndex.prototype.onLoaded.call(this, jsonItems);
-        this.items = items.filter(item => item instanceof Section);
-        this.components = items.filter(item => !(item instanceof Section));
-        return this.items;
-      },
+        // Set the `parent` getter for generic ComponentControllers.
+        // This make loading/etc work.
+        if (Constructor === ComponentController) {
+          Object.defineProperty(item, "parent", {
+            get: () => this.account.getProject(this.projectId)
+          });
+        }
 
-      // Save `items` and `components` in the same index.
-      getIndexData() {
-        return [
-          ...this.items.map( item => item.getIndexData() ),
-          ...this.components.map( component => component.getIndexData() )
-        ];
-      }
+        return item;
+      },
     });
   }
 
@@ -86,6 +86,19 @@ export default class Project extends ComponentController {
   //////////////////////////////
   //  Components
   //////////////////////////////
+
+  // Map of loadable components defined at the project level.
+//TODO: promote this...
+  get componentMap() {
+    if (!this.childIndex) return {};
+    const map = {};
+    this.childIndex.items.forEach(item => {
+      if (item.constructor === ComponentController) {
+        map[item.id] = item;
+      }
+    });
+    return map;
+  }
 
   // Get a project component specified by name.
   getComponent(id) { return this.childIndex.getItem(id) }
