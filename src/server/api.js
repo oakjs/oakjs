@@ -64,9 +64,9 @@ function saveTextFile(request, response, path, body) {
 
 router.get("/account/:action",  (request, response) => {
   const { action } = request.params;
-  const appPaths = new paths.appPaths();
+  const account = new paths.Account();
   switch (action) {
-    case "index":   return sendJSONFile(request, response, appPaths.projectIndex);
+    case "index":   return sendJSONFile(request, response, account.projectIndexPath);
   }
   throw new TypeError(`Account API action ${action} not defined.`);
 });
