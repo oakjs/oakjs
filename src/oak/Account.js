@@ -228,9 +228,10 @@ export default class Account extends ChildController {
       loadData: () => {
         return api.loadProjectIndex();
       },
-      saveData: () => {
-        return api.saveProjectIndex(this.getIndexData());
-      },
+// NOT IMPLEMENTED ON SERVER YET
+//       saveData: () => {
+//         return api.saveProjectIndex(this.getIndexData());
+//       },
       createItem: (projectId, props) => {
         // Create a Project or a generic ComponentController?
         const Constructor = (props.type === "Component" ? ComponentController : Project);

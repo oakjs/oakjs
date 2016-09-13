@@ -53,12 +53,14 @@ export default class Project extends ComponentController {
   // Create the index of Sections/Components on demand
   _makeChildIndex() {
     return new LoadableIndex({
+// DEPRECATE?  `defaultItemConstructor`??
       itemType: "section",
 
       loadData: () => {
-        return api.loadSectionIndex(this.projectId);
+        return api.loadControllerIndex(this);
       },
 
+// TODO: genericise all of this...
       createItem: (id, props) => {
         // Create a Section or a generic ComponentController?
         const Constructor = (props.type === "Component" ? ComponentController : Section);
@@ -69,11 +71,13 @@ export default class Project extends ComponentController {
           ...props,
         });
 
-        // Set the `parent` getter for generic ComponentControllers.
-        // This make loading/etc work.
+        // Set some getter for generic ComponentControllers.
+        // This makes loading/etc work.
         if (Constructor === ComponentController) {
-          Object.defineProperty(item, "parent", {
-            get: () => this.account.getProject(this.projectId)
+          Object.defineProperties(item, {
+            parent: {
+              get: () => this.account.getProject(this.projectId)
+            }
           });
         }
 

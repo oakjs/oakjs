@@ -51,7 +51,7 @@ export default class Section extends ComponentController {
     return new LoadableIndex({
       itemType: "page",
       loadData: () => {
-        return api.loadPageIndex(this.path);
+        return api.loadControllerIndex(this);
       },
       createItem: (pageId, props) => {
         // Create a Page or a generic ComponentController?

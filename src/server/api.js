@@ -59,17 +59,18 @@ function saveTextFile(request, response, path, body) {
 
 
 //////////////////////////////
-//  Oak actions
+//  Account actions
 //////////////////////////////
 
-router.get("/oak/:action",  (request, response) => {
+router.get("/account/:action",  (request, response) => {
   const { action } = request.params;
   const appPaths = new paths.appPaths();
   switch (action) {
-    case "projects":   return sendJSONFile(request, response, appPaths.projectIndex);
+    case "index":   return sendJSONFile(request, response, appPaths.projectIndex);
   }
-  throw new TypeError(`Oak API action ${action} not defined.`);
+  throw new TypeError(`Account API action ${action} not defined.`);
 });
+
 
 
 //////////////////////////////
@@ -77,7 +78,7 @@ router.get("/oak/:action",  (request, response) => {
 //////////////////////////////
 
 // Page read actions.
-router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) => {
+router.get("/page/:action/:projectId/:sectionId/:pageId",  (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const page = new Page({ projectId, sectionId, pageId });
   switch (action) {
@@ -90,7 +91,7 @@ router.get("/page/:projectId/:sectionId/:pageId/:action",  (request, response) =
 });
 
 // Page write actions.
-router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (request, response) => {
+router.post("/page/:action/:projectId/:sectionId/:pageId", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const { body } = request;
   const data = body ? JSON.parse(body) : {};
@@ -131,7 +132,7 @@ router.post("/page/:projectId/:sectionId/:pageId/:action", bodyTextParser, (requ
 //////////////////////////////
 
 // Section read actions.
-router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
+router.get("/section/:action/:projectId/:sectionId",  (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const section = new Section({ projectId, sectionId });
   switch (action) {
@@ -139,13 +140,13 @@ router.get("/section/:projectId/:sectionId/:action",  (request, response) => {
     case "jsxe":    return section.getJSXE(response);
     case "script":  return section.getScript(response);
     case "styles":  return section.getStyles(response);
-    case "pages":   return section.getChildIndex(response);
+    case "index":   return section.getChildIndex(response);
   }
   throw new TypeError(`Section GET API action '${action}' not defined.`);
 });
 
 // Section write actions.
-router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, response) => {
+router.post("/section/:action/:projectId/:sectionId", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const { body } = request;
   const data = body ? JSON.parse(body) : {};
@@ -185,7 +186,7 @@ router.post("/section/:projectId/:sectionId/:action", bodyTextParser, (request, 
 //////////////////////////////
 
 // Project read actions.
-router.get("/project/:projectId/:action",  (request, response) => {
+router.get("/project/:action/:projectId",  (request, response) => {
   const { action, projectId } = request.params;
   const project = new Project({ projectId });
   switch (action) {
@@ -193,13 +194,13 @@ router.get("/project/:projectId/:action",  (request, response) => {
     case "jsxe":    return project.getJSXE(response);
     case "script":  return project.getScript(response);
     case "styles":  return project.getStyles(response);
-    case "sections":   return project.getChildIndex(response);
+    case "index":   return project.getChildIndex(response);
   }
   throw new TypeError(`Project GET API action '${action}' not defined.`);
 });
 
 // Project write actions.
-router.post("/project/:projectId/:action", bodyTextParser, (request, response) => {
+router.post("/project/:action/:projectId", bodyTextParser, (request, response) => {
   const { action, projectId } = request.params;
   const { body } = request;
   const data = body ? JSON.parse(body) : {};
@@ -230,6 +231,24 @@ router.post("/project/:projectId/:action", bodyTextParser, (request, response) =
                         .catch( error => { console.error(error); throw new Error(error)} );
   }
   throw new TypeError(`Project POST API action '${action}' not defined.`);
+});
+
+
+//////////////////////////////
+//  Component actions
+//////////////////////////////
+router.get("/component/:action/:projectId/:componentId",  (request, response) => {
+  const { action, projectId, componentId } = request.params;
+// UGH... don't want to have to create a Component subclass for each variant...
+  const component = new Section({ projectId, sectionId: componentId });
+  switch (action) {
+    case "bundle":  return component.getBundle(response, request.query.force === "true");
+    case "jsxe":    return component.getJSXE(response);
+    case "script":  return component.getScript(response);
+    case "styles":  return component.getStyles(response);
+    case "index":   return component.getChildIndex(response);
+  }
+  throw new TypeError(`Project GET API action '${action}' not defined.`);
 });
 
 
