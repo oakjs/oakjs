@@ -71,7 +71,6 @@ export default class Component {
   // Filename for your index file.
   get childIndexFileName() { return `index.json`; }
 
-
   getBundle(response, force) { throw new TypeError("You must implement getBundle()") }
 
   // Return default `jsxe` if none was specified when you were created.
@@ -91,9 +90,9 @@ export default class Component {
   get stylesPath() { return this.getFilePath(this.stylesFileName) }
   get scriptPath() { return this.getFilePath(this.scriptFileName) }
   get childIndexPath() { return this.getFilePath(this.childIndexFileName) }
-  get trashPath() { throw new TypeError("You must implement get trashPath()") }
   get bundlePath() { return paths.bundlePath("projects", `${this.path}.bundle.json`) }
   get compilePath() { return paths.bundlePath("projects", `${this.path}.compiled.js`) }
+  get trashPath() { return paths.trashPath(this.path) }
 
   //
   //  Load / return the various bits.
