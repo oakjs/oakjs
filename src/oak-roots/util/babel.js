@@ -1,15 +1,14 @@
 //////////////////////////////
 //  Babel Utility functions
 //
+// NOTE: We're currently dependent on a global `Babel` being set in the browser from:
+//        https://github.com/Daniel15/babel-standalone
 //////////////////////////////
 
 import { normalizeIdentifier } from "./ids";
 
 //import Babel from "babel-core";
 
-// NOTE: we're currently dependent on a global `Babel` being set in the browser
-// from:  https://github.com/Daniel15/babel-standalone
-// Unfortunately, I can't figure out how to get it to load presets... :-(
 
 export const babelOptions = {
   presets: ["stage-1", "react"],
