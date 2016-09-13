@@ -112,10 +112,13 @@ export default class LoadableIndex extends Savable(Loadable()) {
       if (!jsonItem) return;
       const { id, ...props } = jsonItem;
 
+// TODO: this won't update existing items with new properties from `props`...
       let item = oldRegistry[id] || this.createItem(id, props);
       this._registry[id] = item;
       return item;
     }).filter(Boolean);
+
+    return this.items;
   }
 
   unload() {

@@ -47,7 +47,7 @@ export default class Section extends ComponentController {
   get route() { return this.account.getPageRoute(this.projectId, this.sectionId) }
 
   // Create the index of Pages/Components on demand.
-  _makeIndex() {
+  _makeChildIndex() {
     return new LoadableIndex({
       itemType: "page",
       loadData: () => {

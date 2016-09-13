@@ -130,7 +130,7 @@ export default class SUIComponent extends React.Component {
 
   // toString at the class level.
   static toString() {
-    return `SUI.${this.name}()`;
+    return `<SUI.${this.name}()/>`;
   }
 
 }

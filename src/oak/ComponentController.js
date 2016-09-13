@@ -23,12 +23,12 @@ export default class ComponentController extends Eventful(ChildController) {
     props: "this.props",
     state: "this.state",
     context: "this.context",
-    controller: "context.controller",
     oak: "context.oak",
+    controller: "context.controller",
+    components: "(controller && controller.components) || oak.components",
     page: "context.page",
     section: "context.section",
     project: "context.project",
-    components: "context.components",
     data: "this.data || {}"
   };
 
@@ -50,7 +50,7 @@ export default class ComponentController extends Eventful(ChildController) {
   // Override to make the index for the children of this Component.
   // If you don't override, we'll assume you don't have any children that you manage.
   // If you do have children, call this in your `constructor` so the index is always available.
-  _makeIndex() {}
+  _makeChildIndex() {}
 
   // Return the data to save in our PARENT's index for this object.
   // Override if you need to save something else...

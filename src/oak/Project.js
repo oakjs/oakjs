@@ -28,8 +28,6 @@ export default class Project extends ComponentController {
   //  Account + Section syntactic sugar
   //////////////////////////////
 
-  get sections() { return this.children }
-
   getSection(sectionId) { return this.getChild(sectionId) }
   loadSection(sectionId) { return this.loadChild(SectionId) }
 
@@ -46,12 +44,14 @@ export default class Project extends ComponentController {
   get route() { return this.account.getPageRoute(this.projectId) }
 
   // Create the index of Sections/Components on demand
-  _makeIndex() {
+  _makeChildIndex() {
     return new LoadableIndex({
       itemType: "section",
+
       loadData: () => {
         return api.loadSectionIndex(this.projectId);
       },
+
       createItem: (sectionId, props) => {
         // Create a Section or a generic ComponentController?
         const Constructor = (props.type === "Component" ? ComponentController : Section);
@@ -61,6 +61,23 @@ export default class Project extends ComponentController {
           account: this.account,
           ...props,
         });
+      },
+
+      // Split loaded index into `items` (for sections) and `components`
+// TODO: move this into a base class...
+      onLoaded(jsonItems) {
+        const items = LoadableIndex.prototype.onLoaded.call(this, jsonItems);
+        this.items = items.filter(item => item instanceof Section);
+        this.components = items.filter(item => !(item instanceof Section));
+        return this.items;
+      },
+
+      // Save `items` and `components` in the same index.
+      getIndexData() {
+        return [
+          ...this.items.map( item => item.getIndexData() ),
+          ...this.components.map( component => component.getIndexData() )
+        ];
       }
     });
   }
@@ -69,6 +86,12 @@ export default class Project extends ComponentController {
   //////////////////////////////
   //  Components
   //////////////////////////////
+
+  // Get a project component specified by name.
+  getComponent(id) { return this.childIndex.getItem(id) }
+
+  // Load a project component specified by name
+  loadComponent(id) { return this.childIndex.loadItem(id) }
 
   // TODO: dynamic components
   get components() { return oak.getProjectTheme(this.projectId) }

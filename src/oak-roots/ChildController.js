@@ -26,9 +26,7 @@ export default class ChildController extends Savable(Loadable()) {
   //  Child Index and accessors
   //////////////////////////////
 
-  _makeChildIndex() { throw new TypeError("You must implement _makeChildIndex()") }
-
-  get childIndex() { return this._childIndex || (this._childIndex = this._makeIndex()) }
+  get childIndex() { return this._childIndex || (this._childIndex = this._makeChildIndex()) }
   get childIds() { return this.childIndex && this.childIndex.items.map(item => item.id) }
   get children() { return this.childIndex && this.childIndex.items }
   get firstChild() { const children = this.children; return children && children[0] }

@@ -25,7 +25,7 @@ export default class Account extends ChildController {
   //////////////////////////////
 
 
-  // Get project, section, component specified by path.
+  // Get `Project`, `Section`, `Page` or `Component` specified by path.
   get(path) {
     if (!path) return undefined;
 
@@ -222,7 +222,7 @@ export default class Account extends ChildController {
   getChildPath(projectId) { return projectId }
 
   // Create the index of Projects / Components on demand
-  _makeIndex() {
+  _makeChildIndex() {
     return new LoadableIndex({
       itemType: "project",
       loadData: () => {

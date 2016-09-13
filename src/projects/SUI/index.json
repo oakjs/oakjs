@@ -3,5 +3,10 @@
     "type": "Section",
     "id": "examples",
     "title": "Examples"
+  },
+  {
+    "type": "Component",
+    "id": "Todo",
+    "title": "Todo"
   }
 ]

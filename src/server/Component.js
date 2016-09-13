@@ -13,13 +13,14 @@ const DEBUG = true;
 
 
 // Use this to log an error and re-throw it
-function logAndReThrowError(error) {
+function logAndRejectError(error) {
   console.error("ERROR: ", error);
   return Promise.reject(error);
 }
 
 export default class Component {
 
+  // Construct with one or more `props` objects.
   constructor(...props) {
     Object.assign(this, ...props);
   }
@@ -112,7 +113,7 @@ export default class Component {
             if (response) return response.send(bundle);
             return Promise.resolve( JSON.stringify(bundle) );
          })
-         .catch(logAndReThrowError);
+         .catch(logAndRejectError);
   }
 
 
@@ -141,7 +142,7 @@ export default class Component {
 if (child) console.info(child.getIndexData());
         if (child) return child.create();
       })
-      .catch(logAndReThrowError);
+      .catch(logAndRejectError);
   }
 
   // Duplicate this component.
@@ -157,7 +158,7 @@ if (child) console.info(child.getIndexData());
       })
       // return the clone
       .then(() => clone)
-      .catch(logAndReThrowError);
+      .catch(logAndRejectError);
   }
 
   //  Save this component given a JSON blob with any of:  `{ jsxe, styles, script, index }`
@@ -171,7 +172,7 @@ if (child) console.info(child.getIndexData());
       "script" in data && paths.saveOrDeleteFile(this.scriptPath, data.script),
       "index" in data && paths.saveOrDeleteFile(this.childIndexPath, data.index),
     ])
-    .catch(logAndReThrowError);
+    .catch(logAndRejectError);
   }
 
   //  Delete this component.
@@ -182,7 +183,7 @@ if (child) console.info(child.getIndexData());
     return this.parentIndex.removeById(this.id, "SAVE")
       // Remove the various files, `catch()`ing to ignoring errors (eg: if files are nor present)
       .then( () => paths.moveFile(this.rootPath, this.trashPath) )
-      .catch(logAndReThrowError);
+      .catch(logAndRejectError);
   }
 
   // UNdelete this component
@@ -194,7 +195,7 @@ if (child) console.info(child.getIndexData());
     return paths.moveFile(this.trashPath, this.rootPath)
       // then update the component index
       .then( () => this.parentIndex.add(indexData, position, "SAVE") )
-      .catch(logAndReThrowError);
+      .catch(logAndRejectError);
   }
 
   // Change the id of this component.
@@ -213,7 +214,7 @@ if (child) console.info(child.getIndexData());
       })
       // return the clone
       .then(() => clone)
-      .catch(logAndReThrowError);
+      .catch(logAndRejectError);
   }
 
 }
