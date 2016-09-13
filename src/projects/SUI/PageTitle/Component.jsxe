@@ -1,0 +1,12 @@
+<SUI.Segment appearance="basic unpadded" {...props}>
+  <SUI.Segment appearance="basic very padded">
+    <SUI.Header size="huge">
+      <SUI.Button floated="right" onClick={()=>page.forceUpdate()}>Force Update</SUI.Button>
+      {props.title}
+      <SUI.Subheader>
+        {props.children}
+      </SUI.Subheader>
+    </SUI.Header>
+  </SUI.Segment>
+  <SUI.Divider/>
+</SUI.Segment>

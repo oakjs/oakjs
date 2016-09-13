@@ -4,6 +4,7 @@
 //
 //////////////////////////////
 
+import babel from "oak-roots/util/babel";
 import ChildController from "oak-roots/ChildController";
 import Eventful from "oak-roots/Eventful";
 import Stylesheet from "oak-roots/Stylesheet";
@@ -217,29 +218,73 @@ export default class ComponentController extends Eventful(ChildController) {
       return Stub;
     }
 
-    // Handle errors parsing the jsxFragment.
-    if (this.isLoaded && !this.jsxFragment) {
-      console.warn(`${this}: loaded but no jsxFragment!`);
+    // Can't do much if we don't have a fragment or script
+    const fragment = this.jsxFragment;
+    const script = this._script;
+    if (this.isLoaded && !fragment && !script) {
+      console.warn(`${this}: loaded but no jsxFragment or script!`);
       return Stub;
     }
 
     // if we haven't loaded, load and then update the entire page
     if (!this.isLoaded) {
-      this.load().then( oak.forceUpdate );
+      this.load().then( oak.updateSoon );
       return Stub;
     }
 
     // Create our Component and cache it.
     // The cache will automatically be cleared when any source of the component changes.
     if (!this.cache.Component) {
-      const Super = this.ComponentConstructor;
-      const classId = ids.normalizeIdentifier(`${Super.name}_${this.path}`);
-      const Component = this.jsxFragment.createComponent(classId, Super, this._script);
-      Component.controller = this;
-      this.cache.Component = Component;
+      this.cache.Component = this.createComponent(fragment, script);
     }
 
     return this.cache.Component
+  }
+
+// UGH: this requires babel, move this somewhere else???
+  @proto
+  DEBUG_CLASS_GENERATION = false;
+
+  createComponent(fragment, script = "") {
+    const Super = this.ComponentConstructor;
+    const componentName = ids.normalizeIdentifier(`${Super.name}_${this.path}`);
+
+    let fragmentRenderScript, classScript, Component;
+    try {
+      fragmentRenderScript = (fragment ? fragment._getRenderSource() : "");
+    }
+    catch (error) {
+      console.error(`Error creating parsing JSXE for ${this.path}: `, error);
+      console.log("Component:", this);
+      console.log("Fragment:", fragment.toJSX());
+      return Stub;
+    }
+
+    try {
+      classScript = [
+        // NOTE: Put the fragment render script BEFORE any manually-created script
+        //       in case they implemented a custom render() function.
+        fragmentRenderScript,
+        script,
+      ].join("\n");
+
+      if (this.DEBUG_CLASS_GENERATION) {
+        console.groupCollapsed(this.path);
+        console.log(classScript);
+        console.groupEnd();
+      }
+
+      Component = babel.createClass(classScript, Super, componentName);
+//window.Constructor = Component;
+      Component.controller = this;
+      return Component;
+    }
+    catch (error) {
+      console.error(`Error creating component constructor for ${this.path}: `, error);
+      console.log("Component:", this);
+      console.log("Class Script:", classScript);
+      return Stub;
+    }
   }
 
   // Return map of components we know about.

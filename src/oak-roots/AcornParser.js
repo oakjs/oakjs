@@ -21,7 +21,7 @@ export default class AcornParser {
     if (type !== "JSXElement") {
       console.trace();
       console.warn(astElement);
-      throw new TypeError(`parseElement({type:'${type}'}): dont know how to parse this type.`);
+      throw new TypeError(`parseElement({type:'${type}'}): don't know how to parse this type.`);
     }
 
     const elementType = this.parseElementType(astElement, code, options);
@@ -89,8 +89,14 @@ export default class AcornParser {
   //    case "ArrowFunctionExpression": return this.parseArrowFunction(astValue, code, options);
     }
     // pull out the code and add it to the astValue node
-    astValue._code = code.substring(astValue.start, astValue.end);
+    astValue._code = this.getCodeString(code, astValue);
     return astValue;
+  }
+
+  getCodeString(code, astNode, startInset = 0, endInset = 0) {
+    const start = astNode.start + startInset;
+    const end = astNode.end + endInset;
+    return code.substring(start, end);
   }
 
 
@@ -116,8 +122,11 @@ export default class AcornParser {
       case "JSXElement":
         return this.parseChildElement(parent, astChild, code, options);
 
+      case "JSXExpressionContainer":
+        return { code: this.parseChildExpression(parent, astChild, code, options) };
+
       default:
-        throw new TypeError(`parseChild({astType:'${astType}'}): dont know how to parse this type.`);
+        throw new TypeError(`parseChild({astType:'${astType}'}): don't know how to parse this type: ${this.getCodeString(code, astChild)}`);
     }
   }
 
@@ -135,6 +144,13 @@ export default class AcornParser {
 
   parseChildElement(parent, astElement, code, options) {
     return this.parseElement(astElement, code, options);
+  }
+
+  // Parse `{foo.bar}`
+  parseChildExpression(parent, astExpression, code, options) {
+    // get the code, removing surrounding curlies, and add parens
+    const codeString = this.getCodeString(code, astExpression, 1, -1);
+    return codeString;
   }
 
   parseIdentifier(ast, code, options) {

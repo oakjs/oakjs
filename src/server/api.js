@@ -10,6 +10,7 @@ import fsPath from "path";
 import bundler from "./bundler";
 import Page from "./Page";
 import Project from "./Project";
+import ProjectComponent from "./ProjectComponent";
 import paths from "./paths";
 import Section from "./Section";
 import util from "./util";
@@ -240,7 +241,7 @@ router.post("/project/:action/:projectId", bodyTextParser, (request, response) =
 router.get("/component/:action/:projectId/:componentId",  (request, response) => {
   const { action, projectId, componentId } = request.params;
 // UGH... don't want to have to create a Component subclass for each variant...
-  const component = new Section({ type:"Component", projectId, sectionId: componentId });
+  const component = new ProjectComponent({ projectId, componentId });
   switch (action) {
     case "bundle":  return component.getBundle(response, request.query.force === "true");
     case "jsxe":    return component.getJSXE(response);
@@ -249,6 +250,41 @@ router.get("/component/:action/:projectId/:componentId",  (request, response) =>
     case "index":   return component.getChildIndex(response);
   }
   throw new TypeError(`Project GET API action '${action}' not defined.`);
+});
+
+
+// Project write actions.
+router.post("/component/:action/:projectId/:componentId", bodyTextParser, (request, response) => {
+  const { action, projectId, componentId } = request.params;
+  const { body } = request;
+  const data = body ? JSON.parse(body) : {};
+  const component = new ProjectComponent({ projectId, componentId });
+  switch (action) {
+    case "save":      return component.save(data)
+                        .then( () => component.getBundle(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "create":    return component.create(data)
+                        .then( () => component.getBundleAndParentIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "duplicate": return component.duplicate(data)
+                        .then( newProject => newProject.getBundleAndParentIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "rename":    return component.changeId(data)
+                        .then( newProject => newProject.parentIndex.getFile(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "delete":    return component.delete()
+                        .then( () => component.parentIndex.getFile(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+
+    case "undelete":  return component.undelete(data)
+                        .then( () => component.getBundleAndParentIndex(response) )
+                        .catch( error => { console.error(error); throw new Error(error)} );
+  }
+  throw new TypeError(`Project Component POST API action '${action}' not defined.`);
 });
 
 

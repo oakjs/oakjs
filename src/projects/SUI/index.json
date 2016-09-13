@@ -1,5 +1,70 @@
 [
   {
+    "type": "Component",
+    "id": "Flippers",
+    "title": "Flippers"
+  },
+  {
+    "type": "Component",
+    "id": "Example",
+    "title": "Example"
+  },
+  {
+    "type": "Component",
+    "id": "Warning",
+    "title": "Warning"
+  },
+  {
+    "type": "Component",
+    "id": "PageTitle",
+    "title": "PageTitle"
+  },
+  {
+    "type": "Component",
+    "id": "PageSection",
+    "title": "PageSection"
+  },
+  {
+    "type": "Component",
+    "id": "LoremIpsum",
+    "title": "LoremIpsum"
+  },
+  {
+    "type": "Component",
+    "id": "InfoHint",
+    "title": "InfoHint"
+  },
+  {
+    "type": "Component",
+    "id": "Info",
+    "title": "Info"
+  },
+  {
+    "type": "Component",
+    "id": "IconSample",
+    "title": "IconSample"
+  },
+  {
+    "type": "Component",
+    "id": "Enablers",
+    "title": "Enablers"
+  },
+  {
+    "type": "Component",
+    "id": "Cropper",
+    "title": "Cropper"
+  },
+  {
+    "type": "Component",
+    "id": "Bug",
+    "title": "Bug"
+  },
+  {
+    "type": "Component",
+    "id": "Foo",
+    "title": "Foo"
+  },
+  {
     "type": "Section",
     "id": "examples",
     "title": "Examples"

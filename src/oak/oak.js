@@ -209,10 +209,10 @@ class OakJS extends Eventful(Object) {
   get canRedo() { return oak.undoQueue.canRedo }
 
   // Force update of the entire oak, including any changed props in page/section/project
-//TODO: throttle?
+//TODO: throttle / debounce?
   updateSoon() {
     clearTimeout(oak._updateTimer);
-    oak._updateTimer = setTimeout(oak.forceUpdate, 0);
+    oak._updateTimer = setTimeout(oak.forceUpdate, 1);
   }
 
   forceUpdate() {
@@ -264,21 +264,8 @@ class OakJS extends Eventful(Object) {
   //////////////////////////////
 
   // All known components
-  // TODO: this should really be dynamic...
+  // TODO: `account.components`... ???
   components = Object.assign({}, oakComponents)
-
-  // Define a theme-ful of `components` for a `project`.
-// DEPRECATE?
-  setProjectTheme(projectId, components) {
-    const themes = this.__PROJECT_THEMES__ || (this.__PROJECT_THEMES__ = {});
-    themes[projectId] = components;
-  }
-
-  // Return theme components defined for a `project`.
-// DEPRECATE?
-  getProjectTheme(projectId) {
-    return oak.__PROJECT_THEMES__[projectId] || this.components;
-  }
 
   // Given a string `type` from a JSXE, return the `Component` class it corresponds to.
   lookupComponent(type, components, errorMessage) {

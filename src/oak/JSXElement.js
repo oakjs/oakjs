@@ -143,8 +143,11 @@ export default class JSXElement {
     const childIndent = indent + "  ";
     const childExpressions =
       this.children.map(child => {
+      	if (child == null) return;
         if (typeof child === "string") return JSON.stringify(child);
-        return child._elementsToSource(childIndent);
+        if (typeof child === "number") return child;
+        if (child instanceof JSXElement) return child._elementsToSource(childIndent);
+        if (child.code) return child.code;
       })
       .join(",\n" + childIndent);
 

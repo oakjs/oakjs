@@ -84,7 +84,7 @@ export class Account {
 }
 
 // Return the path for a project file.
-// Default is to return the `project.jsx` file, pass a different `fileName` for something else.
+// Default is to return folder path (including the slash).
 // If you want the path to the project's directory, pass `fileName=""`.
 export function projectsPath(filename = "") {
   if (!isValidPath(filename)) throw new TypeError(`Invalid path: '${filename}'`);
@@ -97,20 +97,31 @@ export function projectsPath(filename = "") {
 //////////////////////////////
 
 // Return the path for a project file.
-// Default is to return the `project.jsx` file, pass a different `fileName` for something else.
-// If you want the path to the project's directory, pass `fileName=""`.
+// Default is to return folder path (including the slash).
 export function projectPath(project, filename = "") {
   const projectPath = fsPath.join(project, filename);
   return projectsPath(projectPath);
 }
+
+
+//////////////////////////////
+//  Paths for project components
+//////////////////////////////
+
+// Return the path for a project component file.
+// Default is to return folder path (including the slash).
+export function projectComponentPath(project, component, filename = "") {
+  const sectionPath = fsPath.join(component, filename);
+  return projectPath(project, sectionPath);
+}
+
 
 //////////////////////////////
 //  Paths for sections
 //////////////////////////////
 
 // Return the path for a section file.
-// Default is to return the `section.jsx` file, pass a different `fileName` for something else.
-// If you want the path to the section's directory, pass `fileName=""`.
+// Default is to return folder path (including the slash).
 export function sectionPath(project, section, filename = "") {
   const sectionPath = fsPath.join(section, filename);
   return projectPath(project, sectionPath);
@@ -122,7 +133,7 @@ export function sectionPath(project, section, filename = "") {
 //////////////////////////////
 
 // Return the path for a page file.
-// Default is to return the page's `.jsx` file, pass a different `filename` for something else.
+// Default is to return folder path (including the slash).
 export function pagePath(project, section, page, filename="") {
   const pagePath = fsPath.join(page, filename);
   return sectionPath(project, section, pagePath);

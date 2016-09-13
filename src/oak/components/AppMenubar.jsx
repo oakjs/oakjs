@@ -54,6 +54,8 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.deleteProject"/>
           <Oak.ActionItem id="oak.renameProject"/>
           <Oak.ActionItem id="oak.duplicateProject"/>
+          <SUI.Divider hidden={!oak.project}/>
+          <Oak.ActionItem id="oak.createComponent" hidden={!oak.project}/>
           <SUI.Divider hidden={oak.projectCount < 2}/>
           <SUI.Submenu label="Show Project:" hidden={oak.projectCount < 2}>
             <Oak.ProjectMenu publicOnly={false} checkSelected={true}/>

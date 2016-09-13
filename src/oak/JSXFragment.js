@@ -314,30 +314,30 @@ if (!element) debugger;
   //  and using `Babel` to compile that all into a class.
   //
   //  This lets us get arrow functions, etc on platforms that don't support them.
-  createComponent(componentName, SuperConstructor = OakComponent, script) {
-    let Constructor;
-
-    const renderSource = this._getRenderSource();
-    //console.warn(renderSource);
-
-    try {
-      // NOTE: we have to manually stick in a `render()` function here
-      //       because React barfs if we try to set `render()` directly.
-      let classScript = [
-        script || "",
-        renderSource,
-      ].join("\n");
-      Constructor = babel.createClass(classScript, SuperConstructor, componentName);
-
-//window.Constructor = Constructor;
-    }
-    catch (error) {
-      console.error("Error creating component constructor: ", error);
-      throw error;
-    }
-
-    return Constructor;
-  }
+//   createComponent(componentName, SuperConstructor = OakComponent, script) {
+//     let Constructor;
+//
+//     const renderSource = this._getRenderSource();
+//     //console.warn(renderSource);
+//
+//     try {
+//       // NOTE: we have to manually stick in a `render()` function here
+//       //       because React barfs if we try to set `render()` directly.
+//       let classScript = [
+//         renderSource,
+//         script || "",
+//       ].join("\n");
+//       Constructor = babel.createClass(classScript, SuperConstructor, componentName);
+// //window.Constructor = Constructor;
+//       return Constructor;
+//     }
+//     catch (error) {
+//       console.error("Error creating component constructor: ", error);
+//       throw error;
+//     }
+//
+//     return Constructor;
+//   }
 
   _getRenderSource(indent = "") {
     // set up `getComponent()` method

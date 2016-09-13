@@ -1,0 +1,3 @@
+<div className="Cropper" style={{width: props.width, height: props.height}}>
+  {children}
+</div>

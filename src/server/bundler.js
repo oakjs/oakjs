@@ -141,6 +141,28 @@ export function bundleSection({ section, force, response }) {
   return bundlePathMap(pathMap, options);
 }
 
+
+// Return all the data we need to display a project component.
+export function bundleComponent({ component, force, response }) {
+  const pathMap = {
+    jsxe:    component.jsxePath,
+    styles:  component.stylesPath,
+    script:  component.scriptPath,
+    index:   component.childIndexPath
+  };
+  if (DEBUG) console.log(`bundleProjectComponent(${component.path})`);
+  const options = {
+    debug: DEBUG,
+    force,
+    response,
+    bundleFile: component.bundlePath,
+    optional: true,
+    trusted: true,
+  }
+  return bundlePathMap(pathMap, options);
+}
+
+
 // Return all the data we need to display a project
 export function bundleProject({ project, force, response }) {
   const pathMap = {

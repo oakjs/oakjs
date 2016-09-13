@@ -1,0 +1,8 @@
+<SUI.Segment appearance="basic very padded" id={props.id} data-oid={props["data-oid"]}>
+  <SUI.Header size="large" dividing>
+    {props.title}
+  </SUI.Header>
+  <SUI.Segment {...props} appearance={[ props.appearance, "basic", props.grid && "grid" ].filter(Boolean).join(" ")}>
+    {props.children}
+  </SUI.Segment>
+</SUI.Segment>

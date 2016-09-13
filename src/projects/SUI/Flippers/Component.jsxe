@@ -1,0 +1,19 @@
+<div>
+  <Oak.Spacer/>
+  <SUI.Buttons appearance="icon">
+    <SUI.Button icon="arrow left" onClick={()=>page.refs[props["for"]].flipLeft()}/>
+    <SUI.Button icon="arrow right" onClick={()=>page.refs[props["for"]].flipRight()}/>
+  </SUI.Buttons>
+
+  <Oak.Spacer inline/>
+  <SUI.Buttons appearance="icon">
+    <SUI.Button icon="arrow up" onClick={()=>page.refs[props["for"]].flipUp()}/>
+    <SUI.Button icon="arrow down" onClick={()=>page.refs[props["for"]].flipDown()}/>
+  </SUI.Buttons>
+
+  <Oak.Spacer inline/>
+  <SUI.Buttons appearance="icon">
+    <SUI.Button icon="retweet" onClick={()=>page.refs[props["for"]].flipOver()}/>
+    <SUI.Button icon="flipped retweet" onClick={()=>page.refs[props["for"]].flipBack()}/>
+  </SUI.Buttons>
+</div>

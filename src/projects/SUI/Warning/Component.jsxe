@@ -1,0 +1,1 @@
+<SUI.Message icon="small warning sign" size="small" appearance="warning" {...props}/>

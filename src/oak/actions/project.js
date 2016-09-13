@@ -127,10 +127,10 @@ export function createProject(options = {}) {
   } = options;
 
   // ensure account is an Account object
-  if (!(account instanceof Account)) die(oak, "actions.createProject", [options], "you must specify an account");
+  if (!(account instanceof Account)) die(oak, "actions.createProject", [options], "you must specify an Account");
 
   // place after current project by default
-  if (!position && oak.project) position = oak.project.position + 1;
+  if (position == null && oak.project) position = oak.project.position + 1;
 
   return component._createComponentTransaction({
     parent: account,
@@ -149,6 +149,46 @@ export function createProject(options = {}) {
 new Action({
   id: "oak.createProject", title: "New Project...",
   handler: createProject,
+});
+
+
+//////////////////////////////
+//  Create new project-level custom component.  Undoing deletes the new component.
+//////////////////////////////
+export function createComponent(options = {}) {
+  let {
+    parent = oak.project,     // default to current project (but in theory any parent would work)
+    componentId,              // id for the component (we'll make one up if necessary)
+    data,                     // optional data object for component with `{ jsxe, script, styles, index }`
+    position,                 // numeric position within the parent, undefined = place at the end
+    title,                    // title for the component
+    prompt = true,            // if true and title is not specified, we'll prompt for component title
+    actionName,
+    autoExecute
+  } = options;
+
+  // ensure account is an Account object
+  if (!(parent instanceof ComponentController)) die(oak, "actions.createComponent", [options], "you must specify a ComponentController");
+
+  // place after last item in parent by default
+  if (position == null && parent.childIndex) position = parent.childIndex.length;
+
+  return component._createComponentTransaction({
+    parent,
+    type: "Component",
+    newId: componentId,
+    title,
+    prompt,
+    data,
+    position,
+    actionName,
+    autoExecute
+  });
+}
+
+new Action({
+  id: "oak.createComponent", title: "New Component...",
+  handler: createComponent,
 });
 
 

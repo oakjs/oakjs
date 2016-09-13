@@ -1,0 +1,1 @@
+<SUI.Message icon="small info circle" size="small" appearance="info" {...this.props}/>

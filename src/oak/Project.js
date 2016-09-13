@@ -76,7 +76,7 @@ export default class Project extends ComponentController {
           ...props,
         });
 
-        // Set some getter for generic ComponentControllers.
+        // Set generic ComponentControllers.parent dynamically.
         // This makes loading/etc work.
         if (Constructor === ComponentController) {
           Object.defineProperties(item, {
@@ -89,8 +89,10 @@ export default class Project extends ComponentController {
         return item;
       },
 
-      // Pull non-section `components` out into a map of getters
-      //  for `project.components` to consume.
+      // Pull non-section `components` out into a map of `getters`
+      //  for `project.components` to consume.  By making this a getter map,
+      //  we can reference components directly without pre-initializing the components
+      //  just to set up the `project.components` map.
       onLoaded(jsonItems) {
         const items = LoadableIndex.prototype.onLoaded.call(this, jsonItems);
         const getters = project._componentGetters = {};
@@ -113,10 +115,9 @@ export default class Project extends ComponentController {
   // Load a project component specified by name
   loadComponent(id) { return this.childIndex.loadItem(id) }
 
-  // TODO: dynamic components
+  // Add dynamic components created by our index to the standard components for this install.
   get components() {
-    const base = oak.getProjectTheme(this.projectId);
-    return Object.create(base, this._componentGetters);
+    return Object.create(oak.components, this._componentGetters);
   }
 
 }

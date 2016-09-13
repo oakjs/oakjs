@@ -1,0 +1,4 @@
+<div className="IconSample one column">
+  <SUI.Icon icon={props.icon}/>
+  <div className='title'>{props.icon}</div>
+</div>
