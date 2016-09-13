@@ -73,6 +73,7 @@ class OakJS extends Eventful(Object) {
   //        buts lots of UI code (eg: menus) look at `oak.project`,
   //        so that might be slow.
   setCurrentPage(page) {
+//TODO: do an oak.setState() with path?
     this.page = page;
     this.project = page && page.project;
     this.section = page && page.section;
@@ -118,6 +119,24 @@ class OakJS extends Eventful(Object) {
 
     // save and freeze oak state
     this.state = Object.freeze(savedState);
+  }
+
+  //////////////////////////////
+  //  App preferences (how is this different than state?)
+  //////////////////////////////
+
+  // Get/set/clear a JSON-stringified 'preference' stored in `localStorage`.
+  // Specfy:
+  //  - `key` only to get a value,
+  //  - `key, `value`, to set a preference value.
+  //  - `key, null` to clear a value.
+  preference(...args) {
+    if (!typeof args[0] === "string") {
+      console.warn(`oak.preference(${args}): first argument must be a string`);
+      return undefined;
+    }
+    args[0] = "-oak-" + args[0];
+    return preference(...args);
   }
 
 
@@ -201,24 +220,6 @@ class OakJS extends Eventful(Object) {
     if (!oak._appRoute) return;
 //console.log("oak.forceUpdate()");
     oak._appRoute.setState({});
-  }
-
-  //////////////////////////////
-  //  App preferences (how is this different than state?)
-  //////////////////////////////
-
-  // Get/set/clear a JSON-stringified 'preference' stored in `localStorage`.
-  // Specfy:
-  //  - `key` only to get a value,
-  //  - `key, `value`, to set a preference value.
-  //  - `key, null` to clear a value.
-  preference(...args) {
-    if (!typeof args[0] === "string") {
-      console.warn(`oak.preference(${args}): first argument must be a string`);
-      return undefined;
-    }
-    args[0] = "-oak-" + args[0];
-    return preference(...args);
   }
 
 
