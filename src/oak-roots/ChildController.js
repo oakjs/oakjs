@@ -67,8 +67,10 @@ export default class ChildController extends Savable(Loadable()) {
   // Return our parent's index, which will include us.
   get parentIndex() { return this.parent && this.parent.childIndex }
 
-  // Position (index) of this page in its section's `pages` list
+  // Position (index) of this item in its parent's `children` list
   // Returns `undefined` if we don't parent or parent has no childIndex.
+  // Returns `-1` if not found.
+//TODO: `items` vs `children` here????
   get position() { return this.parentIndex && this.parentIndex.items.indexOf(this) }
 
   // Are we the first or last item in our parent's list?

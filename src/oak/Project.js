@@ -24,6 +24,9 @@ export default class Project extends ComponentController {
   @proto
   type = "Project";
 
+  @proto
+  ComponentConstructor = ProjectComponent;
+
   //////////////////////////////
   //  Account + Section syntactic sugar
   //////////////////////////////
@@ -52,6 +55,8 @@ export default class Project extends ComponentController {
 
   // Create the index of Sections/Components on demand
   _makeChildIndex() {
+    const project = this;
+
     return new LoadableIndex({
 // DEPRECATE?  `defaultItemConstructor`??
       itemType: "section",
@@ -83,6 +88,17 @@ export default class Project extends ComponentController {
 
         return item;
       },
+
+      // Pull non-section `components` out into a map of getters
+      //  for `project.components` to consume.
+      onLoaded(jsonItems) {
+        const items = LoadableIndex.prototype.onLoaded.call(this, jsonItems);
+        const getters = project._componentGetters = {};
+        items.filter( item => item.constructor === ComponentController)
+          .forEach( component => {
+            getters[component.id] = { get: function() { return component.Component } };
+          });
+      }
     });
   }
 
@@ -91,19 +107,6 @@ export default class Project extends ComponentController {
   //  Components
   //////////////////////////////
 
-  // Map of loadable components defined at the project level.
-//TODO: promote this...
-  get componentMap() {
-    if (!this.childIndex) return {};
-    const map = {};
-    this.childIndex.items.forEach(item => {
-      if (item.constructor === ComponentController) {
-        map[item.id] = item;
-      }
-    });
-    return map;
-  }
-
   // Get a project component specified by name.
   getComponent(id) { return this.childIndex.getItem(id) }
 
@@ -111,6 +114,9 @@ export default class Project extends ComponentController {
   loadComponent(id) { return this.childIndex.loadItem(id) }
 
   // TODO: dynamic components
-  get components() { return oak.getProjectTheme(this.projectId) }
+  get components() {
+    const base = oak.getProjectTheme(this.projectId);
+    return Object.create(base, this._componentGetters);
+  }
 
 }

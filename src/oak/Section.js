@@ -24,6 +24,9 @@ export default class Section extends ComponentController {
   @proto
   type = "Section";
 
+  @proto
+  ComponentConstructor = SectionComponent;
+
   //////////////////////////////
   //  Project + Page Syntactic sugar
   //////////////////////////////
@@ -66,13 +69,6 @@ export default class Section extends ComponentController {
       }
     });
   }
-
-  //////////////////////////////
-  //  Components
-  //////////////////////////////
-
-  // TODO: after load, include section non-Page Components in our components list
-  get components() { return this.project.components }
 
 }
 

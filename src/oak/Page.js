@@ -20,6 +20,9 @@ export default class Page extends ComponentController {
   @proto
   type = "Page";
 
+  @proto
+  ComponentConstructor = PageComponent;
+
 
   //////////////////////////////
   //  Project + Page Syntactic sugar
@@ -39,15 +42,6 @@ export default class Page extends ComponentController {
 
   get parent() { return this.account.getSection(this.projectId, this.sectionId) }
   get route() { return this.account.getPageRoute(this.projectId, this.sectionId, this.pageId) }
-
-
-  //////////////////////////////
-  //  Components
-  //////////////////////////////
-
-  // TODO: dynamic components
-  get components() { return this.section.components }
-
 
   //////////////////////////////
   //  Data manipulation

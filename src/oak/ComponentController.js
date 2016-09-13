@@ -14,6 +14,7 @@ import api from "./api";
 import JSXFragment from "./JSXFragment";
 import oak from "./oak";
 
+import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
 
 
@@ -38,7 +39,8 @@ export default class ComponentController extends Eventful(ChildController) {
     this.cache = {};
   }
 
-  // Return the `type` of this component, which is our generally constructor's name.
+  // Return the `type` of this component, either "Component" for a generic component
+  // or a more specific name for a subclass (eg: "Page").
   // This will, eg, be used to load the component, for filenames on the server, etc.
   @proto
   type = "Component";
@@ -57,6 +59,8 @@ export default class ComponentController extends Eventful(ChildController) {
   // NOTE: server assumes we're only saving this as well for all components...
   getIndexData() { return { type: this.type, id: this.id, title: this.title } }
 
+  // Return the route used to display this component.
+  // DEPRECATE: this is highly-app-setup-specific
   get route() { throw new TypeError("You must implement get route()") }
 
 
@@ -197,17 +201,39 @@ export default class ComponentController extends Eventful(ChildController) {
     if (this.jsxFragment) return this.jsxFragment.toJSX();
   }
 
+
+  // The constructor we use to base our dynamically load component on
+  //  MUST be a subclass of OakComponent or we won't have context set up properly
+  //  for our render function.
+  @proto
+  ComponentConstructor = OakComponent;
+
   // Return the Component class for our JSXE, etc.
   get Component() {
     if (this.cacheComponent) return this.cache.Component;
 
-    if (!this.isLoaded || !this.jsxFragment) return Stub;
+    if (this.loadError) {
+      console.warn(`${this}: load error: ${this.loadError}!`);
+      return Stub;
+    }
 
+    // Handle errors parsing the jsxFragment.
+    if (this.isLoaded && !this.jsxFragment) {
+      console.warn(`${this}: loaded but no jsxFragment!`);
+      return Stub;
+    }
+
+    // if we haven't loaded, load and then update the entire page
+    if (!this.isLoaded) {
+      this.load().then( oak.forceUpdate );
+      return Stub;
+    }
+
+    // Create our Component and cache it.
+    // The cache will automatically be cleared when any source of the component changes.
     if (!this.cache.Component) {
-      const superType = this.jsxFragment.root.type;
-      const errorMessage = `${this}.Component: can't find component`;
-      const Super = oak.lookupComponent(superType, this.components, errorMessage);
-      const classId = ids.normalizeIdentifier(`${superType}_${this.path}`);
+      const Super = this.ComponentConstructor;
+      const classId = ids.normalizeIdentifier(`${Super.name}_${this.path}`);
       const Component = this.jsxFragment.createComponent(classId, Super, this._script);
       Component.controller = this;
       this.cache.Component = Component;
@@ -216,6 +242,8 @@ export default class ComponentController extends Eventful(ChildController) {
     return this.cache.Component
   }
 
+  // Return map of components we know about.
+  get components() { return this.parent.components }
 
   //////////////////////////////
   //  Script
