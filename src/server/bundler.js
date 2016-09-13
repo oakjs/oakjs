@@ -1,3 +1,12 @@
+//////////////////////////////
+//
+//  Oak "bundler"
+//
+//  "Bundle" a bunch of files together to send to the client in one swell foop.
+//  Automatically checks mod-dates of constitutent files and re-bundles if necessary.
+//
+//////////////////////////////
+
 import fse from "fs-extra";
 import fsp from "fs-promise";
 import fsPath from "path";
@@ -13,7 +22,7 @@ export const DEBUG = false;
 
 // "Clever" bundle routine:
 //  - reads `options.inputFile` and adds that to the options
-//  - normalizes `options.bundleFile`, `options.paths`, and `options.pathMap`
+//  - normalizes `options.outputFile`, `options.paths`, and `options.pathMap`
 //  - munges `options.contentType` appropriately
 export function bundle(options) {
   if (!("debug" in options)) options.debug = DEBUG;
@@ -44,7 +53,7 @@ export function bundle(options) {
 }
 
 // Bundle a map of `{ key: path }` together and return response as JSON.
-// NOTE: paths in `pathMap` and `options.bundleFile` should be full paths!
+// NOTE: paths in `pathMap` and `options.outputFile` should be full paths!
 export function bundlePathMap(pathMap, options = {}) {
   if (!("debug" in options)) options.debug = DEBUG;
 
@@ -56,9 +65,9 @@ export function bundlePathMap(pathMap, options = {}) {
   options.keys = Object.keys(options.pathMap);
   options.paths = objectUtil.values(options.pathMap);
 
-  // normalize bundleFile
-  if (options.bundleFile) {
-    options.bundleFile = apiPaths.buildPath(options.bundleFile, options);
+  // normalize outputFile
+  if (options.outputFile) {
+    options.outputFile = apiPaths.buildPath(options.outputFile, options);
   }
 
   // default content type
@@ -86,11 +95,11 @@ export function bundlePaths(paths, options = {}) {
   if (!("debug" in options)) options.debug = DEBUG;
 
   if (options.debug) console.log("..bundlePaths()");
-  if (!Array.isArray(paths)) throw new TypeError("bundle didn't specify a 'path' parameter");
+  if (!Array.isArray(paths)) throw new TypeError("bundlePaths didn't specify a 'path' parameter");
 
-  // normalize `paths` and `bundleFile`
+  // normalize `paths` and `outputFile`
   options.paths = paths.map(path => apiPaths.configPath(path, options));
-  if (options.bundleFile) options.bundleFile = apiPaths.buildPath(options.bundleFile, options);
+  if (options.outputFile) options.outputFile = apiPaths.buildPath(options.outputFile, options);
 
   // default delimiters & content type
   defaultOptionFromMap(options, "delimiter", DELIMITER_MAP);
@@ -114,7 +123,7 @@ export function bundlePage({ page, force, response }) {
     debug: DEBUG,
     force,
     response,
-    bundleFile: page.bundlePath,
+    outputFile: page.bundlePath,
     optional: true,
     trusted: true,
   }
@@ -134,7 +143,7 @@ export function bundleSection({ section, force, response }) {
     debug: DEBUG,
     force,
     response,
-    bundleFile: section.bundlePath,
+    outputFile: section.bundlePath,
     optional: true,
     trusted: true,
   }
@@ -155,7 +164,7 @@ export function bundleComponent({ component, force, response }) {
     debug: DEBUG,
     force,
     response,
-    bundleFile: component.bundlePath,
+    outputFile: component.bundlePath,
     optional: true,
     trusted: true,
   }
@@ -176,7 +185,7 @@ export function bundleProject({ project, force, response }) {
     debug: DEBUG,
     force,
     response,
-    bundleFile: project.bundlePath,
+    outputFile: project.bundlePath,
     optional: true,
     trusted: true,
   }
@@ -197,30 +206,30 @@ export function bundleProject({ project, force, response }) {
 export function bundleThunk(bundleThunk, options) {
   if (options.debug) console.log("....bundleThunk()");
   const {
-    bundleFile,           // save results to this file, serve from that if up to date
-    paths,                // we'll ensure `bundleFile` is newer than any of these files if both specified
-    encoding = "utf8",    // encoding if we save files to bundleFile
+    outputFile,           // save results to this file, serve from that if up to date
+    paths,                // we'll ensure `outputFile` is newer than any of these files if both specified
+    encoding = "utf8",    // encoding if we save files to outputFile
     contentType,          // content type for successful response
     errorStatus = 500,    // error status for unsuccessful response
     errorMessage = "Error bundling files"
   } = options;
 
-  return bundleIsUpToDate(bundleFile, paths, options)
+  return bundleIsUpToDate(outputFile, paths, options)
     .then( useBundleFile => {
       const { response } = options;
       if (useBundleFile) {
-        if (options.debug) console.log("....bundle is up to date, returning bundleFile");
-        if (response) return response.sendFile(bundleFile);
-        return fsp.readFile(bundleFile, encoding);
+        if (options.debug) console.log("....bundle is up to date, returning outputFile");
+        if (response) return response.sendFile(outputFile);
+        return fsp.readFile(outputFile, encoding);
       }
 
       if (options.debug) console.log("....bundle is out of date, running bundleThunk");
       return bundleThunk()
         .then( results => {
-          // if an bundleFile was specified, write the results but don't wait for it
-          if (bundleFile) {
-            console.log("......writing output to "+bundleFile);
-            fsp.outputFile(bundleFile, results, encoding);
+          // if an outputFile was specified, write the results but don't wait for it
+          if (outputFile) {
+            console.log("......writing output to "+outputFile);
+            fsp.outputFile(outputFile, results, encoding);
           }
           // send the results back
           if (response) {
@@ -248,14 +257,14 @@ export function bundleThunk(bundleThunk, options) {
 //
 // NOTE: we assume that the input file is either an absolute path or a "config path"
 //       and we DO NOT munge it with `options.basePath`.
-function parseBundleInputFile(options) {
+export function parseBundleInputFile(options) {
   const { inputFile, trusted = true } = options;
   if (options.debug) console.log("..parseBundleInputFile(", inputFile,")");
 
   // If no inputFile, return a clone of the options
   if (!inputFile) {
     if (options.debug) console.log("....no input file");
-    return Promise.resolve(options);
+    return Promise.resolve({ ...options });
   }
 
   // load inputFile
@@ -267,8 +276,7 @@ function parseBundleInputFile(options) {
               console.log("......input file turned off debugging, shhhhhhhhh.....");
             }
             // return it merged with the options passed in
-            Object.assign(options, inputFileJSON);
-            return options;
+            return {...options, ...inputFileJSON};
           });
 }
 
@@ -276,23 +284,24 @@ function parseBundleInputFile(options) {
 // Returns a promise which yields true if the `buildFile` was last modified
 //  AFTER all of the `sourceFiles`.
 // Returns `false` if `buildFile` is not specified or doesn't exist.
-// Ignores any `sourceFiles` which aren't found.
-export function bundleIsUpToDate(bundleFile, sourceFiles, options = {}) {
+// NOTE: Ignores any `sourceFiles` which aren't found.
+// REFACTOR: This means that deleting a file will NOT update the bundle...
+export function bundleIsUpToDate(outputFile, sourceFiles, options = {}) {
   // bug out if we got unexpected inputs
-  if ((bundleFile && typeof bundleFile !== "string") || !sourceFiles) {
+  if ((outputFile && typeof outputFile !== "string") || !sourceFiles) {
     throw new TypeError("bundleIsUpToDate(): unexpected inputs");
   }
 
   if (options.debug) console.log("......bundleIsUpToDate()");
-  const modifiedDates = [bundleFile, ...sourceFiles].map(util.lastModified);
+  const modifiedDates = [outputFile, ...sourceFiles].map(util.lastModified);
   return Promise.all(modifiedDates)
-    .then( ([bundleFileDate, ...sourceFileDates]) => {
+    .then( ([outputFileDate, ...sourceFileDates]) => {
       // remember the mod dates in the options for later
-      options.bundleFileModified = bundleFileDate;
+      options.outputFileModified = outputFileDate;
       options.latestModified = util.latestTimestamp(sourceFileDates);
 
-      if (options.debug) console.log(`........bundleFile: ${bundleFile}`);
-      if (options.debug) console.log("........bundle date:" + bundleFileDate);
+      if (options.debug) console.log(`........outputFile: ${outputFile}`);
+      if (options.debug) console.log("........bundle date:" + outputFileDate);
       if (options.debug) console.log("........source date:" + options.latestModified);
 
       if (options.force) {
@@ -301,7 +310,7 @@ export function bundleIsUpToDate(bundleFile, sourceFiles, options = {}) {
       }
       else {
         options.bundleIsUpToDate
-          = bundleFileDate && options.latestModified && bundleFileDate > options.latestModified;
+          = outputFileDate && options.latestModified && outputFileDate > options.latestModified;
       }
 
       // if options specifies keys, map the dates to those keys
