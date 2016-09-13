@@ -5,11 +5,19 @@
 
 import { normalizeIdentifier } from "./ids";
 
-// NOTE: we're currently dependent on a global `Babel` being set in the browser...
 //import Babel from "babel-core";
 
+// NOTE: we're currently dependent on a global `Babel` being set in the browser
+// from:  https://github.com/Daniel15/babel-standalone
+// Unfortunately, I can't figure out how to get it to load presets... :-(
+
+export const babelOptions = {
+  presets: ["stage-1", "react"],
+  plugins: [ "transform-object-rest-spread", "transform-es2015-destructuring"]
+}
+
 export function transform(code) {
-  return Babel.transform(code, { presets: ["es2015", "react"], }).code;
+  return Babel.transform(code, babelOptions).code;
 }
 
 export function evaluate(code) {
