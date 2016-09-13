@@ -32,9 +32,6 @@ export default class Project extends Component {
   getFilePath(fileName = "") {
     return paths.projectPath(this.projectId, fileName);
   }
-  get bundlePath() { return paths.bundlePath("projects", `${this.projectId}.bundle.json`) }
-  get trashPath() { return paths.trashPath(this.projectId) }
-
   get parentIndex() { return new ComponentIndex({ path: paths.projectIndexPath }) }
   get childIndex() { return new ComponentIndex({ path: this.childIndexPath }) }
 

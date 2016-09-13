@@ -92,7 +92,8 @@ export default class Component {
   get scriptPath() { return this.getFilePath(this.scriptFileName) }
   get childIndexPath() { return this.getFilePath(this.childIndexFileName) }
   get trashPath() { throw new TypeError("You must implement get trashPath()") }
-
+  get bundlePath() { return paths.bundlePath("projects", `${this.path}.bundle.json`) }
+  get compilePath() { return paths.bundlePath("projects", `${this.path}.compiled.js`) }
 
   //
   //  Load / return the various bits.
