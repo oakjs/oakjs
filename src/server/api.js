@@ -240,7 +240,7 @@ router.post("/project/:action/:projectId", bodyTextParser, (request, response) =
 router.get("/component/:action/:projectId/:componentId",  (request, response) => {
   const { action, projectId, componentId } = request.params;
 // UGH... don't want to have to create a Component subclass for each variant...
-  const component = new Section({ projectId, sectionId: componentId });
+  const component = new Section({ type:"Component", projectId, sectionId: componentId });
   switch (action) {
     case "bundle":  return component.getBundle(response, request.query.force === "true");
     case "jsxe":    return component.getJSXE(response);

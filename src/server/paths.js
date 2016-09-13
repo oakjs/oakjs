@@ -80,7 +80,7 @@ export function copyFile(path, newPath) {
 //  eg:   const path = paths.projects().projectIndexPath;
 // TODO: `AppPaths`
 export class Account {
-  get projectIndex() { return projectsPath("projects.json") }
+  get projectIndexPath() { return projectsPath("projects.json") }
 }
 
 // Return the path for a project file.
