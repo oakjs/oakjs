@@ -116,51 +116,6 @@ export class PageThumb extends RenderWhenVisible(OakComponent) {
   }
 }
 
-//
-//   render() {
-//     if (this.hidden || !this.props.component) return null;
-//
-//     const { oak, components } = this.context;
-//     const { Oak, SUI } = components;
-//
-//     const component = oak.get(this.props.component);
-//     if (!component) {
-//       console.warn(`${this}: can't find`, this.props.component);
-//       return null;
-//     }
-//
-//     // don't actually draw until we're visible on screen
-//     let children;
-//     if (this.state.onScreen) {
-// //       if (!component.isLoaded && !component.isLoading) {
-// //         component.load().then( this.updateSoon );
-// //       }
-// //       if (component.isLoaded) children = <component.Component ref="component"/>;
-//     }
-//     children = this.state.onScreen ? "shown" : "hidden";
-//
-// //console.warn("showing thumbs for ", component);
-//     let { className, showTitle } = this.props;
-//     className = classNames(
-//       "oak",
-//       className,
-//       this.state.onScreen ? "green" : "red",
-//       "inverted",
-//       //!component.isLoaded && "loading",
-//       "PageThumb"
-//     );
-//     return (
-//       <SUI.Segment className={className}>
-//         { showTitle && this.renderTitle(component) }
-//         <div className="body">
-//           {<component.Component ref="component"/>}
-//         </div>
-//       </SUI.Segment>
-//     );
-//   }
-//}
-
-
 // Show thumbs for children of `component`.
 export class ChildThumbs extends OakComponent {
   static propTypes = {
