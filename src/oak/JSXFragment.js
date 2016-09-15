@@ -12,7 +12,7 @@
 
 import { die, dieIfOutOfRange } from "oak-roots/util/die";
 
-import babel from "oak-roots/util/babel";
+//import babel from "oak-roots/util/babel";
 import ids from "oak-roots/util/ids";
 
 import JSXElement from "./JSXElement";

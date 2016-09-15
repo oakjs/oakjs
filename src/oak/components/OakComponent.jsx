@@ -11,8 +11,6 @@ import React, { PropTypes } from "react";
 import { debounce } from "oak-roots/util/decorators";
 import { classNames, unknownProps } from "oak-roots/util/react";
 
-import Stub from "./Stub";
-
 export default class OakComponent extends React.Component {
   static propTypes = {
     id: PropTypes.string,
