@@ -7,6 +7,7 @@ import { proto } from "../oak-roots/util/decorators";
 import ids from "../oak-roots/util/ids";
 
 import paths from "./paths";
+import compiler from "./compiler";
 
 // Set to `true` to debug creation and such.
 const DEBUG = true;
@@ -116,6 +117,10 @@ export default class Component {
          .catch(logAndRejectError);
   }
 
+  getCompiled(response) {
+    return compiler.compileComponent({ component: this });
+  }
+
 
   //
   //  CRUD.  All return a promise.
@@ -139,7 +144,7 @@ export default class Component {
       // create a blank child and save it
       .then(() => {
         const child = this.createBlankChild();
-if (child) console.info(child.getIndexData());
+//if (child) console.info(child.getIndexData());
         if (child) return child.create();
       })
       .catch(logAndRejectError);
