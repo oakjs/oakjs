@@ -7,8 +7,6 @@
 
 import { normalizeIdentifier } from "./ids";
 
-//import Babel from "babel-core";
-
 
 export const babelOptions = {
   presets: ["stage-1", "react"],
@@ -76,4 +74,5 @@ export function getClassScript(script = "", superClassName, className) {
 }
 
 
+// Export all as a lump
 export default Object.assign({}, exports);

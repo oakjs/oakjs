@@ -6,6 +6,8 @@
 //
 //////////////////////////////
 
+import global from "./global";
+
 import Rect from "../Rect";
 import Point from "../Point";
 
@@ -21,7 +23,7 @@ export function clientRect(element) {
 
 // Return `true` if the specified `element` matches the `selector`.
 var matchesMethod = "matches";
-if (!Element.prototype.matches) {
+if (global.isBrowser && !Element.prototype.matches) {
   if (Element.prototype.msMatchesSelector) matchesMethod = "msMatchesSelector";
   if (Element.prototype.webkitMatchesSelector) matchesMethod = "webkitMatchesSelector";
 }

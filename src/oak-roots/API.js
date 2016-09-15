@@ -42,7 +42,7 @@ import objectUtil from "./util/object";
 
 // Ensure that global `fetch` routine is present.
 import global from "./util/global";
-if (typeof global.fetch !== "function") {
+if (global.isBrowser && typeof global.fetch !== "function") {
   const message = "Expected global HTML 'fetch' method to be defined.  You must install a polyfill, see: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch";
   console.error(message);
   throw new ReferenceError(message);

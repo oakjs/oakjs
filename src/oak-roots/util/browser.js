@@ -36,7 +36,7 @@ export function removeStylesheet(id) {
 // If not, we'll create a stub object for it,
 // and things in localStorage will be forgotten on reload/etc.
 if (!global.localStorage) {
-  console.warn("localStorage is not defined!");
+  if (global.isBrowser) console.warn("localStorage is not defined!");
   global.localStorage = {};
 }
 
