@@ -58,6 +58,8 @@ export function bundlePathMap(pathMap, options = {}) {
   if (!("debug" in options)) options.debug = DEBUG;
 
   if (options.debug) console.log("..bundlePathMap()\n", pathMap);
+
+// TODO: genericise as "initPathMap(options, operationName)" or somesuch
   if (!pathMap) throw new TypeError("map bundle didn't specify a 'pathMap'");
 
   // normalize `pathMap`
@@ -73,6 +75,7 @@ export function bundlePathMap(pathMap, options = {}) {
   // default content type
   if (options.response && !("contentType" in options)) options.contentType = CONTENT_TYPE_MAP.json;
 
+// TODO: genericizie me!
   function concatPathMap() {
     return util.concatPathMap(options.pathMap, options)
       .then( output => {
@@ -85,7 +88,6 @@ export function bundlePathMap(pathMap, options = {}) {
 
         return JSON.stringify(output, undefined, 2);
       });
-
   }
   return bundleThunk( concatPathMap, options);
 }
@@ -95,6 +97,8 @@ export function bundlePaths(paths, options = {}) {
   if (!("debug" in options)) options.debug = DEBUG;
 
   if (options.debug) console.log("..bundlePaths()");
+
+// TODO: genericise as "initPaths(options, operationName)" or somesuch
   if (!Array.isArray(paths)) throw new TypeError("bundlePaths didn't specify a 'path' parameter");
 
   // normalize `paths` and `outputFile`
@@ -202,7 +206,8 @@ export function bundleProject({ project, force, response }) {
 // Given a `bundleThunk` that will bundle a bunch of stuff together,
 //   - see if we actually need to do the bundling, and if so
 //   - run the thunk and return the results.
-// If you pass an express `response` object in the options,
+// If you pass an express `response` object in the options, it'll send the bundled file as the response.
+// If not, it'll return a promise which returns the bundle file contents.
 export function bundleThunk(bundleThunk, options) {
   if (options.debug) console.log("....bundleThunk()");
   const {
@@ -343,14 +348,14 @@ function defaultOptionFromMap(options, key, DEFAULT_MAP) {
   }
 }
 
-const CONTENT_TYPE_MAP = {
+export const CONTENT_TYPE_MAP = {
   map:      "application/json",
   json:     "application/json",
   js:       "application/javascript",
   default:  "text/plain"
 }
 
-const DELIMITER_MAP = {
+export const DELIMITER_MAP = {
   js:       "\n\n/*** inlined from ${path} ***/\n\n",
   default:  "\n"
 }
