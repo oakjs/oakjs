@@ -7,7 +7,7 @@
 
 import Eventful from "oak-roots/Eventful";
 import { preference } from "oak-roots/util/preference";
-import { debounce } from "oak-roots/util/decorators";
+import { debounce, proto } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
 import global from "oak-roots/util/global";
 import UndoQueue from "oak-roots/UndoQueue";
@@ -262,6 +262,10 @@ class OakJS extends Eventful(Object) {
   //////////////////////////////
   //  Syntactic sugar for getting components
   //////////////////////////////
+
+  // Default `Component` constructor for the system.
+  @proto
+  Component = oakComponents.Oak.OakComponent;
 
   // All known components
   // TODO: `account.components`... ???
