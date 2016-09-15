@@ -30,23 +30,40 @@ export function latestTimestamp(timestamps) {
   });
 }
 
+
+// Given a list of server file paths, return a promise which yields all of their contents as an array.
+//
+// If any files aren't found, rejects the promise.
+// Pass `options.optional = true` to ignore files which can't be found.
+//
+// if `options.optional` is `true`, missing files will yield the empty string rather than failing the promise.
+export function readPaths(paths, options = {}) {
+  const {
+    encoding,
+    optional = false
+  } = options;
+
+  let promises = paths.map( path => fsp.readFile(path, encoding || "utf8") );
+  if (optional) promises = promises.map( promise => promise.catch( () => undefined ));
+  return Promise.all(promises)
+}
+
+
 // Concatenate a bunch of files together, writing `delimiter` before each one.
 // Returns a promise which yields them all as a big honking string.
 //
-// If any files aren't found, throws an error.
+// If any files aren't found, rejects the promise.
+// Pass `options.optional = true` to ignore files which can't be found.
+//
 // You can pass a `${path}` substitution in the delimiter (but make it a regular string)
 //
 // TODO: this could probably be made smarter with streams...
 export function concatPaths(paths, options = {}) {
   const {
-    encoding = "utf8",
     delimiter = "\n",
-    optional = false
   } = options;
 
-  let promises = paths.map( path => fsp.readFile(path, encoding) );
-  if (optional) promises = promises.map( promise => promise.catch( () => undefined ));
-  return Promise.all(promises)
+  return this.readPaths(paths, options)
     .then( allFiles => {
       return allFiles.map( (fileOutput, index) => {
         return interpolate(delimiter, { path: paths[index] }) + fileOutput;
@@ -62,27 +79,20 @@ export function concatPaths(paths, options = {}) {
 }
 
 
-// Concatenate a bunch of files together, writing results as a JSON blob
+// Concatenate a bunch of files together, returning results as a JSON blob
 //  in the shape of the original map.
-// Returns a promise which yields them all as a JSON object.
 //
-// If any files aren't found, throws an error.
+// Returns a promise which yields them all as a JSON string.
+//
+// If any files aren't found, rejects the promise.
+// Pass `options.optional = true` to ignore files which can't be found.
 //
 // TODO: this could probably be made smarter with streams...
 export function concatPathMap(pathMap, options = {}) {
   const keys = Object.keys(pathMap);
   const paths = keys.map(key => pathMap[key]);
 
-  const {
-    encoding = "utf8",
-    optional = false
-  } = options;
-
-
-  let promises = paths.map( path => fsp.readFile(path, encoding) );
-  if (optional) promises = promises.map( promise => promise.catch( () => undefined ));
-
-  return Promise.all(promises)
+  return this.readPaths(paths, options)
     .then( results => {
       const output = {};
       keys.forEach( (key, index) => {
