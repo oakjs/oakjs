@@ -198,8 +198,34 @@ export default new API({
 
 
   //////////////////////////////
-  // Utility
+  // Component JSX files
   //////////////////////////////
+
+  loadControllerJSX(controller) {
+    const { type, path } = controller;
+    const url = `/api/${type.toLowerCase()}/jsx/${path}`;
+    const errorMessage = `Error loading ${type} JSX component`;
+    return this.getText(url)
+      // Go from JSX to a JSXElement
+      .then(jsx => {
+        // If the JSX didn't actually change, keep the same element!
+        if (controller.controller && controller.controller.toString() === jsx) return controller.controller;
+        try {
+console.info(jsx);
+//          return JSXFragment.parse(jsxe, { controller });
+        }
+        catch (e) {
+          console.group(`Error parsing JSX from ${controller.componentUrl}`);
+          console.error(e);
+          console.groupEnd();
+          throw e;
+        }
+      })
+      .catch(e => {
+        throw new ReferenceError(errorMessage);
+      });
+  },
+
 
 
 });
