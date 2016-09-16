@@ -19,7 +19,11 @@ import { normalizeIdentifier } from "./ids";
 // Note that on the server, these will automatically be loaded from `node_modules`.
 export const babelOptions = {
   presets: ["stage-1", "react"],
-  plugins: [ "transform-object-rest-spread", "transform-es2015-destructuring"]
+  plugins: [
+    "transform-object-rest-spread",
+    "transform-es2015-destructuring",
+    "transform-decorators-legacy"
+  ]
 }
 
 export function transform(code) {
