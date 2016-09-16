@@ -117,8 +117,9 @@ export default class Component {
          .catch(logAndRejectError);
   }
 
-  getCompiled(response) {
-    return compiler.compileComponent({ component: this, Xformat: "ES5" })
+  // Return compiled source for this component (jsxe + js + css)
+  getCompiled(response, format = "ES5") {
+    return compiler.compileComponent({ component: this})//, format })
       .then( source => {
         if (response) return response.send(source);
         return Promise.resolve( source );
