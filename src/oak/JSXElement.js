@@ -5,15 +5,16 @@
 
 import he from "he";
 
-import Mutable from "oak-roots/Mutable";
-
 import { die, dieIfOutOfRange } from "oak-roots/util/die";
+import global from "oak-roots/util/global";
 import ids from "oak-roots/util/ids";
 import objectUtil from "oak-roots/util/object";
 
-import api from "./api";
 import JSXParser from "./JSXParser";
 
+if (!global.acorn) {
+	global.acorn = require("acorn-jsx");
+}
 
 export default class JSXElement {
   constructor(props) {
