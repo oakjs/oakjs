@@ -14,5 +14,5 @@
     "ReactRouter.js",
     "SemanticUI/semantic.min.js"
   ],
-  "bundleFile": "3rdParty/bundle.js"
+  "outputFile": "3rdParty/bundle.js"
 }
