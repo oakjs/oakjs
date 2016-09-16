@@ -2,11 +2,17 @@
 // Generic Acorn AST Parsing
 //////////////////////////////
 
+// Make sure acorn is available (on the server side).
+import global from "oak-roots/util/global";
+if (!global.acorn) {
+	global.acorn = require("acorn-jsx");
+}
+
 export default class AcornParser {
   static ElementConstructor = Object;
 
   parse(code, options = {}) {
-    const ast = acorn.parse(code);
+    const ast = acorn.parse(code, { plugins: { jsx: true } });
     return this.parseElement(ast, code, options);
   }
 

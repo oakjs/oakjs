@@ -5,16 +5,31 @@
 //        https://github.com/Daniel15/babel-standalone
 //////////////////////////////
 
+
+// Make sure babel is available (on the server side).
+import global from "oak-roots/util/global";
+if (!global.Babel) {
+	global.Babel = require("babel-core");
+	require('babel-core/register');
+}
 import { normalizeIdentifier } from "./ids";
 
 
+// Set up the presets and plugins we'll use for babel transformation.
+// Note that on the server, these will automatically be loaded from `node_modules`.
 export const babelOptions = {
   presets: ["stage-1", "react"],
   plugins: [ "transform-object-rest-spread", "transform-es2015-destructuring"]
 }
 
 export function transform(code) {
-  return Babel.transform(code, babelOptions).code;
+  try {
+    return Babel.transform(code, babelOptions).code;
+  }
+  catch (e) {
+    console.error("Error transforming code with babel: ", e);
+    console.log(code);
+  }
 }
 
 export function evaluate(code) {
