@@ -8,9 +8,9 @@
 //
 //////////////////////////////
 
-//import babel from "../oak-roots/util/babel.js";
-//import ComponentController from "../oak/ComponentController";
-//import JSXFragment from "../oak/JSXFragment";
+import babel from "../oak-roots/util/babel.js";
+import ComponentController from "../oak/ComponentController";
+import JSXFragment from "../oak/JSXFragment";
 
 import util from "./util";
 
@@ -74,10 +74,10 @@ export function compileJSXE(options) {
       // UGH, we need a `controller` to get the render source (for renderVars)
       const controller = new ComponentController();
       const fragment = JSXFragment.parse(jsxe, { controller });
-      render = fragment._getRenderSource();
+      render = fragment._getRenderSource("  ");
     }
     catch(e) {
-      console.error("Error rendering jsxe fragment:", e);
+      console.error("Error creating render from jsxe fragment:", e);
       console.log(jsxe);
       render = "";
     }
@@ -87,10 +87,17 @@ export function compileJSXE(options) {
     render,
     js,
     // TODO: css script in there somehow...
-  ]
-  const es2015Class = babel.getClassScript(scripts, superClassName, className);
+  ];
 
-console.warn(es2015Class);
+  try {
+    var es2015Class = babel.getClassScript(scripts, superClassName, className);
+  }
+  catch(e) {
+    console.error("Error creating class script:", e);
+    console.log(jsxe);
+    render = "";
+  }
+//console.warn(es2015Class);
 
   if (format === "ES5") {
     return babel.transformExpression(es2015Class);
@@ -98,3 +105,7 @@ console.warn(es2015Class);
   return es2015Class;
 }
 
+
+
+// Export all as a single object.
+export default Object.assign({}, exports);

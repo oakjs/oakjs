@@ -118,7 +118,12 @@ export default class Component {
   }
 
   getCompiled(response) {
-    return compiler.compileComponent({ component: this });
+    return compiler.compileComponent({ component: this, Xformat: "ES5" })
+      .then( source => {
+console.info(source);
+        if (response) return response.send(bundle);
+        return Promise.resolve( source );
+      });
   }
 
 
