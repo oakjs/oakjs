@@ -15,11 +15,16 @@ if (!global.Babel) {
 import { normalizeIdentifier } from "./ids";
 
 
+
 // Set up the presets and plugins we'll use for babel transformation.
 // Note that on the server, these will automatically be loaded from `node_modules`.
 export const babelOptions = {
-  presets: ["stage-1", "react"],
-  plugins: [
+  "presets": [
+    "es2015",
+    "stage-1",
+    "react"
+  ],
+  "plugins": [
     "transform-object-rest-spread",
     "transform-es2015-destructuring",
     "transform-decorators-legacy"

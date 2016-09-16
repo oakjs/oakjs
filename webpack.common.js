@@ -70,7 +70,18 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: paths.src,
-        loader: "babel?cacheDirectory"
+        loader: "babel",
+        query: {
+          "cacheDirectory": "",
+          "presets": [
+            "es2015",
+            "stage-1",
+            "react"
+          ],
+          "plugins": [
+            "transform-decorators-legacy"
+          ]
+        }
       },
       {
         test: /\.css$/, // Only .css files

@@ -26,7 +26,7 @@ import HTML_EDITOR_SETTINGS from "./components/theme/html";
 
 let oak;
 
-class OakJS extends Eventful(Object) {
+class OakJS extends Object {
 
   _debugEvents = true;
 
