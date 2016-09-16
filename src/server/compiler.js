@@ -30,8 +30,8 @@ export function compileComponent(options) {
   const { component, ...compileOptions } = options;
   const paths = [
     component.jsxePath,
+    component.scriptPath,
     component.stylesPath,
-    component.scriptPath
   ];
   return util.readPaths(paths, { optional: true })
     .then( ([ jsxe, js, css ]) => {
@@ -86,8 +86,19 @@ export function compileJSXE(options) {
   const scripts = [
     render,
     js,
-    // TODO: css script in there somehow...
   ];
+
+  // add css + css installer logic
+  if (css) {
+    scripts.unshift([
+      "constructor(props) {",
+      "    super(props);",
+      "    // oak.installStyles(this.path, this.constructor.css);",
+      "  }",
+      "",
+      `  static css = ${JSON.stringify(css)};`
+    ].join("\n"));
+  }
 
   try {
     var es2015Class = babel.getClassScript(scripts, superClassName, className);
