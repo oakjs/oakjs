@@ -120,10 +120,10 @@ export default class Component {
   getCompiled(response) {
     return compiler.compileComponent({ component: this, Xformat: "ES5" })
       .then( source => {
-console.info(source);
-        if (response) return response.send(bundle);
+        if (response) return response.send(source);
         return Promise.resolve( source );
-      });
+      })
+      .catch(logAndRejectError);
   }
 
 
