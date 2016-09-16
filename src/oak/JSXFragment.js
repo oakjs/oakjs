@@ -352,7 +352,7 @@ if (!element) debugger;
       `${childIndent}  return oak.lookupComponent(type, components, "${errorMessage}");`,
       `${childIndent}}`,
       "",
-      `${indent}return ${this.root._elementsToSource(childIndent)}`,
+      `${childIndent}return ${this.root._elementsToSource(childIndent)};`,
       `${indent}}`
     ].join("\n");
   }
