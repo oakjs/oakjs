@@ -111,8 +111,8 @@ export function projectPath(project, filename = "") {
 // Return the path for a project component file.
 // Default is to return folder path (including the slash).
 export function projectComponentPath(project, component, filename = "") {
-  const sectionPath = fsPath.join(component, filename);
-  return projectPath(project, sectionPath);
+  const componentPath = fsPath.join("_components", component, filename);
+  return projectPath(project, componentPath);
 }
 
 
