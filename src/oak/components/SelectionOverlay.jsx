@@ -15,7 +15,7 @@ import OakComponent from "./OakComponent";
 import SelectionRect from "./SelectionRect";
 import Resizer from "./Resizer";
 
-import "./SelectionOverlay.css";
+import "./SelectionOverlay.less";
 
 export default class SelectionOverlay extends OakComponent {
   constructor() {
@@ -281,14 +281,13 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
       // if we actually dropped,
       if (this.state.dropParent) {
-
 oak.undo();
 
         // redo the add + remove in one undo transaction
         const elements = this.state.dragComponents;
         const parent = this.state.dropParent;
         const position = this.state.dropPosition;
-console.warn(elements);
+//console.warn(parent, position, elements);
         new UndoTransaction({
           actionName: "Move Element",
           transactions: [
@@ -520,7 +519,7 @@ console.warn(elements);
     if (!rects) return [];
 
     return rects.map( ({ oid, position, rect }, rectIndex) => {
-      return <SelectionRect key={rectIndex} type="activeDropChild" rect={rect}>{position}</SelectionRect>
+      return <SelectionRect key={rectIndex} type="activeDropChild" rect={rect} position={position}/>;
     }).filter(Boolean);
   }
 

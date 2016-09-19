@@ -1,0 +1,57 @@
+.oak.SelectionRect {
+  position: fixed;
+  left: -100px; top: -100px; width: 0; height: 0;
+
+  &.hover {
+    border: 1px solid rgba(255, 255, 255, .5);
+    z-index: 1;
+  }
+
+  &.hover:after {
+    position: absolute;
+    left: -1px; top: -1px; right: -1px; bottom: -1px;
+    border: 1px dotted black;
+    content: " ";
+  }
+
+  &.selection {
+    cursor: move;
+    border: 1px solid red;
+  }
+
+  &.resizer {
+    pointer-events: none;
+    border: 1px solid blue;
+  }
+
+  &.dragSelect {
+    border: 1px solid rgba(255, 255, 255, .5);
+  }
+
+  &.dragSelect:after {
+    position: absolute;
+    left: -1px; top: -1px; right: -1px; bottom: -1px;
+    border: 1px dashed black;
+    content: " ";
+  }
+
+  // Drag-selection rect (when dragging on card background to select)
+  &.dragSelection {
+    border: 1px solid red;
+    cursor: default;
+  }
+
+  // Parent element who will receive drop currently.
+  &.activeDropTarget {
+    box-shadow: 0 0 10px green, inset 0 0 10px green
+  }
+
+  // Appearance when child of the activeDropTarget
+  &.activeDropChild {
+//    border:1px dashed red;
+//    &:before {
+//      content: attr(data-position);
+//    }
+  }
+
+}
