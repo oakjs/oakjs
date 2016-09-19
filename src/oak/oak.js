@@ -14,6 +14,7 @@ import UndoQueue from "oak-roots/UndoQueue";
 
 import Account from "./Account";
 import actions from "./actions";
+import ComponentController from "./ComponentController";
 import EditorProps from "./EditorProps";
 import OakEvent from "./OakEvent";
 import Page from "./Page";
@@ -420,6 +421,61 @@ class OakJS extends Eventful(Object) {
     if (!oids) return [];
     return oids.map(oid => oak.cloneOid(oid)).filter(Boolean);
   }
+
+
+  //
+  //  Modal:  Alert / Prompt / etc
+  //
+
+  // Show a `ModalComponent` with `options` passed in.
+  // If you pass a `ComponentController`, we'll make sure that is loaded and use its `Component`.
+  // Otherwise, pass a `SUI.Modal` component... ???
+  // TODO: Returns a promise which resolves when they close the modal
+  showModal(ModalComponent, options) {
+    if (!ModalComponent) {
+      console.error("showModal() called with undefined ModalComponent!");
+      return Promise.reject();
+    }
+
+    // If we were passed a ComponentController, load it and use it's `Component`.
+    if (ModalComponent instanceof ComponentController) {
+
+      // If loadError, reject immediately
+      if (ModalComponent.loadError) {
+        console.warn("Couldn't load modal component: ", ModalComponent.loadError);
+// TODO: throw???
+        return Promise.reject(ModalComponent.loadError);
+      }
+
+      // If not loaded, load first and then show
+      if (!ModalComponent.isLoaded) {
+        return ModalComponent.loadComponent()
+                .then( () => oak.showModal(ModalComponent.Component, options) )
+                .catch(e => {
+                  console.error(`oak.showModal(${ModalComponent}) load error:`, e);
+                  return Promise.reject(e);
+                });
+      }
+
+      // recurse with the Component
+      return oak.showModal(ModalComponent.Component, options);
+    }
+
+    console.warn("show modal:\n", ModalComponent, "\noptions:\n", options);
+  }
+
+  // Show `message` in an alert modal.
+  // Possible `options`:  `{ header, okTitle }`
+  // Returns a promise which resolves when they click `ok`.
+  alert(message, options) {
+    return oak.showModal(oak.account.get("_runner/Alert"), { ...options, message });
+  }
+
+  prompt(message, options) {
+    return oak.showModal(oak.account.get("_runner/Prompt"), { ...options, message });
+  }
+
+
 
   //
   //  Event handling

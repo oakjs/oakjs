@@ -52,6 +52,7 @@ export default class Account extends ChildController {
     return undefined;
   }
 
+// TODO:  loadComponent()
 
   // Split a project, page, section path into `{ projectId, sectionId, pageId }`.
   // TODO: how to distinguish components here???
