@@ -6,6 +6,7 @@
 //
 //////////////////////////////
 
+
 export default class Point {
   // Initialize with `x`, `y`
   constructor(x, y) {
