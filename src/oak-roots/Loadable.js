@@ -95,12 +95,12 @@ export default function Loadable(Constructor = Object) {
     //
     // NOTE: do NOT override this -- override `loadData()` instead!
     //
-    load(force) {
+    load(args, _force) {
 //TODO: build in cache time ???
 //TODO: hand not-modified when reloading
 //TODO: if we have data and we're realoading and data is invalid... ???
       // If we're already loaded, return the data returned by the last load
-      if (this.isLoaded && !force) return Promise.resolve(this.__loadState.data);
+      if (this.isLoaded && !_force) return Promise.resolve(this.__loadState.data);
 
       // If we're loading, return our loading promise
       if (this.isLoading) return this.__loadState.promise;
@@ -124,7 +124,7 @@ export default function Loadable(Constructor = Object) {
         _setLoadState(this, { state: "loading", promise: loadPromise });
         if (this.trigger) this.trigger("loading");
 
-        this.loadData()
+        this.loadData(args)
           // handle successful load
           .then(data => {
             this.loaded(data);
@@ -144,9 +144,9 @@ export default function Loadable(Constructor = Object) {
     }
 
     // Force a reload, no matter whether we were previously loaded or not.
-    reload() {
+    reload(args) {
       if (this.trigger) this.trigger("reloading");
-      this.load("FORCE");
+      this.load(args, "FORCE");
     }
 
     // Unload us, removing all of our loaded data.
