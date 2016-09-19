@@ -79,7 +79,7 @@ export default class ElementEditor extends Form {
       data = { ...element.props };
       elementType = element.type;
 
-      const components = (this.context && this.context.components) || oak.components;
+      const components = (oak.editController && oak.editController.components) || oak.components;
       Component = components[elementType];
       if (!Component) {
         console.warn("<ElementEditor>: can't find Component for: ", elementType);
