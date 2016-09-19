@@ -201,12 +201,23 @@ export default new API({
   // Component JSX files
   //////////////////////////////
 
+  // Load the server-compiled `JSXE` + `CSS` for a `ComponentController`.
+  // Returns a script expression which will `eval()` to the Component class.
   loadControllerJSX(controller) {
     const { type, path } = controller;
     const url = `/api/${type.toLowerCase()}/compile/${path}`;
     const errorMessage = `Error loading ${type} JSX component`;
     return this.getText(url)
-      // install as the Component for the controller
+      .catch(e => {
+        throw new ReferenceError(errorMessage);
+      });
+  },
+
+  // Load the server-compiled Component class for a `ComponentController`.
+  // Returns the instantiated Component constructor.
+  loadControllerComponent(controller) {
+    return this.loadControllerJSX(controller)
+      // convert to a Component
       .then(compiledJSX => {
         console.groupCollapsed(`Loaded compiled JSX from ${url}`);
         console.log(compiledJSX);
@@ -224,11 +235,8 @@ export default new API({
           console.groupEnd();
           throw e;
         }
-      })
-      .catch(e => {
-        throw new ReferenceError(errorMessage);
       });
-  },
+  }
 
 
 

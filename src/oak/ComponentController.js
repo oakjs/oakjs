@@ -154,21 +154,64 @@ export default class ComponentController extends Eventful(ChildController) {
   // Load our JSXE + CSS as a compiled file and install as our Controller
   loadJSX() {
     api.loadControllerJSX(this)
-      .then( Component => {
-          // Install as our `Component` (ignoring the `cache` stuff).
-          // NOTE: subsequent to this, you can `delete controller.Component`
-          //       to go back to the normal JSXE `get Controller` controller setup below.
-          Object.defineProperty(this, "Component", {
-            get() { return Component },
-            configurable: true
-          });
+      .then( es5CompiledJSX => this._loadedJSX(es5CompiledJSX) );
+  }
 
-          // install CSS for the component if provided
-          // TODO: un-install the CSS if the component is changed/deleted above...
-          if (Component.css) {
-            this._loadedStyles(Component.css);
-          }
-      });
+  // Initialize our `Component` with the `es5CompiledJSX` provided.
+  // NOTE: this assumes the JSX code is in an iife in ES5 format.
+  //
+  // Typically this will be from `loadJSX()`, but you can call this manually
+  //  if you get the JSX code another way.
+  _loadedJSX(es5CompiledJSX) {
+    let Component;
+    // Attempt to compile the JSX
+    // TODO: do this with a script block for efficiency in Chrome/etc, where `eval()` is slow?
+    if (es5CompiledJSX) {
+      try {
+        // eval to get the compiled component
+        let Component;
+        eval(`Component = ${es5CompiledJSX}`);
+      }
+      catch (e) {
+        console.group(`Error compiling JSX`);
+        console.error(e);
+        console.info(es5CompiledJSX);
+        console.groupEnd();
+      }
+    }
+    this._loadedComponent(Component);
+  }
+
+  // Loaded a `Component` as an instantiated class object (eg: already `eval()`d).
+  //
+  // Typically this will be from `loadedJSX()`, but you can call this manually
+  //  if you get a Component instance another way.
+  _loadedComponent(Component) {
+    // If we didn't actually get a component to install...
+    if (!Component) {
+      // and we already have installed one...
+      if (this.hasOwnProperty("Component")) {
+        // remove css
+        if (this.Component.css) this._loadedStyles(undefined);
+        // and remove the currently installed component
+        delete this.Component;
+      }
+      return;
+    }
+
+    // Install as our `Component` (ignoring the `cache` stuff).
+    // NOTE: subsequent to this, you can `delete controller.Component`
+    //       to go back to the normal JSXE `get Controller` controller setup below.
+    Object.defineProperty(this, "Component", {
+      get() { return Component },
+      configurable: true
+    });
+
+    // install CSS for the component if provided
+    // TODO: un-install the CSS if the component is changed/deleted above...
+    if (Component.css) {
+      this._loadedStyles(Component.css);
+    }
   }
 
 
