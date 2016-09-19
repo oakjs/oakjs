@@ -94,11 +94,13 @@ export function compileJSXE(options) {
   // add css + css installer logic
   if (css) {
     scripts.unshift([
-      "constructor(props) {",
-      "    super(props);",
-      "    // oak.installStyles(this.path, this.constructor.css);",
-      "  }",
-      "",
+// NOTE: Currently the css is being set up in `ComponentController.loadJSX()` on the front end...
+//       This only installs the stylesheet once per JSX load.
+//       "constructor(props) {",
+//       "    super(props);",
+//       "    // oak.installStyles(this.path, this.constructor.css);",
+//       "  }",
+//       "",
       `  static css = ${JSON.stringify(css)};`
     ].join("\n"));
   }

@@ -155,10 +155,19 @@ export default class ComponentController extends Eventful(ChildController) {
   loadJSX() {
     api.loadControllerJSX(this)
       .then( Component => {
+          // Install as our `Component` (ignoring the `cache` stuff).
+          // NOTE: subsequent to this, you can `delete controller.Component`
+          //       to go back to the normal JSXE `get Controller` controller setup below.
           Object.defineProperty(this, "Component", {
             get() { return Component },
             configurable: true
           });
+
+          // install CSS for the component if provided
+          // TODO: un-install the CSS if the component is changed/deleted above...
+          if (Component.css) {
+            this._loadedStyles(Component.css);
+          }
       });
   }
 
@@ -330,8 +339,8 @@ export default class ComponentController extends Eventful(ChildController) {
   _loadedStyles(css) {
     if (!this.stylesheet) {
       if (css) {
-        const id = ids.normalizeIdentifier(this.path);
-        this.stylesheet = new Stylesheet({css, id });
+        this.stylesheet = Stylesheet.get(this.path);
+        this.stylesheet.update(css);
       }
     }
     else {

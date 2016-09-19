@@ -27,6 +27,8 @@ export function createStylesheet(styles, id = "STYLE-"+ids.generateRandomId()) {
 
 // Remove a stylesheet specified by id.
 export function removeStylesheet(id) {
+  if (typeof $ === "undefined") return false;
+
   $(`style#${id}`).remove();
 }
 
