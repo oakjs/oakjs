@@ -69,6 +69,28 @@ export default class ElementEditor extends Form {
     }
   }
 
+  // Generic schema for any random HTML element.
+  // TODO: this should really be per-element-type...
+  static HTML_ELEMENT_SCHEMA = {
+    "$schema": "http://json-schema.org/schema#",
+    "properties": {
+      "id": {
+        "title": "id",
+        "type": "string"
+      },
+
+      "className": {
+        "title": "className",
+        "type": "string"
+      },
+
+      "style": {
+        "title": "style",
+        "type": "object"
+      }
+    },
+    "type": "object"
+  }
 
   // Return `{ Component, schema, etc }` for specified element, which we'll cache in `state`.
   getComponentInfo(props) {
@@ -79,20 +101,28 @@ export default class ElementEditor extends Form {
       data = { ...element.props };
       elementType = element.type;
 
+      // look up the component in the current edit context
       const components = (oak.editController && oak.editController.components) || oak.components;
       Component = components[elementType];
-      if (!Component) {
+
+      // if we found it, use the created schema for that type
+      if (Component) {
+        schema = schemaForComponent(Component);
+      }
+      // otherwise if it's a normal HTML element, use the generic schema
+      else if (elementType === elementType.toLowerCase()) {
+        schema = ElementEditor.HTML_ELEMENT_SCHEMA;
+      }
+      // otherwise warn
+      else {
         console.warn("<ElementEditor>: can't find Component for: ", elementType);
       }
-      else {
-        schema = schemaForComponent(Component);
+    }
 
-        // create controls for properties in the schema
-        if (schema) {
-          // Names of all known schema properties.
-          knownProperties = Object.keys(schema.properties);
-        }
-      }
+    // create controls for properties in the schema
+    if (schema) {
+      // Names of all known schema properties.
+      knownProperties = Object.keys(schema.properties);
     }
 
     // If we were passed children directly, assume we want those for our controls
