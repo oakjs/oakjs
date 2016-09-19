@@ -1,4 +1,15 @@
 [
-  {"id" : "player", "title": "Player" },
-  {"id" : "editors", "title": "Editors" }
+  {
+    "type": "Component",
+    "id": "Alert",
+    "title": "Alert"
+  },
+  {
+    "id": "player",
+    "title": "Player"
+  },
+  {
+    "id": "editors",
+    "title": "Editors"
+  }
 ]

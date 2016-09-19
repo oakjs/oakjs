@@ -1,0 +1,1 @@
+<SUI.Modal header={props.header} content={props.message} actions={[props.okTitle]}/>
