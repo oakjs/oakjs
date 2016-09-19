@@ -1,4 +1,4 @@
-export const LOREM_TEXT = `
+static LOREM_TEXT = `
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
 Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
 ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
@@ -10,7 +10,7 @@ Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viver
 metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue.
 Curabitur ullamcorper ultricies nisi.`;
 
-export const LOREM_TEXT_MEDIUM = `
+static LOREM_TEXT_MEDIUM = `
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
 Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
 ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
@@ -18,32 +18,20 @@ consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputa
 In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
 link mollis pretium. Integer tincidunt.`;
 
-export const LOREM_TEXT_SHORT = `
+static LOREM_TEXT_SHORT = `
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
 Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
 ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
 consequat massa quis enim.`;
 
-export const LOREM_TEXT_TINY = `
+static LOREM_TEXT_TINY = `
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
 Aenean massa strong.`;
 
 
-export function getLoremText(props) {
-  if (props.tiny) return LOREM_TEXT_TINY;
-  if (props.short) return LOREM_TEXT_SHORT;
-  if (props.medium) return LOREM_TEXT_MEDIUM;
-  return LOREM_TEXT;
+getLoremText(props) {
+  if (props.tiny) return this.constructor.LOREM_TEXT_TINY;
+  if (props.short) return this.constructor.LOREM_TEXT_SHORT;
+  if (props.medium) return this.constructor.LOREM_TEXT_MEDIUM;
+  return this.constructor.LOREM_TEXT;
 }
-
-const { OakComponent } = oak.components.Oak;
-export default class LoremIpsum extends OakComponent {
-  render() {
-    const { id, style, className } = this.props;
-    return <div id={id} style={style} className={className}>{getLoremText(this.props)}</div>;
-  }
-}
-
-
-import { editify } from "oak/EditorProps";
-editify({ droppable: false }, LoremIpsum);
