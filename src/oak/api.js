@@ -25,7 +25,7 @@ export default new API({
   // Save `data` as a JSON blob for some ComponentController.
   // Response returns the component's bundle.
   // No argument normalization.
-  saveComponentBundle({ component, data}, fetchParams) {
+  saveComponentBundle({ component, data }, fetchParams) {
     const { type, path } = component;
     const url = `/api/${type.toLowerCase()}/save/${path}`;
     const errorMessage = `Error saving ${type} ${path}`;
@@ -219,7 +219,7 @@ export default new API({
     return this.loadControllerJSX(controller)
       // convert to a Component
       .then(compiledJSX => {
-        console.groupCollapsed(`Loaded compiled JSX from ${url}`);
+        console.groupCollapsed(`Loaded compiled JSX for ${controller}`);
         console.log(compiledJSX);
         console.groupEnd();
 
@@ -230,7 +230,7 @@ export default new API({
           return Component;
         }
         catch (e) {
-          console.group(`Error compiling JSX from ${url}`);
+          console.group(`Error compiling JSX from ${controller}`);
           console.error(e);
           console.groupEnd();
           throw e;

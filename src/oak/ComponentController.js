@@ -134,7 +134,14 @@ export default class ComponentController extends Eventful(ChildController) {
   //    - `script` as javascript for the JSXFragment
   //    - `styles` as CSS styles
   //    - `index` as a LoadableIndex
-  loadData() {
+  loadData(args) {
+    if (args === "COMPONENT") {
+      return api.loadControllerComponent(this)
+              // convert to a "bundle"-looking-thing
+              .then( Component => {
+                return { Component }
+              });
+    }
     return api.loadComponentBundle({ component: this });
   }
 
@@ -142,44 +149,25 @@ export default class ComponentController extends Eventful(ChildController) {
     if (typeof bundle === "string") bundle = JSON.parse(bundle);
 
     this.cache = {};
+
+    // in "component" mode, our API call will return a compiled Component
+    this._loadedComponent(bundle.Component);
+
+    // Otherwise we'll return { jsxe, index, script, styles }
     if (bundle.jsxe) this._loadedJSXE(bundle.jsxe);
-    if (bundle.index) this._loadedIndex(bundle.index);
     this._loadedScript(bundle.script);
     this._loadedStyles(bundle.styles);
+    if (bundle.index) this._loadedIndex(bundle.index);
 
     this.onComponentChanged();
     return bundle;
   }
 
-  // Load our JSXE + CSS as a compiled file and install as our Controller
-  loadJSX() {
-    api.loadControllerJSX(this)
-      .then( es5CompiledJSX => this._loadedJSX(es5CompiledJSX) );
-  }
-
-  // Initialize our `Component` with the `es5CompiledJSX` provided.
-  // NOTE: this assumes the JSX code is in an iife in ES5 format.
-  //
-  // Typically this will be from `loadJSX()`, but you can call this manually
-  //  if you get the JSX code another way.
-  _loadedJSX(es5CompiledJSX) {
-    let Component;
-    // Attempt to compile the JSX
-    // TODO: do this with a script block for efficiency in Chrome/etc, where `eval()` is slow?
-    if (es5CompiledJSX) {
-      try {
-        // eval to get the compiled component
-        let Component;
-        eval(`Component = ${es5CompiledJSX}`);
-      }
-      catch (e) {
-        console.group(`Error compiling JSX`);
-        console.error(e);
-        console.info(es5CompiledJSX);
-        console.groupEnd();
-      }
-    }
-    this._loadedComponent(Component);
+  // Load our JSXE + CSS as a compiled file and install as our `Component`.
+  // This is more efficient on the front-end, as we don't have to compile.
+//TODO: this does NOT handle loading our index if necessary!!!
+  loadComponent() {
+    return this.load("COMPONENT");
   }
 
   // Loaded a `Component` as an instantiated class object (eg: already `eval()`d).
@@ -274,7 +262,7 @@ export default class ComponentController extends Eventful(ChildController) {
 
   // Return the Component class for our JSXE, etc.
   get Component() {
-    if (this.cacheComponent) return this.cache.Component;
+    if (this.cache.Component) return this.cache.Component;
 
     if (this.loadError) {
       console.warn(`${this}: load error: ${this.loadError}!`);

@@ -7,6 +7,7 @@ import Action from "oak-roots/Action";
 import { die, dieIfMissing } from "oak-roots/util/die";
 
 import Account from "../Account";
+import ComponentController from "../ComponentController";
 import Project from "../Project";
 import oak from "../oak";
 
