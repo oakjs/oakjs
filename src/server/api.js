@@ -196,7 +196,7 @@ router.get("/project/:action/:projectId",  (request, response) => {
     case "script":  return project.getScript(response);
     case "styles":  return project.getStyles(response);
     case "index":   return project.getChildIndex(response);
-    case "jsx":     return project.getCompiled(response);
+    case "compile": return project.getCompiled(response);
   }
   throw new TypeError(`Project GET API action '${action}' not defined.`);
 });

@@ -203,19 +203,23 @@ export default new API({
 
   loadControllerJSX(controller) {
     const { type, path } = controller;
-    const url = `/api/${type.toLowerCase()}/jsx/${path}`;
+    const url = `/api/${type.toLowerCase()}/compile/${path}`;
     const errorMessage = `Error loading ${type} JSX component`;
     return this.getText(url)
-      // Go from JSX to a JSXElement
-      .then(jsx => {
-        // If the JSX didn't actually change, keep the same element!
-        if (controller.controller && controller.controller.toString() === jsx) return controller.controller;
+      // install as the Component for the controller
+      .then(compiledJSX => {
+        console.groupCollapsed(`Loaded compiled JSX from ${url}`);
+        console.log(compiledJSX);
+        console.groupEnd();
+
         try {
-console.info(jsx);
-//          return JSXFragment.parse(jsxe, { controller });
+          // eval to get the compiled component
+          let Component;
+          eval(`Component = ${compiledJSX}`);
+          return Component;
         }
         catch (e) {
-          console.group(`Error parsing JSX from ${controller.componentUrl}`);
+          console.group(`Error compiling JSX from ${url}`);
           console.error(e);
           console.groupEnd();
           throw e;

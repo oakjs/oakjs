@@ -151,6 +151,17 @@ export default class ComponentController extends Eventful(ChildController) {
     return bundle;
   }
 
+  // Load our JSXE + CSS as a compiled file and install as our Controller
+  loadJSX() {
+    api.loadControllerJSX(this)
+      .then( Component => {
+          Object.defineProperty(this, "Component", {
+            get() { return Component },
+            configurable: true
+          });
+      });
+  }
+
 
   //////////////////////////////
   //  Saving

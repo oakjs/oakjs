@@ -6,25 +6,43 @@
 //////////////////////////////
 
 
+
 // Make sure babel is available (on the server side).
 import global from "oak-roots/util/global";
+
+var babelOptions;
+// If running on the server where Babel is not defined
 if (!global.Babel) {
-	global.Babel = require("babel-core");
-	require('babel-core/register');
+  // Load babel-core if necessary, which is currently at version 5.8
+  console.warn("requiring babel core");
+  global.Babel = require("babel-core");
+
+  // set up external helpers
+  require("./babel-helpers.js");
+
+  // set up babel 5 options
+	babelOptions = {
+    "stage": 1,
+    externalHelpers: true
+  }
+}
+// If in the browser
+else {
+  // Use babel v6 options
+  babelOptions = {
+    "presets": ["stage-1", "react"],
+    "plugins": [
+      "transform-object-rest-spread",
+      "transform-es2015-destructuring",
+      "transform-decorators-legacy"
+    ]
+  };
 }
 import { normalizeIdentifier } from "./ids";
 
 
 // Set up the presets and plugins we'll use for babel transformation.
 // Note that on the server, these will automatically be loaded from `node_modules`.
-export const babelOptions = {
-  presets: ["stage-1", "react"],
-  plugins: [
-    "transform-object-rest-spread",
-    "transform-es2015-destructuring",
-    "transform-decorators-legacy"
-  ]
-}
 
 export function transform(code) {
   try {

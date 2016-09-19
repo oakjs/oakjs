@@ -119,7 +119,7 @@ export default class Component {
 
   // Return compiled source for this component (jsxe + js + css)
   getCompiled(response, format = "ES5") {
-    return compiler.compileComponent({ component: this})//, format })
+    return compiler.compileComponent({ component: this, format })
       .then( source => {
         if (response) return response.send(source);
         return Promise.resolve( source );

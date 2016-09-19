@@ -1,5 +1,10 @@
 /* eslint no-console: 0 */
 
+// Set up babelHelpers variable for use in the below
+// UGH: this is not working, see:
+//  http://henryzoo.com/babel.github.io/docs/advanced/external-helpers/
+//require("babel-core/external-helpers");
+
 import express from "express";
 import path from "path";
 import webpack from "webpack";
@@ -12,6 +17,7 @@ const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
 import config from "./config";
+
 
 //////////////////////////////
 // Hot Module Reload setup

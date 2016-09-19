@@ -16,7 +16,7 @@ import util from "./util";
 
 
 // Set to `true` to output debug messages during compilation
-export const DEBUG = false;
+const DEBUG = false;
 
 
 
@@ -64,7 +64,10 @@ export function compileJSXE(options) {
     css,                                // optional CSS code
     className,                          // Name for output `class`
     superClassName = "oak.Component",   // Name of superclass.
-    format = "ES2015"                   // "ES5" or "ES2015" for language version.
+    format = "ES2015",                  // "ES5" or "ES2015" for language version.
+    prefix                              // Prefix for output script, eg:
+                                        //  `export default` or
+                                        //  `global.foo.bar =`, etc
   } = options;
 
   let render = "";
@@ -108,11 +111,23 @@ export function compileJSXE(options) {
     console.log(jsxe);
     render = "";
   }
-//console.warn(es2015Class);
+
+  // If `prefix` was specified, tack that on the front
+  if (prefix) es2015Class = `${prefix} ${es2015Class}`;
+
+  if (DEBUG) console.warn("es2105 class:\n", es2015Class);
 
   if (format === "ES5") {
-    return babel.transformExpression(es2015Class);
+    if (DEBUG) console.warn("transforming to es5");
+    let es5Class = babel.transformExpression(es2015Class);
+
+    // remove the "use strict" which will mess consumers up...
+    es5Class = es5Class.replace('"use strict";', "");
+
+    if (DEBUG) console.warn("es5 class:\n", es5Class);
+    return es5Class;
   }
+
   return es2015Class;
 }
 
