@@ -8,8 +8,7 @@
     "url": "https://github.com/oakjs/client"
   },
   "scripts": {
-    "mocha-test": "mocha --compilers js:babel/register -u bdd -R spec --timeout 500 --recursive",
-    "test": "cucumber.js --format pretty",
+    "test": "mocha --compilers js:babel/register -u bdd -R spec --timeout 500 --recursive",
     "start": "./node_modules/.bin/babel-node src/server/server",
     "build": "rimraf dist && set NODE_ENV=production && webpack --config ./webpack.production.config.js --progress --profile --colors",
     "eslint": "eslint .",
