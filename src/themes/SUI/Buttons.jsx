@@ -19,7 +19,8 @@ export default class SUIButtons extends SUIComponent {
     style: PropTypes.object,
     children: PropTypes.any,
 
-    visible: PropTypes.bool,
+    // DEPRECATED
+    hidden: PropTypes.bool,
     appearance: PropTypes.string,
     size: PropTypes.string,
     color: PropTypes.string,
@@ -27,18 +28,13 @@ export default class SUIButtons extends SUIComponent {
     floated: PropTypes.string,
   };
 
-  static defaultProps = {
-    visible: true
-  }
-
   render() {
+    if (this.props.hidden) return null;
     const {
-      visible, appearance, size, color, count, floated, style,
+      appearance, size, color, count, floated, style,
       children,
       ...elementProps
     } = this.props;
-
-    if (!visible) return null;
 
     elementProps.className = classNames(
       elementProps.className,
