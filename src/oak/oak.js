@@ -101,9 +101,9 @@ class OakJS extends Eventful(Object) {
   }
 
   static DEFAULT_STATE = {
-    editing: false,         // Are we currently editing?
-    editController: "page",    // What we're editing: "page", "section", "project". "component"?
-    selection: [],          // Array of `oid`s selected in the editor.
+    editing: false,           // Are we currently editing?
+    editController: "Page",   // What we're editing: "Page", "Section", "Project". "Component"?
+    selection: [],            // Array of `oid`s selected in the editor.
   }
 
   // Initialize application state.
@@ -150,12 +150,17 @@ class OakJS extends Eventful(Object) {
   // Returns `undefined` if the specified context is not found.
   get editController() {
     switch (this.state.editController) {
-      case "page": return this.page;
-      case "section": return this.section;
-      case "project": return this.project;
+      case "Page": return this.page;
+      case "Section": return this.section;
+      case "Project": return this.project;
     }
-    console.warn(`oak.editController(): state ${this.state.editController} not understood`);
+    console.warn(`oak.editController(): edit controller ${this.state.editController} not understood`);
     return undefined;
+  }
+
+  get editControllerIsDirty() {
+    const controller = this.editController;
+    return !!controller && controller.isDirty;
   }
 
   // Return the currently selected elements (as a list of `oid`s).
@@ -543,6 +548,21 @@ class OakJS extends Eventful(Object) {
   }
 
 
+
+  //
+  //  Action stuff
+  //
+
+  // Bind an action to execute later,
+  //  eg in button event handler or something.
+  bindAction(actionName, ...args) {
+    const action = oak.actions[actionName];
+    if (!action) {
+      console.warn(`oak.bindAction(${actionName}): action not found!`);
+      return Function.prototype;
+    }
+    return action.bind(oak, ...args);
+  }
 
   //
   //  Event handling

@@ -33,11 +33,15 @@ export default class EditorToolbar extends OakComponent {
           <SUI.Button onClick={oak.actions.removeElements} icon="remove"/>
           <SUI.Button icon="plus"/>
           <SUI.Popup on="click" appearance="inverted" title="Add Component">
-            <SUI.Button title="Button" onClick={oak.actions.createElement.bind(oak, { type: "SUI.Button" })}/>
-            <SUI.Button title="Card" onClick={oak.actions.createElement.bind(oak, { type: "SUI.Card" })}/>
-            <SUI.Button title="Header" onClick={oak.actions.createElement.bind(oak, { type: "SUI.Header" })}/>
-            <SUI.Button title="Icon" onClick={oak.actions.createElement.bind(oak, { type: "SUI.Icon" })}/>
+            <SUI.Button title="Button" onClick={oak.bindAction("createElement", { type: "SUI.Button" })}/>
+            <SUI.Button title="Card" onClick={oak.bindAction("createElement", { type: "SUI.Card" })}/>
+            <SUI.Button title="Header" onClick={oak.bindAction("createElement", { type: "SUI.Header" })}/>
+            <SUI.Button title="Icon" onClick={oak.bindAction("createElement", { type: "SUI.Icon" })}/>
           </SUI.Popup>
+        </SUI.Buttons>
+        <div style={{ flex:"1 1 100%" }}/>
+        <SUI.Buttons appearance="transparent" hidden={!oak.editController}>
+          <SUI.Button title={`Save ${oak.state.editController}`} onClick={oak.bindAction("saveCurrent")} active={oak.editControllerIsDirty} />
         </SUI.Buttons>
       </SUI.Menu>
     );

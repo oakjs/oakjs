@@ -31,14 +31,14 @@ export function stopEditing(options = {}) {
 // Start/stop editing project
 new Action({
   id: "oak.startEditingPage", title: "Start Editing Page", shortcut: "Meta E",
-  handler: () => startEditing({editController:"page"}),
-  hidden:() => oak.state.editing && oak.state.editController === "page"
+  handler: () => startEditing({editController:"Page"}),
+  hidden:() => oak.state.editing && oak.state.editController === "Page"
 });
 
 new Action({
   id: "oak.stopEditingPage", title: "Stop Editing Page", shortcut: "Meta E",
   handler: stopEditing,
-  hidden:() => !oak.state.editing || oak.state.editController !== "page"
+  hidden:() => !oak.state.editing || oak.state.editController !== "Page"
 });
 
 
@@ -46,16 +46,16 @@ new Action({
 // NOTE: this is not really working yet...
 new Action({
   id: "oak.startEditingSection", title: "Start Editing Section",
-  handler: () => startEditing({editController:"section"}),
+  handler: () => startEditing({editController:"Section"}),
   disabled: () => true,
-  hidden:() => oak.state.editing && oak.state.editController === "section"
+  hidden:() => oak.state.editing && oak.state.editController === "Section"
 });
 
 new Action({
   id: "oak.stopEditingSection", title: "Stop Editing Section",
   handler: stopEditing,
   disabled: () => true,
-  hidden:() => !oak.state.editing || oak.state.editController !== "section"
+  hidden:() => !oak.state.editing || oak.state.editController !== "Section"
 });
 
 
@@ -63,18 +63,51 @@ new Action({
 // NOTE: this is not really working yet...
 new Action({
   id: "oak.startEditingProject", title: "Start Editing Project",
-  handler: () => startEditing({editController:"project"}),
+  handler: () => startEditing({editController:"Project"}),
   disabled: () => true,
-  hidden:() => oak.state.editing && oak.state.editController === "project"
+  hidden:() => oak.state.editing && oak.state.editController === "Project"
 });
 
 new Action({
   id: "oak.stopEditingProject", title: "Stop Editing Project",
   handler: stopEditing,
   disabled: () => true,
-  hidden:() => !oak.state.editing || oak.state.editController !== "project"
+  hidden: () => !oak.state.editing || oak.state.editController !== "Project"
 });
 
+
+// Force-save the current editController.
+export function saveCurrent(options = {}) {
+  const controller = oak.editController;
+  if (!controller) return;
+  return controller.save("FORCE")
+          .then( oak.updateSoon, oak.updateSoon);
+}
+new Action({
+  id: "oak.saveCurrent",
+  title: ()=> `Save ${oak.state.editController}`,
+  handler: saveCurrent,
+  hidden: () => !oak.state.editing || !oak.editController
+});
+
+
+// Force-save current project, section, page
+export function saveAll(options = {}) {
+  const promises = [
+    oak.project && oak.project.save("FORCE"),
+    oak.section && oak.section.save("FORCE"),
+    oak.page && oak.page.save("FORCE"),
+  ].filter(Boolean);
+
+  return Promise.all(promises)
+    .then( oak.updateSoon, oak.updateSoon);
+}
+
+new Action({
+  id: "oak.saveAll",
+  title: "Save All",
+  handler: saveAll
+});
 
 //////////////////////////////
 //  Generic oak state manipulators
