@@ -71,7 +71,7 @@ export default class SplitPanel extends OakComponent {
     const { direction, sizes } = this._props;
     if (!sizes) return;
 
-    const $root = $(ReactDOM.findDOMNode(this));
+    const $root = this.$ref();
     const $children = $root.children(":not(.oak.divider)");
 
     sizes.forEach( (size, index) => {
