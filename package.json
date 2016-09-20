@@ -15,7 +15,6 @@
     "jscs": "jscs ."
   },
   "dependencies": {
-    "acorn-jsx": "^2.0.1",
     "body-parser": "^1.15.0",
     "fs-extra": "^0.26.5",
     "fs-promise": "^0.4.1",
@@ -28,6 +27,7 @@
     "whatwg-fetch": "^0.9.0"
   },
   "devDependencies": {
+    "acorn-jsx": "^3.0.1",
     "autoprefixer": "^6.0.3",
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",

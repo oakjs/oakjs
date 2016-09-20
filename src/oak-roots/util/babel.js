@@ -10,11 +10,15 @@
 // Make sure babel is available (on the server side).
 import global from "oak-roots/util/global";
 
+// Set to true to show debug output in this file.
+const DEBUG = false;
+if (DEBUG) console.info("Initializing babel");
+
 var babelOptions;
 // If running on the server where Babel is not defined
 if (!global.Babel) {
   // Load babel-core if necessary, which is currently at version 5.8
-  console.warn("requiring babel core");
+  if (DEBUG) console.info("-- requiring babel core");
   global.Babel = require("babel-core");
 
   // set up external helpers
@@ -28,6 +32,8 @@ if (!global.Babel) {
 }
 // If in the browser
 else {
+  if (DEBUG) console.info("-- using pre-loaded Babel object");
+
   // Use babel v6 options
   babelOptions = {
     "presets": ["stage-1", "react"],
@@ -38,6 +44,9 @@ else {
     ]
   };
 }
+if (DEBUG) console.info("-- babel version", Babel.version);
+if (DEBUG) console.info("-- babel options: ", babelOptions);
+
 import { normalizeIdentifier } from "./ids";
 
 

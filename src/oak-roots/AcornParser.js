@@ -2,17 +2,33 @@
 // Generic Acorn AST Parsing
 //////////////////////////////
 
+// Set to true to show debug output in this file.
+const DEBUG = false;
+if (DEBUG) console.info("Initializing acorn");
+
 // Make sure acorn is available (on the server side).
 import global from "oak-roots/util/global";
+
+var acornOptions = {
+  plugins: { jsx: true }
+}
+
 if (!global.acorn) {
+  if (DEBUG) console.info("-- requiring acorn-jsx");
 	global.acorn = require("acorn-jsx");
 }
+else {
+  if (DEBUG) console.info("using pre-loaded acorn object");
+}
+if (DEBUG) console.info("-- acorn version", acorn.version);
+if (DEBUG) console.info("-- acorn options:", acornOptions);
+
 
 export default class AcornParser {
   static ElementConstructor = Object;
 
   parse(code, options = {}) {
-    const ast = acorn.parse(code, { plugins: { jsx: true } });
+    const ast = acorn.parse(code, acornOptions);
     return this.parseElement(ast, code, options);
   }
 
@@ -172,3 +188,16 @@ export default class AcornParser {
     return code.substring(ast.start, ast.end);
   }
 }
+
+
+// Quick smoke test -- use this if stuff won't parse on the client or server...
+// try {
+//   console.info(`tesing acorn v ${acorn.version} parsing`);
+//   const p = new AcornParser();
+//   p.parse("<div {...props}/>");
+//   console.info("Acorn successfully parsed {...foo}");
+// }
+// catch (e) {
+//   console.error("Acorn yielded error parsing {...foo}", e);
+// }
+//
