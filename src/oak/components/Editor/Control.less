@@ -77,10 +77,30 @@
   input[type="tel"],
   input[type="time"],
   input[type="text"],
-  input[type="url"] {
+  input[type="url"]
+  {
     flex: 1;
 //    width: 100%;
     .FIELD_APPEARANCE();
+  }
+
+  &.fluid {
+    .combobox,
+    output,
+    input:not([type]),
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="time"],
+    input[type="text"],
+    input[type="url"]
+    {
+      width: 100%;
+    }
   }
 
   input,

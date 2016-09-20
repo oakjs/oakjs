@@ -37,11 +37,12 @@ export default class Control extends React.Component {
 //  validators: PropTypes.array,
 
   // display
-    id: PropTypes.string,                  // HTML `id` of control
-    className: PropTypes.string,          // HTML class of control
-    style: PropTypes.object,              // HTML style of control
-    inline: PropTypes.bool,                // `true` == { display: inline-block} , `false` = { display: block }
-    width: PropTypes.number,              // # of columns of 20-column grid for display (including label)
+    id: PropTypes.string,                 	// HTML `id` of control
+    className: PropTypes.string,          	// HTML class of control
+    style: PropTypes.object,              	// HTML style of control
+    inline: PropTypes.bool,                	// `true` == { display: inline-block} , `false` = { display: block }
+    width: PropTypes.number,              	// # of columns of 20-column grid for display (including label)
+    fluid: PropTypes.bool,            			// if true, control will be 100% width
 
   // standard form stuff
     tabIndex: PropTypes.number,            // HTML tabIndex attribute.
@@ -381,7 +382,8 @@ export default class Control extends React.Component {
         {
           disabled: props.disabled,
           required: props.required,
-          inline: props.inline
+          inline: props.inline,
+          fluid: props.fluid,
         },
         constructorName,
         props.label && "with-label",
