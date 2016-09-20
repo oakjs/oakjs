@@ -31,6 +31,13 @@ export default class EditorToolbar extends OakComponent {
         </SUI.Buttons>
         <SUI.Buttons appearance="transparent" visible={oak.state.editing && !oak.selectionIsEmpty} color="red">
           <SUI.Button onClick={oak.actions.removeElements} icon="remove"/>
+          <SUI.Button icon="plus"/>
+          <SUI.Popup on="click" appearance="inverted" title="Add Component">
+            <SUI.Button title="Button" onClick={oak.actions.createElement.bind(oak, { type: "SUI.Button" })}/>
+            <SUI.Button title="Card" onClick={oak.actions.createElement.bind(oak, { type: "SUI.Card" })}/>
+            <SUI.Button title="Header" onClick={oak.actions.createElement.bind(oak, { type: "SUI.Header" })}/>
+            <SUI.Button title="Icon" onClick={oak.actions.createElement.bind(oak, { type: "SUI.Icon" })}/>
+          </SUI.Popup>
         </SUI.Buttons>
       </SUI.Menu>
     );
