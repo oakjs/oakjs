@@ -458,11 +458,11 @@ class OakJS extends Eventful(Object) {
     // If not loaded, load first and then call back to show
     if (!ModalController.isLoaded) {
       return ModalController.loadComponent()
-              .then( () => oak.showModal(ModalController, props) )
               .catch(e => {
                 console.error(`oak.showModal(${ModalController}) load error:`, e);
                 return Promise.reject(e);
-              });
+              })
+              .then( () => oak.showModal(ModalController, props) )
     }
 
     let _resolve, _reject;
@@ -499,10 +499,10 @@ class OakJS extends Eventful(Object) {
     const component = modal.controller.component;
     var value;
     if (component) {
-      console.info("component:", component);
+//      console.info("component:", component);
       if (component.getValue) {
         value = component.getValue();
-        console.info("got value:", value);
+//        console.info("got value:", value);
       }
     }
     else {
@@ -519,7 +519,8 @@ class OakJS extends Eventful(Object) {
     const modal = oak.runner.modal;
     if (!modal) return;
 
-    modal.promise._reject(reason);
+    const rejectValue = (reason && reason.jquery ? undefined : reason);
+    modal.promise._reject(rejectValue);
     oak._closeModal();
   }
 
