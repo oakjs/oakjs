@@ -538,8 +538,8 @@ class OakJS extends Eventful(Object) {
     return oak.showModal("_runner/Alert", { ...props, message });
   }
 
-  prompt(message, props) {
-    return oak.showModal("_runner/Prompt", { ...props, message });
+  prompt(message, value, props) {
+    return oak.showModal("_runner/Prompt", { ...props, message, value });
   }
 
 
