@@ -276,24 +276,22 @@ console.log("startDragMoving", info, this.state.dragComponents);
   onDragMoveEnd = (event, info) => {
     // if we started moving...
     if (this.state.dragMoveStarted) {
-      // ALWAYS undo the initial remove
+      // ALWAYS undo the initial `removeElements()`
        oak.undo();
 
       // if we actually dropped,
       if (this.state.dropParent) {
-oak.undo();
+        // undo the move `addElements()`
+        oak.undo();
 
         // redo the add + remove in one undo transaction
         const elements = this.state.dragComponents;
         const parent = this.state.dropParent;
         const position = this.state.dropPosition;
 //console.warn(parent, position, elements);
-        new UndoTransaction({
-          actionName: "Move Element",
-          transactions: [
-            oak.actions.removeElements({ elements, autoExecute: false }),
-            oak.actions.addElements({ parent, position, elements, autoExecute: false })
-          ]
+
+        oak.actions.moveElements({
+          elements, parent, position
         });
       }
     }

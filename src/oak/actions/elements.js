@@ -144,6 +144,40 @@ export function addElements(options = {}) {
 }
 
 
+//////////////////////////////
+//  Moving children
+//////////////////////////////
+
+
+// Move list of `elements` and all descendents from their current parent
+//  to `parent` at `position` pushing other things out of the way.
+//
+// NOTE: this does NOT clone or otherwise modify the elements!
+//
+// Required options:  `elements`, `parent`, `position`,
+// Optional options:  `controller`, `autoExecute`, `actionName`
+export function moveElements(options = {}) {
+  const {
+    controller, elements, parent, position, autoSelect,
+    actionName = "Move Elements", autoExecute
+  } = options;
+
+  if (!Array.isArray(elements)) die(oak, actionName, options, "`options.elements` must be an array");
+
+  return changeFragmentTransaction({
+    actionName,
+    controller,
+    autoSelect,
+    autoExecute,
+    transformer: (fragment) => {
+      // remove the descendents of the elements or we'll get an error removing children
+      const roots = fragment._removeDescendents(elements);
+      fragment.removeElements(roots);
+      fragment.add(parent, position, elements);
+    }
+  });
+}
+
 
 //////////////////////////////
 //  Generic JSXFragment manipulation

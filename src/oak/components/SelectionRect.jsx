@@ -13,7 +13,9 @@ export default class SelectionRect extends React.Component {
       style: rect,
       onMouseDown
     }
+    // if position was specified, add as attribute to style with CSS
     if (position !== undefined) rectProps["data-position"] = position;
+
     return (
       <div {...rectProps}>{children}</div>
     )
