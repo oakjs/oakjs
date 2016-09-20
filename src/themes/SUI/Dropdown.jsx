@@ -14,7 +14,7 @@ import ElementBuffer from "./ElementBuffer";
 import SUIModuleComponent from "./SUIModuleComponent";
 import Menu from "./Menu";
 
-import "./Dropdown.css";
+import "./Dropdown.less";
 
 const moduleProps = {
   on: PropTypes.string,                   // default: "click"       Event used to trigger dropdown (Hover, Click, Custom Event).
