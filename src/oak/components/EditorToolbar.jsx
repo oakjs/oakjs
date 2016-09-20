@@ -40,9 +40,7 @@ export default class EditorToolbar extends OakComponent {
           </SUI.Popup>
         </SUI.Buttons>
         <Oak.Spacer inline fluid/>
-        <Oak.ActionItem id="oak.startEditing"/>
-        <SUI.Dropdown items={["Page","Section","Project"]} text={oak.state.editController}/>
-        <Oak.ActionItem id="oak.saveCurrent" title="Save"/>
+        <Oak.ActionItem id="oak.saveCurrent" hidden={!oak.editController}/>
       </SUI.Menu>
     );
   }

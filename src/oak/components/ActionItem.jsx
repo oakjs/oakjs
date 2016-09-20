@@ -30,7 +30,7 @@ export default class ActionItem extends React.Component {
   }
 
   render() {
-    let { id, props, ...menuProps } = this.props;
+    let { id, props, title, ...itemProps } = this.props;
     const action = Action.get(id, props);
 
     if (!action) {
@@ -40,16 +40,16 @@ export default class ActionItem extends React.Component {
 
     // add action props to the menuProps, allowing explicit props to win
     // (this lets you, eg, override the label or hidden)
-    menuProps = {
-      label: action.title,
+    itemProps = {
+      label: (title in this.props ? this.props.title : action.title),
       hint: action.shortcutHint,
       hidden: action.hidden,
       disabled: action.disabled,
+      active: action.active,
       onClick: action.execute,
-      ...menuProps
+      ...itemProps
     }
-
-    return <SUIMenuItem {...menuProps}/>
+    return <SUIMenuItem {...itemProps}/>
   }
 
   //////////////////////////////

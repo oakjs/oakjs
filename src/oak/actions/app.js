@@ -119,7 +119,8 @@ new Action({
   id: "oak.saveCurrent",
   title: ()=> `Save ${oak.state.editController}`,
   handler: saveCurrent,
-  hidden: () => !oak.isEditing || !oak.editController
+  hidden: () => !oak.isEditing || !oak.editController,
+  active: () => oak.editControllerIsDirty
 });
 
 
