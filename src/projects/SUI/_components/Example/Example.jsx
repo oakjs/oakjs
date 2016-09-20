@@ -24,7 +24,7 @@ export default class Example extends OakComponent {
         {header}
         <Oak.Spacer/>
         {children}
-        <Oak.Spacer massive/>
+        <Oak.Spacer size="massive"/>
       </div>
     );
   }

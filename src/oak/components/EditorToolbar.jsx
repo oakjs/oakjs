@@ -39,9 +39,9 @@ export default class EditorToolbar extends OakComponent {
             <SUI.Button title="Icon" onClick={oak.bindAction("createElement", { type: "SUI.Icon" })}/>
           </SUI.Popup>
         </SUI.Buttons>
-        <div style={{ flex:"1 1 100%" }}/>
+        <Oak.Spacer inline fluid/>
         <SUI.Buttons appearance="transparent" hidden={!oak.editController}>
-          <SUI.Button title={`Save ${oak.state.editController}`} onClick={oak.bindAction("saveCurrent")} active={oak.editControllerIsDirty} />
+          <SUI.Button title={`Save ${oak.state.editController}`} onClick={oak.actions.saveCurrent} active={oak.editControllerIsDirty} />
         </SUI.Buttons>
       </SUI.Menu>
     );

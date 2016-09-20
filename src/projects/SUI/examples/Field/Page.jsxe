@@ -47,7 +47,7 @@
           <SUI.Field type="button" value="OK" error="SUI styling messes this up" oid="ql9s7XT1"/>
           <SUI.Field type="checkbox" label="Checkbox label" oid="VmxiPovf"/>
         </SUI.Fields>
-        <Oak.Spacer large oid="MvstZAEA"/>
+        <Oak.Spacer size="large" oid="MvstZAEA"/>
         <SUI.Fields appearance="compact" oid="nospgEB5">
           <SUI.Field label="type=date" oid="l0aSMLpd"/>
           <SUI.Field label="type=datetime" oid="gjuMx4Db"/>
@@ -58,7 +58,7 @@
           <SUI.Field type="datetime" oid="gJxtCTAO"/>
           <SUI.Field type="datetime-local" oid="RJV0xOAy"/>
         </SUI.Fields>
-        <Oak.Spacer large oid="N7qRkq9f"/>
+        <Oak.Spacer size="large" oid="N7qRkq9f"/>
         <SUI.Fields appearance="compact" oid="RB6lhKR8">
           <SUI.Field label="type=email" oid="hNPhyt4X"/>
           <SUI.Field label="type=file" oid="q1JqQO76"/>
@@ -69,7 +69,7 @@
           <SUI.Field type="file" oid="BArxbBjb"/>
           <SUI.Field type="hidden" oid="ugN3qLtO"/>
         </SUI.Fields>
-        <Oak.Spacer large oid="gDRCAZfd"/>
+        <Oak.Spacer size="large" oid="gDRCAZfd"/>
         <SUI.Fields appearance="compact" oid="fiM1TCFU">
           <SUI.Field label="type=image" oid="GpsUlkDV"/>
           <SUI.Field label="type=month" oid="TWYxfG63"/>
@@ -80,7 +80,7 @@
           <SUI.Field type="month" oid="S2kRDyFb"/>
           <SUI.Field type="number" min={0} max={10} oid="kBVnXGWy"/>
         </SUI.Fields>
-        <Oak.Spacer large oid="AB5KmUwa"/>
+        <Oak.Spacer size="large" oid="AB5KmUwa"/>
         <SUI.Fields appearance="compact" oid="bq050yyk">
           <SUI.Field label="type=password" oid="Alrr4eqX"/>
           <SUI.Field label="type=radio" oid="jtilxd3r"/>
@@ -91,7 +91,7 @@
           <SUI.Field type="radio" name="a" value="1" label="Radio label" oid="hC4cpt6D"/>
           <SUI.Field type="range" min={0} max={10} oid="d3DYyflE"/>
         </SUI.Fields>
-        <Oak.Spacer large oid="Fm08mGT0"/>
+        <Oak.Spacer size="large" oid="Fm08mGT0"/>
         <SUI.Fields appearance="compact" oid="t9UWlQCf">
           <SUI.Field label="type=reset" oid="ccd173I8"/>
           <SUI.Field label="type=search" oid="Y1En8IRf"/>
@@ -102,7 +102,7 @@
           <SUI.Field type="search" oid="xaY8AhfK"/>
           <SUI.Field type="submit" value="Submit" error="SUI styling messes this up" oid="LkVt7BWd"/>
         </SUI.Fields>
-        <Oak.Spacer large oid="nb3NGnJE"/>
+        <Oak.Spacer size="large" oid="nb3NGnJE"/>
         <SUI.Fields appearance="compact" oid="W8L7VIq7">
           <SUI.Field label="type=tel" oid="B7cTW848"/>
           <SUI.Field label="type=time" oid="cwjNn79R"/>
@@ -113,7 +113,7 @@
           <SUI.Field type="time" oid="jAEbmx3V"/>
           <SUI.Field type="toggle" oid="j3g6PaPu"/>
         </SUI.Fields>
-        <Oak.Spacer large oid="BkTJEAQL"/>
+        <Oak.Spacer size="large" oid="BkTJEAQL"/>
         <SUI.Fields appearance="compact" oid="dbMbNGM3">
           <SUI.Field label="type=url" oid="jiOnjIXO"/>
           <SUI.Field label="type=week" oid="Stw2n0sB"/>
