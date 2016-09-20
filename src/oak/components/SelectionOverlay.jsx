@@ -379,8 +379,8 @@ console.log("startDragMoving", info, this.state.dragComponents);
       const rect = oid && oak.getRectForOid(oid);
       if (!rect) return;
 
-      const insideSelection = dragOids.includes(oid);
-      if (insideSelection) positionDelta--;
+//       const insideSelection = dragOids.includes(oid);
+//       if (insideSelection) positionDelta--;
       const position = Math.max(0, index + positionDelta);
 
       return { oid, position, rect };

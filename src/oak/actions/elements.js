@@ -173,6 +173,7 @@ export function moveElements(options = {}) {
       // remove the descendents of the elements or we'll get an error removing children
       const roots = fragment._removeDescendents(elements);
       fragment.removeElements(roots);
+      // add elements (which auto-adds their children ???)
       fragment.add(parent, position, elements);
     }
   });
