@@ -145,6 +145,11 @@ class OakJS extends Eventful(Object) {
   //  State syntactic sugar
   //////////////////////////////
 
+  // Are we currently in "edit" mode?
+  get isEditing() {
+    return !!oak.state.editing;
+  }
+
   // Return the `ComponentController` for the current `appState.editController`,
   //  a `page`, `section` or `project`.
   // Returns `undefined` if the specified context is not found.
@@ -158,6 +163,7 @@ class OakJS extends Eventful(Object) {
     return undefined;
   }
 
+  // Does the current editController need to save?
   get editControllerIsDirty() {
     const controller = this.editController;
     return !!controller && controller.isDirty;

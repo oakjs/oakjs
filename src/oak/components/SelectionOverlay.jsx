@@ -533,7 +533,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
   render() {
     const { oak } = this.context;
-    if (!oak.state.editing) return null;
+    if (!oak.isEditing) return null;
 
     const props = {
       id: "SelectionOverlay",

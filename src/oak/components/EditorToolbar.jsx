@@ -20,8 +20,8 @@ export default class EditorToolbar extends OakComponent {
     return (
       <SUI.Menu id="EditorToolbar" appearance="attached inverted">
         <SUI.Buttons appearance="transparent">
-          <SUI.Button onClick={oak.actions.stopEditing} icon="pointing up" active={!oak.state.editing}/>
-          <SUI.Button onClick={oak.actions.startEditing} icon="configure" active={oak.state.editing}/>
+          <SUI.Button onClick={oak.actions.stopEditing} icon="pointing up" active={!oak.isEditing}/>
+          <SUI.Button onClick={oak.actions.startEditing} icon="configure" active={oak.isEditing}/>
           <Oak.Spacer inline/>
         </SUI.Buttons>
         <SUI.Buttons appearance="transparent">
@@ -29,7 +29,7 @@ export default class EditorToolbar extends OakComponent {
           <SUI.Button onClick={oak.redo} icon="repeat" disabled={!oak.canRedo}/>
           <Oak.Spacer inline/>
         </SUI.Buttons>
-        <SUI.Buttons appearance="transparent" visible={oak.state.editing && !oak.selectionIsEmpty} color="red">
+        <SUI.Buttons appearance="transparent" visible={oak.isEditing && !oak.selectionIsEmpty} color="red">
           <SUI.Button onClick={oak.actions.removeElements} icon="remove"/>
           <SUI.Button icon="plus"/>
           <SUI.Popup on="click" appearance="inverted" title="Add Component">
@@ -40,9 +40,9 @@ export default class EditorToolbar extends OakComponent {
           </SUI.Popup>
         </SUI.Buttons>
         <Oak.Spacer inline fluid/>
-        <SUI.Buttons appearance="transparent" hidden={!oak.editController}>
-          <SUI.Button title={`Save ${oak.state.editController}`} onClick={oak.actions.saveCurrent} active={oak.editControllerIsDirty} />
-        </SUI.Buttons>
+        <Oak.ActionItem id="oak.startEditing"/>
+        <SUI.Dropdown items={["Page","Section","Project"]} text={oak.state.editController}/>
+        <Oak.ActionItem id="oak.saveCurrent" title="Save"/>
       </SUI.Menu>
     );
   }
