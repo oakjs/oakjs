@@ -23,7 +23,7 @@ _________________
 `npm install`
 
 2. Invoke the test script:  
-`npm run-script mocha-test`
+`npm test` or `npm t`
 
 3. Tests are located here:  
 `test/*.js`
