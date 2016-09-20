@@ -13,7 +13,11 @@ import ReactDOM from "react-dom";
 import { getPath, getParent, setPath } from "oak-roots/util/path";
 import { classNames, mergeProps } from "oak-roots/util/react";
 
-export default class Form extends React.Component {
+import OakComponent from "../OakComponent";
+
+import "./Form.less";
+
+export default class Form extends OakComponent {
 
   static propTypes = {
   // wrapper appearance/attributes
@@ -33,6 +37,10 @@ export default class Form extends React.Component {
 
   // defaults which apply to ALL controls in the form
     controlProps: PropTypes.object,   // Arbitrary props to pass to all controls
+
+  // functionality
+    autoFocus: PropTypes.any          // `true` = autofocus first field
+                                      // `<string>` = first field with that name
   };
 
   constructor(props) {
@@ -57,6 +65,46 @@ export default class Form extends React.Component {
     return {
       form: this
     }
+  }
+
+
+//
+//  Component lifecycle
+//
+  componentDidMount() {
+    super.componentDidMount();
+    this.autoFocus();
+  }
+
+  componentDidUpdate() {
+    super.componentDidUpdate();
+    this.autoFocus();
+  }
+
+  // Auto-focus according do `props.autoFocus`:
+  //  - if `true`, select the first available non-disabled field
+  //  - if a string, select the first available non-disabled field with that `name`.
+  autoFocus() {
+    // if something is already focused, forget it
+    if (this._focused) return;
+
+    const { autoFocus } = this.props;
+    if (!autoFocus) return;
+
+    const selector = (autoFocus === true ? `[name]` : `[name='${autoFocus}']`);
+    const field = this.$ref().find(selector).filter(":not([disabled])")[0];
+    if (!field) return;
+
+    // attempt to `select()` the field first
+    try {
+      field.select();
+      return;
+    } catch (e) {}
+
+    // if that doesn't work, try to `focus()` in it.
+    try {
+      field.focus();
+    } catch (e) {}
   }
 
 
@@ -180,7 +228,7 @@ export default class Form extends React.Component {
   // Return css class name for the <form> element.
   getFormClassName(props) {
     return classNames(
-      "oak Editor",
+      "oak Form",
       props.appearance,
       props.className,
       props.mode
