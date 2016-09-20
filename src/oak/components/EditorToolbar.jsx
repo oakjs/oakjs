@@ -29,7 +29,7 @@ export default class EditorToolbar extends OakComponent {
           <SUI.Button onClick={oak.redo} icon="repeat" disabled={!oak.canRedo}/>
           <Oak.Spacer inline/>
         </SUI.Buttons>
-        <SUI.Buttons appearance="transparent" visible={oak.isEditing && !oak.selectionIsEmpty} color="red">
+        <SUI.Buttons appearance="transparent" hidden={!oak.isEditing || oak.selectionIsEmpty}>
           <SUI.Button onClick={oak.actions.removeElements} icon="remove"/>
           <SUI.Button icon="plus"/>
           <SUI.Popup on="click" appearance="inverted" title="Add Component">
