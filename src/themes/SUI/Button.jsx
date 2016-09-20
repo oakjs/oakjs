@@ -64,6 +64,8 @@ export default class SUIButton extends React.Component {
   };
 
   render() {
+    if (this.props.hidden) return null;
+
     const {
       // appearance
       appearance="", size, color, floated, attached,
@@ -77,8 +79,6 @@ export default class SUIButton extends React.Component {
       // everything else, including id, className, style, onClick
       ...elementProps
     } = this.props;
-
-    if (hidden) return null;
 
     const buttonElements = new ElementBuffer({
       type: (attached ? "div" : "button"),
