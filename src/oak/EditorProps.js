@@ -83,19 +83,23 @@ export default class EditorProps {
 
 // Make a thing editable
 export function editify(props, thing, dragType) {
-  thing.editorProps = new EditorProps(props);
-  if (!thing.editorProps.dragType) {
-    thing.editorProps.dragType = dragType || thing.name;
+  try {
+    thing.editorProps = new EditorProps(props);
+    if (!thing.editorProps.dragType) {
+      thing.editorProps.dragType = dragType || thing.name;
+    }
   }
+  catch (e) {};
 }
 
 
 // Make a bunch of constructors editable with the same properties.
 //TODOC
 export function editifyMap(map, props, ...keys) {
-  if (keys === undefined) keys = Object.keys(map);
+  if (keys.length === 0) keys = Object.keys(map);
   keys.forEach( key => {
     const thing = map[key];
+//console.log("editfying ", key, props);
     if (!thing) return console.warn(`editifyFromMap(): key '${key}' not found`);
     editify(props, thing, key);
   });
