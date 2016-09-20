@@ -70,16 +70,14 @@ class SUIModal extends SUIModuleComponent {
     blurring: PropTypes.bool,               // default: false       Blur the dimmer?
 
 
+    autoShow: PropTypes.bool,           // if true, we show when first instantiated
+
     ...moduleProps
   };
 
   //////////////////////////////
   // Component lifecycle
   //////////////////////////////
-
-  constructor() {
-    super(...arguments);
-  }
 
   componentDidMount() {
     // render our stuff inside the the spot where SUI wants to put it
@@ -93,10 +91,16 @@ class SUIModal extends SUIModuleComponent {
     // otherwise react will replace one overlay with another
     this.$modalContainer = $("<div class='modalContainer'/>");
     $SUIModalsContainer.append(this.$modalContainer);
+
+    // autoShow?
+    if (this.props.autoShow) this.show();
   }
 
   componentDidUpdate() {
-    if (this.isActive()) this.renderModal();
+    if (this.isActive() || this.props.autoShow) {
+      this.renderModal();
+    }
+    if (this.props.autoShow) this.show();
   }
 
   componentWillUnmount() {
@@ -107,21 +111,10 @@ class SUIModal extends SUIModuleComponent {
 
 
   //////////////////////////////
-  // Syntactic sugar
-  //////////////////////////////
-
-
-  //////////////////////////////
   // SUI Modal Module Properties
   //////////////////////////////
 
   static moduleProps = moduleProps;
-
-  // Given an object of props, return a map with non-undefined props
-  //  which we pass to the `.tellModule()` method to initialize / update the module.
-  getModuleProps(props = this.props) {
-    return knownProperties(props, this.constructor.moduleProps);
-  }
 
   setModuleProps(props = {}) {
     // force detachable off or our rendering will mess up
@@ -133,7 +126,7 @@ class SUIModal extends SUIModuleComponent {
     // draw the modal first if it hasn't been done already
     if (!this.$modal) {
       this.renderModal();
-      this.setModuleProps();
+      this.setModuleProps(this.getModuleProps());
     }
     return this.$modal.modal(...args);
   }

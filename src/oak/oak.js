@@ -426,53 +426,119 @@ class OakJS extends Eventful(Object) {
   //
   //  Modal:  Alert / Prompt / etc
   //
+  // TODO: stack of modals with pop behavior...
+  //
 
-  // Show a `ModalComponent` with `options` passed in.
-  // If you pass a `ComponentController`, we'll make sure that is loaded and use its `Component`.
-  // Otherwise, pass a `SUI.Modal` component... ???
-  // TODO: Returns a promise which resolves when they close the modal
-  showModal(ModalComponent, options) {
-    if (!ModalComponent) {
-      console.error("showModal() called with undefined ModalComponent!");
+  // Show a `ModalComponent` with `props` passed in.
+  // Pass a `ComponentController`, we'll make sure that is loaded and use its `Component` to display the modal.
+  // You can also pass the path of a Project Component and we'll look it up for you (better error messages this way).
+  // Returns a promise which resolves when they close the modal
+  showModal(ModalController, props) {
+    if (typeof ModalController === "string") {
+      const Controller = oak.account.get(ModalController);
+      if (!Controller) {
+        console.error(`oak.showModal(): couldn't find component '${ModalController}'`);
+        return Promise.reject();
+      }
+      ModalController = Controller;
+    }
+
+    if (!(ModalController instanceof ComponentController)) {
+      console.error("showModal() must be called with a ComponentController!");
       return Promise.reject();
     }
 
-    // If we were passed a ComponentController, load it and use it's `Component`.
-    if (ModalComponent instanceof ComponentController) {
-
-      // If loadError, reject immediately
-      if (ModalComponent.loadError) {
-        console.warn("Couldn't load modal component: ", ModalComponent.loadError);
+    // If loadError, reject immediately
+    if (ModalController.loadError) {
+      console.warn("Couldn't load modal component: ", ModalController.loadError);
 // TODO: throw???
-        return Promise.reject(ModalComponent.loadError);
-      }
-
-      // If not loaded, load first and then show
-      if (!ModalComponent.isLoaded) {
-        return ModalComponent.loadComponent()
-                .then( () => oak.showModal(ModalComponent.Component, options) )
-                .catch(e => {
-                  console.error(`oak.showModal(${ModalComponent}) load error:`, e);
-                  return Promise.reject(e);
-                });
-      }
-
-      // recurse with the Component
-      return oak.showModal(ModalComponent.Component, options);
+      return Promise.reject(ModalController.loadError);
     }
 
-    console.warn("show modal:\n", ModalComponent, "\noptions:\n", options);
+    // If not loaded, load first and then call back to show
+    if (!ModalController.isLoaded) {
+      return ModalController.loadComponent()
+              .then( () => oak.showModal(ModalController, props) )
+              .catch(e => {
+                console.error(`oak.showModal(${ModalController}) load error:`, e);
+                return Promise.reject(e);
+              });
+    }
+
+    let _resolve, _reject;
+    const modal = oak.runner.modal = {
+      controller: ModalController,
+      props: {
+        ...props,
+        autoShow: true,
+        onApprove: oak.onModalApproved,
+        onDeny: oak.onModalDenied
+      },
+      promise: new Promise( (resolve, reject) => {
+        _resolve = resolve;
+        _reject = reject;
+      })
+    }
+    // tack resolve/reject onto the modal.promise for use in `onModalApproved` and `onModalDenied`.
+    modal.promise._resolve = _resolve;
+    modal.promise._reject = _reject;
+
+    oak.updateSoon();
+
+    return modal.promise;
+  }
+
+  // Handle click on "approve" button of the current modal.
+  // Resolves the "modal promise" returned by `showModal()`.
+  // Attempts to call live modal component `getValue()` routine
+  //  to get "value" to pass back to promise.
+  onModalApproved() {
+    const modal = oak.runner.modal;
+    if (!modal) return;
+
+    const component = modal.controller.component;
+    var value;
+    if (component) {
+      console.info("component:", component);
+      if (component.getValue) {
+        value = component.getValue();
+        console.info("got value:", value);
+      }
+    }
+    else {
+      console.warn("couldn't get pointer to component!");
+    }
+
+    modal.promise._resolve(value);
+    oak._closeModal();
+  }
+
+  // Handle click on the "deny" button of the current modal.
+  // Rejects the "modal promise" returned by `showModal()`.
+  onModalDenied(reason) {
+    const modal = oak.runner.modal;
+    if (!modal) return;
+
+    modal.promise._reject(reason);
+    oak._closeModal();
+  }
+
+  // Stop displaying the current modal.
+  // Called automatically when modal is dismissed.
+  _closeModal() {
+    delete oak.runner.modal;
+    oak.updateSoon();
   }
 
   // Show `message` in an alert modal.
-  // Possible `options`:  `{ header, okTitle }`
+  // Possible `props`:  `{ header, okTitle }`
   // Returns a promise which resolves when they click `ok`.
-  alert(message, options) {
-    return oak.showModal(oak.account.get("_runner/Alert"), { ...options, message });
+  alert(message, props) {
+    return oak.showModal("_runner/Alert", { ...props, message });
   }
 
-  prompt(message, options) {
-    return oak.showModal(oak.account.get("_runner/Prompt"), { ...options, message });
+  prompt(message, props) {
+    return oak.showModal("_runner/Prompt", { ...props, message });
   }
 
 

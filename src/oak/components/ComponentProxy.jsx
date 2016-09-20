@@ -11,13 +11,13 @@ import Project from "./Project";
 import Section from "./Section";
 
 export class ComponentProxy extends React.Component {
-  // You must implement the following methods:
-  getController() {
-    return this.props.component;
-  }
-
   static contextTypes = {
     oak: PropTypes.any,
+  }
+
+  // If you have a fixed concept of who your controller is, override this.
+  getController() {
+    return this.props.component;
   }
 
   //
@@ -26,22 +26,35 @@ export class ComponentProxy extends React.Component {
   //
   componentDidMount() {
     const controller = this.getController();
-    if (controller) controller.component = this.refs.component;
+    if (controller) {
+      controller.component = this.refs.component;
+//      if (controller === oak.runner.project) console.info("MOUNT: setting component of ", controller, " to ", this.refs.component);
+    }
   }
+
+// TODO: WillUpdate is firing AFTER DidUpdate which is messing things up!
+//   componentWillUpdate() {
+//     const controller = this.getController();
+//     if (controller) {
+//       delete controller.component;
+//       if (controller === oak.runner.project) console.log("WILL UPDATE: clearing component of ", controller, " to ", this.refs.component);
+//     }
+//   }
 
   componentDidUpdate() {
     const controller = this.getController();
-    if (controller) controller.component = this.refs.component;
-  }
-
-  componentWillUpdate() {
-    const controller = this.getController();
-    if (controller) delete controller.component;
+    if (controller) {
+      controller.component = this.refs.component;
+//      if (controller === oak.runner.project) console.info("DID UPDATE: setting component of ", controller, " to ", this.refs.component);
+    }
   }
 
   componentWillUnmount() {
     const controller = this.getController();
-    if (controller) delete controller.component;
+    if (controller) {
+      delete controller.component;
+//      if (controller === oak.runner.project) console.log("WILL UNMOUNT: clearing component of ", controller, " to ", this.refs.component);
+    }
   }
 
   render() {
@@ -67,6 +80,19 @@ export class RunnerSection extends ComponentProxy {
 
 export class RunnerPage extends ComponentProxy {
   getController() { return this.context.oak.runner.page; }
+}
+
+export class RunnerModal extends ComponentProxy {
+  getTopModal() { return this.context.oak.runner.modal }
+  getController() { return this.getTopModal() && this.getTopModal().controller }
+  render() {
+    const controller = this.getController();
+    if (!controller) return null;
+
+    const modal = this.getTopModal();
+    const props = { ...modal.props, ref: "component" };
+    return React.createElement(controller.Component, props);
+  }
 }
 
 

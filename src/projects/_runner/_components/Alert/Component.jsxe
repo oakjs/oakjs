@@ -1,1 +1,3 @@
-<SUI.Modal header={props.header} content={props.message} actions={[props.okTitle]}/>
+<div>
+  <SUI.Modal autoShow={true} header={props.header} content={props.message} actions={[props.okTitle]} onApprove={props.onApprove} onDeny={props.onDeny}/>
+</div>

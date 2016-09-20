@@ -5,7 +5,8 @@ export AppMenubar from "./AppMenubar";
 export AutoResized from "./AutoResized";
 export Columns from "./Columns";
 export ComponentMenu, { ProjectMenu, SectionMenu, PageMenu } from "./ComponentMenu";
-export { ComponentProxy, CurrentPage, CurrentProject, CurrentSection, RunnerPage, RunnerProject, RunnerSection,  } from "./ComponentProxy";
+export { ComponentProxy, CurrentPage, CurrentProject, CurrentSection,
+         RunnerPage, RunnerProject, RunnerModal, RunnerSection,  } from "./ComponentProxy";
 export { ProjectThumb, SectionThumb, PageThumb } from "./ComponentThumbs";
 export ComponentTree from "./ComponentTree";
 export EditorToolbar from "./EditorToolbar";
