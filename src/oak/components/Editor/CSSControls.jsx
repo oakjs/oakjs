@@ -21,5 +21,9 @@ export class CSSLength extends NumericUnitControl {
   }
 }
 
+// Make everything draggable but not droppable
+import { editifyMap } from "oak/EditorProps";
+editifyMap(exports, { draggable: true, droppable: false });
+
 // export all as one map
 export default Object.assign({}, exports);

@@ -121,3 +121,6 @@ export default class Dropdown extends Control {
 
 }
 
+// Make everything draggable but not droppable
+import { editifyMap } from "oak/EditorProps";
+editifyMap(exports, { draggable: true, droppable: false });

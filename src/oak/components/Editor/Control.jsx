@@ -596,3 +596,9 @@ export class Checkbox extends Input {
 
 }
 
+
+// Make everything draggable but not droppable
+import { editifyMap } from "oak/EditorProps";
+console.warn(Object.keys(exports));
+editifyMap(exports, { draggable: true, droppable: false });
+

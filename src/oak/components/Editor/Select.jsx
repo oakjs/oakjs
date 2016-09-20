@@ -168,6 +168,10 @@ export class Select extends Control {
 
 }
 
+// Make everything draggable but not droppable
+import { editifyMap } from "oak/EditorProps";
+editifyMap(exports, { draggable: true, droppable: false });
 
 // Export all as a single object
 export default Object.assign({}, exports);
+

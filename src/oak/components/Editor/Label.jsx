@@ -52,3 +52,7 @@ export default class Label extends React.Component {
   }
 
 }
+
+// Make everything draggable but not droppable
+import { editifyMap } from "oak/EditorProps";
+editifyMap(exports, { draggable: true, droppable: false });
