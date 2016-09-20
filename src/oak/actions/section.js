@@ -96,7 +96,7 @@ export function saveSection(options = {}) {
   if (typeof section === "string") section = oak.account.getSection(section);
   if (!section) die(oak, "actions.savePage", [options], "you must specify a section");
 
-  return section.save("FORCE");
+  return section.forceSave();
 }
 
 new Action({

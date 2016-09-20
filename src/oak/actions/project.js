@@ -98,7 +98,7 @@ export function saveProject(options = {}) {
   if (typeof project === "string") project = oak.account.getProject(project);
   if (!project) die(oak, "actions.savePage", [options], "you must specify a project");
 
-  return project.save("FORCE");
+  return project.forceSave();
 }
 
 new Action({

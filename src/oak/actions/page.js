@@ -93,7 +93,7 @@ export function savePage(options = {}) {
   if (typeof page === "string") page = oak.account.getPage(page);
   if (!page) die(oak, "actions.savePage", [options], "you must specify a page");
 
-  return page.save("FORCE");
+  return page.forceSave();
 }
 
 new Action({

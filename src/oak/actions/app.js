@@ -80,7 +80,7 @@ new Action({
 export function saveCurrent(options = {}) {
   const controller = oak.editController;
   if (!controller) return;
-  return controller.save("FORCE")
+  return controller.forceSave()
           .then( oak.updateSoon, oak.updateSoon);
 }
 new Action({
@@ -94,9 +94,9 @@ new Action({
 // Force-save current project, section, page
 export function saveAll(options = {}) {
   const promises = [
-    oak.project && oak.project.save("FORCE"),
-    oak.section && oak.section.save("FORCE"),
-    oak.page && oak.page.save("FORCE"),
+    oak.project && oak.project.forceSave(),
+    oak.section && oak.section.forceSave(),
+    oak.page && oak.page.forceSave(),
   ].filter(Boolean);
 
   return Promise.all(promises)

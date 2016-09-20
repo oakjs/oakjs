@@ -23,7 +23,7 @@ const DEBUG = true;
 // NOTE: this is currently not undoable.
 // TODO: this doesn't return a transaction, so can't be used in other undo contexts... ???
 export function saveComponent({ component }) {
-  return component.save("FORCE");
+  return component.forceSave();
 }
 
 
@@ -124,7 +124,7 @@ export function _renameComponent(options) {
       component.props.title = newTitle;
 
       // 6. Save the component (but don't wait for it).
-      component.save("FORCE");
+      component.forceSave();
 
       if (DEBUG) console.info("component renamed" + (navigate ? ", navigating..." : ""));
 
@@ -427,7 +427,7 @@ export function _duplicateComponent({ path, newId, title, indexData, position, n
       newComponent.props.title = title;
 
       // 5. Save the component (but don't wait for it).
-      newComponent.save("FORCE");
+      newComponent.forceSave();
 
       if (DEBUG) console.info("component duplicated" + (navigate ? ", navigating..." : ""));
 
