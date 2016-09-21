@@ -1,7 +1,8 @@
+/*
 var chai   = require('chai');
 var expect = chai.expect;
 
-import Point from "../src/oak-roots/Point";
+import Point from '../src/oak-roots/Point';
 
 // max and mins for cordinate system
 var MAX_X = 200;
@@ -161,3 +162,4 @@ describe("The isOrigin() getter of a Point object", function(){
      expect(pointInstance.top).to.be.a('number');
    });
 });
+*/
