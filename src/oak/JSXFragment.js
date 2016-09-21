@@ -345,6 +345,7 @@ if (!element) debugger;
     const childIndent = indent + "  ";
     return [
       `${indent}render() {`,
+      `${childIndent}if (this.props.hidden) return null;`,
       this._getRenderVars(childIndent),
       "",
       `${childIndent}// get a component constructor given a string type`,
