@@ -5,7 +5,7 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oakjs/client"
+    "url": "https://github.com/oakjs/oakjs"
   },
   "scripts": {
     "test": "mocha --compilers js:babel/register -u bdd -R spec --timeout 500 --recursive",
@@ -71,7 +71,7 @@
     "oakjs",
     "react"
   ],
-  "author": "owenoak",
+  "author": "Owen Williams <owenoak@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/oakjs/client/issues"

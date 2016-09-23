@@ -13,7 +13,7 @@ function _normalizeInt(value) {
   return value;
 }
 
-export default class UIRoute extends AppRoute {
+export default class PageRoute extends AppRoute {
   static childContextTypes = {
     ...AppRoute.childContextTypes,
     page: PropTypes.any,
