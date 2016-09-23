@@ -100,7 +100,7 @@ export function editifyMap(map, props, ...keys) {
   keys.forEach( key => {
     const thing = map[key];
 //console.log("editfying ", key, props);
-    if (!thing) return console.warn(`editifyFromMap(): key '${key}' not found`);
+    if (!thing) return console.warn(`editifyMap(): key '${key}' not found`);
     editify(props, thing, key);
   });
 }

@@ -1,36 +1,30 @@
-//
-//  "Oak" package
-//
-import Oak from "./components";
-exports.Oak = Oak;
-
-// Export each item under its "package name".
-for (let key in Oak) {
-  exports[`Oak.${key}`] = Oak[key];
-}
-
-
-//
-// Editor package
-//
-import Editor from "./Editor";
-exports.Editor = Editor;
-// export each item under its "package name".
-for (let key in Editor) {
-  exports[`Editor.${key}`] = Editor[key];
-}
-
-
-//
-// Adapted SUI components
-// TODO: this should be dynamic...
-import SUI from "./theme/SUI";
-exports.SUI = SUI;
-// Mark all of the SUI components as coming from the "SUI" package
-// and export under their "package name".
-for (let key in SUI) {
-  exports[`SUI.${key}`] = SUI[key];
-}
+// All public oak components.
+export ActionItem from "./ActionItem";
+export AppMenu from "./AppMenu";
+export AppMenubar from "./AppMenubar";
+export AutoResized from "./AutoResized";
+export Columns from "./Columns";
+export ComponentMenu, { ProjectMenu, SectionMenu, PageMenu } from "./ComponentMenu";
+export { ComponentProxy, CurrentPage, CurrentProject, CurrentSection,
+         RunnerPage, RunnerProject, RunnerModal, RunnerSection,  } from "./ComponentProxy";
+export { ProjectThumb, SectionThumb, PageThumb } from "./ComponentThumbs";
+export ComponentTree from "./ComponentTree";
+export EditorToolbar from "./EditorToolbar";
+export FixedPanel from "./FixedPanel";
+export Link, { AnchorLink, PageLink, ProjectLink, RouteLink, SectionLink } from "./Link";
+export OakComponent from "./OakComponent";
+export Page from "./Page";
+export Panel, { PanelFooter, PanelHeader, LeftSidebar, RightSidebar } from "./Panel";
+export Placeholder from "./Placeholder";
+export Project from "./Project";
+export RenderWhenVisible from "./RenderWhenVisible";
+export ResizeHandle from "./ResizeHandle";
+export Resizer from "./Resizer";
+export Section from "./Section";
+export SelectionOverlay from "./SelectionOverlay";
+export Spacer from "./Spacer";
+export SplitPanel from "./SplitPanel";
+export Stub from "./Stub";
 
 // Export all as a map
 export default Object.assign({}, exports);

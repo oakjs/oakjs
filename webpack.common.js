@@ -24,7 +24,7 @@ Object.assign(paths, {
   "oak-roots":  path.join(paths.src, "oak-roots"),
   // NOTE: `public` is a reserved word, so access as `config.paths["public"]`...
   "public":     path.join(paths.src, "public"),
-  themes:       path.join(paths.src, "themes"),
+  components:   path.join(paths.src, "components"),
 });
 
 

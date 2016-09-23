@@ -21,9 +21,9 @@ import Page from "./Page";
 import Project from "./Project";
 import Section from "./Section";
 
-import oakComponents from "./components";
+// Initialize HTML element drag and drop setup
+import HTML_EDITOR_SETTINGS from "../components/html";
 import Stub from "./components/Stub";
-import HTML_EDITOR_SETTINGS from "./components/theme/html";
 
 let oak;
 
@@ -272,16 +272,12 @@ class OakJS extends Eventful(Object) {
 
 
   //////////////////////////////
-  //  Syntactic sugar for getting components
+  //  Working with Components
   //////////////////////////////
 
-  // Default `Component` constructor for the system.
-  @proto
-  Component = oakComponents.Oak.OakComponent;
-
   // All known components
-  // TODO: `account.components`... ???
-  components = Object.assign({}, oakComponents)
+  // Add components to this map with `oak.registerComponents()`.
+  components = {};
 
   // Given a string `type` from a JSXE, return the `Component` class it corresponds to.
   lookupComponent(type, components, errorMessage) {
@@ -304,6 +300,22 @@ class OakJS extends Eventful(Object) {
     return Stub;
   }
 
+  // Register a map of `components` under `packageName`.
+  // Allows you to access the components in `Page`s etc as `<packageName.componentName>`.
+  registerComponents(packageName, components) {
+    if (oak.components[packageName]) {
+      console.warn(`oak.registerComponents(${packageName}): we've already registered a package with this name`);
+    }
+    console.info(`registering ${packageName} components`);
+    // Register under the package name
+    oak.components[packageName] = components;
+    // Register under `packageName.componentName` as well.
+    Object.keys(components).forEach( key => {
+      const component = components[key];
+      if (component instanceof Function) oak.components[`${packageName}.${key}`] = component;
+    });
+  }
+
 // DEPRECATE???
   // Return the `editorProps` for a given constructor.
   // This tells us, eg, if we can drag into them, etc.
@@ -318,6 +330,9 @@ class OakJS extends Eventful(Object) {
     }
     return new EditorProps();
   }
+
+
+
 
   //////////////////////////////
   //  Oid => Component => Oid
@@ -593,9 +608,9 @@ class OakJS extends Eventful(Object) {
 oak = new OakJS();
 export default oak;
 
+// globalize for reflection
+global.oak = oak;
 
 // When window is resized, update everything. (???)
 $(window).on("resize", oak.onWindowResized);
 
-// globalize for reflection
-global.oak = oak;

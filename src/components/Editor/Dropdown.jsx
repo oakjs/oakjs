@@ -9,7 +9,7 @@ import React, { PropTypes } from "react";
 
 import { debounce } from "oak-roots/util/decorators";
 
-import SUIDropdown from "themes/SUI/Dropdown";
+import SUIDropdown from "../SUI/Dropdown";
 
 import Control from "./Control";
 

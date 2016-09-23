@@ -13,7 +13,7 @@ import ReactDOM from "react-dom";
 import { getPath, getParent, setPath } from "oak-roots/util/path";
 import { classNames, mergeProps } from "oak-roots/util/react";
 
-import OakComponent from "../OakComponent";
+import OakComponent from "../Oak/OakComponent";
 
 import "./Form.less";
 

@@ -5,7 +5,7 @@
 import React, { PropTypes } from "react";
 import Action from "oak-roots/Action";
 
-import SUIMenuItem from "themes/SUI/MenuItem";
+import SUIMenuItem from "components/SUI/MenuItem";
 
 export default class ActionItem extends React.Component {
   static propTypes = {

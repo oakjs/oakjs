@@ -1,13 +1,16 @@
 //////////////////////////////
-//  Adapt SUI components to work with oak editor
+//  Adapt Editor components to work with oak editor
 //////////////////////////////
 
+import oak from "oak/oak";
 
-import components from "themes/SUI/components";
-export default components;
+import components from "./SUI/components";
+
+// Register all components under "SUI" package, eg:  `<SUI.Button/>`
+oak.registerComponents("SUI", components);
 
 // Oak editor prefs
-import { editifyMap } from "../../EditorProps";
+import { editifyMap } from "oak/EditorProps";
 
 // Components which are only draggable
 editifyMap(components, { draggable: true, droppable: false },

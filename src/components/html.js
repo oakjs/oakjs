@@ -1,12 +1,13 @@
 //////////////////////////////
-//  Editor defaults for HTML elements
+//  Oak Editor Drag and Drop setup for HTML elements.
+//  Dictates which components can be dropped where, etc.
 //
 //  TODO: SVG elements???
 //  TODO: See https://github.com/facebook/react/blob/master/src/renderers/dom/client/validateDOMNesting.js
 //
 //////////////////////////////
 
-import EditorProps from "../../EditorProps";
+import EditorProps from "../oak/EditorProps";
 
 // SEE:  https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories
 export default {
