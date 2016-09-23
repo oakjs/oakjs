@@ -558,21 +558,6 @@ class OakJS extends Eventful(Object) {
 
 
   //
-  //  Action stuff
-  //
-
-  // Bind an action to execute later,
-  //  eg in button event handler or something.
-  bindAction(actionName, ...args) {
-    const action = oak.actions[actionName];
-    if (!action) {
-      console.warn(`oak.bindAction(${actionName}): action not found!`);
-      return Function.prototype;
-    }
-    return action.bind(oak, ...args);
-  }
-
-  //
   //  Event handling
   //
 
