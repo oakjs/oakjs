@@ -43,13 +43,28 @@ export default class ChildController extends Savable(Loadable()) {
   // Return a pointer to one of our children specified by string id or numeric index.
   // If not found, returns `undefined`.
   // Always returns `undefined` if we haven't already loaded.
-  getChild(childId) { return this.childIndex.getItem(childId) }
+  getChild(childId) {
+    if (!this.isLoaded) return undefined;
+    if (typeof childId === "string") return this.childIndex.getItem(childId);
+    if (typeof childId === "number") return this.children && this.children[childId];
+    throw new TypeError(`${this}.getChild(${childId}): childId not understood`);
+  }
 
-  // Return a promise which loads one of our items.
+  // Return a promise which loads one of our children.
   // If we can't find the item in our index, the promise will reject.
   // NOTE: the promise resolves with the ITEM, not with the item's loaded data.
   // If you call with the same `childId` later, you'll get the same object back.
-  loadChild(childId) { return this.childIndex.loadItem(childId) }
+  loadChild(childId) {
+    if (!this.isLoaded) {
+      return this.load().then( () => this.loadChild(childId) );
+    }
+
+    // if we can get the child, load it and return the item itself in the promise
+    const child = this.getChild(childId);
+    if (child) return child.load().then( result => child );
+
+    return Promise.reject(`${this}.loadChild(${childId}): child not found`);
+  }
 
 
   //////////////////////////////
