@@ -220,17 +220,18 @@ class OakJS extends Eventful(Object) {
   get canUndo() { return oak.undoQueue.canUndo }
   get canRedo() { return oak.undoQueue.canRedo }
 
-  // Force update of the entire oak, including any changed props in page/section/project
 //TODO: throttle / debounce?
   updateSoon() {
     clearTimeout(oak._updateTimer);
-    oak._updateTimer = setTimeout(oak.forceUpdate, 1);
+    oak._updateTimer = setTimeout(oak._forceUpdate, 1);
   }
 
-  forceUpdate() {
+  // Force update of the entire oak, including any changed props in page/section/project
+  // NOTE: do NOT call this directly, use `oak.updateSoon()` instead.
+  _forceUpdate() {
     clearTimeout(oak._updateTimer);
     if (!oak._appRoute) return;
-//console.log("oak.forceUpdate()");
+//console.log("oak._forceUpdate()");
     oak._appRoute.setState({});
   }
 
@@ -592,7 +593,7 @@ class OakJS extends Eventful(Object) {
   // Force a redraw when window is resized.
   @debounce(100)
   onWindowResized(event) {
-    oak.forceUpdate();
+    oak.updateSoon();
   }
 
   //////////////////////////////

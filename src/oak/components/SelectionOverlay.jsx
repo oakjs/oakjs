@@ -269,7 +269,9 @@ console.log("startDragMoving", info, this.state.dragComponents);
       dropParentRect: parent && oak.getRectForOid(parent)
     });
 
-    oak.forceUpdate();
+    // Call the immediate `forceUpdate` routine
+    //  -- `updateSoon()` will fire too late and our UI will get out of sync.
+    oak._forceUpdate();
   }
 
 
