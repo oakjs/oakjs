@@ -1,15 +1,9 @@
 /* eslint no-console: 0 */
 
-// Set up babelHelpers variable for use in the below
-// UGH: this is not working, see:
-//  http://henryzoo.com/babel.github.io/docs/advanced/external-helpers/
-//require("babel-core/external-helpers");
-
 import express from "express";
 import path from "path";
 import webpack from "webpack";
 import webpackMiddleware from "webpack-dev-middleware";
-import webpackHotMiddleware from "webpack-hot-middleware";
 
 const isDeveloping = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
@@ -20,7 +14,7 @@ import config from "./config";
 
 
 //////////////////////////////
-// Hot Module Reload setup
+// Dev setup
 //////////////////////////////
 
 if (isDeveloping) {
@@ -39,7 +33,6 @@ if (isDeveloping) {
   });
 
   app.use(middleware);
-  if (config.useHMR) app.use(webpackHotMiddleware(compiler));
 }
 
 

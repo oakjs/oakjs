@@ -13,23 +13,12 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 var common = require("./webpack.common.js");
 
-// MASTER FLAG for whether we're using Hot Module Reload or not
-// NOTE: also requires some changes in `package.json`  :(
-//
-// See `if (useHMR)` below:
-var useHMR = false;
-
-
 var config = Object.assign({},
   // add all common stuff between dev and production
   common,
 
   // dev-specific
   {
-    // pass useHMR flag down for the server
-    // NOTE: non-standard!
-    useHMR : useHMR,
-
     // Unknown URLs go to "/index.html" -- this makes routing work
     historyApiFallback: true,
 
@@ -57,24 +46,5 @@ var config = Object.assign({},
 
   }
 );
-
-
-if (useHMR) {
-  // Add HMR stuff as a separate bundle
-  config.entry.vendors = [
-    "webpack-hot-middleware/client",
-    "react-transform-hmr",
-    "react-transform-catch-errors",
-    "redbox-react"
-  ];
-
-  // Add plugins and split HMR code out into its own bundle
-  config.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin("common.js"),
-  );
-}
-
 
 module.exports = config;

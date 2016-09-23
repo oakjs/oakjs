@@ -1,5 +1,7 @@
 //////////////////////////////
-//  Adapt all built-in Oak components to work in dynamic Pages.
+//  Register built-in oakjs components as `<Oak.ComponentName/>`.
+//
+//  Note: the components actually live under `src/oak/components`.
 //////////////////////////////
 
 import oak from "oak/oak";
