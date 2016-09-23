@@ -337,7 +337,7 @@ class OakJS extends Eventful(Object) {
 
   //////////////////////////////
   //  Oid => Component => Oid
-  // TODO: move these into `UI` or some such???
+  // TODO: move these into `oak.event` or some such???
   //////////////////////////////
 
   // Return the JSXElement `Component` for an `oid`,
@@ -433,20 +433,6 @@ class OakJS extends Eventful(Object) {
     }
 
     return { oids, rects };
-  }
-
-  // Return a clone of an oid component's element.
-  // Returns `undefined` if the element can't be found.
-  cloneOid(oid) {
-    const element = document.querySelector(`[data-oid='${oid}']`);
-    if (!element) return undefined;
-    return element.cloneNode(true);
-  }
-
-  // Return a list cloned elements for a list of `oids`.
-  cloneOids(oids) {
-    if (!oids) return [];
-    return oids.map(oid => oak.cloneOid(oid)).filter(Boolean);
   }
 
 
