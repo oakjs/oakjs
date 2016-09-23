@@ -116,7 +116,7 @@ function handleComponentPostAction(action, component, request, response) {
 //  Account actions
 //////////////////////////////
 
-router.get("/account/:action",  (request, response) => {
+router.get("/oak/account/:action",  (request, response) => {
   const { action } = request.params;
   const account = new paths.Account();
   switch (action) {
@@ -132,14 +132,14 @@ router.get("/account/:action",  (request, response) => {
 //////////////////////////////
 
 // Page read actions.
-router.get("/page/:action/:projectId/:sectionId/:pageId",  (request, response) => {
+router.get("/oak/page/:action/:projectId/:sectionId/:pageId",  (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const page = new Page({ projectId, sectionId, pageId });
   return handleComponentGetAction(action, page, request, response);
 });
 
 // Page write actions.
-router.post("/page/:action/:projectId/:sectionId/:pageId", bodyTextParser, (request, response) => {
+router.post("/oak/page/:action/:projectId/:sectionId/:pageId", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId, pageId } = request.params;
   const page = new Page({ projectId, sectionId, pageId });
   return handleComponentPostAction(action, page, request, response);
@@ -152,14 +152,14 @@ router.post("/page/:action/:projectId/:sectionId/:pageId", bodyTextParser, (requ
 //////////////////////////////
 
 // Section read actions.
-router.get("/section/:action/:projectId/:sectionId",  (request, response) => {
+router.get("/oak/section/:action/:projectId/:sectionId",  (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const section = new Section({ projectId, sectionId });
   return handleComponentGetAction(action, section, request, response);
 });
 
 // Section write actions.
-router.post("/section/:action/:projectId/:sectionId", bodyTextParser, (request, response) => {
+router.post("/oak/section/:action/:projectId/:sectionId", bodyTextParser, (request, response) => {
   const { action, projectId, sectionId } = request.params;
   const section = new Section({ projectId, sectionId });
   return handleComponentPostAction(action, section, request, response);
@@ -171,14 +171,14 @@ router.post("/section/:action/:projectId/:sectionId", bodyTextParser, (request, 
 //////////////////////////////
 
 // Project read actions.
-router.get("/project/:action/:projectId",  (request, response) => {
+router.get("/oak/project/:action/:projectId",  (request, response) => {
   const { action, projectId } = request.params;
   const project = new Project({ projectId });
   return handleComponentGetAction(action, project, request, response);
 });
 
 // Project write actions.
-router.post("/project/:action/:projectId", bodyTextParser, (request, response) => {
+router.post("/oak/project/:action/:projectId", bodyTextParser, (request, response) => {
   const { action, projectId } = request.params;
   const project = new Project({ projectId });
   return handleComponentPostAction(action, project, request, response);
@@ -188,7 +188,7 @@ router.post("/project/:action/:projectId", bodyTextParser, (request, response) =
 //////////////////////////////
 //  Component actions
 //////////////////////////////
-router.get("/component/:action/:projectId/:componentId",  (request, response) => {
+router.get("/oak/component/:action/:projectId/:componentId",  (request, response) => {
   const { action, projectId, componentId } = request.params;
   const component = new ProjectComponent({ projectId, componentId });
   return handleComponentGetAction(action, component, request, response);
@@ -196,7 +196,7 @@ router.get("/component/:action/:projectId/:componentId",  (request, response) =>
 
 
 // Project write actions.
-router.post("/component/:action/:projectId/:componentId", bodyTextParser, (request, response) => {
+router.post("/oak/component/:action/:projectId/:componentId", bodyTextParser, (request, response) => {
   const { action, projectId, componentId } = request.params;
   const component = new ProjectComponent({ projectId, componentId });
   return handleComponentPostAction(action, component, request, response);
@@ -207,7 +207,7 @@ router.post("/component/:action/:projectId/:componentId", bodyTextParser, (reque
 // Bundling
 //////////////////////////////
 
-router.get("/bundle", (request, response) => {
+router.get("/oak/bundle", (request, response) => {
   const { debug, force, ...queryOptions } = request.query;
 
   const options = {
