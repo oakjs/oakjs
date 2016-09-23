@@ -125,6 +125,14 @@ export class ChildThumbs extends OakComponent {
     ChildThumbComponent: PropTypes.any, // Component to use to draw children.
   }
 
+  renderChildren(component) {
+    const children = component.children;
+    if (!children || children.length === 0) return null;
+
+    const { ChildThumbComponent } = this.props;
+    return children.map( child => <ChildThumbComponent key={child.path} component={child}/> );
+  }
+
   renderTitle(component) {
     if (!component.title) return undefined;
     return <h2>{component.title}</h2>
@@ -150,8 +158,9 @@ export class ChildThumbs extends OakComponent {
     const { oak, components } = this.context;
     const { Oak, SUI } = components;
 
-    let { ChildThumbComponent, className, showTitle } = this.props;
+    let { className, showTitle } = this.props;
 
+    // Find the component controller and bail if not found.
     let component = oak.get(this.props.component);
     if (!component) {
       console.warn(`${this}: can't find`, this.props.component);
@@ -159,16 +168,22 @@ export class ChildThumbs extends OakComponent {
       return null;
     }
 
-    if (!component.isLoaded) {
+    // figure out children to render
+    let children;
+    if (component.isLoaded) {
+      children = this.renderChildren(component);
+    }
+    else {
+      // load and update us when the load finishes
       component.load().then( this.updateSoon );
+      // and output a loader
+      children = <SUI.Loader/>;
     }
 
+    // Render the wrapper along with the children.
+    // NOTE: this is split out so subclasses can draw the wrappers differently.
     className = `oak ${className}`;
     const title = (showTitle && this.renderTitle(component)) || undefined;
-    const children = component.isLoaded
-      ? component.children.map( child => <ChildThumbComponent key={child.path} component={child}/> )
-      : <SUI.Loader/>;
-
     return this.renderWrapper(component, className, title, children)
   }
 }
