@@ -9,13 +9,15 @@
 //    1) Install the components (or a symbolic link) to them in this directory.
 //
 //    2) Create a "package file" (as `<packageName>.js`) in this directory
-//       which registers all named components as a package.
+//       which registers your components as a package.
 //       (see `Editor.js` for a simple example.)
 //
 //    3) (optional) In your package file, set up `editorProps` to dictate drag and drop particulars.
 //       (see `SUI.js` for an example).
 //
 //    4) Import your package file below.
+//
+//  NOTE: This file is included in `src/router/index.js`, which makes webpack bundle it for us.
 //
 //////////////////////////////
 
