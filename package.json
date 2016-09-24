@@ -52,6 +52,7 @@
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
     "mocha": "^3.0.2",
+    "npm-install-webpack-plugin": "^4.0.4",
     "raw-loader": "^0.5.1",
     "request": "^2.64.0",
     "rimraf": "^2.4.3",

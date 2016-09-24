@@ -5,9 +5,10 @@
 //////////////////////////////
 
 import express from "express";
-import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import NpmInstallPlugin from "npm-install-webpack-plugin";
 import validate from 'webpack-validator';
+import webpack from "webpack";
 
 import common from "./webpack.common.babel.js";
 
@@ -35,6 +36,10 @@ var config = Object.assign({},
     },
 
     plugins: [
+    	// Auto-install any NPM dependencies this machine needs
+    	new NpmInstallPlugin(),
+
+    	// Dynamically load our `index.html` file, which includes all of the bits.
       new HtmlWebpackPlugin({
         filename: "index.html",
         template: common.paths.oakWebackHTMLTemplate,
