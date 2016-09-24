@@ -13,7 +13,7 @@
     "build": "rimraf dist && set NODE_ENV=production && webpack --config ./webpack.production.config.js --progress --profile --colors",
     "eslint": "eslint .",
     "jscs": "jscs .",
-		"stats": "webpack --profile --json > stats.json"
+    "stats": "webpack --profile --json > stats.json"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
@@ -58,6 +58,7 @@
     "semantic-ui-css": "^2.1.8",
     "source-map-support": "^0.3.2",
     "style-loader": "^0.12.4",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-dev-server": "^1.12.0",

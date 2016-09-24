@@ -77,12 +77,15 @@ module.exports = {
 				{
 					test: /\.jsx?$/,
 					include: paths.src,
-					loader: "babel?cacheDirectory"
+					loader: "babel",
+					query: {
+						cacheDirectory: true
+					}
 				},
 				{
 					test: /\.css$/, // Only .css files
 					include: paths.src,
-					loader: "style!css" // Run both loaders
+					loaders: ["style", "css"]
 				},
 				{
 					test: /\.less$/,
@@ -92,7 +95,7 @@ module.exports = {
 				{
 					test: /\.(png|jpg)$/,
 					include: paths.src,
-					loader: 'file-loader'
+					loader: 'url-loader'
 				}
 
 			]
