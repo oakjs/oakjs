@@ -128,7 +128,3 @@ Object.assign(SUI, exports);
 
 // Make default export.
 export default SUI;
-
-
-// DEBUG: make SUI global for debugging
-if (typeof window !== undefined) window.SUI = SUI;

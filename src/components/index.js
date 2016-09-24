@@ -29,11 +29,17 @@ import "./Oak.js";
 // Oak Editor package (for simple forms)
 import "./Editor.js";
 
-// Semantic UI package.
-//import "./SUI.js";
+
+// Semantic UI bits all pre-loaded.
+//import "./SUI/index";
 
 // Semantic UI bits as dynamic loaders
-import SUILoaders from "./SUI/dynamic";
-oak.registerDynamicComponents("SUI", SUILoaders);
-// import global from "oak-roots/util/global";
-// global.SUI = SUI;
+import "./SUI/index.dynamic";
+
+// explicity load SUI components we know we'll need in the UI
+import "./SUI/Menu";
+import "./SUI/MenuItem";
+import "./SUI/Submenu";
+import "./SUI/Button";
+import "./SUI/Buttons";
+import "./SUI/Popup";

@@ -81,5 +81,9 @@ export function Tabs(callback){ require.ensure([], () => callback(require("./Tab
 export function Title(callback){ require.ensure([], () => callback(require("./Title"))) };
 export function Toggle(callback){ require.ensure([], () => callback(require("./Toggle"))) };
 
+// Register as set of dynamic componets
+import oak from "oak/oak";
+oak.registerDynamicComponents("SUI", exports);
+
 // export all as a lump
 export default Object.assign({}, exports);
