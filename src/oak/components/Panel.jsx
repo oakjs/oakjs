@@ -28,7 +28,7 @@
 //
 //////////////////////////////
 
-import { Children, Component, PropTypes } from "react";
+import React, { Children, Component, PropTypes } from "react";
 
 import fn from "oak-roots/util/fn";
 import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";

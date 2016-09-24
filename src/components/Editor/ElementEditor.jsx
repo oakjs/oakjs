@@ -5,7 +5,7 @@
 //  NOTE:  We assume that the element's type is relatively fixed (so we can cache `schema`, etc).
 //////////////////////////////
 
-import { Children, PropTypes } from "react";
+import React, { Children, PropTypes } from "react";
 
 import { debounce } from "oak-roots/util/decorators";
 import { getPath, getParent, setPath } from "oak-roots/util/path";

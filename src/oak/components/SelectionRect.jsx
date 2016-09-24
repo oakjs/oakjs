@@ -2,6 +2,7 @@
 // Overlay which shows/manages selection
 //////////////////////////////
 
+import React from "react";
 import "./SelectionRect.less";
 
 export default class SelectionRect extends React.Component {

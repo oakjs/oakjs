@@ -17,7 +17,7 @@
 //
 //////////////////////////////
 
-import { Children, Component, PropTypes } from "react";
+import React, { Children, Component, PropTypes } from "react";
 import ReactDOM from "react-dom";
 
 import fn from "oak-roots/util/fn";
