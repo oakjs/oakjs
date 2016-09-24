@@ -26,5 +26,8 @@ export Spacer from "./Spacer";
 export SplitPanel from "./SplitPanel";
 export Stub from "./Stub";
 
+//export requireEnsure from "./require-ensure";
+//export requireContext from "./require-context";
+
 // Export all as a map
 export default Object.assign({}, exports);
