@@ -315,6 +315,66 @@ class OakJS extends Eventful(Object) {
     });
   }
 
+  // Register a dynamic map of component `loaders` under `packageName`.
+  // Loads components dynamically as necessary on first access.
+  registerDynamicComponents(packageName, loaders) {
+    if (oak.components[packageName]) {
+      console.warn(`oak.registerDynamicComponents(${packageName}): we've already registered a package with this name`);
+    }
+    console.info(`registering dynamic ${packageName} components`);
+
+    // Register under the package name
+    const pkg = oak.components[packageName] = {};
+
+    // keep track of ones we're already loading to minimize churn
+    const loading = {}
+
+
+    Object.keys(loaders).forEach( key => {
+      const loader = loaders[key];
+
+
+      // Set up a getter which will load the package for us.
+      Object.defineProperty(pkg, key, {
+        get: function() {
+          if (!loading[key]) {
+            loading[key] = true;
+//console.info("loading", key);
+            // When first accessed, call the loader
+            loader( function(component) {
+              if (typeof component !== "function" && typeof component["default"] === "function") {
+                component = component["default"];
+              }
+              if (typeof component !== "function") {
+                console.warn(`error loading component ${packageName}.${key}: didn't get a function. ???`);
+              }
+              console.log(`dynamically loaded ${packageName}.${key}`);
+              // when the component loads, replace the value in the pkg
+              delete pkg[key];
+              pkg[key] = component;
+              // and update the UI soon.
+              oak.updateSoon();
+            });
+          }
+
+          // Return a stub while we're loading
+          return Stub;
+        },
+        enumerable: true,
+        configurable: true
+      });
+
+      // Define a top-level alias as `<packageName>.<key>`.
+      Object.defineProperty(oak.components, `${packageName}.${key}`, {
+        get() { return oak.components[packageName][key] }
+      });
+
+    });
+  }
+
+
+
+
 // DEPRECATE???
   // Return the `editorProps` for a given constructor.
   // This tells us, eg, if we can drag into them, etc.

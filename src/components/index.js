@@ -21,6 +21,8 @@
 //
 //////////////////////////////
 
+import oak from "../oak/oak";
+
 // Built-in oak components.
 import "./Oak.js";
 
@@ -28,4 +30,10 @@ import "./Oak.js";
 import "./Editor.js";
 
 // Semantic UI package.
-import "./SUI.js";
+//import "./SUI.js";
+
+// Semantic UI bits as dynamic loaders
+import SUILoaders from "./SUI/dynamic";
+oak.registerDynamicComponents("SUI", SUILoaders);
+// import global from "oak-roots/util/global";
+// global.SUI = SUI;
