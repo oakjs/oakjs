@@ -2,12 +2,9 @@
 //
 //  Common webpack stuff between dev and production
 //
-//  NOTE: You can't use `import` or ES2015 in this file!
-//        Old-school `require()` for you!
-//
 //////////////////////////////
 
-var path = require("path");
+import path from "path";
 
 const paths = {
   root:         __dirname,
@@ -38,7 +35,7 @@ Object.assign(paths, {
 })
 
 
-module.exports = {
+export default {
   // Export paths for consumption in specific configs.
   paths: paths,
 

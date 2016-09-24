@@ -2,17 +2,14 @@
 //
 //  Production webpack config
 //
-//  NOTE: You can't use `import` or ES2015 in this file!
-//        Old-school `require()` for you!
-//
 //////////////////////////////
 
-var autoprefixer = require("autoprefixer");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var path = require("path");
-var webpack = require("webpack");
+import autoprefixer from "autoprefixer";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import path from "path";
+import webpack from "webpack";
 
-var common = require("./webpack.common.js");
+import common from "./webpack.common.babel.js";
 
 module.exports = Object.assign({},
   // add all common stuff between dev and production

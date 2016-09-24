@@ -2,17 +2,14 @@
 //
 //  Dev webpack config
 //
-//  NOTE: You can't use `import` or ES2015 in this file!
-//        Old-school `require()` for you!
-//
 //////////////////////////////
 
-var express = require("express");
-var webpack = require("webpack");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var validate = require('webpack-validator');
+import express from "express";
+import webpack from "webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import validate from 'webpack-validator';
 
-var common = require("./webpack.common.js");
+import common from "./webpack.common.babel.js";
 
 var config = Object.assign({},
 
