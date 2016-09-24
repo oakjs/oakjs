@@ -15,7 +15,7 @@ const paths = {
   build:        path.join(__dirname, "build")
 };
 
-// Add paths based on the above
+// Add generic oakjs paths based on the above.
 Object.assign(paths, {
   server:       path.join(paths.src, "server"),
   router:       path.join(paths.src, "router"),
@@ -28,64 +28,72 @@ Object.assign(paths, {
 });
 
 
+// Add webpack / app specific paths.
+Object.assign(paths, {
+	// webpack input files
+	oakWebpackEntryRoot: path.join(paths.router, "index.js"),
+	oakWebackHTMLTemplate: path.join(paths.router, "index.template.html"),
+	// webpack output files
+	oakBuildHTMLFile: path.join(paths.build, "index.html"),
+})
+
+
 module.exports = {
-  // NOTE: not part of the webpack standard!
-  paths: Object.assign({}, paths, {
-    // webpack input files
-    oakWebpackEntryRoot: path.join(paths.router, "index.js"),
-    oakWebackHTMLTemplate: path.join(paths.router, "index.template.html"),
-    // webpack output files
-    oakBuildHTMLFile: path.join(paths.build, "index.html"),
-  }),
+  // Export paths for consumption in specific configs.
+  paths: paths,
 
-  output: {
-    path: paths.build,
-    filename: "[name].js",
-    publicPath: "/"
-  },
+	// This should be added to specific configs
+	//	(in webpack.config.js and webpack.production.config.js)
+	config : {
+		output: {
+			path: paths.build,
+			filename: "[name].js",
+			publicPath: "/"
+		},
 
-  resolve: {
-    // You can leave the following extensions off your imports and it"ll figure it out.
-    extensions: ["", ".js", ".jsx"],
-    // Assume relative paths are rooted at the same directory as this file.
-    root: path.resolve(paths.root),
-    // Add common aliases for imports to this map
-    alias: paths,
-  },
+		resolve: {
+			// You can leave the following extensions off your imports and it"ll figure it out.
+			extensions: ["", ".js", ".jsx"],
+			// Assume relative paths are rooted at the same directory as this file.
+			root: path.resolve(paths.root),
+			// Add common aliases for imports to this map
+			alias: paths,
+		},
 
-  // Global variables required and not bundled
-  externals: {
-    "acorn-jsx": "acorn",
-    "acorn": "acorn",
-    "babel-core": "Babel",
-    "jquery": "jQuery",
-    "react": "React",
-    "react-dom": "ReactDOM",
-    "react-router": "ReactRouter"
-  },
+		// Global variables required and not bundled
+		externals: {
+			"acorn-jsx": "acorn",
+			"acorn": "acorn",
+			"babel-core": "Babel",
+			"jquery": "jQuery",
+			"react": "React",
+			"react-dom": "ReactDOM",
+			"react-router": "ReactRouter"
+		},
 
 
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        include: paths.src,
-        loader: "babel?cacheDirectory"
-      },
-      {
-        test: /\.css$/, // Only .css files
-        loader: "style!css" // Run both loaders
-      },
-      {
-        test: /\.less$/,
-        include: paths.src,
-        loaders: ["style", "css", "less"]
-      },
-      {
-        test: /\.(png|jpg)$/,
-        loader: 'file-loader'
-      }
+		module: {
+			loaders: [
+				{
+					test: /\.jsx?$/,
+					include: paths.src,
+					loader: "babel?cacheDirectory"
+				},
+				{
+					test: /\.css$/, // Only .css files
+					loader: "style!css" // Run both loaders
+				},
+				{
+					test: /\.less$/,
+					include: paths.src,
+					loaders: ["style", "css", "less"]
+				},
+				{
+					test: /\.(png|jpg)$/,
+					loader: 'file-loader'
+				}
 
-    ]
-  }
+			]
+		}
+	}
 };

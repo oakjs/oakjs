@@ -10,23 +10,24 @@
 var express = require("express");
 var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
+var validate = require('webpack-validator');
 
 var common = require("./webpack.common.js");
 
 var config = Object.assign({},
+
   // add all common stuff between dev and production
-  common,
+  common.config,
 
   // dev-specific
   {
-    // Unknown URLs go to "/index.html" -- this makes routing work
-    historyApiFallback: true,
-
     // SOURCE MAP OPTIONS
     // slow but you get line numbers in chrome
-    devtool: "sourcemap",
-    // faster: gets you to the file / method
-    //devtool: "eval-cheap-module-source-map",
+    //devtool: "source-map",
+
+    // faster: gets you to the file / line number in chrome
+    devtool: "cheap-module-source-map",
+
     // fastest: really imprecise, doesn"t work with .jsx
     // devtool: "eval",
 
@@ -47,4 +48,4 @@ var config = Object.assign({},
   }
 );
 
-module.exports = config;
+module.exports = validate(config);

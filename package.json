@@ -60,7 +60,8 @@
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-dev-server": "^1.12.0",
-    "webpack-hot-middleware": "^2.4.1"
+    "webpack-hot-middleware": "^2.4.1",
+    "webpack-validator": "^2.2.7"
   },
   "NOTES-babel": "The following is the config for babel 5.8 WITHOUT Hot Module Reload",
   "babel": {

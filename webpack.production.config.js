@@ -16,7 +16,7 @@ var common = require("./webpack.common.js");
 
 module.exports = Object.assign({},
   // add all common stuff between dev and production
-  common,
+  common.config,
 
   // production-specific
   {
