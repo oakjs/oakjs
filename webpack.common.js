@@ -95,7 +95,10 @@ module.exports = {
 				{
 					test: /\.(png|jpg)$/,
 					include: paths.src,
-					loader: 'url-loader'
+					loader: 'url-loader',
+					query: {
+						limit: 25000
+					}
 				}
 
 			]
