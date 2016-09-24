@@ -311,7 +311,11 @@ class OakJS extends Eventful(Object) {
     // Register under `packageName.componentName` as well.
     Object.keys(components).forEach( key => {
       const component = components[key];
-      if (component instanceof Function) oak.components[`${packageName}.${key}`] = component;
+      const packageId = `${packageName}.${key}`;
+      if (component instanceof Function) {
+        component.packageId = packageId;
+        oak.components[packageId] = component;
+      }
     });
   }
 
@@ -332,14 +336,16 @@ class OakJS extends Eventful(Object) {
 
     Object.keys(loaders).forEach( key => {
       const loader = loaders[key];
-
+      const packageId = `${packageName}.${key}`;
 
       // Set up a getter which will load the package for us.
       Object.defineProperty(pkg, key, {
         get: function() {
+          // if item is already in memory, the loader callback will fire immediately
+          var loaded;
+
+          // Skip loading if we're already in the process of loading this item.
           if (!loading[key]) {
-            loading[key] = true;
-//console.info("loading", key);
             // When first accessed, call the loader
             loader( function(component) {
               if (typeof component !== "function" && typeof component["default"] === "function") {
@@ -348,24 +354,40 @@ class OakJS extends Eventful(Object) {
               if (typeof component !== "function") {
                 console.warn(`error loading component ${packageName}.${key}: didn't get a function. ???`);
               }
-              console.log(`dynamically loaded ${packageName}.${key}`);
-              // when the component loads, replace the value in the pkg
+//            console.log(`dynamically loaded ${packageName}.${key}`);
+
+              // assign to `loaded` so we can return this immediately below.
+              loaded = component;
+
+              // when the component loads, replace this getter with the the loaded component
               delete pkg[key];
               pkg[key] = component;
+
+              // remember the packageId for reflection
+              component.packageId = packageId;
+
               // and update the UI soon.
               oak.updateSoon();
             });
           }
 
+          // if (!loaded) console.log(`   ${key}: returning Stub`);
+          // else console.log(`   ${key}: was already in memeory`);
+
+          if (!loaded && !loading[key]) {
+            console.log(`loading ${packageName}.${key}`);
+          }
+          loading[key] = true;
+
           // Return a stub while we're loading
-          return Stub;
+          return loaded || Stub;
         },
         enumerable: true,
         configurable: true
       });
 
       // Define a top-level alias as `<packageName>.<key>`.
-      Object.defineProperty(oak.components, `${packageName}.${key}`, {
+      Object.defineProperty(oak.components, packageId, {
         get() { return oak.components[packageName][key] }
       });
 
