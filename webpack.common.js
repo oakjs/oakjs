@@ -81,6 +81,7 @@ module.exports = {
 				},
 				{
 					test: /\.css$/, // Only .css files
+					include: paths.src,
 					loader: "style!css" // Run both loaders
 				},
 				{
@@ -90,6 +91,7 @@ module.exports = {
 				},
 				{
 					test: /\.(png|jpg)$/,
+					include: paths.src,
 					loader: 'file-loader'
 				}
 

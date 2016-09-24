@@ -48,4 +48,9 @@ var config = Object.assign({},
   }
 );
 
-module.exports = validate(config);
+// Run validator in quiet mode to avoid output in stats.
+// To view stats:
+// 	1) Run `npm run stats`
+//	2) Drop resulting `stats.json` file on webpage:
+//			https://chrisbateman.github.io/webpack-visualizer/
+module.exports = validate(config, { quiet: true });
