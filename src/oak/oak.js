@@ -29,8 +29,6 @@ let oak;
 
 class OakJS extends Eventful(Object) {
 
-  _debugEvents = true;
-
   constructor() {
     super();
 
@@ -220,7 +218,8 @@ class OakJS extends Eventful(Object) {
   get canUndo() { return oak.undoQueue.canUndo }
   get canRedo() { return oak.undoQueue.canRedo }
 
-//TODO: throttle / debounce?
+  // NOTE: We don't use throttle/debounce here because we want a `_forceUpdate()`
+  //       to cancel any pending `updateSoon()`s... ???
   updateSoon() {
     clearTimeout(oak._updateTimer);
     oak._updateTimer = setTimeout(oak._forceUpdate, 1);
@@ -230,9 +229,8 @@ class OakJS extends Eventful(Object) {
   // NOTE: do NOT call this directly, use `oak.updateSoon()` instead.
   _forceUpdate() {
     clearTimeout(oak._updateTimer);
-    if (!oak._appRoute) return;
-//console.log("oak._forceUpdate()");
-    oak._appRoute.setState({});
+    // if `oak._appRoute` is not set, we either haven't drawn yet or are in the middle of redrawing.
+    if (oak._appRoute) oak._appRoute.setState({});
   }
 
 
@@ -356,26 +354,6 @@ class OakJS extends Eventful(Object) {
         const component = controller.getComponentForOid(oid);
         if (component) return component;
       }
-    }
-  }
-
-  // Given an oid, return the `controller` it belongs to:
-  //  - the `page`, `section` or `project`.
-  // Returns `undefined` if not found.
-// DEPRECATED?
-  getControllerForOid(oid) {
-    if (!oid) return undefined;
-
-    if (this.page && this.page.getComponentForOid(oid)) {
-      return this.page;
-    }
-
-    if (this.section && this.section.getComponentForOid(oid)) {
-      return this.section
-    }
-
-    if (this.project && this.project.getComponentForOid(oid)) {
-      return this.project
     }
   }
 
