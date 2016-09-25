@@ -12,4 +12,4 @@ export NumericUnitControl from "./NumericUnitControl";
 export { HTMLSelect, Select } from "./Select";
 
 // Export all as a map
-export default Object.assign({}, exports);
+export default {...exports};

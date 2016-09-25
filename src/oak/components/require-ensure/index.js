@@ -24,6 +24,6 @@ export function dynamic2(callback) {
   require.ensure([], () => callback(require("./Dynamic2.jsx")))
 }
 
-export default Object.assign({}, exports);
+export default {...exports};
 
 

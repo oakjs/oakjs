@@ -13,4 +13,4 @@ export * from "./selection";
 export * from "./undo";
 
 // Export all as a lump
-export default Object.assign({}, exports);
+export default {...exports};

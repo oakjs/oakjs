@@ -439,4 +439,4 @@ export function _duplicateComponent({ path, newId, title, indexData, position, n
 
 
 // Export all as a lump
-export default Object.assign({}, exports);
+export default {...exports};

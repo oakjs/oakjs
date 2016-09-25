@@ -16,4 +16,4 @@ export Project from "./Project";
 export Section from "./Section";
 
 // Export all as a single object.
-export default Object.assign({}, exports);
+export default {...exports};

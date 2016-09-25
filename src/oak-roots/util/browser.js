@@ -52,4 +52,4 @@ export function removeFromLocalStorage(key) {
 }
 
 // Export all as one map
-export default Object.assign({}, exports);
+export default {...exports};

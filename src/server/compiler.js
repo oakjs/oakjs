@@ -145,4 +145,4 @@ export function compileJSXE(options) {
 
 
 // Export all as a single object.
-export default Object.assign({}, exports);
+export default {...exports};

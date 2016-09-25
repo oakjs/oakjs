@@ -30,4 +30,4 @@ export Stub from "./Stub";
 //export requireContext from "./require-context";
 
 // Export all as a map
-export default Object.assign({}, exports);
+export default {...exports};

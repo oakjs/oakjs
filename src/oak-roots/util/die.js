@@ -42,4 +42,4 @@ export function dieIfOutOfRange(thing, operation, array, position, lastPosition)
 
 
 // Export all as one map
-export default Object.assign({}, exports);
+export default {...exports};

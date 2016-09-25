@@ -285,5 +285,5 @@ function _setControllerFragment(controller, fragment, selection) {
 
 
 // Export all as a lump
-export default Object.assign({}, exports);
+export default {...exports};
 

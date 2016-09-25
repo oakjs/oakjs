@@ -39,4 +39,4 @@ export function proto(target, key, descriptor) {
 }
 
 // Export all as one map
-export default Object.assign({}, exports);
+export default {...exports};

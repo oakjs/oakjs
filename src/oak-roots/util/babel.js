@@ -121,4 +121,4 @@ export function getClassScript(script = "", superClassName, className) {
 
 
 // Export all as a lump
-export default Object.assign({}, exports);
+export default {...exports};

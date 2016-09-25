@@ -229,4 +229,4 @@ export function configPath(path, options = {}) {
 
 
 // Assign all exports as a single object
-export default Object.assign({}, exports);
+export default {...exports};

@@ -75,4 +75,4 @@ export function humanizeIdentifier(identifier = "", capitalize = true) {
 }
 
 // Export all as one map
-export default Object.assign({}, exports);
+export default {...exports};

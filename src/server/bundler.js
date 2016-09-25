@@ -361,4 +361,4 @@ export const DELIMITER_MAP = {
 }
 
 
-export default Object.assign({}, exports);
+export default {...exports};
