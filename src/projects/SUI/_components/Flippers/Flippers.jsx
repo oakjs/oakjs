@@ -33,4 +33,4 @@ export default class Flippers extends OakComponent {
 
 
 import { editify } from "oak/EditorProps";
-editify({ droppable: false }, Flippers);
+editify("", { droppable: false }, Flippers);

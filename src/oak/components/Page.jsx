@@ -94,4 +94,4 @@ export default class Page extends OakComponent {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: true }, Page);
+editify("Oak", { draggable: false, droppable: true }, Page);

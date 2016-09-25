@@ -81,4 +81,4 @@ export function PageMenu(props, context) {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: false }, ComponentMenu);
+editify("Oak", { draggable: true, droppable: false }, "ComponentMenu");

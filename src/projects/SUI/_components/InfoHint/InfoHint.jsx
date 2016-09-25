@@ -13,4 +13,4 @@ export default class InfoHint extends OakComponent {
 
 
 import { editify } from "oak/EditorProps";
-editify({ droppable: false }, InfoHint);
+editify("", { droppable: false }, InfoHint);

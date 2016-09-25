@@ -117,4 +117,4 @@ export default class DragMovePreview extends OakComponent {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: false }, DragMovePreview);
+editify("Oak", { draggable: false, droppable: false }, DragMovePreview);

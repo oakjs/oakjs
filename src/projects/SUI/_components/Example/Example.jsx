@@ -32,4 +32,4 @@ export default class Example extends OakComponent {
 
 
 import { editify } from "oak/EditorProps";
-editify({ droppable: true, nestable: false }, Example);
+editify("", { droppable: true, nestable: false }, Example);

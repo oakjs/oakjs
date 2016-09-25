@@ -19,4 +19,4 @@ export default class PageSection extends OakComponent {
 
 
 import { editify } from "oak/EditorProps";
-editify({ droppable: true }, PageSection);
+editify("", { droppable: true }, PageSection);

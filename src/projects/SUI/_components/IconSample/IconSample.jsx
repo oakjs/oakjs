@@ -15,4 +15,4 @@ export default class IconSample extends OakComponent {
 
 
 import { editify } from "oak/EditorProps";
-editify({ droppable: false }, IconSample);
+editify("", { droppable: false }, IconSample);

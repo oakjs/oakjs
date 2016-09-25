@@ -18,4 +18,4 @@ export default class Stub extends React.Component {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: false }, Stub);
+editify("Oak", { draggable: true, droppable: false }, Stub);

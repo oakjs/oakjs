@@ -39,6 +39,9 @@ export default class EditorProps {
     if (typeof this.dropTypes === "string") this.dropTypes = this.dropTypes.trim().split(/\s*,\s*/g);
   }
 
+  // Registry of `{ <packageId> => editorProps }`.
+  static REGISTRY = {};
+
   //////////////////////////////
   //  Draggable stuff
   //////////////////////////////
@@ -80,27 +83,60 @@ export default class EditorProps {
   }
 }
 
+// Return editor props associated with some thing.
+// You can pass a Component or string which has been `editify`d.
+export function getEditorProps(thing) {
+  if (thing.editorProps) return thing.editorProps;
+  return EditorProps.REGISTRY[thing];
+}
 
 // Make a thing editable
-export function editify(props, thing, dragType) {
-  try {
-    thing.editorProps = new EditorProps(props);
-    if (!thing.editorProps.dragType) {
-      thing.editorProps.dragType = dragType || thing.name;
-    }
-  }
-  catch (e) {};
-}
+export function editify(packageName, props, ...things) {
+  things.forEach( thing => {
+    const key = (typeof thing === "string" ? thing : thing.name);
+    const packageId = (packageName ? `${packageName}.${key}` : key);
+//console.info(packageId);
 
+    // create new props object for each and default dragType
+    const editorProps = new EditorProps(props);
+    if (!editorProps.dragType) editorProps.dragType = packageId;
 
-// Make a bunch of constructors editable with the same properties.
-//TODOC
-export function editifyMap(map, props, ...keys) {
-  if (keys.length === 0) keys = Object.keys(map);
-  keys.forEach( key => {
-    const thing = map[key];
-//console.log("editfying ", key, props);
-    if (!thing) return console.warn(`editifyMap(): key '${key}' not found`);
-    editify(props, thing, key);
+    // Register under packageId
+    EditorProps.REGISTRY[packageId] = editorProps;
+
+    // assign directly for components.
+    if (typeof thing === "function") thing.editorProps = editorProps;
   });
 }
+
+
+// Make a map of constructors editable with the same properties.
+export function editifyMap(packageName, props, map) {
+  Object.keys(map).forEach( key => {
+    const component = map[key];
+    // ignore things which are not functions (eg `default` if it sneaks in there).
+    if (typeof component !== "function") return;
+
+    const packageId = (packageName ? `${packageName}.${key}` : key);
+//console.info(packageId);
+    // create new props object for each and default dragType
+    const editorProps = new EditorProps(props);
+    if (!editorProps.dragType) editorProps.dragType = packageId;
+
+    // add under packageId and directly to constructor
+    EditorProps.REGISTRY[packageId] = editorProps;
+    component.editorProps = editorProps;
+  });
+}
+
+
+//////////////////////////////
+//  Install the above functions on `EditorProps` class for reflection
+//////////////////////////////
+EditorProps.getEditorProps = getEditorProps;
+EditorProps.editify = editify;
+EditorProps.editifyMap = editifyMap;
+
+// Import HTML drag and drop bindings.
+// NOTE: we have to do a `require` here because `import`s are hoisted to the top of the file....
+require("./EditorProps-html");

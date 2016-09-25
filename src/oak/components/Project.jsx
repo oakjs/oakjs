@@ -38,4 +38,4 @@ export default class Project extends OakComponent {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: true }, Project);
+editify("Oak", { draggable: false, droppable: true }, Project);

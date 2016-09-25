@@ -259,6 +259,11 @@ export class ProjectThumb extends ChildThumbs {
   }
 }
 
-// Oak editor prefs
-import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: false }, PageThumb);
+
+// Export all in a lump
+const all = {...exports};
+export default all;
+
+// Set up Oak editorProps for all
+import { editifyMap } from "../EditorProps";
+editifyMap("Oak", { draggable: true, droppable: false }, all);

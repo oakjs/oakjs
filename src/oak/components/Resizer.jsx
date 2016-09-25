@@ -126,4 +126,4 @@ export default class Resizer extends React.Component {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: false }, Resizer);
+editify("Oak", { draggable: false, droppable: false }, Resizer);

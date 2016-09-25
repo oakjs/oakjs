@@ -11,6 +11,7 @@ import ids from "oak-roots/util/ids";
 import objectUtil from "oak-roots/util/object";
 
 import JSXParser from "./JSXParser";
+import EditorProps, { getEditorProps } from "./EditorProps";
 
 if (!global.acorn) {
 	global.acorn = require("acorn-jsx");
@@ -105,7 +106,9 @@ export default class JSXElement {
   }
 
   get editorProps() {
-    return oak.getEditorProps(this.componentConstructor);
+    const props = getEditorProps(this.type) || getEditorProps(this.componentConstructor);
+    if (!props) console.warn(`Can't find editorProps for ${this.type}`);
+    return props || new EditorProps({ dragType: this.type });
   }
 
   canDrag() {

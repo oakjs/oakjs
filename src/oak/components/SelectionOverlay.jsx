@@ -558,4 +558,4 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: false }, SelectionOverlay);
+editify("Oak", { draggable: false, droppable: false }, SelectionOverlay);

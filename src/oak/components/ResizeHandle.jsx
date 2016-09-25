@@ -15,4 +15,4 @@ export default function ResizeHandle(props) {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: false }, ResizeHandle);
+editify("Oak", { draggable: false, droppable: false }, ResizeHandle);

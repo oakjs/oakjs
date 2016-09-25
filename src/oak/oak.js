@@ -23,7 +23,6 @@ import Project from "./Project";
 import Section from "./Section";
 
 // Initialize HTML element drag and drop setup
-import HTML_EDITOR_SETTINGS from "../components/html";
 import Stub from "./components/Stub";
 
 let oak;
@@ -299,24 +298,6 @@ class OakJS extends Eventful(Object) {
     // Return <Stub>
     return Stub;
   }
-
-
-// DEPRECATE???
-  // Return the `editorProps` for a given constructor.
-  // This tells us, eg, if we can drag into them, etc.
-  getEditorProps(constructor) {
-    if (typeof constructor === "string") {
-      if (HTML_EDITOR_SETTINGS[constructor]) return HTML_EDITOR_SETTINGS[constructor];
-      console.warn(`oak.getEditorProps(${constructor}): cant find html type!`);
-    }
-    else if (constructor) {
-      if (constructor.editorProps) return constructor.editorProps;
-      console.warn(`oak.getEditorProps(): cant find 'editorProps' settings for '${constructor.name}'!`);
-    }
-    return new EditorProps();
-  }
-
-
 
 
   //////////////////////////////

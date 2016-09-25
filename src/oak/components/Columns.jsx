@@ -43,4 +43,4 @@ Columns.defaultProps = {}
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: true }, Columns);
+editify("Oak", { draggable: true, droppable: true }, "Columns");

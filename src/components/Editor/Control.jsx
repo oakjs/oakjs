@@ -20,7 +20,7 @@ import Editor_Label from "./Label";
 
 import "./Control.less";
 
-export default class Control extends React.Component {
+export class Control extends React.Component {
 
   static propTypes = {
     children: PropTypes.any,              // Children
@@ -596,8 +596,9 @@ export class Checkbox extends Input {
 
 }
 
-
 // Make everything draggable but not droppable
 import { editifyMap } from "oak/EditorProps";
-editifyMap(exports, { draggable: true, droppable: false });
+editifyMap("Editor", { draggable: true, droppable: false }, exports);
 
+// Export Control as the default from this module.
+export default Control;

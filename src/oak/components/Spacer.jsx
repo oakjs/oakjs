@@ -47,4 +47,4 @@ Spacer.defaultProps = {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: false }, Spacer);
+editify("Oak", { draggable: true, droppable: false }, Spacer);

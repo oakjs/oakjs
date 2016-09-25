@@ -41,4 +41,4 @@ export default class Section extends OakComponent {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: true }, Section);
+editify("Oak", { draggable: false, droppable: true }, Section);

@@ -7,4 +7,4 @@ export default class Warning extends OakComponent {
 }
 
 import { editify } from "oak/EditorProps";
-editify({ droppable: false }, Warning);
+editify("", { droppable: false }, Warning);

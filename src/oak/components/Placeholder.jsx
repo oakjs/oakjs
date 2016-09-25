@@ -26,4 +26,4 @@ export default function Placeholder(props, context) {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: false }, Placeholder);
+editify("Oak", { draggable: true, droppable: false }, Placeholder);

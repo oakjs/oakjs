@@ -116,4 +116,4 @@ export default class AppMenubar extends OakComponent {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: true }, AppMenubar);
+editify("Oak", { draggable: false, droppable: true }, "AppMenubar");

@@ -183,4 +183,4 @@ class ComponentTreeItem extends OakComponent {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: true }, ComponentTree);
+editify("Oak", { draggable: false, droppable: true }, ComponentTree);

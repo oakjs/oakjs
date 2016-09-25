@@ -259,6 +259,6 @@ export default class Form extends OakComponent {
 
 }
 
-// Make everything draggable but not droppable
-import { editifyMap } from "oak/EditorProps";
-editifyMap(exports, { draggable: true, droppable: true });
+// Make the form draggable and droppable
+import { editify } from "oak/EditorProps";
+editify("Editor", { draggable: true, droppable: true }, Form);

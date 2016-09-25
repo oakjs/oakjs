@@ -58,4 +58,4 @@ export default class Enablers extends OakComponent {
 
 
 import { editify } from "oak/EditorProps";
-editify({ droppable: false }, Enablers);
+editify("", { droppable: false }, Enablers);

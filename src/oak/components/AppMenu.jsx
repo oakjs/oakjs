@@ -33,4 +33,4 @@ export default class AppMenu extends Dropdown {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: true }, AppMenu);
+editify("Oak", { draggable: true, droppable: true }, "AppMenu");

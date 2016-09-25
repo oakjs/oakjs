@@ -23,4 +23,4 @@ export default class PageTitle extends OakComponent {
 
 
 import { editify } from "oak/EditorProps";
-editify({ droppable: false }, PageTitle);
+editify("", { droppable: false }, PageTitle);

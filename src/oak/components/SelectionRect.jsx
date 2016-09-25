@@ -25,4 +25,4 @@ export default class SelectionRect extends React.Component {
 
 // Oak editor prefs
 import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: false }, SelectionRect);
+editify("Oak", { draggable: false, droppable: false }, SelectionRect);

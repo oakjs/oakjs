@@ -234,19 +234,10 @@ export class CurrentPage extends ComponentProxy {
   }
 }
 
-
-
-
 // Export all in a lump
-const allProxies = Object.assign({}, exports);
-export default allProxies;
+const all = {...exports};
+export default all;
 
-// Oak editor prefs for all
-import { editify } from "../EditorProps";
-Object.keys(allProxies).forEach( key =>
-  editify({ draggable: true, droppable: false }, allProxies[key])
-);
-
-
-
-
+// Set up Oak editorProps for all
+import { editifyMap } from "../EditorProps";
+editifyMap("Oak", { draggable: true, droppable: false }, all);
