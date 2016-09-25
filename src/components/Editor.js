@@ -3,7 +3,7 @@
 //////////////////////////////
 
 // Register all components under "Editor" package.
-import { registerComponents } from "oak/registerComponents";
+import { registerComponentLoaders } from "oak/registerComponents";
 import oak from "oak/oak";
-import components from "./Editor/";
-export default registerComponents(oak, "Editor", components);
+import components from "./Editor.all";
+export default registerComponentLoaders(oak, "Editor", components);
