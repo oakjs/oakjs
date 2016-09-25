@@ -14,5 +14,5 @@ export default function ResizeHandle(props) {
 }
 
 // Oak editor prefs
-import DragProps from "oak/DragProps";
+import DragProps from "oak-roots/DragProps";
 DragProps.register("Oak", { draggable: false, droppable: false }, ResizeHandle);

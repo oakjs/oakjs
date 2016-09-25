@@ -32,5 +32,5 @@ export default class AppMenu extends Dropdown {
 }
 
 // Oak editor prefs
-import DragProps from "oak/DragProps";
+import DragProps from "oak-roots/DragProps";
 DragProps.register("Oak", { draggable: true, droppable: true }, "AppMenu");

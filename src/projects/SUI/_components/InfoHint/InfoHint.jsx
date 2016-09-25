@@ -12,5 +12,5 @@ export default class InfoHint extends OakComponent {
 }
 
 
-import DragProps from "oak/DragProps";
+import DragProps from "oak-roots/DragProps";
 DragProps.register("", { droppable: false }, InfoHint);

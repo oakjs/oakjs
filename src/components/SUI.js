@@ -25,7 +25,7 @@ import "./SUI/Submenu";
 // Set up drag and drop preferences for SUI components.
 
 // Oak editor prefs
-import DragProps from "oak/DragProps";
+import DragProps from "oak-roots/DragProps";
 
 // Components which are only draggable
 DragProps.register("SUI", { draggable: true, droppable: false },

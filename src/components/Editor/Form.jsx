@@ -260,5 +260,5 @@ export default class Form extends OakComponent {
 }
 
 // Make the form draggable and droppable
-import DragProps from "oak/DragProps";
+import DragProps from "oak-roots/DragProps";
 DragProps.register("Editor", { draggable: true, droppable: true }, Form);

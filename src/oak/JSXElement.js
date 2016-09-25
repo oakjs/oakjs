@@ -5,13 +5,13 @@
 
 import he from "he";
 
+import DragProps from "oak-roots/DragProps";
 import { die, dieIfOutOfRange } from "oak-roots/util/die";
 import global from "oak-roots/util/global";
 import ids from "oak-roots/util/ids";
 import objectUtil from "oak-roots/util/object";
 
 import JSXParser from "./JSXParser";
-import DragProps from "./DragProps";
 
 if (!global.acorn) {
 	global.acorn = require("acorn-jsx");

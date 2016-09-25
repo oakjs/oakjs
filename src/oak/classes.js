@@ -6,7 +6,6 @@
 
 export Account from "./Account";
 export ComponentController from "./ComponentController";
-export DragProps from "./DragProps";
 export JSXElement from "./JSXElement";
 export JSXFragment from "./JSXFragment";
 export JSXParser from "./JSXParser";

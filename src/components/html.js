@@ -7,7 +7,7 @@
 //
 //////////////////////////////
 
-import DragProps from "oak/DragProps";
+import DragProps from "oak-roots/DragProps";
 
 // SEE:  https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories
 DragProps.register("", { droppable: true }, "a");

@@ -557,5 +557,5 @@ console.log("startDragMoving", info, this.state.dragComponents);
 }
 
 // Oak editor prefs
-import DragProps from "oak/DragProps";
+import DragProps from "oak-roots/DragProps";
 DragProps.register("Oak", { draggable: false, droppable: false }, SelectionOverlay);

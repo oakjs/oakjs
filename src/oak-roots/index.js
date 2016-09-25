@@ -3,6 +3,7 @@ export Action from "./Action";
 export AcornParser from "./AcornParser";
 export API from "./API";
 export CustomEvent from "./CustomEvent";
+export DragProps from "./DragProps";
 export Eventful from "./Eventful";
 export Loadable from "./Loadable";
 export LoadableIndex from "./LoadableIndex";

@@ -7,5 +7,5 @@ export default class Info extends OakComponent {
 }
 
 
-import DragProps from "oak/DragProps";
+import DragProps from "oak-roots/DragProps";
 DragProps.register("", { droppable: false }, Info);

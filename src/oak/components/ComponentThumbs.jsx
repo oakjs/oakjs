@@ -265,5 +265,5 @@ const components = {...exports};
 export default components;
 
 // Set up DragProps for all
-import DragProps from "oak/DragProps";
+import DragProps from "oak-roots/DragProps";
 DragProps.register("Oak", { draggable: true, droppable: false }, components);
