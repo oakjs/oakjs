@@ -2,13 +2,13 @@
 //  Load Semantic UI components and adapt to work with drag and drop in oak.
 //////////////////////////////
 
+import { registerComponentLoaders } from "oak/registerComponents";
 import oak from "oak/oak";
 
 // Import all Semantic UI components as dynamic loaders
-import components from "./SUI/index";
+import components from "./SUI.all";
 
 // Register component loaders.
-import { registerComponentLoaders } from "oak/registerComponents";
 registerComponentLoaders(oak, "SUI", components)
 
 // Explicity load some SUI components we know we'll need in the UI.
