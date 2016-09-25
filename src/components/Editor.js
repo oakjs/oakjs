@@ -2,8 +2,8 @@
 //  Adapt Editor components to work with oak editor
 //////////////////////////////
 
-import oak from "oak/oak";
-
 // Register all components under "Editor" package.
+import { registerComponents } from "oak/registerComponents";
+import oak from "oak/oak";
 import components from "./Editor/";
-oak.registerComponents("Editor", components);
+export default registerComponents(oak, "Editor", components);

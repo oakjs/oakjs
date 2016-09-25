@@ -29,17 +29,5 @@ import "./Oak.js";
 // Oak Editor package (for simple forms)
 import "./Editor.js";
 
-
-// Semantic UI bits all pre-loaded.
-//import "./SUI/index";
-
-// Semantic UI bits as dynamic loaders
-import "./SUI/index.dynamic";
-
-// explicity load SUI components we know we'll need in the UI
-import "./SUI/Menu";
-import "./SUI/MenuItem";
-import "./SUI/Submenu";
-import "./SUI/Button";
-import "./SUI/Buttons";
-import "./SUI/Popup";
+// Semantic UI components
+import "./SUI.js";

@@ -4,8 +4,7 @@
 //  Note: the components actually live under `src/oak/components`.
 //////////////////////////////
 
+import { registerComponents } from "oak/registerComponents";
 import oak from "oak/oak";
-
-// Register all components under "Oak" package.
 import components from "./Oak/";
-oak.registerComponents("Oak", components);
+export default registerComponents(oak, "Oak", components);
