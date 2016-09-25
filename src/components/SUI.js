@@ -5,7 +5,7 @@
 import oak from "oak/oak";
 
 // Import all Semantic UI components as dynamic loaders
-import components from "./SUI/index.dynamic";
+import components from "./SUI/index";
 
 // Register component loaders.
 import { registerComponentLoaders } from "oak/registerComponents";

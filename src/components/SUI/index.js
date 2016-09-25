@@ -1,111 +1,85 @@
-//////////////////////////////
+// Export each SUI component as a loader function
 //
-//  Pull all SemanticUI widgets into one file for easy include.
+// Components which have been included explicitly in other files will be loaded in the main bundle.
+// Components which are only rendered in, eg, <Oak.Pages> will need to be dynamically loaded.
 //
-//  You can simply import `SUI` and use all of the components with the `SUI.` prefix:
-//
-//    import SUI from "./SUI/components"
-//    ...
-//    return <SUI.Menu.../><SUI.MenuHeader.../><SUI.MenuItem.../></SUI.Menu>
-//
-//  Or import the components you want individually and use them without prefixing:
-//
-//    import { Menu, MenuHeader, MenuItem } from "./SUI/components"
-//    ...
-//    return <Menu.../><MenuHeader.../><MenuItem.../></Menu>
-//
-//////////////////////////////
+export function SUIComponent(callback){ require.ensure([], () => callback(require("./SUIComponent"))) };
+export function Accordion(callback){ require.ensure([], () => callback(require("./Accordion.jsx"))) };
+export function Ad(callback){ require.ensure([], () => callback(require("./Ad"))) };
+export function Button(callback){ require.ensure([], () => callback(require("./Button"))) };
+export function Buttons(callback){ require.ensure([], () => callback(require("./Buttons"))) };
+export function Breadcrumb(callback){ require.ensure([], () => callback(require("./Breadcrumb"))) };
+export function Card(callback){ require.ensure([], () => callback(require("./Card"))) };
+export function Cards(callback){ require.ensure([], () => callback(require("./Cards"))) };
+export function Checkbox(callback){ require.ensure([], () => callback(require("./Checkbox"))) };
+export function Column(callback){ require.ensure([], () => callback(require("./Column"))) };
+export function Comment(callback){ require.ensure([], () => callback(require("./Comment"))) };
+export function Comments(callback){ require.ensure([], () => callback(require("./Comments"))) };
+export function Content(callback){ require.ensure([], () => callback(require("./Content"))) };
+export function Conditional(callback){ require.ensure([], () => callback(require("./Conditional"))) };
+export function Container(callback){ require.ensure([], () => callback(require("./Container"))) };
+export function CountryMap(callback){ require.ensure([], () => callback(require("./CountryMap"))) };
+export function Description(callback){ require.ensure([], () => callback(require("./Description"))) };
+export function Dimmer(callback){ require.ensure([], () => callback(require("./Dimmer"))) };
+export function Divider(callback){ require.ensure([], () => callback(require("./Divider"))) };
+export function Dropdown(callback){ require.ensure([], () => callback(require("./Dropdown"))) };
+export function ElementBuffer(callback){ require.ensure([], () => callback(require("./ElementBuffer"))) };
+export function Embed(callback){ require.ensure([], () => callback(require("./Embed"))) };
+export function Feed(callback){ require.ensure([], () => callback(require("./Feed"))) };
+export function FeedEvent(callback){ require.ensure([], () => callback(require("./FeedEvent"))) };
+export function Field(callback){ require.ensure([], () => callback(require("./Field"))) };
+export function Fields(callback){ require.ensure([], () => callback(require("./Fields"))) };
+export function Flag(callback){ require.ensure([], () => callback(require("./Flag"))) };
+export function Form(callback){ require.ensure([], () => callback(require("./Form"))) };
+export function Grid(callback){ require.ensure([], () => callback(require("./Grid"))) };
+export function Header(callback){ require.ensure([], () => callback(require("./Header"))) };
+export function Icon(callback){ require.ensure([], () => callback(require("./Icon"))) };
+export function Image(callback){ require.ensure([], () => callback(require("./Image"))) };
+export function Images(callback){ require.ensure([], () => callback(require("./Images"))) };
+export function Input(callback){ require.ensure([], () => callback(require("./Input"))) };
+export function Item(callback){ require.ensure([], () => callback(require("./Item"))) };
+export function Items(callback){ require.ensure([], () => callback(require("./Items"))) };
+export function Label(callback){ require.ensure([], () => callback(require("./Label"))) };
+export function Labels(callback){ require.ensure([], () => callback(require("./Labels"))) };
+export function List(callback){ require.ensure([], () => callback(require("./List"))) };
+export function ListItem(callback){ require.ensure([], () => callback(require("./ListItem"))) };
+export function Loader(callback){ require.ensure([], () => callback(require("./Loader"))) };
+export function Menu(callback){ require.ensure([], () => callback(require("./Menu"))) };
+export function MenuHeader(callback){ require.ensure([], () => callback(require("./MenuHeader"))) };
+export function MenuItem(callback){ require.ensure([], () => callback(require("./MenuItem"))) };
+export function Message(callback){ require.ensure([], () => callback(require("./Message"))) };
+export function Meta(callback){ require.ensure([], () => callback(require("./Meta"))) };
+export function Modal(callback){ require.ensure([], () => callback(require("./Modal"))) };
+export function Nag(callback){ require.ensure([], () => callback(require("./Nag"))) };
+export function Popup(callback){ require.ensure([], () => callback(require("./Popup"))) };
+export function Pusher(callback){ require.ensure([], () => callback(require("./Pusher"))) };
+export function Progress(callback){ require.ensure([], () => callback(require("./Progress"))) };
+export function RadioButton(callback){ require.ensure([], () => callback(require("./RadioButton"))) };
+export function RadioGroup(callback){ require.ensure([], () => callback(require("./RadioGroup"))) };
+export function Rail(callback){ require.ensure([], () => callback(require("./Rail"))) };
+export function Rating(callback){ require.ensure([], () => callback(require("./Rating"))) };
+export function Row(callback){ require.ensure([], () => callback(require("./Row"))) };
+export function Reveal(callback){ require.ensure([], () => callback(require("./Reveal"))) };
+export function Shape(callback){ require.ensure([], () => callback(require("./Shape"))) };
+export function Side(callback){ require.ensure([], () => callback(require("./Side"))) };
+export function Sidebar(callback){ require.ensure([], () => callback(require("./Sidebar"))) };
+export function Search(callback){ require.ensure([], () => callback(require("./Search"))) };
+export function Segment(callback){ require.ensure([], () => callback(require("./Segment"))) };
+export function Segments(callback){ require.ensure([], () => callback(require("./Segments"))) };
+export function Statistic(callback){ require.ensure([], () => callback(require("./Statistic"))) };
+export function Statistics(callback){ require.ensure([], () => callback(require("./Statistics"))) };
+export function Step(callback){ require.ensure([], () => callback(require("./Step"))) };
+export function Steps(callback){ require.ensure([], () => callback(require("./Steps"))) };
+export function Sticky(callback){ require.ensure([], () => callback(require("./Sticky"))) };
+export function Stub(callback){ require.ensure([], () => callback(require("./Stub"))) };
+export function Subheader(callback){ require.ensure([], () => callback(require("./Subheader"))) };
+export function Submenu(callback){ require.ensure([], () => callback(require("./Submenu"))) };
+export function Tab(callback){ require.ensure([], () => callback(require("./Tab"))) };
+export function Tabbar(callback){ require.ensure([], () => callback(require("./Tabbar"))) };
+export function Table(callback){ require.ensure([], () => callback(require("./Table"))) };
+export function Tabs(callback){ require.ensure([], () => callback(require("./Tabs"))) };
+export function Title(callback){ require.ensure([], () => callback(require("./Title"))) };
+export function Toggle(callback){ require.ensure([], () => callback(require("./Toggle"))) };
 
-// Export all individual components here.
-// NOTE: keep this list in alphabetical order!
-export Accordion from "./Accordion";
-export Ad from "./Ad";
-export Button from "./Button";
-export Buttons from "./Buttons";
-export Breadcrumb from "./Breadcrumb";
-export Card from "./Card";
-export Cards from "./Cards";
-export Checkbox from "./Checkbox";
-export Column from "./Column";
-export Comment from "./Comment";
-export Comments from "./Comments";
-export Content from "./Content";
-export Conditional from "./Conditional";
-export Container from "./Container";
-export CountryMap from "./CountryMap";
-export Description from "./Description";
-export Dimmer from "./Dimmer";
-export Divider from "./Divider";
-export Dropdown from "./Dropdown";
-export ElementBuffer from "./ElementBuffer";
-export Embed from "./Embed";
-export Feed from "./Feed";
-export FeedEvent from "./FeedEvent";
-export Field from "./Field";
-export Fields from "./Fields";
-export Flag from "./Flag";
-export Form from "./Form";
-export Grid from "./Grid";
-export Header from "./Header";
-export Icon from "./Icon";
-export Image from "./Image";
-export Images from "./Images";
-export Input from "./Input";
-export Item from "./Item";
-export Items from "./Items";
-export Label from "./Label";
-export Labels from "./Labels";
-export List from "./List";
-export ListItem from "./ListItem";
-export Loader from "./Loader";
-export Menu from "./Menu";
-export MenuHeader from "./MenuHeader";
-export MenuItem from "./MenuItem";
-export Message from "./Message";
-export Meta from "./Meta";
-export Modal from "./Modal";
-export Nag from "./Nag";
-export Popup from "./Popup";
-export Pusher from "./Pusher";
-export Progress from "./Progress";
-export RadioButton from "./RadioButton";
-export RadioGroup from "./RadioGroup";
-export Rail from "./Rail";
-export Rating from "./Rating";
-export Row from "./Row";
-export Reveal from "./Reveal";
-export Shape from "./Shape";
-export Side from "./Side";
-export Sidebar from "./Sidebar";
-export Search from "./Search";
-export Segment from "./Segment";
-export Segments from "./Segments";
-export Statistic from "./Statistic";
-export Statistics from "./Statistics";
-export Step from "./Step";
-export Steps from "./Steps";
-export Sticky from "./Sticky";
-export Stub from "./Stub";
-export Subheader from "./Subheader";
-export Submenu from "./Submenu";
-export SUIComponent from "./SUIComponent";
-export Tab from "./Tab";
-export Tabbar from "./Tabbar";
-export Table from "./Table";
-export Tabs from "./Tabs";
-export Title from "./Title";
-export Toggle from "./Toggle";
-
-// Assign as `SUI.components` so we get those bits distinct from other SUI helpers.
-import SUI from "./SUI";
-SUI.components = Object.assign({}, exports);
-
-// Assign all directly to SUI for easy access
-Object.assign(SUI, SUI.components);
-
-// Assign as a component package to oak.
-import oak from "oak/oak";
-oak.registerComponents("SUI", SUI.components);
-
-// Export the entire SUI package as the default.
-export default SUI;
+// Export all as a lump.
+export default {...exports};
