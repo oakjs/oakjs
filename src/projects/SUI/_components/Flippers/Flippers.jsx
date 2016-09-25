@@ -32,5 +32,5 @@ export default class Flippers extends OakComponent {
 }
 
 
-import { editify } from "oak/EditorProps";
-editify("", { droppable: false }, Flippers);
+import DragProps from "oak/DragProps";
+DragProps.register("", { droppable: false }, Flippers);

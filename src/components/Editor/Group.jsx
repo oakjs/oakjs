@@ -43,5 +43,5 @@ export default class Group extends Control {
 }
 
 // Make everything draggable but not droppable
-import { editify } from "oak/EditorProps";
-editify("Editor", { draggable: true, droppable: true }, Group);
+import DragProps from "oak/DragProps";
+DragProps.register("Editor", { draggable: true, droppable: true }, Group);

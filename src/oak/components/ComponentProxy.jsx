@@ -235,9 +235,9 @@ export class CurrentPage extends ComponentProxy {
 }
 
 // Export all in a lump
-const all = {...exports};
-export default all;
+const components = {...exports};
+export default components;
 
-// Set up Oak editorProps for all
-import { editifyMap } from "../EditorProps";
-editifyMap("Oak", { draggable: true, droppable: false }, all);
+// Set up DragProps for everything.
+import DragProps from "oak/DragProps";
+DragProps.register("Oak", { draggable: true, droppable: false }, components);

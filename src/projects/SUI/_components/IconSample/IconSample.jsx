@@ -14,5 +14,5 @@ export default class IconSample extends OakComponent {
 }
 
 
-import { editify } from "oak/EditorProps";
-editify("", { droppable: false }, IconSample);
+import DragProps from "oak/DragProps";
+DragProps.register("", { droppable: false }, IconSample);

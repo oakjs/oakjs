@@ -6,5 +6,5 @@ export default class Warning extends OakComponent {
   }
 }
 
-import { editify } from "oak/EditorProps";
-editify("", { droppable: false }, Warning);
+import DragProps from "oak/DragProps";
+DragProps.register("", { droppable: false }, Warning);

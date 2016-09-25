@@ -11,7 +11,7 @@ import ids from "oak-roots/util/ids";
 import objectUtil from "oak-roots/util/object";
 
 import JSXParser from "./JSXParser";
-import EditorProps, { getEditorProps } from "./EditorProps";
+import DragProps from "./DragProps";
 
 if (!global.acorn) {
 	global.acorn = require("acorn-jsx");
@@ -105,26 +105,26 @@ export default class JSXElement {
     return oak.lookupComponent(this.type);
   }
 
-  get editorProps() {
-    const props = getEditorProps(this.type) || getEditorProps(this.componentConstructor);
-    if (!props) console.warn(`Can't find editorProps for ${this.type}`);
-    return props || new EditorProps({ dragType: this.type });
+  get dragProps() {
+    const props = DragProps.get(this.type) || DragProps.get(this.componentConstructor);
+    if (!props) console.warn(`Can't find dragProps for ${this.type}`);
+    return props || new DragProps({ dragType: this.type });
   }
 
   canDrag() {
-    return this.editorProps.canDrag(this);
+    return this.dragProps.canDrag(this);
   }
 
   canDrop(elements) {
-    return this.editorProps.canDrop(this, elements);
+    return this.dragProps.canDrop(this, elements);
   }
 
   get dragType() {
-    return this.editorProps.dragType;
+    return this.dragProps.dragType;
   }
 
   get dropTypes() {
-    return this.editorProps.dropTypes;
+    return this.dragProps.dropTypes;
   }
 
   //////////////////////////////

@@ -62,5 +62,5 @@ export default class ActionItem extends React.Component {
 }
 
 // Oak editor prefs
-import { editify } from "../EditorProps";
-editify("Oak", { draggable: true, droppable: false }, ActionItem);
+import DragProps from "oak/DragProps";
+DragProps.register("Oak", { draggable: true, droppable: false }, ActionItem);

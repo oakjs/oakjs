@@ -11,6 +11,7 @@ import { proto } from "oak-roots/util/decorators";
 // WORKING DRAG/DROP PROPERTIES / METHODS
 //   draggable          // false = not draggable (eg: draggable by default)
 //   droppable          // true = droppable
+//   nestable           // false = we can't drop another inside ourselves.
 //
 //   dragType           // string = explicit type
 //   dropTypes          // undefined = anything, string or string list = explicit types
@@ -19,7 +20,6 @@ import { proto } from "oak-roots/util/decorators";
 //   canDrop()          // can the current draggable(s) drop on this instance right now?  params? scope?
 
 // POSSIBLE DRAG / DROP PROPERTIES / METHODS
-//   nestable           // false = we can't drop another inside ourselves.
 //   getDragPreview()   // return custom html elements for drag preview
 //   onDragStart()      // fired when dragging actually starts
 //   onDragMove()       // fired on drag move
@@ -31,58 +31,7 @@ import { proto } from "oak-roots/util/decorators";
 //   onDragLeave()      // draggable exit drop target (ignoring nesting)
 //   onDrop()           // dropped inside
 
-// Registry of `{ <packageId> => editorProps }`.
-const REGISTRY = {};
-
-
-// Return editor props associated with some thing.
-// You can pass a Component or string which has been `editify`d.
-export function getEditorProps(thing) {
-  if (thing.editorProps) return thing.editorProps;
-  return REGISTRY[thing];
-}
-
-// Make a thing editable
-export function editify(packageName, props, ...things) {
-  things.forEach( thing => {
-    const key = (typeof thing === "string" ? thing : thing.name);
-    const packageId = (packageName ? `${packageName}.${key}` : key);
-//console.info(packageId);
-
-    // create new props object for each and default dragType
-    const editorProps = new EditorProps(props);
-    if (!editorProps.dragType) editorProps.dragType = packageId;
-
-    // Register under packageId
-    REGISTRY[packageId] = editorProps;
-
-    // assign directly for components.
-    if (typeof thing === "function") thing.editorProps = editorProps;
-  });
-}
-
-
-// Make a map of constructors editable with the same properties.
-export function editifyMap(packageName, props, map) {
-  Object.keys(map).forEach( key => {
-    const component = map[key];
-    // ignore things which are not functions (eg `default` if it sneaks in there).
-    if (typeof component !== "function") return;
-
-    const packageId = (packageName ? `${packageName}.${key}` : key);
-//console.info(packageId);
-    // create new props object for each and default dragType
-    const editorProps = new EditorProps(props);
-    if (!editorProps.dragType) editorProps.dragType = packageId;
-
-    // add under packageId and directly to constructor
-    REGISTRY[packageId] = editorProps;
-    component.editorProps = editorProps;
-  });
-}
-
-
-export default class EditorProps {
+export default class DragProps {
   constructor(props) {
     Object.assign(this, props);
     // normalize dropTypes to an array
@@ -109,7 +58,7 @@ export default class EditorProps {
   droppable = true;   // TODO: ???
 
   @proto
-  nestable = true;   // TODO: ???
+  nestable = true;   // TODO: nestable should default to droppable, with ability to override it...
 
   // Can `elements` JSXElements be dropped on us?
   // Subclasses likely want to defer to this to start...
@@ -130,15 +79,74 @@ export default class EditorProps {
   }
 
   //////////////////////////////
-  //  Install the hookup/lookup functions on `EditorProps` class for reflection.
+  //  Registration / lookup of DragProps
   //////////////////////////////
-  static REGISTRY = REGISTRY;
-  static getEditorProps = getEditorProps;
-  static editify = editify;
-  static editifyMap = editifyMap;
+
+  // Registry of `DragProps.register()`ed components.
+  static REGISTRY = {};
+
+  // Return DragProps for a `register()`ed component or component name.
+  static get(thing) {
+    if (thing.__dragProps__) return thing.__dragProps__;
+    return DragProps.REGISTRY[thing];
+  }
+
+  // Register dragProps for one or more `things`.
+  // You can pass:
+  //    - string component name
+  //    - component instance
+  //    - map of the above (eg: exports)
+  //      - NOTE: when passing a map, watch out for `defaults`...
+  static register(packageName, options, ...things) {
+    things.forEach( thing => {
+      if (!thing) return;
+
+      // If a string, just register under the packageName
+      if (typeof thing === "string") {
+        const packageId = (packageName ? `${packageName}.${thing}` : thing);
+        _registerString(packageId, options);
+      }
+      // if a function, register as a component
+      else if (typeof thing === "function") {
+        const packageId = (packageName ? `${packageName}.${thing.name}` : thing.name);
+        _registerComponent(packageId, options, thing);
+      }
+      // Assume it's a map: iterate through keys and _editify as appropriate
+      else {
+        Object.keys(thing).forEach( key => {
+          const item = thing[key];
+          // If they register `exports`, the key for the `default` export will be `default`
+          //  rather than the component name.  Compenstate.
+          // Better is to `export default X` AFTER you `DragProps.register()`.
+          if (key === "default") {
+            console.warn(`EditorProps.register(${packageName}) with a map: got key 'default', using key '${thing.name}' instead.`);
+            key = thing.name;
+          }
+          const packageId = (packageName ? `${packageName}.${key}` : key);
+
+          if (typeof item === "string") _registerString(packageId, options);
+          else if (typeof item === "function") _registerComponent(packageId, options, item);
+        });
+      }
+    });
+  }
 }
 
 
-// Import HTML drag and drop bindings.
-// NOTE: we have to do a `require` here because `import`s are hoisted to the top of the file....
-require("./EditorProps-html");
+// Internal routines to register strings and/or components, used by `DragProps.register()`.
+function _registerString(packageId, props) {
+  // create DragProps instance and default dragType
+  const dragProps = new DragProps(props);
+  if (!dragProps.dragType) dragProps.dragType = packageId;
+
+  // Register under packageId
+  DragProps.REGISTRY[packageId] = dragProps;
+
+  return dragProps;
+}
+
+function _registerComponent(packageId, props, component) {
+  const dragProps = _registerString(packageId, props);
+  component.__dragProps__ = dragProps;
+  return dragProps;
+}

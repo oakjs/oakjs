@@ -21,7 +21,7 @@
 //       This will include them in the main build, minimizing startup round trips.
 //       See `./Oak.js` for an example.
 //
-//    5) (optional) In your package file, set up `editorProps` to dictate
+//    5) (optional) In your package file, set up `DragProps` to dictate
 //       drag and drop particulars for your components.
 //       See `./SUI.js` for an example.
 //
@@ -30,6 +30,9 @@
 //  NOTE: This file is included in `src/router/index.js`, which makes webpack bundle it for us.
 //
 //////////////////////////////
+
+// Import HTML drag and drop bindings.
+import "./html.js";
 
 // Built-in oak components.
 import "./Oak.js";

@@ -25,10 +25,10 @@ import "./SUI/Submenu";
 // Set up drag and drop preferences for SUI components.
 
 // Oak editor prefs
-import { editify } from "oak/EditorProps";
+import DragProps from "oak/DragProps";
 
 // Components which are only draggable
-editify("SUI", { draggable: true, droppable: false },
+DragProps.register("SUI", { draggable: true, droppable: false },
   "Ad", "Button", "Breadcrumb", "Card", "Checkbox",
   "Comment", "Conditional", "CountryMap", "FeedEvent",
   "Field", "Flag", "Icon", "Image", "Input",
@@ -40,7 +40,7 @@ editify("SUI", { draggable: true, droppable: false },
 
 
 // Components which can accept anything dragged on them
-editify("SUI", { draggable:true, droppable: true },
+DragProps.register("SUI", { draggable:true, droppable: true },
   "Accordion", "Column", "Content", "Container",
   "Description", "Dimmer", "Divider", "Dropdown",
   "Embed", "Form", "Grid", "Header",
@@ -53,19 +53,19 @@ editify("SUI", { draggable:true, droppable: true },
 );
 
 // Components which can accept only certain things dragged on them
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Button" }, "Buttons");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Card" }, "Cards");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Comment" }, "Comments");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.FeedEvent" }, "Feed");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Field" }, "Fields");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Images" }, "Images");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Item" }, "Items");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Label" }, "Labels");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.ListItem" }, "List");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.RadioButton" }, "RadioGroup");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Segment" }, "Segments");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Side" }, "Shape");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Statistic" }, "Statistics");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Step" }, "Steps");
-editify("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Tab,SUI.Tabbar" }, "Tabs");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Button" }, "Buttons");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Card" }, "Cards");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Comment" }, "Comments");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.FeedEvent" }, "Feed");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Field" }, "Fields");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Images" }, "Images");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Item" }, "Items");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Label" }, "Labels");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.ListItem" }, "List");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.RadioButton" }, "RadioGroup");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Segment" }, "Segments");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Side" }, "Shape");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Statistic" }, "Statistics");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Step" }, "Steps");
+DragProps.register("SUI", { draggable:true, droppable: true, dropTypes: "SUI.Tab,SUI.Tabbar" }, "Tabs");
 

@@ -16,7 +16,7 @@ import UndoQueue from "oak-roots/UndoQueue";
 import Account from "./Account";
 import actions from "./actions";
 import ComponentController from "./ComponentController";
-import EditorProps from "./EditorProps";
+import DragProps from "./DragProps";
 import OakEvent from "./OakEvent";
 import Page from "./Page";
 import Project from "./Project";

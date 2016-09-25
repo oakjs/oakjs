@@ -171,5 +171,5 @@ export default class NumericUnitControl extends Control {
 }
 
 // Make everything draggable but not droppable
-import { editify } from "oak/EditorProps";
-editify("Editor", { draggable: true, droppable: false }, NumericUnitControl);
+import DragProps from "oak/DragProps";
+DragProps.register("Editor", { draggable: true, droppable: false }, NumericUnitControl);

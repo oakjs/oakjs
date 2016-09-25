@@ -54,5 +54,5 @@ export default class Label extends React.Component {
 }
 
 // Make everything draggable but not droppable
-import { editify } from "oak/EditorProps";
-editify("Editor", { draggable: true, droppable: false }, Label);
+import DragProps from "oak/DragProps";
+DragProps.register("Editor", { draggable: true, droppable: false }, Label);
