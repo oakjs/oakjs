@@ -13,12 +13,14 @@ registerComponentLoaders(oak, "SUI", components)
 
 // Explicity load some SUI components we know we'll need in the UI.
 // This minimizes startup churn.
-import "./SUI/Menu";
-import "./SUI/MenuItem";
-import "./SUI/Submenu";
 import "./SUI/Button";
 import "./SUI/Buttons";
+import "./SUI/Container";
+import "./SUI/Menu";
+import "./SUI/MenuItem";
 import "./SUI/Popup";
+import "./SUI/Segment";
+import "./SUI/Submenu";
 
 // Set up drag and drop preferences for SUI components.
 //
