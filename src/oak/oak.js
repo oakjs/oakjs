@@ -281,6 +281,8 @@ class OakJS {
   lookupComponent(type, components, errorMessage) {
     // If we got a function (or a class), just use that.
     if (typeof type === "function") return type;
+
+    // If we got an all-lowercase name, it's an HTML or SVG element
     if (typeof type === "string" && type.toLowerCase() === type) return type;
 
 // TODO: we should arguably fail if they didn't pass in components...

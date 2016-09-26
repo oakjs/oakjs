@@ -135,13 +135,11 @@ export default class JSXElement {
   _elementsToSource(indent = "") {
 //    const type = this.renderType || this.type;
     const type = this.type;
-    // if not a lower case string, call the `getComponent()` method to yield the actual constructor
-    const typeExpression = (type === type.toLowerCase() ? `"${type}"` : `getComponent("${type}")`);
     const attrExpression = this._propsToSource(indent);
 
     // output on one line if no children
     if (!this.children || this.children.length === 0) {
-      return "React.createElement( " + typeExpression + ", "+ attrExpression + ")";
+      return `createElement("${type}", ${attrExpression})`;
     }
 
     const childIndent = indent + "  ";
@@ -155,8 +153,8 @@ export default class JSXElement {
       })
       .join(",\n" + childIndent);
 
-    return "React.createElement(\n"
-      + childIndent + typeExpression + ",\n"
+    return "createElement(\n"
+      + childIndent + `"${type}"` + ",\n"
       + childIndent + attrExpression + ",\n"
       + childIndent + childExpressions + "\n"
       + indent + ")";
