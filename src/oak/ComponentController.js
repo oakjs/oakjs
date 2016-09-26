@@ -134,7 +134,7 @@ export default class ComponentController extends ChildController {
   //    - `styles` as CSS styles
   //    - `index` as a LoadableIndex
   loadData(args) {
-    if (args === "COMPONENT") {
+    if (args === api.COMPILED) {
       return api.loadControllerComponent(this)
               // convert to a "bundle"-looking-thing
               .then( Component => {
@@ -166,7 +166,7 @@ export default class ComponentController extends ChildController {
   // This is more efficient on the front-end, as we don't have to compile.
 //TODO: this does NOT handle loading our index if necessary!!!
   loadComponent() {
-    return this.load("COMPONENT");
+    return this.load(api.COMPILED);
   }
 
   // Loaded a `Component` as an instantiated class object (eg: already `eval()`d).
@@ -259,6 +259,10 @@ export default class ComponentController extends ChildController {
   @proto
   ComponentConstructor = OakComponent;
 
+  // Should we load the compiled component, or editable JSXE?
+  @proto
+  loadStyle = api.COMPILED;
+
   // Return the Component class for our JSXE, etc.
   get Component() {
     if (this.cache.Component) return this.cache.Component;
@@ -278,7 +282,7 @@ export default class ComponentController extends ChildController {
 
     // if we haven't loaded, load and then update the entire page
     if (!this.isLoaded) {
-      this.load().then( oak.updateSoon );
+      this.load(this.loadStyle).then( oak.updateSoon );
       return Stub;
     }
 

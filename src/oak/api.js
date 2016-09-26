@@ -9,6 +9,11 @@ import JSXFragment from "./JSXFragment";
 // TODO: do as a subclass so we get class definition semantics?
 export default new API({
 
+  // `COMPILED` flag for loading things as compiled code
+  COMPILED: new (function COMPILED(){}),
+  // `EDITABLE` flag for loading things as editable JSXE, CSS, etc
+  EDITABLE: new (function EDITABLE(){}),
+
   //////////////////////////////
   // Component bundles
   //////////////////////////////

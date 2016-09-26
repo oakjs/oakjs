@@ -5,6 +5,7 @@
 import { proto, debounce   } from "oak-roots/util/decorators";
 import { dieIfMissing } from "oak-roots/util/die";
 
+import api from "./api";
 import ComponentController from "./ComponentController";
 import JSXElement from "./JSXElement";
 import oak from "./oak";
@@ -22,6 +23,10 @@ export default class Page extends ComponentController {
 
   @proto
   ComponentConstructor = PageComponent;
+
+  // Load as editable JSXE by default.
+  @proto
+  loadStyle = api.EDITABLE;
 
 
   //////////////////////////////

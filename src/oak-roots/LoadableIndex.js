@@ -57,16 +57,21 @@ export default class LoadableIndex extends Savable(Loadable()) {
   // If you call with the same `itemIdentifier` later, you'll get the same object back.
   // If we can't find the item in our index, the promise will reject.
   // NOTE: the promise resolves with the ITEM, not with the item's loaded data.
-  loadItem(itemIdentifier) {
-    if (this.isLoaded) {
-      const item = this.getItem(itemIdentifier);
-      if (item) return item.load().then(result => item);
-      return Promise.reject(`${this.itemType} '${itemIdentifier}' not found`);
-    }
-    else {
+  loadItem(itemIdentifier, args) {
+    // if we haven't loaded, load and call ourselves again
+    if (!this.isLoaded) {
       return this.load()
-        .then( () => this.loadItem(itemIdentifier) );
+        .then( () => this.loadItem(itemIdentifier, args) );
     }
+
+    // get the item, rejecting if it couldn't be found.
+    const item = this.getItem(itemIdentifier);
+    if (!item) return Promise.reject(`${this.itemType} '${itemIdentifier}' not found`);
+
+    // load and return the item as the result of its loading promise
+    //  (no matter what the item's actual load returned).
+    if (args === undefined) args = item.loadStyle;
+    return item.load(args).then(result => item);
   }
 
 

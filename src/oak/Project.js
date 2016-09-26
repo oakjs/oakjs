@@ -27,6 +27,10 @@ export default class Project extends ComponentController {
   @proto
   ComponentConstructor = ProjectComponent;
 
+  // Load as editable JSXE by default.
+  @proto
+  loadStyle = api.EDITABLE;
+
   //////////////////////////////
   //  Account + Section syntactic sugar
   //////////////////////////////
@@ -112,8 +116,8 @@ export default class Project extends ComponentController {
   // Get a project component specified by name.
   getComponent(id) { return this.childIndex.getItem(id) }
 
-  // Load a project component specified by name
-  loadComponent(id) { return this.childIndex.loadItem(id) }
+  // Load a project component specified by name.
+  loadComponent(id, args) { return this.childIndex.loadItem(id, args) }
 
   // Add dynamic components created by our index to the standard components for this install.
   get components() {
