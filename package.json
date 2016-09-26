@@ -19,6 +19,7 @@
     "fs-extra": "^0.26.5",
     "fs-promise": "^0.4.1",
     "he": "^1.1.0",
+    "jquery": "^2.2.4",
     "lodash": "^4.5.1",
     "whatwg-fetch": "^0.9.0"
   },
@@ -42,7 +43,6 @@
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^1.6.1",
-    "jquery": "^2.2.0",
     "jsdom": "^6.5.1",
     "json-loader": "^0.5.3",
     "less": "^2.6.1",

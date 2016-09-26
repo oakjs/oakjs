@@ -8,7 +8,7 @@
     "babel-helpers.js",
     "fetch.js",
     "he.js",
-    "jquery.js",
+    "jquery.min.js",
     "react-with-addons.min.js",
     "react-dom.min.js",
     "ReactRouter.min.js",
