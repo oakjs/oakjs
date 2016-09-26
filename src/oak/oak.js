@@ -6,7 +6,6 @@
 //
 //////////////////////////////
 
-import Eventful from "oak-roots/Eventful";
 import { preference } from "oak-roots/util/preference";
 import { debounce, proto } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
@@ -26,11 +25,8 @@ import Stub from "./components/Stub";
 
 let oak;
 
-class OakJS extends Eventful(Object) {
-
+class OakJS {
   constructor() {
-    super();
-
     // There can be only one!
     if (global.oak) {
       const message = "Second instance of `oak` created.  BAD!!!";

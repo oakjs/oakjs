@@ -310,17 +310,16 @@ export default class OakEvent {
     let {
       event,          // optional: mouseDown event
       flag,           // optional: `oak.event[flag]` will be `true` when we're doing this interaction
-      onDragStart, onDrag, onDragEnd,    // optional: mouse event handlers
-      getDragInfo,                                      // optional: handler to get `info` object when dragging
-      preventDefault = true, stopPropagation = true     // don't pass events by default
+                      // optional: mouse event handlers
+      onDragStart = Function.prototype,
+      onDrag = Function.prototype,
+      onDragEnd = Function.prototype,
+                      // optional: handler to get `info` object when dragging
+      getDragInfo = Function.prototype,
+                      // don't pass events by default
+      preventDefault = true, stopPropagation = true
       //
     } = options;
-
-    // default handlers in case we were passed strings or handlers weren't passed
-    onDragStart = OakEvent._defaultHandler(onDragStart);
-    onDrag = OakEvent._defaultHandler(onDrag);
-    onDragEnd = OakEvent._defaultHandler(onDragEnd);
-    getDragInfo = OakEvent._defaultHandler(getDragInfo);
 
     // Flag which will be true while we're actually dragging
     let _draggingStarted = false;
@@ -381,21 +380,6 @@ export default class OakEvent {
     if (event && preventDefault) event.preventDefault();
     if (event && stopPropagation) event.stopPropagation();
   }
-
-  static _defaultHandler(handler) {
-    // if a function, just use that
-    if (typeof handler === "function") return handler;
-
-    // if a string, trigger an event with that name on `oak`
-    if (typeof handler === "string") {
-      return function(...args) {
-        oak.trigger(handler, ...args);
-      }
-    }
-    // return no-op function
-    return function(){};
-  }
-
 
   //////////////////////////////
   //  Mousey Utility Functions
@@ -861,9 +845,7 @@ export default class OakEvent {
     function _checkWindowZoom() {
       if (OakEvent.devicePixelRatio !== _lastDevicePixelRatio) {
         _lastDevicePixelRatio = OakEvent.devicePixelRatio;
-//TODO: watch document or oak???
         $(document).trigger("zoom");
-        oak.trigger("zoom");
       }
     }
     setInterval(_checkWindowZoom, OakEvent.CHECK_ZOOM_DELAY);

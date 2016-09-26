@@ -9,8 +9,6 @@
 //  Call `instance.unload()` or `instance.reload()` to force an unload.
 //
 // Works with OakMutables or normal classes
-//
-// If the base class has a `trigger()` instance method, generates events as loading proceeds.
 //////////////////////////////
 
 export default function Loadable(Constructor = Object) {
@@ -115,14 +113,12 @@ export default function Loadable(Constructor = Object) {
       const _loadError = (error) => {
         _setLoadState(this, { state: "error", error })
         this.onLoadError(error);
-        if (this.trigger) this.trigger("loadError", error);
         _reject(error);
       };
 
       try {
         // mark us as loading
         _setLoadState(this, { state: "loading", promise: loadPromise });
-        if (this.trigger) this.trigger("loading");
 
         this.loadData(args)
           // handle successful load
@@ -145,14 +141,12 @@ export default function Loadable(Constructor = Object) {
 
     // Force a reload, no matter whether we were previously loaded or not.
     reload(args) {
-      if (this.trigger) this.trigger("reloading");
       this.load(args, "FORCE");
     }
 
     // Unload us, removing all of our loaded data.
     unload() {
       _setLoadState(this, undefined);
-      if (this.trigger) this.trigger("unloaded");
     }
 
     // Simulate a server load of some data.
@@ -160,8 +154,6 @@ export default function Loadable(Constructor = Object) {
     loaded(data) {
       _setLoadState(this, { state: "loaded", data: data });
       this.onLoaded(data);
-      // trigger the `loaded` event
-      if (this.trigger) this.trigger("loaded", data);
     }
 
   }

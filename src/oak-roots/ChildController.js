@@ -10,7 +10,6 @@
 //
 //////////////////////////////
 
-import Eventful from "oak-roots/Eventful";
 import Loadable from "oak-roots/Loadable";
 import Savable from "oak-roots/Savable";
 import { autobind, proto, throttle } from "oak-roots/util/decorators";

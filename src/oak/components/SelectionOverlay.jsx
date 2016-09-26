@@ -486,9 +486,9 @@ console.log("startDragMoving", info, this.state.dragComponents);
   onResizeHandleDown = (event, handle) => {
     oak.event.initDragHandlers({
       event,
-      onDragStart: (event) => oak.trigger("resizeStart", event, handle),
-//      onDrag: (event) => oak.trigger("resize", event, handle),
-      onDragEnd: (event) => oak.trigger("resizeEnd", event, handle),
+      onDragStart: (event) => console.info("resize handle drag start"),
+      onDrag: (event) => console.info("resize handle drag"),
+      onDragEnd: (event) => console.info("resize handle drag end"),
     });
   }
 

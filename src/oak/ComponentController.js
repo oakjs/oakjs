@@ -6,7 +6,6 @@
 
 import babel from "oak-roots/util/babel";
 import ChildController from "oak-roots/ChildController";
-import Eventful from "oak-roots/Eventful";
 import Stylesheet from "oak-roots/Stylesheet";
 import { autobind, proto, throttle } from "oak-roots/util/decorators";
 import ids from "oak-roots/util/ids";
@@ -19,7 +18,7 @@ import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
 
 
-export default class ComponentController extends Eventful(ChildController) {
+export default class ComponentController extends ChildController {
   // Your subclass should override to add variables that you want to expose to the render() method.
   static renderVars = {
     props: "this.props",
