@@ -21,7 +21,7 @@ import Page from "./Page";
 import Project from "./Project";
 import Section from "./Section";
 
-// Initialize HTML element drag and drop setup
+import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
 
 let oak;
@@ -272,6 +272,10 @@ class OakJS extends Eventful(Object) {
   //////////////////////////////
   //  Working with Components
   //////////////////////////////
+
+  // oak.Component base class for dynamically loaded components.
+  @proto
+  Component = OakComponent;
 
   // All known components
   // Add components to this map with `oak.registerComponents()`.
