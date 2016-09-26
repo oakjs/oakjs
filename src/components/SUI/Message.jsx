@@ -40,8 +40,7 @@ const Message = class SUIMessage extends SUIComponent {
   // Event handling
   //////////////////////////////
 
-  @autobind
-  onCloserClick(event) {
+  onCloserClick = (event) => {
     const { onClose } = this.props;
     // if we have an onClose event, call that first
     if (onClose) {
@@ -51,7 +50,7 @@ const Message = class SUIMessage extends SUIComponent {
     }
 
     this.hide();
-  }
+  };
 
   //////////////////////////////
   // Rendering

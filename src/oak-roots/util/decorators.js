@@ -3,7 +3,7 @@
 //////////////////////////////
 
 // Pull core-decorators into scope
-export * from "core-decorators";
+export { throttle, debounce } from "core-decorators";
 
 //////////////////////////////
 // @proto decorator

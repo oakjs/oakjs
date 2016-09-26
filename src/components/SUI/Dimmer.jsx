@@ -176,8 +176,7 @@ const Dimmer = class SUIDimmer extends SUIModuleComponent {
   // Event handling
   //////////////////////////////
 
-  @autobind
-  onClick(event) {
+  onClick = (event) => {
     const { disabled, visible, onClick, closable } = this.props;
     if (disabled) return;
 
@@ -191,7 +190,7 @@ const Dimmer = class SUIDimmer extends SUIModuleComponent {
     if (closable && visible) {
       this.hide();
     }
-  }
+  };
 
   //////////////////////////////
   // Rendering

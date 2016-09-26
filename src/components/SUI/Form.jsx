@@ -38,26 +38,23 @@ const Form = class SUIForm extends SUIComponent {
   //  Event handling
   //////////////////////////////
 
-  @autobind
-  onFocus(event) {
+  onFocus = (event) => {
     console.warn("form got onFocus():", arguments);
     const { onFocus } = this.props;
     if (onFocus) onFocus(event, this);
-  }
+  };
 
-  @autobind
-  onBlur(event) {
+  onBlur = (event) => {
     console.warn("form got onBlur():", arguments);
     const { onBlur } = this.props;
     if (onBlur) onBlur(event, this);
-  }
+  };
 
-  @autobind
-  onChange(event) {
+  onChange = (event) => {
     console.warn("form got onChange():", arguments);
     const { onChange } = this.props;
     if (onChange) onChange(event, this);
-  }
+  };
 
   //////////////////////////////
   //  Rendering

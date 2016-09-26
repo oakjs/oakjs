@@ -105,23 +105,20 @@ export default class SUIInput extends SUIComponent {
   //////////////////////////////
   //  Event handling
   //////////////////////////////
-  @autobind
-  onFocus(event) {
+  onFocus = (event) => {
     if (this.props.onFocus) this.props.onFocus(event, this);
-  }
+  };
 
-  @autobind
-  onBlur(event) {
+  onBlur = (event) => {
     if (this.props.onBlur) this.props.onBlur(event, this);
-  }
+  };
 
-  @autobind
-  onChange(event) {
+  onChange = (event) => {
     const value = event.target.value;
 //console.info("onChange to ", value);
     this.setState({ value });
     if (this.props.onChange) this.props.onChange(event, value, this);
-  }
+  };
 
   //////////////////////////////
   //  Rendering
