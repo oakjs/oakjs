@@ -9,8 +9,8 @@
     "fetch.js",
     "he.js",
     "jquery.min.js",
-    "react-with-addons.min.js",
-    "react-dom.min.js",
+    "react-with-addons.js",
+    "react-dom.js",
     "ReactRouter.min.js",
     "PropTypes-patch.js",
     "SemanticUI/semantic.min.js"
