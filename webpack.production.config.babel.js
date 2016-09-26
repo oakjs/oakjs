@@ -4,6 +4,7 @@
 //
 //////////////////////////////
 
+import "babel-core/external-helpers";
 import autoprefixer from "autoprefixer";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import path from "path";
