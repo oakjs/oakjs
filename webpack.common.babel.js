@@ -64,7 +64,7 @@ export default {
 			// <npm_module name>: <global name>
 			"acorn-jsx": "acorn",
 			"acorn": "acorn",
-			"babel-core": "Babel",
+			"babel-core": "babel",
 			"jquery": "jQuery",
 			"react": "React",
 			"react-dom": "ReactDOM",
