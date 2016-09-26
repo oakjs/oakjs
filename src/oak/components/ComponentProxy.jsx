@@ -15,6 +15,19 @@ export class ComponentProxy extends React.Component {
     oak: PropTypes.any,
   }
 
+  static childContextTypes = {
+    controller: PropTypes.any,
+    components: PropTypes.any
+  }
+
+  getChildContext() {
+    const controller = this.getController();
+    return {
+      controller,
+      components: controller && controller.components
+    }
+  }
+
   // If you have a fixed concept of who your controller is, override this.
   getController() {
     return this.props.component;

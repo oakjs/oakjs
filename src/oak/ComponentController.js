@@ -344,6 +344,13 @@ export default class ComponentController extends ChildController {
   // Return map of components we know about.
   get components() { return this.parent.components }
 
+  // Create an element.
+  // Same semantics as `React.createElement()` except that it looks up components for you.
+  createElement(type, props, ...children) {
+    const component = oak.lookupComponent(type, this.components, `${this} couldn't find type ${type}`);
+    return React.createElement(component, props, ...children);
+  }
+
   //////////////////////////////
   //  Script
   //////////////////////////////
