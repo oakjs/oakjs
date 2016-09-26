@@ -5,13 +5,12 @@
 //        https://github.com/Daniel15/babel-standalone
 //////////////////////////////
 
-
+// Set to true to show debug output in this file.
+const DEBUG = false;
 
 // Make sure babel is available (on the server side).
 import global from "oak-roots/util/global";
 
-// Set to true to show debug output in this file.
-const DEBUG = false;
 if (DEBUG) console.info("Initializing babel");
 
 var babelOptions;
@@ -20,9 +19,6 @@ if (!global.Babel) {
   // Load babel-core if necessary, which is currently at version 5.8
   if (DEBUG) console.info("-- requiring babel core");
   global.Babel = require("babel-core");
-
-  // set up external helpers
-  require("./babel-helpers.js");
 
   // set up babel 5 options
 	babelOptions = {
