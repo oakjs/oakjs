@@ -4,13 +4,13 @@
 //
 //////////////////////////////
 
-import express from "express";
+import "babel-core/external-helpers";
+import common from "./webpack.common.babel.js";
+
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import NpmInstallPlugin from "npm-install-webpack-plugin";
 import validate from 'webpack-validator';
-import webpack from "webpack";
 
-import common from "./webpack.common.babel.js";
 
 var config = Object.assign({},
 

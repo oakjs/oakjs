@@ -6,13 +6,9 @@
 
 
 import React, { PropTypes } from "react";
-import { Router, Route, IndexRoute } from "react-router";
+import { Router, Route, IndexRoute, browserHistory } from "react-router";
 
 import PageRoute from "./PageRoute";
-
-// Set up History.
-import { useQueries, createHistory } from "history";
-const history = useQueries(createHistory)();
 
 const routes = (
   <Route path="/">
@@ -27,5 +23,5 @@ const routes = (
 );
 
 // Set up the router
-const router = React.createElement(Router, { history }, routes);
+const router = React.createElement(Router, { history: browserHistory }, routes);
 export default router;

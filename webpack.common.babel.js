@@ -4,6 +4,8 @@
 //
 //////////////////////////////
 
+// Require babel external-helpers in the rest of the server code
+import "babel-core/external-helpers";
 import path from "path";
 
 const paths = {
@@ -59,13 +61,16 @@ export default {
 
 		// Global variables required and not bundled
 		externals: {
+			// <npm_module name>: <global name>
 			"acorn-jsx": "acorn",
 			"acorn": "acorn",
 			"babel-core": "Babel",
 			"jquery": "jQuery",
 			"react": "React",
 			"react-dom": "ReactDOM",
-			"react-router": "ReactRouter"
+			"react-router": "ReactRouter",
+			"he": "he",
+			"history": "History"
 		},
 
 
@@ -76,7 +81,8 @@ export default {
 					include: paths.src,
 					loader: "babel",
 					query: {
-						cacheDirectory: true
+						cacheDirectory: true,
+						externalHelpers: true
 					}
 				},
 				{

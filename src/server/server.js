@@ -1,5 +1,7 @@
 /* eslint no-console: 0 */
 
+import config from "./config";
+
 import express from "express";
 import path from "path";
 import webpack from "webpack";
@@ -10,7 +12,6 @@ const hostname = "localhost";
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
-import config from "./config";
 
 
 //////////////////////////////
