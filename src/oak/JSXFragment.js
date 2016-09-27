@@ -343,7 +343,7 @@ if (!element) debugger;
 		return this.controller.constructor.renderVars || {};
 	}
 
-  _getRenderSource(indent = "") {
+  _getRenderSource(indent = "", options) {
     // set up `getComponent()` method
     const errorMessage = `${""+this.controller}: Can't find component`;
     const childIndent = indent + "  ";
@@ -352,16 +352,16 @@ if (!element) debugger;
     return [
       `${indent}render() {`,
       `${childIndent}if (this.props.hidden) return null;`,
-      this._getRenderVars(childIndent),
+      this._getRenderVars(childIndent, options),
       "",
-      this._getCreateElementMethod(childIndent),
+      this._getCreateElementMethod(childIndent, options),
       "",
-      `${childIndent}return ${this.root._elementsToSource(childIndent)};`,
+      `${childIndent}return ${this.root._elementsToSource(childIndent, options)};`,
       `${indent}}`
     ].join("\n");
   }
 
-  _getCreateElementMethod(indent) {
+  _getCreateElementMethod(indent, options) {
   	const output = [
       `${indent}// get a component constructor given a string type`,
       `${indent}function createElement(type, props, ...children) { `

@@ -132,41 +132,56 @@ export default class JSXElement {
   //////////////////////////////
 
   // Output an expression which will render this element and its children.
-  _elementsToSource(indent = "") {
+  _elementsToSource(indent = "", options) {
 //    const type = this.renderType || this.type;
     const type = this.type;
-    const attrExpression = this._propsToSource(indent);
+
+    const isEditable = options && options.editable;
+    // pull `oid` out of props
+//  TODO: don't put it in there in the first place...
+    const { oid, ...props } = this.props;
+    const attrExpression = this._propsToSource(indent, options, props);
 
     // output on one line if no children
+    let element;
     if (!this.children || this.children.length === 0) {
-      return `createElement("${type}", ${attrExpression})`;
+      element = `createElement("${type}", ${attrExpression})`;
+    }
+    else {
+      const childIndent = indent + "  ";
+      const childExpressions =
+        this.children.map(child => {
+          if (child == null) return;
+          if (typeof child === "string") return JSON.stringify(child);
+          if (typeof child === "number") return child;
+          if (child instanceof JSXElement) return child._elementsToSource(childIndent, options);
+          if (child.code) return child.code;
+        })
+        .join(",\n" + childIndent);
+
+      element = "createElement(\n"
+        + childIndent + `"${type}"` + ",\n"
+        + childIndent + attrExpression + ",\n"
+        + childIndent + childExpressions + "\n"
+        + indent + ")";
     }
 
-    const childIndent = indent + "  ";
-    const childExpressions =
-      this.children.map(child => {
-      	if (child == null) return;
-        if (typeof child === "string") return JSON.stringify(child);
-        if (typeof child === "number") return child;
-        if (child instanceof JSXElement) return child._elementsToSource(childIndent);
-        if (child.code) return child.code;
-      })
-      .join(",\n" + childIndent);
-
-    return "createElement(\n"
-      + childIndent + `"${type}"` + ",\n"
-      + childIndent + attrExpression + ",\n"
-      + childIndent + childExpressions + "\n"
-      + indent + ")";
+    // <Oidify> if editable
+    if (oid && isEditable) {
+      return `createElement("Oak.Oidify", { oid: "${oid}", ref: "${oid}" }, ${element} )`;
+    }
+    return element;
   }
 
   // Convert our props for use in our render method.
-  _propsToSource(indent, props = this.props) {
+  _propsToSource(indent, options, props = this.props) {
     if (!props) return null;
 
     let keys = Object.keys(props);
-    const groups = this._splitPropKeys(keys);
+    if (keys.length === 0) return null;
 
+    // split into groups:  normal props, ...expressions, etc
+    const groups = this._splitPropKeys(keys);
     const propSets = groups.map(group => {
       // if we got just a string, it's an object spread expression
       if (typeof group === "string") {
@@ -213,13 +228,13 @@ export default class JSXElement {
     return groups;
   }
 
-  _propValueToSource(key, value, indent) {
+  _propValueToSource(key, value, indent, options) {
     if (value === undefined) return undefined;
     if (value instanceof acorn.Node) {
       return value._code;
     }
     if (value instanceof JSXElement) {
-      return value._elementsToSource(indent);
+      return value._elementsToSource(indent, options);
     }
     return JSON.stringify(value);
   }

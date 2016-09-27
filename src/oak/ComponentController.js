@@ -306,7 +306,8 @@ export default class ComponentController extends ChildController {
 
     let fragmentRenderScript, classScript, Component;
     try {
-      fragmentRenderScript = (fragment ? fragment._getRenderSource() : "");
+      const editable = (this === oak.editController);
+      fragmentRenderScript = (fragment ? fragment._getRenderSource("", { editable }) : "");
     }
     catch (error) {
       console.error(`Error creating parsing JSXE for ${this.path}: `, error);
@@ -347,15 +348,9 @@ export default class ComponentController extends ChildController {
 
   // Create an element.
   // Same semantics as `React.createElement()` except that it looks up components for you.
-  createElement(type, { oid, ...props }, ...children) {
+  createElement(type, props, ...children) {
     const component = oak.lookupComponent(type, this.components, `${this} couldn't find type ${type}`);
-    const element = React.createElement(component, props, ...children);
-    // if we're the current editController, wrap with an `<Oidify>`
-    //  which will put the `data-oid` attribute on the element.
-    if (oid && /*oak.isEditing &&*/ this === oak.editController) {
-      return React.createElement(Oidify, { oid }, element);
-    }
-    return element;
+    return React.createElement(component, props, ...children);
   }
 
   //////////////////////////////
