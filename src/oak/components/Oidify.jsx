@@ -17,16 +17,27 @@ export default class Oidify extends React.Component {
   }
 
   assignOid() {
-    const { oid } = this.props;
     const element = ReactDOM.findDOMNode(this);
     // if no dom node, the component `render()` returned `null`
     //  or we are loading the actual Component class.  Either way, don't worry about it.
     if (element === null) return;
+
+    const { oid } = this.props;
+    const controller = this.context.controller;
+
+    if (!oid) return console.warn(`<Oidify>.assignOid(): no oid!`, controller);
+    if (!controller) return console.warn(`<Oidify>.assignOid(${oid}): no controller`);
+
+    // Return if the controller doesn't know about the oid.
+    // This means that the component was drawn by something other than the `editController`,
+    //  e.g. a project component being referenced on the page.
+    const component = controller.getComponentForOid(oid);
+    if (!component) return;// console.warn(`<Oidify>.assignOid(${oid}): no component`);
+
     if (!(element instanceof Element)) {
-      const controller = this.context.controller;
-      console.info(`oidifying non-element: ${oid}\n`, element, controller.getComponentForOid(oid));
-      return;
+      return console.info(`<Oidify>.assignOid(${oid}): oidifying non-element\n`, element, component);
     }
+
     if (element.getAttribute("oakid") !== oid) {
       element.setAttribute("oakid", oid);
     }
