@@ -1,5 +1,5 @@
-<Oak.Page id="test" title="JSX Test" oid="b2esJKkH">
-  <br oid="u7osnK0t"/>
+<Oak.Page id="test" title="JSX Test" oid="testPage">
+  <br oid="br"/>
   <SUI.Container oid="a">
     <SUI.Segment oid="b">
       <div oid="b1">

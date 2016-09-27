@@ -19,7 +19,10 @@ export default class Oidify extends React.Component {
   assignOid() {
     const { oid } = this.props;
     const element = ReactDOM.findDOMNode(this);
-    if (!element && !(element instanceof Element)) {
+    // if no dom node, the component `render()` returned `null`
+    //  or we are loading the actual Component class.  Either way, don't worry about it.
+    if (element === null) return;
+    if (!(element instanceof Element)) {
       const controller = this.context.controller;
       console.info(`oidifying non-element: ${oid}\n`, element, controller.getComponentForOid(oid));
       return;
