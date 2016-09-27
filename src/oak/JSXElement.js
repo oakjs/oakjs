@@ -176,7 +176,6 @@ export default class JSXElement {
       const attrExpressions = [];
       group.forEach(key => {
         let value = this._propValueToSource(key, props[key], indent);
-        if (key === "oid") key = "data-oid";
         if (value !== undefined) attrExpressions.push(`"${key}": ${value}`);
       });
       return "{" + attrExpressions.join(", ") + "}"

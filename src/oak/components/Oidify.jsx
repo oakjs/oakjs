@@ -1,7 +1,7 @@
 //////////////////////////////
 // <Oidify>
 //
-//  Wrapper class to assign `data-oid` to its one and only child.
+//  Wrapper class to assign `oakid` to its one and only child.
 //  This lets us map from DOM elements back to JSXElements.
 //  Automatically added to the current `oak.editController`'s widgets.
 //
@@ -14,8 +14,14 @@ export default class Oidify extends React.Component {
 
   assignOid() {
     const element = ReactDOM.findDOMNode(this);
-    const child = React.Children.only(this.props.children);
-//    console.info(element, child);
+    if (!element && !(element instanceof Element)) {
+      console.info("oidifying non-element:", element);
+      return;
+    }
+    const { oid } = this.props;
+    if (element.getAttribute("oakid") !== oid) {
+      element.setAttribute("oakid", oid);
+    }
   }
 
   componentDidMount() {

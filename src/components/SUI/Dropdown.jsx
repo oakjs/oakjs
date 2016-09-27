@@ -268,7 +268,6 @@ class SUIDropdown extends SUIModuleComponent {
 
     const elements = new ElementBuffer({
       props : {
-        "data-oid": oid,
         id,
         style,
         className: [className, "ui", appearance, getPointingClass(pointing),

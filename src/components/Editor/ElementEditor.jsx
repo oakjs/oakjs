@@ -145,7 +145,7 @@ export default class ElementEditor extends Form {
   }
 
   IGNORED_PROPERTIES = [
-    "children", "oid", "data-oid"
+    "children", "oid"
   ]
 
   getControlForProperty(key, property) {

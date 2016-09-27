@@ -326,7 +326,7 @@ class OakJS {
   }
 
   getElementForOid(oid) {
-    return document.querySelector(`[data-oid='${oid}']`);
+    return document.querySelector(`[oakid='${oid}']`);
   }
 
   // Given an `oid`, return the `clientRect` for it as currently rendered.
@@ -343,12 +343,12 @@ class OakJS {
     if (!this.page || !this.page.component) return undefined;
 //    console.time("oidRects");
     //TODO: somehow we want to know the root element on the page so don't include toolbars...
-    const oidElements = document.querySelectorAll("[data-oid]");
+    const oidElements = document.querySelectorAll("[oakid]");
     const oids = [];
     const rects = [];
     let i = -1, element;
     while (element = oidElements[++i]) {
-      const oid = element.getAttribute("data-oid");
+      const oid = element.getAttribute("oakid");
 
       // skip if not in the `onlyOids` map
       if (onlyOids && onlyOids[oid] === undefined) continue;

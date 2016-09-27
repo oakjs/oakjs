@@ -69,7 +69,7 @@ export class Control extends React.Component {
 
     // wrapper styling
     wrapperProps: PropTypes.object,        // Props passed directly to the wrapper
-    "data-oid": PropTypes.string,          // necessary so we don't pass oid down to children...
+    "oid": PropTypes.string,          		 // necessary so we don't pass oid down to children...
   }
 
   // Make this control aware of our `form`, which sets our data context.
@@ -401,8 +401,7 @@ export class Control extends React.Component {
     // Remember in `props.wrapperProps` for debugging.
     props.wrapperProps = {
       ...props.wrapperProps,
-      className: this.getWrapperClassname(props),
-      "data-oid": props["data-oid"]
+      className: this.getWrapperClassname(props)
     }
 
     return props.wrapperProps;

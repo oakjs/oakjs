@@ -240,9 +240,7 @@ export default class Form extends OakComponent {
     return {
       id: props.id,
       style: props.style,
-      className: this.getFormClassName(props),
-// TODO: add all unknown props... ???
-      "data-oid": props["data-oid"]
+      className: this.getFormClassName(props)
     }
   }
 

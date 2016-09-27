@@ -15,6 +15,7 @@ import JSXFragment from "./JSXFragment";
 //import oak from "./oak";
 
 import OakComponent from "./components/OakComponent";
+import Oidify from "./components/Oidify";
 import Stub from "./components/Stub";
 
 
@@ -91,7 +92,7 @@ export default class ComponentController extends ChildController {
   // Oid of this component
   get oid() {
     const props = this.props;
-    return props && (props.oid || props["data-oid"]);
+    return props && props.oid;
   }
 
   //////////////////////////////
@@ -346,9 +347,15 @@ export default class ComponentController extends ChildController {
 
   // Create an element.
   // Same semantics as `React.createElement()` except that it looks up components for you.
-  createElement(type, props, ...children) {
+  createElement(type, { oid, ...props }, ...children) {
     const component = oak.lookupComponent(type, this.components, `${this} couldn't find type ${type}`);
-    return React.createElement(component, props, ...children);
+    const element = React.createElement(component, props, ...children);
+    // if we're the current editController, wrap with an `<Oidify>`
+    //  which will put the `data-oid` attribute on the element.
+    if (oid && /*oak.isEditing &&*/ this === oak.editController) {
+      return React.createElement(Oidify, { oid }, element);
+    }
+    return element;
   }
 
   //////////////////////////////
