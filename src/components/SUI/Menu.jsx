@@ -7,6 +7,8 @@
 
 import React, { PropTypes } from "react";
 
+import { unknownProperties } from "./SUI";
+
 import ElementBuffer from "./ElementBuffer";
 import { isElement } from "./SUI";
 import { getItemCountClass } from "./constants";
@@ -77,18 +79,27 @@ export function renderItemsMap(itemsMap) {
 function SUIMenu(props, context) {
   if (props.hidden) return null;
   const {
-    className,
+    className, id, style,
     items, header, headerIcon, children,
     appearance, color, size, itemCount,
     hidden, disabled,
-    // including id, style
-    ...extraProps
   } = props;
 
   const elements = new ElementBuffer({
     props : {
-      ...extraProps,
-      className: [className, "ui", appearance, color, size, getItemCountClass(itemCount), { disabled }, "menu"]
+      id,
+      style,
+      className: [
+        className,
+        "ui",
+        appearance,
+        color,
+        size,
+        getItemCountClass(itemCount),
+        { disabled },
+        "menu"
+      ],
+      ...unknownProperties(props, SUIMenu.propTypes),
     }
   });
 
