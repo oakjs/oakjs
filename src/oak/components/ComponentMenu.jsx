@@ -5,7 +5,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { classNames } from "oak-roots/util/react";
+import { classNames, knownProps } from "oak-roots/util/react";
 
 function getComponentItemProps(component, menuProps) {
   const active = (component === menuProps.selected);
@@ -40,8 +40,9 @@ export default function ComponentMenu(props, context) {
     menuItems = components.map(component => <SUI.MenuItem {...getComponentItemProps(component, props)}/>);
   }
 
-  // pass all props including className along to menu
-  return React.createElement(SUI.Menu, props, menuItems);
+  // pass only props to menu that it understands
+  const menuProps = knownProps(props, SUI.Menu, "id", "className", "style");
+  return React.createElement(SUI.Menu, menuProps, menuItems);
 }
 
 ComponentMenu.propTypes = {
