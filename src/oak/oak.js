@@ -7,9 +7,10 @@
 //////////////////////////////
 
 import { preference } from "oak-roots/util/preference";
-import { debounce, proto } from "oak-roots/util/decorators";
+import { debounce } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
 import global from "oak-roots/util/global";
+import { classNames, unknownProps } from "oak-roots/util/react";
 import UndoQueue from "oak-roots/UndoQueue";
 
 import Account from "./Account";
@@ -270,7 +271,6 @@ class OakJS {
   //////////////////////////////
 
   // oak.Component base class for dynamically loaded components.
-  @proto
   Component = OakComponent;
 
   // All known components
@@ -502,6 +502,12 @@ class OakJS {
   }
 
 
+
+  //
+  //  React utilities for use in composite components
+  //
+  classNames = classNames;
+  unknownProps = unknownProps
 
   //
   //  Event handling
