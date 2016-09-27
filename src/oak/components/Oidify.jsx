@@ -7,18 +7,23 @@
 //
 //////////////////////////////
 
-import React from "react";
+import React, { PropTypes } from "react";
 import ReactDOM from "react-dom";
 
 export default class Oidify extends React.Component {
 
+  static contextTypes = {
+    controller: PropTypes.any,
+  }
+
   assignOid() {
+    const { oid } = this.props;
     const element = ReactDOM.findDOMNode(this);
     if (!element && !(element instanceof Element)) {
-      console.info("oidifying non-element:", element);
+      const controller = this.context.controller;
+      console.info(`oidifying non-element: ${oid}\n`, element, controller.getComponentForOid(oid));
       return;
     }
-    const { oid } = this.props;
     if (element.getAttribute("oakid") !== oid) {
       element.setAttribute("oakid", oid);
     }
