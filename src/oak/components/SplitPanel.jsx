@@ -21,7 +21,7 @@ import React, { Children, Component, PropTypes } from "react";
 import ReactDOM from "react-dom";
 
 import fn from "oak-roots/util/fn";
-import { classNames } from "oak-roots/util/react";
+import { classNames, unknownProps } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
 
@@ -108,22 +108,21 @@ export default class SplitPanel extends OakComponent {
   }
 
   getRenderProps(props) {
-    props = { ...props };
-    let { appearance, className, direction, resizable, scrolling, } = props;
-
-    // Add standard classNames to those passed in with `props`
-    props.className = classNames(
-      "oak",
-      appearance,
-      { scrolling, resizable },
-      direction,
-      "SplitPanel",
-      className
-    );
-
-    props.children = this.mungeChildren(props);
-
-    return props;
+    let { appearance, children, className, direction, id, resizable, scrolling, style } = props;
+    return {
+      id,
+      style,
+      className: classNames(
+        "oak",
+        appearance,
+        { scrolling, resizable },
+        direction,
+        "SplitPanel",
+        className
+      ),
+      children: this.mungeChildren(props),
+      ...unknownProps(props, this.constructor)
+    }
   }
 
   render() {
