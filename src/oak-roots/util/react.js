@@ -32,8 +32,17 @@ export function knownProps(props, Component) {
 }
 
 // Return subset of `props` which were NOT defined in `Component.propTypes`.
-export function unknownProps(props, Component) {
-  return unknownProperties(props, Component.propTypes);
+// If you want some props which *are* in propTypes, pass them after the `Component`,
+//	and we'll add them if their values are not `undefined`.
+// e.g.	`unknownProps(this.props, this.constructor, "id", "className", "style")`
+export function unknownProps(props, Component, ...extrasToAdd) {
+	// Get a map of known keys, MINUS `extrasToAdd`
+	let knownProps = Component.propTypes;
+	if (extrasToAdd.length) {
+		knownProps = {...knownProps};
+		extrasToAdd.forEach(key => { delete knownProps[key] });
+	}
+	return unknownProperties(props, knownProps);
 }
 
 
