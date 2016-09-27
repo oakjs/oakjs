@@ -107,7 +107,7 @@ export default class JSXElement {
 
   get dragProps() {
     const props = DragProps.get(this.type) || DragProps.get(this.componentConstructor);
-    if (!props) console.warn(`Can't find dragProps for ${this.type}`);
+//    if (!props) console.warn(`Can't find dragProps for ${this.type}`);
     return props || new DragProps({ dragType: this.type });
   }
 
