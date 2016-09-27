@@ -65,18 +65,18 @@ export default class Project extends ComponentController {
 // DEPRECATE?  `defaultItemConstructor`??
       itemType: "section",
 
-      loadData: () => {
-        return api.loadControllerIndex(this);
+      loadData() {
+        return api.loadControllerIndex(project);
       },
 
 // TODO: genericise all of this...
-      createItem: (id, props) => {
+      createItem(id, props) {
         // Create a Section or a generic ComponentController?
         const Constructor = (props.type === "Component" ? ComponentController : Section);
         const item = new Constructor({
           id,
-          projectId: this.projectId,
-          account: this.account,
+          projectId: project.projectId,
+          account: project.account,
           ...props,
         });
 
@@ -85,7 +85,7 @@ export default class Project extends ComponentController {
         if (Constructor === ComponentController) {
           Object.defineProperties(item, {
             parent: {
-              get: () => this.account.getProject(this.projectId)
+              get: () => project.account.getProject(project.projectId)
             }
           });
         }
