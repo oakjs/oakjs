@@ -107,30 +107,39 @@ export default class SplitPanel extends OakComponent {
     return children;
   }
 
+  // Clone and munge the props before rendering.
+  mungeProps(props) {
+    props = { ...props };
+    let { appearance, className, direction, resizable, scrolling, } = props;
+
+    // Add standard classNames to those passed in with `props`
+    props.className = classNames(
+      "oak",
+      appearance,
+      { scrolling, resizable },
+      direction,
+      "SplitPanel",
+      className
+    );
+
+    // munge children
+    props.children = this.mungeChildren(props);
+
+    return props;
+  }
+
   getRenderProps(props) {
-    let { appearance, children, className, direction, id, resizable, scrolling, style } = props;
-    return {
-      id,
-      style,
-      className: classNames(
-        "oak",
-        appearance,
-        { scrolling, resizable },
-        direction,
-        "SplitPanel",
-        className
-      ),
-      children: this.mungeChildren(props),
-      ...unknownProps(props, this.constructor)
-    }
+    return unknownProps(props, this.constructor, "id", "className", "style")
   }
 
   render() {
     if (this.hidden) return null;
-    const props = this._props = this.getRenderProps(this.props);
-    // remove props we don't want to apply to main element
-    const { direction, children, hidden, scrolling, sizes, ...elementProps } = props;
-    return React.createElement("div", elementProps, ...children);
+    // Munge props and remember for `setChildSizes` above
+    const props = this._props = this.mungeProps(this.props);
+
+    // only apply unknown properties to the root element
+    const elementProps = this.getRenderProps(props);
+    return React.createElement("div", elementProps, ...props.children);
   }
 
 }
