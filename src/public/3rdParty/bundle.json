@@ -5,7 +5,7 @@
   "paths": [
     "acorn.js",
     "babel.min.js",
-    "babel-helpers.js",
+    "babel-helpers.min.js",
     "fetch.js",
     "he.js",
     "jquery.min.js",
