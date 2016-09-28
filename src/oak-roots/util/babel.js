@@ -5,39 +5,28 @@
 //        https://github.com/Daniel15/babel-standalone
 //////////////////////////////
 
-
+// Set to true to show debug output in this file.
+const DEBUG = false;
+if (DEBUG) console.info("Initializing babel");
 
 // Make sure babel is available (on the server side).
 import global from "oak-roots/util/global";
-
-var babelOptions;
 // If running on the server where Babel is not defined
-if (!global.Babel) {
+if (!global.babel) {
   // Load babel-core if necessary, which is currently at version 5.8
-  console.warn("requiring babel core");
-  global.Babel = require("babel-core");
-
-  // set up external helpers
-  require("./babel-helpers.js");
-
-  // set up babel 5 options
-	babelOptions = {
-    "stage": 1,
-    externalHelpers: true
-  }
+  if (DEBUG) console.info("-- requiring babel core");
+  global.babel = require("babel-core");
 }
-// If in the browser
-else {
-  // Use babel v6 options
-  babelOptions = {
-    "presets": ["stage-1", "react"],
-    "plugins": [
-      "transform-object-rest-spread",
-      "transform-es2015-destructuring",
-      "transform-decorators-legacy"
-    ]
-  };
-}
+
+// Set up babel 5 options for transpilation.
+const babelOptions = {
+  "stage": 1,
+  externalHelpers: true
+};
+
+if (DEBUG) console.info("-- babel version", babel.version);
+if (DEBUG) console.info("-- babel options: ", babelOptions);
+
 import { normalizeIdentifier } from "./ids";
 
 
@@ -46,7 +35,7 @@ import { normalizeIdentifier } from "./ids";
 
 export function transform(code) {
   try {
-    return Babel.transform(code, babelOptions).code;
+    return global.babel.transform(code, babelOptions).code;
   }
   catch (e) {
     console.error("Error transforming code with babel: ", e);
@@ -112,4 +101,4 @@ export function getClassScript(script = "", superClassName, className) {
 
 
 // Export all as a lump
-export default Object.assign({}, exports);
+export default {...exports};

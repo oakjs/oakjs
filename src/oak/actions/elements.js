@@ -116,7 +116,6 @@ new Action({
 //  Adding children
 //////////////////////////////
 
-
 // Add list of `elements` and all descendents to `parent` at `position`,
 // pushing other things out of the way.
 //
@@ -143,6 +142,102 @@ export function addElements(options = {}) {
   });
 }
 
+// Add the `elements` to the `parent` at `position`,
+//  defaulting to current selection (or its droppable ancestor) if parent isn't specified.
+//
+// NOTE: we'll work our way upwards from the `parent` until we find something
+//       that which `canDrop()` the elements.
+export function addElementsToParentOrSelection(options = {}) {
+  const {
+    controller, position, elements, autoSelect,
+    actionName = "Add Elements", autoExecute
+  } = options;
+
+  const fragment = utils.getFragmentOrDie(controller, actionName);
+
+  // default to the first selected thing (or whoever of it's parents can accept the elements).
+// TODO: paste OVER (replace) selection?  Paste immediately AFTER selection?
+  let parent = options.parent || oak.selectedComponents[0] || oak.editController.oid;
+  if (typeof parent === "string") parent = fragment.getElementOrDie(parent, actionName);
+
+  // Recurse up until we get to a droppable thing.
+  // (NOTE: The Page/etc should ALWAYS be droppable for anything.
+  while (parent && !parent.canDrop(elements)) {
+    parent = fragment.getParentOrDie(parent, actionName);
+  }
+
+  if (!parent) die(oak, actionName, options, "can't find viable parent to add to");
+
+  return addElements({
+    controller,
+    parent,
+    position,
+    elements,
+    actionName,
+    autoSelect,
+    autoExecute
+  });
+}
+
+
+// Create a new element of the specified string component `type`
+//  and add it to `parent` at `position` (defaulting to selection as parent).
+export function createElement(options = {}) {
+  const {
+    type, props,
+    controller, parent, position, autoSelect = true,
+    actionName = "Create Element", autoExecute
+  } = options;
+
+  if (!type || typeof type !== "string") die(oak, actionName, options, "`options.type` must be a string");
+  const element = new JSXElement({ type, props });
+
+  return addElementsToParentOrSelection({
+    controller,
+    parent,
+    position,
+    elements: [element],
+    actionName,
+    autoSelect,
+    autoExecute
+  });
+}
+
+
+//////////////////////////////
+//  Moving children
+//////////////////////////////
+
+
+// Move list of `elements` and all descendents from their current parent
+//  to `parent` at `position` pushing other things out of the way.
+//
+// NOTE: this does NOT clone or otherwise modify the elements!
+//
+// Required options:  `elements`, `parent`, `position`,
+// Optional options:  `controller`, `autoExecute`, `actionName`
+export function moveElements(options = {}) {
+  const {
+    controller, elements, parent, position, autoSelect,
+    actionName = "Move Elements", autoExecute
+  } = options;
+
+  if (!Array.isArray(elements)) die(oak, actionName, options, "`options.elements` must be an array");
+
+  return changeFragmentTransaction({
+    actionName,
+    controller,
+    autoSelect,
+    autoExecute,
+    transformer: (fragment) => {
+      // remove the descendents of the elements or we'll get an error removing children
+      const roots = fragment._removeDescendents(elements);
+      fragment.removeElements(roots);
+      // add elements (which auto-adds their children ???)
+      fragment.add(parent, position, elements);
+    }
+  });
+}
 
 
 //////////////////////////////
@@ -190,5 +285,5 @@ function _setControllerFragment(controller, fragment, selection) {
 
 
 // Export all as a lump
-export default Object.assign({}, exports);
+export default {...exports};
 

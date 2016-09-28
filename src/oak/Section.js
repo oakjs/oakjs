@@ -27,6 +27,10 @@ export default class Section extends ComponentController {
   @proto
   ComponentConstructor = SectionComponent;
 
+  // Load as editable JSXE by default.
+  @proto
+  loadStyle = api.EDITABLE;
+
   //////////////////////////////
   //  Project + Page Syntactic sugar
   //////////////////////////////

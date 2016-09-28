@@ -52,7 +52,7 @@ function Link(props, context) {
 }
 
 // Oak editor prefs
-import { editifyMap } from "../EditorProps";
-editifyMap({ draggable: true, droppable: false }, exports);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("Oak", { draggable: true, droppable: false }, exports);
 
 export default Link;

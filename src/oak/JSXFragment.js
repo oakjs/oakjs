@@ -339,27 +339,53 @@ if (!element) debugger;
 //     return Constructor;
 //   }
 
+	get renderVars() {
+		return this.controller.constructor.renderVars || {};
+	}
+
   _getRenderSource(indent = "") {
     // set up `getComponent()` method
     const errorMessage = `${""+this.controller}: Can't find component`;
     const childIndent = indent + "  ";
+    const renderVars = this.renderVars;
+
     return [
       `${indent}render() {`,
+      `${childIndent}if (this.props.hidden) return null;`,
       this._getRenderVars(childIndent),
       "",
-      `${childIndent}// get a component constructor given a string type`,
-      `${childIndent}function getComponent(type) { `,
-      `${childIndent}  return oak.lookupComponent(type, components, "${errorMessage}");`,
-      `${childIndent}}`,
+      this._getCreateElementMethod(childIndent),
       "",
       `${childIndent}return ${this.root._elementsToSource(childIndent)};`,
       `${indent}}`
     ].join("\n");
   }
 
+  _getCreateElementMethod(indent) {
+  	const output = [
+      `${indent}// get a component constructor given a string type`,
+      `${indent}function createElement(type, props, ...children) { `
+    ];
+    if (this.renderVars.controller) {
+    	output.push(
+	      `${indent}  return controller.createElement(type, props, ...children);`,
+    	);
+    }
+    else {
+    	output.push(
+	      `${indent}  const component = oak.lookupComponent(type, components, "${errorMessage}");`,
+  	    `${indent}  return React.createElement(component, props, ...children);`,
+      );
+    }
+    output.push(
+      `${indent}}`
+    );
+    return output.join("\n");
+  }
+
   // Set up ``renderVars` for the `render` function.
   _getRenderVars(indent = "  ") {
-    const renderVars = this.controller.constructor.renderVars;
+    const renderVars = this.renderVars;
     const output = [];
     output.push(`${indent}// variables for use in expressions below`);
     Object.keys(renderVars).forEach(

@@ -269,31 +269,31 @@ console.log("startDragMoving", info, this.state.dragComponents);
       dropParentRect: parent && oak.getRectForOid(parent)
     });
 
-    oak.forceUpdate();
+    // Call the immediate `forceUpdate` routine
+    //  -- `updateSoon()` will fire too late and our UI will get out of sync.
+    oak._forceUpdate();
   }
 
 
   onDragMoveEnd = (event, info) => {
     // if we started moving...
     if (this.state.dragMoveStarted) {
-      // ALWAYS undo the initial remove
+      // ALWAYS undo the initial `removeElements()`
        oak.undo();
 
       // if we actually dropped,
       if (this.state.dropParent) {
-oak.undo();
+        // undo the move `addElements()`
+        oak.undo();
 
         // redo the add + remove in one undo transaction
         const elements = this.state.dragComponents;
         const parent = this.state.dropParent;
         const position = this.state.dropPosition;
 //console.warn(parent, position, elements);
-        new UndoTransaction({
-          actionName: "Move Element",
-          transactions: [
-            oak.actions.removeElements({ elements, autoExecute: false }),
-            oak.actions.addElements({ parent, position, elements, autoExecute: false })
-          ]
+
+        oak.actions.moveElements({
+          elements, parent, position
         });
       }
     }
@@ -381,8 +381,8 @@ oak.undo();
       const rect = oid && oak.getRectForOid(oid);
       if (!rect) return;
 
-      const insideSelection = dragOids.includes(oid);
-      if (insideSelection) positionDelta--;
+//       const insideSelection = dragOids.includes(oid);
+//       if (insideSelection) positionDelta--;
       const position = Math.max(0, index + positionDelta);
 
       return { oid, position, rect };
@@ -486,9 +486,9 @@ oak.undo();
   onResizeHandleDown = (event, handle) => {
     oak.event.initDragHandlers({
       event,
-      onDragStart: (event) => oak.trigger("resizeStart", event, handle),
-//      onDrag: (event) => oak.trigger("resize", event, handle),
-      onDragEnd: (event) => oak.trigger("resizeEnd", event, handle),
+      onDragStart: (event) => console.info("resize handle drag start"),
+      onDrag: (event) => console.info("resize handle drag"),
+      onDragEnd: (event) => console.info("resize handle drag end"),
     });
   }
 
@@ -535,7 +535,7 @@ oak.undo();
 
   render() {
     const { oak } = this.context;
-    if (!oak.state.editing) return null;
+    if (!oak.isEditing) return null;
 
     const props = {
       id: "SelectionOverlay",
@@ -557,5 +557,5 @@ oak.undo();
 }
 
 // Oak editor prefs
-import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: false }, SelectionOverlay);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("Oak", { draggable: false, droppable: false }, SelectionOverlay);

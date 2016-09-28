@@ -1,4 +1,3 @@
-//import { COUNTRY_NAME_MAP } from "themes/SUI/CountryMap";
 getInitialData(context) {
   const { SUI } = context.components;
   const COUNTRY_NAME_MAP = SUI.CountryMap.COUNTRY_NAME_MAP;

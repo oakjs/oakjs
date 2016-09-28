@@ -60,4 +60,4 @@ export function throttle(callback, delay = 100, options = {}) {
 
 
 // Export all as one map
-export default Object.assign({}, exports);
+export default {...exports};

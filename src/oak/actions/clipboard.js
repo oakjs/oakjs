@@ -85,11 +85,11 @@ new Action({
 
 
 // Paste `elements` from the `oak.clipboard` inside `parent` at `position`.
-// Required options:  `parent`, `position`
-// Optional options:  `controller`, `autoExecute`, `actionName`
+// Required options:  `parent`,
+// Optional options:  `position`, `controller`, `autoExecute`, `actionName`
 export function pasteElements(options = {}) {
   const {
-    controller, position,
+    controller, parent, position,
     actionName = "Paste", autoExecute
   } = options;
 
@@ -97,22 +97,11 @@ export function pasteElements(options = {}) {
   const elements = oak.clipboard;
   if (!elements || elements.length === 0) die(oak, actionName, options, "Nothing to paste");
 
-  const fragment = utils.getFragmentOrDie(controller, actionName);
-
-  // default to the first selected thing (or whoever of it's parents can accept the elements).
-// TODO: paste OVER (replace) selection?  Paste immediately AFTER selection?
-  let parent = options.parent || oak.selectedComponents[0] || oak.editController.oid;
-  if (typeof parent === "string") parent = fragment.getElementOrDie(parent, actionName);
-
-  while (parent && !parent.canDrop(oak.clipboard)) {
-    parent = fragment.getParentOrDie(parent, actionName);
-  }
-
-  return actions.addElements({
+  return actions.addElementsToParentOrSelection({
     controller,
     parent,
     position,
-    elements: oak.clipboard,
+    elements,
     actionName,
     autoSelect: true,
     autoExecute
@@ -127,5 +116,5 @@ new Action({
 
 
 // Export all as a lump
-export default Object.assign({}, exports);
+export default {...exports};
 

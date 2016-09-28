@@ -43,4 +43,4 @@ export function getColumnCountClass(columns) {
 
 
 // Export all as a map.
-export default Object.assign({}, exports);
+export default {...exports};

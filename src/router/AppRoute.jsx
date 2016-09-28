@@ -35,10 +35,11 @@ export default class AppRoute extends React.Component {
     this._isMounted = true;
   }
 
-  componentWillUpdate() {
-    delete oak._appRoute;
-    this._isMounted = false;
-  }
+// TODO: WillUpdate is firing AFTER DidUpdate which is messing things up!
+//   componentWillUpdate() {
+//     delete oak._appRoute;
+//     this._isMounted = false;
+//   }
 
   componentDidUpdate() {
     oak._appRoute = this;

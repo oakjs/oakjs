@@ -42,5 +42,5 @@ Columns.propTypes = {
 Columns.defaultProps = {}
 
 // Oak editor prefs
-import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: true }, Columns);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("Oak", { draggable: true, droppable: true }, "Columns");

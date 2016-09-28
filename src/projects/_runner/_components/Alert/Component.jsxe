@@ -1,1 +1,3 @@
-<SUI.Modal header={props.header} content={props.message} actions={[props.okTitle]}/>
+<div>
+  <SUI.Modal {...props} content={props.message} actions={[props.okTitle]} />
+</div>

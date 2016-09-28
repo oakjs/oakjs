@@ -41,8 +41,13 @@ export default class FixedPanel extends AutoResized(OakComponent) {
     const size = $root.offset();
     if (!size) return;
 
-    size.width = $root.outerWidth();
-    size.height = $root.outerHeight();
+    // don't make bigger than window frame
+    // TODO: is this masking a larger problem???
+    const maxWidth = window.innerWidth - size.left;
+    const maxHeight = window.innerHeight - size.top;
+
+    size.width = Math.min($root.outerWidth(), maxWidth);
+    size.height = Math.min($root.outerHeight(), maxHeight);
 
     this.$ref("popout").css(size);
   }

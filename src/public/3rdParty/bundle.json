@@ -7,11 +7,12 @@
     "babel.min.js",
     "babel-helpers.js",
     "fetch.js",
-    "jquery.js",
-    "React-15.01.js",
-    "ReactDom-15.01.js",
+    "he.js",
+    "jquery.min.js",
+    "react-with-addons.js",
+    "react-dom.js",
+    "ReactRouter.min.js",
     "PropTypes-patch.js",
-    "ReactRouter.js",
     "SemanticUI/semantic.min.js"
   ],
   "outputFile": "3rdParty/bundle.js"

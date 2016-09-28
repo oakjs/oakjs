@@ -1,0 +1,7 @@
+<div>
+  <SUI.Modal {...props} actions={[props.cancelTitle, props.okTitle]}>
+    <Editor.Form ref="form" data={{ value: props.value }} appearance="padded" autoFocus>
+      <Editor.Text name="value" title={props.message} labelOn="top" fluid/>
+    </Editor.Form>
+  </SUI.Modal>
+</div>

@@ -7,5 +7,5 @@ export default class Info extends OakComponent {
 }
 
 
-import { editify } from "oak/EditorProps";
-editify({ droppable: false }, Info);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("", { droppable: false }, Info);

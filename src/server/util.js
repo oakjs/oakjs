@@ -112,4 +112,4 @@ export function concatPathMap(pathMap, options = {}) {
 
 
 // Export all as a group
-export default Object.assign({}, exports);
+export default {...exports};

@@ -3,7 +3,8 @@
 //////////////////////////////
 
 // Pull core-decorators into scope
-export * from "core-decorators";
+export throttle from "core-decorators/lib/throttle";
+export debounce from "core-decorators/lib/debounce";
 
 //////////////////////////////
 // @proto decorator
@@ -39,4 +40,4 @@ export function proto(target, key, descriptor) {
 }
 
 // Export all as one map
-export default Object.assign({}, exports);
+export default {...exports};

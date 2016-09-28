@@ -87,4 +87,4 @@ export function getDragPreviewForElements(elements) {
 }
 
 
-export default Object.assign({}, exports);
+export default {...exports};

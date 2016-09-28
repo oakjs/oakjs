@@ -139,4 +139,4 @@ export function interpolate(string, scope) {
 
 
 // Export all as a single object
-export default Object.assign({}, exports);
+export default {...exports};

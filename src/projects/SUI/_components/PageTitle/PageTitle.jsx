@@ -22,5 +22,5 @@ export default class PageTitle extends OakComponent {
 };
 
 
-import { editify } from "oak/EditorProps";
-editify({ droppable: false }, PageTitle);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("", { droppable: false }, PageTitle);

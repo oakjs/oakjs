@@ -1,3 +1,4 @@
 <Oak.Project id="_runner" title="OakJS Runner / Editor UI">
   <Oak.RunnerSection/>
+  <Oak.RunnerModal/>
 </Oak.Project>

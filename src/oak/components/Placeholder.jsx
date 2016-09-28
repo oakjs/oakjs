@@ -25,5 +25,5 @@ export default function Placeholder(props, context) {
 }
 
 // Oak editor prefs
-import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: false }, Placeholder);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("Oak", { draggable: true, droppable: false }, Placeholder);

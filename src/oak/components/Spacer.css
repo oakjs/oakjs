@@ -1,8 +1,0 @@
-.oak.spacer         { position:relative; display:block; }
-.oak.spacer.inline  { display:inline-block; vertical-align:baseline; }
-.oak.spacer.tiny    {  width:2px;  height:2px;  }
-.oak.spacer.small   {  width:4px;  height:4px;  }
-.oak.spacer.medium  {  width:10px; height:10px;  }
-.oak.spacer.large   {  width:20px; height:20px;  }
-.oak.spacer.huge    {  width:30px; height:30px;  }
-.oak.spacer.massive {  width:50px; height:50px;  }

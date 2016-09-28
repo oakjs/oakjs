@@ -98,28 +98,28 @@
       <SUI.Grid columns={2} oid="ix1JfatQ">
         <SUI.Column oid="DMf1k8nt">
           <SUI.Statistic size="mini" icon="unhide" value="503" label="mini" oid="Cffaja1k"/>
-          <Oak.Spacer tiny oid="klESN1WY"/>
+          <Oak.Spacer size="tiny" oid="klESN1WY"/>
           <SUI.Statistic size="tiny" icon="unhide" value="503" label="tiny" oid="Oo3ibAgM"/>
-          <Oak.Spacer tiny oid="vm4xVpB6"/>
+          <Oak.Spacer size="tiny" oid="vm4xVpB6"/>
           <SUI.Statistic size="small" icon="unhide" value="503" label="small" oid="JbARgLCe"/>
-          <Oak.Spacer tiny oid="iZT2wtag"/>
+          <Oak.Spacer size="tiny" oid="iZT2wtag"/>
           <SUI.Statistic size="medium" icon="unhide" value="503" label="medium" oid="CAeXvB5e"/>
-          <Oak.Spacer tiny oid="jYr2XO8P"/>
+          <Oak.Spacer size="tiny" oid="jYr2XO8P"/>
           <SUI.Statistic size="large" icon="unhide" value="503" label="large" oid="meoMfOWo"/>
-          <Oak.Spacer tiny oid="Dqo5xWxw"/>
+          <Oak.Spacer size="tiny" oid="Dqo5xWxw"/>
           <SUI.Statistic size="huge" icon="unhide" value="503" label="huge" oid="BoSLF56U"/>
         </SUI.Column>
         <SUI.Column oid="ZoT1LR57">
           <SUI.Statistic appearance="horizontal" size="mini" icon="unhide" value="503" label="mini" oid="xwI4GeZF"/>
-          <Oak.Spacer tiny oid="o9nmCG5R"/>
+          <Oak.Spacer size="tiny" oid="o9nmCG5R"/>
           <SUI.Statistic appearance="horizontal" size="tiny" icon="unhide" value="503" label="tiny" oid="pjiE2656"/>
-          <Oak.Spacer tiny oid="PIc7vJTr"/>
+          <Oak.Spacer size="tiny" oid="PIc7vJTr"/>
           <SUI.Statistic appearance="horizontal" size="small" icon="unhide" value="503" label="small" oid="sf8wdZ01"/>
-          <Oak.Spacer tiny oid="BoFRh5CO"/>
+          <Oak.Spacer size="tiny" oid="BoFRh5CO"/>
           <SUI.Statistic appearance="horizontal" size="medium" icon="unhide" value="503" label="medium" oid="EScfswlb"/>
-          <Oak.Spacer tiny oid="frIaLswk"/>
+          <Oak.Spacer size="tiny" oid="frIaLswk"/>
           <SUI.Statistic appearance="horizontal" size="large" icon="unhide" value="503" label="large" oid="rEAy2pHi"/>
-          <Oak.Spacer tiny oid="Z96htSr3"/>
+          <Oak.Spacer size="tiny" oid="Z96htSr3"/>
           <SUI.Statistic appearance="horizontal" size="huge" icon="unhide" value="503" label="huge" oid="NKatoI6f"/>
         </SUI.Column>
       </SUI.Grid>

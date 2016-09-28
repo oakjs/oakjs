@@ -5,6 +5,7 @@
 
 import he from "he";
 
+import DragProps from "oak-roots/DragProps";
 import { die, dieIfOutOfRange } from "oak-roots/util/die";
 import global from "oak-roots/util/global";
 import ids from "oak-roots/util/ids";
@@ -104,24 +105,26 @@ export default class JSXElement {
     return oak.lookupComponent(this.type);
   }
 
-  get editorProps() {
-    return oak.getEditorProps(this.componentConstructor);
+  get dragProps() {
+    const props = DragProps.get(this.type) || DragProps.get(this.componentConstructor);
+    if (!props) console.warn(`Can't find dragProps for ${this.type}`);
+    return props || new DragProps({ dragType: this.type });
   }
 
   canDrag() {
-    return this.editorProps.canDrag(this);
+    return this.dragProps.canDrag(this);
   }
 
   canDrop(elements) {
-    return this.editorProps.canDrop(this, elements);
+    return this.dragProps.canDrop(this, elements);
   }
 
   get dragType() {
-    return this.editorProps.dragType;
+    return this.dragProps.dragType;
   }
 
   get dropTypes() {
-    return this.editorProps.dropTypes;
+    return this.dragProps.dropTypes;
   }
 
   //////////////////////////////
@@ -132,13 +135,11 @@ export default class JSXElement {
   _elementsToSource(indent = "") {
 //    const type = this.renderType || this.type;
     const type = this.type;
-    // if not a lower case string, call the `getComponent()` method to yield the actual constructor
-    const typeExpression = (type === type.toLowerCase() ? `"${type}"` : `getComponent("${type}")`);
     const attrExpression = this._propsToSource(indent);
 
     // output on one line if no children
     if (!this.children || this.children.length === 0) {
-      return "React.createElement( " + typeExpression + ", "+ attrExpression + ")";
+      return `createElement("${type}", ${attrExpression})`;
     }
 
     const childIndent = indent + "  ";
@@ -152,8 +153,8 @@ export default class JSXElement {
       })
       .join(",\n" + childIndent);
 
-    return "React.createElement(\n"
-      + childIndent + typeExpression + ",\n"
+    return "createElement(\n"
+      + childIndent + `"${type}"` + ",\n"
       + childIndent + attrExpression + ",\n"
       + childIndent + childExpressions + "\n"
       + indent + ")";

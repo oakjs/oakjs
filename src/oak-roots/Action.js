@@ -48,10 +48,10 @@ export default class Action {
   get disabled() { return false }
   set disabled(expression) { defineGetter(this, "disabled", expression) }
 
-  // Whether this action is currently checked.
+  // Whether this action is currently active.
   // Pass an expression to be dynamically evaluated.
-  get checked() { return false }
-  set checked(expression) { defineGetter(this, "checked", expression) }
+  get active() { return false }
+  set active(expression) { defineGetter(this, "active", expression) }
 
   // Whether this action should fire when focused in an input field.
   // Pass `true` to enable the action when focused.

@@ -53,18 +53,16 @@ export default class Page extends OakComponent {
   // Returns `defaultValue` if resulting value is `undefined`.
   // NOTE: If you're looking for a top-level value (eg: `path` === `"a"`),
   //        you can safely access data directly, (eg: just do `page.data.a`).
-  @autobind
-  get(path, defaultValue) {
+  get = (path, defaultValue) => {
     const value = getPath(path, this.data);
     if (value === undefined) return defaultValue;
     return value;
-  }
+  };
 
-  @autobind
   // Set a `possibly.dotted.path` value on `page.data`.
   // Will create objects along the path as necessary.
   // Returns the modified data object.
-  set(path, value) {
+  set = (path, value) => {
     // Don't update if value hasn't actually change
     const currentValue = this.get(path);
     if (value === currentValue) return;
@@ -72,15 +70,14 @@ export default class Page extends OakComponent {
     setPath(value, path, this.data);
     this.forceUpdate();
     return this.data;
-  }
+  };
 
-  @autobind
   // Return a function which will set some `possibly.dotted.path` data on this page.
-  deferredSet(path, value) {
+  deferredSet = (path, value) => {
     return () => {
       this.set(path, value);
     }
-  }
+  };
 
   //////////////////////////////
   // Rendering
@@ -93,5 +90,5 @@ export default class Page extends OakComponent {
 }
 
 // Oak editor prefs
-import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: true }, Page);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("Oak", { draggable: false, droppable: true }, Page);

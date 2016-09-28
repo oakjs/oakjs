@@ -73,16 +73,25 @@ export function compileJSXE(options) {
   let render = "";
   // construct render method dynamically from jsxe
   if (jsxe) {
+    let controller, fragment;
     try {
       // UGH, we need a `controller` to get the render source (for renderVars)
-      const controller = new ComponentController();
-      const fragment = JSXFragment.parse(jsxe, { controller });
-      render = fragment._getRenderSource("  ");
+      controller = new ComponentController();
+      fragment = JSXFragment.parse(jsxe, { controller });
     }
     catch(e) {
-      console.error("Error creating render from jsxe fragment:", e);
+      console.error("Error parsing jsxe fragment for render:", e);
       console.log(jsxe);
-      render = "";
+    }
+
+    if (fragment) {
+      try {
+        render = fragment._getRenderSource("  ");
+      }
+      catch(e) {
+        console.error("Error creating render() from jsxe fragment:", e);
+        console.log(jsxe);
+      }
     }
   }
 
@@ -136,4 +145,4 @@ export function compileJSXE(options) {
 
 
 // Export all as a single object.
-export default Object.assign({}, exports);
+export default {...exports};

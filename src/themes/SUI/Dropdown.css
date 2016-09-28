@@ -1,7 +1,0 @@
-/* Extension to SUI styles */
-
-/* Add label directly to a fields element */
-
-.ui.read-only.dropdown {
-  pointer-events: none;
-}

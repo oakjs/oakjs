@@ -186,10 +186,10 @@ new Action({
 new Action({
   id: "oak.deselectAll", title: "Deselect All", shortcut: "Meta Shift A",
   handler: clearSelection,
-  disabled: () => !oak.state.editing || oak.selectionIsEmpty
+  disabled: () => !oak.isEditing || oak.selectionIsEmpty
 });
 
 
 
 // Export all as a lump
-export default Object.assign({}, exports);
+export default {...exports};

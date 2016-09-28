@@ -67,4 +67,4 @@ export function mergeProps(...propSets) {
 
 
 
-export default Object.assign({}, exports);
+export default {...exports};

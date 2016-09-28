@@ -2,6 +2,7 @@
 // Overlay which shows/manages selection
 //////////////////////////////
 
+import React from "react";
 import "./SelectionRect.less";
 
 export default class SelectionRect extends React.Component {
@@ -13,7 +14,9 @@ export default class SelectionRect extends React.Component {
       style: rect,
       onMouseDown
     }
+    // if position was specified, add as attribute to style with CSS
     if (position !== undefined) rectProps["data-position"] = position;
+
     return (
       <div {...rectProps}>{children}</div>
     )
@@ -21,5 +24,5 @@ export default class SelectionRect extends React.Component {
 }
 
 // Oak editor prefs
-import { editify } from "../EditorProps";
-editify({ draggable: false, droppable: false }, SelectionRect);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("Oak", { draggable: false, droppable: false }, SelectionRect);

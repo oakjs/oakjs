@@ -12,5 +12,5 @@ export default class InfoHint extends OakComponent {
 }
 
 
-import { editify } from "oak/EditorProps";
-editify({ droppable: false }, InfoHint);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("", { droppable: false }, InfoHint);

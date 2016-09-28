@@ -5,7 +5,7 @@
 import React, { PropTypes } from "react";
 import Action from "oak-roots/Action";
 
-import SUIMenuItem from "themes/SUI/MenuItem";
+import SUIMenuItem from "components/SUI/MenuItem";
 
 export default class ActionItem extends React.Component {
   static propTypes = {
@@ -30,7 +30,7 @@ export default class ActionItem extends React.Component {
   }
 
   render() {
-    let { id, props, ...menuProps } = this.props;
+    let { id, props, title, ...itemProps } = this.props;
     const action = Action.get(id, props);
 
     if (!action) {
@@ -40,16 +40,16 @@ export default class ActionItem extends React.Component {
 
     // add action props to the menuProps, allowing explicit props to win
     // (this lets you, eg, override the label or hidden)
-    menuProps = {
-      label: action.title,
+    itemProps = {
+      label: (title in this.props ? this.props.title : action.title),
       hint: action.shortcutHint,
       hidden: action.hidden,
       disabled: action.disabled,
+      active: action.active,
       onClick: action.execute,
-      ...menuProps
+      ...itemProps
     }
-
-    return <SUIMenuItem {...menuProps}/>
+    return <SUIMenuItem {...itemProps}/>
   }
 
   //////////////////////////////
@@ -62,5 +62,5 @@ export default class ActionItem extends React.Component {
 }
 
 // Oak editor prefs
-import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: false }, ActionItem);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("Oak", { draggable: true, droppable: false }, ActionItem);

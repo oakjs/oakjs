@@ -186,4 +186,4 @@ export function supers(target = this) {
 
 
 // Export all as one map
-export default Object.assign({}, exports);
+export default {...exports};

@@ -102,5 +102,5 @@ export function navigateToRoute(route, replace, selection) {
 
 
 // Export all in one go
-export default Object.assign({}, exports);
+export default {...exports};
 

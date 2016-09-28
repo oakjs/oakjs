@@ -68,4 +68,4 @@ export function clearPrefs(prefix, skipDebugPrefs) {
 
 
 // Export all as one map
-export default Object.assign({}, exports);
+export default {...exports};

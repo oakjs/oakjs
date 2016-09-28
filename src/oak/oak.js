@@ -1,11 +1,11 @@
 //////////////////////////////
 //
 //  App singleton for `oak` web application.
+//  There can be only one.
+//  And it's created and exported at the bottom of this file.
 //
-//  TODO: instantiation pattern?
 //////////////////////////////
 
-import Eventful from "oak-roots/Eventful";
 import { preference } from "oak-roots/util/preference";
 import { debounce, proto } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
@@ -15,25 +15,18 @@ import UndoQueue from "oak-roots/UndoQueue";
 import Account from "./Account";
 import actions from "./actions";
 import ComponentController from "./ComponentController";
-import EditorProps from "./EditorProps";
 import OakEvent from "./OakEvent";
 import Page from "./Page";
 import Project from "./Project";
 import Section from "./Section";
 
-import oakComponents from "./components";
+import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
-import HTML_EDITOR_SETTINGS from "./components/theme/html";
 
 let oak;
 
-class OakJS extends Eventful(Object) {
-
-  _debugEvents = true;
-
+class OakJS {
   constructor() {
-    super();
-
     // There can be only one!
     if (global.oak) {
       const message = "Second instance of `oak` created.  BAD!!!";
@@ -101,9 +94,9 @@ class OakJS extends Eventful(Object) {
   }
 
   static DEFAULT_STATE = {
-    editing: false,         // Are we currently editing?
-    editController: "page",    // What we're editing: "page", "section", "project". "component"?
-    selection: [],          // Array of `oid`s selected in the editor.
+    editing: false,           // Are we currently editing?
+    editController: "Page",   // What we're editing: "Page", "Section", "Project". "Component"?
+    selection: [],            // Array of `oid`s selected in the editor.
   }
 
   // Initialize application state.
@@ -145,17 +138,28 @@ class OakJS extends Eventful(Object) {
   //  State syntactic sugar
   //////////////////////////////
 
+  // Are we currently in "edit" mode?
+  get isEditing() {
+    return !!oak.state.editing;
+  }
+
   // Return the `ComponentController` for the current `appState.editController`,
   //  a `page`, `section` or `project`.
   // Returns `undefined` if the specified context is not found.
   get editController() {
     switch (this.state.editController) {
-      case "page": return this.page;
-      case "section": return this.section;
-      case "project": return this.project;
+      case "Page": return this.page;
+      case "Section": return this.section;
+      case "Project": return this.project;
     }
-    console.warn(`oak.editController(): state ${this.state.editController} not understood`);
+    console.warn(`oak.editController(): edit controller ${this.state.editController} not understood`);
     return undefined;
+  }
+
+  // Does the current editController need to save?
+  get editControllerIsDirty() {
+    const controller = this.editController;
+    return !!controller && controller.isDirty;
   }
 
   // Return the currently selected elements (as a list of `oid`s).
@@ -209,18 +213,19 @@ class OakJS extends Eventful(Object) {
   get canUndo() { return oak.undoQueue.canUndo }
   get canRedo() { return oak.undoQueue.canRedo }
 
-  // Force update of the entire oak, including any changed props in page/section/project
-//TODO: throttle / debounce?
+  // NOTE: We don't use throttle/debounce here because we want a `_forceUpdate()`
+  //       to cancel any pending `updateSoon()`s... ???
   updateSoon() {
     clearTimeout(oak._updateTimer);
-    oak._updateTimer = setTimeout(oak.forceUpdate, 1);
+    oak._updateTimer = setTimeout(oak._forceUpdate, 1);
   }
 
-  forceUpdate() {
+  // Force update of the entire oak, including any changed props in page/section/project
+  // NOTE: do NOT call this directly, use `oak.updateSoon()` instead.
+  _forceUpdate() {
     clearTimeout(oak._updateTimer);
-    if (!oak._appRoute) return;
-//console.log("oak.forceUpdate()");
-    oak._appRoute.setState({});
+    // if `oak._appRoute` is not set, we either haven't drawn yet or are in the middle of redrawing.
+    if (oak._appRoute) oak._appRoute.setState({});
   }
 
 
@@ -261,21 +266,23 @@ class OakJS extends Eventful(Object) {
 
 
   //////////////////////////////
-  //  Syntactic sugar for getting components
+  //  Working with Components
   //////////////////////////////
 
-  // Default `Component` constructor for the system.
+  // oak.Component base class for dynamically loaded components.
   @proto
-  Component = oakComponents.Oak.OakComponent;
+  Component = OakComponent;
 
   // All known components
-  // TODO: `account.components`... ???
-  components = Object.assign({}, oakComponents)
+  // Add components to this map with `oak.registerComponents()`.
+  components = {};
 
   // Given a string `type` from a JSXE, return the `Component` class it corresponds to.
   lookupComponent(type, components, errorMessage) {
     // If we got a function (or a class), just use that.
     if (typeof type === "function") return type;
+
+    // If we got an all-lowercase name, it's an HTML or SVG element
     if (typeof type === "string" && type.toLowerCase() === type) return type;
 
 // TODO: we should arguably fail if they didn't pass in components...
@@ -293,24 +300,10 @@ class OakJS extends Eventful(Object) {
     return Stub;
   }
 
-// DEPRECATE???
-  // Return the `editorProps` for a given constructor.
-  // This tells us, eg, if we can drag into them, etc.
-  getEditorProps(constructor) {
-    if (typeof constructor === "string") {
-      if (HTML_EDITOR_SETTINGS[constructor]) return HTML_EDITOR_SETTINGS[constructor];
-      console.warn(`oak.getEditorProps(${constructor}): cant find html type!`);
-    }
-    else if (constructor) {
-      if (constructor.editorProps) return constructor.editorProps;
-      console.warn(`oak.getEditorProps(): cant find 'editorProps' settings for '${constructor.name}'!`);
-    }
-    return new EditorProps();
-  }
 
   //////////////////////////////
   //  Oid => Component => Oid
-  // TODO: move these into `UI` or some such???
+  // TODO: move these into `oak.event` or some such???
   //////////////////////////////
 
   // Return the JSXElement `Component` for an `oid`,
@@ -329,26 +322,6 @@ class OakJS extends Eventful(Object) {
         const component = controller.getComponentForOid(oid);
         if (component) return component;
       }
-    }
-  }
-
-  // Given an oid, return the `controller` it belongs to:
-  //  - the `page`, `section` or `project`.
-  // Returns `undefined` if not found.
-// DEPRECATED?
-  getControllerForOid(oid) {
-    if (!oid) return undefined;
-
-    if (this.page && this.page.getComponentForOid(oid)) {
-      return this.page;
-    }
-
-    if (this.section && this.section.getComponentForOid(oid)) {
-      return this.section
-    }
-
-    if (this.project && this.project.getComponentForOid(oid)) {
-      return this.project
     }
   }
 
@@ -408,71 +381,124 @@ class OakJS extends Eventful(Object) {
     return { oids, rects };
   }
 
-  // Return a clone of an oid component's element.
-  // Returns `undefined` if the element can't be found.
-  cloneOid(oid) {
-    const element = document.querySelector(`[data-oid='${oid}']`);
-    if (!element) return undefined;
-    return element.cloneNode(true);
-  }
-
-  // Return a list cloned elements for a list of `oids`.
-  cloneOids(oids) {
-    if (!oids) return [];
-    return oids.map(oid => oak.cloneOid(oid)).filter(Boolean);
-  }
-
 
   //
   //  Modal:  Alert / Prompt / etc
   //
+  // TODO: stack of modals with pop behavior...
+  //
 
-  // Show a `ModalComponent` with `options` passed in.
-  // If you pass a `ComponentController`, we'll make sure that is loaded and use its `Component`.
-  // Otherwise, pass a `SUI.Modal` component... ???
-  // TODO: Returns a promise which resolves when they close the modal
-  showModal(ModalComponent, options) {
-    if (!ModalComponent) {
-      console.error("showModal() called with undefined ModalComponent!");
+  // Show a `ModalComponent` with `props` passed in.
+  // Pass a `ComponentController`, we'll make sure that is loaded and use its `Component` to display the modal.
+  // You can also pass the path of a Project Component and we'll look it up for you (better error messages this way).
+  // Returns a promise which resolves when they close the modal
+  showModal(ModalController, props) {
+    if (typeof ModalController === "string") {
+      const Controller = oak.account.get(ModalController);
+      if (!Controller) {
+        console.error(`oak.showModal(): couldn't find component '${ModalController}'`);
+        return Promise.reject();
+      }
+      ModalController = Controller;
+    }
+
+    if (!(ModalController instanceof ComponentController)) {
+      console.error("showModal() must be called with a ComponentController!");
       return Promise.reject();
     }
 
-    // If we were passed a ComponentController, load it and use it's `Component`.
-    if (ModalComponent instanceof ComponentController) {
-
-      // If loadError, reject immediately
-      if (ModalComponent.loadError) {
-        console.warn("Couldn't load modal component: ", ModalComponent.loadError);
+    // If loadError, reject immediately
+    if (ModalController.loadError) {
+      console.warn("Couldn't load modal component: ", ModalController.loadError);
 // TODO: throw???
-        return Promise.reject(ModalComponent.loadError);
-      }
-
-      // If not loaded, load first and then show
-      if (!ModalComponent.isLoaded) {
-        return ModalComponent.loadComponent()
-                .then( () => oak.showModal(ModalComponent.Component, options) )
-                .catch(e => {
-                  console.error(`oak.showModal(${ModalComponent}) load error:`, e);
-                  return Promise.reject(e);
-                });
-      }
-
-      // recurse with the Component
-      return oak.showModal(ModalComponent.Component, options);
+      return Promise.reject(ModalController.loadError);
     }
 
-    console.warn("show modal:\n", ModalComponent, "\noptions:\n", options);
+    // If not loaded, load first and then call back to show
+    if (!ModalController.isLoaded) {
+      return ModalController.loadComponent()
+              .catch(e => {
+                console.error(`oak.showModal(${ModalController}) load error:`, e);
+                return Promise.reject(e);
+              })
+              .then( () => oak.showModal(ModalController, props) )
+    }
+
+    let _resolve, _reject;
+    const modal = oak.runner.modal = {
+      controller: ModalController,
+      props: {
+        ...props,
+        autoShow: true,
+        onApprove: oak.onModalApproved,
+        onDeny: oak.onModalDenied
+      },
+      promise: new Promise( (resolve, reject) => {
+        _resolve = resolve;
+        _reject = reject;
+      })
+    }
+    // tack resolve/reject onto the modal.promise for use in `onModalApproved` and `onModalDenied`.
+    modal.promise._resolve = _resolve;
+    modal.promise._reject = _reject;
+
+    oak.updateSoon();
+
+    return modal.promise;
+  }
+
+  // Handle click on "approve" button of the current modal.
+  // Resolves the "modal promise" returned by `showModal()`.
+  // Attempts to call live modal component `getValue()` routine
+  //  to get "value" to pass back to promise.
+  onModalApproved() {
+    const modal = oak.runner.modal;
+    if (!modal) return;
+
+    const component = modal.controller.component;
+    var value;
+    if (component) {
+//      console.info("component:", component);
+      if (component.getValue) {
+        value = component.getValue();
+//        console.info("got value:", value);
+      }
+    }
+    else {
+      console.warn("couldn't get pointer to component!");
+    }
+
+    modal.promise._resolve(value);
+    oak._closeModal();
+  }
+
+  // Handle click on the "deny" button of the current modal.
+  // Rejects the "modal promise" returned by `showModal()`.
+  onModalDenied(reason) {
+    const modal = oak.runner.modal;
+    if (!modal) return;
+
+    const rejectValue = (reason && reason.jquery ? undefined : reason);
+    modal.promise._reject(rejectValue);
+    oak._closeModal();
+  }
+
+  // Stop displaying the current modal.
+  // Called automatically when modal is dismissed.
+  _closeModal() {
+    delete oak.runner.modal;
+    oak.updateSoon();
   }
 
   // Show `message` in an alert modal.
-  // Possible `options`:  `{ header, okTitle }`
+  // Possible `props`:  `{ header, okTitle }`
   // Returns a promise which resolves when they click `ok`.
-  alert(message, options) {
-    return oak.showModal(oak.account.get("_runner/Alert"), { ...options, message });
+  alert(message, props) {
+    return oak.showModal("_runner/Alert", { ...props, message });
   }
 
-  prompt(message, options) {
-    return oak.showModal(oak.account.get("_runner/Prompt"), { ...options, message });
+  prompt(message, value, props) {
+    return oak.showModal("_runner/Prompt", { ...props, message, value });
   }
 
 
@@ -484,7 +510,7 @@ class OakJS extends Eventful(Object) {
   // Force a redraw when window is resized.
   @debounce(100)
   onWindowResized(event) {
-    oak.forceUpdate();
+    oak.updateSoon();
   }
 
   //////////////////////////////
@@ -500,9 +526,9 @@ class OakJS extends Eventful(Object) {
 oak = new OakJS();
 export default oak;
 
+// globalize for reflection
+global.oak = oak;
 
 // When window is resized, update everything. (???)
 $(window).on("resize", oak.onWindowResized);
 
-// globalize for reflection
-global.oak = oak;

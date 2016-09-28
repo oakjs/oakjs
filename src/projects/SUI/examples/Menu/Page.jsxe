@@ -181,7 +181,7 @@
       <SUI.Label color="teal" pointing="down" oid="N0E46TXt">
         inverted pagination
       </SUI.Label>
-      <Oak.Spacer tiny oid="syDwnxYM"/>
+      <Oak.Spacer size="tiny" oid="syDwnxYM"/>
       <SUI.Menu appearance="inverted pagination" items={data.paginationItems} oid="CEnaNSZy"/>
       <Oak.Spacer oid="MLGFNcN6"/>
       <SUI.Label color="teal" pointing="down" oid="abhJo6jG">

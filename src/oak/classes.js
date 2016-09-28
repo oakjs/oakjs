@@ -6,7 +6,6 @@
 
 export Account from "./Account";
 export ComponentController from "./ComponentController";
-export EditorProps from "./EditorProps";
 export JSXElement from "./JSXElement";
 export JSXFragment from "./JSXFragment";
 export JSXParser from "./JSXParser";
@@ -16,4 +15,4 @@ export Project from "./Project";
 export Section from "./Section";
 
 // Export all as a single object.
-export default Object.assign({}, exports);
+export default {...exports};

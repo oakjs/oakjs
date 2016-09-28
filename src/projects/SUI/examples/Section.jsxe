@@ -6,7 +6,7 @@
           Components
         </SUI.MenuHeader>
         <Oak.PageMenu appearance="inverted vertical" oid="VEL5c4kJ"/>
-        <Oak.Spacer large oid="kILJxOdp"/>
+        <Oak.Spacer size="large" oid="kILJxOdp"/>
       </SUI.Menu>
     </Oak.RightSidebar>
     <Oak.CurrentPage oid="VJfF0xbf"/>

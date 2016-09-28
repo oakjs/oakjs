@@ -4,8 +4,8 @@
 
 import React, { PropTypes } from "react";
 
-import Dropdown from "themes/SUI/Dropdown";
-import Menu from "themes/SUI/Menu";
+import Dropdown from "components/SUI/Dropdown";
+import Menu from "components/SUI/Menu";
 
 import "./AppMenu.less";
 
@@ -32,5 +32,5 @@ export default class AppMenu extends Dropdown {
 }
 
 // Oak editor prefs
-import { editify } from "../EditorProps";
-editify({ draggable: true, droppable: true }, AppMenu);
+import DragProps from "oak-roots/DragProps";
+DragProps.register("Oak", { draggable: true, droppable: true }, "AppMenu");

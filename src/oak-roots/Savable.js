@@ -107,14 +107,12 @@ export default function Savable(Constructor = Object) {
         const _saveError = (error) => {
           _setSaveState(this, { state: "error", error, dirty})
           this.onSaveError(error);
-          this.trigger("saveError", error);
           reject(error);
         };
 
         try {
           // mark us as saving
           _setSaveState(this, { state: "saving", promise: savePromise });
-          if (this.trigger) this.trigger("saving");
 
           this.saveData(force)
             // handle successful save
@@ -146,7 +144,6 @@ export default function Savable(Constructor = Object) {
     saved(results) {
       _setSaveState(this, { state: "saved", results });
       this.onSaved(results);
-      if (this.trigger) this.trigger("saved", results);
       return results;
     }
 

@@ -3,10 +3,10 @@
 //////////////////////////////
 
 // Re-export webpack configs
-import common from "../../webpack.common.js";
+import common from "../../webpack.common.babel.js";
 
-import dev from "../../webpack.config.js";
-import production from "../../webpack.production.config.js";
+import dev from "../../webpack.config.babel.js";
+import production from "../../webpack.production.config.babel.js";
 
 export default {
   common,

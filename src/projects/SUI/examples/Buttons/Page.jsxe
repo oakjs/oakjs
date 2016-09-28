@@ -97,7 +97,7 @@
         <SUI.Button title="Two" color="blue" oid="NIxE7k3T"/>
         <SUI.Button title="Three" color="green" oid="meNUvJDt"/>
       </SUI.Buttons>
-      <Oak.Spacer inline large oid="f3NPPUnp"/>
+      <Oak.Spacer inline size="large" oid="f3NPPUnp"/>
       <SUI.Buttons appearance="vertical basic" oid="B3N2tN0y">
         <SUI.Button title="One" oid="ZdQW1bqJ"/>
         <SUI.Button title="Two" oid="CK1BqOC5"/>

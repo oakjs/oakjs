@@ -3,3 +3,5 @@ node_modules/
 dist
 npm-debug.log
 src/projects/_trash/
+stats.json
+prodstats.json

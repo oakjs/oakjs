@@ -6,7 +6,6 @@
 
 import babel from "oak-roots/util/babel";
 import ChildController from "oak-roots/ChildController";
-import Eventful from "oak-roots/Eventful";
 import Stylesheet from "oak-roots/Stylesheet";
 import { autobind, proto, throttle } from "oak-roots/util/decorators";
 import ids from "oak-roots/util/ids";
@@ -19,7 +18,7 @@ import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
 
 
-export default class ComponentController extends Eventful(ChildController) {
+export default class ComponentController extends ChildController {
   // Your subclass should override to add variables that you want to expose to the render() method.
   static renderVars = {
     props: "this.props",
@@ -135,7 +134,7 @@ export default class ComponentController extends Eventful(ChildController) {
   //    - `styles` as CSS styles
   //    - `index` as a LoadableIndex
   loadData(args) {
-    if (args === "COMPONENT") {
+    if (args === api.COMPILED) {
       return api.loadControllerComponent(this)
               // convert to a "bundle"-looking-thing
               .then( Component => {
@@ -167,7 +166,7 @@ export default class ComponentController extends Eventful(ChildController) {
   // This is more efficient on the front-end, as we don't have to compile.
 //TODO: this does NOT handle loading our index if necessary!!!
   loadComponent() {
-    return this.load("COMPONENT");
+    return this.load(api.COMPILED);
   }
 
   // Loaded a `Component` as an instantiated class object (eg: already `eval()`d).
@@ -260,6 +259,10 @@ export default class ComponentController extends Eventful(ChildController) {
   @proto
   ComponentConstructor = OakComponent;
 
+  // Should we load the compiled component, or editable JSXE?
+  @proto
+  loadStyle = api.COMPILED;
+
   // Return the Component class for our JSXE, etc.
   get Component() {
     if (this.cache.Component) return this.cache.Component;
@@ -279,7 +282,7 @@ export default class ComponentController extends Eventful(ChildController) {
 
     // if we haven't loaded, load and then update the entire page
     if (!this.isLoaded) {
-      this.load().then( oak.updateSoon );
+      this.load(this.loadStyle).then( oak.updateSoon );
       return Stub;
     }
 
@@ -340,6 +343,13 @@ export default class ComponentController extends Eventful(ChildController) {
 
   // Return map of components we know about.
   get components() { return this.parent.components }
+
+  // Create an element.
+  // Same semantics as `React.createElement()` except that it looks up components for you.
+  createElement(type, props, ...children) {
+    const component = oak.lookupComponent(type, this.components, `${this} couldn't find type ${type}`);
+    return React.createElement(component, props, ...children);
+  }
 
   //////////////////////////////
   //  Script
