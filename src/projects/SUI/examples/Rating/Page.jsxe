@@ -1,160 +1,160 @@
-<Oak.Page id="Rating" title="Rating" oid="MXnxnb52">
-  <PageTitle title="Rating" oid="U4xZq04f">
+<Oak.Page id="Rating" title="Rating">
+  <PageTitle title="Rating">
     A rating indicates user interest in content
   </PageTitle>
-  <PageSection title="Types" oid="UFLMnyYJ">
-    <SUI.Grid columns={2} oid="HtU9Dqnk">
-      <SUI.Column oid="lTJJo7xQ">
-        <Example title="Normal" hint="<Rating/>" oid="ckrJGamN">
-          <SUI.Rating oid="cyYdrXD1"/>
+  <PageSection title="Types">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Normal" hint="<Rating/>">
+          <SUI.Rating/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="fC8FIrnl">
-        <Example title="Single Rating" hint="<Rating max={1}/>" oid="YgVmtXnr">
-          <SUI.Rating max={1} oid="wbUvE9Lf"/>
-        </Example>
-      </SUI.Column>
-    </SUI.Grid>
-  </PageSection>
-  <PageSection title="Content" oid="dICPbTlB">
-    <SUI.Grid columns={2} oid="WAIVweWE">
-      <SUI.Column oid="jZl9EjaW">
-        <Example title="Initial Value" hint="<Rating rating={4}/>" oid="BZ2LfbF9">
-          <SUI.Rating rating={2} oid="vn9fydrD"/>
-        </Example>
-      </SUI.Column>
-      <SUI.Column oid="nnher0qC">
-        <Example title="Max Value" hint="<Rating max={10}/>" oid="sNFrQjsY">
-          <SUI.Rating max={10} oid="AEIcshJo"/>
+      <SUI.Column>
+        <Example title="Single Rating" hint="<Rating max={1}/>">
+          <SUI.Rating max={1}/>
         </Example>
       </SUI.Column>
     </SUI.Grid>
   </PageSection>
-  <PageSection title="States, Events & Behaviors" oid="LL32asae">
-    <SUI.Grid columns={2} oid="O2UZiG7C">
-      <SUI.Column oid="MKd9kVSO">
-        <Example title="Disabled" hint="<Rating disabled/>" oid="rgiTwjmD">
-          <SUI.Rating disabled rating={2} max={5} oid="QN2oBOGi"/>
+  <PageSection title="Content">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Initial Value" hint="<Rating rating={4}/>">
+          <SUI.Rating rating={2}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="CnZtK5lC">
-        <Example title="Clearable" hint="<Rating clearable/>" oid="LFKBYMVN">
-          <SUI.Rating clearable rating={2} max={5} oid="R3OptVa5"/>
+      <SUI.Column>
+        <Example title="Max Value" hint="<Rating max={10}/>">
+          <SUI.Rating max={10}/>
         </Example>
       </SUI.Column>
     </SUI.Grid>
-    <Example title="Events" hint="<Rating onRate='...'/>" oid="XG85vwdU">
-      <SUI.Rating ref="events" icon="star" rating={page.get("events.value")} max={5} onRate={(value)=> {page.set("events.value", value)}} oid="rVJm0w01"/>
-      <Oak.Spacer inline width={100} oid="aX6IIO3r"/>
-      <SUI.Label content={"value = "+page.get("events.value")} oid="vXl65Nyt"/>
-      <Oak.Spacer oid="cvStw5ex"/>
-      <SUI.Buttons oid="fqPDgI6E">
-        <SUI.Button onClick={()=>page.refs.events.setRating(0)} title="0" oid="q5RlCY3e"/>
-        <SUI.Button onClick={()=>page.refs.events.setRating(1)} title="1" oid="jtwNVXYb"/>
-        <SUI.Button onClick={()=>page.refs.events.setRating(2)} title="2" oid="cOXvxnqG"/>
-        <SUI.Button onClick={()=>page.refs.events.setRating(3)} title="3" oid="O26FbUey"/>
-        <SUI.Button onClick={()=>page.refs.events.setRating(4)} title="4" oid="PknUGu8o"/>
-        <SUI.Button onClick={()=>page.refs.events.setRating(5)} title="5" oid="mMnKbQ7n"/>
+  </PageSection>
+  <PageSection title="States, Events & Behaviors">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Disabled" hint="<Rating disabled/>">
+          <SUI.Rating disabled rating={2} max={5}/>
+        </Example>
+      </SUI.Column>
+      <SUI.Column>
+        <Example title="Clearable" hint="<Rating clearable/>">
+          <SUI.Rating clearable rating={2} max={5}/>
+        </Example>
+      </SUI.Column>
+    </SUI.Grid>
+    <Example title="Events" hint="<Rating onRate='...'/>">
+      <SUI.Rating ref="events" icon="star" rating={page.get("events.value")} max={5} onRate={(value)=> {page.set("events.value", value)}}/>
+      <Oak.Spacer inline width={100}/>
+      <SUI.Label content={"value = "+page.get("events.value")}/>
+      <Oak.Spacer/>
+      <SUI.Buttons>
+        <SUI.Button onClick={()=>page.refs.events.setRating(0)} title="0"/>
+        <SUI.Button onClick={()=>page.refs.events.setRating(1)} title="1"/>
+        <SUI.Button onClick={()=>page.refs.events.setRating(2)} title="2"/>
+        <SUI.Button onClick={()=>page.refs.events.setRating(3)} title="3"/>
+        <SUI.Button onClick={()=>page.refs.events.setRating(4)} title="4"/>
+        <SUI.Button onClick={()=>page.refs.events.setRating(5)} title="5"/>
       </SUI.Buttons>
-      <Oak.Spacer oid="wIDlmfhN"/>
-      <SUI.Buttons oid="WjTynVn4">
-        <SUI.Button onClick={()=>page.refs.events.enable()} title="Enable" oid="uAllbiaJ"/>
-        <SUI.Button onClick={()=>page.refs.events.disable()} title="Disable" oid="IBSueTMn"/>
-        <SUI.Button onClick={()=>page.refs.events.clear()} title="Clear" oid="bswdLoq1"/>
+      <Oak.Spacer/>
+      <SUI.Buttons>
+        <SUI.Button onClick={()=>page.refs.events.enable()} title="Enable"/>
+        <SUI.Button onClick={()=>page.refs.events.disable()} title="Disable"/>
+        <SUI.Button onClick={()=>page.refs.events.clear()} title="Clear"/>
       </SUI.Buttons>
     </Example>
   </PageSection>
-  <PageSection title="Appearance" oid="CgXLeN6W">
-    <SUI.Grid columns={2} oid="x4kXW47C">
-      <SUI.Column oid="GFEZR3hJ">
-        <Example title="Star" hint="<Rating icon='star'/>" oid="NRQTnPaG">
-          <SUI.Rating icon="star" rating={2} max={5} oid="Q8NhHbba"/>
+  <PageSection title="Appearance">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Star" hint="<Rating icon='star'/>">
+          <SUI.Rating icon="star" rating={2} max={5}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="LRPc3TjY">
-        <Example title="Heart" hint="<Rating icon='heart'/>" oid="g3t4w6je">
-          <SUI.Rating icon="heart" rating={2} max={5} oid="rlZtR86l"/>
+      <SUI.Column>
+        <Example title="Heart" hint="<Rating icon='heart'/>">
+          <SUI.Rating icon="heart" rating={2} max={5}/>
         </Example>
       </SUI.Column>
     </SUI.Grid>
-    <Example title="Sizes" hint="<Rating size='small'/>" oid="YBlYXP9V">
-      <SUI.Grid columns={3} style={{width:500}} oid="IbJB1ed7">
-        <SUI.Column oid="yit2RssQ">
-          <SUI.Label pointing="right" color="teal" style={{width:80}} oid="XYD1I1eR">
+    <Example title="Sizes" hint="<Rating size='small'/>">
+      <SUI.Grid columns={3} style={{width:500}}>
+        <SUI.Column>
+          <SUI.Label pointing="right" color="teal" style={{width:80}}>
             mini
           </SUI.Label>
         </SUI.Column>
-        <SUI.Column oid="rTncmbDJ">
-          <SUI.Rating size="mini" oid="FoV6ehYf"/>
+        <SUI.Column>
+          <SUI.Rating size="mini"/>
         </SUI.Column>
-        <SUI.Column oid="rGoWXndl">
-          <SUI.Rating size="mini" icon="heart" oid="OEdXcRR6"/>
+        <SUI.Column>
+          <SUI.Rating size="mini" icon="heart"/>
         </SUI.Column>
-        <SUI.Column oid="oXas5GMd">
-          <SUI.Label pointing="right" color="teal" style={{width:80}} oid="l84khS8j">
+        <SUI.Column>
+          <SUI.Label pointing="right" color="teal" style={{width:80}}>
             tiny
           </SUI.Label>
         </SUI.Column>
-        <SUI.Column oid="qcqhYPEC">
-          <SUI.Rating size="tiny" oid="ZIadrTbg"/>
+        <SUI.Column>
+          <SUI.Rating size="tiny"/>
         </SUI.Column>
-        <SUI.Column oid="iyVq6mj1">
-          <SUI.Rating size="tiny" icon="heart" oid="nfIqC3wS"/>
+        <SUI.Column>
+          <SUI.Rating size="tiny" icon="heart"/>
         </SUI.Column>
-        <SUI.Column oid="JY9MxfqT">
-          <SUI.Label pointing="right" color="teal" style={{width:80}} oid="lgRKq3ND">
+        <SUI.Column>
+          <SUI.Label pointing="right" color="teal" style={{width:80}}>
             small
           </SUI.Label>
         </SUI.Column>
-        <SUI.Column oid="CDIIsrdY">
-          <SUI.Rating size="small" oid="ZqOdidLu"/>
+        <SUI.Column>
+          <SUI.Rating size="small"/>
         </SUI.Column>
-        <SUI.Column oid="sgothZSR">
-          <SUI.Rating size="small" icon="heart" oid="fATSV9Cd"/>
+        <SUI.Column>
+          <SUI.Rating size="small" icon="heart"/>
         </SUI.Column>
-        <SUI.Column oid="qLipPT7P">
-          <SUI.Label pointing="right" color="teal" style={{width:80}} oid="fW4AcFlg">
+        <SUI.Column>
+          <SUI.Label pointing="right" color="teal" style={{width:80}}>
             medium
           </SUI.Label>
         </SUI.Column>
-        <SUI.Column oid="O12Fu8tP">
-          <SUI.Rating size="medium" oid="sFyHkRKS"/>
+        <SUI.Column>
+          <SUI.Rating size="medium"/>
         </SUI.Column>
-        <SUI.Column oid="pvWpfQYK">
-          <SUI.Rating size="medium" icon="heart" oid="T5j6ygg1"/>
+        <SUI.Column>
+          <SUI.Rating size="medium" icon="heart"/>
         </SUI.Column>
-        <SUI.Column oid="Qhjumg1p">
-          <SUI.Label pointing="right" color="teal" style={{width:80}} oid="bVBJCVGd">
+        <SUI.Column>
+          <SUI.Label pointing="right" color="teal" style={{width:80}}>
             large
           </SUI.Label>
         </SUI.Column>
-        <SUI.Column oid="w32ooDPR">
-          <SUI.Rating size="large" oid="oMvrk445"/>
+        <SUI.Column>
+          <SUI.Rating size="large"/>
         </SUI.Column>
-        <SUI.Column oid="SA932yRc">
-          <SUI.Rating size="large" icon="heart" oid="kPn0PPew"/>
+        <SUI.Column>
+          <SUI.Rating size="large" icon="heart"/>
         </SUI.Column>
-        <SUI.Column oid="ZjyXtITr">
-          <SUI.Label pointing="right" color="teal" style={{width:80}} oid="trPV0Tkt">
+        <SUI.Column>
+          <SUI.Label pointing="right" color="teal" style={{width:80}}>
             huge
           </SUI.Label>
         </SUI.Column>
-        <SUI.Column oid="Xlh30VlJ">
-          <SUI.Rating size="huge" oid="uYiioH2i"/>
+        <SUI.Column>
+          <SUI.Rating size="huge"/>
         </SUI.Column>
-        <SUI.Column oid="RgkSp3Q3">
-          <SUI.Rating size="huge" icon="heart" oid="unMH4Du2"/>
+        <SUI.Column>
+          <SUI.Rating size="huge" icon="heart"/>
         </SUI.Column>
-        <SUI.Column oid="rGQ8ymlu">
-          <SUI.Label pointing="right" color="teal" style={{width:80}} oid="h2mmwhmy">
+        <SUI.Column>
+          <SUI.Label pointing="right" color="teal" style={{width:80}}>
             massive
           </SUI.Label>
         </SUI.Column>
-        <SUI.Column oid="fpf6guh8">
-          <SUI.Rating size="massive" oid="AGH9acMy"/>
+        <SUI.Column>
+          <SUI.Rating size="massive"/>
         </SUI.Column>
-        <SUI.Column oid="o6wdlsUP">
-          <SUI.Rating size="massive" icon="heart" oid="XonEtQpv"/>
+        <SUI.Column>
+          <SUI.Rating size="massive" icon="heart"/>
         </SUI.Column>
       </SUI.Grid>
     </Example>

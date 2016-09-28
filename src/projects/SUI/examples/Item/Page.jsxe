@@ -1,112 +1,112 @@
-<Oak.Page id="Item" title="Item" oid="t9ypcwRN">
-  <PageTitle title="Item" oid="dGdcKi3u">
+<Oak.Page id="Item" title="Item">
+  <PageTitle title="Item">
     An item view presents large collections of site content for display
-    <Info oid="QTtHW77i">
+    <Info>
       Note that Item elements
-      <b oid="lVEiqTyU">
+      <b>
         must
       </b>
       appear inside an Items element to display properly.
     </Info>
   </PageTitle>
-  <PageSection title="Content" oid="FioyJv29">
-    <Example title="Inline Content" hint="<Item>...</Item>" oid="gBs5sNX2">
-      <SUI.Items oid="n5sPQK5t">
-        <SUI.Item oid="dZOub3pB">
-          <div className="image" oid="wdGj7gig">
-            <img src={data.image} className="ui image" oid="mBumWTMh"/>
+  <PageSection title="Content">
+    <Example title="Inline Content" hint="<Item>...</Item>">
+      <SUI.Items>
+        <SUI.Item>
+          <div className="image">
+            <img src={data.image} className="ui image"/>
           </div>
-          <div className="content" oid="tCYqQMeh">
-            <a className="header" href="#" oid="HCdmnl1y">
+          <div className="content">
+            <a className="header" href="#">
               Header
             </a>
-            <div className="meta" oid="AQ0nRdCj">
+            <div className="meta">
               Description
             </div>
-            <div className="description" oid="kgfSwlWs">
-              <LoremIpsum short oid="GkwAVXue"/>
+            <div className="description">
+              <LoremIpsum short/>
             </div>
-            <div className="extra" oid="IKX9H4sM">
+            <div className="extra">
               Additional Details
             </div>
           </div>
         </SUI.Item>
-        <SUI.Item oid="NO1nhBIJ">
-          <div className="image" oid="NF3UwlMI">
-            <img src={data.image} className="ui image" oid="S5hUxsLG"/>
+        <SUI.Item>
+          <div className="image">
+            <img src={data.image} className="ui image"/>
           </div>
-          <div className="content" oid="TkdxAWkm">
-            <a className="header" href="#" oid="FjscJX3v">
+          <div className="content">
+            <a className="header" href="#">
               Header
             </a>
-            <div className="meta" oid="yvck20bf">
+            <div className="meta">
               Description
             </div>
-            <div className="description" oid="fF0nrj6A">
-              <LoremIpsum short oid="yIAtL1dC"/>
+            <div className="description">
+              <LoremIpsum short/>
             </div>
-            <div className="extra" oid="OhJeM70Y">
+            <div className="extra">
               Additional Details
             </div>
           </div>
         </SUI.Item>
       </SUI.Items>
     </Example>
-    <Example title="Image Attribute" hint="<Item image='...' imageAppearance='...'/>" oid="J4jpy9Nm">
-      <SUI.Items oid="ZqeJgS4o">
-        <SUI.Item image={data.joeAvatar} imageAppearance="tiny" oid="tS2luv9d"/>
-        <SUI.Item image={data.kristyAvatar} imageAppearance="tiny" oid="HfhuK5Qb"/>
-        <SUI.Item image={data.elliotAvatar} imageAppearance="tiny" oid="utI7VR7X"/>
+    <Example title="Image Attribute" hint="<Item image='...' imageAppearance='...'/>">
+      <SUI.Items>
+        <SUI.Item image={data.joeAvatar} imageAppearance="tiny"/>
+        <SUI.Item image={data.kristyAvatar} imageAppearance="tiny"/>
+        <SUI.Item image={data.elliotAvatar} imageAppearance="tiny"/>
       </SUI.Items>
     </Example>
-    <Example title="Header Attribute" hint="<Item header='...'/>" oid="mhMPemtc">
-      <SUI.Items oid="fVmZA3Fc">
-        <SUI.Item header="Joe Constance" image={data.joeAvatar} imageAppearance="tiny" oid="sgXVy362"/>
-        <SUI.Item header="Kristy Bainbridge" image={data.kristyAvatar} imageAppearance="tiny" oid="bgFnuuwc"/>
-        <SUI.Item header="Elliot Fu" image={data.elliotAvatar} imageAppearance="tiny" oid="Jy0HsvGK"/>
+    <Example title="Header Attribute" hint="<Item header='...'/>">
+      <SUI.Items>
+        <SUI.Item header="Joe Constance" image={data.joeAvatar} imageAppearance="tiny"/>
+        <SUI.Item header="Kristy Bainbridge" image={data.kristyAvatar} imageAppearance="tiny"/>
+        <SUI.Item header="Elliot Fu" image={data.elliotAvatar} imageAppearance="tiny"/>
       </SUI.Items>
     </Example>
-    <Example title="Content Attribute" hint="<Item content='...'/>" oid="UDgNYTtG">
-      <SUI.Items oid="tyqe5HnQ">
-        <SUI.Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny" oid="Sas68dGu"/>
-        <SUI.Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny" oid="LqTlU5pV"/>
-        <SUI.Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny" oid="H2GMM0FN"/>
+    <Example title="Content Attribute" hint="<Item content='...'/>">
+      <SUI.Items>
+        <SUI.Item header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} imageAppearance="tiny"/>
+        <SUI.Item header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} imageAppearance="tiny"/>
+        <SUI.Item header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} imageAppearance="tiny"/>
       </SUI.Items>
     </Example>
-    <Example title="Meta Attribute" hint="<Item meta='...'/>" oid="AmGurtds">
-      <SUI.Items oid="GpXEERtS">
-        <SUI.Item meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} oid="xXZu75is"/>
-        <SUI.Item meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} oid="pWkN3Ddx"/>
-        <SUI.Item meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} oid="rB1b76uk"/>
+    <Example title="Meta Attribute" hint="<Item meta='...'/>">
+      <SUI.Items>
+        <SUI.Item meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar}/>
+        <SUI.Item meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar}/>
+        <SUI.Item meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar}/>
       </SUI.Items>
     </Example>
-    <Example title="Extra Attribute" hint="<Item extra='...'/>" oid="R3VMy9Fj">
-      <SUI.Items oid="ZSjs0LuU">
-        <SUI.Item extra={<a href="#" oid="fNaDVZk3">Add Friend</a>} meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} oid="ryvfsVKb"/>
-        <SUI.Item extra="Kristy has been your friend since 2014" meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} oid="tFaKyTCd"/>
-        <SUI.Item extra={<a href="#" oid="Nt1NTu1R">Add Friend</a>} meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} oid="hTg1Ml8d"/>
+    <Example title="Extra Attribute" hint="<Item extra='...'/>">
+      <SUI.Items>
+        <SUI.Item extra={<a href="#">Add Friend</a>} meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar}/>
+        <SUI.Item extra="Kristy has been your friend since 2014" meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar}/>
+        <SUI.Item extra={<a href="#">Add Friend</a>} meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar}/>
       </SUI.Items>
     </Example>
   </PageSection>
-  <PageSection title="Event Handling" oid="jAtTpNDC">
-    <Example title="onClick" hint="<Item onClick={...}/>" oid="To5uvZ6o">
-      <SUI.Items appearance="link" oid="lAN2YiuN">
-        <SUI.Item onClick={()=> alert("Joe says Hi!")} meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar} oid="GnBSnI1q"/>
-        <SUI.Item onClick={()=> alert("Kristy says Hey, You!")} extra="Kristy has been your friend since 2014" meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar} oid="AiERXAer"/>
-        <SUI.Item onClick={()=> alert("Elliot says Howdy!")} meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar} oid="ikk4XuOc"/>
+  <PageSection title="Event Handling">
+    <Example title="onClick" hint="<Item onClick={...}/>">
+      <SUI.Items appearance="link">
+        <SUI.Item onClick={()=> alert("Joe says Hi!")} meta="2,417 WOW! Points" header="Joe Constance" content="Joe is a kung fu instructor living in New York" image={data.joeAvatar}/>
+        <SUI.Item onClick={()=> alert("Kristy says Hey, You!")} extra="Kristy has been your friend since 2014" meta="1,432 WOW! Points" header="Kristy Bainbridge" content="Kristy is a graphic designer living in New York" image={data.kristyAvatar}/>
+        <SUI.Item onClick={()=> alert("Elliot says Howdy!")} meta="863 WOW! Points" header="Elliot Fu" content="Elliot is a software manager living in New York" image={data.elliotAvatar}/>
       </SUI.Items>
-      <Info oid="wohn3bHm">
+      <Info>
         If you have an &grave;onClick&grave;, the entire item is clickable.
         You should make sure any anchors or other elements inside your Item which might want intercept the click call &grave;event.preventDefault()&grave;.
       </Info>
     </Example>
   </PageSection>
-  <PageSection title="Appearance" oid="YR3n0eqX">
-    <Example title="Align attribute" hint="<Item align='top'/>" oid="KDjBC6TZ">
-      <SUI.Items oid="dB9sISlO">
-        <SUI.Item align="top" header="Top Aligned" image={data.joeAvatar} imageAppearance="tiny" oid="NZ1r2AOk"/>
-        <SUI.Item align="middle" header="Middle Aligned" image={data.kristyAvatar} imageAppearance="tiny" oid="KnMcOeMh"/>
-        <SUI.Item align="bottom" header="Bottom Aligned" image={data.elliotAvatar} imageAppearance="tiny" oid="mSfrxOoe"/>
+  <PageSection title="Appearance">
+    <Example title="Align attribute" hint="<Item align='top'/>">
+      <SUI.Items>
+        <SUI.Item align="top" header="Top Aligned" image={data.joeAvatar} imageAppearance="tiny"/>
+        <SUI.Item align="middle" header="Middle Aligned" image={data.kristyAvatar} imageAppearance="tiny"/>
+        <SUI.Item align="bottom" header="Bottom Aligned" image={data.elliotAvatar} imageAppearance="tiny"/>
       </SUI.Items>
     </Example>
   </PageSection>

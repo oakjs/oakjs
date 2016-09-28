@@ -1,196 +1,196 @@
-<Oak.Page id="Buttons" title="Buttons" oid="XN17uc2s">
-  <PageTitle title="Buttons" oid="NC1wHiyj">
+<Oak.Page id="Buttons" title="Buttons">
+  <PageTitle title="Buttons">
     A Buttons encapsulates a set of Button elements, generally to provide consistent styling.
   </PageTitle>
-  <PageSection title="Appearance" oid="SQId3988">
-    <Example title="Normal" oid="kEqMLraB">
-      <SUI.Buttons oid="Rgom5Rnb">
-        <SUI.Button title="One" oid="D4cFBBcq"/>
-        <SUI.Button title="Two" oid="fRqRqqSc"/>
-        <SUI.Button title="Three" oid="x1GtLxrl"/>
+  <PageSection title="Appearance">
+    <Example title="Normal">
+      <SUI.Buttons>
+        <SUI.Button title="One"/>
+        <SUI.Button title="Two"/>
+        <SUI.Button title="Three"/>
       </SUI.Buttons>
     </Example>
-    <Example title="Compact" hint="<Buttons appearance='compact'/>" oid="QYPPLd6G">
-      <SUI.Buttons appearance="compact" oid="q9Pb6qYp">
-        <SUI.Button oid="C4SA6oHN">
+    <Example title="Compact" hint="<Buttons appearance='compact'/>">
+      <SUI.Buttons appearance="compact">
+        <SUI.Button>
           One
         </SUI.Button>
-        <SUI.Button oid="EQwYvHvw">
+        <SUI.Button>
           Two
         </SUI.Button>
       </SUI.Buttons>
     </Example>
-    <Example title="Icon Buttons" oid="ljutRtyx">
-      <SUI.Buttons appearance="icon" oid="HvkU4ZPg">
-        <SUI.Button icon="align left" oid="Sh8esRfC"/>
-        <SUI.Button icon="align center" oid="s4GM83JX"/>
-        <SUI.Button icon="align right" oid="ITQu8lul"/>
-        <SUI.Button icon="align justify" oid="M1ubDy31"/>
+    <Example title="Icon Buttons">
+      <SUI.Buttons appearance="icon">
+        <SUI.Button icon="align left"/>
+        <SUI.Button icon="align center"/>
+        <SUI.Button icon="align right"/>
+        <SUI.Button icon="align justify"/>
       </SUI.Buttons>
-      <Oak.Spacer inline oid="a8xp2oIN"/>
-      <SUI.Buttons appearance="icon" oid="JNi7BvKJ">
-        <SUI.Button icon="bold" oid="tFSlfAh4"/>
-        <SUI.Button icon="underline" oid="uButqiHB"/>
-        <SUI.Button icon="text width" oid="M6FRDs5S"/>
-      </SUI.Buttons>
-    </Example>
-    <Example title="Labeled Icon Buttons" oid="tXErRnQZ">
-      <SUI.Buttons appearance="vertical labeled icon" oid="dgx7pxlX">
-        <SUI.Button icon="play" title="Play" oid="Uefqps5f"/>
-        <SUI.Button icon="pause" title="Pause" oid="nRIay7pX"/>
-        <SUI.Button icon="shuffle" title="Shuffle" oid="G1RLm1OP"/>
+      <Oak.Spacer inline/>
+      <SUI.Buttons appearance="icon">
+        <SUI.Button icon="bold"/>
+        <SUI.Button icon="underline"/>
+        <SUI.Button icon="text width"/>
       </SUI.Buttons>
     </Example>
-    <Example title="Mixed Group" oid="wZ3VLZAH">
-      <SUI.Buttons oid="ktZ17LoG">
-        <SUI.Button icon="left chevron" appearance="labeled icon" title="Back" oid="poyw7I48"/>
-        <SUI.Button icon="stop" title="Stop" oid="Id8rio1k"/>
-        <SUI.Button icon="right chevron" appearance="right labeled icon" title="Forward" oid="W5GouvqU"/>
+    <Example title="Labeled Icon Buttons">
+      <SUI.Buttons appearance="vertical labeled icon">
+        <SUI.Button icon="play" title="Play"/>
+        <SUI.Button icon="pause" title="Pause"/>
+        <SUI.Button icon="shuffle" title="Shuffle"/>
       </SUI.Buttons>
     </Example>
-    <Example title="Conditionals" oid="wg2irXnO">
-      <SUI.Buttons oid="PKQLkFeK">
-        <SUI.Button oid="t21lYuyC">
+    <Example title="Mixed Group">
+      <SUI.Buttons>
+        <SUI.Button icon="left chevron" appearance="labeled icon" title="Back"/>
+        <SUI.Button icon="stop" title="Stop"/>
+        <SUI.Button icon="right chevron" appearance="right labeled icon" title="Forward"/>
+      </SUI.Buttons>
+    </Example>
+    <Example title="Conditionals">
+      <SUI.Buttons>
+        <SUI.Button>
           Cancel
         </SUI.Button>
-        <SUI.Conditional oid="Z9YxfxDo"/>
-        <SUI.Button color="positive" oid="UAJhWrQB">
+        <SUI.Conditional/>
+        <SUI.Button color="positive">
           Save
         </SUI.Button>
       </SUI.Buttons>
     </Example>
-    <Example title="Colored Buttons" oid="d3Qx7ffm">
-      <SUI.Buttons color="blue" oid="NqR9UCIi">
-        <SUI.Button title="One" oid="Yy4CLQCP"/>
-        <SUI.Button title="Two" oid="sEPmA8Qo"/>
-        <SUI.Button title="Three" oid="URvFH8WS"/>
+    <Example title="Colored Buttons">
+      <SUI.Buttons color="blue">
+        <SUI.Button title="One"/>
+        <SUI.Button title="Two"/>
+        <SUI.Button title="Three"/>
       </SUI.Buttons>
     </Example>
-    <Example title="Basic Buttons" oid="lUu1DW3I">
-      <SUI.Buttons appearance="basic" oid="MAr64w41">
-        <SUI.Button title="One" oid="rKGbqur2"/>
-        <SUI.Button title="Two" oid="SuwHrDVJ"/>
-        <SUI.Button title="Three" oid="NAD07Dqn"/>
+    <Example title="Basic Buttons">
+      <SUI.Buttons appearance="basic">
+        <SUI.Button title="One"/>
+        <SUI.Button title="Two"/>
+        <SUI.Button title="Three"/>
       </SUI.Buttons>
-      <Oak.Spacer oid="touexxCB"/>
-      <SUI.Buttons oid="FTbSHxwO">
-        <SUI.Button title="One" color="red" appearance="basic" oid="xLr4aqki"/>
-        <SUI.Button title="Two" color="blue" appearance="basic" oid="Lx9EFqnN"/>
-        <SUI.Button title="Three" color="green" appearance="basic" oid="TqONZ0TJ"/>
-      </SUI.Buttons>
-    </Example>
-    <Example title="Vertical" oid="EN72EG6H">
-      <SUI.Buttons appearance="vertical" oid="CmAxMpa9">
-        <SUI.Button title="One" oid="qH1xe2qm"/>
-        <SUI.Button title="Two" oid="CxHMMSfr"/>
-        <SUI.Button title="Three" oid="wWtSTBK8"/>
-      </SUI.Buttons>
-      <Oak.Spacer inline oid="ml7w2Ftp"/>
-      <SUI.Buttons appearance="vertical" color="blue" oid="FjElZ7K9">
-        <SUI.Button title="One" oid="G9jjSor7"/>
-        <SUI.Button title="Two" oid="ybFnGtv0"/>
-        <SUI.Button title="Three" oid="rsC0sJiZ"/>
-      </SUI.Buttons>
-      <Oak.Spacer inline oid="o0MDpbHi"/>
-      <SUI.Buttons appearance="vertical" oid="vs3e0qYI">
-        <SUI.Button title="One" color="red" oid="LWwlZNel"/>
-        <SUI.Button title="Two" color="blue" oid="NIxE7k3T"/>
-        <SUI.Button title="Three" color="green" oid="meNUvJDt"/>
-      </SUI.Buttons>
-      <Oak.Spacer inline size="large" oid="f3NPPUnp"/>
-      <SUI.Buttons appearance="vertical basic" oid="B3N2tN0y">
-        <SUI.Button title="One" oid="ZdQW1bqJ"/>
-        <SUI.Button title="Two" oid="CK1BqOC5"/>
-        <SUI.Button title="Three" oid="E437jsab"/>
-      </SUI.Buttons>
-      <Oak.Spacer inline oid="jKWeYydJ"/>
-      <SUI.Buttons appearance="vertical basic" color="blue" oid="kUXeD1WI">
-        <SUI.Button title="One" oid="qWCqtBpI"/>
-        <SUI.Button title="Two" oid="LLe2O49j"/>
-        <SUI.Button title="Three" oid="bfObonim"/>
-      </SUI.Buttons>
-      <Oak.Spacer inline oid="qh8BPYAN"/>
-      <SUI.Buttons appearance="vertical basic" oid="dvSNjsMP">
-        <SUI.Button title="One" color="red" appearance="basic" oid="IYgAh0Wk"/>
-        <SUI.Button title="Two" color="blue" appearance="basic" oid="GssC6k4c"/>
-        <SUI.Button title="Three" color="green" appearance="basic" oid="VaMTvw9f"/>
+      <Oak.Spacer/>
+      <SUI.Buttons>
+        <SUI.Button title="One" color="red" appearance="basic"/>
+        <SUI.Button title="Two" color="blue" appearance="basic"/>
+        <SUI.Button title="Three" color="green" appearance="basic"/>
       </SUI.Buttons>
     </Example>
-  </PageSection>
-  <PageSection title="Sizing" oid="VEseI2v7">
-    <Example title="Group Sizes" oid="VcWCFOfP">
-      <SUI.Buttons size="tiny" oid="NEfDSJtm">
-        <SUI.Button title="We" oid="ZuxAeW4c"/>
-        <SUI.Button title="Are" oid="nNKSrcqX"/>
-        <SUI.Button title="Tiny!" oid="GpHHEFER"/>
+    <Example title="Vertical">
+      <SUI.Buttons appearance="vertical">
+        <SUI.Button title="One"/>
+        <SUI.Button title="Two"/>
+        <SUI.Button title="Three"/>
       </SUI.Buttons>
-      <Oak.Spacer oid="NPAxWmgl"/>
-      <SUI.Buttons size="large" appearance="basic icon" oid="I4iXqDdr">
-        <SUI.Button icon="file" oid="qdvuOkM7"/>
-        <SUI.Button icon="save" oid="KeBhYc9U"/>
-        <SUI.Button icon="upload" oid="Ts5PWjve"/>
-        <SUI.Button icon="download" oid="tGIQS6OR"/>
+      <Oak.Spacer inline/>
+      <SUI.Buttons appearance="vertical" color="blue">
+        <SUI.Button title="One"/>
+        <SUI.Button title="Two"/>
+        <SUI.Button title="Three"/>
       </SUI.Buttons>
-      <Oak.Spacer oid="I8P36YwT"/>
-      <SUI.Buttons size="huge" oid="wH64Alj6">
-        <SUI.Button title="One" oid="msryhL8m"/>
-        <SUI.Conditional oid="qdovhba5"/>
-        <SUI.Button title="Two" oid="K0EWFdV5"/>
-        <SUI.Conditional oid="QslXEaOv"/>
-        <SUI.Button title="Three" oid="qqpmGgsg"/>
+      <Oak.Spacer inline/>
+      <SUI.Buttons appearance="vertical">
+        <SUI.Button title="One" color="red"/>
+        <SUI.Button title="Two" color="blue"/>
+        <SUI.Button title="Three" color="green"/>
       </SUI.Buttons>
-    </Example>
-    <Example title="Fluid" oid="sPn18SQZ">
-      <SUI.Buttons appearance="fluid" oid="kJSe34IE">
-        <SUI.Button title="Overview" oid="SxOsjrEB"/>
-        <SUI.Button title="Specs" oid="uLH8m3EM"/>
-        <SUI.Button title="Warranty" oid="gF9p4eGS"/>
-        <SUI.Button title="Reviews" oid="sVuE1fHT"/>
-        <SUI.Button title="Support" oid="HVsb7OVy"/>
+      <Oak.Spacer inline size="large"/>
+      <SUI.Buttons appearance="vertical basic">
+        <SUI.Button title="One"/>
+        <SUI.Button title="Two"/>
+        <SUI.Button title="Three"/>
       </SUI.Buttons>
-    </Example>
-    <Example title="Equal Width" oid="icXQVway">
-      <SUI.Buttons count={5} oid="b6FOL11a">
-        <SUI.Button title="Overview" oid="X86gYj5o"/>
-        <SUI.Button title="Specs" oid="Tl8UUHLJ"/>
-        <SUI.Button title="Warranty" oid="OL9Xyey2"/>
-        <SUI.Button title="Reviews" oid="ocRIkKFu"/>
-        <SUI.Button title="Support" oid="IWadePUb"/>
+      <Oak.Spacer inline/>
+      <SUI.Buttons appearance="vertical basic" color="blue">
+        <SUI.Button title="One"/>
+        <SUI.Button title="Two"/>
+        <SUI.Button title="Three"/>
       </SUI.Buttons>
-      <Oak.Spacer oid="kDG6yrx8"/>
-      <SUI.Buttons count={3} oid="ylMLrpg3">
-        <SUI.Button title="Overview" oid="FPh7wJDA"/>
-        <SUI.Button title="Specs" oid="kPAcklMq"/>
-        <SUI.Button title="Support" oid="fgym8mjJ"/>
+      <Oak.Spacer inline/>
+      <SUI.Buttons appearance="vertical basic">
+        <SUI.Button title="One" color="red" appearance="basic"/>
+        <SUI.Button title="Two" color="blue" appearance="basic"/>
+        <SUI.Button title="Three" color="green" appearance="basic"/>
       </SUI.Buttons>
     </Example>
   </PageSection>
-  <PageSection title="Attachment" oid="QQDTY60W">
-    <Example title="Floated" oid="SSVVrXRp">
-      <SUI.Segment clearing appearance="unpadded basic" oid="LsHr812V">
-        <SUI.Buttons floated="left" oid="c3QaTGC1">
-          <SUI.Button icon="left arrow" oid="NWaTZ3sc"/>
-          <SUI.Button icon="right arrow" oid="posmc74G"/>
+  <PageSection title="Sizing">
+    <Example title="Group Sizes">
+      <SUI.Buttons size="tiny">
+        <SUI.Button title="We"/>
+        <SUI.Button title="Are"/>
+        <SUI.Button title="Tiny!"/>
+      </SUI.Buttons>
+      <Oak.Spacer/>
+      <SUI.Buttons size="large" appearance="basic icon">
+        <SUI.Button icon="file"/>
+        <SUI.Button icon="save"/>
+        <SUI.Button icon="upload"/>
+        <SUI.Button icon="download"/>
+      </SUI.Buttons>
+      <Oak.Spacer/>
+      <SUI.Buttons size="huge">
+        <SUI.Button title="One"/>
+        <SUI.Conditional/>
+        <SUI.Button title="Two"/>
+        <SUI.Conditional/>
+        <SUI.Button title="Three"/>
+      </SUI.Buttons>
+    </Example>
+    <Example title="Fluid">
+      <SUI.Buttons appearance="fluid">
+        <SUI.Button title="Overview"/>
+        <SUI.Button title="Specs"/>
+        <SUI.Button title="Warranty"/>
+        <SUI.Button title="Reviews"/>
+        <SUI.Button title="Support"/>
+      </SUI.Buttons>
+    </Example>
+    <Example title="Equal Width">
+      <SUI.Buttons count={5}>
+        <SUI.Button title="Overview"/>
+        <SUI.Button title="Specs"/>
+        <SUI.Button title="Warranty"/>
+        <SUI.Button title="Reviews"/>
+        <SUI.Button title="Support"/>
+      </SUI.Buttons>
+      <Oak.Spacer/>
+      <SUI.Buttons count={3}>
+        <SUI.Button title="Overview"/>
+        <SUI.Button title="Specs"/>
+        <SUI.Button title="Support"/>
+      </SUI.Buttons>
+    </Example>
+  </PageSection>
+  <PageSection title="Attachment">
+    <Example title="Floated">
+      <SUI.Segment clearing appearance="unpadded basic">
+        <SUI.Buttons floated="left">
+          <SUI.Button icon="left arrow"/>
+          <SUI.Button icon="right arrow"/>
         </SUI.Buttons>
-        <SUI.Buttons floated="right" oid="iIYloZpD">
-          <SUI.Button icon="left arrow" oid="bLeJNPch"/>
-          <SUI.Button icon="right arrow" oid="fFdoxtsp"/>
+        <SUI.Buttons floated="right">
+          <SUI.Button icon="left arrow"/>
+          <SUI.Button icon="right arrow"/>
         </SUI.Buttons>
       </SUI.Segment>
     </Example>
-    <Example title="Vertically Attached" oid="X27SjgQ1">
-      <SUI.Buttons appearance="top attached" oid="Dbjdu8WV">
-        <SUI.Button title="One" oid="udt2Nq1i"/>
-        <SUI.Button title="Two" oid="oSbAEQFR"/>
+    <Example title="Vertically Attached">
+      <SUI.Buttons appearance="top attached">
+        <SUI.Button title="One"/>
+        <SUI.Button title="Two"/>
       </SUI.Buttons>
-      <SUI.Segment appearance="attached" oid="WX69CIhc">
-        <p oid="xljQhpK2">
+      <SUI.Segment appearance="attached">
+        <p>
           Segment Content Here
         </p>
       </SUI.Segment>
-      <SUI.Buttons appearance="bottom attached" oid="cJuKdRjv">
-        <SUI.Button title="One" oid="EO06YeD2"/>
-        <SUI.Button title="Two" oid="iXiqJIj5"/>
+      <SUI.Buttons appearance="bottom attached">
+        <SUI.Button title="One"/>
+        <SUI.Button title="Two"/>
       </SUI.Buttons>
     </Example>
   </PageSection>

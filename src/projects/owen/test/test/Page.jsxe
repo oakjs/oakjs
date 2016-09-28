@@ -1,18 +1,18 @@
-<Oak.Page id="test" title="JSX Test" oid="testPage">
-  <br oid="br"/>
-  <SUI.Container oid="a">
-    <SUI.Segment oid="b">
-      <div oid="b1">
+<Oak.Page id="test" title="JSX Test">
+  <br/>
+  <SUI.Container>
+    <SUI.Segment>
+      <div>
         JSX Test Card!
       </div>
-      <SUI.Checkbox label="Yahh" oid="b3"/>
+      <SUI.Checkbox label="Yahh"/>
     </SUI.Segment>
-    <SUI.Segment oid="c">
-      <div oid="c1">
+    <SUI.Segment>
+      <div>
         Test segment 2!
       </div>
-      <SUI.Checkbox label="Yahh" oid="c3"/>
-      <SUI.Button title="Love It!" icon="heart" oid="c2"/>
+      <SUI.Checkbox label="Yahh"/>
+      <SUI.Button title="Love It!" icon="heart"/>
     </SUI.Segment>
   </SUI.Container>
 </Oak.Page>

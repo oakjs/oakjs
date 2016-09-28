@@ -1,201 +1,201 @@
-<Oak.Page id="Popup" title="Popup" oid="MPrRksGt">
-  <PageTitle title="Popup" oid="haxpd137">
+<Oak.Page id="Popup" title="Popup">
+  <PageTitle title="Popup">
     A popup displays additional information on top of a page
   </PageTitle>
-  <PageSection title="Content" oid="IhFfK6c5">
-    <SUI.Grid columns={2} oid="ZBmfPnXZ">
-      <SUI.Column oid="vlXrguwW">
-        <Example title="Inline Content" hint="<Popup>...</Popup>" oid="Zgi6I81S">
-          <SUI.Button oid="a45Zqhuw">
+  <PageSection title="Content">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Inline Content" hint="<Popup>...</Popup>">
+          <SUI.Button>
             Hover Over Me
           </SUI.Button>
-          <SUI.Popup oid="FxIeHU73">
-            <div className="header" oid="CUQeoNVQ">
+          <SUI.Popup>
+            <div className="header">
               Wow!
             </div>
             Inline content
-            <i oid="uQvddmxm">
+            <i>
               just works
             </i>
             !
           </SUI.Popup>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="YPs06Fd0">
-        <Example title="Header & Content" hint="<Popup title='...' content='...'/>" oid="aNISoH7Z">
-          <SUI.Button oid="lVFaF2lA">
+      <SUI.Column>
+        <Example title="Header & Content" hint="<Popup title='...' content='...'/>">
+          <SUI.Button>
             Hover Over Me
           </SUI.Button>
-          <SUI.Popup title="And and and..." content="Content attributes work, too!" oid="XCTFeEUw"/>
+          <SUI.Popup title="And and and..." content="Content attributes work, too!"/>
         </Example>
       </SUI.Column>
     </SUI.Grid>
   </PageSection>
-  <PageSection title="Events" oid="BQIoYsHg">
-    <SUI.Grid columns={2} oid="TUVEhsuv">
-      <SUI.Column oid="m2CLpQLi">
-        <Example title="Explicit target element" hint="<Popup target='...'/>" oid="C7CPIjrv">
-          <SUI.Button id="explicitTarget" oid="Odvijfe2">
+  <PageSection title="Events">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Explicit target element" hint="<Popup target='...'/>">
+          <SUI.Button id="explicitTarget">
             Hover Over Me
           </SUI.Button>
-          <Oak.Spacer oid="QFB6W6Vo"/>
-          <SUI.Button oid="biwq8bS3">
+          <Oak.Spacer/>
+          <SUI.Button>
             But Not Over Me
           </SUI.Button>
-          <SUI.Popup target="#explicitTarget" title="Achievement Unlocked" content="Explicit target works" oid="hVW2vj20"/>
+          <SUI.Popup target="#explicitTarget" title="Achievement Unlocked" content="Explicit target works"/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="CFe8p7Q3">
-        <Example title="Popup on click" hint="<Popup on='click'/>" oid="RhDerBrt">
-          <SUI.Button oid="bEuHy7lO">
+      <SUI.Column>
+        <Example title="Popup on click" hint="<Popup on='click'/>">
+          <SUI.Button>
             Click Me
           </SUI.Button>
-          <SUI.Popup on="click" title="Achievement Unlocked" content="Click button works!" oid="ONcQQdZt"/>
+          <SUI.Popup on="click" title="Achievement Unlocked" content="Click button works!"/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="lnvQ9yq7">
-        <Example title="Hoverable" hint="<Popup hoverable={true}/>" oid="U9TcQHuX">
-          <SUI.Button oid="rp9xPIFP">
+      <SUI.Column>
+        <Example title="Hoverable" hint="<Popup hoverable={true}/>">
+          <SUI.Button>
             Click Me
           </SUI.Button>
-          <SUI.Popup hoverable title="Move mouse inside..." oid="hFHRot2A">
-            <SUI.Button oid="xo8Dir9x">
+          <SUI.Popup hoverable title="Move mouse inside...">
+            <SUI.Button>
               So you can click me!
             </SUI.Button>
           </SUI.Popup>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="EPyH98bL">
-        <Example title="Event handlers (check out console)" hint="<Popup onShow={...}/>" oid="BgvLcrXI">
-          <SUI.Button oid="C7M6bN5o">
+      <SUI.Column>
+        <Example title="Event handlers (check out console)" hint="<Popup onShow={...}/>">
+          <SUI.Button>
             Hover over me
           </SUI.Button>
-          <SUI.Popup title="Move mouse inside..." content="Blah blah blah" onCreate={(e)=> console.log("onCreate(", e, ") called")} onRemove={(e)=> console.log("onRemove(", e, ") called")} onShow={(e)=> console.log("onShow(", e, ") called")} onVisible={(e)=> console.log("onVisible(", e, ") called")} onHide={(e)=> console.log("onHide(", e, ") called")} onHidden={(e)=> console.log("onHidden(", e, ") called")} onUnplaceable={(e)=> console.log("onUnplaceable(", e, ") called")} oid="KuWkHkUV"/>
-          <SUI.Button oid="N1EG4sUL">
+          <SUI.Popup title="Move mouse inside..." content="Blah blah blah" onCreate={(e)=> console.log("onCreate(", e, ") called")} onRemove={(e)=> console.log("onRemove(", e, ") called")} onShow={(e)=> console.log("onShow(", e, ") called")} onVisible={(e)=> console.log("onVisible(", e, ") called")} onHide={(e)=> console.log("onHide(", e, ") called")} onHidden={(e)=> console.log("onHidden(", e, ") called")} onUnplaceable={(e)=> console.log("onUnplaceable(", e, ") called")}/>
+          <SUI.Button>
             Click me
           </SUI.Button>
-          <SUI.Popup on="click" title="Click the button..." content="Blah blah blah" onCreate={(e)=> console.log("onCreate(", e, ") called")} onRemove={(e)=> console.log("onRemove(", e, ") called")} onShow={(e)=> console.log("onShow(", e, ") called")} onVisible={(e)=> console.log("onVisible(", e, ") called")} onHide={(e)=> console.log("onHide(", e, ") called")} onHidden={(e)=> console.log("onHidden(", e, ") called")} onUnplaceable={(e)=> console.log("onUnplaceable(", e, ") called")} oid="lhgtos8J"/>
+          <SUI.Popup on="click" title="Click the button..." content="Blah blah blah" onCreate={(e)=> console.log("onCreate(", e, ") called")} onRemove={(e)=> console.log("onRemove(", e, ") called")} onShow={(e)=> console.log("onShow(", e, ") called")} onVisible={(e)=> console.log("onVisible(", e, ") called")} onHide={(e)=> console.log("onHide(", e, ") called")} onHidden={(e)=> console.log("onHidden(", e, ") called")} onUnplaceable={(e)=> console.log("onUnplaceable(", e, ") called")}/>
         </Example>
       </SUI.Column>
     </SUI.Grid>
   </PageSection>
-  <PageSection title="Appearance" oid="unByceWf">
-    <SUI.Grid columns={2} oid="eVltEPlZ">
-      <SUI.Column oid="AaDTVseD">
-        <Example title="Basic" hint="<Popup appearance='basic'/>" oid="yMfTnofA">
-          <SUI.Button icon="plus" oid="l9BEmT7F"/>
-          <SUI.Popup appearance="basic" content="The default theme's basic popup just hides the arrow." oid="v39pm0P5"/>
+  <PageSection title="Appearance">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Basic" hint="<Popup appearance='basic'/>">
+          <SUI.Button icon="plus"/>
+          <SUI.Popup appearance="basic" content="The default theme's basic popup just hides the arrow."/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="gKH3k9fj">
-        <Example title="Width" hint="<Popup appearance='wide'/> or <Popup appearance='very wide'/>" oid="DZBwapHH">
-          <SUI.Button oid="ZqEsB9KT">
+      <SUI.Column>
+        <Example title="Width" hint="<Popup appearance='wide'/> or <Popup appearance='very wide'/>">
+          <SUI.Button>
             Wide
           </SUI.Button>
-          <SUI.Popup appearance="wide" oid="ecAubY5v">
-            <LoremIpsum short oid="e3CvAld2"/>
+          <SUI.Popup appearance="wide">
+            <LoremIpsum short/>
           </SUI.Popup>
-          <SUI.Button oid="nOPcLrXb">
+          <SUI.Button>
             Very Wide
           </SUI.Button>
-          <SUI.Popup appearance="very wide" oid="FCDIpaLP">
-            <LoremIpsum short oid="rMh7npsW"/>
+          <SUI.Popup appearance="very wide">
+            <LoremIpsum short/>
           </SUI.Popup>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="AQVO25Hd">
-        <Example title="Fluid" hint="<Popup appearance='fluid'/>" oid="iAX5GNtj">
-          <SUI.Button oid="NQU2DgQw">
+      <SUI.Column>
+        <Example title="Fluid" hint="<Popup appearance='fluid'/>">
+          <SUI.Button>
             Fluid
           </SUI.Button>
-          <SUI.Popup appearance="fluid" oid="RvlOci7X">
-            <LoremIpsum short oid="i86em1U3"/>
+          <SUI.Popup appearance="fluid">
+            <LoremIpsum short/>
           </SUI.Popup>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="py3UuJfy">
-        <Example title="Flowing" hint="<Popup appearance='flowing'/>" oid="gucd7C5O">
-          <SUI.Button oid="hnGZZhB6">
+      <SUI.Column>
+        <Example title="Flowing" hint="<Popup appearance='flowing'/>">
+          <SUI.Button>
             Flowing
           </SUI.Button>
-          <SUI.Popup appearance="flowing" oid="EQG5KmRg">
-            <LoremIpsum short oid="vHxMTxvl"/>
+          <SUI.Popup appearance="flowing">
+            <LoremIpsum short/>
           </SUI.Popup>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="hdeVsMw9">
-        <Example title="Inverted" hint="<Popup appearance='inverted'/>" oid="TSiXCI8e">
-          <SUI.Button oid="SBBUDlKf">
+      <SUI.Column>
+        <Example title="Inverted" hint="<Popup appearance='inverted'/>">
+          <SUI.Button>
             Inverted
           </SUI.Button>
-          <SUI.Popup appearance="inverted" oid="VnG0Iwqw">
-            <LoremIpsum tiny oid="CB9tb8Yg"/>
+          <SUI.Popup appearance="inverted">
+            <LoremIpsum tiny/>
           </SUI.Popup>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="JGDfeaJW">
-        <Example title="Offset" hint="<Popup offset={50}/>" oid="ieckiO81">
-          <SUI.Button oid="geQ0PCWZ">
+      <SUI.Column>
+        <Example title="Offset" hint="<Popup offset={50}/>">
+          <SUI.Button>
             Offset
           </SUI.Button>
-          <SUI.Popup offset={100} oid="gEGym1mA">
+          <SUI.Popup offset={100}>
             I should be positioned off to the left
           </SUI.Popup>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="wHdEBhta">
-        <Example title="Position" hint="<Popup position='top left'/>" oid="ENryuJrJ">
-          <SUI.Segment style={{height:200}} oid="knSrkcHv">
-            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:10, top: 10}} oid="IwQvM8A5"/>
-            <SUI.Popup position="top left" content="top left positioned popup" oid="uWpb7fdO"/>
-            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:"50%", top: 10}} oid="aSA8pask"/>
-            <SUI.Popup position="top center" content="top center positioned popup" oid="Brx0epSN"/>
-            <SUI.Icon icon="heart" color="red" style={{position: "absolute", right:10, top: 10}} oid="YA6Jce3B"/>
-            <SUI.Popup position="top right" content="top right positioned popup" oid="glAsACpH"/>
-            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:10, top: "50%"}} oid="FchYf9nO"/>
-            <SUI.Popup position="left center" content="left center positioned popup" oid="GpFSxgol"/>
-            <SUI.Icon icon="heart" color="red" style={{position: "absolute", right:10, top: "50%"}} oid="f7HqQ6u0"/>
-            <SUI.Popup position="right center" content="right center positioned popup" oid="Zrivea0a"/>
-            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:10, bottom: 10}} oid="Ww3P5y44"/>
-            <SUI.Popup position="bottom left" content="bottom left positioned popup" oid="peKlt4Ct"/>
-            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:"50%", bottom: 10}} oid="IgjdGBEL"/>
-            <SUI.Popup position="bottom center" content="bottom center positioned popup" oid="p7NCowWN"/>
-            <SUI.Icon icon="heart" color="red" style={{position: "absolute", right:10, bottom: 10}} oid="xGPXA7qi"/>
-            <SUI.Popup position="bottom right" content="bottom right positioned popup" oid="K8THpThK"/>
+      <SUI.Column>
+        <Example title="Position" hint="<Popup position='top left'/>">
+          <SUI.Segment style={{height:200}}>
+            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:10, top: 10}}/>
+            <SUI.Popup position="top left" content="top left positioned popup"/>
+            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:"50%", top: 10}}/>
+            <SUI.Popup position="top center" content="top center positioned popup"/>
+            <SUI.Icon icon="heart" color="red" style={{position: "absolute", right:10, top: 10}}/>
+            <SUI.Popup position="top right" content="top right positioned popup"/>
+            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:10, top: "50%"}}/>
+            <SUI.Popup position="left center" content="left center positioned popup"/>
+            <SUI.Icon icon="heart" color="red" style={{position: "absolute", right:10, top: "50%"}}/>
+            <SUI.Popup position="right center" content="right center positioned popup"/>
+            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:10, bottom: 10}}/>
+            <SUI.Popup position="bottom left" content="bottom left positioned popup"/>
+            <SUI.Icon icon="heart" color="red" style={{position: "absolute", left:"50%", bottom: 10}}/>
+            <SUI.Popup position="bottom center" content="bottom center positioned popup"/>
+            <SUI.Icon icon="heart" color="red" style={{position: "absolute", right:10, bottom: 10}}/>
+            <SUI.Popup position="bottom right" content="bottom right positioned popup"/>
           </SUI.Segment>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="fQHaLeYh">
-        <Example title="Size" hint="<Popup size='small'/>" oid="yKiLjC1S">
-          <SUI.Button size="mini" oid="CDOUZj9h">
+      <SUI.Column>
+        <Example title="Size" hint="<Popup size='small'/>">
+          <SUI.Button size="mini">
             Mini
           </SUI.Button>
-          <SUI.Popup size="mini" content="A mini popup for a mini button." oid="jA4K4K6N"/>
-          <Oak.Spacer oid="KnEs53P2"/>
-          <SUI.Button size="tiny" oid="eGghxYNH">
+          <SUI.Popup size="mini" content="A mini popup for a mini button."/>
+          <Oak.Spacer/>
+          <SUI.Button size="tiny">
             Tiny
           </SUI.Button>
-          <SUI.Popup size="tiny" content="A tiny popup for a tiny button." oid="l31l97NZ"/>
-          <Oak.Spacer oid="ZTITPev1"/>
-          <SUI.Button size="small" oid="qhK6Zq96">
+          <SUI.Popup size="tiny" content="A tiny popup for a tiny button."/>
+          <Oak.Spacer/>
+          <SUI.Button size="small">
             Small
           </SUI.Button>
-          <SUI.Popup size="small" content="A small popup for a small button." oid="Hqv8fqWv"/>
-          <Oak.Spacer oid="pRdnYqQ9"/>
-          <SUI.Button size="medium" oid="tOAmAV6B">
+          <SUI.Popup size="small" content="A small popup for a small button."/>
+          <Oak.Spacer/>
+          <SUI.Button size="medium">
             Medium
           </SUI.Button>
-          <SUI.Popup size="medium" content="A medium popup for a medium button." oid="Gk1Ix5rV"/>
-          <Oak.Spacer oid="T1Z0OBEP"/>
-          <SUI.Button size="large" oid="GXxiCPmK">
+          <SUI.Popup size="medium" content="A medium popup for a medium button."/>
+          <Oak.Spacer/>
+          <SUI.Button size="large">
             Large
           </SUI.Button>
-          <SUI.Popup size="large" content="A large popup for a large button." oid="DWkttdGD"/>
-          <Oak.Spacer oid="e4dKqmDy"/>
-          <SUI.Button size="huge" oid="OEFLPl8f">
+          <SUI.Popup size="large" content="A large popup for a large button."/>
+          <Oak.Spacer/>
+          <SUI.Button size="huge">
             Huge
           </SUI.Button>
-          <SUI.Popup size="huge" content="A huge popup for a huge button." oid="rsfEJdQf"/>
+          <SUI.Popup size="huge" content="A huge popup for a huge button."/>
         </Example>
       </SUI.Column>
     </SUI.Grid>

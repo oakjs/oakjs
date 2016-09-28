@@ -1,116 +1,116 @@
-<Oak.Page id="Shape" title="Shape" oid="JTsjTxNt">
-  <PageTitle title="Shape" oid="o9gMSJV7">
+<Oak.Page id="Shape" title="Shape">
+  <PageTitle title="Shape">
     A shape is a three dimensional object displayed on a two dimensional plane
-    <Info oid="nxvosgfn">
+    <Info>
       The module uses 3D transformations which are currently only supported in modern versions of Chrome, Safari, and Firefox.
     </Info>
   </PageTitle>
-  <PageSection title="Content" oid="q3pAdAWJ">
-    <SUI.Grid columns={2} oid="eQiHBdHP">
-      <SUI.Column oid="gyp2Qy4M">
-        <Example title="Normal HTML markup for children" oid="Ys7jIVa5">
-          <SUI.Shape ref="htmlMarkup" oid="L8kthsvP">
-            <div className="sides" oid="nQxCXPrX">
-              <div className="joe active side" oid="f6foeI6q">
-                <SUI.Image src={data.joeAvatar} appearance="medium" oid="PsbKDPao"/>
+  <PageSection title="Content">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Normal HTML markup for children">
+          <SUI.Shape ref="htmlMarkup">
+            <div className="sides">
+              <div className="joe active side">
+                <SUI.Image src={data.joeAvatar} appearance="medium"/>
               </div>
-              <div className="stevie side" oid="rxxe2BhJ">
-                <SUI.Image src={data.stevieAvatar} appearance="medium" oid="P0rnMtmA"/>
+              <div className="stevie side">
+                <SUI.Image src={data.stevieAvatar} appearance="medium"/>
               </div>
-              <div className="elliot side" oid="XMOvuEhr">
-                <SUI.Image src={data.elliotAvatar} appearance="medium" oid="yEKEp4iW"/>
+              <div className="elliot side">
+                <SUI.Image src={data.elliotAvatar} appearance="medium"/>
               </div>
             </div>
           </SUI.Shape>
-          <Flippers for="htmlMarkup" oid="tDuei9HD"/>
+          <Flippers for="htmlMarkup"/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="QUg0Jfbu">
-        <Example title="Side markup for children" oid="VO2jdtrL">
-          <SUI.Shape ref="sideMarkup" oid="sWvB0Kgy">
-            <SUI.Side className="joe" oid="wC26Q12V">
-              <SUI.Image src={data.joeAvatar} appearance="medium" oid="YYImsBmh"/>
+      <SUI.Column>
+        <Example title="Side markup for children">
+          <SUI.Shape ref="sideMarkup">
+            <SUI.Side className="joe">
+              <SUI.Image src={data.joeAvatar} appearance="medium"/>
             </SUI.Side>
-            <SUI.Side className="stevie" active oid="NJ2J763q">
-              <SUI.Image src={data.stevieAvatar} appearance="medium" oid="tDiQU5Ug"/>
+            <SUI.Side className="stevie" active>
+              <SUI.Image src={data.stevieAvatar} appearance="medium"/>
             </SUI.Side>
-            <SUI.Side className="elliot" oid="V9UDKfhw">
-              <SUI.Image src={data.elliotAvatar} appearance="medium" oid="eFC1PfRI"/>
+            <SUI.Side className="elliot">
+              <SUI.Image src={data.elliotAvatar} appearance="medium"/>
             </SUI.Side>
           </SUI.Shape>
-          <Flippers for="sideMarkup" oid="TteU4l4k"/>
+          <Flippers for="sideMarkup"/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="A8m3nlPU">
-        <Example title="Children auto-wrapped with Sides" oid="rbB2k48R">
-          <SUI.Shape ref="autoWrapped" active={3} oid="Ahmat2Fe">
-            <SUI.Image src={data.joeAvatar} appearance="medium" oid="Vbt2IE4t"/>
-            <SUI.Image src={data.stevieAvatar} appearance="medium" oid="PucsLJT6"/>
-            <SUI.Image src={data.elliotAvatar} appearance="medium" oid="QY9WwWNp"/>
+      <SUI.Column>
+        <Example title="Children auto-wrapped with Sides">
+          <SUI.Shape ref="autoWrapped" active={3}>
+            <SUI.Image src={data.joeAvatar} appearance="medium"/>
+            <SUI.Image src={data.stevieAvatar} appearance="medium"/>
+            <SUI.Image src={data.elliotAvatar} appearance="medium"/>
           </SUI.Shape>
-          <Flippers for="autoWrapped" oid="EbAkGFEy"/>
+          <Flippers for="autoWrapped"/>
         </Example>
       </SUI.Column>
     </SUI.Grid>
   </PageSection>
-  <PageSection title="Appearance" oid="mAPlIopH">
-    <SUI.Grid columns={2} oid="XUUKUd6q">
-      <SUI.Column oid="NOruA89O">
-        <Example title="Cube" hint="<Shape appearance='cube'/>" oid="NT3iYLfR">
-          <SUI.Shape ref="cube" appearance="cube" direction="down" onClick={()=> page.refs.cube.flip()} oid="wQC8vSmj">
-            <SUI.Image src={data.joeAvatar} appearance="medium" oid="ye2fcDGB"/>
-            <SUI.Image src={data.stevieAvatar} appearance="medium" oid="H7GmJZjs"/>
-            <SUI.Image src={data.elliotAvatar} appearance="medium" oid="AJLtN7K0"/>
-            <SUI.Image src={data.jennyAvatar} appearance="medium" oid="AJJwaLhI"/>
-            <SUI.Image src={data.mattAvatar} appearance="medium" oid="pK61A6rR"/>
-            <SUI.Image src={data.squareImage} appearance="medium" oid="Of2fyKP5"/>
+  <PageSection title="Appearance">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Cube" hint="<Shape appearance='cube'/>">
+          <SUI.Shape ref="cube" appearance="cube" direction="down" onClick={()=> page.refs.cube.flip()}>
+            <SUI.Image src={data.joeAvatar} appearance="medium"/>
+            <SUI.Image src={data.stevieAvatar} appearance="medium"/>
+            <SUI.Image src={data.elliotAvatar} appearance="medium"/>
+            <SUI.Image src={data.jennyAvatar} appearance="medium"/>
+            <SUI.Image src={data.mattAvatar} appearance="medium"/>
+            <SUI.Image src={data.squareImage} appearance="medium"/>
           </SUI.Shape>
-          <Flippers for="cube" oid="ui6rLbN4"/>
+          <Flippers for="cube"/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="XVai2Jhr">
-        <Example title="Unpadded Cube" hint="<Shape appearance='unpadded cube'/>" oid="vmTq0lFL">
-          <SUI.Shape ref="unpadded" appearance="unpadded cube" active={3} direction="down" onClick={()=> page.refs.unpadded.flip()} oid="oP6Zadjj">
-            <SUI.Image src={data.joeAvatar} appearance="medium" oid="SSpfrv95"/>
-            <SUI.Image src={data.stevieAvatar} appearance="medium" oid="eRHxxGmH"/>
-            <SUI.Image src={data.elliotAvatar} appearance="medium" oid="m0pJwmCm"/>
-            <SUI.Image src={data.jennyAvatar} appearance="medium" oid="QFVx1iJU"/>
-            <SUI.Image src={data.mattAvatar} appearance="medium" oid="Q83GkmZl"/>
-            <SUI.Image src={data.squareImage} appearance="medium" oid="dxwcZeZM"/>
+      <SUI.Column>
+        <Example title="Unpadded Cube" hint="<Shape appearance='unpadded cube'/>">
+          <SUI.Shape ref="unpadded" appearance="unpadded cube" active={3} direction="down" onClick={()=> page.refs.unpadded.flip()}>
+            <SUI.Image src={data.joeAvatar} appearance="medium"/>
+            <SUI.Image src={data.stevieAvatar} appearance="medium"/>
+            <SUI.Image src={data.elliotAvatar} appearance="medium"/>
+            <SUI.Image src={data.jennyAvatar} appearance="medium"/>
+            <SUI.Image src={data.mattAvatar} appearance="medium"/>
+            <SUI.Image src={data.squareImage} appearance="medium"/>
           </SUI.Shape>
-          <Flippers for="unpadded" oid="keo9S9RI"/>
+          <Flippers for="unpadded"/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="txM9dIht">
-        <Example title="Text" oid="i66HmFF8">
-          <SUI.Shape ref="text" appearance="text" direction="down" onClick={()=> page.refs.text.flip()} oid="E269gsq7">
-            <div style={{width: 200, height:30, background:"lightgrey"}} oid="jYtNf3RF">
+      <SUI.Column>
+        <Example title="Text">
+          <SUI.Shape ref="text" appearance="text" direction="down" onClick={()=> page.refs.text.flip()}>
+            <div style={{width: 200, height:30, background:"lightgrey"}}>
               Side 1
             </div>
-            <div style={{width: 200, height:30, background:"pink"}} oid="uTyvqg8t">
+            <div style={{width: 200, height:30, background:"pink"}}>
               Side 2
             </div>
-            <div style={{width: 200, height:30, background:"lightblue"}} oid="W1qIARbx">
+            <div style={{width: 200, height:30, background:"lightblue"}}>
               Side 3
             </div>
-            <div style={{width: 200, height:30, background:"lightgreen"}} oid="Z06TCax6">
+            <div style={{width: 200, height:30, background:"lightgreen"}}>
               Side 4
             </div>
           </SUI.Shape>
-          <Flippers for="text" oid="LQZhOs0b"/>
+          <Flippers for="text"/>
         </Example>
-        <Info oid="Db5Ny65Q">
+        <Info>
           A text shape must have defined width and heights for each side or else text flow may change during animation.
         </Info>
       </SUI.Column>
-      <SUI.Column oid="bfSYcQTs">
-        <Example title="Irregular content sizes" oid="ehJIq4cM">
-          <SUI.Shape ref="irregular" onClick={()=> page.refs.irregular.flip()} oid="Y4DOIUDV">
-            <SUI.Image src={data.image} appearance="medium" oid="GPpbdOQ1"/>
-            <SUI.Image src={data.joeAvatar} appearance="medium" oid="OHI17tYE"/>
-            <SUI.Card image={data.stevieAvatar} header="Stevie" oid="rEFUtpxa"/>
+      <SUI.Column>
+        <Example title="Irregular content sizes">
+          <SUI.Shape ref="irregular" onClick={()=> page.refs.irregular.flip()}>
+            <SUI.Image src={data.image} appearance="medium"/>
+            <SUI.Image src={data.joeAvatar} appearance="medium"/>
+            <SUI.Card image={data.stevieAvatar} header="Stevie"/>
           </SUI.Shape>
-          <Flippers for="irregular" oid="RbNPGjS4"/>
+          <Flippers for="irregular"/>
         </Example>
       </SUI.Column>
     </SUI.Grid>

@@ -1,20 +1,20 @@
-<Oak.Page id="Dimmer" title="Dimmer" oid="HlWX2cFE">
-  <PageTitle title="Dimmer" oid="n7Rq7jbL">
+<Oak.Page id="Dimmer" title="Dimmer">
+  <PageTitle title="Dimmer">
     A dimmer hides distractions to focus attention on particular content.
-    <Todo oid="M3IAdhWB">
-      <ul oid="ooZkBHu8">
-        <li oid="gHGOkqmD">
-          <i oid="Fg4OIxPn">
+    <Todo>
+      <ul>
+        <li>
+          <i>
             active
           </i>
           vs
-          <i oid="NlmT0XC9">
+          <i>
             visible
           </i>
           , especially with loaders.
         </li>
-        <li oid="mOGsJ7fS">
-          <i oid="lMiQ6RcL">
+        <li>
+          <i>
             loading
           </i>
           property to automatically add a loader?
@@ -22,108 +22,108 @@
       </ul>
     </Todo>
   </PageTitle>
-  <PageSection title="Types" oid="EBIeRMT0">
-    <Example title="Simple" oid="sfAMSrCA">
-      <SUI.Segment oid="Gn1xwcc7">
-        <LoremIpsum oid="Ub6kyuch"/>
-        <SUI.Dimmer visible oid="nlTavHTR"/>
+  <PageSection title="Types">
+    <Example title="Simple">
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer visible/>
       </SUI.Segment>
     </Example>
-    <Example title="Inline Content" hint="<Dimmer>...text...</Dimmer>" oid="QR6CWV12">
-      <SUI.Segment oid="vyXndmN5">
-        <LoremIpsum oid="S4BOreiv"/>
-        <SUI.Dimmer visible oid="hjlN4QgM">
+    <Example title="Inline Content" hint="<Dimmer>...text...</Dimmer>">
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer visible>
           Inline content here!
         </SUI.Dimmer>
       </SUI.Segment>
     </Example>
-    <Example title="Content + Icon Attributes" hint="<Dimmer content='text' icon='icon'/>" oid="PmNnHBHy">
-      <SUI.Segment oid="OlI2ibwR">
-        <LoremIpsum oid="X6myjagf"/>
-        <SUI.Dimmer visible content="Content from attribute" icon="heart" oid="s9isG0hp"/>
+    <Example title="Content + Icon Attributes" hint="<Dimmer content='text' icon='icon'/>">
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer visible content="Content from attribute" icon="heart"/>
       </SUI.Segment>
     </Example>
-    <Example title="Page Dimmer" hint="<Dimmer appearance='page'/>" oid="nKqcrHf1">
-      <SUI.Dimmer ref="pageDimmer" appearance="page" content="I am the page dimmer!" closable oid="GfHRiPrg"/>
-      <SUI.Button icon="plus" title="Show" onClick={()=>page.refs.pageDimmer.show()} oid="tynoDEu7"/>
+    <Example title="Page Dimmer" hint="<Dimmer appearance='page'/>">
+      <SUI.Dimmer ref="pageDimmer" appearance="page" content="I am the page dimmer!" closable/>
+      <SUI.Button icon="plus" title="Show" onClick={()=>page.refs.pageDimmer.show()}/>
     </Example>
   </PageSection>
-  <PageSection title="Appearance" oid="mmWpfjCg">
-    <Example title="Inverted" hint="<Dimmer appearance='inverted'/>" oid="sVLBOj8s">
-      <SUI.Segment oid="ODUUDnFg">
-        <LoremIpsum oid="JWoIiyUZ"/>
-        <SUI.Dimmer visible appearance="inverted" content="I am inverted!" icon="heart" oid="xEwpkQDU"/>
+  <PageSection title="Appearance">
+    <Example title="Inverted" hint="<Dimmer appearance='inverted'/>">
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer visible appearance="inverted" content="I am inverted!" icon="heart"/>
       </SUI.Segment>
     </Example>
-    <Example title="Blurring" hint="<SomeContainer appearance='blurring'><Dimmer/>...container content...</SomeContainer>" oid="s32KXtxy">
-      <SUI.Segment oid="lO0RulyP">
-        <SUI.Dimmer visible appearance="blurring" oid="mamVwW4B"/>
-        <LoremIpsum oid="YVIdJMZ4"/>
+    <Example title="Blurring" hint="<SomeContainer appearance='blurring'><Dimmer/>...container content...</SomeContainer>">
+      <SUI.Segment>
+        <SUI.Dimmer visible appearance="blurring"/>
+        <LoremIpsum/>
       </SUI.Segment>
-      <SUI.Segment oid="ULGYOacO">
-        <SUI.Dimmer visible appearance="inverted blurring" icon="heart" content="I love it when a plan comes together" oid="au1O1Q4K"/>
-        <LoremIpsum oid="q1EQoDDE"/>
+      <SUI.Segment>
+        <SUI.Dimmer visible appearance="inverted blurring" icon="heart" content="I love it when a plan comes together"/>
+        <LoremIpsum/>
       </SUI.Segment>
-      <Warning oid="gUr7ohwd">
+      <Warning>
         Blurring doesn&apos;t work unless the dimmer is the FIRST ELEMENT in its container.
       </Warning>
     </Example>
   </PageSection>
-  <PageSection title="States" oid="XSX0Vl01">
-    <Example title="Normal (hidden)" hint="<Dimmer/>" oid="DD0rtidb">
-      <SUI.Segment oid="KVHdkywF">
-        <LoremIpsum oid="Qx0Ikn7h"/>
-        <SUI.Dimmer ref="normalDimmer" oid="AgopdugV"/>
+  <PageSection title="States">
+    <Example title="Normal (hidden)" hint="<Dimmer/>">
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer ref="normalDimmer"/>
       </SUI.Segment>
     </Example>
-    <Example title="Start visible" hint="<Dimmer visible/>" oid="wEV4h4t5">
-      <SUI.Segment oid="OmxoqBon">
-        <LoremIpsum oid="S31Z3jCx"/>
-        <SUI.Dimmer ref="visibleDimmer" visible oid="BinWhMNS"/>
+    <Example title="Start visible" hint="<Dimmer visible/>">
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer ref="visibleDimmer" visible/>
       </SUI.Segment>
     </Example>
-    <Example title="Disabled" hint="<Dimmer disabled/>" oid="VVpg8fpY">
-      <Enablers ref="disabledEnabler" for="disabled" result="Initially disabled" oid="njE5Marx"/>
-      <SUI.Segment oid="XhYnMCyk">
-        <LoremIpsum oid="bd4hQWIF"/>
-        <SUI.Dimmer ref="disabled" disabled visible {...data.disabled} oid="X000gxgf"/>
+    <Example title="Disabled" hint="<Dimmer disabled/>">
+      <Enablers ref="disabledEnabler" for="disabled" result="Initially disabled"/>
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer ref="disabled" disabled visible {...data.disabled}/>
       </SUI.Segment>
     </Example>
   </PageSection>
-  <PageSection title="Events" oid="CV9iOSvx">
-    <Example title="onClick" hint="<Dimmer onClick={...func...}/>" oid="J89J47yK">
-      <Enablers for="click" oid="AGDvS2xO"/>
-      <SUI.Segment oid="KpXTuuDK">
-        <LoremIpsum oid="xSh0bhOj"/>
-        <SUI.Dimmer ref="click" visible id="click" onClick={page.deferredSet("click.result", "onClick() called")} {...data.click} oid="NKZ5c8Ru"/>
+  <PageSection title="Events">
+    <Example title="onClick" hint="<Dimmer onClick={...func...}/>">
+      <Enablers for="click"/>
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer ref="click" visible id="click" onClick={page.deferredSet("click.result", "onClick() called")} {...data.click}/>
       </SUI.Segment>
     </Example>
-    <Example title="onShow and onHide" hint="<Dimmer onShow={...func...} onHide={...func...}/>" oid="pSbCpqp1">
-      <Enablers for="showHide" oid="WJqfAZ3o"/>
-      <SUI.Segment oid="nANYggHn">
-        <LoremIpsum oid="X0NGOB3t"/>
-        <SUI.Dimmer ref="showHide" onClick={page.deferredSet("showHide.result", "onClick() called")} onShow={page.deferredSet("showHide.result", "onShow() called")} onHide={page.deferredSet("showHide.result", "onHide() called")} {...data.showHide} oid="AtX8iabE"/>
+    <Example title="onShow and onHide" hint="<Dimmer onShow={...func...} onHide={...func...}/>">
+      <Enablers for="showHide"/>
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer ref="showHide" onClick={page.deferredSet("showHide.result", "onClick() called")} onShow={page.deferredSet("showHide.result", "onShow() called")} onHide={page.deferredSet("showHide.result", "onHide() called")} {...data.showHide}/>
       </SUI.Segment>
     </Example>
-    <Example title="onShow and onHide starting visible" hint="<Dimmer visible onShow={...func...} onHide={...func...}/>" oid="k3HKRIIH">
-      <Enablers for="hideShow" oid="tfqlQXZC"/>
-      <SUI.Segment oid="O8875g71">
-        <LoremIpsum oid="w6hqGf5u"/>
-        <SUI.Dimmer ref="hideShow" visible {...data.hideShow} onClick={page.deferredSet("hideShow.result", "onClick() called")} onShow={page.deferredSet("hideShow.result", "onShow() called")} onHide={page.deferredSet("hideShow.result", "onHide() called")} {...data.hideShow} oid="ccZ0x6xU"/>
+    <Example title="onShow and onHide starting visible" hint="<Dimmer visible onShow={...func...} onHide={...func...}/>">
+      <Enablers for="hideShow"/>
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer ref="hideShow" visible {...data.hideShow} onClick={page.deferredSet("hideShow.result", "onClick() called")} onShow={page.deferredSet("hideShow.result", "onShow() called")} onHide={page.deferredSet("hideShow.result", "onHide() called")} {...data.hideShow}/>
       </SUI.Segment>
     </Example>
-    <Example title="onChange" hint="<Dimmer visible onChange={...func...}/>" oid="FHLQLnvi">
-      <Enablers for="onChange" oid="IReam0lD"/>
-      <SUI.Segment oid="ZB6nyNP0">
-        <LoremIpsum oid="iBNbh0hp"/>
-        <SUI.Dimmer ref="onChange" visible {...data.onChange} onChange={page.deferredSet("onChange.result", "onChange() called")} {...data.onChange} oid="tnptH9fd"/>
+    <Example title="onChange" hint="<Dimmer visible onChange={...func...}/>">
+      <Enablers for="onChange"/>
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer ref="onChange" visible {...data.onChange} onChange={page.deferredSet("onChange.result", "onChange() called")} {...data.onChange}/>
       </SUI.Segment>
     </Example>
-    <Example title="Closable" hint="<Dimmer closable/>" oid="lgBCtdqy">
-      <Enablers for="closable" oid="HTDZ6exA"/>
-      <SUI.Segment oid="WnGZGEnP">
-        <LoremIpsum oid="NMaBkpY7"/>
-        <SUI.Dimmer id="closable" ref="closable" closable visible content="Click to close me" onClick={page.deferredSet("closable.result", "onClick() called")} {...data.closable} oid="ioDJKUcp"/>
+    <Example title="Closable" hint="<Dimmer closable/>">
+      <Enablers for="closable"/>
+      <SUI.Segment>
+        <LoremIpsum/>
+        <SUI.Dimmer id="closable" ref="closable" closable visible content="Click to close me" onClick={page.deferredSet("closable.result", "onClick() called")} {...data.closable}/>
       </SUI.Segment>
     </Example>
   </PageSection>

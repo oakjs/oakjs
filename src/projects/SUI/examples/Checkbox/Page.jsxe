@@ -1,121 +1,121 @@
-<Oak.Page id="Checkbox" title="Checkbox" oid="XdcMkeUq">
-  <PageTitle title="Checkbox" oid="gBsDwPEu">
+<Oak.Page id="Checkbox" title="Checkbox">
+  <PageTitle title="Checkbox">
     A checkbox allows a user to select a value from a small set of options, often binary
   </PageTitle>
-  <PageSection title="Types" oid="dnuVKGe6">
-    <Oak.Columns oid="XStnPkQM">
-      <Example title="Checkbox" oid="k0Rw66VH">
-        <SUI.Checkbox label="Option a" oid="MF5AfkWU"/>
-        <Oak.Spacer oid="eNnEVIBt"/>
-        <SUI.Checkbox checked label="Option b" oid="bxKwF77x"/>
-        <Oak.Spacer oid="PUZURhMB"/>
-        <SUI.Checkbox indeterminate label="Option c" oid="OhyfwgfB"/>
+  <PageSection title="Types">
+    <Oak.Columns>
+      <Example title="Checkbox">
+        <SUI.Checkbox label="Option a"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox checked label="Option b"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox indeterminate label="Option c"/>
       </Example>
-      <Example title="Radio" oid="WHlMpJ9I">
-        <SUI.Checkbox type="radio" name="foo" label="Created with Checkbox component" oid="RYAvRfCh"/>
-        <Oak.Spacer oid="OcpP4N4V"/>
-        <SUI.RadioButton checked type="radio" label="Created wtih RadioButton component" oid="rk6WnnUA"/>
-        <Info oid="gd2FP7ct">
+      <Example title="Radio">
+        <SUI.Checkbox type="radio" name="foo" label="Created with Checkbox component"/>
+        <Oak.Spacer/>
+        <SUI.RadioButton checked type="radio" label="Created wtih RadioButton component"/>
+        <Info>
           Use the RadioGroup component for a linked group of radio buttons.
         </Info>
       </Example>
     </Oak.Columns>
-    <Oak.Columns oid="Ep2SGAc3">
-      <Example title="Toggle" oid="pkNYImYE">
-        <SUI.Checkbox type="toggle" label="Created with Checkbox component" oid="whurKT0g"/>
-        <Oak.Spacer oid="soJWVLyE"/>
-        <SUI.Toggle checked type="toggle" label="Created with Toggle component" oid="JTfyJDEU"/>
-        <Oak.Spacer oid="q0iXrZSq"/>
-        <SUI.Toggle indeterminate type="toggle" label="Indeterminate toggle" oid="EcfGx9Nc"/>
+    <Oak.Columns>
+      <Example title="Toggle">
+        <SUI.Checkbox type="toggle" label="Created with Checkbox component"/>
+        <Oak.Spacer/>
+        <SUI.Toggle checked type="toggle" label="Created with Toggle component"/>
+        <Oak.Spacer/>
+        <SUI.Toggle indeterminate type="toggle" label="Indeterminate toggle"/>
       </Example>
-      <Example title="Slider" oid="puNnjL9H">
-        <SUI.Checkbox type="slider" label="Option a" oid="hvmJJq90"/>
-        <Oak.Spacer oid="uGLVDBNe"/>
-        <SUI.Checkbox checked type="slider" label="Option b" oid="Kxm4gpUu"/>
-        <Oak.Spacer oid="EARvOk2e"/>
-        <SUI.Checkbox indeterminate type="slider" label="Indeterminate slider" oid="l1VLOJu6"/>
+      <Example title="Slider">
+        <SUI.Checkbox type="slider" label="Option a"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox checked type="slider" label="Option b"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox indeterminate type="slider" label="Indeterminate slider"/>
       </Example>
     </Oak.Columns>
   </PageSection>
-  <PageSection title="States" oid="ANp3HwDu">
-    <Oak.Columns oid="N6lsvsN9">
-      <Example title="Checked" hint="<Checkbox checked/>" oid="kbMgUnWK">
-        <SUI.Checkbox checked label="Checked Checkbox" oid="eaSBZNMY"/>
-        <Oak.Spacer oid="Z7rR6xtW"/>
-        <SUI.Checkbox checked type="radio" label="Checked Radio" oid="qxR5HUG9"/>
-        <Oak.Spacer oid="khAba9aK"/>
-        <SUI.Checkbox checked type="toggle" label="Checked Toggle" oid="ONhLhb30"/>
-        <Oak.Spacer oid="Yo84PXP4"/>
-        <SUI.Checkbox checked type="slider" label="Checked Slider" oid="aBPyBlBL"/>
+  <PageSection title="States">
+    <Oak.Columns>
+      <Example title="Checked" hint="<Checkbox checked/>">
+        <SUI.Checkbox checked label="Checked Checkbox"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox checked type="radio" label="Checked Radio"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox checked type="toggle" label="Checked Toggle"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox checked type="slider" label="Checked Slider"/>
       </Example>
-      <Example title="Indeterminate" hint="<Checkbox indeterminate/>" oid="rKyiSqP6">
-        <SUI.Checkbox indeterminate label="Indeterminate Checkbox" oid="FT9Orajj"/>
-        <Oak.Spacer oid="hPNnSBeX"/>
-        <SUI.Checkbox indeterminate type="radio" label="Indeterminate Radio" oid="J7BTo4lU"/>
-        <Oak.Spacer oid="kPaKk0la"/>
-        <SUI.Checkbox indeterminate type="toggle" label="Indeterminate Toggle" oid="dGIDqFAn"/>
-        <Oak.Spacer oid="j8lvAWAc"/>
-        <SUI.Checkbox indeterminate type="slider" label="Indeterminate Slider" oid="UU1DHhBZ"/>
-      </Example>
-    </Oak.Columns>
-    <Oak.Columns oid="iLa9abEx">
-      <Example title="Read-only" hint="<Checkbox readonly/>" oid="Md3G2G7x">
-        <SUI.Checkbox readonly label="Read-only Checkbox" oid="A15WOoUg"/>
-        <Oak.Spacer oid="ef0E62CC"/>
-        <SUI.Checkbox readonly type="radio" label="Read-only Radio" oid="BrwGDr8d"/>
-        <Oak.Spacer oid="igFXVeHD"/>
-        <SUI.Checkbox readonly type="toggle" label="Read-only Toggle" oid="eiyKJbCa"/>
-        <Oak.Spacer oid="Fkr1EPyH"/>
-        <SUI.Checkbox readonly type="slider" label="Read-only Slider" oid="OiIhOiH6"/>
-      </Example>
-      <Example title="Disabled" hint="<Checkbox disabled/>" oid="wbRg15mV">
-        <SUI.Checkbox disabled label="Disabled Checkbox" oid="sawiorNo"/>
-        <Oak.Spacer oid="N5kegjS2"/>
-        <SUI.Checkbox disabled type="radio" label="Disabled Radio" oid="yZRix3Pi"/>
-        <Oak.Spacer oid="m6h0UNlU"/>
-        <SUI.Checkbox disabled type="toggle" label="Disabled Toggle" oid="V0rqwhfC"/>
-        <Oak.Spacer oid="ph6SIkHR"/>
-        <SUI.Checkbox disabled type="slider" label="Disabled Slider" oid="ImYtlA09"/>
+      <Example title="Indeterminate" hint="<Checkbox indeterminate/>">
+        <SUI.Checkbox indeterminate label="Indeterminate Checkbox"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox indeterminate type="radio" label="Indeterminate Radio"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox indeterminate type="toggle" label="Indeterminate Toggle"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox indeterminate type="slider" label="Indeterminate Slider"/>
       </Example>
     </Oak.Columns>
-    <Oak.Columns oid="jO2Try9b">
-      <Example title="Hidden" hint="<Checkbox hidden/>" oid="q6tKyujA">
-        <SUI.Checkbox hidden label="Hidden Checkbox" oid="klfackYj"/>
-        <Oak.Spacer oid="y8NbWyZZ"/>
-        <SUI.Checkbox hidden type="radio" label="Hidden Radio" oid="fDF44oLp"/>
-        <Oak.Spacer oid="ybyiivUP"/>
-        <SUI.Checkbox hidden type="toggle" label="Hidden Toggle" oid="QT4OWP83"/>
-        <Oak.Spacer oid="X7TkMqjn"/>
-        <SUI.Checkbox hidden type="slider" label="Hidden Slider" oid="vUdiTC13"/>
+    <Oak.Columns>
+      <Example title="Read-only" hint="<Checkbox readonly/>">
+        <SUI.Checkbox readonly label="Read-only Checkbox"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox readonly type="radio" label="Read-only Radio"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox readonly type="toggle" label="Read-only Toggle"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox readonly type="slider" label="Read-only Slider"/>
       </Example>
-      <Example title="Error" hint="<Checkbox error/>" oid="Q3f8WmUJ">
-        <SUI.Form oid="NYkpRjOB">
-          <SUI.Checkbox error="Something went wrong" label="Error Checkbox" oid="Jg8gYTtW"/>
-          <Oak.Spacer oid="Q6ZdhKaf"/>
-          <SUI.Checkbox error="Something went wrong" type="radio" label="Error Radio" oid="OPxHdWJ6"/>
-          <Oak.Spacer oid="ikDjBdB7"/>
-          <SUI.Checkbox error="Something went wrong" type="toggle" label="Error Toggle" oid="npmt8MU3"/>
-          <Oak.Spacer oid="kw5EmuXw"/>
-          <SUI.Checkbox error="Something went wrong" type="slider" label="Error Slider" oid="sMGCjkAR"/>
+      <Example title="Disabled" hint="<Checkbox disabled/>">
+        <SUI.Checkbox disabled label="Disabled Checkbox"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox disabled type="radio" label="Disabled Radio"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox disabled type="toggle" label="Disabled Toggle"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox disabled type="slider" label="Disabled Slider"/>
+      </Example>
+    </Oak.Columns>
+    <Oak.Columns>
+      <Example title="Hidden" hint="<Checkbox hidden/>">
+        <SUI.Checkbox hidden label="Hidden Checkbox"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox hidden type="radio" label="Hidden Radio"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox hidden type="toggle" label="Hidden Toggle"/>
+        <Oak.Spacer/>
+        <SUI.Checkbox hidden type="slider" label="Hidden Slider"/>
+      </Example>
+      <Example title="Error" hint="<Checkbox error/>">
+        <SUI.Form>
+          <SUI.Checkbox error="Something went wrong" label="Error Checkbox"/>
+          <Oak.Spacer/>
+          <SUI.Checkbox error="Something went wrong" type="radio" label="Error Radio"/>
+          <Oak.Spacer/>
+          <SUI.Checkbox error="Something went wrong" type="toggle" label="Error Toggle"/>
+          <Oak.Spacer/>
+          <SUI.Checkbox error="Something went wrong" type="slider" label="Error Slider"/>
         </SUI.Form>
       </Example>
     </Oak.Columns>
   </PageSection>
-  <PageSection title="Events" oid="YWoO8Ilp">
-    <Example title="Events" hint="<Checkbox onChange='...'/>" oid="p5pqLeiC">
-      <SUI.Checkbox label="Check console for events" onChange={function(){console.log("onChange() called with this as ",this)}} beforeChecked={function(){console.log("beforeChecked() called with this as ",this)}} onChecked={function(){console.log("onChecked() called with this as ",this)}} beforeUnchecked={function(){console.log("beforeUnchecked() called with this as ",this)}} onUnchecked={function(){console.log("onUnchecked() called with this as ",this)}} beforeIndeterminate={function(){console.log("beforeIndeterminate() called with this as ",this)}} onIndeterminate={function(){console.log("onIndeterminate() called with this as ",this)}} beforeDeterminate={function(){console.log("beforeDeterminate() called with this as ",this)}} onDeterminate={function(){console.log("onDeterminate() called with this as ",this)}} onEnable={function(){console.log("onEnable() called with this as ",this)}} onDisable={function(){console.log("onDisable() called with this as ",this)}} oid="QApEFhed"/>
+  <PageSection title="Events">
+    <Example title="Events" hint="<Checkbox onChange='...'/>">
+      <SUI.Checkbox label="Check console for events" onChange={function(){console.log("onChange() called with this as ",this)}} beforeChecked={function(){console.log("beforeChecked() called with this as ",this)}} onChecked={function(){console.log("onChecked() called with this as ",this)}} beforeUnchecked={function(){console.log("beforeUnchecked() called with this as ",this)}} onUnchecked={function(){console.log("onUnchecked() called with this as ",this)}} beforeIndeterminate={function(){console.log("beforeIndeterminate() called with this as ",this)}} onIndeterminate={function(){console.log("onIndeterminate() called with this as ",this)}} beforeDeterminate={function(){console.log("beforeDeterminate() called with this as ",this)}} onDeterminate={function(){console.log("onDeterminate() called with this as ",this)}} onEnable={function(){console.log("onEnable() called with this as ",this)}} onDisable={function(){console.log("onDisable() called with this as ",this)}}/>
     </Example>
   </PageSection>
-  <PageSection title="Appearance" oid="sPtxT61H">
-    <Example title="Fitted" hint="<Checkbox appearance='fitted'/>" oid="vffnP9fU">
-      <SUI.Segment appearance="left floated compact" oid="kXgTDdjq">
-        <SUI.Checkbox appearance="fitted" oid="YODZuyGC"/>
+  <PageSection title="Appearance">
+    <Example title="Fitted" hint="<Checkbox appearance='fitted'/>">
+      <SUI.Segment appearance="left floated compact">
+        <SUI.Checkbox appearance="fitted"/>
       </SUI.Segment>
-      <SUI.Segment appearance="left floated compact" oid="FKtWDrYC">
-        <SUI.Checkbox appearance="fitted" type="toggle" oid="QtOd43HY"/>
+      <SUI.Segment appearance="left floated compact">
+        <SUI.Checkbox appearance="fitted" type="toggle"/>
       </SUI.Segment>
-      <SUI.Segment appearance="left floated compact" oid="F4YWPQid">
-        <SUI.Checkbox appearance="fitted" type="slider" oid="kiCNl5Rg"/>
+      <SUI.Segment appearance="left floated compact">
+        <SUI.Checkbox appearance="fitted" type="slider"/>
       </SUI.Segment>
     </Example>
   </PageSection>

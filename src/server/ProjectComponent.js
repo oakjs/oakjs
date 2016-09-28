@@ -40,7 +40,7 @@ export default class ProjectComponent extends Component {
   }
 
   getDefaultJSXE({ id, title }) {
-    return `<div oid="${ids.generateRandomId()}"/>`;
+    return `<div/>`;
   }
 
 }
