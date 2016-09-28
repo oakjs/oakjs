@@ -17,7 +17,22 @@ import Point from '../src/oak-roots/Point';
 
 
 describe('Point', () => {
+  testConstructor();
+  test_clone();
+  test_left();
+  test_top();
+  test_isOrigin();
+  test_integerize();
+  test_toString();
+  test_size();
+  test_invert();
 
+  // style
+
+  // equals
+});
+
+function testConstructor () {
   describe('#constructor()', () => {
     it('executes with two numerical arguments', () => {
         let point = new Point(30,40);
@@ -32,8 +47,9 @@ describe('Point', () => {
         (point.left).should.equal(0);
       });
     });
+}
 
-
+function test_clone () {
   describe('#clone', () => {
     let point;
     let clonedPoint;
@@ -55,8 +71,9 @@ describe('Point', () => {
       (clonedPoint.top).should.equal(cordinate[1]);
     });
   });
+}
 
-
+function test_left () {
   describe('#left', () => {
     let point;
 
@@ -74,7 +91,9 @@ describe('Point', () => {
       }.should.throw(Error);
     });
   });
+}
 
+function test_top () {
   describe('#top', () => {
     let point;
 
@@ -92,7 +111,9 @@ describe('Point', () => {
       }.should.throw(Error);
     });
   });
+}
 
+function test_isOrigin () {
   describe('#isOrigin', () => {
     let point;
     let point1;
@@ -116,17 +137,9 @@ describe('Point', () => {
       point2.isOrigin.should.equal(false);
     });
   });
+}
 
-  // direction
-  /*desribe('#direction'. () => {
-    let point;
-  });
-  */
-
-  // style
-
-  // equals
-
+function test_integerize () {
   describe('#integerize', () => {
     let point;
     let integerizedPoint;
@@ -147,6 +160,9 @@ describe('Point', () => {
     });
   });
 
+}
+
+function test_size () {
   describe('#size', () => {
     let point;
     let mag;
@@ -163,7 +179,9 @@ describe('Point', () => {
       (mag).should.be.at.least(0);
     });
   });
+}
 
+function test_invert () {
   describe('#invert', () => {
     let point;
     let point2;
@@ -187,7 +205,9 @@ describe('Point', () => {
       (pointNaN.y).should.equal(pointNaN2.y*-1);
     });
   });
+}
 
+function test_toString () {
   describe('#toString', () => {
     let point;
     let cordinateString;
@@ -204,6 +224,5 @@ describe('Point', () => {
     it("returns string equivelant of Point's x,y cordinates.", () =>  {
       (cordinateString).should.equal('50,100');
     });
-
   });
-});
+}
