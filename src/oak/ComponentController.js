@@ -229,7 +229,7 @@ export default class ComponentController extends ChildController {
 
     // Find the innermost element who contains the `domElementAtPoint`
     for (let element of elementsAtPoint) {
-      if (elements.isParentOf(element.dom, domElementAtPoint)) return element;
+      if (elements.contains(element.dom, domElementAtPoint)) return element;
     }
 
     return undefined;

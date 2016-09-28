@@ -46,7 +46,7 @@ export function closestMatching(element, selector) {
 
 // Return true if `parent` is a parent of the `potentialChild`.
 // Pass `false` to `includingParent` to NOT count the parent in the comparison.
-export function isParentOf(parent, potentialChild, includingParent = true) {
+export function contains(parent, potentialChild, includingParent = true) {
   // boundary conditions
   if (!(parent instanceof Element)) return false;
   if (!(potentialChild instanceof Node)) return false;
