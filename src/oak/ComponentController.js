@@ -157,11 +157,9 @@ export default class ComponentController extends ChildController {
   }
 
   // Return list of ALL `{ oid, dom, jsxe, rect }` for ALL JSXElements
-  //  at a particular `point` in "clientRect" space.
+  //  at a particular `clientPoint` (in "clientRect" space).
   //
   // The OUTERMOST element is the first item in the list, with the innermost element being last.
-  //
-  // NOTE: this ignores text-only nodes...
   //
   // NOTE: Although they will be returned with the innermost-JSXElement LAST,
   //       you can't rely on this ordering in terms how the browser sees the actual DOM elements
@@ -169,8 +167,8 @@ export default class ComponentController extends ChildController {
   //
 //TODO: absolute positioning could put two elements from diffrent parents in the same place,
 //      which might mess the order up, no???
-  getElementsAtPoint(point) {
-    if (!point) return [];
+  getElementsAtPoint(clientPoint) {
+    if (!clientPoint) return [];
 
     return this.reduceChildren((results, jsxe, controller) => {
       const oid = jsxe.oid;
@@ -178,7 +176,7 @@ export default class ComponentController extends ChildController {
         const dom = controller.getDOMElementForOid(oid);
         if (dom) {
           const rect = elements.clientRect(dom);
-          if (rect && rect.containsPoint(point)) {
+          if (rect && rect.containsPoint(clientPoint)) {
             results.push({ oid, dom, jsxe, rect });
           }
         }
@@ -187,7 +185,31 @@ export default class ComponentController extends ChildController {
     }, []);
   }
 
-  // Return the top-most element at the given `point` in "clientRect" space
+  // Return list of ALL `{ oid, dom, jsxe, rect }` for ALL JSXElements
+  //  which interset a particular `clientRect`.
+  //
+  // NOTE: this ignores text-only nodes...
+  //
+  // NOTE: order of this list is not reliable...
+  getElementsIntersectingRect(clientRect) {
+    if (!clientRect || clientRect.isEmpty) return [];
+    return this.reduceChildren((results, jsxe, controller) => {
+      const oid = jsxe.oid;
+      if (oid) {
+        const dom = controller.getDOMElementForOid(oid);
+        if (dom) {
+          const rect = elements.clientRect(dom);
+          if (rect && rect.intersects(clientRect)) {
+            results.push({ oid, dom, jsxe, rect });
+          }
+        }
+      }
+      return results;
+    }, []);
+  }
+
+
+  // Return the top-most element at the given `clientPoint` (in "clientRect" space)
   //  as `{ oid, dom, jsxe, rect }`.
   //
   // If you pass `domElementAtPoint`, we'll use that to figure out the exact element
@@ -195,9 +217,9 @@ export default class ComponentController extends ChildController {
   //
   // If you do NOT pass `domElementAtPoint`, we'll just return the innermost jsx element,
   //  and IT MAY OR MAY NOT BE THE TOP-MOST ELEMENT VISUALLY.
-  getTopElementAtPoint(point, domElementAtPoint) {
+  getTopElementAtPoint(clientPoint, domElementAtPoint) {
     // Get the list of elements at the point, with the innermost one first.
-    const elementsAtPoint = this.getElementsAtPoint(point).reverse();
+    const elementsAtPoint = this.getElementsAtPoint(clientPoint).reverse();
 
     // if no `domElementAtPoint`, just return the innermost element
     if (!domElementAtPoint) return elementsAtPoint.pop();
