@@ -44,6 +44,8 @@
     "fs-extra": "^0.26.5",
     "fs-promise": "^0.4.1",
     "html-webpack-plugin": "^1.6.1",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.5",
     "jsdom": "^6.5.1",
     "json-loader": "^0.5.3",
     "less": "^2.6.1",
