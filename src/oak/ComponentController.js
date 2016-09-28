@@ -191,10 +191,13 @@ export default class ComponentController extends ChildController {
   // NOTE: this ignores text-only nodes...
   //
   // NOTE: order of this list is not reliable...
-  getElementsIntersectingRect(clientRect) {
+  getElementsIntersectingRect(clientRect, includeRoot = false) {
     if (!clientRect || clientRect.isEmpty) return [];
     return this.reduceChildren((results, jsxe, controller) => {
       const oid = jsxe.oid;
+      if (!includeRoot && oid === controller.oid) {
+        return results;
+      }
       if (oid) {
         const dom = controller.getDOMElementForOid(oid);
         if (dom) {

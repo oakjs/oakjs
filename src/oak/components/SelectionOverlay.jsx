@@ -182,16 +182,21 @@ export default class SelectionOverlay extends OakComponent {
 
   renderDragSelectRect() {
     if (!this.state.dragSelecting) return;
-    return <DragSelectRect onDragEnd={this.onDragSelectionEnd} />
+    return <DragSelectRect getSelectionForRect={this.getSelectionForRect} onDragEnd={this.onDragSelectionEnd} />
+  }
+
+  // Callback to get the selection for the specified `clientRect`.
+  getSelectionForRect = (clientRect) => {
+    return oak.editController && oak.editController.getElementsIntersectingRect(clientRect);
   }
 
   // Callback when drag-selection completes:
   //  `event` is the mouseup event
-  //  `selection` is the list of `oids` which were intersected.
-  //  `selectionRects` is the list of `clientRect`s for those oids.
-  onDragSelectionEnd = (event, { selection, selectionRects } = {}) => {
+  //  `selection` is the list of `{ oid, dom, jsxe, rect }` for the things to be selected.
+  onDragSelectionEnd = (event, { selection } = {}) => {
     if (selection && selection.length) {
-      oak.actions.setSelection({ elements: selection});
+      const oids = selection.map( info => info.oid );
+      oak.actions.setSelection({ elements: oids });
     }
     else {
       oak.actions.clearSelection();

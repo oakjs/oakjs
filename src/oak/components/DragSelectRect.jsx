@@ -30,6 +30,9 @@ export default class DragSelectRect extends React.Component {
 
   constructor() {
     super(...arguments);
+    if (!this.props.getSelectionForRect) {
+      console.warn("<DragSelectRect>: you must pass `getSelectionForRect` prop!");
+    }
     this.state = {};
   }
 
@@ -66,31 +69,19 @@ export default class DragSelectRect extends React.Component {
   }
 
   // Figure out the intersection of the current `clientRect` and whatever we're selecting.
-  // Must return a map of: `{ selection, selectionRects }` (which are both arrays).
   //
-  // Defaults to finding all intersecting `oid` elements in the current `oak.editController`.
-  // Pass a `getSelectionForRect()` function in your props to do something different.
+  // If anything is to be selected, must return an array of objects with at least `{ rect }`
+  //  for the clientRect of the thing to be selected.
   getSelectionForRect(clientRect) {
-    // Defer to property function if passed
     if (this.props.getSelectionForRect) return this.props.getSelectionForRect(clientRect);
-
-    let selection = [];
-    let selectionRects = [];
-    const elements = oak.editController && oak.editController.getElementsIntersectingRect(clientRect);
-    if (elements) {
-      selection = elements.map( element => element.oid );
-      selectionRects = elements.map( element => element.rect );
-    }
-    return { selection, selectionRects };
   }
 
 
   // Update our `state.selection` and `state.selectionRects` based on current geometry.
   updateSelection = () => {
-    const rect = this.getDragRect();
-    const state = rect
-                ? this.getSelectionForRect(rect)
-                : { selection: null, selectionRects: null };
+    const dragRect = this.getDragRect();
+    const selection = this.getSelectionForRect(dragRect)
+    const state = { dragRect, selection };
     this.setState(state);
     return state;
   }
@@ -100,8 +91,9 @@ export default class DragSelectRect extends React.Component {
   //////////////////////////////
 
   renderSelectionRects() {
-    const rects = this.state.selectionRects || [];
-    return rects.map( (rect, index) => {
+    const selection = this.state.selection || [];
+    return selection.map( (selected, index) => {
+      const rect = selected.rect;
       return <SelectionRect key={index} type="dragSelection" rect={rect}/>
     });
   }
