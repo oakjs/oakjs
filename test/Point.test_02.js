@@ -4,6 +4,7 @@ let chai  = require('chai');
 //    path  = require('path');
 
 chai.should();
+chai.expect();
 
 // max and mins for cordinate system
 let MAX_X = 200,
@@ -14,10 +15,24 @@ let MAX_X = 200,
 
 import Point from '../src/oak-roots/Point';
 
-//let Point = require(path.join(__dirname, '../src/oak-roots/Point'));
-
 
 describe('Point', () => {
+
+  describe('#constructor()', () => {
+    it('executes with two numerical arguments', () => {
+        let point = new Point(30,40);
+        chai.expect(point.left);
+      });
+    it('executes when either argument is NaN', () => {
+        let point = new Point(NaN,40);
+        chai.expect(point.left);
+      });
+    it('executes when invoked with neither x nor y parameter', () => {
+        let point = new Point();
+        (point.left).should.equal(0);
+      });
+    });
+
 
   describe('#clone', () => {
     let point;
@@ -158,30 +173,3 @@ describe('Point', () => {
 
   });
 });
-
-
-
-
-  /*
-  describe('#constructor()', () => {
-    it('requires two numerical arguments', () => {
-
-      () => {
-        new Point();
-      }.should.throw(Error);
-
-
-      () => {
-        new Point(1.0);
-      }.should.throw(Error);
-
-      () => {
-        new Point('this', 'that');
-      }.should.throw(Error);
-
-      () => {
-        new Point(5, 10);
-      }.should.not.throw(Error);
-    });
-  });
-  */
