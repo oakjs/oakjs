@@ -22,15 +22,65 @@ describe('Point', () => {
   test_left();
   test_top();
   test_isOrigin();
+  test_direction();
+  test_style();
+  test_equals();
   test_integerize();
-  test_toString();
-  test_size();
+  test_delta();
+  test_add();
+  test_subtract();
   test_invert();
-
-  // style
-
-  // equals
+  test_size();
+  test_toString();
 });
+
+function test_add () {
+  describe('#add', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
+
+function test_subtract () {
+  describe('#subtract', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
+
+function test_delta () {
+  describe('#delta', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
+
+function test_direction () {
+  describe('#direction', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
+
+function test_style () {
+  describe('#style', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
+
+function test_equals () {
+  describe('#equals', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
 
 function testConstructor () {
   describe('#constructor()', () => {
