@@ -44,8 +44,9 @@ export default class OakEvent {
 //    - leftButtonDown  `true` if "left" mouse button is down.
 //
 //  Mouse down / dragging:
-//    - downPageLoc     Mousedown coordinate WITH SCROLL
 //    - isDragging      Has a drag been initiated?  (MouseDown + mouse move required)
+//    - downPageLoc     If left mouse down: Mousedown coordinate WITH SCROLL
+//    - downClientLoc   If left mouse down: Mousedown coordinate WITHOUT SCROLL
 //    - downTarget      If left mouse down: Element underneath the mouse on mousedown.
 //    - dragDelta       If left mouse down: Delta between mouseDown and current mouse position.
 //    - dragDirection   If left mouse down: Direction of movement since mousedown.
@@ -150,11 +151,40 @@ export default class OakEvent {
   // OID Element detection
   //////////////////////////////
 
-  // Element under the mouse, NOT including the `SelectionOverlay`.
+  // DOM Element under the mouse, NOT including the `SelectionOverlay`.
   // NOTE: this is pretty expensive to calculate...
+  // NOTE: this can be called at any time, as it's based on the stored `event.clientLoc`.
   get mouseTarget() {
-    return OakEvent._getMouseTarget();
+    if (oak.event) return OakEvent._getTopElement(oak.event.clientLoc);
   }
+
+  // DOM Element under the mouse when the mouse went down, NOT including the `SelectionOverlay`.
+  // NOTE: this is pretty expensive to calculate...
+  // NOTE: this can be called at any time, as it's based on the stored `event.clientLoc`.
+  get downTarget() {
+    if (oak.event) return OakEvent._getTopElement(oak.event.downClientLoc);
+  }
+
+  // Return the top-most element under the mouse NOT including the `#SelectionOverlay` layer.
+  // Returns `undefined` if we can't figure it out.
+  //
+  // NOTE: this is expensive to figure out, as it references, and possibly manipulates, the DOM.
+//TODO: refactor out the `#SelectionOverlay` stuff somehow...
+  static _getTopElement(clientLoc) {
+    if (!clientLoc) return undefined;
+
+    // hide SelectionOverlay so it doesn't mask the page
+    const selectionOverlay = document.querySelector("#SelectionOverlay");
+    if (selectionOverlay) selectionOverlay.style.display = "none";
+
+    const target = document.elementFromPoint(clientLoc.x, clientLoc.y) || undefined;
+
+    // restore SelectionOverlay
+    if (selectionOverlay) selectionOverlay.style.display = "";
+
+    return target;
+  }
+
 
   // OID Element under the mouse
   get _mouseOid() {
@@ -234,7 +264,7 @@ export default class OakEvent {
     if (button === "left") {
       oakEvent.type = "mousedown";
       oakEvent.downPageLoc = oakEvent.pageLoc;
-      oakEvent.downTarget = oakEvent.mouseTarget;
+      oakEvent.downClientLoc = oakEvent.clientLoc;
       oakEvent.button = button;
     }
     else if (button === "right") {
@@ -255,8 +285,8 @@ export default class OakEvent {
   // Clear event data set on mouseDown.
   _clearMouseDownData() {
     delete this.button;
+    delete this.downClientLoc;
     delete this.downPageLoc;
-    delete this.downTarget;
     delete this.isDragging;
     delete this.menuTarget;
   }
@@ -401,28 +431,6 @@ export default class OakEvent {
       target: event.target,
     }
   }
-
-  // Return the target element under the mouse NOT including the `#SelectionOverlay` layer.
-  // Returns `undefined` if we can't figure it out.
-  //
-  // NOTE: this is expensive to figure out, as it references, and possibly manipulates, the DOM.
-  // NOTE: this can be called at any time, as it's based on the stored `event.clientLoc`.
-  static _getMouseTarget() {
-    if (!oak.event || !oak.event.clientLoc) return undefined;
-
-    // hide SelectionOverlay so it doesn't mask the page
-    const selectionOverlay = document.querySelector("#SelectionOverlay");
-    if (selectionOverlay) selectionOverlay.style.display = "none";
-
-    const target = document.elementFromPoint(oak.event.clientLoc.x, oak.event.clientLoc.y) || undefined;
-
-    // restore SelectionOverlay
-    if (selectionOverlay) selectionOverlay.style.display = "";
-
-    return target;
-  }
-
-
 
 
 

@@ -36,7 +36,7 @@ export function matches(element, selector) {
 // Given a node or element, return element or closest parent which matches selector.
 export function closestMatching(element, selector) {
   if (!element) return undefined;
-  let ancestor = (element instanceof Element ? element : element.parentNode);
+  let ancestor = (element instanceof Element ? element : element.parentElement);
   while (ancestor.parentElement) {
     if (matches(ancestor, selector)) return ancestor;
     ancestor = ancestor.parentElement;
@@ -44,6 +44,22 @@ export function closestMatching(element, selector) {
   return undefined;
 }
 
+// Return true if `parent` is a parent of the `potentialChild`.
+// Pass `false` to `includingParent` to NOT count the parent in the comparison.
+export function isParentOf(parent, potentialChild, includingParent = true) {
+  // boundary conditions
+  if (!(parent instanceof Element)) return false;
+  if (!(potentialChild instanceof Node)) return false;
+  // pop up from a text node to the Element above it
+  let current = (potentialChild instanceof Element ? potentialChild : potentialChild.parentElement);
+  // if not including parent, go up one
+  if (!includingParent) current = current.parentElement;
+  while (current) {
+    if (current === parent) return true;
+    current = current.parentElement
+  }
+  return false;
+}
 
 // Given a set of elements:
 //  - `clone()` each and stick inside a wrapper which positions it relative to

@@ -8,6 +8,7 @@ import babel from "oak-roots/util/babel";
 import ChildController from "oak-roots/ChildController";
 import Stylesheet from "oak-roots/Stylesheet";
 import { autobind, proto, throttle } from "oak-roots/util/decorators";
+import elements from "oak-roots/util/elements";
 import ids from "oak-roots/util/ids";
 
 import api from "./api";
@@ -133,6 +134,96 @@ export default class ComponentController extends ChildController {
     return ReactDOM.findDOMNode(component);
   }
 
+  getRectForOid(oid) {
+    const element = this.getDOMElementForOid(oid);
+    if (element) return elements.clientRect(element);
+  }
+
+  // Apply `callback(previousValue, node, controller)` starting at the root and descending through children.
+  // Like `array.map()`, callback MUST continually return the `currentValue` to pass to the next node.
+  // By default we start at the root `node`, pass another node if you want to start somewhere else.
+// TODO: some sort of `DONT_RECURSE` flag???
+// TODO: push into `ChildController` ???
+  reduceChildren(callback, initialResult, node = this.jsxFragment && this.jsxFragment.root) {
+    if (!node) return initialResult;
+
+    let currentResult = callback(initialResult, node, this);
+
+    // descend if necessary, adding to the same `results` accumulator
+    const children = node.children;
+    if (children) children.forEach( child => currentResult = this.reduceChildren(callback, currentResult, child) );
+
+    return currentResult;
+  }
+
+  // Return list of ALL `{ oid, dom, jsxe, rect }` for ALL JSXElements
+  //  at a particular `point` in "clientRect" space.
+  //
+  // The OUTERMOST element is the first item in the list, with the innermost element being last.
+  //
+  // NOTE: this ignores text-only nodes...
+  //
+  // NOTE: Although they will be returned with the innermost-JSXElement LAST,
+  //       you can't rely on this ordering in terms how the browser sees the actual DOM elements
+  //       because CSS z-index can make things appear out of order.
+  //
+//TODO: absolute positioning could put two elements from diffrent parents in the same place,
+//      which might mess the order up, no???
+  getElementsAtPoint(point) {
+    if (!point) return [];
+
+    return this.reduceChildren((results, jsxe, controller) => {
+      const oid = jsxe.oid;
+      if (oid) {
+        const dom = controller.getDOMElementForOid(oid);
+        if (dom) {
+          const rect = elements.clientRect(dom);
+          if (rect && rect.containsPoint(point)) {
+            results.push({ oid, dom, jsxe, rect });
+          }
+        }
+      }
+      return results;
+    }, []);
+  }
+
+  // Return the top-most element at the given `point` in "clientRect" space
+  //  as `{ oid, dom, jsxe, rect }`.
+  //
+  // If you pass `domElementAtPoint`, we'll use that to figure out the exact element
+  //  according to css `z-index`.
+  //
+  // If you do NOT pass `domElementAtPoint`, we'll just return the innermost jsx element,
+  //  and IT MAY OR MAY NOT BE THE TOP-MOST ELEMENT VISUALLY.
+  getTopElementAtPoint(point, domElementAtPoint) {
+    // Get the list of elements at the point, with the innermost one first.
+    const elementsAtPoint = this.getElementsAtPoint(point).reverse();
+
+    // if no `domElementAtPoint`, just return the innermost element
+    if (!domElementAtPoint) return elementsAtPoint.pop();
+
+    // Find the innermost element who contains the `domElementAtPoint`
+    for (let element of elementsAtPoint) {
+      if (elements.isParentOf(element.dom, domElementAtPoint)) return element;
+    }
+
+    return undefined;
+  }
+
+  // Return `{ oid, dom, jsxe, rect }` for the top-most jsxElement IN Z-INDEX ORDER
+  //  at the CURRENT mouse location.  This DOES take z-index into account!
+  getMouseElement() {
+    return this.getTopElementAtPoint(oak.event.clientLoc, oak.event.mouseTarget);
+  }
+
+  // Return `{ oid, dom, jsxe, rect }` for the top-most jsxElement IN Z-INDEX ORDER
+  //  at the location where the mouse last went down.  This DOES take z-index into account!
+  //
+  // NOTE: only valid while the mouse is actually down.
+//TESTME: make sure scrolling after the mouse goes down doesn't affect this!
+  getDownElement() {
+    return this.getTopElementAtPoint(oak.event.downClientLoc, oak.event.downTarget);
+  }
 
   //////////////////////////////
   //  Loading

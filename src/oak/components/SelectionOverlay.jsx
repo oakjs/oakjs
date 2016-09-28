@@ -77,11 +77,14 @@ export default class SelectionOverlay extends OakComponent {
   //       This is more efficient and prevents cursor flash.
   @throttle(1)
   _updateHoverRect(event) {
-    const mouseOid = oak.event._mouseOid;
-    const isInsideHandle = event && $(event.target).is(".ResizeHandle");
+    if (!oak.editController) return;
+    const mouseElement = oak.editController.getMouseElement();
     let rect;
-    if (mouseOid && !isInsideHandle && !oak.event.anyButtonDown) {
-      rect = oak.getRectForOid(mouseOid);
+    if (mouseElement) {
+      const isInsideHandle = event && $(event.target).is(".ResizeHandle");
+      if (!isInsideHandle && !oak.event.anyButtonDown) {
+        rect = mouseElement.rect;
+      }
     }
     this._moveRect("hover", rect);
   }
