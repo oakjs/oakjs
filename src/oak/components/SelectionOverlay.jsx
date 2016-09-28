@@ -243,7 +243,8 @@ console.log("startDragMoving", info, this.state.dragComponents);
   // `info.target` is the `oid` of the target parent if there is one
   onDragMove = (event, info) => {
     const { dropParent, dropPosition } = this.state;
-    const { parent, position } = this.getDropTarget(oak.event.mouseComponent) || {};
+    const jsxElement = oak.getJSXElementForOid(oak.event._mouseOid);
+    const { parent, position } = this.getDropTarget(jsxElement) || {};
 
     // Forget it if no change
     if (parent === "NO_CHANGE" || (parent === dropParent && position === dropPosition)) return;
@@ -329,22 +330,22 @@ console.log("startDragMoving", info, this.state.dragComponents);
   //   - iterate through items in each row:
   //    - if dropping on the "left side" of an element, drop before it
   //    - if dropping on the "right side" or "after" an element, drop after it.
-  getDropTarget(mouseComponent) {
-    const parent = this.getDropParent(mouseComponent);
+  getDropTarget(jsxElement) {
+    const parent = this.getDropParent(jsxElement);
     if (!parent) return undefined;
 
     const position = this.getDropPosition(parent);
     return { parent: parent.oid, position };
   }
 
-  // Figure out the drop parent, starting at the `mouseComponent`
+  // Figure out the drop parent, starting at the `jsxElement`
   //  and going up until we find something that can accept the `dragComponents`.
   // Returns `undefined` if no parent found.
-  getDropParent(mouseComponent) {
-    if (!mouseComponent) return undefined;
+  getDropParent(jsxElement) {
+    if (!jsxElement) return undefined;
 
     const { dragComponents } = this.state;
-    let parent = mouseComponent;
+    let parent = jsxElement;
     while (parent) {
       if (parent.canDrop(dragComponents)) return parent;
       parent = this.getElement(parent._parent);

@@ -83,6 +83,7 @@ export default class ComponentController extends ChildController {
   forceUpdate() { if (this.component) this.component.forceUpdate() }
 
   // don't call more than once per MSEC
+//TODO: debounce???
   @throttle(1)
   updateSoon(){ this.forceUpdate() }
 
@@ -110,20 +111,6 @@ export default class ComponentController extends ChildController {
     return this.jsxFragment && this.jsxFragment.oids
   }
 
-  // Return the DOM element associated with an oid.
-  // Only works if our render was drawn while we were 'editable'.
-  getElementForOid(oid) {
-    if (!this.component) return undefined;
-    const component = this.component.refs[oid];
-    return ReactDOM.findDOMNode(component);
-  }
-
-  // Return the component DEFINITION for the specified `oid`.
-  getComponentForOid(oid) {
-    const oids = this.oids;
-    return oid && oids && oids[oid];
-  }
-
   // Return a list of oids of all of our descendents (not including this node)
   get descendentOids() {
     const oids = Object.keys(this.oids || {});
@@ -131,6 +118,21 @@ export default class ComponentController extends ChildController {
     if (index > -1) oids.splice(index, 1);
     return oids;
   }
+
+  // Return the JSXElement for the specified `oid`.
+  getJSXElementForOid(oid) {
+    const oids = this.oids;
+    return oid && oids && oids[oid];
+  }
+
+  // Return the DOM element associated with an `oid`.
+  // Only works if our render was drawn while we were 'editable'.
+  getDOMElementForOid(oid) {
+    if (!this.component) return undefined;
+    const component = this.component.refs[oid];
+    return ReactDOM.findDOMNode(component);
+  }
+
 
   //////////////////////////////
   //  Loading

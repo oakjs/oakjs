@@ -176,7 +176,7 @@ class OakJS {
 
   // Return the `JSXElement`s which correspond to the selection.
   get selectedComponents() {
-    return this.selection.map( oid => this.getEditableComponentForOid(oid) ).filter(Boolean);
+    return this.selection.map( oid => this.getJSXElementForOid(oid) ).filter(Boolean);
   }
 
   // Return the FIRST selected component of the specified type.
@@ -306,34 +306,29 @@ class OakJS {
   // TODO: move these into `oak.event` or some such???
   //////////////////////////////
 
-  // Return the JSXElement `Component` for an `oid`,
-  // but only for components which are editable.
-  getEditableComponentForOid(oid) {
-    return this.getComponentForOid(oid, [ this.editController ]);
-  }
-
-  // Given an oid, return the component that it corresponds to.
-  getComponentForOid(oid, controllers = [ this.page, this.section, this.project ]) {
+  // Given an oid, return the JSXElement that it corresponds to.
+  getJSXElementForOid(oid, controllers = [ this.editController ]) {
     if (!oid) return undefined;
-    if (!Array.isArray(controllers)) controllers = [controllers];
 
     for (let controller of controllers) {
       if (controller) {
-        const component = controller.getComponentForOid(oid);
-        if (component) return component;
+        const jsxElement = controller.getJSXElementForOid(oid);
+        if (jsxElement) return jsxElement;
       }
     }
   }
 
-  getElementForOid(oid) {
-    return this.editController && this.editController.getElementForOid(oid);
+  // Return the DOM element for the specified oid.
+  // TODO: safe to call during render() etc.
+  getDOMElementForOid(oid) {
+    return this.editController && this.editController.getDOMElementForOid(oid);
   }
 
   // Given an `oid`, return the `clientRect` for it as currently rendered.
   // Only works for our `editController`.
   // Returns `undefined` if oid not found.
   getRectForOid(oid) {
-    const element = this.getElementForOid(oid);
+    const element = this.getDOMElementForOid(oid);
     return elements.clientRect(element);
   }
 

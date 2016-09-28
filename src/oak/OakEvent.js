@@ -36,7 +36,7 @@ export default class OakEvent {
 //    - clientLoc       Current mouse coordinate WITHOUT SCROLL
 //    - target          Current element under the mouse (including <SelectionOverlay>)
 //    - mouseTarget     Current element under the mouse (NOT including <SelectionOverlay>)
-//    - mouseComponent  Current JSXElement under the mouse (NOT including <SelectionOverlay>)
+//    - mouseJSXElement  Current JSXElement under the mouse (NOT including <SelectionOverlay>)
 //
 //  Mouse Button
 //    NOTE: only "left" mouse button is fully supported, see `_captureMouseDown()`
@@ -162,20 +162,11 @@ export default class OakEvent {
     return OakEvent._getClosestOid(this.mouseTarget);
   }
 
-  // Editable component under the mouse
-  get mouseComponent() {
-    return oak.getComponentForOid(this._mouseOid);
-  }
-
   // OID Element under the mouse when mouse went down
   get _downOid() {
     return OakEvent._getClosestOid(this.downTarget);
   }
 
-  // Editable component where the mouse went down.
-  get downComponent() {
-    return oak.getComponentForOid(this._downOid);
-  }
 
   // Return the `oid` of the closest element with a `oakid` attribute to the `target` element.
   // NOTE: only returns elements in the current `oak.editController`.
@@ -187,7 +178,7 @@ export default class OakEvent {
 
     const oid = oidTarget.getAttribute("oakid");
     if (oak.state.editController) {
-      const component = oak.getEditableComponentForOid(oid);
+      const component = oak.getJSXElementForOid(oid);
       if (component) return oid;
     }
     return undefined;

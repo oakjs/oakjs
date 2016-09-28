@@ -96,7 +96,7 @@ export default class JSXElement {
 
   // Return the on-screen HTML element for this JSXElement
   get renderedElement() {
-    return oak.getElementForOid(this.oid);
+    return oak.getDOMElementForOid(this.oid);
   }
 
   // Return the component constructor class or string type for an html element.

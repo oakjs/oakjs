@@ -46,11 +46,11 @@ export default class Oidify extends React.Component {
     // Return if the controller doesn't know about the oid.
     // This means that the component was drawn by something other than the `editController`,
     //  e.g. a project component being referenced on the page.
-    const component = controller.getComponentForOid(oid);
-    if (!component) return;// console.warn(`<Oidify>.assignOid(${oid}): no component`);
+    const jsxElement = controller.getJSXElementForOid(oid);
+    if (!jsxElement) return;// console.warn(`<Oidify>.assignOid(${oid}): no jsxElement`);
 
     if (!(element instanceof Element)) {
-      return console.info(`<Oidify>.assignOid(${oid}): oidifying non-element\n`, element, component);
+      return console.info(`<Oidify>.assignOid(${oid}): oidifying non-element\n`, element, jsxElement);
     }
 
     if (element.getAttribute("oakid") !== oid) {
