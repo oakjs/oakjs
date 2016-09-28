@@ -186,24 +186,6 @@ export default class OakEvent {
   }
 
 
-  // Return the `oid` of the closest element with a `oakid` attribute to the `target` element.
-  // NOTE: only returns elements in the current `oak.editController`.
-  static _getClosestOid(target) {
-    if (!target) return undefined;
-
-    const oidTarget = roots.elements.closestMatching(target, "[oakid]");
-    if (!oidTarget) return undefined;
-
-    const oid = oidTarget.getAttribute("oakid");
-    if (oak.state.editController) {
-      const component = oak.getJSXElementForOid(oid);
-      if (component) return oid;
-    }
-    return undefined;
-  }
-
-
-
   //////////////////////////////
   //  Mouse Move Event
   //////////////////////////////
