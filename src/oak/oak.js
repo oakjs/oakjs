@@ -337,52 +337,6 @@ class OakJS {
     return elements.clientRect(element);
   }
 
-  // Return a map of `{ oids, rects }` for all `oid` elements on the page.
-  //
-  // Pass an `onlyOids` map to restrict to only those elements.
-  // Pass an `intersectingClientRect` to restrict to only oids which intersect that rect.
-  getOidRects(onlyOids, intersectingClientRect) {
-    if (!this.page || !this.page.component) return undefined;
-//    console.time("oidRects");
-    //TODO: somehow we want to know the root element on the page so don't include toolbars...
-    const oidElements = document.querySelectorAll("[oakid]");
-    const oids = [];
-    const rects = [];
-    let i = -1, element;
-    while (element = oidElements[++i]) {
-      const oid = element.getAttribute("oakid");
-
-      // skip if not in the `onlyOids` map
-      if (onlyOids && onlyOids[oid] === undefined) continue;
-
-      // skip if doesn't intersect the `intersectingClientRect`
-      const rect = elements.clientRect(element);
-      if (intersectingClientRect && !intersectingClientRect.intersects(rect)) continue;
-
-      // ok, add to our lists
-      oids.push(oid);
-      rects.push(rect);
-    }
-//    console.timeEnd("oidRects");
-    return { oids, rects };
-  }
-
-  // Return a map of `{ oids, rects }` for all `oid` elements on the specified `controller`.
-  getOidRectsForController(controller = this.editController, intersectingClientRect, includeContextRoot = false) {
-    const { oids, rects } = this.getOidRects(controller.oids, intersectingClientRect) || {};
-
-    // Remove the controller root oid if specified
-    if (!includeContextRoot) {
-      const index = oids.indexOf(controller.oid);
-      if (index !== -1) {
-        oids.splice(index, 1);
-        rects.splice(index, 1);
-      }
-    }
-
-    return { oids, rects };
-  }
-
 
   //
   //  Modal:  Alert / Prompt / etc

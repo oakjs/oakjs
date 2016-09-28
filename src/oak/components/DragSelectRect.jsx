@@ -8,6 +8,7 @@
 import React, { PropTypes } from "react";
 
 import Rect from "oak-roots/Rect";
+import elements from "oak-roots/util/elements";
 
 import oak from "../oak";
 import SelectionRect from "./SelectionRect";
@@ -73,9 +74,60 @@ export default class DragSelectRect extends React.Component {
     // Defer to property function if passed
     if (this.props.getSelectionForRect) return this.props.getSelectionForRect(clientRect);
 
-    const { oids, rects } = oak.getOidRectsForController(oak.editController, clientRect);
+    const { oids, rects } = this.getOidRectsForController(oak.editController, clientRect);
     return { selection: oids, selectionRects: rects };
   }
+
+
+  // Return a map of `{ oids, rects }` for all `oid` elements on the page.
+  //
+  // Pass an `onlyOids` map to restrict to only those elements.
+  // Pass an `intersectingClientRect` to restrict to only oids which intersect that rect.
+  getOidRects(onlyOids, intersectingClientRect) {
+// ??? is this necessary
+//    if (!oak.page || !oak.page.component) return undefined;
+// ???
+
+//    console.time("oidRects");
+    //TODO: somehow we want to know the root element on the page so don't include toolbars...
+    const oidElements = document.querySelectorAll("[oakid]");
+    const oids = [];
+    const rects = [];
+    let i = -1, element;
+    while (element = oidElements[++i]) {
+      const oid = element.getAttribute("oakid");
+
+      // skip if not in the `onlyOids` map
+      if (onlyOids && onlyOids[oid] === undefined) continue;
+
+      // skip if doesn't intersect the `intersectingClientRect`
+      const rect = elements.clientRect(element);
+      if (intersectingClientRect && !intersectingClientRect.intersects(rect)) continue;
+
+      // ok, add to our lists
+      oids.push(oid);
+      rects.push(rect);
+    }
+//    console.timeEnd("oidRects");
+    return { oids, rects };
+  }
+
+  // Return a map of `{ oids, rects }` for all `oid` elements on the specified `controller`.
+  getOidRectsForController(controller = oak.editController, intersectingClientRect, includeContextRoot = false) {
+    const { oids, rects } = this.getOidRects(controller.oids, intersectingClientRect) || {};
+
+    // Remove the controller root oid if specified
+    if (!includeContextRoot) {
+      const index = oids.indexOf(controller.oid);
+      if (index !== -1) {
+        oids.splice(index, 1);
+        rects.splice(index, 1);
+      }
+    }
+
+    return { oids, rects };
+  }
+
 
 
   // Update our `state.selection` and `state.selectionRects` based on current geometry.
