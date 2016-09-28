@@ -110,6 +110,14 @@ export default class ComponentController extends ChildController {
     return this.jsxFragment && this.jsxFragment.oids
   }
 
+  // Return the DOM element associated with an oid.
+  // Only works if our render was drawn while we were 'editable'.
+  getElementForOid(oid) {
+    if (!this.component) return undefined;
+    const component = this.component.refs[oid];
+    return ReactDOM.findDOMNode(component);
+  }
+
   // Return the component DEFINITION for the specified `oid`.
   getComponentForOid(oid) {
     const oids = this.oids;

@@ -326,10 +326,12 @@ class OakJS {
   }
 
   getElementForOid(oid) {
-    return document.querySelector(`[oakid='${oid}']`);
+    return this.editController && this.editController.getElementForOid(oid);
   }
 
   // Given an `oid`, return the `clientRect` for it as currently rendered.
+  // Only works for our `editController`.
+  // Returns `undefined` if oid not found.
   getRectForOid(oid) {
     const element = this.getElementForOid(oid);
     return elements.clientRect(element);

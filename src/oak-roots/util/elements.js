@@ -13,10 +13,10 @@ import Point from "../Point";
 
 
 // Return the OFFSET rect -- relative to the DOCUMENT, INCLUDING scrolling.
-// Returns `undefined` if element doesn't exist.
+// Returns empty rectangle if element doesn't exist.
 // TODO: scale???
 export function clientRect(element) {
-  if (!element) return undefined;
+  if (!element || !element.getBoundingClientRect) return new Rect();
   const rect = element.getBoundingClientRect();
   return new Rect(rect.left, rect.top, rect.width, rect.height);
 }

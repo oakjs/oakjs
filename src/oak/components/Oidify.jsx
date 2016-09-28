@@ -10,14 +10,29 @@
 import React, { PropTypes } from "react";
 import ReactDOM from "react-dom";
 
+import Rect from "oak-roots/Rect";
+import elements from "oak-roots/util/elements";
+
 export default class Oidify extends React.Component {
 
   static contextTypes = {
     controller: PropTypes.any,
   }
 
+  // Return our root element.
+  // No-op if we're not mounted.
+  get element() {
+    if (this._isMounted) return ReactDOM.findDOMNode(this);
+  }
+
+  // Return the current clientRect for our root element as a `Rect`.
+  get clientRect() {
+    return elements.clientRect(this.element);
+  }
+
+
   assignOid() {
-    const element = ReactDOM.findDOMNode(this);
+    const element = this.element;
     // if no dom node, the component `render()` returned `null`
     //  or we are loading the actual Component class.  Either way, don't worry about it.
     if (element === null) return;
@@ -44,11 +59,21 @@ export default class Oidify extends React.Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.assignOid();
   }
 
+  componentWillUpdate() {
+    this._isMounted = false;
+  }
+
   componentDidUpdate() {
+    this._isMounted = true;
     this.assignOid();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
