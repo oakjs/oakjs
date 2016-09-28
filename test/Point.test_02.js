@@ -117,6 +117,16 @@ describe('Point', () => {
     });
   });
 
+  // direction
+  /*desribe('#direction'. () => {
+    let point;
+  });
+  */
+
+  // style
+
+  // equals
+
   describe('#integerize', () => {
     let point;
     let integerizedPoint;
@@ -151,6 +161,30 @@ describe('Point', () => {
     });
     it('returns a positive integer', () => {
       (mag).should.be.at.least(0);
+    });
+  });
+
+  describe('#invert', () => {
+    let point;
+    let point2;
+    let pointNaN;
+    let pointNaN2;
+
+    beforeEach(() => {
+      point = new Point(50,100);
+      point2 = point.invert();
+      pointNaN = new Point(NaN, NaN);
+      pointNaN2 = pointNaN.invert();
+    });
+
+    it('returns the inverse of an x,y point location', () => {
+      (point.x).should.equal(point2.x*-1);
+      (point.y).should.equal(point2.y*-1);
+    });
+
+    it('returns the inverse of null point location', () => {
+      (pointNaN.x).should.equal(pointNaN2.x*-1);
+      (pointNaN.y).should.equal(pointNaN2.y*-1);
     });
   });
 
