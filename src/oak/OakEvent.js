@@ -36,7 +36,6 @@ export default class OakEvent {
 //    - clientLoc       Current mouse coordinate WITHOUT SCROLL
 //    - target          Current element under the mouse (including <SelectionOverlay>)
 //    - mouseTarget     Current element under the mouse (NOT including <SelectionOverlay>)
-//    - mouseJSXElement  Current JSXElement under the mouse (NOT including <SelectionOverlay>)
 //
 //  Mouse Button
 //    NOTE: only "left" mouse button is fully supported, see `_captureMouseDown()`
