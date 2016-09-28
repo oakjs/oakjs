@@ -1,7 +1,5 @@
 import "babel-core/external-helpers";
-
 let chai  = require('chai');
-//    path  = require('path');
 
 chai.should();
 chai.expect();
@@ -12,9 +10,7 @@ let MAX_X = 200,
     MAX_Y = 200,
     MIN_Y = 200;  // absolute value
 
-
 import Point from '../src/oak-roots/Point';
-
 
 describe('Point', () => {
   testConstructor();
