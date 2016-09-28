@@ -92,7 +92,8 @@ export default class DragMovePreview extends OakComponent {
 
   getTarget = (event) => {
     if (this.props.getTarget) return this.props.getTarget(event);
-    return oak.event._mouseOid;
+    const mouseElement = oak.editController && oak.editController.getMouseInfo();
+    return mouseElement && mouseElement.oid;
   }
 
   // Update our `state.target` and `state.selectionRects` based on current geometry.

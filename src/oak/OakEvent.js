@@ -186,17 +186,6 @@ export default class OakEvent {
   }
 
 
-  // OID Element under the mouse
-  get _mouseOid() {
-    return OakEvent._getClosestOid(this.mouseTarget);
-  }
-
-  // OID Element under the mouse when mouse went down
-  get _downOid() {
-    return OakEvent._getClosestOid(this.downTarget);
-  }
-
-
   // Return the `oid` of the closest element with a `oakid` attribute to the `target` element.
   // NOTE: only returns elements in the current `oak.editController`.
   static _getClosestOid(target) {

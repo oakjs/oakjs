@@ -78,12 +78,12 @@ export default class SelectionOverlay extends OakComponent {
   @throttle(1)
   _updateHoverRect(event) {
     if (!oak.editController) return;
-    const mouseElement = oak.editController.getMouseElement();
+    const mouseInfo = oak.editController.getMouseInfo();
     let rect;
-    if (mouseElement) {
+    if (mouseInfo) {
       const isInsideHandle = event && $(event.target).is(".ResizeHandle");
       if (!isInsideHandle && !oak.event.anyButtonDown) {
-        rect = mouseElement.rect;
+        rect = mouseInfo.rect;
       }
     }
     this._moveRect("hover", rect);
@@ -121,12 +121,15 @@ export default class SelectionOverlay extends OakComponent {
   //////////////////////////////
 
   onSelectionDown = (event) => {
+    // get info for where the mouse went down
+    const downInfo = oak.editController && oak.editController.getMouseDownInfo();
+    const downOid = downInfo && downInfo.oid;
+
     // if they went down on the editController root element, start drag selecting
-    const oid = oak.event._downOid;
-    if (!oid || oak.editController && oak.editController.oid === oid) {
+    if (downOid === oak.editController.oid) {
       return this.startDragSelecting(event);
     }
-//console.info("onSelectionDown", oid);
+//console.info("onSelectionDown", downOid);
     // if command/meta down
     if (oak.event.commandKey) {
       event.stopPropagation();
@@ -138,11 +141,11 @@ export default class SelectionOverlay extends OakComponent {
 // TODO: verify that we can multi-select...
     } else if (oak.event.shiftKey) {
       // toggle selection of the element if there is one
-      if (oid) oak.actions.toggleSelection({ elements: oid });
+      if (downOid) oak.actions.toggleSelection({ elements: downOid });
     }
-    // otherwise select just the oid
-    else if (!oak.selection.includes(oid)) {
-      oak.actions.setSelection({ elements: oid });
+    // otherwise select just the downOid
+    else if (!oak.selection.includes(downOid)) {
+      oak.actions.setSelection({ elements: downOid });
     }
 
     // If anything is selected, start dragging
@@ -153,10 +156,13 @@ export default class SelectionOverlay extends OakComponent {
 
   // mouse went up on selectionRect WITHOUT dragging
   onSelectionRectUp = (event) => {
-    const oid = oak.event._downOid;
-    console.info("onSelectionRectUp", oid);
-    if (oid && !oak.event.shiftKey && oak.selection.length > 1) {
-      oak.actions.setSelection({ elements: oid });
+    // get info for where the mouse went down
+    const downInfo = oak.editController && oak.editController.getMouseDownInfo();
+    const downOid = downInfo && downInfo.oid;
+
+    console.info("onSelectionRectUp", downOid);
+    if (downOid && !oak.event.shiftKey && oak.selection.length > 1) {
+      oak.actions.setSelection({ elements: downOid });
     }
   }
 
@@ -245,8 +251,14 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
   // `info.target` is the `oid` of the target parent if there is one
   onDragMove = (event, info) => {
+    const mouseInfo = oak.editController && oak.editController.getMouseInfo();
+    const jsxElement = mouseInfo && mouseInfo.jsxe;
+    if (!jsxElement) {
+      console.warn(`SelectionOverlay.onDragMove(): couldn't get jsxElement under mouse`);
+      return;
+    }
+
     const { dropParent, dropPosition } = this.state;
-    const jsxElement = oak.getJSXElementForOid(oak.event._mouseOid);
     const { parent, position } = this.getDropTarget(jsxElement) || {};
 
     // Forget it if no change

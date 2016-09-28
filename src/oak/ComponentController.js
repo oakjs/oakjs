@@ -212,7 +212,7 @@ export default class ComponentController extends ChildController {
 
   // Return `{ oid, dom, jsxe, rect }` for the top-most jsxElement IN Z-INDEX ORDER
   //  at the CURRENT mouse location.  This DOES take z-index into account!
-  getMouseElement() {
+  getMouseInfo() {
     return this.getTopElementAtPoint(oak.event.clientLoc, oak.event.mouseTarget);
   }
 
@@ -221,7 +221,7 @@ export default class ComponentController extends ChildController {
   //
   // NOTE: only valid while the mouse is actually down.
 //TESTME: make sure scrolling after the mouse goes down doesn't affect this!
-  getDownElement() {
+  getMouseDownInfo() {
     return this.getTopElementAtPoint(oak.event.downClientLoc, oak.event.downTarget);
   }
 
