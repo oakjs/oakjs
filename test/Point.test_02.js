@@ -1,3 +1,4 @@
+import "babel-core/external-helpers";
 
 let chai  = require('chai');
 //    path  = require('path');
