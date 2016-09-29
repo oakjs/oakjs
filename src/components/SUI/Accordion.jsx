@@ -6,7 +6,6 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { autobind } from "oak-roots/util/decorators";
 
 import { isElement, hasClass, unknownProperties } from "./SUI";
 import ElementBuffer from "./ElementBuffer";

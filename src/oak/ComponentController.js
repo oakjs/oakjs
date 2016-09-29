@@ -7,7 +7,7 @@
 import babel from "oak-roots/util/babel";
 import ChildController from "oak-roots/ChildController";
 import Stylesheet from "oak-roots/Stylesheet";
-import { autobind, proto, throttle } from "oak-roots/util/decorators";
+import { proto, throttle } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
 import ids from "oak-roots/util/ids";
 

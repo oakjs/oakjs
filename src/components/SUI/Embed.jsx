@@ -6,7 +6,6 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { autobind } from "oak-roots/util/decorators";
 
 import SUIModuleComponent from "./SUIModuleComponent";
 

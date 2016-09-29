@@ -12,7 +12,7 @@
 
 import Loadable from "oak-roots/Loadable";
 import Savable from "oak-roots/Savable";
-import { autobind, proto, throttle } from "oak-roots/util/decorators";
+import { proto, throttle } from "oak-roots/util/decorators";
 import ids from "oak-roots/util/ids";
 
 export default class ChildController extends Savable(Loadable()) {
