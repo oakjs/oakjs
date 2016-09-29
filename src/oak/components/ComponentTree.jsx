@@ -68,7 +68,6 @@ export default class ComponentTree extends OakComponent {
 
   // Should some element be "open" in the list?
   isOpen(oid) {
-console.log(oid);
     return !!this.state.opens[oid];
   }
 
