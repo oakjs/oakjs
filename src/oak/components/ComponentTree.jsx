@@ -43,14 +43,14 @@ export default class ComponentTree extends PreferentialComponent(OakComponent) {
 
   getPrefId(props) {
     const root = this.getRootElement(props);
-    if (root) return `oak.ComponentTree.opensFor.${root.props.oid}`;
+    if (root) return `oak.ComponentTree.opensFor.${root.oid}`;
   }
 
   getDefaultPrefs(props) {
     const prefs = { opens: {} };
     // default to opening the root element
     const root = this.getRootElement(props);
-    if (root) prefs.opens[root.props.oid] = 1;
+    if (root) prefs.opens[root.oid] = 1;
 
     return prefs;
   }

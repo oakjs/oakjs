@@ -73,6 +73,10 @@ export default class ComponentController extends ChildController {
   // "private" things are findable, but don't show up in menus, etc
   get isPrivate() { return this.id.startsWith("_") }
 
+  // Oid of our root component
+  get oid() {
+    return this.jsxFragment && this.jsxFragment.root.oid;
+  }
   // Props come from the root element of our JSXE
   get props() {
     return this.jsxFragment && this.jsxFragment.root.props;
@@ -91,11 +95,6 @@ export default class ComponentController extends ChildController {
   // Refs come from our instantiated component
   get refs() { return this.component ? this.component.refs : {} }
 
-  // Oid of this component
-  get oid() {
-    const props = this.props;
-    return props && props.oid;
-  }
 
   //////////////////////////////
   //  Components

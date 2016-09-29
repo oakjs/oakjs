@@ -34,15 +34,9 @@ export default class JSXElement {
   //  Identification via `oid`
   //////////////////////////////
 
-  get oid() { return this.props && this.props.oid }
-  set oid(oid) {
-    if (!this.props) this.props = {};
-    this.props.oid = oid;
-  }
-
   get childOids() { return this.children && this.children.map(child => JSXElement.getOid(child) ) }
 
-  // Given a JSXElement, `oid` string, return an oid string.
+  // Given a `JSXElement` or `oid` string, return an oid string.
   // Returns `undefined` if none of the above.
   static getOid(thing) {
     if (typeof thing === "string") return thing;
@@ -137,10 +131,7 @@ export default class JSXElement {
     const type = this.type;
 
     const isEditable = options && options.editable;
-    // pull `oid` out of props
-//  TODO: don't put it in there in the first place...
-    const { oid, ...props } = this.props;
-    const attrExpression = this._propsToSource(indent, options, props);
+    const attrExpression = this._propsToSource(indent, options, this.props);
 
     // output on one line if no children
     let element;
@@ -167,8 +158,8 @@ export default class JSXElement {
     }
 
     // <Oidify> if editable
-    if (oid && isEditable) {
-      return `createElement("Oak.Oidify", { oid: "${oid}", ref: "${oid}" }, ${element} )`;
+    if (this.oid && isEditable) {
+      return `createElement("Oak.Oidify", { oid: "${this.oid}", ref: "${this.oid}" }, ${element} )`;
     }
     return element;
   }

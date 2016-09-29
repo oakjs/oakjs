@@ -19,25 +19,21 @@ export default class JSXParser extends AcornParser {
     return JSXElement;
   }
 
-  // Add a unique-ish `oid` property to all nodes as we parse node props.
-  // NOTE: this will then be saved with the node...
+  // Assign a unique (within this parse run, anyway) `oid` to the element.
+  // NOTE: this will NOT be saved with the node...
   parseProps(element, astElement, code, options) {
-    const props = super.parseProps(element, astElement, code, options) || {};
-
     // make sure we've got an oid that's unique within options.oids
-    while (!props.oid || (props.oid in options.oids)) {
-      props.oid = (options.getRandomOid ? options.getRandomOid() : JSXFragment.getRandomOid() );
+    while (!element.oid || (element.oid in options.oids)) {
+      element.oid = (options.getRandomOid ? options.getRandomOid() : JSXFragment.getRandomOid() );
     }
-    // point to the element by oid for later
-    options.oids[props.oid] = element;
-
-    return props;
+    options.oids[element.oid] = element;
+    return super.parseProps(element, astElement, code, options) || {};
   }
 
+  // Have children point back to their parent.
   parseChild(parent, astElement, code, options) {
     const child = super.parseChild(parent, astElement, code, options);
     if (child instanceof JSXElement) {
-      // have children point back to their parent
       if (parent.oid) child._parent = parent.oid;
     }
     return child;
