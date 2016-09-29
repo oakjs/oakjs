@@ -51,5 +51,12 @@ export function removeFromLocalStorage(key) {
   }
 }
 
+// Cover routine in case `window.getAnimationFrame` is not defined
+//  which will execute the specified `callback` immediately.
+export const requestAnimationFrame = (global.requestAnimationFrame
+  ? global.requestAnimationFrame.bind(global)
+  : function(callback){ callback(Date.now()) }
+);
+
 // Export all as one map
 export default {...exports};
