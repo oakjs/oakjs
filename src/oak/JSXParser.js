@@ -22,11 +22,12 @@ export default class JSXParser extends AcornParser {
   // Assign a unique (within this parse run, anyway) `oid` to the element.
   // NOTE: this will NOT be saved with the node...
   parseProps(element, astElement, code, options) {
-    // make sure we've got an oid that's unique within options.oids
-    while (!element.oid || (element.oid in options.oids)) {
-      element.oid = (options.getRandomOid ? options.getRandomOid() : JSXFragment.getRandomOid() );
+    // assign a unique `oid` to the element
+    const { fragment } = options;
+    if (fragment) {
+      element.oid = fragment.getUniqueOid();
+      fragment.oids[element.oid] = element;
     }
-    options.oids[element.oid] = element;
     return super.parseProps(element, astElement, code, options) || {};
   }
 
