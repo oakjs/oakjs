@@ -148,7 +148,7 @@ export default class OakEvent {
   }
 
   //////////////////////////////
-  // OID Element detection
+  // Mouse Move / Down detection
   //////////////////////////////
 
   // DOM Element under the mouse, NOT including the `SelectionOverlay`.
