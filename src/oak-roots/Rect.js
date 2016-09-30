@@ -157,9 +157,12 @@ export default class Rect {
   //////////////////////////////
 
   // Return the smallest `Rect` which contains all `rects` passed in.
-  // If `rects` is empty returns a 0-size rect.
+  // If `rects` is empty returns `undefined`.
+//TODO: return `undefined` if no rects???
   static containingRect(rects) {
-    if (!rects || !rects.length) return new Rect();
+    if (!rects || !rects.length) return undefined;
+
+    // If only one thing, just clone it.
     if (rects.length === 1) return rects[0].clone();
 
     let { left, top, right, bottom } = rects[0];
@@ -175,6 +178,7 @@ export default class Rect {
   }
 
   // Given two points, return the rectangle as top-left and bottom-right.
+  // Returns `undefined` if either point is `null`.
   static rectFromPoints(point1, point2) {
     if (!point1 || !point2) return undefined;
 
