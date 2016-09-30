@@ -55,7 +55,7 @@ export default class Resizer extends OakComponent {
   // Update our child `<SelectionRect>`s to match the current geometry of the `selection`.
   updateGeometry() {
     const { selection } = this.props;
-    if (!selection) return null;
+    if (!selection || !selection.length) return null;
 
     // iterate through selected elements, accumulating `rects` of each
     const rects = [];
