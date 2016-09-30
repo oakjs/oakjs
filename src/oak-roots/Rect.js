@@ -76,6 +76,14 @@ export default class Rect {
     }
   }
 
+  // Return as a CSS-compatible string.
+  get styleString() {
+    return `left: ${this.left}px; `
+         + `top: ${this.top}px; `
+         + `width: ${this.width}px; `
+         + `height: ${this.height}px;`
+  }
+
   get size() {
     return { width: this.width, height: this.height }
   }

@@ -6,51 +6,29 @@
 //  If you pass a `getRect()` prop, we'll dynamically apply the rectangle on mount/update.
 //////////////////////////////
 
-import React from "react";
-import ReactDOM from "react-dom";
+import { updateRect } from "oak-roots/util/react";
 
-import requestAnimationFrame from "oak-roots/util/browser";
+import OakComponent from "./OakComponent";
 
 import "./SelectionRect.less";
 
-export default class SelectionRect extends React.Component {
+export default class SelectionRect extends OakComponent {
 
   // If we have a `getRect()` prop, update rect dynamically on mount/update.
   componentDidMount() {
-    this._isMounted = true;
-    if (this.props.getRect) this.updateRect();
-  }
-
-  componentWillUpdate() {
-     this._isMounted = false;
+    super.componentDidMount();
+    this.updateRect();
   }
 
   componentDidUpdate() {
-    this._isMounted = true;
-    if (this.props.getRect) this.updateRect();
-  }
-
-  componentWillUnmount() {
-     this._isMounted = false;
+    super.componentDidUpdate();
+    this.updateRect();
   }
 
   // Update our element's style to represent the `rect` returned by `props.getRect()`.
+// TODO: don't update if rect doesn't change ???
   updateRect() {
-    // Guard if this is called when we're not mounted.
-    if (!this._isMounted) return;
-
-    const getRect = this.props.getRect;
-    if (!getRect) return;
-
-    const element = ReactDOM.findNode(this);
-    if (!element) return;
-
-    const rect = getRect(this.props);
-    const style = (rect ? rect.style : "");
-
-    // Use `requestAnimationFrame` to update so we're separating our read/write cycles.
-    // This is recommended for animation speed.
-    requestAnimationFrame( () => element.setAttribute("style", style) );
+    if (this.props.getRect) updateRect(this.ref(), this.props.getRect);
   }
 
 

@@ -3,6 +3,8 @@
 //////////////////////////////
 
 import { PropTypes } from "react";
+
+import { requestAnimationFrame } from "./browser";
 import { knownProperties, unknownProperties } from "./object";
 
 export const stringOrFn = PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]);
@@ -74,6 +76,17 @@ export function mergeProps(...propSets) {
   return props;
 }
 
+// Update the css style of `element` to match `Rect` returned by `getRect()`.
+// If `getRect()` returns `undefined`, clears the style.
+export function updateRect(element, getRect) {
+	if (!element) return;
+
+	const rect = getRect();
+	const style = (rect ? rect.styleString : "");
+
+	// Use `requestAnimationFrame` to update so we're separating our read/write cycles.
+	requestAnimationFrame( () => element.setAttribute("style", style) );
+}
 
 
 export default {...exports};

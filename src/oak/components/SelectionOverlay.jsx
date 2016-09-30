@@ -2,10 +2,12 @@
 // Overlay which shows/manages selection
 //////////////////////////////
 
-import { throttle } from "oak-roots/util/decorators";
 import Point from "oak-roots/Point";
 import Rect from "oak-roots/Rect";
 import { UndoTransaction } from "oak-roots/UndoQueue";
+
+import { updateRect } from "oak-roots/util/react";
+import { throttle } from "oak-roots/util/decorators";
 
 import { getDragPreviewForElements } from "oak-roots/util/elements";
 
@@ -25,10 +27,16 @@ export default class SelectionOverlay extends OakComponent {
 
   componentDidMount() {
     super.componentDidMount();
+    this.updateRect();
     // update selection rectangle(s) when window scrolls, zooms or resizes
     $(document).on("scroll", this.onScroll);
     $(document).on("zoom", this.onZoom);
     $(window).on("resize", this.onResize);
+  }
+
+  componentDidUpdate() {
+    super.componentDidUpdate();
+    this.updateRect();
   }
 
   componentWillUnmount() {
@@ -518,6 +526,11 @@ console.log("startDragMoving", info, this.state.dragComponents);
   //  Rendering
   //////////////////////////////
 
+  // Update our outer rectangle to match the editController's root node.
+  updateRect() {
+    updateRect(this.ref(), ()=> oak.getRectForOid(oak.editController && oak.editController.oid));
+  }
+
   renderHoverElement() {
     if (this.state.dragSelecting) return;
     return <SelectionRect ref="hover" type="hover" onMouseDown={this.onSelectionDown}/>;
@@ -561,8 +574,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
     const props = {
       id: "SelectionOverlay",
       onMouseDown: this.onMouseDown,
-      onMouseMove: this.onMouseMove,
-      style: oak.getRectForOid(oak.editController && oak.editController.oid)
+      onMouseMove: this.onMouseMove
     }
 
     return (

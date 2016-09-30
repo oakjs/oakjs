@@ -58,7 +58,7 @@ export default class OakComponent extends React.Component {
   }
 
   componentWillUpdate() {
-    this._isMounted = false;
+//    this._isMounted = false;
   }
 
   componentWillUnmount() {
@@ -79,10 +79,10 @@ export default class OakComponent extends React.Component {
   // Return one of our refs as a DOM node.
   // If you don't pass a `refName` string, we'll get the root node.
   // Returns `undefined` if we're not rendered or we can't find the ref.
-  ref(refName) {
+  ref(refName = this) {
     if (!this._isMounted) return undefined;
-    const ref = (refName ? this.refs[refName] : this);
-    if (!ref) return $();
+    const ref = (typeof refName === "string" ? this.refs[refName] : refName);
+    if (!ref) return undefined;
     return ReactDOM.findDOMNode(ref);
 
   }
