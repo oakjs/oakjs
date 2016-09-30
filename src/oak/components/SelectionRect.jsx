@@ -32,7 +32,7 @@ export default class SelectionRect extends OakComponent {
 
 
   render() {
-    const { type, rect, oid, position, children, onMouseDown } = this.props;
+    const { type, rect, position, children, onMouseDown } = this.props;
 
     const rectProps = {
       className: `oak ${type} SelectionRect`,
