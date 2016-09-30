@@ -49,15 +49,20 @@ export default class ComponentController extends ChildController {
 
 
   //////////////////////////////
-  //  Selection
+  //  Selection / Editing
   //////////////////////////////
-//TODO: move selection from `oak` to CC (via redux?)
+//TODO: move this from `oak` to CC (via redux?)
   get selection() {
     if (oak.editController === this) return oak.selection;
   }
 
   get selectedComponents() {
     if (oak.editController === this) return oak.selectedComponents;
+  }
+
+  // Are we currently in `edit` mode?
+  get isEditing() {
+    return (oak.editController === this && oak.state.editing);
   }
 
 
@@ -148,6 +153,9 @@ export default class ComponentController extends ChildController {
       rect: elements.clientRect(dom)
     }
   }
+
+
+//TODO: autobind these???
 
   // Return the JSXElement for the specified `oid`.
   // Only works if our render was drawn while we were 'editable'.
