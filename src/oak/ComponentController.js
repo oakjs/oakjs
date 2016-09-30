@@ -119,10 +119,25 @@ export default class ComponentController extends ChildController {
     return oids;
   }
 
+  // Return `{ oid, dom, jsxe, rect }` for the specified `oid`.
+  // Returns `undefined` if oid not found in our children or is not accessible because of rendering.
+  // Only works if our render was drawn while we were 'editable'.
+  getInfoForOid(oid) {
+    const jsxe = this.getJSXElementForOid(oid);
+    const dom = this.getDOMElementForOid(oid);
+    if (!jsxe || !dom) return undefined;
+    return {
+      oid,
+      jsxe,
+      dom,
+      rect: elements.clientRect(dom)
+    }
+  }
+
   // Return the JSXElement for the specified `oid`.
+  // Only works if our render was drawn while we were 'editable'.
   getJSXElementForOid(oid) {
-    const oids = this.oids;
-    return oid && oids && oids[oid];
+    if (this.jsxFragment) return this.jsxFragment.getElement(oid);
   }
 
   // Return the DOM element associated with an `oid`.
@@ -130,9 +145,11 @@ export default class ComponentController extends ChildController {
   getDOMElementForOid(oid) {
     if (!this.component) return undefined;
     const component = this.component.refs[oid];
-    return ReactDOM.findDOMNode(component);
+    if (component) return ReactDOM.findDOMNode(component);
   }
 
+  // Return the current `clientRect` for the specified `oid`.
+  // Only works if our render was drawn while we were 'editable' and we're not redrawing.
   getRectForOid(oid) {
     const element = this.getDOMElementForOid(oid);
     if (element) return elements.clientRect(element);
