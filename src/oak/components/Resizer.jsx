@@ -7,7 +7,6 @@ import React, { PropTypes } from "react";
 import Rect from "oak-roots/Rect";
 import { updateRect, toggleElement } from "oak-roots/util/react";
 
-import oak from "../oak";
 import OakComponent from "./OakComponent";
 import SelectionRect from "./SelectionRect";
 
@@ -15,8 +14,16 @@ import "./Resizer.css";
 
 export default class Resizer extends OakComponent {
   static propTypes = {
-    controller: PropTypes.object,
-    selection: PropTypes.any,
+    // Array of selected items.
+    selection: PropTypes.array,
+
+    // Return a `Rect` for the current position of an item from `selection`.
+    getRectForSelectedItem: PropTypes.func,
+
+    // Return a unique identifier for an item from `selection`.
+    // By default we'll just `toString()` the item.
+    getKeyForSelectedItem: PropTypes.func,
+
     canResizeWidth: PropTypes.bool,
     canResizeHeight: PropTypes.bool,
 
@@ -35,6 +42,7 @@ export default class Resizer extends OakComponent {
   }
 
 
+
   //////////////////////////////
   // Events and geometry
   //////////////////////////////
@@ -46,18 +54,19 @@ export default class Resizer extends OakComponent {
 
   // Update our child `<SelectionRect>`s to match the current geometry of the `selection`.
   updateGeometry() {
-    const { controller, selection } = this.props;
-    if (!controller || !selection) return null;
+    const { selection } = this.props;
+    if (!selection) return null;
 
     // iterate through selected elements, accumulating `rects` of each
     const rects = [];
-    selection.map( oid => {
-      const element = this.getElement(`selection-${oid}`);
+    selection.map( item => {
+      const element = this.getElement(`selection-${item}`);
       if (!element) return;
-      const info = controller.getInfoForOid(oid);
-      const rect = info && info.rect;
 
+      const rect = this.props.getRectForSelectedItem(item);
       updateRect(element, rect);
+
+      // add to the list of rects so we can calculate outer size
       if (rect) rects.push(rect);
     })
 
@@ -66,8 +75,8 @@ export default class Resizer extends OakComponent {
     updateRect(this.getElement(), outerRect);
     updateRect(this.getElement("resizer"), outerRect);
 
-    // Show/hide handles accourding to outerRect
-    const activeHandles = outerRect ? this.getActiveHandles(outerRect) : [];
+    // Show/hide handles according to outerRect
+    const activeHandles = this.getActiveHandles(outerRect);
     this.constructor.ALL_HANDLES.forEach( handle => {
       const element = this.getElement(`handle-${handle}`);
       const isActive = activeHandles.includes(handle)
@@ -80,17 +89,21 @@ export default class Resizer extends OakComponent {
   // Selection rectangles
   //////////////////////////////
 
-  // Render a `<SelectionRect>` for each oid in the selection.
+  // Return string key for the `item` from the selection.
+  // By default we just convert `item` to a string.
+  getKeyForSelectedItem(item) {
+    if (this.props.getKeyForSelectedItem) return this.props.getKeyForSelectedItem(item);
+    return ""+item;
+  }
+
+  // Render a `<SelectionRect>` for each item in the selection.
   // Their geometry will be set in `updateGeometry()`.
-  renderSelectionRects(selection) {
-    return selection.map( oid => <SelectionRect {...{
-        key: oid,
-        type: "selection",
-        oid,
-        ref: `selection-${oid}`,
-        onMouseDown: this.props.onSelectionDown
-      }} />
-    );
+  renderSelectionRects() {
+    const { selection, onSelectionDown } = this.props;
+    return selection.map( item => {
+      const key = this.getKeyForSelectedItem(item);
+      return <SelectionRect type="selection" key={key} ref={`selection-${key}`} onMouseDown={onSelectionDown}/>
+    });
   }
 
   //////////////////////////////
@@ -105,7 +118,7 @@ export default class Resizer extends OakComponent {
   // TODO: don't show handles that don't apply!!!
   getActiveHandles(containingRect) {
     const { canResizeWidth, canResizeHeight } = this.props;
-    if (!canResizeWidth && !canResizeWidth) return [];
+    if (!containingRect || !canResizeWidth && !canResizeWidth) return [];
 
     const isNarrow = containingRect.width < Resizer.NARROW_WIDTH;
     const isShort = containingRect.height < Resizer.SHORT_HEIGHT;
@@ -153,7 +166,7 @@ export default class Resizer extends OakComponent {
 
     return (
       <div className="oak Resizer">
-        { this.renderSelectionRects(selection) }
+        { this.renderSelectionRects() }
         { <SelectionRect type="resizer" ref="resizer" /> }
         { this.renderHandles() }
       </div>
