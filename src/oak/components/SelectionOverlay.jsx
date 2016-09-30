@@ -27,7 +27,7 @@ export default class SelectionOverlay extends OakComponent {
 
   componentDidMount() {
     super.componentDidMount();
-    this.updateRect();
+    this.updateOuterRect();
     // update selection rectangle(s) when window scrolls, zooms or resizes
     $(document).on("scroll", this.onScroll);
     $(document).on("zoom", this.onZoom);
@@ -36,7 +36,7 @@ export default class SelectionOverlay extends OakComponent {
 
   componentDidUpdate() {
     super.componentDidUpdate();
-    this.updateRect();
+    this.updateOuterRect();
   }
 
   componentWillUnmount() {
@@ -76,47 +76,12 @@ export default class SelectionOverlay extends OakComponent {
     if (oak.selection && oak.selection.length) {
       this.forceUpdate();
     }
-
-    this._clearHoverRect();
-  }
-
-  // NOTE: we set hover rectangle manually rather than fully redrawing
-  //       so we're not redrawing the overlay on mousemove.
-  //       This is more efficient and prevents cursor flash.
-  @throttle(1)
-  _updateHoverRect(event) {
-    if (!oak.editController) return;
-    const mouseInfo = oak.editController.getMouseInfo();
-    let rect;
-    if (mouseInfo) {
-      const isInsideHandle = event && $(event.target).is(".ResizeHandle");
-      if (!isInsideHandle && !oak.event.anyButtonDown) {
-        rect = mouseInfo.rect;
-      }
-    }
-    this._moveRect("hover", rect);
-  }
-
-  _clearHoverRect() {
-    this._moveRect("hover");
-  }
-
-  _moveRect(ref, rect) {
-    if (!this._isMounted || !this.refs[ref]) return;
-
-    const $element = $(ReactDOM.findDOMNode(this.refs[ref]))
-    if (rect) $element.css(rect);
-    else      $element.attr("style", "");
   }
 
 
   //////////////////////////////
   // Mouse events which manipulate selection
   //////////////////////////////
-
-  onMouseMove = (event) => {
-    this._updateHoverRect(event);
-  }
 
   // Mouse down on overlay itself
   onMouseDown = (event) => {
@@ -523,17 +488,41 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
 
   //////////////////////////////
-  //  Rendering
+  //  Hover element -- updates on mouseMove to show the element they're currently "over"
   //////////////////////////////
 
-  // Update our outer rectangle to match the editController's root node.
-  updateRect() {
-    updateRect(this.ref(), ()=> oak.getRectForOid(oak.editController && oak.editController.oid));
+//TODO: throttle???
+  onMouseMove = (event) => {
+    if (this.refs.hover) this.refs.hover.updateRect();
   }
 
   renderHoverElement() {
     if (this.state.dragSelecting) return;
-    return <SelectionRect ref="hover" type="hover" onMouseDown={this.onSelectionDown}/>;
+    return <SelectionRect ref="hover" type="hover" onMouseDown={this.onSelectionDown} getRect={this.getHoverRect}/>;
+  }
+
+  // Return the dynamic rect to show for the `hover` element.
+  getHoverRect() {
+    if (!oak.editController) return;
+
+    const mouseInfo = oak.editController.getMouseInfo();
+    if (!mouseInfo) return;
+
+    const isInsideHandle = event && $(oak.event.target).is(".ResizeHandle");
+    if (isInsideHandle || oak.event.anyButtonDown) return;
+
+    return mouseInfo.rect;
+  }
+
+
+
+  //////////////////////////////
+  //  Rendering
+  //////////////////////////////
+
+  // Update our outer rectangle to match the editController's root node.
+  updateOuterRect() {
+    updateRect(this.ref(), ()=> oak.getRectForOid(oak.editController && oak.editController.oid));
   }
 
   renderSelection() {

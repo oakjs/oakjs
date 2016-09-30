@@ -26,7 +26,6 @@ export default class SelectionRect extends OakComponent {
   }
 
   // Update our element's style to represent the `rect` returned by `props.getRect()`.
-// TODO: don't update if rect doesn't change ???
   updateRect() {
     if (this.props.getRect) updateRect(this.ref(), this.props.getRect);
   }
@@ -39,6 +38,7 @@ export default class SelectionRect extends OakComponent {
       className: `oak ${type} SelectionRect`,
       onMouseDown
     }
+
     // Only apply rect if defined, otherwise assume we have a `getRect()` which will set it.
     if (rect) rectProps.style = rect;
 
