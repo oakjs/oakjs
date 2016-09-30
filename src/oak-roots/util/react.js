@@ -4,6 +4,7 @@
 
 import { PropTypes } from "react";
 
+import Rect from "oak-roots/Rect";
 import { requestAnimationFrame } from "./browser";
 import { knownProperties, unknownProperties } from "./object";
 
@@ -76,17 +77,26 @@ export function mergeProps(...propSets) {
   return props;
 }
 
-// Update the css style of `element` to match `Rect` returned by `getRect()`.
+// Update the css style of `element` to match `rect`.
+// `rect` can be a `Rect` object or a function which returns a `Rect`.
 // If `getRect()` returns `undefined`, clears the style.
-export function updateRect(element, getRect) {
+// NOTE: MODIFIES THE DOM!  This may get overwritten on update if React manipulates `element.style`.
+export function updateRect(element, rect) {
 	if (!element) return;
 
-	const rect = getRect();
-	const style = (rect ? rect.styleString : "");
+	// If `rect` is a function, recurse with the actual value.
+	if (rect instanceof Function) return updateRect(element, rect());
+
+	const style = (rect instanceof Rect ? rect.styleString : "");
 
 	// Use `requestAnimationFrame` to update so we're separating our read/write cycles.
 	requestAnimationFrame( () => element.setAttribute("style", style) );
 }
 
+// Show or hide an `element` according to boolean `condition`,
+// NOTE: MODIFIES THE DOM!  This may get overwritten on update if React manipulates `element.style`.
+export function toggleElement(element, condition) {
+	if (element) element.style.display = (!!condition ? "block" : "none");
+}
 
 export default {...exports};
