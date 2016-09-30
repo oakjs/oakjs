@@ -36,22 +36,6 @@ export default class SelectionOverlay extends OakComponent {
     this.state = {};
   }
 
-  componentDidMount() {
-    super.componentDidMount();
-    this.installEvents();
-    this.updateGeometry();
-  }
-
-  componentDidUpdate() {
-    super.componentDidUpdate();
-    this.updateGeometry();
-  }
-
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    this.removeEvents();
-  }
-
 
   //////////////////////////////
   // Syntactic sugar
@@ -73,6 +57,7 @@ export default class SelectionOverlay extends OakComponent {
   get selectedElements() {
     return (this.props.controller && this.props.controller.selectedComponents) || [];
   }
+
 
   //////////////////////////////
   // Events and geometry

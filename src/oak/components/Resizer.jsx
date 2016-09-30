@@ -31,17 +31,6 @@ export default class Resizer extends OakComponent {
     onHandleDown: PropTypes.func,
   };
 
-  componentDidMount() {
-    super.componentDidMount();
-    this.updateGeometry();
-  }
-
-  componentDidUpdate() {
-    super.componentDidUpdate();
-    this.updateGeometry();
-  }
-
-
 
   //////////////////////////////
   // Events and geometry
@@ -49,7 +38,7 @@ export default class Resizer extends OakComponent {
 
   // Mouse wend down in one of our handles.
   onHandleDown(event, handle) {
-    if (this.props.handleDown) this.props.onHandleDown(event, handle)
+    if (this.props.onHandleDown) this.props.onHandleDown(event, handle)
   }
 
   // Update our child `<SelectionRect>`s to match the current geometry of the `selection`.

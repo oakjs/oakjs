@@ -48,28 +48,62 @@ export default class OakComponent extends React.Component {
   // Component Lifecycle
   //////////////////////////////
 
-  // Maintain an `_isMounted` flag so we can know when it's safe to get refs
+  // When mounting:
   componentDidMount() {
+		// Maintain an `_isMounted` flag so we can know when it's safe to get refs
     this._isMounted = true;
+    // Set up any global event handlers
+    this.installEvents();
+    // Update geometry of our elements
+    this.updateGeometry();
   }
 
-  componentDidUpdate() {
-    this._isMounted = true;
-  }
-
+	// Before we update:
   componentWillUpdate() {
-//    this._isMounted = false;
+  	// Turn off `_isMounted` flag so we don't to manipulate elements while redrawing
+    this._isMounted = false;
   }
 
+	// After updating:
+  componentDidUpdate() {
+  	// Turn `_isMounted` flag back on
+    this._isMounted = true;
+    // Update geometry as necessary.
+    this.updateGeometry();
+  }
+
+	// On unmount:
   componentWillUnmount() {
+    // Turn off `_isMounted` flag
     this._isMounted = false;
+  	// Clean up any event handlers
+    this.removeEvents();
   }
 
 
 	// Update this component soon, but only if it's still mounted.
+	// You can safely use this to redraw when a promise is fulfilled.
 	updateSoon = () => {
 		if (this._isMounted) this.setState({});
 	}
+
+
+  //////////////////////////////
+  // 	Events and Geometry
+  //
+  //	Implement the methods below to set up events
+  //	set up geometry after your object has been drawn.
+  //////////////////////////////
+
+	// Initialize events when we're mounted.
+	installEvents() {}
+
+	// Remove events when we're unmounted.
+	removeEvents() {}
+
+	// Update geometry of our elements after mount / update.
+	// You can count on refs, etc being defined here.
+	updateGeometry() {}
 
 
   //////////////////////////////
