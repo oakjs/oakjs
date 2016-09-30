@@ -47,6 +47,21 @@ export default class ComponentController extends ChildController {
   @proto
   type = "Component";
 
+
+  //////////////////////////////
+  //  Selection
+  //////////////////////////////
+//TODO: move selection from `oak` to CC (via redux?)
+  get selection() {
+    if (oak.editController === this) return oak.selection;
+  }
+
+  get selectedComponents() {
+    if (oak.editController === this) return oak.selectedComponents;
+  }
+
+
+
   //////////////////////////////
   //  ChildController stuff
   //////////////////////////////

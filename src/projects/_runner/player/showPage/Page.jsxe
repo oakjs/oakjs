@@ -8,7 +8,7 @@
     </Oak.FixedPanel>
     <Oak.Panel fluid scrolling>
       <Oak.CurrentProject/>
-      <Oak.SelectionOverlay ref="selectionOverlay"/>
+      <Oak.SelectionOverlay ref="selectionOverlay" controller={oak.editController}/>
     </Oak.Panel>
   </Oak.SplitPanel>
 </Oak.Page>

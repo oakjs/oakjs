@@ -39,7 +39,6 @@ export function RightSidebar(callback){ require.ensure([], () => callback(requir
 export function Placeholder(callback){ require.ensure([], () => callback(require("./Oak/Placeholder"))) };
 export function Project(callback){ require.ensure([], () => callback(require("./Oak/Project"))) };
 export function RenderWhenVisible(callback){ require.ensure([], () => callback(require("./Oak/RenderWhenVisible"))) };
-export function ResizeHandle(callback){ require.ensure([], () => callback(require("./Oak/ResizeHandle"))) };
 export function Resizer(callback){ require.ensure([], () => callback(require("./Oak/Resizer"))) };
 export function Section(callback){ require.ensure([], () => callback(require("./Oak/Section"))) };
 export function SelectionOverlay(callback){ require.ensure([], () => callback(require("./Oak/SelectionOverlay"))) };
