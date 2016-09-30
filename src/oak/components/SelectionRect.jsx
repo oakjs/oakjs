@@ -27,7 +27,7 @@ export default class SelectionRect extends OakComponent {
 
   // Update our element's style to represent the `rect` returned by `props.getRect()`.
   updateRect() {
-    if (this.props.getRect) updateRect(this.ref(), this.props.getRect);
+    if (this.props.getRect) updateRect(this.getElement(), this.props.getRect);
   }
 
 

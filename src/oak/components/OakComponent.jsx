@@ -79,7 +79,7 @@ export default class OakComponent extends React.Component {
   // Return one of our refs as a DOM node.
   // If you don't pass a `refName` string, we'll get the root node.
   // Returns `undefined` if we're not rendered or we can't find the ref.
-  ref(refName = this) {
+  getElement(refName = this) {
     if (!this._isMounted) return undefined;
     const ref = (typeof refName === "string" ? this.refs[refName] : refName);
     if (!ref) return undefined;
@@ -90,8 +90,8 @@ export default class OakComponent extends React.Component {
   // Return one our `ref`s DOM node as a jQuery vector.
   // ALWAYS returns a jQuery vector, but it may be empty.
   // DEPRECATED
-  $ref(refName) {
-    return $(this.ref(refName));
+  $getElement(refName) {
+    return $(this.getElement(refName));
   }
 
   //////////////////////////////

@@ -164,7 +164,7 @@ class SUIDropdown extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    this.$ref().dropdown(...args);
+    this.$getElement().dropdown(...args);
   }
 
   // Update `value` as parsimoniously as possible to minimize

@@ -52,7 +52,7 @@ export default class Resizer extends OakComponent {
     // iterate through selected elements, accumulating `rects` of each
     const rects = [];
     selection.map( oid => {
-      const element = this.ref(`selection-${oid}`);
+      const element = this.getElement(`selection-${oid}`);
       if (!element) return;
       const info = controller.getInfoForOid(oid);
       const rect = info && info.rect;
@@ -63,13 +63,13 @@ export default class Resizer extends OakComponent {
 
     // size the outer rectangle
     const outerRect = Rect.containingRect(rects);
-    updateRect(this.ref(), outerRect);
-    updateRect(this.ref("resizer"), outerRect);
+    updateRect(this.getElement(), outerRect);
+    updateRect(this.getElement("resizer"), outerRect);
 
     // Show/hide handles accourding to outerRect
     const activeHandles = outerRect ? this.getActiveHandles(outerRect) : [];
     this.constructor.ALL_HANDLES.forEach( handle => {
-      const element = this.ref(`handle-${handle}`);
+      const element = this.getElement(`handle-${handle}`);
       const isActive = activeHandles.includes(handle)
       toggleElement(element, isActive);
     });

@@ -70,7 +70,7 @@ export default class SUIComponent extends React.Component {
   // Return one our `ref`s DOM node as a jQuery vector.
   // If you don't pass a `ref` string, we'll get the root node.
   // NOTE: this is not very react-y...
-  $ref(refName) {
+  $getElement(refName) {
     const ref = (refName ? this.refs[refName] : this);
     if (!ref) return $();
     return $(ReactDOM.findDOMNode(ref));

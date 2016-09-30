@@ -59,10 +59,6 @@ export default class SelectionOverlay extends OakComponent {
     $(window).off("resize", this.onResize);
   }
 
-  getElement(oid) {
-    return this.props.controller.getJSXElementForOid(oid);
-  }
-
   getRectForOid(oid) {
     return this.props.controller.getRectForOid(oid);
   }
@@ -73,12 +69,12 @@ export default class SelectionOverlay extends OakComponent {
     if (!controller) return;
 
     // Update the outer rect of the component to the rect of the controller.
-    updateRect(this.ref(), controller.getRectForOid(controller.oid));
+    updateRect(this.getElement(), controller.getRectForOid(controller.oid));
 
     // update the rect of the dropParent, outsetting by 5 for better visual effect
     let dropRect = this.getRectForOid(this.state.dropParent);
     if (dropRect) dropRect.outset(5);
-    updateRect(this.ref("dropTarget"), dropRect);
+    updateRect(this.getElement("dropTarget"), dropRect);
   }
 
 
@@ -305,8 +301,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
     this.setState({
       dropParent: parent,
-      dropPosition: position,
-      dropParentRect: parent && oak.getRectForOid(parent)
+      dropPosition: position
     });
 
     // Call the immediate `forceUpdate` routine
@@ -345,7 +340,6 @@ console.log("startDragMoving", info, this.state.dragComponents);
       dragOids: undefined,
       dragComponents: undefined,
       dropParent: undefined,
-      dropParentRect: undefined,
       dropPosition: undefined,
       dragMoveProps: undefined
     });
@@ -387,7 +381,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
     let parent = jsxElement;
     while (parent) {
       if (parent.canDrop(dragComponents)) return parent;
-      parent = this.getElement(parent._parent);
+      parent = this.props.controller.getJSXElementForOid(parent._parent);
     }
   }
 
@@ -408,7 +402,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
   // Return an array of `{ oid, position, rect }` for children of our dropParent.
   getDropChildrenRects(dropParent) {
-    if (typeof dropParent === "string") dropParent = this.getElement(dropParent);
+    if (typeof dropParent === "string") dropParent = this.props.controller.getJSXElementForOid(dropParent);
     if (!dropParent || !dropParent.children && !dropParent.children.length) return undefined;
 
     // divide into rows

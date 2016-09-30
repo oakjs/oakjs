@@ -148,7 +148,7 @@ class SUIAccordion extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().accordion(...args);
+    return this.$getElement().accordion(...args);
   }
 
   normalizeOpen(open = this.props.open) {

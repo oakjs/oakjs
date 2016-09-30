@@ -99,7 +99,7 @@ class SUIProgress extends SUIModuleComponent {
   }
 
   tellModule(...args) {
-    return this.$ref().progress(...args);
+    return this.$getElement().progress(...args);
   }
 
   //////////////////////////////

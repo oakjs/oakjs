@@ -99,7 +99,7 @@ class SUISearch extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().search(...args);
+    return this.$getElement().search(...args);
   }
 
   setModuleProps(props = {}) {

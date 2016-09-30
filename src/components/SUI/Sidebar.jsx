@@ -84,11 +84,11 @@ class SUISidebar extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().sidebar(...args);
+    return this.$getElement().sidebar(...args);
   }
 
   setModuleProps(props = {}) {
-    props.context = this.$ref().parent();
+    props.context = this.$getElement().parent();
     super.setModuleProps(props);
   }
 

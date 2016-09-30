@@ -73,7 +73,7 @@ class SUIEmbed extends SUIModuleComponent {
   }
 
   tellModule(...args) {
-    return this.$ref().embed(...args);
+    return this.$getElement().embed(...args);
   }
 
   //////////////////////////////

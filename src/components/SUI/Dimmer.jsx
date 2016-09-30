@@ -86,7 +86,7 @@ const Dimmer = class SUIDimmer extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().dimmer(...args);
+    return this.$getElement().dimmer(...args);
   }
 
 
@@ -137,7 +137,7 @@ const Dimmer = class SUIDimmer extends SUIModuleComponent {
     // if we're blurring, our parent must have the "blurring" class
     // NOTE: this will get undone on a repaint of the parent...  :-(
     if (appearance && appearance.includes("blurring")) {
-      const $parent = this.$ref().parent();
+      const $parent = this.$getElement().parent();
       if (!$parent.hasClass("blurring")) {
         console.info("Adding .blurring to dimmer parent ", $parent);
         $parent.addClass("blurring");
@@ -167,7 +167,7 @@ const Dimmer = class SUIDimmer extends SUIModuleComponent {
   // Update disabled on the element to match our props.
   updateDisabled() {
     const { disabled } = this.props;
-    this.$ref().toggleClass("disabled", !!disabled);
+    this.$getElement().toggleClass("disabled", !!disabled);
   }
 
 

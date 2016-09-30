@@ -74,7 +74,7 @@ class SUISticky extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().sticky(...args);
+    return this.$getElement().sticky(...args);
   }
 
   setModuleProps(props) {

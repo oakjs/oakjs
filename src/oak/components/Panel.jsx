@@ -81,7 +81,7 @@ export default class Panel extends AutoResized(OakComponent) {
   // TESTME
   componentWillReceiveProps(nextProps) {
     if (this.props.scrolling && !nextProps.scrolling) {
-      this.$ref("body").height("");
+      this.$getElement("body").height("");
     }
   }
 

@@ -78,7 +78,7 @@ class SUIRating extends SUIModuleComponent {
   }
 
   tellModule(...args) {
-    return this.$ref().rating(...args);
+    return this.$getElement().rating(...args);
   }
 
   //////////////////////////////

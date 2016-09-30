@@ -120,7 +120,7 @@ class SUICheckbox extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().checkbox(...args);
+    return this.$getElement().checkbox(...args);
   }
 
   //////////////////////////////
