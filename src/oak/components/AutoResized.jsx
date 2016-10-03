@@ -92,6 +92,7 @@ export default function AutoResized(Component = React.Component, options = { res
       const root = ReactDOM.findDOMNode(this);
       if (!root) return console.warn("AutoResized: can't find DOM node for ", this);
 
+      // Set attribute and `onResize` handler we'll use to resize the element
       root.setAttribute("data-resized", true);
       root.onResize = (element) => this.onResize(element);
 
@@ -109,6 +110,9 @@ export default function AutoResized(Component = React.Component, options = { res
 
     // When unmounting, clear the `onResize` handler so we don't leak memory.
     componentWillUnmount() {
+      // call super method only if defined
+      if (Component.prototype.componentWillUnmount) super.componentWillUnmount();
+
       const root = ReactDOM.findDOMNode(this);
       delete root.onResize;
     }
