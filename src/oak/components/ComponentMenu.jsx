@@ -24,13 +24,10 @@ function getComponentItemProps(component, menuProps) {
 export default function ComponentMenu(props, context) {
   const { oak } = context;
   const { Oak, SUI } = context.components;
-  let { components, checkSelected, emptyMessage, publicOnly, selected } = props;
+  let { components, checkSelected, emptyMessage, selected } = props;
 
   // Forget it if we didn't get any component to render
   if (!components) return null;
-
-  // NOTE: this implicitly references the `account` singleton.
-  if (publicOnly) components = components.filter(component => !component.isPrivate)
 
   let menuItems;
   if (components.length === 0) {

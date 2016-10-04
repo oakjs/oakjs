@@ -130,9 +130,6 @@ export default class ComponentController extends ChildController {
   //  Component Sugar
   //////////////////////////////
 
-  // "private" things are findable, but don't show up in menus, etc
-  get isPrivate() { return this.id.startsWith("_") }
-
   // Oid of our root component
   get oid() {
     return this.jsxFragment && this.jsxFragment.root.oid;
