@@ -154,8 +154,6 @@ export default class ComponentController extends ChildController {
   }
 
 
-//TODO: autobind these???
-
   // Return the JSXElement for the specified `oid`.
   // Only works if our render was drawn while we were 'editable'.
   getJSXElementForOid(oid) {

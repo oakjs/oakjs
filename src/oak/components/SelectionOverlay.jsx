@@ -573,7 +573,8 @@ console.log("startDragMoving", info, this.state.dragComponents);
     const props = {
       id: "SelectionOverlay",
       onMouseDown: this.onMouseDown,
-      onMouseMove: this.onMouseMove
+      onMouseMove: this.onMouseMove,
+      "data-hide-while-selecting": true
     }
 
     return (

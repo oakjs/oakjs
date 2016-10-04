@@ -165,22 +165,28 @@ export default class OakEvent {
     if (oak.event) return OakEvent._getTopElement(oak.event.downClientLoc);
   }
 
-  // Return the top-most element under the mouse NOT including the `#SelectionOverlay` layer.
+  // Return the top-most element under the mouse.
   // Returns `undefined` if we can't figure it out.
   //
-  // NOTE: this is expensive to figure out, as it references, and possibly manipulates, the DOM.
-//TODO: refactor out the `#SelectionOverlay` stuff somehow...
+  // NOTE: If you have overlays which you do NOT want to be counted in this
+  //       (eg the `Oak.SelectionOverlay` which shows the selection),
+  //       give them the DOM attribute `[data-hide-while-selecting]`
+  //       and we'll ignore them when figuring out the element.
+  //
+  // NOTE: This is relatively expensive to figure out, as it references,
+  //       and possibly manipulates, the DOM.
+  //
   static _getTopElement(clientLoc) {
     if (!clientLoc) return undefined;
 
-    // hide SelectionOverlay so it doesn't mask the page
-    const selectionOverlay = document.querySelector("#SelectionOverlay");
-    if (selectionOverlay) selectionOverlay.style.display = "none";
+    // turn off pointer events for anything with our flag attribute.
+    const toHide = document.querySelectorAll("[data-hide-while-selecting]");
+    if (toHide.length) toHide.forEach( element => element.style.pointerEvents = "none" );
 
     const target = document.elementFromPoint(clientLoc.x, clientLoc.y) || undefined;
 
-    // restore SelectionOverlay
-    if (selectionOverlay) selectionOverlay.style.display = "";
+    // restore pointer events
+    if (toHide.length) toHide.forEach( element => element.style.pointerEvents = "" );
 
     return target;
   }
