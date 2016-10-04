@@ -35,8 +35,12 @@ class OakJS {
       throw new ReferenceError(message);
     }
 
+    // `oak.account` represents all projects / sections / pages this "user" can see.
+//REFACTOR:  add user concept...
+    this.account = new Account({ oak: this });
+
     // Set oak.actions to all defined global actions.
-    Object.defineProperty(this, "actions", { value: actions });
+    this.actions = actions;
 
     // Create the global undoQueue
     this.undoQueue = new UndoQueue();
@@ -44,10 +48,6 @@ class OakJS {
     // `oak.runner` is the player/editor ui root
 //TODO: this is app state, right?
     this.runner = {};
-
-    // `oak.account` represents all projects / sections / pages this "user" can see.
-//REFACTOR:  add user concept...
-    this.account = new Account({ oak: this });
 
     // load the account, since we have to do that before we can display anything
 //TODO: loadAccount as an action?
