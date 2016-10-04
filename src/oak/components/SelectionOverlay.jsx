@@ -55,7 +55,7 @@ export default class SelectionOverlay extends OakComponent {
   // Array of JSXElements which are currently selected.
   // ALWAYS returns an array.
   get selectedElements() {
-    return (this.props.controller && this.props.controller.selectedComponents) || [];
+    return (this.props.controller && this.props.controller.selectedElements) || [];
   }
 
 

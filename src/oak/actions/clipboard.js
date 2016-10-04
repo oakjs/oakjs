@@ -27,7 +27,7 @@ const DEBUG = false;
 export function copyElements(options = {}) {
   const {
     controller = oak.editController,
-    elements = controller && controller.selectedComponents,
+    elements = controller && controller.selectedElements,
     actionName = "Copy", autoExecute
   } = options;
 
@@ -62,7 +62,7 @@ new Action({
 export function cutElements(options = {}) {
   const {
     controller = oak.editController,
-    elements = controller && controller.selectedComponents,
+    elements = controller && controller.selectedElements,
     actionName = "Cut", autoExecute
   } = options;
 

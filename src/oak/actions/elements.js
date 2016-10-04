@@ -88,7 +88,7 @@ export function resetElementProps(options) {
 export function removeElements(options = {}) {
   const {
     controller = oak.editController,
-    elements = controller && controller.selectedComponents,
+    elements = controller && controller.selectedElements,
     actionName = "Delete Elements", autoExecute
   } = options;
 
@@ -160,7 +160,7 @@ export function addElementsToParentOrSelection(options = {}) {
 
   // default to the first selected thing (or whoever of it's parents can accept the elements).
 // TODO: paste OVER (replace) selection?  Paste immediately AFTER selection?
-  let parent = options.parent || controller.selectedComponents[0] || controller.oid;
+  let parent = options.parent || controller.selectedElements[0] || controller.oid;
   if (typeof parent === "string") parent = fragment.getElementOrDie(parent, actionName);
 
   // Recurse up until we get to a droppable thing.

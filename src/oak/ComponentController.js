@@ -90,14 +90,14 @@ export default class ComponentController extends ChildController {
 
 	// Return pointers to the JSXElements for our selection.
 	// ALWAYS returns an array.
-  get selectedComponents() {
+  get selectedElements() {
     return this.selection.map( oid => this.getJSXElementForOid(oid) ).filter(Boolean);
   }
 
   // Return the FIRST selected component of the specified type.
   // Returns `undefined` if no such component was found.
   getSelectedComponent(type) {
-    return this.selectedComponents.filter( component => component.type === type )[0];
+    return this.selectedElements.filter( component => component.type === type )[0];
   }
 
   // Are we currently in `selecting` mode?

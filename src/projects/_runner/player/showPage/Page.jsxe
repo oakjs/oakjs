@@ -3,7 +3,7 @@
     <Oak.FixedPanel id="SelectionSidebar" appearance="inverted right-border right-shadow">
       <Oak.SplitPanel resizable scrolling appearance={["fluid", "inverted"]} direction={window.innerWidth > 1600 ? "horizontal" : "vertical"}>
         <Oak.ComponentTree controller={oak.editController} appearance="inverted"/>
-        <Editor.ElementEditor controller={oak.editController} element={oak.editController && oak.editController.selectedComponents[0]} appearance="inverted"/>
+        <Editor.ElementEditor controller={oak.editController} element={oak.editController && oak.editController.selectedElements[0]} appearance="inverted"/>
       </Oak.SplitPanel>
     </Oak.FixedPanel>
     <Oak.Panel fluid scrolling>
