@@ -125,7 +125,7 @@ export default class JSXElement {
 //    const type = this.renderType || this.type;
     const type = this.type;
 
-    const isEditable = options && options.editable;
+    const editable = options && options.editable;
     const attrExpression = this._propsToSource(indent, options, this.props);
 
     // output on one line if no children
@@ -152,8 +152,8 @@ export default class JSXElement {
         + indent + ")";
     }
 
-    // <Referent> if editable
-    if (this.oid && isEditable) {
+    // Wrap with <Referent> if editable
+    if (this.oid && editable) {
       return `createElement("Oak.Referent", { oid: "${this.oid}", ref: "${this.oid}" }, ${element} )`;
     }
     return element;

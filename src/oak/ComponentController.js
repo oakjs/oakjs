@@ -96,7 +96,7 @@ export default class ComponentController extends ChildController {
 
   // Return the FIRST selected component of the specified type.
   // Returns `undefined` if no such component was found.
-  getSelectedComponent(type) {
+  getSelectedElementOfType(type) {
     return this.selectedElements.filter( component => component.type === type )[0];
   }
 

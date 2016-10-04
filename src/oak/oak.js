@@ -38,19 +38,19 @@ class OakJS {
     // Set oak.actions to all defined global actions.
     Object.defineProperty(this, "actions", { value: actions });
 
+    // Create the global undoQueue
+    this.undoQueue = new UndoQueue();
+
     // `oak.runner` is the player/editor ui root
 //TODO: this is app state, right?
     this.runner = {};
-
-    // Create the global undoQueue
-    this.undoQueue = new UndoQueue();
 
     // `oak.account` represents all projects / sections / pages this "user" can see.
 //REFACTOR:  add user concept...
     this.account = new Account({ oak: this });
 
     // load the account, since we have to do that before we can display anything
-//TODO: this is an action???
+//TODO: loadAccount as an action?
     this.account.load();
   }
 
@@ -110,7 +110,7 @@ class OakJS {
 
 
   //////////////////////////////
-  //  Browser event data
+  //  Browser event data -- see `oak-roots/OakEvent`
   //////////////////////////////
 
   // Set the current event.
@@ -124,7 +124,7 @@ class OakJS {
 
 
   //////////////////////////////
-  //  Actions / Undo / State / preferences / etc
+  //  Undo / Update
   //////////////////////////////
 
   undo() {
@@ -228,6 +228,7 @@ class OakJS {
   //
   //  Modal:  Alert / Prompt / etc
   //
+  // TODO: separate out modal controller
   // TODO: stack of modals with pop behavior...
   //
 

@@ -1,5 +1,5 @@
 <Oak.Page id="SUI_Button" title="SUI-Button">
-  <Editor.ElementEditor element={oak.editController.getSelectedComponent("SUI-Button")} controller={oak.editController}>
+  <Editor.ElementEditor element={oak.editController && oak.editController.getSelectedElementOfType("SUI-Button")} controller={oak.editController}>
     <SUI.Button title="Button1"/>
     <SUI.Button title="Button2" appearance="circular"/>
     <Oak.Spacer/>
