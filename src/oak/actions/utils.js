@@ -65,9 +65,31 @@ export function updateComponentAndChildren(component, update, updateArgs) {
 //  Utility functions to change app state for use by transactions only
 //////////////////////////////
 
+// Return the portion of the app state which corresponds to a component.
+// Returns `defaultValue` if current componentPath is `undefined`.
+// TODO: function to return initial value???
+export function getComponentState(componentPath, defaultValue) {
+  if (oak.state[componentPath] !== undefined) return oak.state[componentPath];
+  return defaultValue;
+}
+
+// Return a new app state which applies `deltas` to the state for a component.
+export function setComponentState(componentPath, deltas) {
+  const currentState = getComponentState(componentPath, {});
+  const newState = { ...currentState, ...deltas };
+  return replaceComponentState(componentPath, newState);
+}
+
+// Completely replace the component state for a component.
+export function replaceComponentState(componentPath, newState) {
+  return setAppState({ [componentPath]: newState });
+}
+
+
+
 // Return a new app state which applies deltas to the state
 export function setAppState(deltas) {
-  const newState = Object.assign({}, oak.state, deltas);
+  const newState = {...oak.state, ...deltas};
   return replaceAppState(newState);
 }
 
@@ -92,8 +114,6 @@ export function navigateToRoute(route, replace, selection) {
   else {
     oak._router.push(route);
   }
-  // update selection if new selection was passed in
-  if (selection !== undefined) setSelection(selection);
 }
 
 

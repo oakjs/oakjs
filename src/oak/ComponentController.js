@@ -13,7 +13,7 @@ import ids from "oak-roots/util/ids";
 
 import api from "./api";
 import JSXFragment from "./JSXFragment";
-import { setComponentState, getComponentState } from "./actions/app";
+import { getComponentState, setComponentStateTransaction } from "./actions/app";
 
 import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
@@ -72,12 +72,12 @@ export default class ComponentController extends ChildController {
 	// Normally calling this will create a new `UndoTransaction` which will execute immediately.
 	//	To use this as part of a larger transaction, pass `undoOptions` as `{ autoExecute: false }`.
 	setState(deltas, undoOptions) {
-		return setComponentState(this.statePath, deltas, undoOptions);
+		return setComponentStateTransaction(this.statePath, deltas, undoOptions);
 	}
 
 
   //////////////////////////////
-  //  Selection
+  //  Selection of sub-components
   //////////////////////////////
 
 	// Return the list of our child `oids` which are currently selected.
@@ -101,8 +101,7 @@ export default class ComponentController extends ChildController {
 
   // Are we currently in `selecting` mode?
   get isSelecting() {
-		return oak.state.selecting;
-//  	return this.state.selecting;
+  	return this.state.selecting;
   }
 
 

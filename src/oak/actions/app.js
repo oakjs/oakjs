@@ -16,23 +16,56 @@ import utils from "./utils";
 //////////////////////////////
 
 export function startSelecting(options = {}) {
-  const state = { selecting: true };
-  if (options.editController) state.editController = options.editController;
-  return setAppStateTransaction({ state, ...options });
+  return _updateSelectingTransaction({ selecting: true, actionName: "Start Selecting", ...options });
 }
 
 export function stopSelecting(options = {}) {
-  const state = { selecting: false };
-  if (options.editController) state.editController = options.editController;
-  return setAppStateTransaction({ state, ...options });
+  return _updateSelectingTransaction({ selecting: false, actionName: "Stop Selecting", ...options });
 }
 
 export function toggleSelecting(options = {}) {
-  const selecting = (options.selecting !== undefined ? options.selecting : !oak.isSelecting);
-  const state = { selecting };
-  if (options.editController) state.editController = options.editController;
-  return setAppStateTransaction({ state, ...options });
+  return _updateSelectingTransaction(options);
 }
+
+// Update `selecting` for some controller, and possibly change the `editController` at the same time.
+export function _updateSelectingTransaction(options = {}) {
+  let {
+    // default to switching controller `isSelecting` flag if `selecting` not specified.
+    controller = oak.editController,
+    selecting = !controller.isSelecting,
+    actionName = "Set Selecting",
+    autoExecute = true
+  } = options;
+
+
+  const originalController = oak.editController;
+  const originalWasSelecting = originalController.isSelecting;
+
+  // This is ugly because it also affects the originalController and the app state.
+  function redo() {
+    if (originalController !== controller) {
+      utils.setComponentState(originalController.statePath, { selecting: false });
+      utils.setAppState({ editController: controller.type });
+    }
+    utils.setComponentState(controller.statePath, { selecting })
+  }
+
+  function undo() {
+    if (originalController !== controller) {
+      utils.setComponentState(originalController.statePath, { selecting: originalWasSelecting });
+      utils.setAppState({ editController: originalController.type });
+    }
+    utils.setComponentState(controller.statePath, { selecting: !selecting });
+  }
+
+  return new UndoTransaction({
+    redoActions:[redo],
+    undoActions:[undo],
+    actionName,
+    autoExecute
+  });
+}
+
 
 // Start/stop selecting the current editController
 new Action({
@@ -57,7 +90,7 @@ new Action({
 // Start/stop selecting the the current page
 new Action({
   id: "oak.startSelectingPage", title: "Start Selecting Page", shortcut: "Meta E",
-  handler: () => startSelecting({editController:"Page"}),
+  handler: () => startSelecting({ controller: oak.page }),
   hidden:() => oak.isSelecting && oak.state.editController === "Page"
 });
 
@@ -72,15 +105,15 @@ new Action({
 // NOTE: this is not really working yet...
 new Action({
   id: "oak.startSelectingSection", title: "Start Selecting Section",
-  handler: () => startSelecting({editController:"Section"}),
-  disabled: () => true,
+  handler: () => startSelecting({ controller: oak.section }),
+//  disabled: () => true,
   hidden:() => oak.isSelecting && oak.state.editController === "Section"
 });
 
 new Action({
   id: "oak.stopSelectingSection", title: "Stop Selecting Section",
   handler: stopSelecting,
-  disabled: () => true,
+//  disabled: () => true,
   hidden:() => !oak.isSelecting || oak.state.editController !== "Section"
 });
 
@@ -89,7 +122,7 @@ new Action({
 // NOTE: this is not really working yet...
 new Action({
   id: "oak.startSelectingProject", title: "Start Selecting Project",
-  handler: () => startSelecting({editController:"Project"}),
+  handler: () => startSelecting({ controller: oak.project }),
   disabled: () => true,
   hidden:() => oak.isSelecting && oak.state.editController === "Project"
 });
@@ -148,12 +181,12 @@ new Action({
 //////////////////////////////
 
 // Return the state for a component, as a portion of our global `oak state`.
-export function getComponentState(componentPath) {
+export function getComponentState(componentPath, defaultValue) {
   if (componentPath == null) die(oak, "setComponentState", arguments, "`componentPath` must be provided.");
-  return oak.state[componentPath];
+  return utils.getComponentState(componentPath, defaultValue);
 }
 
-export function setComponentState(componentPath, deltas, options = {}) {
+export function setComponentStateTransaction(componentPath, deltas, options = {}) {
   if (componentPath == null) die(oak, "setComponentState", arguments, "`componentPath` must be provided.");
   if (deltas == null) die(oak, "setComponentState", arguments, "`deltas` must be provided.");
 

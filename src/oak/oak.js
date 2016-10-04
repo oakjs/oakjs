@@ -38,9 +38,6 @@ class OakJS {
     // Set oak.actions to all defined global actions.
     Object.defineProperty(this, "actions", { value: actions });
 
-    // Initialize application state from `localStorage`.
-    this._initState();
-
     // `oak.runner` is the player/editor ui root
 //TODO: this is app state, right?
     this.runner = {};
@@ -92,30 +89,11 @@ class OakJS {
   //  App State
   //////////////////////////////
 
-  // Set oak state in an undo-able way.
-  setState(deltas) {
-    oak.actions.setAppState({ state: deltas });
+  // Initial app state.
+  state = {
+    // What are we currently editing?  "Page", "Section", "Project" etc.
+    editController: "Page"
   }
-
-  static DEFAULT_STATE = {
-    editController: "Page",   // What we're editing: "Page", "Section", "Project". "Component"?
-    }
-
-  // Initialize application state.
-  // DON'T CALL THIS, it will be called automatically when the oak is constructed.
-  _initState() {
-    // App state, which we store in localStorage and reload when reloading the page.
-    // We pick up new values added to `DEFAULT_STATE`.
-    // NOTE: NEVER update this directly, use `oak.action.setState()` or some sugary variant thereof.
-    const savedState = Object.assign({}, this.constructor.DEFAULT_STATE);
-
-    // default selection so it doesn't get modified here
-    if (!savedState.selection) savedState.selection = [];
-
-    // save oak state
-    this.state = savedState;
-  }
-
 
   //////////////////////////////
   //  State syntactic sugar
@@ -135,28 +113,33 @@ class OakJS {
   }
 
   // Are we currently in "selecting" mode?
+//DEPRECATED
   get isSelecting() {
     return this.editController && this.editController.isSelecting;
   }
 
   // Does the current editController need to save?
+//DEPRECATED
   get editControllerIsDirty() {
     return this.editController && this.editController.isDirty;
   }
 
   // Return the currently selected elements (as a list of `oid`s).
   // ALWAYS returns an array.
+//DEPRECATED
   get selection() {
     return (this.editController && this.editController.selection) || [];
   }
 
   // Syntactic sugar for enabling actions, etc.
+//DEPRECATED
   get selectionIsEmpty() {
     return this.selection.length === 0;
   }
 
   // Return the `JSXElement`s which correspond to the selection.
   // ALWAYS returns an array.
+//DEPRECATED
   get selectedComponents() {
     return (this.editController && this.editController.selectedComponents) || [];
   }
