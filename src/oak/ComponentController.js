@@ -77,6 +77,21 @@ export default class ComponentController extends ChildController {
 
 
   //////////////////////////////
+  //  Rendering sub-components
+  //////////////////////////////
+
+  // Return map of components we know about.
+  get components() { return this.parent.components }
+
+  // Create an element.
+  // Same semantics as `React.createElement()` except that it looks up components for you.
+  createElement(type, props, ...children) {
+    const component = oak.lookupComponent(type, this.components, `${this} couldn't find type ${type}`);
+    return React.createElement(component, props, ...children);
+  }
+
+
+  //////////////////////////////
   //  Selection of sub-components
   //////////////////////////////
 
@@ -139,13 +154,13 @@ export default class ComponentController extends ChildController {
     return this.jsxFragment && this.jsxFragment.root.props;
   }
 
-  // State comes from our instantiated component
-  forceUpdate() { if (this.component) this.component.forceUpdate() }
-
   // don't call more than once per MSEC
 //TODO: debounce???
   @throttle(1)
   updateSoon(){ this.forceUpdate() }
+
+  // State comes from our instantiated component
+  forceUpdate() { if (this.component) this.component.forceUpdate() }
 
   // Refs come from our instantiated component
   get refs() { return this.component ? this.component.refs : {} }
@@ -351,7 +366,7 @@ export default class ComponentController extends ChildController {
 
   // Loaded a `Component` as an instantiated class object (eg: already `eval()`d).
   //
-  // Typically this will be from `loadedJSX()`, but you can call this manually
+  // Typically this will be from `onLoaded()`, but you can call this manually
   //  if you get a Component instance another way.
   _loadedComponent(Component) {
     // If we didn't actually get a component to install...
@@ -409,12 +424,9 @@ export default class ComponentController extends ChildController {
   }
 
   // Clear our cache when we're marked as dirty
-  dirty(dirty) {
-    super.dirty(dirty);
-    if (this.isDirty) {
-      this.cache = {};
-      this.onComponentChanged();
-    }
+  dirty(isDirty) {
+    super.dirty(isDirty);
+    if (this.isDirty) this.onComponentChanged();
   }
 
 
@@ -426,6 +438,29 @@ export default class ComponentController extends ChildController {
   _loadedJSXE(jsxe) {
     this.jsxFragment = JSXFragment.parse(jsxe, { controller: this });
   }
+
+	// Set our JSXFragment.
+	// If we've already rendered, this will update just the render method of our component.
+	// Otherwise it'll update the entire thing.
+	_setFragment(fragment) {
+		this.jsxFragment = fragment;
+
+		// If we've already created the Component, just update its `render()` method.
+		if (this.cache.Component) {
+			try {
+				const renderSource = "function " + this._getFragmentRenderScript();
+				const renderMethod = babel.evaluateExpression(renderSource);
+				this.cache.Component.prototype.render = renderMethod;
+			}
+			catch (error) {
+				console.error(`Error creating updating component render for ${this.path}: `, error);
+				console.log("Component:", this);
+				console.log("render source:", renderSource);
+			}
+		}
+
+		this.dirty();
+	}
 
   // Return JSXE data to save.
   _getJSXEData() {
@@ -483,52 +518,54 @@ export default class ComponentController extends ChildController {
     const Super = this.ComponentConstructor;
     const componentName = ids.normalizeIdentifier(`${Super.name}_${this.path}`);
 
-    let fragmentRenderScript, classScript, Component;
+		try {
+			const editable = (this === oak.editController);
+			const fragmentRenderScript = this._getFragmentRenderScript(fragment, editable);
+
+			const classScript = [
+				// NOTE: Put the fragment render script BEFORE any manually-created script
+				//       in case they implemented a custom render() function.
+				fragmentRenderScript,
+				script,
+			].join("\n");
+
+			if (this.DEBUG_CLASS_GENERATION) {
+				console.groupCollapsed(this.path);
+				console.log(classScript);
+				console.groupEnd();
+			}
+
+			try {
+				const Component = babel.createClass(classScript, Super, componentName);
+				Component.controller = this;
+				return Component;
+			}
+			catch (error) {
+				console.error(`Error creating component constructor for ${this.path}: `, error);
+				console.log("Component:", this);
+				console.log("Class Script:", classScript);
+				throw error;
+			}
+    }
+    catch (error) {
+      return Stub;
+    }
+  }
+
+	// Transform a `jsxFragment` into a `render()` routine.
+	// If `editable` is `true`, we'll wrap components in `<Referent>`s so we can manipulate them.
+  _getFragmentRenderScript(fragment = this.jsxFragment, editable = (this === oak.editController)) {
+  	if (!fragment) return "";
+
     try {
-      const editable = (this === oak.editController);
-      fragmentRenderScript = (fragment ? fragment._getRenderSource("", { editable }) : "");
+      return fragment._getRenderSource("", { editable });
     }
     catch (error) {
       console.error(`Error creating parsing JSXE for ${this.path}: `, error);
       console.log("Component:", this);
       console.log("Fragment:", fragment.toJSX());
-      return Stub;
+      throw error;
     }
-
-    try {
-      classScript = [
-        // NOTE: Put the fragment render script BEFORE any manually-created script
-        //       in case they implemented a custom render() function.
-        fragmentRenderScript,
-        script,
-      ].join("\n");
-
-      if (this.DEBUG_CLASS_GENERATION) {
-        console.groupCollapsed(this.path);
-        console.log(classScript);
-        console.groupEnd();
-      }
-
-      Component = babel.createClass(classScript, Super, componentName);
-      Component.controller = this;
-      return Component;
-    }
-    catch (error) {
-      console.error(`Error creating component constructor for ${this.path}: `, error);
-      console.log("Component:", this);
-      console.log("Class Script:", classScript);
-      return Stub;
-    }
-  }
-
-  // Return map of components we know about.
-  get components() { return this.parent.components }
-
-  // Create an element.
-  // Same semantics as `React.createElement()` except that it looks up components for you.
-  createElement(type, props, ...children) {
-    const component = oak.lookupComponent(type, this.components, `${this} couldn't find type ${type}`);
-    return React.createElement(component, props, ...children);
   }
 
   //////////////////////////////
@@ -548,6 +585,8 @@ export default class ComponentController extends ChildController {
   // Call this to change your Script after you've loaded.
   updateScript(script) {
     this._script = script;
+		// delete our Component so we'll recalculate it on the next update
+		delete this.cache.Component;
     this.dirty();
   }
 

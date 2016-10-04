@@ -280,9 +280,7 @@ export function changeFragmentTransaction({
 }
 
 function _setControllerFragment(controller, fragment, selection) {
-  controller.jsxFragment = fragment;
-  controller.dirty(true);
-  controller.onComponentChanged();
+  controller._setFragment(fragment);
   if (selection) utils.setComponentState(controller, { selection });
 }
 
