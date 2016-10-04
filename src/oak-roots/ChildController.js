@@ -96,6 +96,28 @@ export default class ChildController extends Savable(Loadable()) {
   get next() { return this.parentIndex.items[this.position+1] }
 
 
+
+  //////////////////////////////
+  //  Manipulating children
+  //////////////////////////////
+
+  // Apply `callback(previousValue, node, controller)` starting at the root and descending through children.
+  // Like `array.reduce()`, callback MUST continually return the `currentValue` to pass to the next node.
+  // By default we start at the root `node`, pass another node if you want to start somewhere else.
+// TODO: some sort of `DONT_RECURSE` flag???
+  reduceChildren(callback, initialResult, node = this.jsxFragment && this.jsxFragment.root) {
+    if (!node) return initialResult;
+
+    let currentResult = callback(initialResult, node, this);
+
+    // descend if necessary, adding to the same `results` accumulator
+    const children = node.children;
+    if (children) children.forEach( child => currentResult = this.reduceChildren(callback, currentResult, child) );
+
+    return currentResult;
+  }
+
+
   //////////////////////////////
   //  Loading
   //////////////////////////////

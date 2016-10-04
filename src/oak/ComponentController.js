@@ -214,23 +214,6 @@ export default class ComponentController extends ChildController {
     if (element) return elements.clientRect(element);
   }
 
-  // Apply `callback(previousValue, node, controller)` starting at the root and descending through children.
-  // Like `array.reduce()`, callback MUST continually return the `currentValue` to pass to the next node.
-  // By default we start at the root `node`, pass another node if you want to start somewhere else.
-// TODO: some sort of `DONT_RECURSE` flag???
-// TODO: push into `ChildController` ???
-  reduceChildren(callback, initialResult, node = this.jsxFragment && this.jsxFragment.root) {
-    if (!node) return initialResult;
-
-    let currentResult = callback(initialResult, node, this);
-
-    // descend if necessary, adding to the same `results` accumulator
-    const children = node.children;
-    if (children) children.forEach( child => currentResult = this.reduceChildren(callback, currentResult, child) );
-
-    return currentResult;
-  }
-
   // Return list of ALL `{ oid, dom, jsxe, rect }` for ALL JSXElements
   //  at a particular `clientPoint` (in "clientRect" space).
   //
@@ -270,18 +253,15 @@ export default class ComponentController extends ChildController {
     if (!clientRect || clientRect.isEmpty) return [];
     return this.reduceChildren((results, jsxe, controller) => {
       const oid = jsxe.oid;
-      if (!includeRoot && oid === controller.oid) {
-        return results;
-      }
-      if (oid) {
-        const dom = controller.getDOMElementForOid(oid);
-        if (dom) {
-          const rect = elements.clientRect(dom);
-          if (rect && rect.intersects(clientRect)) {
-            results.push({ oid, dom, jsxe, rect });
-          }
-        }
-      }
+      if (oid && (includeRoot || oid !== controller.oid)) {
+				const dom = controller.getDOMElementForOid(oid);
+				if (dom) {
+					const rect = elements.clientRect(dom);
+					if (rect && rect.intersects(clientRect)) {
+						results.push({ oid, dom, jsxe, rect });
+					}
+				}
+			}
       return results;
     }, []);
   }
@@ -303,6 +283,7 @@ export default class ComponentController extends ChildController {
     if (!domElementAtPoint) return elementsAtPoint.pop();
 
     // Find the innermost element who contains the `domElementAtPoint`
+//TODO: check levels of nesting???
     for (let element of elementsAtPoint) {
       if (elements.contains(element.dom, domElementAtPoint)) return element;
     }
