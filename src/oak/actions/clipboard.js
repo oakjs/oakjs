@@ -21,7 +21,7 @@ const DEBUG = false;
 //////////////////////////////
 
 // Copy `elements` into the `oak.clipboard`.
-// Default is to copy `oak.selection`.
+// Default is to copy `oak.editController.selection`.
 //
 // Optional options:  `elements`, `controller`, `autoExecute`, `actionName`
 export function copyElements(options = {}) {
@@ -50,13 +50,13 @@ export function copyElements(options = {}) {
 new Action({
   id: "oak.copyElements", title: "Copy", shortcut: "Meta C",
   handler: copyElements,
-  disabled: () => oak.selectionIsEmpty
+  disabled: () => !oak.editController || !oak.editController.selection.length
 });
 
 
 
 // Remove `elements` from `controller` and place in `oak.clipboard`.
-// Default is to cut `oak.selection`.
+// Default is to cut `oak.editController.selection`.
 //
 // Optional options:  `elements`, `controller`, `autoExecute`, `actionName`
 export function cutElements(options = {}) {
@@ -82,7 +82,7 @@ export function cutElements(options = {}) {
 new Action({
   id: "oak.cutElements", title: "Cut", shortcut: "Meta X",
   handler: cutElements,
-  disabled: () => oak.selectionIsEmpty
+  disabled: () => !oak.editController || !oak.editController.selection.length
 });
 
 
@@ -114,7 +114,7 @@ export function pasteElements(options = {}) {
 new Action({
   id: "oak.pasteElements", title: "Paste", shortcut: "Meta V",
   handler: pasteElements,
-  disabled: () => !oak.clipboard || oak.clipboard.length === 0
+  disabled: () => !oak.editController || !oak.clipboard || oak.clipboard.length === 0
 });
 
 

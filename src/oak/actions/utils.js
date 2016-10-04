@@ -65,23 +65,42 @@ export function updateComponentAndChildren(component, update, updateArgs) {
 //  Utility functions to change app state for use by transactions only
 //////////////////////////////
 
-// Return the portion of the app state which corresponds to a component.
-// Returns `defaultValue` if current componentPath is `undefined`.
-// TODO: function to return initial value???
-export function getComponentState(componentPath, defaultValue) {
-  if (oak.state[componentPath] !== undefined) return oak.state[componentPath];
+// Return the portion of the app state which corresponds to a `component`.
+// You can pass a component (really anything with a `statePath`) or a sting.
+// Returns `defaultValue` if current state for component is `undefined`.
+export function getComponentState(component, defaultValue) {
+  const componentPath = (typeof component === "string" ? component : component && component.statePath);
+  if (typeof componentPath !== "string") {
+    console.error(`getComponentState(${component}): dont know how to get path for component.`);
+    return undefined;
+  }
+  const currentValue = oak.state[componentPath];
+  if (currentValue !== undefined) return currentValue;
+
+  // if they passed default as a function, evaluate it
+  if (typeof defaultValue === "function") return defaultValue();
   return defaultValue;
 }
 
-// Return a new app state which applies `deltas` to the state for a component.
-export function setComponentState(componentPath, deltas) {
+// Return a new app state which applies `deltas` to the state for a `component`.
+export function setComponentState(component, deltas) {
+  const componentPath = (typeof component === "string" ? component : component && component.statePath);
+  if (typeof componentPath !== "string") {
+    console.error(`setComponentState(${component}): dont know how to get path for component.`);
+    return undefined;
+  }
   const currentState = getComponentState(componentPath, {});
   const newState = { ...currentState, ...deltas };
   return replaceComponentState(componentPath, newState);
 }
 
 // Completely replace the component state for a component.
-export function replaceComponentState(componentPath, newState) {
+export function replaceComponentState(component, newState) {
+  const componentPath = (typeof component === "string" ? component : component && component.statePath);
+  if (typeof componentPath !== "string") {
+    console.error(`replaceComponentState(${component}): dont know how to get path for component.`);
+    return undefined;
+  }
   return setAppState({ [componentPath]: newState });
 }
 
@@ -106,7 +125,7 @@ export function replaceAppState(newState) {
 //  Utility functions to navigate, for use by transactions only
 //////////////////////////////
 
-export function navigateToRoute(route, replace, selection) {
+export function navigateToRoute(route, replace) {
   if (!oak._router) throw new TypeError(`oak.actions._navigateToRoute(${route}): oak._router is not set`);
   if (replace || oak._router.isActive(route)) {
     oak._router.replace(route);

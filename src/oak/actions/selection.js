@@ -19,12 +19,12 @@ import utils from "./utils";
 // Add one or more `elements` to the current selection.
 export function addToSelection(options) {
   const {
-    controller,
+    controller = oak.editController,
     elements,
     operation = "addToSelection", autoExecute = true
   } = options;
 
-  const selection = oak.selection;
+  const selection = controller.selection;
   // make sure we don't add something twice
   const oidsToAdd = utils.getOidsOrDie(elements, operation)
     .filter( oid => !selection.includes(oid) );
@@ -41,12 +41,12 @@ export function addToSelection(options) {
 // Remove one or more `elements` from the current selection.
 export function removeFromSelection(options = {}) {
   const {
-    controller,
+    controller = oak.editController,
     elements,
     operation = "removeFromSelection", autoExecute = true
   } = options;
 
-  const selection = oak.selection;
+  const selection = controller.selection;
   // remove anything that's not currently in the selection
   const oidsToRemove = utils.getOidsOrDie(elements, operation)
     .filter( oid => selection.includes(oid) );
@@ -63,7 +63,7 @@ export function removeFromSelection(options = {}) {
 // Toggle the `elements` in the current selection.
 export function toggleSelection(options = {}) {
   const {
-    controller,
+    controller = oak.editController,
     elements,
     operation = "toggleSelection", autoExecute = true
   } = options;
@@ -72,7 +72,7 @@ export function toggleSelection(options = {}) {
   if (oids.length === 0) return;
 
   // remove all `oids` if the first item is in the selection
-  const selection = oak.selection;
+  const selection = controller.selection;
   if (selection.includes(oids[0])) {
     return removeFromSelection({
       elements: oids,
@@ -93,7 +93,7 @@ export function toggleSelection(options = {}) {
 // Clear the current selection entirely.
 export function clearSelection(options = {}) {
   const {
-    controller,
+    controller = oak.editController,
     autoExecute = true
   } = options;
 
@@ -108,7 +108,7 @@ export function clearSelection(options = {}) {
 // Set the current selection to the set of `elements` passed in.
 export function setSelection(options = {}) {
   const {
-    controller,
+    controller = oak.editController,
     elements,
     operation = "setSelection", autoExecute = true
   } = options;
@@ -149,7 +149,7 @@ function _setSelectionTransaction(options = {}) {
   } = options;
 
   // bail if selection is not actually changing
-  const originalSelection = oak.selection;
+  const originalSelection = controller.selection;
   if (selection && originalSelection && selection.join("") === originalSelection.join("")) return;
 
   function undo() { return controller.setState({ selection: originalSelection }); }
@@ -194,7 +194,7 @@ new Action({
 new Action({
   id: "oak.deselectAll", title: "Deselect All", shortcut: "Meta Shift A",
   handler: clearSelection,
-  disabled: () => !oak.isSelecting || oak.selectionIsEmpty
+  disabled: () => !oak.editController || !oak.editController.selection.length
 });
 
 

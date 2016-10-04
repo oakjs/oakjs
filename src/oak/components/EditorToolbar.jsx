@@ -20,8 +20,8 @@ export default class EditorToolbar extends OakComponent {
     return (
       <SUI.Menu id="EditorToolbar" appearance="attached inverted">
         <SUI.Buttons appearance="transparent">
-          <SUI.Button onClick={oak.actions.stopSelecting} icon="pointing up" active={!oak.isSelecting}/>
-          <SUI.Button onClick={oak.actions.startSelecting} icon="configure" active={oak.isSelecting}/>
+          <SUI.Button onClick={oak.actions.stopSelecting} icon="pointing up" active={oak.editController && !oak.editController.isSelecting}/>
+          <SUI.Button onClick={oak.actions.startSelecting} icon="configure" active={oak.editController && oak.editController.isSelecting}/>
           <Oak.Spacer inline/>
         </SUI.Buttons>
         <SUI.Buttons appearance="transparent">
@@ -29,7 +29,7 @@ export default class EditorToolbar extends OakComponent {
           <SUI.Button onClick={oak.redo} icon="repeat" disabled={!oak.canRedo}/>
           <Oak.Spacer inline/>
         </SUI.Buttons>
-        <SUI.Buttons appearance="transparent" hidden={!oak.isSelecting || oak.selectionIsEmpty}>
+        <SUI.Buttons appearance="transparent" hidden={!oak.editController || !oak.editController.isSelecting || !oak.editController.selection.length}>
           <SUI.Button onClick={oak.actions.removeElements} icon="remove"/>
           <SUI.Button icon="plus"/>
           <SUI.Popup on="click" appearance="inverted" title="Add Component">

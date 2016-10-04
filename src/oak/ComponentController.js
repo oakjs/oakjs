@@ -84,7 +84,8 @@ export default class ComponentController extends ChildController {
 	// ALWAYS returns an array.
 //TODO: filter to only oids that are in our oids map???
   get selection() {
-  	return this.state.selection || [];
+  	if (!this.state.selection || !this.oids) return [];
+  	return this.state.selection.filter( oid => !!this.oids[oid] );
   }
 
 	// Return pointers to the JSXElements for our selection.

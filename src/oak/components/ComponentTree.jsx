@@ -40,7 +40,7 @@ export default class ComponentTree extends OakComponent {
 
 
 //
-//  selection (from `oak.selection`)
+//  selection (from `oak.editController.selection`)
 //
 
   // Select a particular item specified by its oid.
@@ -51,7 +51,7 @@ export default class ComponentTree extends OakComponent {
 
   // Is some element selected?
   isSelected(oid) {
-    return oid && oak.selection.includes(oid);
+    return oid && oak.editController && oak.editController.selection.includes(oid);
   }
 
 

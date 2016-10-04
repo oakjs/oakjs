@@ -86,7 +86,7 @@ class OakJS {
 
 
   //////////////////////////////
-  //  App State
+  //  App State & State syntactic sugar
   //////////////////////////////
 
   // Initial app state.
@@ -94,10 +94,6 @@ class OakJS {
     // What are we currently editing?  "Page", "Section", "Project" etc.
     editController: "Page"
   }
-
-  //////////////////////////////
-  //  State syntactic sugar
-  //////////////////////////////
 
   // Return the `ComponentController` for the current `appState.editController`,
   //  a `page`, `section` or `project`.
@@ -110,38 +106,6 @@ class OakJS {
     }
     console.warn(`oak.editController(): edit controller ${this.state.editController} not understood`);
     return undefined;
-  }
-
-  // Are we currently in "selecting" mode?
-//DEPRECATED
-  get isSelecting() {
-    return this.editController && this.editController.isSelecting;
-  }
-
-  // Does the current editController need to save?
-//DEPRECATED
-  get editControllerIsDirty() {
-    return this.editController && this.editController.isDirty;
-  }
-
-  // Return the currently selected elements (as a list of `oid`s).
-  // ALWAYS returns an array.
-//DEPRECATED
-  get selection() {
-    return (this.editController && this.editController.selection) || [];
-  }
-
-  // Syntactic sugar for enabling actions, etc.
-//DEPRECATED
-  get selectionIsEmpty() {
-    return this.selection.length === 0;
-  }
-
-  // Return the `JSXElement`s which correspond to the selection.
-  // ALWAYS returns an array.
-//DEPRECATED
-  get selectedComponents() {
-    return (this.editController && this.editController.selectedComponents) || [];
   }
 
 

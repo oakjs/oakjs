@@ -109,7 +109,7 @@ export function removeElements(options = {}) {
 new Action({
   id: "oak.removeElements", title: "Delete", shortcut: "Meta Backspace",
   handler: removeElements,
-  disabled: () => oak.selectionIsEmpty
+  disabled: () => !oak.editController || !oak.editController.selection.length
 });
 
 
@@ -256,12 +256,12 @@ export function moveElements(options = {}) {
 //
 // NOTE: don't call this directly, use one of the `setElement*()` or `*Element()` calls.
 export function changeFragmentTransaction({
-  controller, transformer, autoSelect,
+  controller = oak.editController, transformer, autoSelect,
   actionName, autoExecute
 }) {
   controller = utils.getControllerOrDie(controller, actionName);
   const originalFragment = controller.jsxFragment;
-  const originalSelection = autoSelect && oak.selection;
+  const originalSelection = autoSelect && controller.selection;
 
   // clone the original fragment and transform it
   const newFragment = originalFragment.clone();
@@ -283,7 +283,7 @@ function _setControllerFragment(controller, fragment, selection) {
   controller.jsxFragment = fragment;
   controller.dirty(true);
   controller.onComponentChanged();
-  if (selection) utils.setSelection(selection);
+  if (selection) utils.setComponentState(controller, { selection });
 }
 
 

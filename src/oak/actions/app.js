@@ -44,18 +44,18 @@ export function _updateSelectingTransaction(options = {}) {
   // This is ugly because it also affects the originalController and the app state.
   function redo() {
     if (originalController !== controller) {
-      utils.setComponentState(originalController.statePath, { selecting: false });
+      utils.setComponentState(originalController, { selecting: false });
       utils.setAppState({ editController: controller.type });
     }
-    utils.setComponentState(controller.statePath, { selecting })
+    utils.setComponentState(controller, { selecting })
   }
 
   function undo() {
     if (originalController !== controller) {
-      utils.setComponentState(originalController.statePath, { selecting: originalWasSelecting });
+      utils.setComponentState(originalControlle, { selecting: originalWasSelecting });
       utils.setAppState({ editController: originalController.type });
     }
-    utils.setComponentState(controller.statePath, { selecting: !selecting });
+    utils.setComponentState(controller, { selecting: !selecting });
   }
 
   return new UndoTransaction({
@@ -71,67 +71,49 @@ export function _updateSelectingTransaction(options = {}) {
 new Action({
   id: "oak.startSelecting",
   title: "Edit",
-  handler: startSelecting
+  handler: startSelecting,
+  hidden: () => !oak.editController
 });
 
 new Action({
   id: "oak.stopSelecting",
   title: "Stop Selecting",
-  handler: stopSelecting
+  handler: stopSelecting,
+  hidden: () => !oak.editController
 });
 
 new Action({
   id: "oak.toggleSelecting",
-  title: () => oak.isSelecting ? "Stop Selecting" : "Edit",
+  title: () => oak.editController && oak.editController.isSelecting ? "Stop Selecting" : "Start Selecting",
   handler: toggleSelecting
 });
 
 
 // Start/stop selecting the the current page
 new Action({
-  id: "oak.startSelectingPage", title: "Start Selecting Page", shortcut: "Meta E",
-  handler: () => startSelecting({ controller: oak.page }),
-  hidden:() => oak.isSelecting && oak.state.editController === "Page"
+  id: "oak.togglePageSelection",
+  hidden:() => !oak.page,
+  title: () => oak.state.editController === "Page" && oak.page.isSelecting ? "Stop Selecting Page" : "Start Selecting Page",
+  shortcut: "Meta E",
+  handler: () => toggleSelecting({ controller: oak.page }),
 });
-
-new Action({
-  id: "oak.stopSelectingPage", title: "Stop Selecting Page", shortcut: "Meta E",
-  handler: stopSelecting,
-  hidden:() => !oak.isSelecting || oak.state.editController !== "Page"
-});
-
 
 // Start/stop selecting the current section
-// NOTE: this is not really working yet...
+// NOTE: this is not really working in the UI yet...
 new Action({
-  id: "oak.startSelectingSection", title: "Start Selecting Section",
-  handler: () => startSelecting({ controller: oak.section }),
-//  disabled: () => true,
-  hidden:() => oak.isSelecting && oak.state.editController === "Section"
+  id: "oak.toggleSectionSelection",
+  hidden:() => !oak.section,
+  title: () => oak.state.editController === "Section" && oak.section.isSelecting ? "Stop Selecting Section" : "Start Selecting Section",
+  handler: () => toggleSelecting({ controller: oak.section }),
 });
-
-new Action({
-  id: "oak.stopSelectingSection", title: "Stop Selecting Section",
-  handler: stopSelecting,
-//  disabled: () => true,
-  hidden:() => !oak.isSelecting || oak.state.editController !== "Section"
-});
-
 
 // Start/stop selecting the current project
-// NOTE: this is not really working yet...
+// NOTE: this is not really working in the UI yet...
 new Action({
-  id: "oak.startSelectingProject", title: "Start Selecting Project",
-  handler: () => startSelecting({ controller: oak.project }),
-  disabled: () => true,
-  hidden:() => oak.isSelecting && oak.state.editController === "Project"
-});
-
-new Action({
-  id: "oak.stopSelectingProject", title: "Stop Selecting Project",
-  handler: stopSelecting,
-  disabled: () => true,
-  hidden: () => !oak.isSelecting || oak.state.editController !== "Project"
+  id: "oak.toggleProjectSelection",
+  hidden:() => !oak.project,
+  title: () => oak.state.editController === "Project" && oak.project.isSelecting ? "Stop Selecting Project" : "Start Selecting Project",
+  handler: () => toggleSelecting({ controller: oak.project }),
 });
 
 
@@ -153,7 +135,7 @@ new Action({
   title: ()=> `Save ${oak.state.editController}`,
   handler: saveCurrent,
   hidden: () => !oak.editController,
-  active: () => oak.editControllerIsDirty
+  active: () => oak.editController && oak.editController.isDirty
 });
 
 
@@ -182,7 +164,7 @@ new Action({
 
 // Return the state for a component, as a portion of our global `oak state`.
 export function getComponentState(componentPath, defaultValue) {
-  if (componentPath == null) die(oak, "setComponentState", arguments, "`componentPath` must be provided.");
+  if (componentPath == null) die(oak, "getComponentState", arguments, "`componentPath` must be provided.");
   return utils.getComponentState(componentPath, defaultValue);
 }
 
