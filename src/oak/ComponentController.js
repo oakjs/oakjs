@@ -16,7 +16,6 @@ import JSXFragment from "./JSXFragment";
 //import oak from "./oak";
 
 import OakComponent from "./components/OakComponent";
-import Oidify from "./components/Oidify";
 import Stub from "./components/Stub";
 
 
@@ -168,7 +167,7 @@ export default class ComponentController extends ChildController {
   getDOMElementForOid(oid) {
     if (!this.component) return undefined;
     const component = this.component.refs[oid];
-    if (component) return ReactDOM.findDOMNode(component);
+    if (component) return component.domElement;
   }
 
   // Return the current `clientRect` for the specified `oid`.
@@ -179,7 +178,7 @@ export default class ComponentController extends ChildController {
   }
 
   // Apply `callback(previousValue, node, controller)` starting at the root and descending through children.
-  // Like `array.map()`, callback MUST continually return the `currentValue` to pass to the next node.
+  // Like `array.reduce()`, callback MUST continually return the `currentValue` to pass to the next node.
   // By default we start at the root `node`, pass another node if you want to start somewhere else.
 // TODO: some sort of `DONT_RECURSE` flag???
 // TODO: push into `ChildController` ???
@@ -461,8 +460,7 @@ export default class ComponentController extends ChildController {
     return this.cache.Component
   }
 
-// UGH: this requires babel, move this somewhere else???
-  @proto
+	// Set to `true` to debug class generation from jsxe.
   DEBUG_CLASS_GENERATION = false;
 
   createComponent(fragment, script = "") {
@@ -496,7 +494,6 @@ export default class ComponentController extends ChildController {
       }
 
       Component = babel.createClass(classScript, Super, componentName);
-//window.Constructor = Component;
       Component.controller = this;
       return Component;
     }

@@ -157,9 +157,9 @@ export default class JSXElement {
         + indent + ")";
     }
 
-    // <Oidify> if editable
+    // <Referent> if editable
     if (this.oid && isEditable) {
-      return `createElement("Oak.Oidify", { oid: "${this.oid}", ref: "${this.oid}" }, ${element} )`;
+      return `createElement("Oak.Referent", { oid: "${this.oid}", ref: "${this.oid}" }, ${element} )`;
     }
     return element;
   }

@@ -175,7 +175,7 @@ export default class SelectionOverlay extends OakComponent {
 
   // Callback to get the selection for the specified `clientRect`.
   getSelectionForRect = (clientRect) => {
-    if (this.props.controller) return this.props.controller.getElementsIntersectingRect(clientRect);
+    if (this.controller) return this.controller.getElementsIntersectingRect(clientRect);
   }
 
   // Start drawing a <DragSelectRect> when the mouse goes down.
@@ -368,7 +368,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
     let parent = jsxElement;
     while (parent) {
       if (parent.canDrop(dragComponents)) return parent;
-      parent = this.props.controller.getJSXElementForOid(parent._parent);
+      parent = this.controller.getJSXElementForOid(parent._parent);
     }
   }
 
@@ -389,7 +389,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
   // Return an array of `{ oid, position, rect }` for children of our dropParent.
   getDropChildrenRects(dropParent) {
-    const controller = this.props.controller;
+    const controller = this.controller;
     if (!controller) return undefined;
 
     if (typeof dropParent === "string") dropParent = controller.getJSXElementForOid(dropParent);
