@@ -8,6 +8,7 @@
     "url": "https://github.com/oakjs/oakjs"
   },
   "scripts": {
+  	"setup": "rm -rf node_modules && npm install && cd node_modules && ln -s ../src/oak . && ln -s ../src/oak-roots . && cd .. && echo 'Setup complete.  Start the server with: npm start'",
     "start": "rimraf build && ./node_modules/.bin/babel-node src/server/server",
     "test": "mocha --compilers js:babel/register -u bdd -R spec --timeout 500 --recursive",
     "build": "rimraf dist && set NODE_ENV=production && webpack --config ./webpack.production.config.babel.js --progress --profile --colors",
