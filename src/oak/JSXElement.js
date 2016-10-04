@@ -88,11 +88,6 @@ export default class JSXElement {
   //  Edit settings  (NOTE: this is highly oak specific)
   //////////////////////////////
 
-  // Return the on-screen HTML element for this JSXElement
-  get renderedElement() {
-    return oak.getDOMElementForOid(this.oid);
-  }
-
   // Return the component constructor class or string type for an html element.
 // DEPRECATED:  this is not valid if we don't know our controller / components!!!
   get componentConstructor() {

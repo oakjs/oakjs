@@ -99,7 +99,7 @@ class OakJS {
 
   static DEFAULT_STATE = {
     editController: "Page",   // What we're editing: "Page", "Section", "Project". "Component"?
-  }
+    }
 
   // Initialize application state.
   // DON'T CALL THIS, it will be called automatically when the oak is constructed.
@@ -275,38 +275,6 @@ class OakJS {
 
     // Return <Stub>
     return Stub;
-  }
-
-
-  //////////////////////////////
-  //  Oid => Component => Oid
-  // TODO: move these into `oak.event` or some such???
-  /////////////////////////////2/
-
-  // Given an oid, return the JSXElement that it corresponds to.
-  getJSXElementForOid(oid, controllers = [ this.editController ]) {
-    if (!oid) return undefined;
-
-    for (let controller of controllers) {
-      if (controller) {
-        const jsxElement = controller.getJSXElementForOid(oid);
-        if (jsxElement) return jsxElement;
-      }
-    }
-  }
-
-  // Return the DOM element for the specified oid.
-  // TODO: safe to call during render() etc.
-  getDOMElementForOid(oid) {
-    return this.editController && this.editController.getDOMElementForOid(oid);
-  }
-
-  // Given an `oid`, return the `clientRect` for it as currently rendered.
-  // Only works for our `editController`.
-  // Returns `undefined` if oid not found.
-  getRectForOid(oid) {
-    const element = this.getDOMElementForOid(oid);
-    return elements.clientRect(element);
   }
 
 
