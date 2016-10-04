@@ -69,7 +69,6 @@ export class Control extends React.Component {
 
     // wrapper styling
     wrapperProps: PropTypes.object,        // Props passed directly to the wrapper
-    "oid": PropTypes.string,          		 // necessary so we don't pass oid down to children...
   }
 
   // Make this control aware of our `form`, which sets our data context.

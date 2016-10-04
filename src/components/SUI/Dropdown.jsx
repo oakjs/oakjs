@@ -255,7 +255,7 @@ class SUIDropdown extends SUIModuleComponent {
     if (this.props.hidden) return null;
 
     const {
-      oid, id, className, style,
+      id, className, style,
       type, selection, multiple, search,
       text, placeholder, icon, children,
       items, menuClassName, menuAppearance,
