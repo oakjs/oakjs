@@ -12,17 +12,23 @@ import api from "../api";
 import ComponentController from "../ComponentController";
 import JSXElement from "../JSXElement";
 
+
+
+// Given a `thing`, return it's `oid`.
+// If you pass a string, we'll assume that's the oid.
+// If you pass a `JSXElement`, we'll return it's `oid`.
+// Otherwise we'll throw.
 export function getOidOrDie(thing, operation) {
   if (typeof thing === "string") return thing;
   if (thing instanceof JSXElement) return thing.oid;
   die(oak, operation, thing, "Can't figure out oid!");
 }
 
-export function getOidsOrDie(_things, operation) {
-  if (!_things || _things.length === 0) {
-    die(oak, operation, _things, "You must provide at least one item");
+export function getOidsOrDie(things, operation) {
+  if (!Array.isArray(things)) return getOidsOrDie([things], operation);
+  if (things.length === 0) {
+    die(oak, operation, things, "You must provide at least one item");
   }
-  const things = Array.isArray(_things) ? _things : [_things];
   return things.map(thing => getOidOrDie(thing, operation));
 }
 
@@ -68,19 +74,9 @@ export function setAppState(deltas) {
 // Change app state directly (not in a transaction).
 export function replaceAppState(newState) {
 //console.info("replaceAppState", newState);
-  oak.state = Object.freeze(newState);
-  oak.preference("appState", oak.state);
+  oak.state = newState;
   oak.updateSoon();
   return oak.state;
-}
-
-
-//////////////////////////////
-//  Utility functions to change selection, for use by transactions only
-//////////////////////////////
-
-export function setSelection(selection = []) {
-  return setAppState({ selection: selection });
 }
 
 

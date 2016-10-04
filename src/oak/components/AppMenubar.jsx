@@ -47,8 +47,8 @@ export default class AppMenubar extends OakComponent {
           <SUI.Divider hidden={!oak.project}/>
           <SUI.MenuItem disabled label="Project Settings..." hidden={!oak.project}/>
           <Oak.ActionItem id="oak.saveProject" hidden={!oak.project}/>
-          <Oak.ActionItem id="oak.startEditingProject" hidden={!oak.project}/>
-          <Oak.ActionItem id="oak.stopEditingProject" hidden={!oak.project}/>
+          <Oak.ActionItem id="oak.startSelectingProject" hidden={!oak.project}/>
+          <Oak.ActionItem id="oak.stopSelectingProject" hidden={!oak.project}/>
           <SUI.Divider hidden={!oak.project}/>
           <Oak.ActionItem id="oak.createProject"/>
           <Oak.ActionItem id="oak.deleteProject"/>
@@ -67,8 +67,8 @@ export default class AppMenubar extends OakComponent {
           <SUI.Divider/>
           <SUI.MenuItem disabled label="Section Settings..."/>
           <Oak.ActionItem id="oak.saveSection"/>
-          <Oak.ActionItem id="oak.startEditingSection"/>
-          <Oak.ActionItem id="oak.stopEditingSection"/>
+          <Oak.ActionItem id="oak.startSelectingSection"/>
+          <Oak.ActionItem id="oak.stopSelectingSection"/>
           <SUI.Divider/>
           <Oak.ActionItem id="oak.createSection"/>
           <Oak.ActionItem id="oak.deleteSection"/>
@@ -91,8 +91,8 @@ export default class AppMenubar extends OakComponent {
           <SUI.Divider/>
           <SUI.MenuItem disabled label="Page Settings..."/>
           <Oak.ActionItem id="oak.savePage"/>
-          <Oak.ActionItem id="oak.startEditingPage"/>
-          <Oak.ActionItem id="oak.stopEditingPage"/>
+          <Oak.ActionItem id="oak.startSelectingPage"/>
+          <Oak.ActionItem id="oak.stopSelectingPage"/>
           <SUI.Divider/>
           <Oak.ActionItem id="oak.createPage"/>
           <Oak.ActionItem id="oak.deletePage"/>

@@ -149,11 +149,11 @@ export default class SelectionOverlay extends OakComponent {
     if (downOid) {
       // if shift is down, toggle selection of the element
       if (oak.event.shiftKey) {
-        oak.actions.toggleSelection({ elements: downOid });
+        oak.actions.toggleSelection({ controller, elements: downOid });
       }
       // otherwise select just the element if it's not already selected
       else if (!this.selection.includes(downOid)) {
-        oak.actions.setSelection({ elements: downOid });
+        oak.actions.setSelection({ controller, elements: downOid });
       }
     }
 
@@ -193,7 +193,7 @@ export default class SelectionOverlay extends OakComponent {
   onDragSelectionEnd = (event, { selection } = {}) => {
     if (selection && selection.length) {
       const oids = selection.map( info => info.oid );
-      oak.actions.setSelection({ elements: oids });
+      oak.actions.setSelection({ controller: this.controller, elements: oids });
     }
     else {
       oak.actions.clearSelection();
@@ -568,7 +568,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
   render() {
     const { controller } = this;
-    if (!controller || !controller.isEditing) return null;
+    if (!controller || !controller.isSelecting) return null;
 
     const props = {
       id: "SelectionOverlay",

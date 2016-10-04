@@ -19,6 +19,7 @@ import utils from "./utils";
 // Add one or more `elements` to the current selection.
 export function addToSelection(options) {
   const {
+    controller,
     elements,
     operation = "addToSelection", autoExecute = true
   } = options;
@@ -31,8 +32,8 @@ export function addToSelection(options) {
   if (oidsToAdd.length === 0) return;
 
   return _setSelectionTransaction({
+    controller,
     selection: selection.concat(oidsToAdd),
-    operation,
     autoExecute
   });
 }
@@ -40,6 +41,7 @@ export function addToSelection(options) {
 // Remove one or more `elements` from the current selection.
 export function removeFromSelection(options = {}) {
   const {
+    controller,
     elements,
     operation = "removeFromSelection", autoExecute = true
   } = options;
@@ -52,8 +54,8 @@ export function removeFromSelection(options = {}) {
   if (oidsToRemove.length === 0) return;
 
   return _setSelectionTransaction({
+    controller,
     selection: selection.filter( oid => !oidsToRemove.includes(oid) ),
-    operation,
     autoExecute
   })
 }
@@ -61,6 +63,7 @@ export function removeFromSelection(options = {}) {
 // Toggle the `elements` in the current selection.
 export function toggleSelection(options = {}) {
   const {
+    controller,
     elements,
     operation = "toggleSelection", autoExecute = true
   } = options;
@@ -79,6 +82,7 @@ export function toggleSelection(options = {}) {
   }
   // otherwise add to the selection
   return addToSelection({
+    controller,
     elements: oids,
     operation,
     autoExecute
@@ -89,11 +93,13 @@ export function toggleSelection(options = {}) {
 // Clear the current selection entirely.
 export function clearSelection(options = {}) {
   const {
+    controller,
     autoExecute = true
   } = options;
 
   return _setSelectionTransaction({
     actionName: "Clear Selection",
+    controller,
     selection: [],
     autoExecute
   });
@@ -102,6 +108,7 @@ export function clearSelection(options = {}) {
 // Set the current selection to the set of `elements` passed in.
 export function setSelection(options = {}) {
   const {
+    controller,
     elements,
     operation = "setSelection", autoExecute = true
   } = options;
@@ -109,8 +116,8 @@ export function setSelection(options = {}) {
   const selection = utils.getOidsOrDie(elements, operation);
 
   return _setSelectionTransaction({
+    controller,
     selection,
-    operation,
     autoExecute,
   });
 }
@@ -126,8 +133,8 @@ export function selectAll(options = {}) {
   const selection = utils.getOidsOrDie(controller.descendentOids, operation);
 
   return _setSelectionTransaction({
+    controller,
     selection,
-    operation,
     autoExecute,
   });
 }
@@ -136,16 +143,17 @@ export function selectAll(options = {}) {
 // Internal function to change the selection assuming normalized `options.selection`.
 function _setSelectionTransaction(options = {}) {
   const {
+    controller = oak.editController,
     selection = [],
-    operation = "_setSelectionTransaction", autoExecute = true, actionName = "Change Selection"
+    autoExecute = true, actionName = "Change Selection"
   } = options;
 
   // bail if selection is not actually changing
-  if (selection && oak.selection && selection.join("") === oak.selection.join("")) return;
-
   const originalSelection = oak.selection;
-  function undo() { return utils.setSelection(originalSelection); }
-  function redo() { return utils.setSelection(selection); }
+  if (selection && originalSelection && selection.join("") === originalSelection.join("")) return;
+
+  function undo() { return controller.setState({ selection: originalSelection }); }
+  function redo() { return controller.setState({ selection: selection }); }
 
   return new UndoTransaction({
     redoActions:[redo],
@@ -160,7 +168,7 @@ function _setSelectionTransaction(options = {}) {
 //  Menu-type actions
 //////////////////////////////
 
-// Select all which takes us into edit mode if necessary
+// Select all (which takes us into selection mode if necessary).
 function selectAllAction(options = {}) {
   const {
     actionName = "Select All",
@@ -170,7 +178,7 @@ function selectAllAction(options = {}) {
   return new UndoTransaction({
     actionName: actionName,
     transactions: [
-      app.startEditing({autoExecute: false }),
+      app.startSelecting({autoExecute: false }),
       selectAll({ autoExecute: false })
     ],
     autoExecute
@@ -186,7 +194,7 @@ new Action({
 new Action({
   id: "oak.deselectAll", title: "Deselect All", shortcut: "Meta Shift A",
   handler: clearSelection,
-  disabled: () => !oak.isEditing || oak.selectionIsEmpty
+  disabled: () => !oak.isSelecting || oak.selectionIsEmpty
 });
 
 

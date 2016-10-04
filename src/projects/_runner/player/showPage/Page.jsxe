@@ -1,4 +1,4 @@
-<Oak.Page id="runner" data-editing={oak.isEditing}>
+<Oak.Page id="runner" data-selecting={oak.isSelecting}>
   <Oak.SplitPanel direction="horizontal" appearance="fluid" sizes={window.innerWidth > 1600 ? [600, "100%"] : [350, "100%"]}>
     <Oak.FixedPanel id="SelectionSidebar" appearance="inverted right-border right-shadow">
       <Oak.SplitPanel resizable scrolling appearance={["fluid", "inverted"]} direction={window.innerWidth > 1600 ? "horizontal" : "vertical"}>

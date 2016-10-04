@@ -13,7 +13,7 @@ import ids from "oak-roots/util/ids";
 
 import api from "./api";
 import JSXFragment from "./JSXFragment";
-//import oak from "./oak";
+import { setComponentState, getComponentState } from "./actions/app";
 
 import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
@@ -48,20 +48,61 @@ export default class ComponentController extends ChildController {
 
 
   //////////////////////////////
-  //  Selection / Editing
+  //  State management
+//TODO: how to integrate this with our Page etc component?
+//TODO: initial state?
+//TODO: HOC for this?
   //////////////////////////////
-//TODO: move this from `oak` to CC (via redux?)
+
+	// Path for the state of your component.
+  get statePath() {
+  	return `projects/${this.path}`;
+  }
+
+	// Return the current state for your component.
+	// Returns an empty object if state has never been defined or initialized.
+	get state() {
+		return getComponentState(this.statePath) || {};
+	}
+
+	// Set state for your component as part of the global `appState`.
+	// Will cause the entire app to update eventually.
+	//
+	// Returns an `UndoTransaction`.
+	// Normally calling this will create a new `UndoTransaction` which will execute immediately.
+	//	To use this as part of a larger transaction, pass `undoOptions` as `{ autoExecute: false }`.
+	setState(deltas, undoOptions) {
+		return setComponentState(this.statePath, deltas, undoOptions);
+	}
+
+
+  //////////////////////////////
+  //  Selection
+  //////////////////////////////
+
+	// Return the list of our child `oids` which are currently selected.
+	// ALWAYS returns an array.
+//TODO: filter to only oids that are in our oids map???
   get selection() {
-    if (oak.editController === this) return oak.selection;
+  	return this.state.selection || [];
   }
 
+	// Return pointers to the JSXElements for our selection.
+	// ALWAYS returns an array.
   get selectedComponents() {
-    if (oak.editController === this) return oak.selectedComponents;
+    return this.selection.map( oid => this.getJSXElementForOid(oid) ).filter(Boolean);
   }
 
-  // Are we currently in `edit` mode?
-  get isEditing() {
-    return (oak.editController === this && oak.state.editing);
+  // Return the FIRST selected component of the specified type.
+  // Returns `undefined` if no such component was found.
+  getSelectedComponent(type) {
+    return this.selectedComponents.filter( component => component.type === type )[0];
+  }
+
+  // Are we currently in `selecting` mode?
+  get isSelecting() {
+		return oak.state.selecting;
+//  	return this.state.selecting;
   }
 
 
@@ -102,8 +143,6 @@ export default class ComponentController extends ChildController {
   }
 
   // State comes from our instantiated component
-  get state() { return this.component && this.component.state }
-  setState(state) { if (this.component) this.component.setState(state) }
   forceUpdate() { if (this.component) this.component.forceUpdate() }
 
   // don't call more than once per MSEC
@@ -459,6 +498,7 @@ export default class ComponentController extends ChildController {
   }
 
 	// Set to `true` to debug class generation from jsxe.
+  @proto
   DEBUG_CLASS_GENERATION = false;
 
   createComponent(fragment, script = "") {

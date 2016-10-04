@@ -42,6 +42,7 @@ class OakJS {
     this._initState();
 
     // `oak.runner` is the player/editor ui root
+//TODO: this is app state, right?
     this.runner = {};
 
     // Create the global undoQueue
@@ -52,6 +53,7 @@ class OakJS {
     this.account = new Account({ oak: this });
 
     // load the account, since we have to do that before we can display anything
+//TODO: this is an action???
     this.account.load();
   }
 
@@ -79,6 +81,7 @@ class OakJS {
   //  We only expect to have one `runner page` open at a time,
   //  so pointing directly to those pages is probably fine.
   setRunnerPage(page) {
+//TODO: do an oak.setState() with path?
     this.runner.page = page;
     this.runner.project = page && page.project;
     this.runner.section = page && page.section;
@@ -95,9 +98,7 @@ class OakJS {
   }
 
   static DEFAULT_STATE = {
-    editing: false,           // Are we currently editing?
     editController: "Page",   // What we're editing: "Page", "Section", "Project". "Component"?
-    selection: [],            // Array of `oid`s selected in the editor.
   }
 
   // Initialize application state.
@@ -106,43 +107,19 @@ class OakJS {
     // App state, which we store in localStorage and reload when reloading the page.
     // We pick up new values added to `DEFAULT_STATE`.
     // NOTE: NEVER update this directly, use `oak.action.setState()` or some sugary variant thereof.
-    const savedState = Object.assign({}, this.constructor.DEFAULT_STATE, this.preference("appState"));
+    const savedState = Object.assign({}, this.constructor.DEFAULT_STATE);
 
-    // default selection and freeze it so it doesn't get modified here
+    // default selection so it doesn't get modified here
     if (!savedState.selection) savedState.selection = [];
-    Object.freeze(savedState.selection);
 
-    // save and freeze oak state
-    this.state = Object.freeze(savedState);
-  }
-
-  //////////////////////////////
-  //  App preferences (how is this different than state?)
-  //////////////////////////////
-
-  // Get/set/clear a JSON-stringified 'preference' stored in `localStorage`.
-  // Specfy:
-  //  - `key` only to get a value,
-  //  - `key, `value`, to set a preference value.
-  //  - `key, null` to clear a value.
-  preference(...args) {
-    if (!typeof args[0] === "string") {
-      console.warn(`oak.preference(${args}): first argument must be a string`);
-      return undefined;
-    }
-    args[0] = "-oak-" + args[0];
-    return preference(...args);
+    // save oak state
+    this.state = savedState;
   }
 
 
   //////////////////////////////
   //  State syntactic sugar
   //////////////////////////////
-
-  // Are we currently in "edit" mode?
-  get isEditing() {
-    return !!oak.state.editing;
-  }
 
   // Return the `ComponentController` for the current `appState.editController`,
   //  a `page`, `section` or `project`.
@@ -157,16 +134,20 @@ class OakJS {
     return undefined;
   }
 
+  // Are we currently in "selecting" mode?
+  get isSelecting() {
+    return this.editController && this.editController.isSelecting;
+  }
+
   // Does the current editController need to save?
   get editControllerIsDirty() {
-    const controller = this.editController;
-    return !!controller && controller.isDirty;
+    return this.editController && this.editController.isDirty;
   }
 
   // Return the currently selected elements (as a list of `oid`s).
-  // NOTE: this is a FROZEN array!
+  // ALWAYS returns an array.
   get selection() {
-    return this.state.selection;
+    return (this.editController && this.editController.selection) || [];
   }
 
   // Syntactic sugar for enabling actions, etc.
@@ -175,15 +156,11 @@ class OakJS {
   }
 
   // Return the `JSXElement`s which correspond to the selection.
+  // ALWAYS returns an array.
   get selectedComponents() {
-    return this.selection.map( oid => this.getJSXElementForOid(oid) ).filter(Boolean);
+    return (this.editController && this.editController.selectedComponents) || [];
   }
 
-  // Return the FIRST selected component of the specified type.
-  // Returns `undefined` if no such component was found.
-  getSelectedComponent(type) {
-    return this.selectedComponents.filter( component => component.type === type )[0];
-  }
 
   //////////////////////////////
   //  Browser event data
@@ -304,7 +281,7 @@ class OakJS {
   //////////////////////////////
   //  Oid => Component => Oid
   // TODO: move these into `oak.event` or some such???
-  //////////////////////////////
+  /////////////////////////////2/
 
   // Given an oid, return the JSXElement that it corresponds to.
   getJSXElementForOid(oid, controllers = [ this.editController ]) {
@@ -458,7 +435,7 @@ class OakJS {
   //  React utilities for use in composite components
   //
   classNames = classNames;
-  unknownProps = unknownProps
+  unknownProps = unknownProps;
 
   //
   //  Event handling
@@ -486,6 +463,6 @@ export default oak;
 // globalize for reflection
 global.oak = oak;
 
-// When window is resized, update everything. (???)
+// When window is resized, update everything.
 $(window).on("resize", oak.onWindowResized);
 

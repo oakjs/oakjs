@@ -12,93 +12,93 @@ import oak from "../oak";
 import utils from "./utils";
 
 //////////////////////////////
-//  Editing page / project / section
+//  Selecting page / project / section
 //////////////////////////////
 
-export function startEditing(options = {}) {
-  const state = { editing: true };
+export function startSelecting(options = {}) {
+  const state = { selecting: true };
   if (options.editController) state.editController = options.editController;
   return setAppStateTransaction({ state, ...options });
 }
 
-export function stopEditing(options = {}) {
-  const state = { editing: false };
+export function stopSelecting(options = {}) {
+  const state = { selecting: false };
   if (options.editController) state.editController = options.editController;
   return setAppStateTransaction({ state, ...options });
 }
 
-export function toggleEditing(options = {}) {
-  const editing = (options.editing !== undefined ? options.editing : !oak.isEditing);
-  const state = { editing };
+export function toggleSelecting(options = {}) {
+  const selecting = (options.selecting !== undefined ? options.selecting : !oak.isSelecting);
+  const state = { selecting };
   if (options.editController) state.editController = options.editController;
   return setAppStateTransaction({ state, ...options });
 }
 
-// Start/stop editing the current editController
+// Start/stop selecting the current editController
 new Action({
-  id: "oak.startEditing",
+  id: "oak.startSelecting",
   title: "Edit",
-  handler: startEditing
+  handler: startSelecting
 });
 
 new Action({
-  id: "oak.stopEditing",
-  title: "Stop Editing",
-  handler: stopEditing
+  id: "oak.stopSelecting",
+  title: "Stop Selecting",
+  handler: stopSelecting
 });
 
 new Action({
-  id: "oak.toggleEditing",
-  title: () => oak.isEditing ? "Stop Editing" : "Edit",
-  handler: toggleEditing
+  id: "oak.toggleSelecting",
+  title: () => oak.isSelecting ? "Stop Selecting" : "Edit",
+  handler: toggleSelecting
 });
 
 
-// Start/stop editing project
+// Start/stop selecting the the current page
 new Action({
-  id: "oak.startEditingPage", title: "Start Editing Page", shortcut: "Meta E",
-  handler: () => startEditing({editController:"Page"}),
-  hidden:() => oak.isEditing && oak.state.editController === "Page"
+  id: "oak.startSelectingPage", title: "Start Selecting Page", shortcut: "Meta E",
+  handler: () => startSelecting({editController:"Page"}),
+  hidden:() => oak.isSelecting && oak.state.editController === "Page"
 });
 
 new Action({
-  id: "oak.stopEditingPage", title: "Stop Editing Page", shortcut: "Meta E",
-  handler: stopEditing,
-  hidden:() => !oak.isEditing || oak.state.editController !== "Page"
+  id: "oak.stopSelectingPage", title: "Stop Selecting Page", shortcut: "Meta E",
+  handler: stopSelecting,
+  hidden:() => !oak.isSelecting || oak.state.editController !== "Page"
 });
 
 
-// Start/stop editing current section
+// Start/stop selecting the current section
 // NOTE: this is not really working yet...
 new Action({
-  id: "oak.startEditingSection", title: "Start Editing Section",
-  handler: () => startEditing({editController:"Section"}),
+  id: "oak.startSelectingSection", title: "Start Selecting Section",
+  handler: () => startSelecting({editController:"Section"}),
   disabled: () => true,
-  hidden:() => oak.isEditing && oak.state.editController === "Section"
+  hidden:() => oak.isSelecting && oak.state.editController === "Section"
 });
 
 new Action({
-  id: "oak.stopEditingSection", title: "Stop Editing Section",
-  handler: stopEditing,
+  id: "oak.stopSelectingSection", title: "Stop Selecting Section",
+  handler: stopSelecting,
   disabled: () => true,
-  hidden:() => !oak.isEditing || oak.state.editController !== "Section"
+  hidden:() => !oak.isSelecting || oak.state.editController !== "Section"
 });
 
 
-// Start/stop editing current project
+// Start/stop selecting the current project
 // NOTE: this is not really working yet...
 new Action({
-  id: "oak.startEditingProject", title: "Start Editing Project",
-  handler: () => startEditing({editController:"Project"}),
+  id: "oak.startSelectingProject", title: "Start Selecting Project",
+  handler: () => startSelecting({editController:"Project"}),
   disabled: () => true,
-  hidden:() => oak.isEditing && oak.state.editController === "Project"
+  hidden:() => oak.isSelecting && oak.state.editController === "Project"
 });
 
 new Action({
-  id: "oak.stopEditingProject", title: "Stop Editing Project",
-  handler: stopEditing,
+  id: "oak.stopSelectingProject", title: "Stop Selecting Project",
+  handler: stopSelecting,
   disabled: () => true,
-  hidden: () => !oak.isEditing || oak.state.editController !== "Project"
+  hidden: () => !oak.isSelecting || oak.state.editController !== "Project"
 });
 
 
@@ -119,7 +119,7 @@ new Action({
   id: "oak.saveCurrent",
   title: ()=> `Save ${oak.state.editController}`,
   handler: saveCurrent,
-  hidden: () => !oak.isEditing || !oak.editController,
+  hidden: () => !oak.editController,
   active: () => oak.editControllerIsDirty
 });
 
@@ -147,6 +147,25 @@ new Action({
 //  Consider making a specific sugar function instead of calling directly.
 //////////////////////////////
 
+// Return the state for a component, as a portion of our global `oak state`.
+export function getComponentState(componentPath) {
+  if (componentPath == null) die(oak, "setComponentState", arguments, "`componentPath` must be provided.");
+  return oak.state[componentPath];
+}
+
+export function setComponentState(componentPath, deltas, options = {}) {
+  if (componentPath == null) die(oak, "setComponentState", arguments, "`componentPath` must be provided.");
+  if (deltas == null) die(oak, "setComponentState", arguments, "`deltas` must be provided.");
+
+  // merge state `deltas` passed in with current component state.
+  const currentState = getComponentState(componentPath);
+  const newState = Object.assign({}, currentState, deltas);
+
+  // defer to setAppStateTransaction
+  return setAppStateTransaction({ state: { [componentPath]: newState }, ...options });
+}
+
+
 
 export function setAppStateTransaction(options = {}) {
   const {
@@ -156,11 +175,11 @@ export function setAppStateTransaction(options = {}) {
 
   if (state == null) die(oak, "setAppStateTransaction", arguments, "`options.state` must be provided.");
 
-  const originalState = Object.assign({}, oak.state);
-  const newState = Object.assign({}, originalState, state);
+  const currentState = Object.assign({}, oak.state);
+  const newState = Object.assign({}, currentState, state);
 
   function redo() { utils.replaceAppState(newState); }
-  function undo() { utils.replaceAppState(originalState); }
+  function undo() { utils.replaceAppState(currentState); }
 
   return new UndoTransaction({
     redoActions:[redo],
