@@ -66,6 +66,7 @@ export function contains(parent, potentialChild, includingParent = true) {
 //  - an outerWrapper which is sized to the clientRect which encompasses the elements.
 // Returns the `outerWrapper`.
 export function getDragPreviewForElements(elements) {
+//TODO: what if elements is empty???
   const rects = elements.map(element => clientRect(element));
   const outerRect = Rect.containingRect(rects);
 
