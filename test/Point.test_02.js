@@ -50,11 +50,11 @@ function test_style () {
 
 
 function test_delta () {
-  // static delta between 2 inputs 1 string 1 number,
-  // the return can be undefined
-  // the person calling should check for
-  // undefined rather than have the lower level mathy stuff throw an owenisms
-  // either return an UNDEFEFINED or correct
+  /* static delta between 2 inputs 1 string 1 number,
+  the return can be undefined
+  the person calling should check for
+  undefined rather than have the lower level mathy stuff throw an owenisms
+  either return an UNDEFEFINED or correct */
   describe('#delta', () => {
     let thisPoint,
         otherPoint,
