@@ -22,7 +22,7 @@ describe('Point', () => {
   //test_style();
   test_equals();
   test_integerize();
-  //test_delta();
+  test_delta();
   //test_add();
   //test_subtract();
   test_invert();
@@ -30,46 +30,60 @@ describe('Point', () => {
   test_toString();
 });
 
-function test_equals () {
-  describe('#equals', () => {
+
+function test_direction () {
+  describe('#direction', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
+
+function test_style () {
+  describe('#style', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
+
+
+
+function test_delta () {
+  // static delta between 2 inputs 1 string 1 number,
+  // the return can be undefined
+  // the person calling should check for
+  // undefined rather than have the lower level mathy stuff throw an owenisms
+  // either return an UNDEFEFINED or correct
+  describe('#delta', () => {
     let thisPoint,
         otherPoint,
-        samePoint;
+        samePoint,
+        newPoint;
 
     beforeEach(() => {
       thisPoint  = new Point(100, 150);
       otherPoint = new Point(200, 250);
       samePoint  = new Point(100, 150);
+      newPoint   = thisPoint.delta(otherPoint);
     });
 
-    // test correct inputs
-    it("returns true when point1 and this.point share the same xy coordinates  ", () => {
-      (thisPoint.equals(samePoint)).should.equal(true);
+    it('returns a new object', () => {
+      (typeof thisPoint.delta(otherPoint)).should.equal('object');
     });
 
-    it("returns false when point1's and this.point's xy coordinates do NOT match ", () => {
-      (thisPoint.equals(otherPoint)).should.equal(false);
+    it('returns a new instance of Point class', () => {
+      (thisPoint.delta(otherPoint) instanceof Point).should.equal(true);
     });
 
-    // test malformed inputs
-    it("returns false when no input is given ", () => {
-      (thisPoint.equals()).should.equal(false);
+    it('returns a point whose x cordinate is the delta between the 2 points ', () => {
+      (newPoint.x).should.equal(thisPoint.x - otherPoint.x);
     });
 
-    it("returns false when passing a NaN ", () => {
-      (thisPoint.equals(NaN)).should.equal(false);
-    });
-
-    it("returns false when passing a string ", () => {
-      (thisPoint.equals('Hello, I am not a point')).should.equal(false);
-    });
-
-    it("returns false when passing a number", () => {
-      (otherPoint.equals(10)).should.equal(false);
-    });
 
   });
 }
+
 
 function test_add () {
   describe('#add', () => {
@@ -87,34 +101,6 @@ function test_subtract () {
   });
 }
 
-function test_delta () {
-  // static delta between 2 inputs 1 string 1 number,
-  // the return can be undefined
-  // the person calling should check for
-  // undefined rather than have the lower level mathy stuff throw an owenisms
-  // either return an UNDEFEFINED or correct
-  describe('#delta', () => {
-    it('no tests exist', () => {
-      (0).should.equal(1);
-    });
-  });
-}
-
-function test_direction () {
-  describe('#direction', () => {
-    it('no tests exist', () => {
-      (0).should.equal(1);
-    });
-  });
-}
-
-function test_style () {
-  describe('#style', () => {
-    it('no tests exist', () => {
-      (0).should.equal(1);
-    });
-  });
-}
 
 
 function testConstructor () {
@@ -224,6 +210,47 @@ function test_isOrigin () {
   });
 }
 
+function test_equals () {
+  describe('#equals', () => {
+    let thisPoint,
+        otherPoint,
+        samePoint;
+
+    beforeEach(() => {
+      thisPoint  = new Point(100, 150);
+      otherPoint = new Point(200, 250);
+      samePoint  = new Point(100, 150);
+    });
+
+    // test correct inputs
+    it("returns true when point1 and this.point share the same xy coordinates  ", () => {
+      (thisPoint.equals(samePoint)).should.equal(true);
+    });
+
+    it("returns false when point1's and this.point's xy coordinates do NOT match ", () => {
+      (thisPoint.equals(otherPoint)).should.equal(false);
+    });
+
+    // test malformed inputs
+    it("returns false when no input is given ", () => {
+      (thisPoint.equals()).should.equal(false);
+    });
+
+    it("returns false when passing a NaN ", () => {
+      (thisPoint.equals(NaN)).should.equal(false);
+    });
+
+    it("returns false when passing a string ", () => {
+      (thisPoint.equals('Hello, I am not a point')).should.equal(false);
+    });
+
+    it("returns false when passing a number", () => {
+      (otherPoint.equals(10)).should.equal(false);
+    });
+
+  });
+}
+
 function test_integerize () {
   describe('#integerize', () => {
     let point;
@@ -246,6 +273,8 @@ function test_integerize () {
   });
 
 }
+
+
 
 function test_size () {
   describe('#size', () => {
