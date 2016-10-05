@@ -68,6 +68,7 @@ function test_delta () {
       newPoint   = thisPoint.delta(otherPoint);
     });
 
+    // test correct inputs
     it('returns a new object', () => {
       (typeof thisPoint.delta(otherPoint)).should.equal('object');
     });
@@ -79,6 +80,12 @@ function test_delta () {
     it('returns a point whose x cordinate is the delta between the 2 points ', () => {
       (newPoint.x).should.equal(thisPoint.x - otherPoint.x);
     });
+
+    // test malformed inputs
+    it('fails how? when no value is passed?', () => {
+      (thisPoint.delta()).should.equal({ x: 100, y: 150 });
+    });
+
 
 
   });
