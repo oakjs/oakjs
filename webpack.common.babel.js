@@ -100,6 +100,7 @@ export default {
 					include: paths.src,
 					loader: 'url-loader',
 					query: {
+						// inline files under 25K in size
 						limit: 25000
 					}
 				}
