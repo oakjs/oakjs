@@ -10,7 +10,6 @@ import bundler from "./bundler";
 import Component from "./Component";
 import ComponentIndex from "./ComponentIndex";
 import paths from "./paths";
-import Page from "./Page";
 import Project from "./Project";
 
 export default class ProjectComponent extends Component {
