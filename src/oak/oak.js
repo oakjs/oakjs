@@ -17,9 +17,6 @@ import Account from "./Account";
 import actions from "./actions";
 import ComponentController from "./ComponentController";
 import OakEvent from "./OakEvent";
-import Page from "./Page";
-import Project from "./Project";
-import Section from "./Section";
 
 import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
