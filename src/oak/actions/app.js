@@ -7,7 +7,9 @@ import Action from "oak-roots/Action";
 import { die,  } from "oak-roots/util/die";
 import { UndoTransaction } from "oak-roots/UndoQueue";
 
-import oak from "../oak";
+//TODO: Importing `oak` here was breaking things on the server, not sure why...
+//      Using oak global for now.
+//import oak from "../oak";
 
 import utils from "./utils";
 
