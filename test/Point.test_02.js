@@ -26,8 +26,18 @@ describe('Point', () => {
   //test_subtract();
   test_invert();
   test_size();
+  test_isPointLike();
   test_toString();
 });
+
+function test_isPointLike () {
+  describe('#isPointLike', () => {
+    it('returns true if passed an instance of Point class', () => {
+      (Point.isPointLike()).should.equal(true);
+    });
+  });
+}
+
 
 
 function test_style () {
