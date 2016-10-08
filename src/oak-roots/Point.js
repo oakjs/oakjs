@@ -35,10 +35,6 @@ export default class Point {
     return this.x === 0 && this.y === 0;
   }
 
-  // Directionality for this point if treated as a `delta`.
-  get direction() {
-    return Point.getDirection(this);
-  }
 
   // Return this point as a `{ top, left }`, eg for use as CSS `style` values.
   get style() {
@@ -110,21 +106,6 @@ export default class Point {
   // Return the inverse of this point
   static invert(point = new Point()) {
     return new Point( -point.x, -point.y);
-  }
-
-  // Treating a point as a `delta`, translate into a direction object
-  //  as: `{ left, top, up, down }`.
-  static getDirection(delta) {
-    if (!delta ) return undefined;
-
-    const direction = {};
-    if (delta.x < 0)       direction.left = delta.x * -1;
-    else if (delta.x > 0)  direction.right = delta.x;
-
-    if (delta.y < 0)       direction.up = delta.y * -1;
-    else if (delta.y > 0)  direction.down = delta.y;
-
-    return direction;
   }
 
   //////////////////////////////
