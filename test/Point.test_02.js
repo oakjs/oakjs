@@ -18,7 +18,6 @@ describe('Point', () => {
   test_left();
   test_top();
   test_isOrigin();
-  //test_direction();
   //test_style();
   test_equals();
   test_integerize();
@@ -30,14 +29,6 @@ describe('Point', () => {
   test_toString();
 });
 
-
-function test_direction () {
-  describe('#direction', () => {
-    it('no tests exist', () => {
-      (0).should.equal(1);
-    });
-  });
-}
 
 function test_style () {
   describe('#style', () => {
