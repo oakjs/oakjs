@@ -35,7 +35,6 @@ export default class Point {
     return this.x === 0 && this.y === 0;
   }
 
-
   // Return this point as a `{ top, left }`, eg for use as CSS `style` values.
   get style() {
     return { left: this.x, top: this.y };
@@ -44,6 +43,7 @@ export default class Point {
   //////////////////////////////
   //  Math-y stuff
   //////////////////////////////
+
 
   equals(point) {
     if (!point) return false;
@@ -107,6 +107,11 @@ export default class Point {
   static invert(point = new Point()) {
     return new Point( -point.x, -point.y);
   }
+
+  //////////////////////////////
+  //  Validate
+  //////////////////////////////
+
 
   //////////////////////////////
   //  Debug
