@@ -112,6 +112,10 @@ export default class Point {
   //  Validate
   //////////////////////////////
 
+  // Return true if looks, tastes, and acts like a point 
+  static isPointLike(thing) {
+    return true;
+  }
 
   //////////////////////////////
   //  Debug
