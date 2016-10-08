@@ -32,40 +32,94 @@ describe('Point', () => {
 
 function test_isPointLike () {
   let point,
+      point1,
+      point2,
+      pointThingObject,
+      pointThingOneObject,
+      pointThingOtherObject,
       pointThing,
       pointThingString,
+      pointThingOneString,
+      pointThingOtherString,
       pointThingNaN,
+      pointThingOneNaN,
+      pointThingOtherNaN,
+      pointThingUndefined,
+      pointThingOneUndefined,
+      pointThingOtherUndefined,
       x,
       y;
 
   beforeEach(() => {
-    point      = new Point(100, 150);
-    pointThing = { x: 5, y: 500 };
-    pointThingString = { x: 'timeX', y: 'forY' };
-    pointThingNaN = { x: NaN, y: NaN };
+    //point      = new Point(100, 150);
+    //pointThing = { x: 5, y: 500 };
+    //pointThingString = { x: 'timeX', y: 'forY' };
+    //pointThingNaN = { x: NaN, y: NaN };
+    //pointThingUndefined = { x: undefined, y: undefined };
   });
 
   describe('#isPointLike', () => {
     it('returns true if passed an instance of Point class', () => {
+      point = new Point(100, 150);
       (Point.isPointLike(point)).should.equal(true);
     });
 
     it('returns true if passed a Point-like object with valid x, y coordinates', () => {
-      console.log('pointThing.x=' + pointThing.x);
+      pointThing = { x: 5, y: 500 };
       (Point.isPointLike(pointThing)).should.equal(true);
     });
 
-    it('returns false if passed a Point-like object with strings for x, y coordinates', () => {
-      console.log('pointThingString.x=' + pointThingString.x);
+    it('returns false if passed a Point-like object with strings for both x, y coordinates', () => {
+      pointThingString = { x: 'timeX', y: 'forY' };
       (Point.isPointLike(pointThingString)).should.equal(false);
     });
 
-    it('returns false if passed a Point-like object with NaN for x, y coordinates', () => {
-      console.log('pointThingNaN.x=' + pointThingNaN.x);
-      console.log('typeof pointThingNaN.x=' + typeof pointThingNaN.x);
+    it('returns false if passed a Point-like object with strings for either x or y coordinates', () => {
+      pointThingOneString = { x: 'timeXOnly', y: 10 };
+      (Point.isPointLike(pointThingOneString)).should.equal(false);
+      pointThingOtherString = { x: 10, y: 'forYOnly' };
+      (Point.isPointLike(pointThingOtherString)).should.equal(false);
+    });
+
+    it('returns false if passed a Point-like object with NaN for both x, y coordinates', () => {
+      pointThingNaN = { x: NaN, y: NaN };
       (Point.isPointLike(pointThingNaN)).should.equal(false);
     });
 
+    it('returns false if passed a Point-like object with NaN for either x, y coordinates', () => {
+      pointThingOneNaN = { x: NaN, y: 200 };
+      (Point.isPointLike(pointThingOneNaN)).should.equal(false);
+      pointThingOtherNaN = { x: 127, y: NaN };
+      (Point.isPointLike(pointThingOtherNaN)).should.equal(false);
+    });
+
+    it('returns false if passed a Point-like object with Undefined for both x, y coordinates', () => {
+      pointThingUndefined = { x: undefined, y: undefined };
+      (Point.isPointLike(pointThingUndefined)).should.equal(false);
+    });
+
+    it('returns false if passed a Point-like object with Undefined for either x, y coordinates', () => {
+      pointThingOneUndefined = { x: undefined, y: 301 };
+      (Point.isPointLike(pointThingOneUndefined)).should.equal(false);
+      pointThingOtherUndefined = { x: 287, y: undefined };
+      (Point.isPointLike(pointThingOtherUndefined)).should.equal(false);
+    });
+
+    it('returns false if passed a Point-like object with point objects for both x, y coordinates', () => {
+      point1 = new Point(99, 79);
+      point2 = new Point(79, 99);
+      pointThingObject = { x: point1, y: point2 };
+      (Point.isPointLike(pointThingObject)).should.equal(false);
+    });
+
+    it('returns false if passed a Point-like object with point objects for either x, y coordinates', () => {
+      point1 = new Point(99, 79);
+      point2 = new Point(79, 99);
+      pointThingOneObject = { x: point1, y: 10 };
+      (Point.isPointLike(pointThingOneObject)).should.equal(false);
+      pointThingOtherObject = { x: 45, y: point2 };
+      (Point.isPointLike(pointThingOtherObject)).should.equal(false);
+    });
   });
 }
 
@@ -113,13 +167,11 @@ function test_delta () {
       (newPoint.x).should.equal(thisPoint.x - otherPoint.x);
     });
 
-    // test malformed inputs
+    /*// test malformed inputs
     it('fails how? when no value is passed?', () => {
       (thisPoint.delta()).should.equal({ x: 100, y: 150 });
     });
-
-
-
+    */
   });
 }
 

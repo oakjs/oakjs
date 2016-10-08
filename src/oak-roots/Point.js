@@ -112,17 +112,20 @@ export default class Point {
   //  Validate
   //////////////////////////////
 
-  // Return true if looks, tastes, and acts like a point
+  // Return true if the thing looks, tastes, and acts like a point
   static isPointLike(thing) {
+    // hey thing, if you're a point, then we're good
     if (thing instanceof Point) {
       return true;
     }
+    // hey thing-that's-not-a-point, are you point-like with valid xy?
     else if (((typeof thing.x === 'number' )  // let all numbers pass (including NaN)
           && (typeof thing.y === 'number' ))
           && ((thing.x === thing.x)           // filter out NaN numbers
           && (thing.y === thing.y))){
       return true;
     }
+    // sorry thing
     else {
       return false;
     }
