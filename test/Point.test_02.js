@@ -31,10 +31,41 @@ describe('Point', () => {
 });
 
 function test_isPointLike () {
+  let point,
+      pointThing,
+      pointThingString,
+      pointThingNaN,
+      x,
+      y;
+
+  beforeEach(() => {
+    point      = new Point(100, 150);
+    pointThing = { x: 5, y: 500 };
+    pointThingString = { x: 'timeX', y: 'forY' };
+    pointThingNaN = { x: NaN, y: NaN };
+  });
+
   describe('#isPointLike', () => {
     it('returns true if passed an instance of Point class', () => {
-      (Point.isPointLike()).should.equal(true);
+      (Point.isPointLike(point)).should.equal(true);
     });
+
+    it('returns true if passed a Point-like object with valid x, y coordinates', () => {
+      console.log('pointThing.x=' + pointThing.x);
+      (Point.isPointLike(pointThing)).should.equal(true);
+    });
+
+    it('returns false if passed a Point-like object with strings for x, y coordinates', () => {
+      console.log('pointThingString.x=' + pointThingString.x);
+      (Point.isPointLike(pointThingString)).should.equal(false);
+    });
+
+    it('returns false if passed a Point-like object with NaN for x, y coordinates', () => {
+      console.log('pointThingNaN.x=' + pointThingNaN.x);
+      console.log('typeof pointThingNaN.x=' + typeof pointThingNaN.x);
+      (Point.isPointLike(pointThingNaN)).should.equal(false);
+    });
+
   });
 }
 
