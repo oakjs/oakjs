@@ -94,11 +94,6 @@ export default class Component {
 //  Data, serialization and saving
 //
 
-  // Return data to save to the server for this component.
-  getDataToSave() {
-    return utils.getComponentSaveData(this);
-  }
-
   // Special `toJSON` routine to serialize as simple object.
   toJSON() {
     return utils.componentToJSON(this);
@@ -266,7 +261,7 @@ export default class Component {
         // Dispatch initial delete action for placement in the undo queue
         dispatch({ type: "SAVE_COMPONENT", path });
 
-        const saveData = component.getDataToSave();
+        const saveData = utils.getComponentSaveData(component);
         return api.saveComponentBundle(component, saveData)
           .then(
             (data) => dispatch({ type: "SAVED_COMPONENT", data }),
