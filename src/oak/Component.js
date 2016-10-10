@@ -603,14 +603,16 @@ utils = Component.__utils__ = {
   // Returns clones of `[projectMap, component]`
   // Throws if anything goes wrong.
   setComponentData(projectMap, component, data) {
+    const { type, jsxe, css, js, jsx, index } = data;
     let clone = component;
-    clone = utils.setComponentJSXE(clone, data.jsxe);
-    clone = utils.setComponentCSS(clone, data.css);
-    clone = utils.setComponentJS(clone, data.js);
-    clone = utils.setComponentJSX(clone, data.jsx);
+    if (type) clone = utils.setComponentProps(component, { type: type });
+    clone = utils.setComponentJSXE(clone, jsxe);
+    clone = utils.setComponentCSS(clone, css);
+    clone = utils.setComponentJS(clone, js);
+    clone = utils.setComponentJSX(clone, jsx);
     // processing the index may affect other things in the projectMap
     let mapClone = { ...projectMap };
-    [mapClone, clone] = utils.setComponentIndex(mapClone, clone, data.index);
+    [mapClone, clone] = utils.setComponentIndex(mapClone, clone, index);
 
     // update with new loadState
     return utils.updateComponent(mapClone, clone, { loadState: "loaded" });
@@ -720,7 +722,7 @@ utils = Component.__utils__ = {
     }
 
     // If there was a change in the component index, clone and update in the projectmap
-    return utils.updateComponent(mapClone, component, { index: typeIndex });
+    return utils.updateComponent(mapClone, component, { index: typeIndex }, "DO_DEEP_EQUAL_CHECK");
   },
 
   // Properties that we save to the server.

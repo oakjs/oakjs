@@ -292,7 +292,6 @@ describe("Component actions", () => {
 // TODO: loadAccount() returning an error
 
   it("execute loadComponent() as expected", () => {
-    const path = Component._ACCOUNT_PATH_;
     const projectPath = "/foo";
     const projectIndexData = { type: "Project", title: "FOO" };
     const projectLoadData = {
@@ -318,7 +317,7 @@ describe("Component actions", () => {
       .then(() => {
         const account = Component.getAccount();
         const accountIndex = { ALL: [projectPath], Project: [projectPath] };
-        const accountData = { path: path, type: "Account", loadState: "loaded", index: accountIndex };
+        const accountData = { path: Component._ACCOUNT_PATH_, type: "Account", loadState: "loaded", index: accountIndex };
         expect(account).to.be.an.instanceof(Component);
         expect(account).to.deep.equal(accountData);
         expect(account.isUnloaded).to.be.false;
@@ -355,8 +354,6 @@ describe("Component actions", () => {
   });
 
   it("execute reloadComponent() with same data with minimal churn", () => {
-    const path = Component._ACCOUNT_PATH_;
-
     const pagePath = "/foo/bar";
     const pageIndexData = { type: "Page", title: "BAAR" };
     const pageData = { path: pagePath, ...pageIndexData };
@@ -424,6 +421,86 @@ describe("Component actions", () => {
         expect(newPage).to.equal(page);
       });
   });
+
+  it("correctly updates children on reloadComponent() with different data", () => {
+    const barPath = "/foo/bar";
+    const barIndexData = { type: "Page", title: "BAAR" };
+    const barData = { path: barPath, ...barIndexData };
+
+    const bonkPath = "/foo/bonk";
+    const bonkIndexData = { type: "Page", title: "BONK" };
+    const bonkData = { path: bonkPath, ...bonkIndexData };
+
+    const projectPath = "/foo";
+    const projectIndexData = { type: "Project", title: "FOO" };
+
+    // mock api calls
+    api.loadProjectIndex = () => Promise.resolve({
+      index: [ { id: "foo", ...projectIndexData } ]
+    });
+    api.loadComponentBundle = () => Promise.resolve({
+      index: [ { id: "bar", ...barIndexData } ]
+    });
+
+    var account, project, page;
+    return Component.actions.loadAccount()
+      .then(() => Component.actions.loadComponent(projectPath))
+      .then(() => {
+        account = Component.getAccount();
+        expect(account).to.be.an.instanceof(Component);
+
+        // project is of correct shape
+        project = Component.get(projectPath);
+        const projectData = {
+          path: projectPath,
+          index: { ALL: [barPath], Page: [barPath] },
+          loadState: "loaded",
+          ...projectIndexData,
+        };
+        expect(project).to.be.an.instanceof(Component);
+        expect(project.toJSON()).to.deep.equal(projectData);
+
+        // page is of correct shape
+        page = Component.get(barPath);
+        expect(page).to.be.an.instanceof(Component);
+        expect(page).to.deep.equal(barData);
+      })
+      // reload with the same data
+      .then(() => {
+        // change api results
+        api.loadComponentBundle = () => Promise.resolve({
+          index: [ { id: "bonk", ...bonkIndexData } ]
+        });
+        return Component.actions.reloadComponent(projectPath);
+      })
+      .then(() => {
+        // account shouldn't change
+        const newAccount = Component.getAccount();
+        expect(newAccount).to.be.an.instanceof(Component);
+        expect(newAccount).to.equal(account);
+
+        // project changed and has new index
+        const newProject = Component.get(projectPath);
+        const projectData = {
+          path: projectPath,
+          index: { ALL: [bonkPath], Page: [bonkPath] },
+          loadState: "loaded",
+          ...projectIndexData,
+        };
+        expect(newProject).to.be.an.instanceof(Component);
+        expect(newProject.toJSON()).to.deep.equal(projectData);
+
+        // bar page should be gone
+        const barPage = Component.get(barPath);
+        expect(barPage).to.be.undefined;
+
+        // bonk page should be present
+        const bonkPage = Component.get(bonkPath);
+        expect(bonkPage).to.be.an.instanceof(Component);
+        expect(bonkPage).to.be.deep.equal(bonkData);
+      });
+  });
+
 
 // TODO: loadComponent() returning an error
 // TODO: reloadComponent()
