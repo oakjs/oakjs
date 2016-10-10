@@ -7,8 +7,14 @@ import JSXFragment from "./JSXFragment";
 
 export default class Component {
   constructor(...propMaps) {
-    // Assign all propMaps to this object
-    Object.assign(this, ...propMaps);
+    // You can pass just a path as a convenience.
+    if (propMaps.length === 1 && typeof propMaps[0] === "string") {
+      this.path = propMaps[0];
+    }
+    else {
+      // Assign all propMaps to this object
+      Object.assign(this, ...propMaps);
+    }
 
     // if we got a `jsxe` property, convert it to a `jsxFragment`
 // NOTE: this might happen on 'rehydration'
@@ -43,7 +49,7 @@ export default class Component {
 
   // Load state sugar
   get isUnloaded() { return this.loadState === undefined; }
-  get isLoading() { return !!(this.loadState && this.loadState.then); }
+  get isLoading() { return !!(this.loadState && this.loadState.then) || this.loadState === "loading"; }
   get isLoaded() { return this.loadState === "loaded"; }
   get isLoadError() { return this.loadState instanceof Error; }
 
@@ -60,7 +66,7 @@ export default class Component {
   }
 
 //
-//  Serialization and saving
+//  Data, serialization and saving
 //
   // Properties that we save to the server.
   static _FIELDS_TO_SAVE_ = ["jsxe", "type", "css", "js", "jsx"];
@@ -82,34 +88,11 @@ export default class Component {
     return output;
   }
 
-  // Properties associated with our loaded data.
-  // These will be cleared if there's an error in loading the component.
-  static _ALL_DATA_FIELDS_ = ["loadState", "jsxFragment", "css", "js", "jsx", "index"];
-
-  // Unload the component at `path` and remove all its children.
-  // If you pass any `componentProps`, we'll update the component with those before returning.
-  // Returns clones of `[projectMap, component]`.
-  static _unloadDataAndChildren(projectMap, component, newProps) {
-    // First remove any children from the component
-    let mapClone = { ...projectMap };
-    let clone = component;
-
-    if (component.children)
-      [mapClone, clone] = Component._deleteComponentChildren(mapClone, component.path);
-
-    // remove all data props and add newProps to new clone
-    const nonDataProps = _.omit(component, Component._ALL_DATA_FIELDS_);
-    clone = new Component(nonDataProps, newProps);
-    mapClone[component.path] = clone;
-    return [mapClone, clone];
-  }
-
   // Special `toJSON` routine to serialize as simple object.
   // NOTE: this is also what we save to the server...
   toJSON() {
     const output = {};
-    Object.keys(this).forEach(key => {
-      const value = this[key];
+    _.forIn(this, (value, key) => {
       // skip anything that's undefined
       if (value === undefined) return;
 
@@ -120,7 +103,7 @@ export default class Component {
 
         case "loadState":
           if (value && value.then) output.loadState = "loading";
-          else if (value instanceof Error) output.loadState = "error";
+          else if (value instanceof Error) output.loadState = `error: ${error.message}`;
           else output.loadState = value;
           break;
 
@@ -188,6 +171,30 @@ export default class Component {
 //
 //  Process bits of the component that can be loaded.
 //
+
+  // Properties associated with our loaded data.
+  // These will be cleared if there's an error in loading the component.
+  static _ALL_DATA_FIELDS_ = ["loadState", "jsxFragment", "css", "js", "jsx", "index"];
+
+  // Unload the component at `path` and remove all its children.
+  // If you pass any `componentProps`, we'll update the component with those before returning.
+  // Returns clones of `[projectMap, component]`.
+  static _unloadDataAndChildren(projectMap, component, newProps) {
+    // First remove any children from the component
+    let mapClone = { ...projectMap };
+    let clone = component;
+
+    if (component.children)
+      [mapClone, clone] = Component._deleteComponentChildren(mapClone, component.path);
+
+    // remove all data props and add newProps to new clone
+    const nonDataProps = _.omit(clone, Component._ALL_DATA_FIELDS_);
+    clone = new Component(nonDataProps, newProps);
+    mapClone[component.path] = clone;
+
+    return [mapClone, clone];
+  }
+
 
   // Set all applicable `data` for `component`.
   // Returns clones of `[projectMap, component]`
@@ -410,7 +417,7 @@ export default class Component {
       const { path, loadPromise } = action;
       const account = projectMap[path] || new Component({ path, type: "Account" });
       // Remember the `loadPromise` as the `loadState` to re-use if called again while loading.
-      const clone = account.clone({ loadState: loadPromise });
+      const clone = account.clone({ loadState: loadPromise || "loading" });
       return {
         ...projectMap,
         [clone.path]: clone
@@ -436,7 +443,7 @@ export default class Component {
     LOAD_COMPONENT: (projectMap, action) => {
       const { path, loadPromise } = action;
       // get a clone of existing component or create a new one if not found
-      const component = projectMap[path] || new Component({ path });
+      const component = projectMap[path] || new Component(path);
       // Remember the `loadPromise` as the `loadState` to re-use if called again while loading.
       const clone = component.clone({ loadState: loadPromise });
       return {
@@ -449,7 +456,7 @@ export default class Component {
     LOADED_COMPONENT: (projectMap, action) => {
       const { path, data, error } = action;
       // get a existing component, creating a new one if not found
-      const component = projectMap[path] || new Component({ path });
+      const component = projectMap[path] || new Component(path);
 
       // update properties of clone using utility processing routines
       try {
@@ -560,7 +567,7 @@ export default class Component {
           .then(
             // treat as a component response
             (data) => dispatch({ type: "LOADED_ACCOUNT", path, data }),
-            (error) => dispatch({ type: "LOAD_ACCOUNT_ERROR", path, error })
+            (error) => dispatch({ type: "LOADED_ACCOUNT", path, error })
           );
       };
     },
@@ -595,7 +602,7 @@ export default class Component {
          // Dispatch success or error message when loading completes.
         return loadPromise.then(
           (data) => dispatch({ type: "LOADED_COMPONENT", path, data }),
-          (error) => dispatch({ type: "LOAD_COMPONENT_ERROR", path, error })
+          (error) => dispatch({ type: "LOADED_COMPONENT", path, error })
         );
       };
     },

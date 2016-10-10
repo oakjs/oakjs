@@ -54,6 +54,53 @@ describe("The Component module", () => {
 });
 
 
+describe("Component instances", () => {
+  it("can be created directly with a single path argument", () => {
+    const component = new Component("/foo/bar");
+    expect(component).to.be.an.instanceof(Component);
+    expect(component).to.deep.equal({ path: "/foo/bar" });
+  });
+
+  it("can be created directly with a single object arguments", () => {
+    const component = new Component({ path: "/foo/bar" });
+    expect(component).to.be.an.instanceof(Component);
+    expect(component).to.deep.equal({ path: "/foo/bar" });
+  });
+
+  it("can be created directly with multiple object arguments", () => {
+    const component = new Component({ path: "/foo/bar" }, { type: "Project" });
+    expect(component).to.be.an.instanceof(Component);
+    expect(component).to.deep.equal({ path: "/foo/bar", type: "Project" });
+  });
+
+  it("cannot be modified", () => {
+    const component = new Component("/foo/bar");
+    expect(() => component.foo = "bar").to.throw(TypeError);
+    expect(() => component.path = "bar").to.throw(TypeError);
+  });
+
+  it("return parentPath and id correctly", () => {
+    const account = new Component(Component._ACCOUNT_PATH_);
+    expect(account.parentPath).to.be.undefined;
+    expect(account.id).to.equal(Component._ACCOUNT_PATH_);
+
+    const project = new Component("/foo");
+    expect(project.parentPath).to.equal(Component._ACCOUNT_PATH_);
+    expect(project.id).to.equal("foo");
+
+    const page = new Component("/foo/bar/baz");
+    expect(page.parentPath).to.equal("/foo/bar");
+    expect(page.id).to.equal("baz");
+  });
+
+//TODO: load state
+//TODO: getChildren
+//TODO: getDataToSave
+//TODO: toJSON
+
+
+});
+
 // Configure component reducers
 describe("Component reducers", () => {
   var store;
@@ -71,7 +118,7 @@ describe("Component reducers", () => {
     expect(state.projectMap).to.be.empty;
   })
 
-  it("the LOAD_ACCOUNT reducer works as expected for Account", () => {
+  it("correctly process the LOAD_ACCOUNT action for the Account", () => {
     const path = Component._ACCOUNT_PATH_;
     const loadPromise = Promise.resolve();
 
@@ -101,7 +148,7 @@ describe("Component reducers", () => {
     expect(account.toJSON()).to.deep.equal(accountJSON);
   });
 
-  it("the LOADED_ACCOUNT reducer works as expected for Account", () => {
+  it("correctly process the LOADED_ACCOUNT action for the Account", () => {
     const path = Component._ACCOUNT_PATH_;
     const data = {
       index: [ { id: "foo", type: "Page", title: "FOOO" } ]
@@ -120,7 +167,6 @@ describe("Component reducers", () => {
     const accountData = { path, type: "Account", loadState: "loaded", index: [ "foo" ] };
     expect(newAccount).to.deep.equal(accountData);
     expect(newAccount.toJSON()).to.deep.equal(accountData);
-
     expect(newAccount.isUnloaded).to.be.false;
     expect(newAccount.isLoading).to.be.false;
     expect(newAccount.isLoaded).to.be.true;
@@ -134,7 +180,7 @@ describe("Component reducers", () => {
     expect(project).to.be.an.instanceof(Component);
   });
 
-  it("the LOAD_COMPONENT_ERROR reducer works as expected for Account", () => {
+  it("correctly process errors in the LOADED_ACCOUNT action for the Account", () => {
     const path = Component._ACCOUNT_PATH_;
     const data = {
       index: [ { id: "foo", type: "Page", title: "FOOO" } ]
@@ -142,16 +188,20 @@ describe("Component reducers", () => {
     store.dispatch({ type: "LOAD_ACCOUNT", path });
     const originalAccount = Component.get(path);
 
-    store.dispatch({ type: "LOAD_ACCOUNT_ERROR", path, error: "OOPS" });
-
+    store.dispatch({ type: "LOADED_ACCOUNT", path, error: "OOPS" });
     const { projectMap } = store.getState();
     const newAccount = projectMap[path];
+
     // make sure account has changed
     expect(newAccount).to.not.equal(originalAccount);
 
     // account object set up
     const accountData = { path, type: "Account", loadState: new Error("OOPS") };
     expect(newAccount).to.deep.equal(accountData);
+    expect(newAccount.isUnloaded).to.be.false;
+    expect(newAccount.isLoading).to.be.false;
+    expect(newAccount.isLoaded).to.be.false;
+    expect(newAccount.isLoadError).to.be.true;
   });
 
 });
