@@ -203,7 +203,8 @@ describe("Component reducers", () => {
     expect(newAccount).to.not.equal(originalAccount);
 
     // account object set up
-    const accountData = { path, type: "Account", loadState: "loaded", index: [ "foo" ] };
+    const accountIndex = { ALL: ["foo"], Page: ["foo"] };
+    const accountData = { path, type: "Account", loadState: "loaded", index: accountIndex };
     expect(newAccount).to.deep.equal(accountData);
     expect(newAccount.toJSON()).to.deep.equal(accountData);
     expect(newAccount.isUnloaded).to.be.false;
@@ -242,5 +243,8 @@ describe("Component reducers", () => {
     expect(newAccount.isLoaded).to.be.false;
     expect(newAccount.hasLoadError).to.be.true;
   });
+
+
+// TODO: reload needs to remove newly unknown children
 
 });
