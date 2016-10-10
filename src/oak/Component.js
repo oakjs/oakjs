@@ -193,7 +193,7 @@ export default class Component {
     // Load a component, returning a promise which resolves or rejects when it completes.
     // Returns immediately if component is loading, loaded or had an error when loading last time.
     loadComponent(path, forceReload) {
-      return (dispatch, getState) => {
+      return (dispatch) => {
         console.warn("loadComponent(): editability???");
         // Get current component data, rejecting if we can't find it.
         const component = utils.getComponent(path);
@@ -232,7 +232,7 @@ export default class Component {
 
     // Remove all loaded data from component, including removing its children.
     unloadComponent(path) {
-      return (dispatch, getState) => {
+      return (dispatch) => {
         const component = utils.getComponent(path);
         if (!component)
           return Promise.reject(new Error(`unloadComponent(${path}): Component not found`));
@@ -242,7 +242,7 @@ export default class Component {
 
     // Save a component.
     saveComponent(path) {
-      return (dispatch, getState) => {
+      return (dispatch) => {
         const component = utils.getComponent(path);
         if (!component) return undefined; // TODO...???
 
@@ -260,7 +260,7 @@ export default class Component {
 
     // Delete a component specified by `path`.,
     deleteComponent(path) {
-      return (dispatch, getState) => {
+      return (dispatch) => {
         // forget it if the component isn't it the projectMap
         const component = utils.getComponent(path);
         if (!component) return Promise.resolve();
@@ -280,7 +280,7 @@ export default class Component {
 
     // Rename component at `path`.
     renameComponent({ path, newId, navigate }) {
-      return (dispatch, getState) => {
+      return (dispatch) => {
         // forget it if the component isn't it the projectMap
         const component = utils.getComponent(path);
         if (!component) return Promise.reject();
@@ -339,7 +339,7 @@ export default class Component {
 
     // Duplicate a component.
     duplicateComponent(options) {
-      return (dispatch, getState) => {
+      return (dispatch) => {
         dieIfMissing(options, "duplicateComponent", ["path", "props"]);
         dieIfMissing(options.props, "duplicateComponent", ["newId"]);
         const { path, props, position, navigate } = options;
@@ -512,15 +512,14 @@ utils = Component.__utils__ = {
     if (!props || _.isEmpty(props)) return component;
 
     // get the props
-    const newProps = {...component};
+    const newProps = { ...component };
     let changeFound = false;
-    for (let key in props) {
-      const value = props[key];
-      if (value === newProps[key]) continue;
+    _.forIn(props, (value, key) => {
+      if (value === newProps[key]) return;
       else if (value === undefined) delete newProps[key];
       else newProps[key] = value;
       changeFound = true;
-    }
+    });
     if (!changeFound) return component;
     return new Component(newProps);
   },
@@ -656,16 +655,16 @@ utils = Component.__utils__ = {
     if (index && index.length) {
       typeIndex = {};
       childIds = index.map(props => {
-        let { id, type } = props;
-        if (!id) {
+        if (!props.id) {
           console.error(`_processIndex(${component.path}): no 'id' for child`, props);
           return undefined;
         }
         // add to typeIndex
-        if (!type) {
+        if (!props.type)
           console.error(`setComponentIndex(${component.path}): child has no type`, props);
-          type = "Component";
-        }
+
+        const { id, type = "Component" } = props;
+
         if (!typeIndex[type]) typeIndex[type] = [id];
         else typeIndex[type].push(id);
 
@@ -814,6 +813,7 @@ utils = Component.__utils__ = {
 
     // remove component from its parent's `index`
     const parent = utils.getComponent(component.parentPath, mapClone);
+    const id = component.id;
     return utils.updateParentIndex(mapClone, parent, (ids) => _.without(ids, id))[0];
   },
 
