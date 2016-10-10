@@ -109,12 +109,6 @@ describe("Component instances", () => {
     expect(component.isLoading).to.be.true;
     expect(component.isLoaded).to.be.false;
     expect(component.hasLoadError).to.be.false;
-
-    component = new Component({ path: "/foo/bar", loadState: Promise.resolve() });
-    expect(component.isUnloaded).to.be.false;
-    expect(component.isLoading).to.be.true;
-    expect(component.isLoaded).to.be.false;
-    expect(component.hasLoadError).to.be.false;
   });
 
   it("returns `isLoaded` when loading", () => {
@@ -161,14 +155,13 @@ describe("Component reducers", () => {
 
   it("correctly process the LOAD_ACCOUNT action", () => {
     const path = Component._ACCOUNT_PATH_;
-    const loadPromise = Promise.resolve();
 
-    store.dispatch({ type: "LOAD_ACCOUNT", path, loadPromise });
+    store.dispatch({ type: "LOAD_ACCOUNT", path });
 
     const { projectMap } = store.getState();
 
     // same shape
-    const mapData = { [path] : { path, type: "Account", loadState: loadPromise } };
+    const mapData = { [path] : { path, type: "Account", loadState: "loading" } };
     expect(projectMap).to.deep.equal(mapData)
     // instance of Component
     const account = projectMap[path];
@@ -191,23 +184,23 @@ describe("Component reducers", () => {
 
   it("correctly process the LOADED_ACCOUNT action", () => {
     const path = Component._ACCOUNT_PATH_;
-    const data = {
+    const loadData = {
       index: [ { id: "foo", type: "Project", title: "FOOO" } ]
     };
+    // account object set up
+    const projectPath = "/foo";
+    const accountIndex = { ALL: [projectPath], Project: [projectPath] };
+    const accountData = { path, type: "Account", loadState: "loaded", index: accountIndex };
+
     store.dispatch({ type: "LOAD_ACCOUNT", path });
     const originalAccount = Component.get(path);
 
-    store.dispatch({ type: "LOADED_ACCOUNT", path, data });
+    store.dispatch({ type: "LOADED_ACCOUNT", path, data: loadData });
 
     const { projectMap } = store.getState();
     const newAccount = projectMap[path];
     // make sure account has changed
     expect(newAccount).to.not.equal(originalAccount);
-
-    // account object set up
-    const projectPath = "/foo";
-    const accountIndex = { ALL: [projectPath], Project: [projectPath] };
-    const accountData = { path, type: "Account", loadState: "loaded", index: accountIndex };
     expect(newAccount).to.deep.equal(accountData);
     expect(newAccount.toJSON()).to.deep.equal(accountData);
     expect(newAccount.isUnloaded).to.be.false;
@@ -232,9 +225,7 @@ describe("Component reducers", () => {
 
   it("correctly process errors in the LOADED_ACCOUNT action", () => {
     const path = Component._ACCOUNT_PATH_;
-    const data = {
-      index: [ { id: "foo", type: "Project", title: "FOOO" } ]
-    };
+
     store.dispatch({ type: "LOAD_ACCOUNT", path });
     const originalAccount = Component.get(path);
 

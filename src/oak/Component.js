@@ -81,7 +81,7 @@ export default class Component {
     return this.loadState === undefined;
   }
   get isLoading() {
-    return !!(this.loadState === "loading" || this.loadState && this.loadState.then);
+    return this.loadState === "loading";
   }
   get isLoaded() {
     return this.loadState === "loaded";
@@ -160,6 +160,11 @@ export default class Component {
 }// end `class`
 
 
+// We keep track of loading promises so you can call `loadComponent()` repeatedly
+//  while it's loading and get the same promise back.
+const _LOAD_PROMISES_ = {};
+
+
 //
 //  Action creators
 //  You can call these directly as `Component.actions.loadAccount()`.
@@ -176,19 +181,29 @@ const actions = {
   },
 
   // Load the `accounts` list (list of projects).
-  loadAccount() {
+  loadAccount(forceReload) {
     return (dispatch) => {
       const path = Component._ACCOUNT_PATH_;
 
-      const loadPromise = api.loadProjectIndex();
-      // Dispatch to show we're loading
-      dispatch({ type: "LOAD_ACCOUNT", path, loadPromise });
+      // if not forcing reload and we're currently loading, return stored promise.
+      if (!forceReload && _LOAD_PROMISES_[path]) return _LOAD_PROMISES_[path];
 
-      return loadPromise
-        .then(
+      // remember load promise
+      const loadPromise = api.loadProjectIndex();
+
+      // Dispatch to show we're loading
+      dispatch({ type: "LOAD_ACCOUNT", path });
+
+      return loadPromise.then(
           // treat as a component response
-          (data) => dispatch({ type: "LOADED_ACCOUNT", path, data }),
-          (error) => dispatch({ type: "LOADED_ACCOUNT", path, error })
+          (data) => {
+            delete _LOAD_PROMISES_[path];
+            dispatch({ type: "LOADED_ACCOUNT", path, data })
+          },
+          (error) => {
+            delete _LOAD_PROMISES_[path];
+            dispatch({ type: "LOADED_ACCOUNT", path, error })
+          }
         );
     };
   },
@@ -204,8 +219,9 @@ const actions = {
         return Promise.reject(new Error(`loadComponent(${path}): Component not found`));
 
       if (!forceReload) {
-        // If component is loading, return its loading promise (stored in `loadState`)
-        if (component.isLoading) return component.loadState;
+        // If we have a stored loadPromise, return that
+        //  so we don't reload while in the middle of loading
+        if (_LOAD_PROMISES_[path]) return _LOAD_PROMISES_[path];
 
         // If component is loaded, return resolved promise
         if (component.isLoaded) return Promise.resolve();
@@ -216,15 +232,23 @@ const actions = {
 
       // load!
       const loadPromise = api.loadComponentBundle(component);
+      // Remember loadPromise in case we're called again while loading.
+      _LOAD_PROMISES_[path] = loadPromise;
 
       // Update app state to note that we're loading
-      dispatch({ type: "LOAD_COMPONENT", path, loadPromise });
+      dispatch({ type: "LOAD_COMPONENT", path });
 
        // Dispatch success or error message when loading completes.
       return loadPromise.then(
-        (data) => dispatch({ type: "LOADED_COMPONENT", path, data }),
-        (error) => dispatch({ type: "LOADED_COMPONENT", path, error })
-      );
+        (data) => {
+          delete _LOAD_PROMISES_[path];
+          return dispatch({ type: "LOADED_COMPONENT", path, data })
+        },
+        (error) => {
+          delete _LOAD_PROMISES_[path];
+          return dispatch({ type: "LOADED_COMPONENT", path, error })
+        }
+      ).then(delete _LOAD_PROMISES_[path]);
     };
   },
 
@@ -397,9 +421,9 @@ Component.reducer = function(projectMap = {}, action) {
 //  NOTE: we place them on the Component for reflection/ad-hoc testing.  Don't call directly!
 Component.__reducers__ = {
   LOAD_ACCOUNT: (projectMap, action) => {
-    const { path, loadPromise } = action;
+    const { path } = action;
     const account = projectMap[path] || new Component({ path, type: "Account" });
-    return utils.updateComponent(projectMap, account, { loadState: loadPromise || "loading" })[0];
+    return utils.updateComponent(projectMap, account, { loadState: "loading" })[0];
   },
 
   // Account loading succeeded, or failed if there's an `error`.
@@ -420,11 +444,10 @@ Component.__reducers__ = {
   },
 
   LOAD_COMPONENT: (projectMap, action) => {
-    const { path, loadPromise } = action;
+    const { path } = action;
     // get a clone of existing component or create a new one if not found
     const component = projectMap[path] || new Component(path);
-    // Remember the `loadPromise` as the `loadState` to re-use if called again while loading.
-    return utils.updateComponent(projectMap, component, { loadState: loadPromise })[0];
+    return utils.updateComponent(projectMap, component, { loadState: "loading" })[0];
   },
 
   // Component loading succeeded, or failed if there's an `error`.
@@ -738,8 +761,7 @@ utils = Component.__utils__ = {
           break;
 
         case "loadState":
-          if (value && value.then) output.loadState = "loading";
-          else if (value instanceof Error) output.loadState = `error: ${value.message}`;
+          if (value instanceof Error) output.loadState = `error: ${value.message}`;
           else output.loadState = value;
           break;
 
