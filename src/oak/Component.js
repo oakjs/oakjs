@@ -407,15 +407,30 @@ export default class Component {
   static reducers = {
 
     LOAD_ACCOUNT: (projectMap, action) => {
-      const { loadPromise } = action;
-      const path = Component._ACCOUNT_PATH_;
-      const component = projectMap[path] || new Component({ path, type: "Account" });
+      const { path, loadPromise } = action;
+      const account = projectMap[path] || new Component({ path, type: "Account" });
       // Remember the `loadPromise` as the `loadState` to re-use if called again while loading.
-      const clone = component.clone({ loadState: loadPromise });
+      const clone = account.clone({ loadState: loadPromise });
       return {
         ...projectMap,
         [clone.path]: clone
       };
+    },
+
+    // Account loading succeeded or failed (if there's an `error`).
+    LOADED_ACCOUNT: (projectMap, action) => {
+      const { path, data, error } = action;
+      const account = projectMap[path];
+      // update properties of clone using utility processing routines
+      try {
+        if (error) throw error;
+        return Component._setData(projectMap, account, data)[0];
+      }
+      catch (error) {
+        console.error(`error processing LOADED_COMPONENT for '${path}':`, error);
+        const loadState = error instanceof Error ? error : new Error(error);
+        return Component._unloadDataAndChildren(projectMap, account, { loadState })[0];
+      }
     },
 
     LOAD_COMPONENT: (projectMap, action) => {
@@ -430,32 +445,22 @@ export default class Component {
       };
     },
 
+    // Component loading succeeded or failed (if there's an `error`).
     LOADED_COMPONENT: (projectMap, action) => {
-      const { path, data } = action;
+      const { path, data, error } = action;
       // get a existing component, creating a new one if not found
       const component = projectMap[path] || new Component({ path });
 
       // update properties of clone using utility processing routines
       try {
+        if (error) throw error;
         return Component._setData(projectMap, component, data)[0];
       }
       catch (error) {
         console.error(`error processing LOADED_COMPONENT for '${path}':`, error);
-        return Component._unloadDataAndChildren(projectMap, component, { loadState: error })[0];
+        const loadState = error instanceof Error ? error : new Error(error);
+        return Component._unloadDataAndChildren(projectMap, component, { loadState })[0];
       }
-    },
-
-    LOAD_COMPONENT_ERROR: (projectMap, action) => {
-      const { path, error } = action;
-      const component = projectMap[path];
-      console.error(`error loading component '${path}':`, error);
-
-      // if not found, forget it... ???
-      if (!component) return projectMap;
-
-      // Unload the component and set its loadState
-      const loadState = error instanceof Error ? error : new Error(error);
-      return Component._unloadDataAndChildren(projectMap, component, { loadState })[0];
     },
 
     UNLOAD_COMPONENT: (projectMap, action) => {
@@ -465,7 +470,7 @@ export default class Component {
       return Component._unloadDataAndChildren(component)[0];
     },
 
-    DELETE_COMPONENT_SUCCESS: (projectMap, action) => {
+    DELETED_COMPONENT: (projectMap, action) => {
       const { path } = action;
       return Component._deleteComponent(projectMap, path, "UPDATE_PARENT");
     },
@@ -498,6 +503,7 @@ export default class Component {
     RENAME_COMPONENT_ERROR: (projectMap, action) => {
       const { path, error } = action;
       console.error(`error renaming component '${path}':`, error);
+      return projectMap;
     },
 
     CREATED_COMPONENT: (projectMap, action) => {
@@ -521,12 +527,15 @@ export default class Component {
     CREATE_COMPONENT_ERROR: (projectMap, action) => {
       const { path, error } = action;
       console.error(`error creating component '${path}':`, error);
+      return projectMap;
     }
 
   }
 
 //
 //  Action creators
+//  You can call these as `Component.actions.loadAccount()`.
+//  Note that they're all self-dispatching!
 //
   static actions = {
 
@@ -543,18 +552,15 @@ export default class Component {
       return (dispatch) => {
         const path = Component._ACCOUNT_PATH_;
 
+        const loadPromise = api.loadProjectIndex();
         // Dispatch to show we're loading
-        dispatch({ type: "LOAD_ACCOUNT" });
+        dispatch({ type: "LOAD_ACCOUNT", path, loadPromise });
 
-        return api.loadProjectIndex()
+        return loadPromise
           .then(
             // treat as a component response
-            (data) => {
-              dispatch({ type: "LOADED_COMPONENT", path, data });
-              // but send special message so we know to initialize the UI
-              dispatch({ type: "LOADED_ACCOUNT" });
-            },
-            (error) => dispatch({ type: "LOAD_COMPONENT_ERROR", path, error })
+            (data) => dispatch({ type: "LOADED_ACCOUNT", path, data }),
+            (error) => dispatch({ type: "LOAD_ACCOUNT_ERROR", path, error })
           );
       };
     },
@@ -641,7 +647,7 @@ export default class Component {
         return api.deleteComponent(component)
           // ...then dispatch success or error message as appropriate
           .then(
-            () => dispatch({ type: "DELETE_COMPONENT_SUCCESS", path }),
+            () => dispatch({ type: "DELETED_COMPONENT", path }),
             (error) => dispatch({ type: "DELETE_COMPONENT_ERROR", path, error })
           );
       };

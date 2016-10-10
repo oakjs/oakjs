@@ -4,14 +4,15 @@ import { expect } from "chai";
 import Component from "../src/oak/Component";
 
 // Set up mock redux store
-import { combineReducers, createStore } from "redux";
-import configureMockStore from "redux-mock-store";
+import { combineReducers, createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+
+import configureMockStore from "redux-mock-store";
+const mockStore = configureMockStore([ thunk ]);
 
 const reducers = combineReducers({
   projectMap: Component.reducer
 });
-const mockStore = configureMockStore([ thunk ]);
 
 
 // Make sure bootstrap worked...
@@ -59,7 +60,7 @@ describe("Component reducers", () => {
 
   // Create a new store and assign it to Component before each test
   beforeEach(()=> {
-    store = Component.store = createStore(reducers);
+    store = Component.store = createStore(reducers, applyMiddleware(thunk));
   });
 
   it("have store properly set up to start", () => {
@@ -100,7 +101,7 @@ describe("Component reducers", () => {
     expect(account.toJSON()).to.deep.equal(accountJSON);
   });
 
-  it("the LOADED_COMPONENT reducer works as expected for Account", () => {
+  it("the LOADED_ACCOUNT reducer works as expected for Account", () => {
     const path = Component._ACCOUNT_PATH_;
     const data = {
       index: [ { id: "foo", type: "Page", title: "FOOO" } ]
@@ -108,7 +109,7 @@ describe("Component reducers", () => {
     store.dispatch({ type: "LOAD_ACCOUNT", path });
     const originalAccount = Component.get(path);
 
-    store.dispatch({ type: "LOADED_COMPONENT", path, data });
+    store.dispatch({ type: "LOADED_ACCOUNT", path, data });
 
     const { projectMap } = store.getState();
     const newAccount = projectMap[path];
@@ -141,7 +142,7 @@ describe("Component reducers", () => {
     store.dispatch({ type: "LOAD_ACCOUNT", path });
     const originalAccount = Component.get(path);
 
-    store.dispatch({ type: "LOAD_COMPONENT_ERROR", path, error: "OOPS" });
+    store.dispatch({ type: "LOAD_ACCOUNT_ERROR", path, error: "OOPS" });
 
     const { projectMap } = store.getState();
     const newAccount = projectMap[path];
