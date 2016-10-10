@@ -203,7 +203,8 @@ describe("Component reducers", () => {
     expect(newAccount).to.not.equal(originalAccount);
 
     // account object set up
-    const accountIndex = { ALL: ["/foo"], Page: ["/foo"] };
+    const projectPath = "/foo";
+    const accountIndex = { ALL: [projectPath], Page: [projectPath] };
     const accountData = { path, type: "Account", loadState: "loaded", index: accountIndex };
     expect(newAccount).to.deep.equal(accountData);
     expect(newAccount.toJSON()).to.deep.equal(accountData);
@@ -213,11 +214,18 @@ describe("Component reducers", () => {
     expect(newAccount.hasLoadError).to.be.false;
 
     // project is of correct shape
-    const projectData = { path: "/foo", type: "Page", title: "FOOO" };
-    const project = projectMap["/foo"];
+    const projectData = { path: projectPath, type: "Page", title: "FOOO" };
+    const project = projectMap[projectPath];
 
     expect(project).to.deep.equal(projectData);
+    expect(project).to.equal(Component.get(projectPath));
     expect(project).to.be.an.instanceof(Component);
+
+    // account index set up properly
+    expect(newAccount.childPaths).to.deep.equal([projectPath]);
+    expect(newAccount.getChildPaths("Page")).to.deep.equal([projectPath]);
+    expect(newAccount.children).to.deep.equal([project]);
+    expect(newAccount.getChildren("Page")).to.deep.equal([project]);
   });
 
   it("correctly process errors in the LOADED_ACCOUNT action for the Account", () => {

@@ -52,11 +52,28 @@ export default class Component {
     return utils.getComponent(this.parentPath);
   }
 
+  // Return PATHS of all children as an array.
+  // Returns empty array if no children.
+  get childPaths() {
+    return utils.getComponentChildPaths(this);
+  }
+
+  // Return PATHS of all children of specified type as an array.
+  // Returns empty array if no children.
+  getChildPaths(type) {
+    return utils.getComponentChildPaths(this, type);
+  }
+
   // Return all children as an array according to the latest `projectMap`.
   // Returns empty array if no children.
-  // If you specify `type`, we'll return only children of that type.
+  get children() {
+    return utils.getComponentChildren(this);
+  }
+
+  // Return all children of specified `type` as an array according to the latest `projectMap`.
+  // Returns empty array if no children.
   getChildren(type) {
-    return utils.getComponentChildren(type);
+    return utils.getComponentChildren(this, type);
   }
 
   // Load state sugar
