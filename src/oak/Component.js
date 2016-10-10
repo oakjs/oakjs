@@ -5,7 +5,7 @@ import { dieIfMissing } from "oak-roots/util/die";
 import api from "./api";
 import JSXFragment from "./JSXFragment";
 
-export class Component {
+export default class Component {
   constructor(...propMaps) {
     // Assign all propMaps to this object
     Object.assign(this, ...propMaps);
@@ -43,7 +43,7 @@ export class Component {
 
   // Load state sugar
   get isUnloaded() { return this.loadState === undefined; }
-  get isLoading() { return this.loadState && this.loadState.then || this.loadState === "loading"; }
+  get isLoading() { return !!(this.loadState && this.loadState.then); }
   get isLoaded() { return this.loadState === "loaded"; }
   get isLoadError() { return this.loadState instanceof Error; }
 
@@ -91,7 +91,7 @@ export class Component {
   // Returns clones of `[projectMap, component]`.
   static _unloadDataAndChildren(projectMap, component, newProps) {
     // First remove any children from the component
-    let mapClone = projectMap;
+    let mapClone = { ...projectMap };
     let clone = component;
 
     if (component.children)
@@ -100,7 +100,7 @@ export class Component {
     // remove all data props and add newProps to new clone
     const nonDataProps = _.omit(component, Component._ALL_DATA_FIELDS_);
     clone = new Component(nonDataProps, newProps);
-
+    mapClone[component.path] = clone;
     return [mapClone, clone];
   }
 
@@ -162,9 +162,13 @@ export class Component {
   // Split path into strings `[parentPath, id]`.
   // If this the `Account`, parentPath will be `undefined`.
   static splitPath(path) {
-    const split = path.split();
+    // special case for account path
+    if (path === "/") return [undefined, "/"];
+
+    const split = path.split("/");
     const id = split.pop();
-    const parent = (split.length ? split.join("/") : undefined);
+    let parent = split.join("/") || "/";
+    if (!parent) parent = undefined;
     return [parent, id];
   }
 
@@ -175,6 +179,8 @@ export class Component {
   // NOTE: ALL paths should start with `"/"`.
   // NOTE: the `Account` path is `"/"`.
   static joinPath(parentPath = Component._ACCOUNT_PATH_, id) {
+    // special case for root path
+    if (parentPath === "/") return `/${id}`;
     return `${parentPath}/${id}`;
   }
 
@@ -184,11 +190,9 @@ export class Component {
 //
 
   // Set all applicable `data` for `component`.
-  // Returns clone of `[projectMap, component]`
+  // Returns clones of `[projectMap, component]`
   // Throws if anything goes wrong.
   static _setData(projectMap, component, data) {
-    // update properties of clone using utility processing routines
-    // If any throw, process as a LOAD_COMPONENT_ERROR.
     let clone = component.clone();
     clone = Component._setJSXE(clone, data.jsxe);
     clone = Component._setCSS(clone, data.CSS);
@@ -199,7 +203,7 @@ export class Component {
     [mapClone, clone] = Component._setIndex(mapClone, clone, data.index);
 
     // update loadState and stick in the projectMap
-    clone = component.clone({ loadState: "loaded" });
+    clone = clone.clone({ loadState: "loaded" });
     mapClone[clone.path] = clone;
 
     return [mapClone, clone];
@@ -241,7 +245,7 @@ export class Component {
   // Process loaded component `jsx` string.
   // Returns clone of `component` if there was a change.
   static _setJSX(component, jsx) {
-    console.error(`Component._setJSX(): convert jsx to a class?!?!?`);
+    if (jsx) console.error(`Component._setJSX(): convert jsx to a class?!?!?`);
     // bail if no change
     if (jsx === component.jsx) return component;
     // Return clone with new js
@@ -297,7 +301,7 @@ export class Component {
   //
   // Returns new `projectMap` if any change.
   static _deleteComponent(projectMap, path, updateParentIndex) {
-    const component = projectMap[path];
+    const component = Component.get(path, projectMap);
 
     // If not in the list, return the original projectMap
     if (component === undefined) return projectMap;
@@ -328,7 +332,7 @@ export class Component {
   // Also clears `component.index`.
   // Returns clones of `[projectMap, component]` if any change.
   static _deleteComponentChildren(projectMap, path) {
-    const component = projectMap[path];
+    const component = Component.get(path, projectMap);
 
     // If not in the list, return the original projectMap
     if (component === undefined || !component.index || !component.index.length)
@@ -352,7 +356,7 @@ export class Component {
   // Returns a clone of `projectMap` if any change.
   // NOTE: does NOT update parent index (???)
   static _addComponentToMap(projectMap, path, props) {
-    const component = projectMap[path];
+    const component = Component.get(path, projectMap);
     // If we already have a component and they didn't pass props, return the original projectMap
     if (component && !props) return projectMap;
 
@@ -401,6 +405,19 @@ export class Component {
   // Individual reducers as a handler map.
   // Switch statements are for chumps!
   static reducers = {
+
+    LOAD_ACCOUNT: (projectMap, action) => {
+      const { loadPromise } = action;
+      const path = Component._ACCOUNT_PATH_;
+      const component = projectMap[path] || new Component({ path, type: "Account" });
+      // Remember the `loadPromise` as the `loadState` to re-use if called again while loading.
+      const clone = component.clone({ loadState: loadPromise });
+      return {
+        ...projectMap,
+        [clone.path]: clone
+      };
+    },
+
     LOAD_COMPONENT: (projectMap, action) => {
       const { path, loadPromise } = action;
       // get a clone of existing component or create a new one if not found
@@ -419,7 +436,6 @@ export class Component {
       const component = projectMap[path] || new Component({ path });
 
       // update properties of clone using utility processing routines
-      // If any throw, process as a LOAD_COMPONENT_ERROR.
       try {
         return Component._setData(projectMap, component, data)[0];
       }
@@ -450,13 +466,15 @@ export class Component {
     },
 
     DELETE_COMPONENT_SUCCESS: (projectMap, action) => {
-      return Component._deleteComponent(projectMap, action.path, "UPDATE_PARENT");
+      const { path } = action;
+      return Component._deleteComponent(projectMap, path, "UPDATE_PARENT");
     },
 
     DELETE_COMPONENT_ERROR: (projectMap, action) => {
-      console.error(`error deleting component '${action.path}':`, action.error);
+      const { path, error } = action;
+      console.error(`error deleting component '${path}':`, error);
       // Go ahead and delete it anyway...
-      return Component._deleteComponent(projectMap, action.path, "UPDATE_PARENT");
+      return Component._deleteComponent(projectMap, path, "UPDATE_PARENT");
     },
 
     RENAMED_COMPONENT: (projectMap, action) => {
@@ -478,7 +496,8 @@ export class Component {
     },
 
     RENAME_COMPONENT_ERROR: (projectMap, action) => {
-      console.error(`error renaming component '${action.path}':`, action.error);
+      const { path, error } = action;
+      console.error(`error renaming component '${path}':`, error);
     },
 
     CREATED_COMPONENT: (projectMap, action) => {
@@ -500,7 +519,8 @@ export class Component {
     },
 
     CREATE_COMPONENT_ERROR: (projectMap, action) => {
-      console.error(`error creating component '${action.path}':`, action.error);
+      const { path, error } = action;
+      console.error(`error creating component '${path}':`, error);
     }
 
   }
