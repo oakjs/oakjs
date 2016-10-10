@@ -35,7 +35,7 @@ describe("The Component module", () => {
   });
 
   it("joins paths as expected", () => {
-    expect(Component.joinPath(undefined, "foo")).to.equal("/foo");
+    expect(Component.joinPath(undefined, Component._ACCOUNT_PATH_)).to.equal(Component._ACCOUNT_PATH_);
     expect(Component.joinPath("/", "foo")).to.equal("/foo");
     expect(Component.joinPath("/foo", "bar")).to.equal("/foo/bar");
   });
