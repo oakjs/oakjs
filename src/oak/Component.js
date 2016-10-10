@@ -61,7 +61,7 @@ export default class Component {
   get isLoaded() {
     return this.loadState === "loaded";
   }
-  get isLoadError() {
+  get hasLoadError() {
     return this.loadState instanceof Error;
   }
 
@@ -197,7 +197,7 @@ export default class Component {
     let clone = component;
 
     if (component.children)
-      [mapClone, clone] = Component._deleteComponentChildren(mapClone, component.path);
+      [mapClone, clone] = Component._removeComponentChildren(mapClone, component.path);
 
     // remove all data props and add newProps to new clone
     const nonDataProps = _.omit(clone, Component._ALL_DATA_FIELDS_);
@@ -287,7 +287,7 @@ export default class Component {
           return undefined;
         }
         const path = Component.joinPath(component.path, props.id);
-        mapClone = Component._addComponentToMap(mapClone, path, props);
+        mapClone = Component._addComponent(mapClone, path, props);
         return props.id;
       });
     }
@@ -297,7 +297,7 @@ export default class Component {
       const missingChildren = _.difference(component.index || [], childIds);
       missingChildren.forEach(childId => {
         const childPath = Component.joinPath(component.path, childId);
-        mapClone = Component._deleteComponent(projectMap, childPath);
+        mapClone = Component._removeComponent(projectMap, childPath);
       });
     }
 
@@ -319,7 +319,7 @@ export default class Component {
   //    - recursively removing all children.
   //
   // Returns new `projectMap` if any change.
-  static _deleteComponent(projectMap, path, updateParentIndex) {
+  static _removeComponent(projectMap, path, updateParentIndex) {
     const component = Component.get(path, projectMap);
 
     // If not in the list, return the original projectMap
@@ -330,7 +330,7 @@ export default class Component {
     let mapClone = _.omit(projectMap, path);
 
     // Recursively remove all children of the component.
-    mapClone = Component._deleteComponentChildren(mapClone, path)[0];
+    mapClone = Component._removeComponentChildren(mapClone, path)[0];
 
     // remove component from its parent's `index`
     if (updateParentIndex) {
@@ -350,7 +350,7 @@ export default class Component {
   // Recursively delete all children of `component` at `path` from `projectMap`.
   // Also clears `component.index`.
   // Returns clones of `[projectMap, component]` if any change.
-  static _deleteComponentChildren(projectMap, path) {
+  static _removeComponentChildren(projectMap, path) {
     const component = Component.get(path, projectMap);
 
     // If not in the list, return the original projectMap
@@ -361,7 +361,7 @@ export default class Component {
     let mapClone = { ...projectMap };
     component.index.forEach(childId => {
       const childPath = Component.joinPath(component.path, childId);
-      mapClone = Component._deleteComponent(mapClone, childPath);
+      mapClone = Component._removeComponent(mapClone, childPath);
     });
 
     // Remove child index from component and update in map.
@@ -374,7 +374,7 @@ export default class Component {
   // Add component at `path` to `projectMap`.
   // Returns a clone of `projectMap` if any change.
   // NOTE: does NOT update parent index (???)
-  static _addComponentToMap(projectMap, path, props) {
+  static _addComponent(projectMap, path, props) {
     const component = Component.get(path, projectMap);
     // If we already have a component and they didn't pass props, return the original projectMap
     if (component && !props) return projectMap;
@@ -491,14 +491,14 @@ export default class Component {
 
     DELETED_COMPONENT: (projectMap, action) => {
       const { path } = action;
-      return Component._deleteComponent(projectMap, path, "UPDATE_PARENT");
+      return Component._removeComponent(projectMap, path, "UPDATE_PARENT");
     },
 
     DELETE_COMPONENT_ERROR: (projectMap, action) => {
       const { path, error } = action;
       console.error(`error deleting component '${path}':`, error);
       // Go ahead and delete it anyway...
-      return Component._deleteComponent(projectMap, path, "UPDATE_PARENT");
+      return Component._removeComponent(projectMap, path, "UPDATE_PARENT");
     },
 
     RENAMED_COMPONENT: (projectMap, action) => {
@@ -602,7 +602,7 @@ export default class Component {
           if (component.isLoaded()) return Promise.resolve();
 
           // If already had a load error, return rejected promise.
-          if (component.isLoadError()) return Promise.reject();
+          if (component.hasLoadError()) return Promise.reject();
         }
 
         // load!

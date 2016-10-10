@@ -93,7 +93,46 @@ describe("Component instances", () => {
     expect(page.id).to.equal("baz");
   });
 
-//TODO: load state
+  it("is unloaded when created", () => {
+    const component = new Component("/foo/bar");
+    expect(component.isUnloaded).to.be.true;
+    expect(component.isLoading).to.be.false;
+    expect(component.isLoaded).to.be.false;
+    expect(component.hasLoadError).to.be.false;
+  });
+
+  it("returns `isLoading` when loading", () => {
+    let component = new Component({ path: "/foo/bar", loadState: "loading" });
+    expect(component.isUnloaded).to.be.false;
+    expect(component.isLoading).to.be.true;
+    expect(component.isLoaded).to.be.false;
+    expect(component.hasLoadError).to.be.false;
+
+    component = new Component({ path: "/foo/bar", loadState: Promise.resolve() });
+    expect(component.isUnloaded).to.be.false;
+    expect(component.isLoading).to.be.true;
+    expect(component.isLoaded).to.be.false;
+    expect(component.hasLoadError).to.be.false;
+  });
+
+  it("returns `isLoaded` when loading", () => {
+    let component = new Component({ path: "/foo/bar", loadState: "loaded" });
+    expect(component.isUnloaded).to.be.false;
+    expect(component.isLoading).to.be.false;
+    expect(component.isLoaded).to.be.true;
+    expect(component.hasLoadError).to.be.false;
+  });
+
+  it("returns `hasLoadError` when loading", () => {
+    let component = new Component({ path: "/foo/bar", loadState: new Error("OOPS") });
+    expect(component.isUnloaded).to.be.false;
+    expect(component.isLoading).to.be.false;
+    expect(component.isLoaded).to.be.false;
+    expect(component.hasLoadError).to.be.true;
+  });
+
+
+
 //TODO: getChildren
 //TODO: getDataToSave
 //TODO: toJSON
@@ -142,7 +181,7 @@ describe("Component reducers", () => {
     expect(account.isUnloaded).to.be.false;
     expect(account.isLoading).to.be.true;
     expect(account.isLoaded).to.be.false;
-    expect(account.isLoadError).to.be.false;
+    expect(account.hasLoadError).to.be.false;
     // toJSON
     const accountJSON = { path, type: "Account", loadState: "loading" };
     expect(account.toJSON()).to.deep.equal(accountJSON);
@@ -170,7 +209,7 @@ describe("Component reducers", () => {
     expect(newAccount.isUnloaded).to.be.false;
     expect(newAccount.isLoading).to.be.false;
     expect(newAccount.isLoaded).to.be.true;
-    expect(newAccount.isLoadError).to.be.false;
+    expect(newAccount.hasLoadError).to.be.false;
 
     // project is of correct shape
     const projectData = { path: "/foo", type: "Page", title: "FOOO" };
@@ -201,7 +240,7 @@ describe("Component reducers", () => {
     expect(newAccount.isUnloaded).to.be.false;
     expect(newAccount.isLoading).to.be.false;
     expect(newAccount.isLoaded).to.be.false;
-    expect(newAccount.isLoadError).to.be.true;
+    expect(newAccount.hasLoadError).to.be.true;
   });
 
 });
