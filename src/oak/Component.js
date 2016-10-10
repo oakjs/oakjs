@@ -86,8 +86,8 @@ export default class Component {
   get isLoaded() {
     return this.loadState === "loaded";
   }
-  get hasLoadError() {
-    return this.loadState instanceof Error;
+  get loadError() {
+    return this.loadState instanceof Error ? this.loadState : undefined;
   }
 
 //
@@ -227,7 +227,7 @@ const actions = {
         if (component.isLoaded) return Promise.resolve();
 
         // If already had a load error, return rejected promise.
-        if (component.hasLoadError) return Promise.reject();
+        if (component.loadError) return Promise.reject(component.loadError);
       }
 
       // load!

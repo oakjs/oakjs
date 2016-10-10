@@ -17,13 +17,16 @@ const reducers = combineReducers({
 });
 
 
+// Mock up store, run before each test.
+let store;
+function initStore() {
+  store = Component.store = createStore(reducers, applyMiddleware(thunk));
+}
+
 // Make sure bootstrap worked...
 describe("The Component module", () => {
-  var store;
   // Create a new store and assign it to Component before each test
-  beforeEach(()=> {
-    store = Component.store = createStore(reducers);
-  });
+  beforeEach(initStore);
 
   it("has all of the expected bits", () => {
     expect(Component).to.be.a("function");
@@ -100,7 +103,7 @@ describe("Component instances", () => {
     expect(component.isUnloaded).to.be.true;
     expect(component.isLoading).to.be.false;
     expect(component.isLoaded).to.be.false;
-    expect(component.hasLoadError).to.be.false;
+    expect(component.loadError).to.be.undefined;
   });
 
   it("returns `isLoading` when loading", () => {
@@ -108,7 +111,7 @@ describe("Component instances", () => {
     expect(component.isUnloaded).to.be.false;
     expect(component.isLoading).to.be.true;
     expect(component.isLoaded).to.be.false;
-    expect(component.hasLoadError).to.be.false;
+    expect(component.loadError).to.be.undefined;
   });
 
   it("returns `isLoaded` when loading", () => {
@@ -116,15 +119,15 @@ describe("Component instances", () => {
     expect(component.isUnloaded).to.be.false;
     expect(component.isLoading).to.be.false;
     expect(component.isLoaded).to.be.true;
-    expect(component.hasLoadError).to.be.false;
+    expect(component.loadError).to.be.undefined;
   });
 
-  it("returns `hasLoadError` when loading", () => {
+  it("returns `loadError` when error returned on load", () => {
     let component = new Component({ path: "/foo/bar", loadState: new Error("OOPS") });
     expect(component.isUnloaded).to.be.false;
     expect(component.isLoading).to.be.false;
     expect(component.isLoaded).to.be.false;
-    expect(component.hasLoadError).to.be.true;
+    expect(component.loadError).to.not.be.undefined;
   });
 
 
@@ -138,12 +141,8 @@ describe("Component instances", () => {
 
 // Configure component reducers
 describe("Component reducers", () => {
-  var store;
-
   // Create a new store and assign it to Component before each test
-  beforeEach(()=> {
-    store = Component.store = createStore(reducers, applyMiddleware(thunk));
-  });
+  beforeEach(initStore);
 
   it("have store properly set up to start", () => {
     expect(Component.store).to.exist;
@@ -176,7 +175,7 @@ describe("Component reducers", () => {
     expect(account.isUnloaded).to.be.false;
     expect(account.isLoading).to.be.true;
     expect(account.isLoaded).to.be.false;
-    expect(account.hasLoadError).to.be.false;
+    expect(account.loadError).to.be.undefined;
     // toJSON
     const accountJSON = { path, type: "Account", loadState: "loading" };
     expect(account.toJSON()).to.deep.equal(accountJSON);
@@ -206,7 +205,7 @@ describe("Component reducers", () => {
     expect(newAccount.isUnloaded).to.be.false;
     expect(newAccount.isLoading).to.be.false;
     expect(newAccount.isLoaded).to.be.true;
-    expect(newAccount.hasLoadError).to.be.false;
+    expect(newAccount.loadError).to.be.undefined;
 
     // project is of correct shape
     const projectData = { path: projectPath, type: "Project", title: "FOOO" };
@@ -242,20 +241,13 @@ describe("Component reducers", () => {
     expect(newAccount.isUnloaded).to.be.false;
     expect(newAccount.isLoading).to.be.false;
     expect(newAccount.isLoaded).to.be.false;
-    expect(newAccount.hasLoadError).to.be.true;
+    expect(newAccount.loadError).to.not.be.undefined;
   });
-
-
-// TODO: reload needs to remove newly unknown children
-
 });
 
 describe("Component actions", () => {
-  var store;
-  // Create a new store and api shim and assign it to Component before each test
-  beforeEach(()=> {
-    store = Component.store = createStore(reducers, applyMiddleware(thunk));
-  });
+  // Create a new store and assign it to Component before each test
+  beforeEach(initStore);
 
   it("execute loadAccount() as expected", () => {
     const path = Component._ACCOUNT_PATH_;
@@ -275,7 +267,7 @@ describe("Component actions", () => {
         expect(account.isUnloaded).to.be.false;
         expect(account.isLoading).to.be.false;
         expect(account.isLoaded).to.be.true;
-        expect(account.hasLoadError).to.be.false;
+        expect(account.loadError).to.be.undefined;
 
         // project is of correct shape
         const projectData = { path: projectPath, type: "Project", title: "FOOO" };
@@ -285,11 +277,28 @@ describe("Component actions", () => {
         expect(project.isUnloaded).to.be.true;
         expect(project.isLoading).to.be.false;
         expect(project.isLoaded).to.be.false;
-        expect(project.hasLoadError).to.be.false;
-      }, (error) => console.warn("error in loadAccount", error));
+        expect(project.loadError).to.be.undefined;
+      });
   });
 
-// TODO: loadAccount() returning an error
+  it("execute loadAccount() as expected when error returned", () => {
+    const path = Component._ACCOUNT_PATH_;
+    const projectPath = "/foo";
+    // mock api calls
+    api.loadProjectIndex = () => Promise.reject("OOPS");
+
+    return Component.actions.loadAccount()
+      .then(() => {
+        const account = Component.getAccount();
+        const accountData = { path: path, type: "Account", loadState: new Error("OOPS") };
+        expect(account).to.be.an.instanceof(Component);
+        expect(account).to.deep.equal(accountData);
+        expect(account.isUnloaded).to.be.false;
+        expect(account.isLoading).to.be.false;
+        expect(account.isLoaded).to.be.false;
+        expect(account.loadError).to.not.be.undefined;
+    })
+  });
 
   it("execute loadComponent() as expected", () => {
     const projectPath = "/foo";
@@ -323,7 +332,7 @@ describe("Component actions", () => {
         expect(account.isUnloaded).to.be.false;
         expect(account.isLoading).to.be.false;
         expect(account.isLoaded).to.be.true;
-        expect(account.hasLoadError).to.be.false;
+        expect(account.loadError).to.be.undefined;
 
         // project is of correct shape
         const projectData = {
@@ -339,7 +348,7 @@ describe("Component actions", () => {
         expect(project.isUnloaded).to.be.false;
         expect(project.isLoading).to.be.false;
         expect(project.isLoaded).to.be.true;
-        expect(project.hasLoadError).to.be.false;
+        expect(project.loadError).to.be.undefined;
 
         // page is of correct shape
         const pageData = { path: pagePath, ...pageIndexData };
@@ -349,7 +358,7 @@ describe("Component actions", () => {
         expect(page.isUnloaded).to.be.true;
         expect(page.isLoading).to.be.false;
         expect(page.isLoaded).to.be.false;
-        expect(page.hasLoadError).to.be.false;
+        expect(page.loadError).to.be.undefined;
       })
   });
 
@@ -423,72 +432,41 @@ describe("Component actions", () => {
   });
 
   it("correctly updates children on reloadComponent() with different data", () => {
-    const barPath = "/foo/bar";
-    const barIndexData = { type: "Page", title: "BAAR" };
-    const barData = { path: barPath, ...barIndexData };
-
-    const bonkPath = "/foo/bonk";
-    const bonkIndexData = { type: "Page", title: "BONK" };
-    const bonkData = { path: bonkPath, ...bonkIndexData };
-
     const projectPath = "/foo";
-    const projectIndexData = { type: "Project", title: "FOO" };
+    const barPath = "/foo/bar";
+    const bonkPath = "/foo/bonk";
 
     // mock api calls
     api.loadProjectIndex = () => Promise.resolve({
-      index: [ { id: "foo", ...projectIndexData } ]
-    });
-    api.loadComponentBundle = () => Promise.resolve({
-      index: [ { id: "bar", ...barIndexData } ]
+      index: [ { id: "foo", type: "Project", title: "FOO" } ]
     });
 
-    var account, project, page;
+    api.loadComponentBundle = () => Promise.resolve({
+      index: [ { id: "bar", type: "Page", title: "BAAR" } ]
+    });
+
     return Component.actions.loadAccount()
       .then(() => Component.actions.loadComponent(projectPath))
-      .then(() => {
-        account = Component.getAccount();
-        expect(account).to.be.an.instanceof(Component);
-
-        // project is of correct shape
-        project = Component.get(projectPath);
-        const projectData = {
-          path: projectPath,
-          index: { ALL: [barPath], Page: [barPath] },
-          loadState: "loaded",
-          ...projectIndexData,
-        };
-        expect(project).to.be.an.instanceof(Component);
-        expect(project.toJSON()).to.deep.equal(projectData);
-
-        // page is of correct shape
-        page = Component.get(barPath);
-        expect(page).to.be.an.instanceof(Component);
-        expect(page).to.deep.equal(barData);
-      })
-      // reload with the same data
+      // reload with the DIFERENT data
       .then(() => {
         // change api results
         api.loadComponentBundle = () => Promise.resolve({
-          index: [ { id: "bonk", ...bonkIndexData } ]
+          index: [ { id: "bonk", type: "Section", title: "BONK" } ]
         });
         return Component.actions.reloadComponent(projectPath);
       })
       .then(() => {
-        // account shouldn't change
-        const newAccount = Component.getAccount();
-        expect(newAccount).to.be.an.instanceof(Component);
-        expect(newAccount).to.equal(account);
-
-        // project changed and has new index
-        const newProject = Component.get(projectPath);
+        // project has new index
+        const project = Component.get(projectPath);
         const projectData = {
           path: projectPath,
-          index: { ALL: [bonkPath], Page: [bonkPath] },
+          index: { ALL: [bonkPath], Section: [bonkPath] },
           loadState: "loaded",
-          ...projectIndexData,
+          type: "Project",
+          title: "FOO"
         };
-        expect(newProject).to.be.an.instanceof(Component);
-        expect(newProject.toJSON()).to.deep.equal(projectData);
+        expect(project).to.be.an.instanceof(Component);
+        expect(project).to.deep.equal(projectData);
 
         // bar page should be gone
         const barPage = Component.get(barPath);
@@ -497,7 +475,7 @@ describe("Component actions", () => {
         // bonk page should be present
         const bonkPage = Component.get(bonkPath);
         expect(bonkPage).to.be.an.instanceof(Component);
-        expect(bonkPage).to.be.deep.equal(bonkData);
+        expect(bonkPage).to.be.deep.equal({ path: bonkPath, type: "Section", title: "BONK" });
       });
   });
 
