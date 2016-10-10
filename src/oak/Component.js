@@ -538,8 +538,7 @@ utils = Component.__utils__ = {
   // If you specify `type`, we'll return only children of that type.
   // Returns empty array if no children (of that type).
   getComponentChildPaths(component, type = "ALL") {
-    if (!component.index || !component.index[type]) return [];
-    return component.index[type].map(id => Component.joinPath(component.path, id));
+    return component.index && component.index[type] || [];
   },
 
   // Return pointers to children of a `component`.
@@ -649,12 +648,12 @@ utils = Component.__utils__ = {
   setComponentIndex(projectMap, component, index) {
     let mapClone = projectMap;
     let typeIndex;
-    let childIds;
+    let childPaths;
 
     // Process index children, returning map of just ids
     if (index && index.length) {
       typeIndex = {};
-      childIds = index.map(props => {
+      childPaths = index.map(props => {
         if (!props.id) {
           console.error(`_processIndex(${component.path}): no 'id' for child`, props);
           return undefined;
@@ -664,28 +663,26 @@ utils = Component.__utils__ = {
           console.error(`setComponentIndex(${component.path}): child has no type`, props);
 
         const { id, type = "Component" } = props;
+        const path = Component.joinPath(component.path, id);
 
-        if (!typeIndex[type]) typeIndex[type] = [id];
-        else typeIndex[type].push(id);
+        // put it into list by type
+        if (!typeIndex[type]) typeIndex[type] = [path];
+        else typeIndex[type].push(path);
 
         // add to componentMap
-        const path = Component.joinPath(component.path, id);
-        mapClone = utils.addComponent(mapClone, path, props)[0];
-        return id;
+        mapClone = utils.addComponent(mapClone, path, { ...props, type })[0];
+        return path;
       });
-
-      if (childIds.length) typeIndex.ALL = childIds;
+      // Add `ALL` list.
+      if (childPaths.length) typeIndex.ALL = childPaths;
       else typeIndex = undefined;
     }
 
     // Remove any children which we DID know about but are no longer in the index.
     if (component.index) {
-      const currentChildren = utils.getComponentChildPaths(component, "ALL");
-      const missingChildren = _.difference(currentChildren, childIds || []);
-
-      missingChildren.forEach(childId => {
-        const childPath = Component.joinPath(component.path, childId);
-        mapClone = utils.removeComponent(projectMap, childPath);
+      const missingChildren = _.difference(component.index.ALL, childPaths);
+      missingChildren.forEach(childPath => {
+        mapClone = utils.removeComponent(mapClone, childPath);
       });
     }
 
@@ -699,12 +696,11 @@ utils = Component.__utils__ = {
   // Properties that we save in our parent's index.
   _INDEX_DATA_FIELDS_: ["id", "type", "title"],
 
-
   // Return data to save to the server for this component.
   getComponentSaveData(component, projectMap = Component.projectMap) {
     const json = utils.componentToJSON(component);
     // get JSON data minus any fields we explicitly do NOT send to the server
-    const output = _.pick(json, Component._FIELDS_TO_SAVE_);
+    const output = _.pick(json, utils._FIELDS_TO_SAVE_);
 
     // add `id` (we save that instead of `path`)
     output.id = component.id;
@@ -712,7 +708,7 @@ utils = Component.__utils__ = {
     // Update the `index` we save with the index data from our children
     if (component.index) {
       const children = utils.getComponentChildren(component, "ALL", projectMap);
-      output.index = children.map(child => _.pick(child, Component._INDEX_DATA_FIELDS_));
+      output.index = children.map(child => _.pick(child, utils._INDEX_DATA_FIELDS_));
     }
 
     return output;
@@ -788,7 +784,10 @@ utils = Component.__utils__ = {
     if (_.isEqual(parent.index, newIndex)) return projectMap;
 
     // clear if the index is completely empty
-    if (_.isEmpty(newIndex)) newIndex = undefined;
+    if (_.isEmpty(newIndex))
+      newIndex = undefined;
+    else if (!newIndex.ALL)
+      throw new TypeError(`updateParentIndex(${parent.path}): index geneated without ALL`);
 
     // update parent with new index and return map
     return utils.updateComponent(projectMap, parent, { index: newIndex });
@@ -798,7 +797,7 @@ utils = Component.__utils__ = {
   //    - removing item id from parent's index.
   //    - recursively removing all children.
   // Returns new `projectMap` if any change.
-  removeComponent(projectMap, path) {
+  removeComponent(projectMap, path, ignoreParentIndex) {
     const component = utils.getComponent(path, projectMap);
 
     // If not in the list, return the original projectMap
@@ -811,10 +810,12 @@ utils = Component.__utils__ = {
     // Recursively remove all children of the component.
     mapClone = utils.removeComponentChildren(mapClone, path)[0];
 
+    // bail early if we're not dealing with parentIndex
+    if (ignoreParentIndex) return mapClone;
+
     // remove component from its parent's `index`
     const parent = utils.getComponent(component.parentPath, mapClone);
-    const id = component.id;
-    return utils.updateParentIndex(mapClone, parent, (ids) => _.without(ids, id))[0];
+    return utils.updateParentIndex(mapClone, parent, (paths) => _.without(paths, path))[0];
   },
 
   // Recursively delete all children of `component` at `path` from `projectMap`.
@@ -829,9 +830,8 @@ utils = Component.__utils__ = {
 
     // Recursively remove all children of the component.
     let mapClone = { ...projectMap };
-    component.index.forEach(childId => {
-      const childPath = Component.joinPath(component.path, childId);
-      mapClone = utils.removeComponent(mapClone, childPath);
+    component.index.forEach(childPath => {
+      mapClone = utils.removeComponent(mapClone, childPath, "IGNORE_PARENT_INDEX");
     });
 
     // Remove child index from component and update in map.
@@ -847,14 +847,14 @@ utils = Component.__utils__ = {
     // Update children FIRST!
     let mapClone = { ...projectMap };
     if (component.index) {
-      component.index.ALL.forEach(childId => {
-        const oldChildPath = Component.joinPath(oldPath, childId);
+      component.index.ALL.forEach(oldChildPath => {
+        const childId = Component.getId(oldChildPath);
         const newChildPath = Component.joinPath(newPath, childId);
         mapClone = utils.updateComponentPath(mapClone, oldChildPath, newChildPath);
       });
     }
 
-    // Update the component itself
+    // Update the component itself in the map
     delete mapClone[oldPath];
     mapClone[newPath] = component;
 

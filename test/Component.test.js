@@ -203,7 +203,7 @@ describe("Component reducers", () => {
     expect(newAccount).to.not.equal(originalAccount);
 
     // account object set up
-    const accountIndex = { ALL: ["foo"], Page: ["foo"] };
+    const accountIndex = { ALL: ["/foo"], Page: ["/foo"] };
     const accountData = { path, type: "Account", loadState: "loaded", index: accountIndex };
     expect(newAccount).to.deep.equal(accountData);
     expect(newAccount.toJSON()).to.deep.equal(accountData);
