@@ -8,13 +8,11 @@ import JSXFragment from "./JSXFragment";
 export default class Component {
   constructor(...propMaps) {
     // You can pass just a path as a convenience.
-    if (propMaps.length === 1 && typeof propMaps[0] === "string") {
+    if (propMaps.length === 1 && typeof propMaps[0] === "string")
       this.path = propMaps[0];
-    }
-    else {
+    else
       // Assign all propMaps to this object
       Object.assign(this, ...propMaps);
-    }
 
     // if we got a `jsxe` property, convert it to a `jsxFragment`
 // NOTE: this might happen on 'rehydration'
@@ -41,17 +39,31 @@ export default class Component {
 //  Syntactic sugar
 //
   // Component `id`: the last step of our path
-  get id() { return Component.splitPath(this.path)[1]; }
+  get id() {
+    return Component.splitPath(this.path)[1];
+  }
 
   // Path and pointer to our parent
-  get parentPath() { return Component.splitPath(this.path)[0]; }
-  getParent(projectMap = Component.projectMap) { return projectMap[this.parentPath]; }
+  get parentPath() {
+    return Component.splitPath(this.path)[0];
+  }
+  getParent(projectMap = Component.projectMap) {
+    return projectMap[this.parentPath];
+  }
 
   // Load state sugar
-  get isUnloaded() { return this.loadState === undefined; }
-  get isLoading() { return !!(this.loadState && this.loadState.then) || this.loadState === "loading"; }
-  get isLoaded() { return this.loadState === "loaded"; }
-  get isLoadError() { return this.loadState instanceof Error; }
+  get isUnloaded() {
+    return this.loadState === undefined;
+  }
+  get isLoading() {
+    return !!(this.loadState === "loading" || this.loadState && this.loadState.then);
+  }
+  get isLoaded() {
+    return this.loadState === "loaded";
+  }
+  get isLoadError() {
+    return this.loadState instanceof Error;
+  }
 
   // Return all children as an array.
   // Returns empty array if no children.
@@ -103,7 +115,7 @@ export default class Component {
 
         case "loadState":
           if (value && value.then) output.loadState = "loading";
-          else if (value instanceof Error) output.loadState = `error: ${error.message}`;
+          else if (value instanceof Error) output.loadState = `error: ${value.message}`;
           else output.loadState = value;
           break;
 
@@ -433,9 +445,9 @@ export default class Component {
         if (error) throw error;
         return Component._setData(projectMap, account, data)[0];
       }
-      catch (error) {
-        console.error(`error processing LOADED_COMPONENT for '${path}':`, error);
-        const loadState = error instanceof Error ? error : new Error(error);
+      catch (exception) {
+        console.error(`error processing LOADED_COMPONENT for '${path}':`, exception);
+        const loadState = error instanceof Error ? error : new Error(exception);
         return Component._unloadDataAndChildren(projectMap, account, { loadState })[0];
       }
     },
@@ -463,9 +475,9 @@ export default class Component {
         if (error) throw error;
         return Component._setData(projectMap, component, data)[0];
       }
-      catch (error) {
-        console.error(`error processing LOADED_COMPONENT for '${path}':`, error);
-        const loadState = error instanceof Error ? error : new Error(error);
+      catch (exception) {
+        console.error(`error processing LOADED_COMPONENT for '${path}':`, exception);
+        const loadState = error instanceof Error ? error : new Error(exception);
         return Component._unloadDataAndChildren(projectMap, component, { loadState })[0];
       }
     },
