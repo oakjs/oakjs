@@ -157,16 +157,7 @@ export default class Component {
     return `${parentPath}/${id}`;
   }
 
-//
-//  Reducers
-//
-
-  // Overall reducer which delegates to the `reducers` map defined below.
-  static reducer(projectMap = {}, action) {
-    const handler = Component.__reducers__[action.type];
-    if (handler) return handler(projectMap, action);
-    return projectMap;
-  }
+}// end `class`
 
 
 //
@@ -174,222 +165,236 @@ export default class Component {
 //  You can call these directly as `Component.actions.loadAccount()`.
 //  Note that they're all self-dispatching!
 //
-  static actions = {
+const actions = {
 
-    // Navigate to a component.
-    navigateTo(path) {
-      return (dispatch) => {
-        console.error("Someone needs to define the NAVIGATE_TO_COMPONENT method!");
-        dispatch({ type: "NAVIGATE_TO_COMPONENT", path });
-      };
-    },
+  // Navigate to a component.
+  navigateTo(path) {
+    return (dispatch) => {
+      console.error("Someone needs to define the NAVIGATE_TO_COMPONENT method!");
+      dispatch({ type: "NAVIGATE_TO_COMPONENT", path });
+    };
+  },
 
-    // Load the `accounts` list (list of projects).
-    loadAccount() {
-      return (dispatch) => {
-        const path = Component._ACCOUNT_PATH_;
+  // Load the `accounts` list (list of projects).
+  loadAccount() {
+    return (dispatch) => {
+      const path = Component._ACCOUNT_PATH_;
 
-        const loadPromise = api.loadProjectIndex();
-        // Dispatch to show we're loading
-        dispatch({ type: "LOAD_ACCOUNT", path, loadPromise });
+      const loadPromise = api.loadProjectIndex();
+      // Dispatch to show we're loading
+      dispatch({ type: "LOAD_ACCOUNT", path, loadPromise });
 
-        return loadPromise
-          .then(
-            // treat as a component response
-            (data) => dispatch({ type: "LOADED_ACCOUNT", path, data }),
-            (error) => dispatch({ type: "LOADED_ACCOUNT", path, error })
-          );
-      };
-    },
-
-    // Load a component, returning a promise which resolves or rejects when it completes.
-    // Returns immediately if component is loading, loaded or had an error when loading last time.
-    loadComponent(path, forceReload) {
-      return (dispatch) => {
-        console.warn("loadComponent(): editability???");
-        // Get current component data, rejecting if we can't find it.
-        const component = utils.getComponent(path);
-        if (!component)
-          return Promise.reject(new Error(`loadComponent(${path}): Component not found`));
-
-        if (!forceReload) {
-          // If component is loading, return its loading promise (stored in `loadState`)
-          if (component.isLoading()) return component.loadState;
-
-          // If component is loaded, return resolved promise
-          if (component.isLoaded()) return Promise.resolve();
-
-          // If already had a load error, return rejected promise.
-          if (component.hasLoadError()) return Promise.reject();
-        }
-
-        // load!
-        const loadPromise = api.loadComponentBundle(component);
-
-        // Update app state to note that we're loading
-        dispatch({ type: "LOAD_COMPONENT", path, loadPromise });
-
-         // Dispatch success or error message when loading completes.
-        return loadPromise.then(
-          (data) => dispatch({ type: "LOADED_COMPONENT", path, data }),
-          (error) => dispatch({ type: "LOADED_COMPONENT", path, error })
+      return loadPromise
+        .then(
+          // treat as a component response
+          (data) => dispatch({ type: "LOADED_ACCOUNT", path, data }),
+          (error) => dispatch({ type: "LOADED_ACCOUNT", path, error })
         );
-      };
-    },
+    };
+  },
 
-    // Reload a component, whether it's currently loaded or not.
-    reloadComponent(path) {
+  // Load a component, returning a promise which resolves or rejects when it completes.
+  // Returns immediately if component is loading, loaded or had an error when loading last time.
+  loadComponent(path, forceReload) {
+    return (dispatch) => {
+//      console.warn("TODO: loadComponent(): editability???");
+      // Get current component data, rejecting if we can't find it.
+      const component = utils.getComponent(path);
+      if (!component)
+        return Promise.reject(new Error(`loadComponent(${path}): Component not found`));
+
+      if (!forceReload) {
+        // If component is loading, return its loading promise (stored in `loadState`)
+        if (component.isLoading) return component.loadState;
+
+        // If component is loaded, return resolved promise
+        if (component.isLoaded) return Promise.resolve();
+
+        // If already had a load error, return rejected promise.
+        if (component.hasLoadError) return Promise.reject();
+      }
+
+      // load!
+      const loadPromise = api.loadComponentBundle(component);
+
+      // Update app state to note that we're loading
+      dispatch({ type: "LOAD_COMPONENT", path, loadPromise });
+
+       // Dispatch success or error message when loading completes.
+      return loadPromise.then(
+        (data) => dispatch({ type: "LOADED_COMPONENT", path, data }),
+        (error) => dispatch({ type: "LOADED_COMPONENT", path, error })
+      );
+    };
+  },
+
+  // Reload a component, whether it's currently loaded or not.
+  reloadComponent(path) {
+    return (dispatch) => {
       return Component.actions.loadComponent(path, "FORCE_RELOAD");
-    },
+    };
+  },
 
-    // Remove all loaded data from component, including removing its children.
-    unloadComponent(path) {
-      return (dispatch) => {
-        const component = utils.getComponent(path);
-        if (!component)
-          return Promise.reject(new Error(`unloadComponent(${path}): Component not found`));
-        dispatch({ type: "UNLOAD_COMPONENT", path });
-      };
-    },
+  // Remove all loaded data from component, including removing its children.
+  unloadComponent(path) {
+    return (dispatch) => {
+      const component = utils.getComponent(path);
+      if (!component)
+        return Promise.reject(new Error(`unloadComponent(${path}): Component not found`));
+      dispatch({ type: "UNLOAD_COMPONENT", path });
+    };
+  },
 
-    // Save a component.
-    saveComponent(path) {
-      return (dispatch) => {
-        const component = utils.getComponent(path);
-        if (!component) return undefined; // TODO...???
+  // Save a component.
+  saveComponent(path) {
+    return (dispatch) => {
+      const component = utils.getComponent(path);
+      if (!component) return undefined; // TODO...???
 
-        // Dispatch initial delete action for placement in the undo queue
-        dispatch({ type: "SAVE_COMPONENT", path });
+      // Dispatch initial delete action for placement in the undo queue
+      dispatch({ type: "SAVE_COMPONENT", path });
 
-        const saveData = utils.getComponentSaveData(component);
-        return api.saveComponentBundle(component, saveData)
-          .then(
-            (data) => dispatch({ type: "SAVED_COMPONENT", data }),
-            (error) => dispatch({ type: "SAVE_COMPONENT_ERROR", path, error })
-          );
-      };
-    },
+      const saveData = utils.getComponentSaveData(component);
+      return api.saveComponentBundle(component, saveData)
+        .then(
+          (data) => dispatch({ type: "SAVED_COMPONENT", data }),
+          (error) => dispatch({ type: "SAVE_COMPONENT_ERROR", path, error })
+        );
+    };
+  },
 
-    // Delete a component specified by `path`.,
-    deleteComponent(path) {
-      return (dispatch) => {
-        // forget it if the component isn't it the projectMap
-        const component = utils.getComponent(path);
-        if (!component) return Promise.resolve();
+  // Delete a component specified by `path`.,
+  deleteComponent(path) {
+    return (dispatch) => {
+      // forget it if the component isn't it the projectMap
+      const component = utils.getComponent(path);
+      if (!component) return Promise.resolve();
 
-        // Dispatch initial delete action for placement in the undo queue
-        dispatch({ type: "DELETE_COMPONENT", path });
+      // Dispatch initial delete action for placement in the undo queue
+      dispatch({ type: "DELETE_COMPONENT", path });
 
-        // Call api routine to actually delete.
-        return api.deleteComponent(component)
-          // ...then dispatch success or error message as appropriate
-          .then(
-            () => dispatch({ type: "DELETED_COMPONENT", path }),
-            (error) => dispatch({ type: "DELETE_COMPONENT_ERROR", path, error })
-          );
-      };
-    },
+      // Call api routine to actually delete.
+      return api.deleteComponent(component)
+        // ...then dispatch success or error message as appropriate
+        .then(
+          () => dispatch({ type: "DELETED_COMPONENT", path }),
+          (error) => dispatch({ type: "DELETE_COMPONENT_ERROR", path, error })
+        );
+    };
+  },
 
-    // Rename component at `path`.
-    renameComponent({ path, newId, navigate }) {
-      return (dispatch) => {
-        // forget it if the component isn't it the projectMap
-        const component = utils.getComponent(path);
-        if (!component) return Promise.reject();
+  // Rename component at `path`.
+  renameComponent({ path, newId, navigate }) {
+    return (dispatch) => {
+      // forget it if the component isn't it the projectMap
+      const component = utils.getComponent(path);
+      if (!component) return Promise.reject();
 
-        // Dispatch initial delete action for placement in the undo queue
-        dispatch({ type: "RENAME_COMPONENT", path, newId });
+      // Dispatch initial delete action for placement in the undo queue
+      dispatch({ type: "RENAME_COMPONENT", path, newId });
 
-        // Call api routine to actually rename
-        console.error("TODO: api.renameComponent() shouldn't need type");
-        return api.renameComponent({ type:component.type, path, newId })
-          // ...then dispatch success or error message as appropriate
-          .then(
-            () => {
-              dispatch({ type: "RENAMED_COMPONENT", path, newId });
-              // dispatch navigation event if necessary
-              if (navigate) {
-                const newPath = Component.joinPath(Component.getParentPath(path), newId);
-                Component.actions.navigateTo(newPath);
-              }
-            },
-            (error) => dispatch({ type: "RENAME_COMPONENT_ERROR", path, error })
-          );
-      };
-    },
+      // Call api routine to actually rename
+      console.error("TODO: api.renameComponent() shouldn't need type");
+      return api.renameComponent({ type:component.type, path, newId })
+        // ...then dispatch success or error message as appropriate
+        .then(
+          () => {
+            dispatch({ type: "RENAMED_COMPONENT", path, newId });
+            // dispatch navigation event if necessary
+            if (navigate) {
+              const newPath = Component.joinPath(Component.getParentPath(path), newId);
+              Component.actions.navigateTo(newPath);
+            }
+          },
+          (error) => dispatch({ type: "RENAME_COMPONENT_ERROR", path, error })
+        );
+    };
+  },
 
-    // Create a new component.
-    createComponent(options) {
-      return (dispatch) => {
-        dieIfMissing(options, "createComponent", ["parentPath", "props"]);
-        dieIfMissing(options.props, "createComponent", ["type", "id"]);
-        const { parentPath, props, position, navigate } = options;
-        const { type, id } = props;
+  // Create a new component.
+  createComponent(options) {
+    return (dispatch) => {
+      dieIfMissing(options, "createComponent", ["parentPath", "props"]);
+      dieIfMissing(options.props, "createComponent", ["type", "id"]);
+      const { parentPath, props, position, navigate } = options;
+      const { type, id } = props;
 
-        const path = Component.joinPath(parentPath, id);
+      const path = Component.joinPath(parentPath, id);
 
-        // Dispatch initial create action for placement in the undo queue
-        dispatch({ type: "CREATE_COMPONENT", path });
+      // Dispatch initial create action for placement in the undo queue
+      dispatch({ type: "CREATE_COMPONENT", path });
 
-        // call api creation routine
-        console.warn("`api.createComponent()` should use `props` instead of `data`, `indexData`");
-        api.createComponent({ type, path, props, position })
-          .then(
-            (data) => {
-              dispatch({ type: "CREATED_COMPONENT", parentPath, data });
-              // dispatch navigation event if necessary
-              if (navigate) {
-                // NOTE: server might have changed `id` if it wasn't unique!
-                const newPath = Component.joinPath(parentPath, data.id);
-                Component.actions.navigateTo(newPath);
-              }
-            },
-            (error) => dispatch({ type: "CREATE_COMPONENT_ERROR", path, error })
-          );
-      };
-    },
+      // call api creation routine
+      console.warn("`api.createComponent()` should use `props` instead of `data`, `indexData`");
+      api.createComponent({ type, path, props, position })
+        .then(
+          (data) => {
+            dispatch({ type: "CREATED_COMPONENT", parentPath, data });
+            // dispatch navigation event if necessary
+            if (navigate) {
+              // NOTE: server might have changed `id` if it wasn't unique!
+              const newPath = Component.joinPath(parentPath, data.id);
+              Component.actions.navigateTo(newPath);
+            }
+          },
+          (error) => dispatch({ type: "CREATE_COMPONENT_ERROR", path, error })
+        );
+    };
+  },
 
-    // Duplicate a component.
-    duplicateComponent(options) {
-      return (dispatch) => {
-        dieIfMissing(options, "duplicateComponent", ["path", "props"]);
-        dieIfMissing(options.props, "duplicateComponent", ["newId"]);
-        const { path, props, position, navigate } = options;
-        const { newId } = props;
+  // Duplicate a component.
+  duplicateComponent(options) {
+    return (dispatch) => {
+      dieIfMissing(options, "duplicateComponent", ["path", "props"]);
+      dieIfMissing(options.props, "duplicateComponent", ["newId"]);
+      const { path, props, position, navigate } = options;
+      const { newId } = props;
 
-        const component = utils.getComponent(path);
-        if (!component) return Promise.reject();
+      const component = utils.getComponent(path);
+      if (!component) return Promise.reject();
 
-        // Dispatch initial duplicate action for placement in the undo queue
-        dispatch({ type: "DUPLICATE_COMPONENT", path, newId });
+      // Dispatch initial duplicate action for placement in the undo queue
+      dispatch({ type: "DUPLICATE_COMPONENT", path, newId });
 
-        // call api duplicate routine
-        console.warn("change `api.duplicateComponent()` to take `props` rather than `indexData`");
-        api.duplicateComponent({ type: component.type, path, newId, position })
-          .then(
-            (data) => {
-              const parentPath = component.parentPath;
-              dispatch({ type: "CREATED_COMPONENT", parentPath, data });
-              // dispatch navigation event if necessary
-              if (navigate) {
-                // NOTE: server might have changed `id` if it wasn't unique!
-                const newPath = Component.joinPath(parentPath, data.id);
-                Component.actions.navigateTo(newPath);
-              }
-            },
-            (error) => dispatch({ type: "DUPLICATE_COMPONENT_ERROR", path, error })
-          );
-      };
-    }
-  } // end `actions`
+      // call api duplicate routine
+      console.warn("change `api.duplicateComponent()` to take `props` rather than `indexData`");
+      api.duplicateComponent({ type: component.type, path, newId, position })
+        .then(
+          (data) => {
+            const parentPath = component.parentPath;
+            dispatch({ type: "CREATED_COMPONENT", parentPath, data });
+            // dispatch navigation event if necessary
+            if (navigate) {
+              // NOTE: server might have changed `id` if it wasn't unique!
+              const newPath = Component.joinPath(parentPath, data.id);
+              Component.actions.navigateTo(newPath);
+            }
+          },
+          (error) => dispatch({ type: "DUPLICATE_COMPONENT_ERROR", path, error })
+        );
+    };
+  }
+}; // end `actions`
 
-}// end `class`
+// Assign auto-dispatching actions to `Component`.
+Component.actions = _.mapValues(actions, (handler, key) => (...args) => {
+  return Component.store.dispatch(handler(...args))
+});
 
 
 //
+//  Reducers
+//
+
+  // Overall reducer which delegates to the `reducers` map defined below.
+Component.reducer = function(projectMap = {}, action) {
+  const handler = Component.__reducers__[action.type];
+  if (handler) return handler(projectMap, action);
+  return projectMap;
+}
+
 //  Individual reducers as a handler map.  Switch statements are for chumps!
 //  NOTE: we place them on the Component for reflection/ad-hoc testing.  Don't call directly!
-//
 Component.__reducers__ = {
   LOAD_ACCOUNT: (projectMap, action) => {
     const { path, loadPromise } = action;
@@ -397,12 +402,13 @@ Component.__reducers__ = {
     return utils.updateComponent(projectMap, account, { loadState: loadPromise || "loading" })[0];
   },
 
-  // Account loading succeeded or failed (if there's an `error`).
+  // Account loading succeeded, or failed if there's an `error`.
   LOADED_ACCOUNT: (projectMap, action) => {
     const { path, data, error } = action;
     const account = projectMap[path];
     // update properties of clone using utility processing routines
     try {
+      if (!account) throw "Account not set up by LOAD_ACCOUNT???";
       if (error) throw error;
       return utils.setComponentData(projectMap, account, data)[0];
     }
@@ -418,10 +424,10 @@ Component.__reducers__ = {
     // get a clone of existing component or create a new one if not found
     const component = projectMap[path] || new Component(path);
     // Remember the `loadPromise` as the `loadState` to re-use if called again while loading.
-    return utils.updateComponent(projectMap, component, { loadState: loadPromise });
+    return utils.updateComponent(projectMap, component, { loadState: loadPromise })[0];
   },
 
-  // Component loading succeeded or failed (if there's an `error`).
+  // Component loading succeeded, or failed if there's an `error`.
   LOADED_COMPONENT: (projectMap, action) => {
     const { path, data, error } = action;
     // get a existing component, creating a new one if not found
@@ -527,11 +533,12 @@ utils = Component.__utils__ = {
     const newProps = { ...component };
     let changeFound = false;
     _.forIn(props, (value, key) => {
-      if (value === newProps[key]) return;
+      if (value === component[key]) return;
       else if (value === undefined) delete newProps[key];
       else newProps[key] = value;
       changeFound = true;
     });
+
     if (!changeFound) return component;
     return new Component(newProps);
   },
@@ -575,7 +582,7 @@ utils = Component.__utils__ = {
   setComponentData(projectMap, component, data) {
     let clone = component;
     clone = utils.setComponentJSXE(clone, data.jsxe);
-    clone = utils.setComponentCSS(clone, data.CSS);
+    clone = utils.setComponentCSS(clone, data.css);
     clone = utils.setComponentJS(clone, data.js);
     clone = utils.setComponentJSX(clone, data.jsx);
     // processing the index may affect other things in the projectMap
@@ -627,28 +634,19 @@ utils = Component.__utils__ = {
   // Set `css` for a component.
   // Returns clone of `component` if there was a change.
   setComponentCSS(component, css) {
-    // bail if no change
-    if (css === component.css) return component;
-    // Return clone with new css.
     return utils.setComponentProps(component, { css });
   },
 
   // Process loaded component `js` string.
   // Returns clone of `component` if there was a change.
   setComponentJS(component, js) {
-    // bail if no change
-    if (js === component.js) return component;
-    // Return clone with new js
     return utils.setComponentProps(component, { js });
   },
 
   // Process loaded component `jsx` string.
   // Returns clone of `component` if there was a change.
   setComponentJSX(component, jsx) {
-    if (jsx) console.error(`Component.utils.setComponentJSX(): convert jsx to a class?!?!?`);
-    // bail if no change
-    if (jsx === component.jsx) return component;
-    // Return clone with new js
+//    if (jsx) console.error(`Component.utils.setComponentJSX(): convert jsx to a class?!?!?`);
     return utils.setComponentProps(component, { jsx });
   },
 
@@ -661,7 +659,6 @@ utils = Component.__utils__ = {
     let mapClone = projectMap;
     let typeIndex;
     let childPaths;
-
     // Process index children, returning map of just ids
     if (index && index.length) {
       typeIndex = {};
@@ -683,6 +680,7 @@ utils = Component.__utils__ = {
 
         // add to componentMap
         mapClone = utils.addComponent(mapClone, path, { ...props, type })[0];
+
         return path;
       });
       // Add `ALL` list.
@@ -761,16 +759,19 @@ utils = Component.__utils__ = {
   // NOTE: does NOT update parent index.
   addComponent(projectMap, path, props) {
     const component = utils.getComponent(path, projectMap) || new Component(path);
-    return utils.updateComponent(projectMap, component, props);
+    return utils.updateComponent(projectMap, component, props, "DO_DEEP_EQUAL_CHECK");
   },
 
   // Clone the `component` and give it additional `props`,
-  //  returning clones of `[projectMap, component]`.
-  updateComponent(projectMap, component, props) {
+  //  returning clones of `[projectMap, component]` if anything changed.
+  //
+  // Normally we'll do an `===` to see if anything changed,
+  //  if you want to do a `_.isEqual()` check, pass a truthy `doDeepEqualCheck`.
+  updateComponent(projectMap, component, props, doDeepEqualCheck) {
     const clone = utils.setComponentProps(component, props);
-
+    const equivalent = (doDeepEqualCheck ? _.isEqual(clone, component) : clone === component);
     // If no change, return the original objects.
-    if (clone === component && projectMap[clone.path] === component)
+    if (equivalent && projectMap[clone.path] === component)
       return [projectMap, component];
 
     // Update the map and return clones.
@@ -782,7 +783,7 @@ utils = Component.__utils__ = {
   // Run `idsTransformer(ids)` over each item in parent's `index` and sets `parent.index`.
   // Returns `[projectMap, parent]`, as clones if there are any changes.
   updateParentIndex(projectMap, parent, idsTransformer) {
-    if (!parent || !parent.index) return projectMap;
+    if (!parent || !parent.index) return [projectMap, parent];
 
     // generate a new index by applying the transformer
     let newIndex = {};
@@ -793,7 +794,7 @@ utils = Component.__utils__ = {
     });
 
     // If no change, return projectMap
-    if (_.isEqual(parent.index, newIndex)) return projectMap;
+    if (_.isEqual(parent.index, newIndex)) return [projectMap, parent];
 
     // clear if the index is completely empty
     if (_.isEmpty(newIndex))

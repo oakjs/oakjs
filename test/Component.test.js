@@ -1,7 +1,9 @@
 import "babel-core/external-helpers";
 import { expect } from "chai";
+import nock from "nock";
 
 import Component from "../src/oak/Component";
+import api from "../src/oak/api";
 
 // Set up mock redux store
 import { combineReducers, createStore, applyMiddleware } from "redux";
@@ -157,7 +159,7 @@ describe("Component reducers", () => {
     expect(state.projectMap).to.be.empty;
   })
 
-  it("correctly process the LOAD_ACCOUNT action for the Account", () => {
+  it("correctly process the LOAD_ACCOUNT action", () => {
     const path = Component._ACCOUNT_PATH_;
     const loadPromise = Promise.resolve();
 
@@ -187,10 +189,10 @@ describe("Component reducers", () => {
     expect(account.toJSON()).to.deep.equal(accountJSON);
   });
 
-  it("correctly process the LOADED_ACCOUNT action for the Account", () => {
+  it("correctly process the LOADED_ACCOUNT action", () => {
     const path = Component._ACCOUNT_PATH_;
     const data = {
-      index: [ { id: "foo", type: "Page", title: "FOOO" } ]
+      index: [ { id: "foo", type: "Project", title: "FOOO" } ]
     };
     store.dispatch({ type: "LOAD_ACCOUNT", path });
     const originalAccount = Component.get(path);
@@ -204,7 +206,7 @@ describe("Component reducers", () => {
 
     // account object set up
     const projectPath = "/foo";
-    const accountIndex = { ALL: [projectPath], Page: [projectPath] };
+    const accountIndex = { ALL: [projectPath], Project: [projectPath] };
     const accountData = { path, type: "Account", loadState: "loaded", index: accountIndex };
     expect(newAccount).to.deep.equal(accountData);
     expect(newAccount.toJSON()).to.deep.equal(accountData);
@@ -214,7 +216,7 @@ describe("Component reducers", () => {
     expect(newAccount.hasLoadError).to.be.false;
 
     // project is of correct shape
-    const projectData = { path: projectPath, type: "Page", title: "FOOO" };
+    const projectData = { path: projectPath, type: "Project", title: "FOOO" };
     const project = projectMap[projectPath];
 
     expect(project).to.deep.equal(projectData);
@@ -223,15 +225,15 @@ describe("Component reducers", () => {
 
     // account index set up properly
     expect(newAccount.childPaths).to.deep.equal([projectPath]);
-    expect(newAccount.getChildPaths("Page")).to.deep.equal([projectPath]);
+    expect(newAccount.getChildPaths("Project")).to.deep.equal([projectPath]);
     expect(newAccount.children).to.deep.equal([project]);
-    expect(newAccount.getChildren("Page")).to.deep.equal([project]);
+    expect(newAccount.getChildren("Project")).to.deep.equal([project]);
   });
 
-  it("correctly process errors in the LOADED_ACCOUNT action for the Account", () => {
+  it("correctly process errors in the LOADED_ACCOUNT action", () => {
     const path = Component._ACCOUNT_PATH_;
     const data = {
-      index: [ { id: "foo", type: "Page", title: "FOOO" } ]
+      index: [ { id: "foo", type: "Project", title: "FOOO" } ]
     };
     store.dispatch({ type: "LOAD_ACCOUNT", path });
     const originalAccount = Component.get(path);
@@ -254,5 +256,187 @@ describe("Component reducers", () => {
 
 
 // TODO: reload needs to remove newly unknown children
+
+});
+
+describe("Component actions", () => {
+  var store;
+  // Create a new store and api shim and assign it to Component before each test
+  beforeEach(()=> {
+    store = Component.store = createStore(reducers, applyMiddleware(thunk));
+  });
+
+  it("execute loadAccount() as expected", () => {
+    const path = Component._ACCOUNT_PATH_;
+    const projectPath = "/foo";
+    // mock api calls
+    api.loadProjectIndex = () => Promise.resolve({
+      index: [ { id: "foo", type: "Project", title: "FOOO" } ]
+    });
+
+    return Component.actions.loadAccount()
+      .then(() => {
+        const account = Component.getAccount();
+        const accountIndex = { ALL: [projectPath], Project: [projectPath] };
+        const accountData = { path: path, type: "Account", loadState: "loaded", index: accountIndex };
+        expect(account).to.be.an.instanceof(Component);
+        expect(account).to.deep.equal(accountData);
+        expect(account.isUnloaded).to.be.false;
+        expect(account.isLoading).to.be.false;
+        expect(account.isLoaded).to.be.true;
+        expect(account.hasLoadError).to.be.false;
+
+        // project is of correct shape
+        const projectData = { path: projectPath, type: "Project", title: "FOOO" };
+        const project = Component.get(projectPath);
+        expect(project).to.be.an.instanceof(Component);
+        expect(project).to.deep.equal(projectData);
+        expect(project.isUnloaded).to.be.true;
+        expect(project.isLoading).to.be.false;
+        expect(project.isLoaded).to.be.false;
+        expect(project.hasLoadError).to.be.false;
+      }, (error) => console.warn("error in loadAccount", error));
+  });
+
+// TODO: loadAccount() returning an error
+
+  it("execute loadComponent() as expected", () => {
+    const path = Component._ACCOUNT_PATH_;
+    const projectPath = "/foo";
+    const projectIndexData = { type: "Project", title: "FOO" };
+    const projectLoadData = {
+      css: "div { color: red }",
+      js: "function() {}",
+      jsx: "class Foo extends Component {}",
+      jsxe: "<div/>",
+    }
+    const pagePath = "/foo/bar";
+    const pageIndexData = { type: "Page", title: "BAAR" };
+
+    // mock api calls
+    api.loadProjectIndex = () => Promise.resolve({
+      index: [ { id: "foo", ...projectIndexData } ]
+    });
+    api.loadComponentBundle = () => Promise.resolve({
+      ...projectLoadData,
+      index: [ { id: "bar", ...pageIndexData } ]
+    });
+
+    return Component.actions.loadAccount()
+      .then(() => Component.actions.loadComponent(projectPath))
+      .then(() => {
+        const account = Component.getAccount();
+        const accountIndex = { ALL: [projectPath], Project: [projectPath] };
+        const accountData = { path: path, type: "Account", loadState: "loaded", index: accountIndex };
+        expect(account).to.be.an.instanceof(Component);
+        expect(account).to.deep.equal(accountData);
+        expect(account.isUnloaded).to.be.false;
+        expect(account.isLoading).to.be.false;
+        expect(account.isLoaded).to.be.true;
+        expect(account.hasLoadError).to.be.false;
+
+        // project is of correct shape
+        const projectData = {
+          path: projectPath,
+          index: { ALL: [pagePath], Page: [pagePath] },
+          loadState: "loaded",
+          ...projectIndexData,
+          ...projectLoadData
+        };
+        const project = Component.get(projectPath);
+        expect(project.toJSON()).to.deep.equal(projectData);
+        expect(project).to.be.an.instanceof(Component);
+        expect(project.isUnloaded).to.be.false;
+        expect(project.isLoading).to.be.false;
+        expect(project.isLoaded).to.be.true;
+        expect(project.hasLoadError).to.be.false;
+
+        // page is of correct shape
+        const pageData = { path: pagePath, ...pageIndexData };
+        const page = Component.get(pagePath);
+        expect(page).to.be.an.instanceof(Component);
+        expect(page).to.deep.equal(pageData);
+        expect(page.isUnloaded).to.be.true;
+        expect(page.isLoading).to.be.false;
+        expect(page.isLoaded).to.be.false;
+        expect(page.hasLoadError).to.be.false;
+      })
+  });
+
+  it("execute reloadComponent() with same data with minimal churn", () => {
+    const path = Component._ACCOUNT_PATH_;
+
+    const pagePath = "/foo/bar";
+    const pageIndexData = { type: "Page", title: "BAAR" };
+    const pageData = { path: pagePath, ...pageIndexData };
+
+    const projectPath = "/foo";
+    const projectIndexData = { type: "Project", title: "FOO" };
+    const projectLoadData = {
+      css: "div { color: red }",
+      js: "function() {}",
+      jsx: "class Foo extends Component {}",
+      jsxe: "<div/>",
+    }
+    const projectData = {
+      path: projectPath,
+      index: { ALL: [pagePath], Page: [pagePath] },
+      loadState: "loaded",
+      ...projectIndexData,
+      ...projectLoadData
+    };
+
+    // mock api calls
+    api.loadProjectIndex = () => Promise.resolve({
+      index: [ { id: "foo", ...projectIndexData } ]
+    });
+    api.loadComponentBundle = () => Promise.resolve({
+      ...projectLoadData,
+      index: [ { id: "bar", ...pageIndexData } ]
+    });
+
+    var account, project, page;
+    return Component.actions.loadAccount()
+      .then(() => Component.actions.loadComponent(projectPath))
+      .then(() => {
+        account = Component.getAccount();
+        expect(account).to.be.an.instanceof(Component);
+
+        // project is of correct shape
+        project = Component.get(projectPath);
+        expect(project).to.be.an.instanceof(Component);
+        expect(project.toJSON()).to.deep.equal(projectData);
+
+        // page is of correct shape
+        page = Component.get(pagePath);
+        expect(page).to.be.an.instanceof(Component);
+        expect(page).to.deep.equal(pageData);
+      })
+      // reload with the same data
+      .then(() => Component.actions.reloadComponent(projectPath))
+      .then(() => {
+        // account shouldn't change
+        const newAccount = Component.getAccount();
+        expect(newAccount).to.be.an.instanceof(Component);
+        expect(newAccount).to.equal(account);
+
+        // project changed because its `loadState` changed while it was loading... :-(
+        // but it's functionally equivalent now
+        const newProject = Component.get(projectPath);
+        expect(newProject).to.be.an.instanceof(Component);
+        expect(newProject).to.not.equal(project);
+        expect(newProject).to.deep.equal(project);
+
+        // page should't change!
+        const newPage = Component.get(pagePath);
+        expect(newPage).to.be.an.instanceof(Component);
+        expect(newPage).to.equal(page);
+      });
+  });
+
+// TODO: loadComponent() returning an error
+// TODO: reloadComponent()
+// TODO: unloadComponent()
+
 
 });

@@ -53,6 +53,7 @@
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
     "mocha": "^3.0.2",
+    "nock": "^8.1.0",
     "npm-install-webpack-plugin": "^4.0.4",
     "raw-loader": "^0.5.1",
     "react": "15.0.1",
