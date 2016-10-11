@@ -198,11 +198,11 @@ const actions = {
           // treat as a component response
           (data) => {
             delete _LOAD_PROMISES_[path];
-            dispatch({ type: "LOADED_ACCOUNT", path, data })
+            dispatch({ type: "LOADED_ACCOUNT", path, data });
           },
           (error) => {
             delete _LOAD_PROMISES_[path];
-            dispatch({ type: "LOADED_ACCOUNT", path, error })
+            dispatch({ type: "LOADED_ACCOUNT", path, error });
           }
         );
     };
@@ -242,11 +242,11 @@ const actions = {
       return loadPromise.then(
         (data) => {
           delete _LOAD_PROMISES_[path];
-          return dispatch({ type: "LOADED_COMPONENT", path, data })
+          return dispatch({ type: "LOADED_COMPONENT", path, data });
         },
         (error) => {
           delete _LOAD_PROMISES_[path];
-          return dispatch({ type: "LOADED_COMPONENT", path, error })
+          return dispatch({ type: "LOADED_COMPONENT", path, error });
         }
       ).then(delete _LOAD_PROMISES_[path]);
     };
@@ -254,7 +254,7 @@ const actions = {
 
   // Reload a component, whether it's currently loaded or not.
   reloadComponent(path) {
-    return (dispatch) => {
+    return () => {
       return Component.actions.loadComponent(path, "FORCE_RELOAD");
     };
   },
@@ -401,9 +401,9 @@ const actions = {
 }; // end `actions`
 
 // Assign auto-dispatching actions to `Component`.
-Component.actions = _.mapValues(actions, (handler, key) => (...args) => {
-  return Component.store.dispatch(handler(...args))
-});
+Component.actions = _.mapValues(actions, (handler) => (...args) =>
+  Component.store.dispatch(handler(...args))
+);
 
 
 //
@@ -411,11 +411,11 @@ Component.actions = _.mapValues(actions, (handler, key) => (...args) => {
 //
 
   // Overall reducer which delegates to the `reducers` map defined below.
-Component.reducer = function(projectMap = {}, action) {
+Component.reducer = function reducer(projectMap = {}, action) {
   const handler = Component.__reducers__[action.type];
   if (handler) return handler(projectMap, action);
   return projectMap;
-}
+};
 
 //  Individual reducers as a handler map.  Switch statements are for chumps!
 //  NOTE: we place them on the Component for reflection/ad-hoc testing.  Don't call directly!
@@ -432,7 +432,7 @@ Component.__reducers__ = {
     const account = projectMap[path];
     // update properties of clone using utility processing routines
     try {
-      if (!account) throw "Account not set up by LOAD_ACCOUNT???";
+      if (!account) throw new Error("Account not set up by LOAD_ACCOUNT???");
       if (error) throw error;
       return utils.setComponentData(projectMap, account, data)[0];
     }
@@ -605,7 +605,7 @@ utils = Component.__utils__ = {
   setComponentData(projectMap, component, data) {
     const { type, jsxe, css, js, jsx, index } = data;
     let clone = component;
-    if (type) clone = utils.setComponentProps(component, { type: type });
+    if (type) clone = utils.setComponentProps(component, { type });
     clone = utils.setComponentJSXE(clone, jsxe);
     clone = utils.setComponentCSS(clone, css);
     clone = utils.setComponentJS(clone, js);
