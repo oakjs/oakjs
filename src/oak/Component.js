@@ -47,7 +47,7 @@ export default class Component {
     return Component.getParentPath(this.path);
   }
 
-  // Return parent of this component according to the latest `projectMap`.
+  // Return parent of this component according to the latest `componentMap`.
   get parent() {
     return utils.getComponent(this.parentPath);
   }
@@ -64,13 +64,13 @@ export default class Component {
     return utils.getComponentChildPaths(this, type);
   }
 
-  // Return all children as an array according to the latest `projectMap`.
+  // Return all children as an array according to the latest `componentMap`.
   // Returns empty array if no children.
   get children() {
     return utils.getComponentChildren(this);
   }
 
-  // Return all children of specified `type` as an array according to the latest `projectMap`.
+  // Return all children of specified `type` as an array according to the latest `componentMap`.
   // Returns empty array if no children.
   getChildren(type) {
     return utils.getComponentChildren(this, type);
@@ -104,10 +104,10 @@ export default class Component {
 //  Static utlity methods
 //
 
-  // Return current `projectMap` from the very latest version of the store.
+  // Return current `componentMap` from the very latest version of the store.
   // NOTE: this is dependent on `Component.store` being set to the Redux `store` when it is created.
-  static get projectMap() {
-    return Component.store.getState().projectMap;
+  static get componentMap() {
+    return Component.store.getState().componentMap;
   }
 
   // Path for the `Account` singleton.
@@ -119,7 +119,7 @@ export default class Component {
     return utils.getComponent(Component._ACCOUNT_PATH_);
   }
 
-  // Return LATEST VERSION of component given `path` from `projectMap`.
+  // Return LATEST VERSION of component given `path` from `componentMap`.
   // You can pass a string `path` or a `Component` instance.
   static get(path) {
     return utils.getComponent(path);
@@ -290,7 +290,7 @@ const actions = {
   // Delete a component specified by `path`.,
   deleteComponent(path) {
     return (dispatch) => {
-      // forget it if the component isn't it the projectMap
+      // forget it if the component isn't it the componentMap
       const component = utils.getComponent(path);
       if (!component) return Promise.resolve();
 
@@ -310,7 +310,7 @@ const actions = {
   // Rename component at `path`.
   renameComponent({ path, newId, navigate }) {
     return (dispatch) => {
-      // forget it if the component isn't it the projectMap
+      // forget it if the component isn't it the componentMap
       const component = utils.getComponent(path);
       if (!component) return Promise.reject();
 
@@ -411,91 +411,91 @@ Component.actions = _.mapValues(actions, (handler) => (...args) =>
 //
 
   // Overall reducer which delegates to the `reducers` map defined below.
-Component.reducer = function reducer(projectMap = {}, action) {
+Component.reducer = function reducer(componentMap = {}, action) {
   const handler = Component.__reducers__[action.type];
-  if (handler) return handler(projectMap, action);
-  return projectMap;
+  if (handler) return handler(componentMap, action);
+  return componentMap;
 };
 
 //  Individual reducers as a handler map.  Switch statements are for chumps!
 //  NOTE: we place them on the Component for reflection/ad-hoc testing.  Don't call directly!
 Component.__reducers__ = {
-  LOAD_ACCOUNT: (projectMap, action) => {
+  LOAD_ACCOUNT: (componentMap, action) => {
     const { path } = action;
-    const account = projectMap[path] || new Component({ path, type: "Account" });
-    return utils.updateComponent(projectMap, account, { loadState: "loading" })[0];
+    const account = componentMap[path] || new Component({ path, type: "Account" });
+    return utils.updateComponent(componentMap, account, { loadState: "loading" })[0];
   },
 
   // Account loading succeeded, or failed if there's an `error`.
-  LOADED_ACCOUNT: (projectMap, action) => {
+  LOADED_ACCOUNT: (componentMap, action) => {
     const { path, data, error } = action;
-    const account = projectMap[path];
+    const account = componentMap[path];
     // update properties of clone using utility processing routines
     try {
       if (!account) throw new Error("Account not set up by LOAD_ACCOUNT???");
       if (error) throw error;
-      return utils.setComponentData(projectMap, account, data)[0];
+      return utils.setComponentData(componentMap, account, data)[0];
     }
     catch (exception) {
       console.error(`error processing LOADED_COMPONENT for '${path}':`, exception);
       const loadState = error instanceof Error ? error : new Error(exception);
-      return utils.unloadComponent(projectMap, account, { loadState })[0];
+      return utils.unloadComponent(componentMap, account, { loadState })[0];
     }
   },
 
-  LOAD_COMPONENT: (projectMap, action) => {
+  LOAD_COMPONENT: (componentMap, action) => {
     const { path } = action;
     // get a clone of existing component or create a new one if not found
-    const component = projectMap[path] || new Component(path);
-    return utils.updateComponent(projectMap, component, { loadState: "loading" })[0];
+    const component = componentMap[path] || new Component(path);
+    return utils.updateComponent(componentMap, component, { loadState: "loading" })[0];
   },
 
   // Component loading succeeded, or failed if there's an `error`.
-  LOADED_COMPONENT: (projectMap, action) => {
+  LOADED_COMPONENT: (componentMap, action) => {
     const { path, data, error } = action;
     // get a existing component, creating a new one if not found
-    const component = projectMap[path] || new Component(path);
+    const component = componentMap[path] || new Component(path);
 
     // update properties of clone using utility processing routines
     try {
       if (error) throw error;
-      return utils.setComponentData(projectMap, component, data)[0];
+      return utils.setComponentData(componentMap, component, data)[0];
     }
     catch (exception) {
       console.error(`error processing LOADED_COMPONENT for '${path}':`, exception);
       const loadState = error instanceof Error ? error : new Error(exception);
-      return utils.unloadComponent(projectMap, component, { loadState })[0];
+      return utils.unloadComponent(componentMap, component, { loadState })[0];
     }
   },
 
-  UNLOAD_COMPONENT: (projectMap, action) => {
+  UNLOAD_COMPONENT: (componentMap, action) => {
     const { path } = action;
-    const component = projectMap[path];
-    if (!component) return projectMap;  // TODO...???
+    const component = componentMap[path];
+    if (!component) return componentMap;  // TODO...???
     return utils.unloadComponent(component)[0];
   },
 
-  DELETED_COMPONENT: (projectMap, action) => {
+  DELETED_COMPONENT: (componentMap, action) => {
     const { path } = action;
-    return utils.removeComponent(projectMap, path);
+    return utils.removeComponent(componentMap, path);
   },
 
-  DELETE_COMPONENT_ERROR: (projectMap, action) => {
+  DELETE_COMPONENT_ERROR: (componentMap, action) => {
     const { path, error } = action;
     console.error(`error deleting component '${path}':`, error);
     // Go ahead and delete it anyway...
-    return utils.removeComponent(projectMap, path);
+    return utils.removeComponent(componentMap, path);
   },
 
-  RENAMED_COMPONENT: (projectMap, action) => {
+  RENAMED_COMPONENT: (componentMap, action) => {
     const { path, newId } = action;
-    const component = projectMap[path];
-    const parent = projectMap[Component.getParentPath(path)];
-    if (!component || !parent) return projectMap;    // TODO...???
+    const component = componentMap[path];
+    const parent = componentMap[Component.getParentPath(path)];
+    if (!component || !parent) return componentMap;    // TODO...???
 
     // Change our id in our parent's index.
     const oldId = component.id;
-    let mapClone = utils.updateParentIndex(projectMap, parent,
+    let mapClone = utils.updateParentIndex(componentMap, parent,
       (ids) => ids.map(id => id === oldId ? newId : id)
     )[0];
 
@@ -506,21 +506,21 @@ Component.__reducers__ = {
     return mapClone;
   },
 
-  RENAME_COMPONENT_ERROR: (projectMap, action) => {
+  RENAME_COMPONENT_ERROR: (componentMap, action) => {
     const { path, error } = action;
     console.error(`error renaming component '${path}':`, error);
-    return projectMap;
+    return componentMap;
   },
 
-  CREATED_COMPONENT: (projectMap, action) => {
+  CREATED_COMPONENT: (componentMap, action) => {
     const { parentPath } = action;
     const { parentIndex, id, type, data } = action.data;
 
-    const parent = projectMap[parentPath];
-    if (!parent) return projectMap; // TODO... ???
+    const parent = componentMap[parentPath];
+    if (!parent) return componentMap; // TODO... ???
 
     // set parent index first
-    let mapClone = utils.setComponentIndex(projectMap, parent, parentIndex)[0];
+    let mapClone = utils.setComponentIndex(componentMap, parent, parentIndex)[0];
 
     // create component and tell it about its data
     const path = Component.joinPath(parentPath, id);
@@ -530,16 +530,16 @@ Component.__reducers__ = {
     return mapClone;
   },
 
-  CREATE_COMPONENT_ERROR: (projectMap, action) => {
+  CREATE_COMPONENT_ERROR: (componentMap, action) => {
     const { path, error } = action;
     console.error(`error creating component '${path}':`, error);
-    return projectMap;
+    return componentMap;
   }
 };
 
 
 //
-//  Utility functions which process bits of the component and projectMap.
+//  Utility functions which process bits of the component and componentMap.
 //  NOTE: we place them on the Component for reflection/ad-hoc testing.  Don't call directly!
 //
 utils = Component.__utils__ = {
@@ -547,7 +547,7 @@ utils = Component.__utils__ = {
   // Given a `component`, return a clone with `props` applied.
   // `undefined` props will be cleared on the clone.
   // If props is empty or doesn't specify actual changes, the original `component` will be returned.
-  // NOTE: this has nothing to do with `projectMap`, see `updateComponent`.
+  // NOTE: this has nothing to do with `componentMap`, see `updateComponent`.
   setComponentProps(component, props) {
     // bail if no props
     if (!props || _.isEmpty(props)) return component;
@@ -568,12 +568,12 @@ utils = Component.__utils__ = {
 
   // Return a component specified by `path` (as string or pointer to a Component).
   //
-  // By default we look it up in the latest `projectMap`,
-  //  if you're in the middle of processing, you may want to pass a projectMap explicitly.
-  getComponent(path, projectMap = Component.projectMap) {
-    // If passed a Component, look up in the projectMap anyway in case component is stale.
-    if (path instanceof Component) return projectMap[path.path];
-    return projectMap[path];
+  // By default we look it up in the latest `componentMap`,
+  //  if you're in the middle of processing, you may want to pass a componentMap explicitly.
+  getComponent(path, componentMap = Component.componentMap) {
+    // If passed a Component, look up in the componentMap anyway in case component is stale.
+    if (path instanceof Component) return componentMap[path.path];
+    return componentMap[path];
   },
 
   // Return paths of the children of a `component`.
@@ -587,11 +587,11 @@ utils = Component.__utils__ = {
   // If you specify `type`, we'll return only children of that type.
   // Returns empty array if no children (of that type).
   //
-  // By default we look it up in the latest `projectMap`,
-  //  if you're in the middle of processing, you may want to pass a projectMap explicitly.
-  getComponentChildren(component, type = "ALL", projectMap = Component.projectMap) {
+  // By default we look it up in the latest `componentMap`,
+  //  if you're in the middle of processing, you may want to pass a componentMap explicitly.
+  getComponentChildren(component, type = "ALL", componentMap = Component.componentMap) {
     return utils.getComponentChildPaths(component, type)
-      .map(path => utils.getComponent(path, projectMap));
+      .map(path => utils.getComponent(path, componentMap));
   },
 
 
@@ -600,9 +600,9 @@ utils = Component.__utils__ = {
 //
 
   // Set all applicable `data` for `component`.
-  // Returns clones of `[projectMap, component]`
+  // Returns clones of `[componentMap, component]`
   // Throws if anything goes wrong.
-  setComponentData(projectMap, component, data) {
+  setComponentData(componentMap, component, data) {
     const { type, jsxe, css, js, jsx, index } = data;
     let clone = component;
     if (type) clone = utils.setComponentProps(component, { type });
@@ -610,8 +610,8 @@ utils = Component.__utils__ = {
     clone = utils.setComponentCSS(clone, css);
     clone = utils.setComponentJS(clone, js);
     clone = utils.setComponentJSX(clone, jsx);
-    // processing the index may affect other things in the projectMap
-    let mapClone = { ...projectMap };
+    // processing the index may affect other things in the componentMap
+    let mapClone = { ...componentMap };
     [mapClone, clone] = utils.setComponentIndex(mapClone, clone, index);
 
     // update with new loadState
@@ -624,10 +624,10 @@ utils = Component.__utils__ = {
 
   // Unload the component at `path` and remove all its children.
   // If you pass any `componentProps`, we'll update the component with those before returning.
-  // Returns clones of `[projectMap, component]`.
-  unloadComponent(projectMap, component, newProps) {
+  // Returns clones of `[componentMap, component]`.
+  unloadComponent(componentMap, component, newProps) {
     // First remove any children from the component
-    let mapClone = { ...projectMap };
+    let mapClone = { ...componentMap };
     let clone = component;
 
     if (component.children)
@@ -677,11 +677,11 @@ utils = Component.__utils__ = {
 
   // Process loaded component `index` array of `{ id, title, type }`.
   //  - Updates clone of `component` with index of `{ type: [ <child id>... ] }`.
-  //  - Adds things in the `index` to the `projectMap`.
-  //  - Removes children which we knew about before but are not in the new index from `projectMap`.
-  // Returns `[projectMap, component]`, as clones if there are any changes.
-  setComponentIndex(projectMap, component, index) {
-    let mapClone = projectMap;
+  //  - Adds things in the `index` to the `componentMap`.
+  //  - Removes orphaned children (not in the new index) from `componentMap`.
+  // Returns `[componentMap, component]`, as clones if there are any changes.
+  setComponentIndex(componentMap, component, index) {
+    let mapClone = componentMap;
     let typeIndex;
     let childPaths;
     // Process index children, returning map of just ids
@@ -721,7 +721,7 @@ utils = Component.__utils__ = {
       });
     }
 
-    // If there was a change in the component index, clone and update in the projectmap
+    // If there was a change in the component index, clone and update in the componentMap
     return utils.updateComponent(mapClone, component, { index: typeIndex }, "DO_DEEP_EQUAL_CHECK");
   },
 
@@ -732,7 +732,7 @@ utils = Component.__utils__ = {
   _INDEX_DATA_FIELDS_: ["id", "type", "title"],
 
   // Return data to save to the server for this component.
-  getComponentSaveData(component, projectMap = Component.projectMap) {
+  getComponentSaveData(component, componentMap = Component.componentMap) {
     const json = utils.componentToJSON(component);
     // get JSON data minus any fields we explicitly do NOT send to the server
     const output = _.pick(json, utils._FIELDS_TO_SAVE_);
@@ -742,7 +742,7 @@ utils = Component.__utils__ = {
 
     // Update the `index` we save with the index data from our children
     if (component.index) {
-      const children = utils.getComponentChildren(component, "ALL", projectMap);
+      const children = utils.getComponentChildren(component, "ALL", componentMap);
       output.index = children.map(child => _.pick(child, utils._INDEX_DATA_FIELDS_));
     }
 
@@ -775,39 +775,39 @@ utils = Component.__utils__ = {
   },
 
 //
-//  Utility functions for manipulating component and projectMap.
+//  Utility functions for manipulating component and componentMap.
 //
 
-  // Add component at `path` to `projectMap`.
-  // Returns a clone of `[projectMap, component]` if any change.
+  // Add component at `path` to `componentMap`.
+  // Returns a clone of `[componentMap, component]` if any change.
   // NOTE: does NOT update parent index.
-  addComponent(projectMap, path, props) {
-    const component = utils.getComponent(path, projectMap) || new Component(path);
-    return utils.updateComponent(projectMap, component, props, "DO_DEEP_EQUAL_CHECK");
+  addComponent(componentMap, path, props) {
+    const component = utils.getComponent(path, componentMap) || new Component(path);
+    return utils.updateComponent(componentMap, component, props, "DO_DEEP_EQUAL_CHECK");
   },
 
   // Clone the `component` and give it additional `props`,
-  //  returning clones of `[projectMap, component]` if anything changed.
+  //  returning clones of `[componentMap, component]` if anything changed.
   //
   // Normally we'll do an `===` to see if anything changed,
   //  if you want to do a `_.isEqual()` check, pass a truthy `doDeepEqualCheck`.
-  updateComponent(projectMap, component, props, doDeepEqualCheck) {
+  updateComponent(componentMap, component, props, doDeepEqualCheck) {
     const clone = utils.setComponentProps(component, props);
     const equivalent = (doDeepEqualCheck ? _.isEqual(clone, component) : clone === component);
     // If no change, return the original objects.
-    if (equivalent && projectMap[clone.path] === component)
-      return [projectMap, component];
+    if (equivalent && componentMap[clone.path] === component)
+      return [componentMap, component];
 
     // Update the map and return clones.
-    const mapClone = { ...projectMap, [clone.path]: clone };
+    const mapClone = { ...componentMap, [clone.path]: clone };
     return [mapClone, clone];
   },
 
 
   // Run `idsTransformer(ids)` over each item in parent's `index` and sets `parent.index`.
-  // Returns `[projectMap, parent]`, as clones if there are any changes.
-  updateParentIndex(projectMap, parent, idsTransformer) {
-    if (!parent || !parent.index) return [projectMap, parent];
+  // Returns `[componentMap, parent]`, as clones if there are any changes.
+  updateParentIndex(componentMap, parent, idsTransformer) {
+    if (!parent || !parent.index) return [componentMap, parent];
 
     // generate a new index by applying the transformer
     let newIndex = {};
@@ -817,8 +817,8 @@ utils = Component.__utils__ = {
       if (result !== undefined && result.length) newIndex[type] = result;
     });
 
-    // If no change, return projectMap
-    if (_.isEqual(parent.index, newIndex)) return [projectMap, parent];
+    // If no change, return componentMap
+    if (_.isEqual(parent.index, newIndex)) return [componentMap, parent];
 
     // clear if the index is completely empty
     if (_.isEmpty(newIndex))
@@ -827,22 +827,22 @@ utils = Component.__utils__ = {
       throw new TypeError(`updateParentIndex(${parent.path}): index geneated without ALL`);
 
     // update parent with new index and return map
-    return utils.updateComponent(projectMap, parent, { index: newIndex });
+    return utils.updateComponent(componentMap, parent, { index: newIndex });
   },
 
   // Remove a component from the `path`, also:
   //    - removing item id from parent's index.
   //    - recursively removing all children.
-  // Returns new `projectMap` if any change.
-  removeComponent(projectMap, path, ignoreParentIndex) {
-    const component = utils.getComponent(path, projectMap);
+  // Returns new `componentMap` if any change.
+  removeComponent(componentMap, path, ignoreParentIndex) {
+    const component = utils.getComponent(path, componentMap);
 
-    // If not in the list, return the original projectMap
-    if (component === undefined) return projectMap;
+    // If not in the list, return the original componentMap
+    if (component === undefined) return componentMap;
 
-    // Remove component from projectMap.
+    // Remove component from componentMap.
     // Doing this BEFORE the below is more efficient.
-    let mapClone = _.omit(projectMap, path);
+    let mapClone = _.omit(componentMap, path);
 
     // Recursively remove all children of the component.
     mapClone = utils.removeComponentChildren(mapClone, path)[0];
@@ -855,18 +855,18 @@ utils = Component.__utils__ = {
     return utils.updateParentIndex(mapClone, parent, (paths) => _.without(paths, path))[0];
   },
 
-  // Recursively delete all children of `component` at `path` from `projectMap`.
+  // Recursively delete all children of `component` at `path` from `componentMap`.
   // Also clears `component.index`.
-  // Returns clones of `[projectMap, component]` if any change.
-  removeComponentChildren(projectMap, path) {
-    const component = utils.getComponent(path, projectMap);
+  // Returns clones of `[componentMap, component]` if any change.
+  removeComponentChildren(componentMap, path) {
+    const component = utils.getComponent(path, componentMap);
 
-    // If not in the list, return the original projectMap
+    // If not in the list, return the original componentMap
     if (component === undefined || !component.index)
-      return [projectMap, component];
+      return [componentMap, component];
 
     // Recursively remove all children of the component.
-    let mapClone = { ...projectMap };
+    let mapClone = { ...componentMap };
     component.index.forEach(childPath => {
       mapClone = utils.removeComponent(mapClone, childPath, "IGNORE_PARENT_INDEX");
     });
@@ -876,13 +876,13 @@ utils = Component.__utils__ = {
   },
 
   // Update `path` of component and all its children.
-  // Returns clone of `projectMap` if any change.
-  updateComponentPath(projectMap, oldPath, newPath) {
-    const component = projectMap[oldPath];
-    if (!component) return projectMap;
+  // Returns clone of `componentMap` if any change.
+  updateComponentPath(componentMap, oldPath, newPath) {
+    const component = componentMap[oldPath];
+    if (!component) return componentMap;
 
     // Update children FIRST!
-    let mapClone = { ...projectMap };
+    let mapClone = { ...componentMap };
     if (component.index) {
       component.index.ALL.forEach(oldChildPath => {
         const childId = Component.getId(oldChildPath);

@@ -13,7 +13,7 @@ import configureMockStore from "redux-mock-store";
 const mockStore = configureMockStore([ thunk ]);
 
 const reducers = combineReducers({
-  projectMap: Component.reducer
+  componentMap: Component.reducer
 });
 
 
@@ -34,9 +34,9 @@ describe("The Component module", () => {
     expect(Component.actions).to.be.an("object");
   });
 
-  it("gets projectMap properly", () => {
-    expect(Component.projectMap).to.be.an("object");
-    expect(Component.projectMap).to.be.empty;
+  it("gets componentMap properly", () => {
+    expect(Component.componentMap).to.be.an("object");
+    expect(Component.componentMap).to.be.empty;
   });
 
   it("joins paths as expected", () => {
@@ -148,8 +148,8 @@ describe("Component reducers", () => {
     expect(Component.store).to.exist;
     const state = store.getState();
     expect(state).to.be.an("object");
-    expect(state.projectMap).to.be.an("object");
-    expect(state.projectMap).to.be.empty;
+    expect(state.componentMap).to.be.an("object");
+    expect(state.componentMap).to.be.empty;
   })
 
   it("correctly process the LOAD_ACCOUNT action", () => {
@@ -157,20 +157,20 @@ describe("Component reducers", () => {
 
     store.dispatch({ type: "LOAD_ACCOUNT", path });
 
-    const { projectMap } = store.getState();
+    const { componentMap } = store.getState();
 
     // same shape
     const mapData = { [path] : { path, type: "Account", loadState: "loading" } };
-    expect(projectMap).to.deep.equal(mapData)
+    expect(componentMap).to.deep.equal(mapData)
     // instance of Component
-    const account = projectMap[path];
+    const account = componentMap[path];
     expect(account).to.be.an.instanceof(Component);
     // same object when we do Component.get()
     expect(account).to.equal(Component.get(path));
-    expect(account).to.equal(Component.get(path, projectMap));
+    expect(account).to.equal(Component.get(path, componentMap));
     // same object when we do `Component.getAccount()`
     expect(account).to.equal(Component.getAccount());
-    expect(account).to.equal(Component.getAccount(projectMap));
+    expect(account).to.equal(Component.getAccount(componentMap));
     // load state
     expect(account.isUnloaded).to.be.false;
     expect(account.isLoading).to.be.true;
@@ -196,8 +196,8 @@ describe("Component reducers", () => {
 
     store.dispatch({ type: "LOADED_ACCOUNT", path, data: loadData });
 
-    const { projectMap } = store.getState();
-    const newAccount = projectMap[path];
+    const { componentMap } = store.getState();
+    const newAccount = componentMap[path];
     // make sure account has changed
     expect(newAccount).to.not.equal(originalAccount);
     expect(newAccount).to.deep.equal(accountData);
@@ -209,7 +209,7 @@ describe("Component reducers", () => {
 
     // project is of correct shape
     const projectData = { path: projectPath, type: "Project", title: "FOOO" };
-    const project = projectMap[projectPath];
+    const project = componentMap[projectPath];
 
     expect(project).to.deep.equal(projectData);
     expect(project).to.equal(Component.get(projectPath));
@@ -229,8 +229,8 @@ describe("Component reducers", () => {
     const originalAccount = Component.get(path);
 
     store.dispatch({ type: "LOADED_ACCOUNT", path, error: "OOPS" });
-    const { projectMap } = store.getState();
-    const newAccount = projectMap[path];
+    const { componentMap } = store.getState();
+    const newAccount = componentMap[path];
 
     // make sure account has changed
     expect(newAccount).to.not.equal(originalAccount);
