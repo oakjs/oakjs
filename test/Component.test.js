@@ -418,7 +418,7 @@ describe("Component actions", () => {
         expect(newAccount).to.equal(account);
 
         // project changed because its `loadState` changed while it was loading... :-(
-        // but it's functionally equivalent now
+        // but it's functionally equivalent
         const newProject = Component.get(projectPath);
         expect(newProject).to.be.an.instanceof(Component);
         expect(newProject).to.not.equal(project);
