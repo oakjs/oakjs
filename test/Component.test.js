@@ -40,7 +40,7 @@ describe("The Component module", () => {
   });
 
   it("joins paths as expected", () => {
-    expect(Component.joinPath(undefined, Component._ACCOUNT_PATH_)).to.equal(Component._ACCOUNT_PATH_);
+    expect(Component.joinPath(undefined, Component.ACCOUNT_PATH)).to.equal(Component.ACCOUNT_PATH);
     expect(Component.joinPath("/", "foo")).to.equal("/foo");
     expect(Component.joinPath("/foo", "bar")).to.equal("/foo/bar");
   });
@@ -85,12 +85,12 @@ describe("Component instances", () => {
   });
 
   it("return parentPath and id correctly", () => {
-    const account = new Component(Component._ACCOUNT_PATH_);
+    const account = new Component(Component.ACCOUNT_PATH);
     expect(account.parentPath).to.be.undefined;
-    expect(account.id).to.equal(Component._ACCOUNT_PATH_);
+    expect(account.id).to.equal(Component.ACCOUNT_PATH);
 
     const project = new Component("/foo");
-    expect(project.parentPath).to.equal(Component._ACCOUNT_PATH_);
+    expect(project.parentPath).to.equal(Component.ACCOUNT_PATH);
     expect(project.id).to.equal("foo");
 
     const page = new Component("/foo/bar/baz");
@@ -153,7 +153,7 @@ describe("Component reducers", () => {
   })
 
   it("correctly process the LOAD_ACCOUNT action", () => {
-    const path = Component._ACCOUNT_PATH_;
+    const path = Component.ACCOUNT_PATH;
 
     store.dispatch({ type: "LOAD_ACCOUNT", path });
 
@@ -182,7 +182,7 @@ describe("Component reducers", () => {
   });
 
   it("correctly process the LOADED_ACCOUNT action", () => {
-    const path = Component._ACCOUNT_PATH_;
+    const path = Component.ACCOUNT_PATH;
     const loadData = {
       index: [ { id: "foo", type: "Project", title: "FOOO" } ]
     };
@@ -223,7 +223,7 @@ describe("Component reducers", () => {
   });
 
   it("correctly process errors in the LOADED_ACCOUNT action", () => {
-    const path = Component._ACCOUNT_PATH_;
+    const path = Component.ACCOUNT_PATH;
 
     store.dispatch({ type: "LOAD_ACCOUNT", path });
     const originalAccount = Component.get(path);
@@ -250,7 +250,7 @@ describe("Component actions", () => {
   beforeEach(initStore);
 
   it("execute loadAccount() as expected", () => {
-    const path = Component._ACCOUNT_PATH_;
+    const path = Component.ACCOUNT_PATH;
     const projectPath = "/foo";
     // mock api calls
     api.loadProjectIndex = () => Promise.resolve({
@@ -282,7 +282,7 @@ describe("Component actions", () => {
   });
 
   it("execute loadAccount() as expected when error returned", () => {
-    const path = Component._ACCOUNT_PATH_;
+    const path = Component.ACCOUNT_PATH;
     const projectPath = "/foo";
     // mock api calls
     api.loadProjectIndex = () => Promise.reject("OOPS");
@@ -326,7 +326,7 @@ describe("Component actions", () => {
       .then(() => {
         const account = Component.getAccount();
         const accountIndex = { ALL: [projectPath], Project: [projectPath] };
-        const accountData = { path: Component._ACCOUNT_PATH_, type: "Account", loadState: "loaded", index: accountIndex };
+        const accountData = { path: Component.ACCOUNT_PATH, type: "Account", loadState: "loaded", index: accountIndex };
         expect(account).to.be.an.instanceof(Component);
         expect(account).to.deep.equal(accountData);
         expect(account.isUnloaded).to.be.false;
@@ -458,15 +458,14 @@ describe("Component actions", () => {
       .then(() => {
         // project has new index
         const project = Component.get(projectPath);
-        const projectData = {
+        expect(project).to.be.an.instanceof(Component);
+        expect(project).to.deep.equal({
           path: projectPath,
           index: { ALL: [bonkPath], Section: [bonkPath] },
           loadState: "loaded",
           type: "Project",
           title: "FOO"
-        };
-        expect(project).to.be.an.instanceof(Component);
-        expect(project).to.deep.equal(projectData);
+        });
 
         // bar page should be gone
         const barPage = Component.get(barPath);
@@ -475,7 +474,11 @@ describe("Component actions", () => {
         // bonk page should be present
         const bonkPage = Component.get(bonkPath);
         expect(bonkPage).to.be.an.instanceof(Component);
-        expect(bonkPage).to.be.deep.equal({ path: bonkPath, type: "Section", title: "BONK" });
+        expect(bonkPage).to.deep.equal({
+          path: bonkPath,
+          type: "Section",
+          title: "BONK"
+        });
       });
   });
 
