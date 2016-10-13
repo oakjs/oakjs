@@ -44,12 +44,29 @@ export default class Point {
   //  Math-y stuff
   //////////////////////////////
 
-
+  // return false if no arguments are passed
+  // return false if pointlike AND coordinates do not match
+  // return true if pointlike AND coordinates match
   equals(point) {
-    if (!point) return false;
-    return this.x === point.x
-        && this.y === point.y;
+
+    // return false if nobody home
+    if (arguments.length === 0){
+      return false;
+    }
+
+    // return true if:
+    //1. you pass the isPointLike validator
+    //2. AND your coordinates match
+    if (Point.isPointLike(point)) {
+      return this.x === point.x
+          && this.y === point.y;
+      }
+
+    else {
+      return false;
+    }
   }
+
 
   // Return a NEW `Point` converted to integers.
   integerize() {
@@ -114,10 +131,23 @@ export default class Point {
 
   // Return true if the thing looks, tastes, and acts like a point
   static isPointLike(thing) {
-    // hey thing, if you're a point, then we're good
-    if (thing instanceof Point) {
+    // just say no to null
+    if (arguments.length === 0){
+      return false;
+    }
+
+    // if your something undefined, return false
+    // previously isPointLike caused an error when passed an undefined object
+    if (typeof thing === 'undefined'){
+      return false;
+    }
+
+    // hey, if a thing exists AND if the thing is a point, then we're good
+    if (arguments.length === 1 && arguments[0] instanceof Point) {
+    //if (thing instanceof Point) {
       return true;
     }
+
     // hey thing-that's-not-a-point, are you point-like with valid xy?
     else if (((typeof thing.x === 'number' )  // let all numbers pass (including NaN)
           && (typeof thing.y === 'number' ))

@@ -4,7 +4,7 @@ let chai  = require('chai');
 chai.should();
 chai.expect();
 
-// max and mins for cordinate system
+ // max and mins for cordinate system
 let MAX_X = 200,
     MIN_X = 200,  // absolute value
     MAX_Y = 200,
@@ -119,6 +119,15 @@ function test_isPointLike () {
       (Point.isPointLike(pointThingOneObject)).should.equal(false);
       pointThingOtherObject = { x: 45, y: point2 };
       (Point.isPointLike(pointThingOtherObject)).should.equal(false);
+    });
+
+    it('returns false if no argument is passed', () => {
+      (Point.isPointLike()).should.equal(false);
+    });
+
+    it('returns false if passed an undefined object', () => {
+      let boom;
+      (Point.isPointLike(boom)).should.equal(false);
     });
   });
 }
