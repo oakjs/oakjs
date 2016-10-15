@@ -44,6 +44,8 @@ export default class Point {
   //  Math-y stuff
   //////////////////////////////
 
+
+
   // return false if no arguments are passed
   // return false if pointlike AND coordinates do not match
   // return true if pointlike AND coordinates match
@@ -129,14 +131,15 @@ export default class Point {
   //  Validate
   //////////////////////////////
 
+  //if argument is null, return false".
   // Return true if the thing looks, tastes, and acts like a point
   static isPointLike(thing) {
-    // just say no to null
+    // return false if noone is home
     if (arguments.length === 0){
       return false;
     }
 
-    // if your something undefined, return false
+    // return false if your something undefined, return false
     // previously isPointLike caused an error when passed an undefined object
     if (typeof thing === 'undefined'){
       return false;
