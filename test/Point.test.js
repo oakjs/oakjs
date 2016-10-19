@@ -1,3 +1,5 @@
+import "babel-core/external-helpers";
+
 var chai   = require('chai');
 var expect = chai.expect;
 
