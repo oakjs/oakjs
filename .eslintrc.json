@@ -1,43 +1,65 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["airbnb","plugin:react/all"],
   "plugins": [
     "react"
   ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "globals": {
     "$": true
   },
   "rules": {
+    // ignore extraneous dependencies (because of `oak` and `oak-roots`)
+//TODO: would be good to remove this...
+    "import/no-extraneous-dependencies": 0,
+
     // prefer double quotes
     "quotes": [2, "double", "avoid-escape"],
 
-    // don't worry about dangling comma
+    // dangling commas are ok but not required
     "comma-dangle": 0,
 
-    // handle `////` comment delimiters
+    // handle `////` and `//-----` comment delimiters
     "spaced-comment": [2, "always", { "exceptions": ["/", "-", ","] }],
 
     // single-line blocks are OK
-    "curly": [2, "multi-or-nest", "consistent"],
+    "curly": [2, "multi-line", "consistent"],
 
     // console statements are ok
     "no-console": 0,
 
-    // debugger is OK
+    // debugger is just a warnign
     "no-debugger": 1,
 
-    // "Stroustrup" brace style
+    // "Stroustrup" brace style:
+    //
+    //  if (foo) {
+    //    bar();
+    //  }
+    //  else {
+    //    baz();
+    //  }
     "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
 
     // space before keys is OK
-    "key-spacing": 0
+    "key-spacing": 0,
+
+    // always put parens around arrow function arguments
+    "arrow-parens": [2, "always"],
+
+    // dangling underscores are ok
+    "no-underscore-dangle": 0,
 
     //
     // The following are necessary to fix bare JSX files... :-(
     //
 
-    // dont' be pedantic about semicolons
-//    "semi": 0
+    // generally use semicolons unless last line in a single line block
+    "semi": [2, "always", { "omitLastInOneLineBlock": true }]
 
     // ok to use undefined variables (THIS ONE REALLY HURTS)
 //    "no-undef": 0,
