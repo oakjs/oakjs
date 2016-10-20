@@ -2,7 +2,7 @@ import "babel-core/external-helpers";
 import { expect } from "chai";
 import nock from "nock";
 
-import Component from "../src/oak/Component";
+import Component from "../src/oak/redux/Component";
 import api from "../src/oak/api";
 
 // Set up mock redux store

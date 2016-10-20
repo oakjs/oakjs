@@ -2,8 +2,8 @@ import _ from "lodash";
 
 import { dieIfMissing } from "oak-roots/util/die";
 
-import api from "./api";
-import JSXFragment from "./JSXFragment";
+import api from "../api";
+import JSXFragment from "../JSXFragment";
 
 // TODO:  `reselect` selectors for Component, etc?
 
