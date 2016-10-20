@@ -7,12 +7,13 @@
 import babel from "oak-roots/util/babel";
 import ChildController from "oak-roots/ChildController";
 import Stylesheet from "oak-roots/Stylesheet";
-import { autobind, proto, throttle } from "oak-roots/util/decorators";
+import { proto, throttle } from "oak-roots/util/decorators";
+import elements from "oak-roots/util/elements";
 import ids from "oak-roots/util/ids";
 
 import api from "./api";
 import JSXFragment from "./JSXFragment";
-//import oak from "./oak";
+import { getComponentState, setComponentStateTransaction } from "./actions/app";
 
 import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
@@ -45,6 +46,82 @@ export default class ComponentController extends ChildController {
   @proto
   type = "Component";
 
+
+  //////////////////////////////
+  //  State management
+//TODO: how to integrate this with our Page etc component?
+//TODO: initial state?
+//TODO: HOC for this?
+  //////////////////////////////
+
+	// Path for the state of your component.
+  get statePath() {
+  	return `projects/${this.path}`;
+  }
+
+	// Return the current state for your component.
+	// Returns an empty object if state has never been defined or initialized.
+	get state() {
+		return getComponentState(this.statePath) || {};
+	}
+
+	// Set state for your component as part of the global `appState`.
+	// Will cause the entire app to update eventually.
+	//
+	// Returns an `UndoTransaction`.
+	// Normally calling this will create a new `UndoTransaction` which will execute immediately.
+	//	To use this as part of a larger transaction, pass `undoOptions` as `{ autoExecute: false }`.
+	setState(deltas, undoOptions) {
+		return setComponentStateTransaction(this.statePath, deltas, undoOptions);
+	}
+
+
+  //////////////////////////////
+  //  Rendering sub-components
+  //////////////////////////////
+
+  // Return map of components we know about.
+  get components() { return this.parent.components }
+
+  // Create an element.
+  // Same semantics as `React.createElement()` except that it looks up components for you.
+  createElement(type, props, ...children) {
+    const component = oak.lookupComponent(type, this.components, `${this} couldn't find type ${type}`);
+    return React.createElement(component, props, ...children);
+  }
+
+
+  //////////////////////////////
+  //  Selection of sub-components
+  //////////////////////////////
+
+	// Return the list of our child `oids` which are currently selected.
+	// ALWAYS returns an array.
+//TODO: filter to only oids that are in our oids map???
+  get selection() {
+  	if (!this.state.selection || !this.oids) return [];
+  	return this.state.selection.filter( oid => !!this.oids[oid] );
+  }
+
+	// Return pointers to the JSXElements for our selection.
+	// ALWAYS returns an array.
+  get selectedElements() {
+    return this.selection.map( oid => this.getJSXElementForOid(oid) ).filter(Boolean);
+  }
+
+  // Return the FIRST selected component of the specified type.
+  // Returns `undefined` if no such component was found.
+  getSelectedElementOfType(type) {
+    return this.selectedElements.filter( component => component.type === type )[0];
+  }
+
+  // Are we currently in `selecting` mode?
+  get isSelecting() {
+  	return this.state.selecting;
+  }
+
+
+
   //////////////////////////////
   //  ChildController stuff
   //////////////////////////////
@@ -68,31 +145,26 @@ export default class ComponentController extends ChildController {
   //  Component Sugar
   //////////////////////////////
 
-  // "private" things are findable, but don't show up in menus, etc
-  get isPrivate() { return this.id.startsWith("_") }
-
+  // Oid of our root component
+  get oid() {
+    return this.jsxFragment && this.jsxFragment.root.oid;
+  }
   // Props come from the root element of our JSXE
   get props() {
     return this.jsxFragment && this.jsxFragment.root.props;
   }
 
-  // State comes from our instantiated component
-  get state() { return this.component && this.component.state }
-  setState(state) { if (this.component) this.component.setState(state) }
-  forceUpdate() { if (this.component) this.component.forceUpdate() }
-
   // don't call more than once per MSEC
+//TODO: debounce???
   @throttle(1)
   updateSoon(){ this.forceUpdate() }
+
+  // State comes from our instantiated component
+  forceUpdate() { if (this.component) this.component.forceUpdate() }
 
   // Refs come from our instantiated component
   get refs() { return this.component ? this.component.refs : {} }
 
-  // Oid of this component
-  get oid() {
-    const props = this.props;
-    return props && (props.oid || props["data-oid"]);
-  }
 
   //////////////////////////////
   //  Components
@@ -109,18 +181,141 @@ export default class ComponentController extends ChildController {
     return this.jsxFragment && this.jsxFragment.oids
   }
 
-  // Return the component DEFINITION for the specified `oid`.
-  getComponentForOid(oid) {
-    const oids = this.oids;
-    return oid && oids && oids[oid];
-  }
-
   // Return a list of oids of all of our descendents (not including this node)
   get descendentOids() {
     const oids = Object.keys(this.oids || {});
     const index = oids.indexOf(this.oid);
     if (index > -1) oids.splice(index, 1);
     return oids;
+  }
+
+  // Return `{ oid, dom, jsxe, rect }` for the specified `oid`.
+  // Returns `undefined` if oid not found in our children or is not accessible because of rendering.
+  // Only works if our render was drawn while we were 'editable'.
+  getInfoForOid(oid) {
+    const jsxe = this.getJSXElementForOid(oid);
+    const dom = this.getDOMElementForOid(oid);
+    if (!jsxe || !dom) return undefined;
+    return {
+      oid,
+      jsxe,
+      dom,
+      rect: elements.clientRect(dom)
+    }
+  }
+
+
+  // Return the JSXElement for the specified `oid`.
+  // Only works if our render was drawn while we were 'editable'.
+  getJSXElementForOid(oid) {
+    if (this.jsxFragment) return this.jsxFragment.getElement(oid);
+  }
+
+  // Return the DOM element associated with an `oid`.
+  // Only works if our render was drawn while we were 'editable'.
+  getDOMElementForOid(oid) {
+    if (!this.component) return undefined;
+    const component = this.component.refs[oid];
+    if (component) return component.domElement;
+  }
+
+  // Return the current `clientRect` for the specified `oid`.
+  // Only works if our render was drawn while we were 'editable' and we're not redrawing.
+  getRectForOid(oid) {
+    const element = this.getDOMElementForOid(oid);
+    if (element) return elements.clientRect(element);
+  }
+
+  // Return list of ALL `{ oid, dom, jsxe, rect }` for ALL JSXElements
+  //  at a particular `clientPoint` (in "clientRect" space).
+  //
+  // The OUTERMOST element is the first item in the list, with the innermost element being last.
+  //
+  // NOTE: Although they will be returned with the innermost-JSXElement LAST,
+  //       you can't rely on this ordering in terms how the browser sees the actual DOM elements
+  //       because CSS z-index can make things appear out of order.
+  //
+//TODO: absolute positioning could put two elements from diffrent parents in the same place,
+//      which might mess the order up, no???
+  getElementsAtPoint(clientPoint) {
+    if (!clientPoint) return [];
+
+    return this.reduceChildren((results, jsxe, controller) => {
+      const oid = jsxe.oid;
+      if (oid) {
+        const dom = controller.getDOMElementForOid(oid);
+        if (dom) {
+          const rect = elements.clientRect(dom);
+          if (rect && rect.containsPoint(clientPoint)) {
+            results.push({ oid, dom, jsxe, rect });
+          }
+        }
+      }
+      return results;
+    }, []);
+  }
+
+  // Return list of ALL `{ oid, dom, jsxe, rect }` for ALL JSXElements
+  //  which interset a particular `clientRect`.
+  //
+  // NOTE: this ignores text-only nodes...
+  //
+  // NOTE: order of this list is not reliable...
+  getElementsIntersectingRect(clientRect, includeRoot = false) {
+    if (!clientRect || clientRect.isEmpty) return [];
+    return this.reduceChildren((results, jsxe, controller) => {
+      const oid = jsxe.oid;
+      if (oid && (includeRoot || oid !== controller.oid)) {
+				const dom = controller.getDOMElementForOid(oid);
+				if (dom) {
+					const rect = elements.clientRect(dom);
+					if (rect && rect.intersects(clientRect)) {
+						results.push({ oid, dom, jsxe, rect });
+					}
+				}
+			}
+      return results;
+    }, []);
+  }
+
+
+  // Return the top-most element at the given `clientPoint` (in "clientRect" space)
+  //  as `{ oid, dom, jsxe, rect }`.
+  //
+  // If you pass `domElementAtPoint`, we'll use that to figure out the exact element
+  //  according to css `z-index`.
+  //
+  // If you do NOT pass `domElementAtPoint`, we'll just return the innermost jsx element,
+  //  and IT MAY OR MAY NOT BE THE TOP-MOST ELEMENT VISUALLY.
+  getTopElementAtPoint(clientPoint, domElementAtPoint) {
+    // Get the list of elements at the point, with the innermost one first.
+    const elementsAtPoint = this.getElementsAtPoint(clientPoint).reverse();
+
+    // if no `domElementAtPoint`, just return the innermost element
+    if (!domElementAtPoint) return elementsAtPoint.pop();
+
+    // Find the innermost element who contains the `domElementAtPoint`
+//TODO: check levels of nesting???
+    for (let element of elementsAtPoint) {
+      if (elements.contains(element.dom, domElementAtPoint)) return element;
+    }
+
+    return undefined;
+  }
+
+  // Return `{ oid, dom, jsxe, rect }` for the top-most jsxElement IN Z-INDEX ORDER
+  //  at the CURRENT mouse location.  This DOES take z-index into account!
+  getMouseInfo() {
+    return this.getTopElementAtPoint(oak.event.clientLoc, oak.event.mouseTarget);
+  }
+
+  // Return `{ oid, dom, jsxe, rect }` for the top-most jsxElement IN Z-INDEX ORDER
+  //  at the location where the mouse last went down.  This DOES take z-index into account!
+  //
+  // NOTE: only valid while the mouse is actually down.
+//TESTME: make sure scrolling after the mouse goes down doesn't affect this!
+  getMouseDownInfo() {
+    return this.getTopElementAtPoint(oak.event.downClientLoc, oak.event.downTarget);
   }
 
   //////////////////////////////
@@ -171,7 +366,7 @@ export default class ComponentController extends ChildController {
 
   // Loaded a `Component` as an instantiated class object (eg: already `eval()`d).
   //
-  // Typically this will be from `loadedJSX()`, but you can call this manually
+  // Typically this will be from `onLoaded()`, but you can call this manually
   //  if you get a Component instance another way.
   _loadedComponent(Component) {
     // If we didn't actually get a component to install...
@@ -229,12 +424,9 @@ export default class ComponentController extends ChildController {
   }
 
   // Clear our cache when we're marked as dirty
-  dirty(dirty) {
-    super.dirty(dirty);
-    if (this.isDirty) {
-      this.cache = {};
-      this.onComponentChanged();
-    }
+  dirty(isDirty) {
+    super.dirty(isDirty);
+    if (this.isDirty) this.onComponentChanged();
   }
 
 
@@ -246,6 +438,29 @@ export default class ComponentController extends ChildController {
   _loadedJSXE(jsxe) {
     this.jsxFragment = JSXFragment.parse(jsxe, { controller: this });
   }
+
+	// Set our JSXFragment.
+	// If we've already rendered, this will update just the render method of our component.
+	// Otherwise it'll update the entire thing.
+	_setFragment(fragment) {
+		this.jsxFragment = fragment;
+
+		// If we've already created the Component, just update its `render()` method.
+		if (this.cache.Component) {
+			try {
+				const renderSource = "function " + this._getFragmentRenderScript();
+				const renderMethod = babel.evaluateExpression(renderSource);
+				this.cache.Component.prototype.render = renderMethod;
+			}
+			catch (error) {
+				console.error(`Error creating updating component render for ${this.path}: `, error);
+				console.log("Component:", this);
+				console.log("render source:", renderSource);
+			}
+		}
+
+		this.dirty();
+	}
 
   // Return JSXE data to save.
   _getJSXEData() {
@@ -295,7 +510,7 @@ export default class ComponentController extends ChildController {
     return this.cache.Component
   }
 
-// UGH: this requires babel, move this somewhere else???
+	// Set to `true` to debug class generation from jsxe.
   @proto
   DEBUG_CLASS_GENERATION = false;
 
@@ -303,52 +518,54 @@ export default class ComponentController extends ChildController {
     const Super = this.ComponentConstructor;
     const componentName = ids.normalizeIdentifier(`${Super.name}_${this.path}`);
 
-    let fragmentRenderScript, classScript, Component;
+		try {
+			const editable = (this === oak.editController);
+			const fragmentRenderScript = this._getFragmentRenderScript(fragment, editable);
+
+			const classScript = [
+				// NOTE: Put the fragment render script BEFORE any manually-created script
+				//       in case they implemented a custom render() function.
+				fragmentRenderScript,
+				script,
+			].join("\n");
+
+			if (this.DEBUG_CLASS_GENERATION) {
+				console.groupCollapsed(this.path);
+				console.log(classScript);
+				console.groupEnd();
+			}
+
+			try {
+				const Component = babel.createClass(classScript, Super, componentName);
+				Component.controller = this;
+				return Component;
+			}
+			catch (error) {
+				console.error(`Error creating component constructor for ${this.path}: `, error);
+				console.log("Component:", this);
+				console.log("Class Script:", classScript);
+				throw error;
+			}
+    }
+    catch (error) {
+      return Stub;
+    }
+  }
+
+	// Transform a `jsxFragment` into a `render()` routine.
+	// If `editable` is `true`, we'll wrap components in `<Referent>`s so we can manipulate them.
+  _getFragmentRenderScript(fragment = this.jsxFragment, editable = (this === oak.editController)) {
+  	if (!fragment) return "";
+
     try {
-      fragmentRenderScript = (fragment ? fragment._getRenderSource() : "");
+      return fragment._getRenderSource("", { editable });
     }
     catch (error) {
       console.error(`Error creating parsing JSXE for ${this.path}: `, error);
       console.log("Component:", this);
       console.log("Fragment:", fragment.toJSX());
-      return Stub;
+      throw error;
     }
-
-    try {
-      classScript = [
-        // NOTE: Put the fragment render script BEFORE any manually-created script
-        //       in case they implemented a custom render() function.
-        fragmentRenderScript,
-        script,
-      ].join("\n");
-
-      if (this.DEBUG_CLASS_GENERATION) {
-        console.groupCollapsed(this.path);
-        console.log(classScript);
-        console.groupEnd();
-      }
-
-      Component = babel.createClass(classScript, Super, componentName);
-//window.Constructor = Component;
-      Component.controller = this;
-      return Component;
-    }
-    catch (error) {
-      console.error(`Error creating component constructor for ${this.path}: `, error);
-      console.log("Component:", this);
-      console.log("Class Script:", classScript);
-      return Stub;
-    }
-  }
-
-  // Return map of components we know about.
-  get components() { return this.parent.components }
-
-  // Create an element.
-  // Same semantics as `React.createElement()` except that it looks up components for you.
-  createElement(type, props, ...children) {
-    const component = oak.lookupComponent(type, this.components, `${this} couldn't find type ${type}`);
-    return React.createElement(component, props, ...children);
   }
 
   //////////////////////////////
@@ -368,6 +585,8 @@ export default class ComponentController extends ChildController {
   // Call this to change your Script after you've loaded.
   updateScript(script) {
     this._script = script;
+		// delete our Component so we'll recalculate it on the next update
+		delete this.cache.Component;
     this.dirty();
   }
 

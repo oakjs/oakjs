@@ -1,116 +1,116 @@
-<Oak.Page id="Modal" title="Modal" oid="wSNTFpGW">
-  <PageTitle title="Modal" oid="v08ehTST">
+<Oak.Page id="Modal" title="Modal">
+  <PageTitle title="Modal">
     A modal displays content that temporarily blocks interactions with the main view of a site
-    <Todo oid="tcYXFDeh">
-      <ul oid="Gg8Ws0GN">
-        <li oid="g1TMqTC6">
+    <Todo>
+      <ul>
+        <li>
           Test events
         </li>
       </ul>
     </Todo>
   </PageTitle>
-  <PageSection title="Content" oid="OscrRttT">
-    <SUI.Grid columns={2} oid="ruXq7Std">
-      <SUI.Column oid="NcNHPeDI">
-        <Example title="Inline Content" oid="hwcMdfOt">
-          <SUI.Modal ref="inline" oid="DNY5UmKq">
-            <div className="header" oid="I0fbqLLR">
+  <PageSection title="Content">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Inline Content">
+          <SUI.Modal ref="inline">
+            <div className="header">
               Inline Header
             </div>
-            <div className="content" oid="fPCbGWGr">
-              <LoremIpsum oid="P3QSCcHP"/>
+            <div className="content">
+              <LoremIpsum/>
             </div>
-            <div className="actions" oid="tnleklbY">
-              <SUI.Button className="approve" oid="tSK6LmQ5">
+            <div className="actions">
+              <SUI.Button className="approve">
                 OK
               </SUI.Button>
-              <SUI.Button className="cancel" oid="DyVyRky6">
+              <SUI.Button className="cancel">
                 Cancel
               </SUI.Button>
             </div>
           </SUI.Modal>
-          <SUI.Button onClick={()=> page.refs.inline.show()} oid="psaVN1oJ">
+          <SUI.Button onClick={()=> page.refs.inline.show()}>
             Show Modal
           </SUI.Button>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="i4AjXLsm">
-        <Example title="Header, Content, Actions Attributes" oid="JgVTXrd7">
-          <SUI.Modal ref="attributes" header="Header Attribute" content={<LoremIpsum short oid="Nck6Dmgw"/>} actions={["OK"]} oid="HC6r7WtQ"/>
-          <SUI.Button onClick={()=> page.refs.attributes.show()} oid="HrcDiouu">
+      <SUI.Column>
+        <Example title="Header, Content, Actions Attributes">
+          <SUI.Modal ref="attributes" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <SUI.Button onClick={()=> page.refs.attributes.show()}>
             Show Modal
           </SUI.Button>
         </Example>
       </SUI.Column>
     </SUI.Grid>
   </PageSection>
-  <PageSection title="Appearance" oid="b62YwqSl">
-    <SUI.Grid columns={2} oid="Dmb3piw4">
-      <SUI.Column oid="N5fodxHk">
-        <Example title="Basic" hint="<Modal appearance='basic'/>" oid="rAgD2YNl">
-          <SUI.Modal ref="basic" appearance="basic" header="Header Attribute" content={<LoremIpsum short oid="V08JUKh9"/>} actions={["OK"]} oid="JNGlZxrR"/>
-          <SUI.Button onClick={()=> page.refs.basic.show()} oid="NW55TNPw">
+  <PageSection title="Appearance">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Basic" hint="<Modal appearance='basic'/>">
+          <SUI.Modal ref="basic" appearance="basic" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <SUI.Button onClick={()=> page.refs.basic.show()}>
             Show Modal
           </SUI.Button>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="UVMD7dMf">
-        <Example title="Size" hint="<Modal size='large'/>" oid="DMb9Jdw1">
-          <SUI.Modal ref="small" size="small" header="Header Attribute" content={<LoremIpsum short oid="ZI2895ki"/>} actions={["OK"]} oid="vUeariLk"/>
-          <SUI.Button onClick={()=> page.refs.small.show()} oid="vqTIR57m">
+      <SUI.Column>
+        <Example title="Size" hint="<Modal size='large'/>">
+          <SUI.Modal ref="small" size="small" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <SUI.Button onClick={()=> page.refs.small.show()}>
             Show Small Modal
           </SUI.Button>
-          <SUI.Modal ref="large" size="large" header="Header Attribute" content={<LoremIpsum short oid="wW1VMTrq"/>} actions={["OK"]} oid="drKDLqIN"/>
-          <SUI.Button onClick={()=> page.refs.large.show()} oid="IQW8Z1b9">
+          <SUI.Modal ref="large" size="large" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <SUI.Button onClick={()=> page.refs.large.show()}>
             Show Large Modal
           </SUI.Button>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="TPNqZBOK">
-        <Example title="Full Screen" hint="<Modal appearance='fullscreen'/>" oid="VbOTwVvK">
-          <SUI.Modal ref="fullscreen" appearance="fullscreen" header="Header Attribute" content={<LoremIpsum short oid="Ixmranos"/>} actions={["OK"]} oid="oWp9eSRj"/>
-          <SUI.Button onClick={()=> page.refs.fullscreen.show()} oid="LXe4DCjX">
+      <SUI.Column>
+        <Example title="Full Screen" hint="<Modal appearance='fullscreen'/>">
+          <SUI.Modal ref="fullscreen" appearance="fullscreen" header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <SUI.Button onClick={()=> page.refs.fullscreen.show()}>
             Show Modal
           </SUI.Button>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="uYueNxOG">
-        <Example title="Transitions" hint="<Modal transition='horizontal flip'/>" oid="gJax9A95">
-          <SUI.Modal ref="transition" header="Transition Tester" content={<LoremIpsum short oid="gAneVMNj"/>} actions={["OK"]} oid="qS7sLheB"/>
-          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"horizontal flip"}).show()} oid="crWrZ9wx">
+      <SUI.Column>
+        <Example title="Transitions" hint="<Modal transition='horizontal flip'/>">
+          <SUI.Modal ref="transition" header="Transition Tester" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"horizontal flip"}).show()}>
             Horizontal Flip
           </SUI.Button>
-          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"vertical flip"}).show()} oid="E0KCamqJ">
+          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"vertical flip"}).show()}>
             Vertical Flip
           </SUI.Button>
-          <Oak.Spacer oid="kmb2NFbN"/>
-          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"fade up"}).show()} oid="KkDsXRI1">
+          <Oak.Spacer/>
+          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"fade up"}).show()}>
             Fade Up
           </SUI.Button>
-          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"fade"}).show()} oid="OG98bi7m">
+          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"fade"}).show()}>
             Fade
           </SUI.Button>
-          <Oak.Spacer oid="A2V4ajc1"/>
-          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"scale"}).show()} oid="wJBU6Q5t">
+          <Oak.Spacer/>
+          <SUI.Button onClick={()=> page.refs.transition.setModuleProps({transition:"scale"}).show()}>
             Scale
           </SUI.Button>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="gUtvu7YS">
-        <Example title="Dimmer Appearance" hint="<Modal inverted blurring/>" oid="UQjWooxI">
-          <SUI.Modal ref="inverted" inverted header="Header Attribute" content={<LoremIpsum short oid="w6lboEIP"/>} actions={["OK"]} oid="pOd8Ou8C"/>
-          <SUI.Button onClick={()=> page.refs.inverted.show()} oid="nO0wLS7t">
+      <SUI.Column>
+        <Example title="Dimmer Appearance" hint="<Modal inverted blurring/>">
+          <SUI.Modal ref="inverted" inverted header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <SUI.Button onClick={()=> page.refs.inverted.show()}>
             Show Inverted Modal
           </SUI.Button>
-          <Bug oid="eYfuC1tP">
+          <Bug>
             Oak bug: ??? Inverted setting doesn&apos;t seem to work. ???
           </Bug>
-          <Oak.Spacer oid="Yj0N6Q1X"/>
-          <SUI.Modal ref="blurring" blurring header="Header Attribute" content={<LoremIpsum short oid="WlueMB6B"/>} actions={["OK"]} oid="pCFC8Jo1"/>
-          <SUI.Button onClick={()=> page.refs.blurring.show()} oid="awid3rui">
+          <Oak.Spacer/>
+          <SUI.Modal ref="blurring" blurring header="Header Attribute" content={<LoremIpsum short/>} actions={["OK"]}/>
+          <SUI.Button onClick={()=> page.refs.blurring.show()}>
             Show Blurring Modal
           </SUI.Button>
-          <Bug oid="OUBQFNBE">
+          <Bug>
             SUI Bug: Once any blurring modal has been shown, all other modals will be blurring until page reload.
           </Bug>
         </Example>

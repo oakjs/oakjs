@@ -12,5 +12,8 @@ export * from "./section";
 export * from "./selection";
 export * from "./undo";
 
+// TODO: this is very bad for encapsulation...
+export utils from "./utils";
+
 // Export all as a lump
 export default {...exports};

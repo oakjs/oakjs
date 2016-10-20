@@ -1,100 +1,100 @@
-<Oak.Page id="Images" title="Images" oid="SOBuGj18">
-  <PageTitle title="Images" oid="E0w5UQyZ">
+<Oak.Page id="Images" title="Images">
+  <PageTitle title="Images">
     Imagess add consistent styling to a nested list of Images.
   </PageTitle>
-  <PageSection title="Sizes" oid="ibpy28L5">
-    <Info oid="cXcRHV2G">
+  <PageSection title="Sizes">
+    <Info>
       Sizing is the same as for
-      <Oak.Link page="SUI/examples/images" oid="RJddX5PB">
+      <Oak.Link page="SUI/examples/images">
         Images
       </Oak.Link>
       and
       applies to all the nested images.
     </Info>
-    <Example title="mini, tiny, small, etc" oid="ALL58xKO">
-      <SUI.Images size="mini" oid="YaSnoFxp">
-        <SUI.Image src={data.image} oid="DFL6FXh7"/>
-        <SUI.Image src={data.image} oid="ksWtB53x"/>
-        <SUI.Image src={data.image} oid="y7jxKVfo"/>
+    <Example title="mini, tiny, small, etc">
+      <SUI.Images size="mini">
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
       </SUI.Images>
-      <Oak.Spacer oid="RNydIyLi"/>
-      <SUI.Images size="tiny" oid="n9JGlWS2">
-        <SUI.Image src={data.image} oid="xZSOmhee"/>
-        <SUI.Image src={data.image} oid="u8JwuRUJ"/>
-        <SUI.Image src={data.image} oid="CLY3AVOF"/>
+      <Oak.Spacer/>
+      <SUI.Images size="tiny">
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
       </SUI.Images>
-      <Oak.Spacer oid="mJD0yJnn"/>
-      <SUI.Images size="small" oid="uBd3gwLf">
-        <SUI.Image src={data.image} oid="pxOi4vuK"/>
-        <SUI.Image src={data.image} oid="ePt7l04k"/>
-        <SUI.Image src={data.image} oid="MyaGG9xL"/>
+      <Oak.Spacer/>
+      <SUI.Images size="small">
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
       </SUI.Images>
     </Example>
   </PageSection>
-  <PageSection grid title="Appearance" oid="jbJUwsOU">
-    <Info oid="qhed0vt7">
+  <PageSection grid title="Appearance">
+    <Info>
       Appearance is the same as for
-      <Oak.Link page="SUI/examples/images" oid="BdKx0KLD">
+      <Oak.Link page="SUI/examples/images">
         Images
       </Oak.Link>
       and
       applies to all the nested images.
     </Info>
-    <Example title="avatar" columns={8} oid="a5fv4qIH">
-      <SUI.Images size="mini" appearance="avatar" oid="M2te1ctA">
-        <SUI.Image src={data.squareImage} oid="CjWcJnek"/>
-        <SUI.Image src={data.squareImage} oid="cY0WylS9"/>
-        <SUI.Image src={data.squareImage} oid="I4Q9iDhY"/>
+    <Example title="avatar" columns={8}>
+      <SUI.Images size="mini" appearance="avatar">
+        <SUI.Image src={data.squareImage}/>
+        <SUI.Image src={data.squareImage}/>
+        <SUI.Image src={data.squareImage}/>
       </SUI.Images>
     </Example>
-    <Example title="circular" columns={8} oid="ERfypFPD">
-      <SUI.Images size="tiny" appearance="circular" oid="qXocCtVN">
-        <SUI.Image src={data.squareImage} oid="pDQWiQbd"/>
-        <SUI.Image src={data.squareImage} oid="q1Zp1PFx"/>
-        <SUI.Image src={data.squareImage} oid="IwnYybKy"/>
+    <Example title="circular" columns={8}>
+      <SUI.Images size="tiny" appearance="circular">
+        <SUI.Image src={data.squareImage}/>
+        <SUI.Image src={data.squareImage}/>
+        <SUI.Image src={data.squareImage}/>
       </SUI.Images>
     </Example>
-    <Example title="rounded" columns={8} oid="F5LHdwa1">
-      <SUI.Images size="tiny" appearance="rounded" oid="LsIYNqnx">
-        <SUI.Image src={data.image} oid="bMVj4tRR"/>
-        <SUI.Image src={data.image} oid="G02IIqgw"/>
-        <SUI.Image src={data.image} oid="yDp2YYNp"/>
+    <Example title="rounded" columns={8}>
+      <SUI.Images size="tiny" appearance="rounded">
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
       </SUI.Images>
     </Example>
-    <Example title="bordered" columns={8} oid="WahXaaQO">
-      <SUI.Images size="tiny" appearance="bordered" oid="vg87kAho">
-        <SUI.Image src={data.whiteImage} oid="rTwAR6hu"/>
-        <SUI.Image src={data.whiteImage} oid="kZpbbXZY"/>
-        <SUI.Image src={data.whiteImage} oid="KCl9srW7"/>
+    <Example title="bordered" columns={8}>
+      <SUI.Images size="tiny" appearance="bordered">
+        <SUI.Image src={data.whiteImage}/>
+        <SUI.Image src={data.whiteImage}/>
+        <SUI.Image src={data.whiteImage}/>
       </SUI.Images>
     </Example>
-    <Example title="centered" hint="<Image spaced/> or <Image spaced='left'/>" columns={8} oid="LNttZPlP">
-      <SUI.Images size="tiny" appearance="centered" oid="J52F6jp1">
-        <SUI.Image src={data.image} oid="nxji6keq"/>
-        <SUI.Image src={data.image} oid="HDvZMfbI"/>
-        <SUI.Image src={data.image} oid="IKC0qv4F"/>
+    <Example title="centered" hint="<Image spaced/> or <Image spaced='left'/>" columns={8}>
+      <SUI.Images size="tiny" appearance="centered">
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
+        <SUI.Image src={data.image}/>
       </SUI.Images>
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
       Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
       ridiculus mus.
     </Example>
-    <Example title="floated" hint="<Images floated='left'/>" columns={8} oid="j2sWhKRG">
-      <p oid="rcZhvPfl">
-        <SUI.Images floated="left" size="mini" tagName="span" oid="GHQO2P5T">
-          <SUI.Image src={data.image} oid="O3UBS1Rr"/>
-          <SUI.Image src={data.image} oid="VfmNT9aS"/>
-          <SUI.Image src={data.image} oid="AATTFb3s"/>
+    <Example title="floated" hint="<Images floated='left'/>" columns={8}>
+      <p>
+        <SUI.Images floated="left" size="mini" tagName="span">
+          <SUI.Image src={data.image}/>
+          <SUI.Image src={data.image}/>
+          <SUI.Image src={data.image}/>
         </SUI.Images>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
         Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
         ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
         consequat massa quis enim.
       </p>
-      <p oid="TCt6IO8e">
-        <SUI.Images floated="right" size="mini" tagName="span" oid="E1g1UHGh">
-          <SUI.Image src={data.image} oid="LNk4YNVA"/>
-          <SUI.Image src={data.image} oid="DVDOOFRj"/>
-          <SUI.Image src={data.image} oid="dgiLarHq"/>
+      <p>
+        <SUI.Images floated="right" size="mini" tagName="span">
+          <SUI.Image src={data.image}/>
+          <SUI.Image src={data.image}/>
+          <SUI.Image src={data.image}/>
         </SUI.Images>
         Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
         In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede

@@ -1,144 +1,144 @@
-<Oak.Page id="Form" title="Form" oid="s9CbVevj">
-  <PageTitle title="Form" oid="XuCenVsE"></PageTitle>
-  <PageSection title="Content" oid="x5DcW8ss">
-    <Example title="Simple Form" oid="pnm2GUJj">
-      <SUI.Form oid="T0gifJh2">
-        <SUI.Field label="First Name" type="text" placeholder="First Name" oid="Fd4FdTZj"/>
-        <SUI.Field label="Last Name" type="text" placeholder="Last Name" oid="u466sLtp"/>
-        <SUI.Field type="checkbox" rightLabel="I agree to the terms and conditions" oid="bGcffnyF"/>
-        <SUI.Button type="submit" oid="CtfvPlf6">
+<Oak.Page id="Form" title="Form">
+  <PageTitle title="Form"></PageTitle>
+  <PageSection title="Content">
+    <Example title="Simple Form">
+      <SUI.Form>
+        <SUI.Field label="First Name" type="text" placeholder="First Name"/>
+        <SUI.Field label="Last Name" type="text" placeholder="Last Name"/>
+        <SUI.Field type="checkbox" rightLabel="I agree to the terms and conditions"/>
+        <SUI.Button type="submit">
           Save
         </SUI.Button>
       </SUI.Form>
     </Example>
-    <Example title="Complex Layout with Fields" oid="Wgg2SttP">
-      <SUI.Form oid="XmHaWSwd">
-        <SUI.Header dividing oid="jvTTcEKP">
+    <Example title="Complex Layout with Fields">
+      <SUI.Form>
+        <SUI.Header dividing>
           Shipping Information
         </SUI.Header>
-        <SUI.Fields count={2} label="Name" oid="DnIewcgT">
-          <SUI.Field type="text" placeholder="First Name" oid="RaIh3sCv"/>
-          <SUI.Field type="text" placeholder="Last Name" oid="hI46jUim"/>
+        <SUI.Fields count={2} label="Name">
+          <SUI.Field type="text" placeholder="First Name"/>
+          <SUI.Field type="text" placeholder="Last Name"/>
         </SUI.Fields>
-        <SUI.Fields label="Billing Address" oid="Ui81Qa9U">
-          <SUI.Field columns={12} type="text" placeholder="Street Address" oid="NtZkHxlS"/>
-          <SUI.Field columns={4} type="text" placeholder="Apt #" oid="sh9aLcWx"/>
+        <SUI.Fields label="Billing Address">
+          <SUI.Field columns={12} type="text" placeholder="Street Address"/>
+          <SUI.Field columns={4} type="text" placeholder="Apt #"/>
         </SUI.Fields>
-        <SUI.Fields count={2} oid="UPgo55q4">
-          <SUI.Field type="text" label="State" placeholder="State" oid="SLLNdZgm"/>
-          <SUI.Field type="text" label="Country " placeholder="Country" oid="pa2jtvFq"/>
+        <SUI.Fields count={2}>
+          <SUI.Field type="text" label="State" placeholder="State"/>
+          <SUI.Field type="text" label="Country " placeholder="Country"/>
         </SUI.Fields>
-        <SUI.Header dividing oid="OgLafNSH">
+        <SUI.Header dividing>
           Billing Information
         </SUI.Header>
-        <SUI.Field label="Card Type" type="text" placeholder="Type" oid="Vg37Q7ed"/>
-        <SUI.Fields oid="GYHguKsb">
-          <SUI.Field columns={7} type="text" label="Card Number" placeholder="Card #" oid="arUhwPpk"/>
-          <SUI.Field columns={3} type="text" label="CVC" placeholder="CVC" oid="MCxmLbZI"/>
-          <SUI.Field columns={6} label="Expiration" oid="h515uyJo">
-            <SUI.Fields count={2} oid="j2ll7Uma">
-              <SUI.Field type="text" placeholder="Month" oid="UCCERI3R"/>
-              <SUI.Field type="text" placeholder="Year" oid="Jn4emdXy"/>
+        <SUI.Field label="Card Type" type="text" placeholder="Type"/>
+        <SUI.Fields>
+          <SUI.Field columns={7} type="text" label="Card Number" placeholder="Card #"/>
+          <SUI.Field columns={3} type="text" label="CVC" placeholder="CVC"/>
+          <SUI.Field columns={6} label="Expiration">
+            <SUI.Fields count={2}>
+              <SUI.Field type="text" placeholder="Month"/>
+              <SUI.Field type="text" placeholder="Year"/>
             </SUI.Fields>
           </SUI.Field>
         </SUI.Fields>
-        <SUI.Button type="submit" oid="iwU7HiJW">
+        <SUI.Button type="submit">
           Submit Order
         </SUI.Button>
       </SUI.Form>
     </Example>
   </PageSection>
-  <PageSection title="States" oid="Q6AkuBFp">
-    <Example title="Loading" hint="<Form loading/>" oid="xkj5xXgE">
-      <SUI.Form loading oid="KAm4Eq4v">
-        <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com" oid="pG8933Bh"/>
-        <SUI.Button type="submit" oid="EXvaPqVs">
+  <PageSection title="States">
+    <Example title="Loading" hint="<Form loading/>">
+      <SUI.Form loading>
+        <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+        <SUI.Button type="submit">
           Sign up For Newsletter
         </SUI.Button>
       </SUI.Form>
     </Example>
-    <Example title="Success" hint="<Form state='success'/>" oid="EhwPE2je">
-      <SUI.Form state="success" oid="lNlSZstm">
-        <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com" oid="pLiJ1vWW"/>
-        <SUI.Message appearance="success" header="Form Completed" content="You're all signed up for the newsletter" oid="mwFqlPEj"/>
-        <SUI.Button type="submit" disabled oid="IX3jpMYX">
+    <Example title="Success" hint="<Form state='success'/>">
+      <SUI.Form state="success">
+        <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+        <SUI.Message appearance="success" header="Form Completed" content="You're all signed up for the newsletter"/>
+        <SUI.Button type="submit" disabled>
           Sign up For Newsletter
         </SUI.Button>
       </SUI.Form>
     </Example>
-    <Example title="Error" hint="<Form state='error'/>" oid="m1ZtSYcU">
-      <SUI.Form state="error" oid="TMvpU3AV">
-        <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com" oid="vtVT9bBb"/>
-        <SUI.Message appearance="error" content="This address has already been signed up." oid="kWJ1IJi0"/>
-        <SUI.Button type="submit" oid="WVT3pDd1">
+    <Example title="Error" hint="<Form state='error'/>">
+      <SUI.Form state="error">
+        <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+        <SUI.Message appearance="error" content="This address has already been signed up."/>
+        <SUI.Button type="submit">
           Sign up For Newsletter
         </SUI.Button>
       </SUI.Form>
     </Example>
-    <Example title="Warning" hint="<Form state='warning'/>" oid="Ll3LxDSG">
-      <SUI.Form state="warning" oid="I2LQxLhH">
-        <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com" oid="XkVlMP6g"/>
-        <SUI.Message appearance="warning" content="This address has already signed up, but you have not clicked the link in the confirmation email." oid="WMPuxpw5"/>
-        <SUI.Button type="submit" oid="bRL3Vcyy">
+    <Example title="Warning" hint="<Form state='warning'/>">
+      <SUI.Form state="warning">
+        <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+        <SUI.Message appearance="warning" content="This address has already signed up, but you have not clicked the link in the confirmation email."/>
+        <SUI.Button type="submit">
           Sign up For Newsletter
         </SUI.Button>
       </SUI.Form>
     </Example>
   </PageSection>
-  <PageSection title="Appearance" oid="VhvdmX4s">
-    <Example title="Size" hint="<Form appearance='equal width'/>" oid="R5dcSSxa">
-      <SUI.Form appearance="equal width" oid="lqRCyXCS">
-        <SUI.Fields oid="HWNA432t">
-          <SUI.Field type="text" label="Username" placeholder="Username" oid="ljopCWU7"/>
-          <SUI.Field type="password" label="Password" oid="Ssq8fkKA"/>
+  <PageSection title="Appearance">
+    <Example title="Size" hint="<Form appearance='equal width'/>">
+      <SUI.Form appearance="equal width">
+        <SUI.Fields>
+          <SUI.Field type="text" label="Username" placeholder="Username"/>
+          <SUI.Field type="password" label="Password"/>
         </SUI.Fields>
-        <SUI.Fields oid="xZhwPBdy">
-          <SUI.Field type="text" label="First Name" placeholder="First Name" oid="F3sshCtr"/>
-          <SUI.Field type="text" label="Middle Name" placeholder="Middle Name" oid="BxvOkXnv"/>
-          <SUI.Field type="text" label="Last Name" placeholder="Last Name" oid="lKTyGmNf"/>
+        <SUI.Fields>
+          <SUI.Field type="text" label="First Name" placeholder="First Name"/>
+          <SUI.Field type="text" label="Middle Name" placeholder="Middle Name"/>
+          <SUI.Field type="text" label="Last Name" placeholder="Last Name"/>
         </SUI.Fields>
       </SUI.Form>
     </Example>
-    <Example title="Size" hint="<Form size='large'/>" oid="pUwv5PII">
-      <Oak.Columns oid="GOmJZDqZ">
-        <SUI.Form size="small" oid="Sh44vBkt">
-          <SUI.Label pointing="down" color="teal" oid="DvVDRS7t">
+    <Example title="Size" hint="<Form size='large'/>">
+      <Oak.Columns>
+        <SUI.Form size="small">
+          <SUI.Label pointing="down" color="teal">
             size=small
           </SUI.Label>
-          <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com" oid="gO4W0Oib"/>
-          <SUI.Button type="submit" oid="HhSi2K57">
+          <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+          <SUI.Button type="submit">
             Sign up For Newsletter
           </SUI.Button>
         </SUI.Form>
-        <SUI.Form size="medium" oid="OZ3NOA8t">
-          <SUI.Label pointing="down" color="teal" oid="N6UHgmXN">
+        <SUI.Form size="medium">
+          <SUI.Label pointing="down" color="teal">
             size=medium (default)
           </SUI.Label>
-          <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com" oid="e1Tpqan2"/>
-          <SUI.Button type="submit" oid="VFxW8KA1">
+          <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+          <SUI.Button type="submit">
             Sign up For Newsletter
           </SUI.Button>
         </SUI.Form>
-        <SUI.Form size="large" oid="PRRty7lV">
-          <SUI.Label pointing="down" color="teal" oid="q7dFjflu">
+        <SUI.Form size="large">
+          <SUI.Label pointing="down" color="teal">
             size=large
           </SUI.Label>
-          <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com" oid="vVskJRbT"/>
-          <SUI.Button type="submit" oid="OgNIO9Rp">
+          <SUI.Field label="E-mail" type="text" placeholder="joe@schmoe.com"/>
+          <SUI.Button type="submit">
             Sign up For Newsletter
           </SUI.Button>
         </SUI.Form>
       </Oak.Columns>
     </Example>
-    <Example title="Inverted" hint="<Form appearance='inverted'/>" oid="faNN47Ww">
-      <SUI.Segment appearance="inverted" oid="DL5gjTMh">
-        <SUI.Form appearance="inverted" oid="eWiuBZCJ">
-          <SUI.Fields count={2} oid="pWKy9pnu">
-            <SUI.Field label="First Name" type="text" placeholder="First Name" oid="NfiUKsDV"/>
-            <SUI.Field label="Last Name" type="text" placeholder="Last Name" oid="I0o0LeEH"/>
+    <Example title="Inverted" hint="<Form appearance='inverted'/>">
+      <SUI.Segment appearance="inverted">
+        <SUI.Form appearance="inverted">
+          <SUI.Fields count={2}>
+            <SUI.Field label="First Name" type="text" placeholder="First Name"/>
+            <SUI.Field label="Last Name" type="text" placeholder="Last Name"/>
           </SUI.Fields>
-          <SUI.Field type="checkbox" rightLabel="I agree to the terms and conditions" oid="amsWKhEu"/>
-          <SUI.Button type="submit" oid="PR88nnRZ">
+          <SUI.Field type="checkbox" rightLabel="I agree to the terms and conditions"/>
+          <SUI.Button type="submit">
             Sign up For Newsletter
           </SUI.Button>
         </SUI.Form>

@@ -1,160 +1,160 @@
-<Oak.Page id="Dropdown" title="Dropdown" oid="yKH35tmt">
-  <PageTitle title="Dropdown" oid="FfecsuOD">
+<Oak.Page id="Dropdown" title="Dropdown">
+  <PageTitle title="Dropdown">
     A dropdown allows a user to select a value from a series of options
-    <Todo oid="aoKFic5C">
-      <ul oid="YEEoDSG5">
-        <li oid="uPNe8jkA">
+    <Todo>
+      <ul>
+        <li>
           Event handling
         </li>
-        <li oid="miRRAbwr">
+        <li>
           Remote loading stuff
         </li>
       </ul>
     </Todo>
   </PageTitle>
-  <PageSection title="Types" oid="p0BpQ0BH">
-    <Example title="Dropdown" oid="KhckFj5P">
-      <SUI.Dropdown text="File" items={data.fileMenu} action="hide" oid="BSFpVGCN"/>
+  <PageSection title="Types">
+    <Example title="Dropdown">
+      <SUI.Dropdown text="File" items={data.fileMenu} action="hide"/>
     </Example>
-    <SUI.Grid columns={2} oid="hV5PLdV7">
-      <SUI.Column oid="wR4iZ1GA">
-        <Example title="Selection" hint="<Dropdown selection/>" oid="T7JkRbU7">
-          <SUI.Dropdown selection placeholder="Gender" items={data.genderMenu} oid="BrG1V8A1"/>
-          <Oak.Spacer oid="Ust2evKt"/>
-          <SUI.Dropdown selection placeholder="Select Friend" items={data.friendMenu} oid="rjH5nVo7"/>
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Selection" hint="<Dropdown selection/>">
+          <SUI.Dropdown selection placeholder="Gender" items={data.genderMenu}/>
+          <Oak.Spacer/>
+          <SUI.Dropdown selection placeholder="Select Friend" items={data.friendMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="kLYoSXlZ">
-        <Example title="Search Selection" hint="<Dropdown search selection/>" oid="hwZSQ7Xg">
-          <SUI.Dropdown search selection placeholder="Select Friend" items={data.friendMenu} oid="uXfTtvMd"/>
+      <SUI.Column>
+        <Example title="Search Selection" hint="<Dropdown search selection/>">
+          <SUI.Dropdown search selection placeholder="Select Friend" items={data.friendMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="JjYptQLL">
-        <Example title="Multiple Selection" hint="<Dropdown multiple selection/>" oid="J9cGRhWi">
-          <SUI.Dropdown multiple selection placeholder="Select Friends" items={data.friendMenu} oid="Op2EPEg6"/>
+      <SUI.Column>
+        <Example title="Multiple Selection" hint="<Dropdown multiple selection/>">
+          <SUI.Dropdown multiple selection placeholder="Select Friends" items={data.friendMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="oSV93lAy">
-        <Example title="Multiple Search Selection" hint="<Dropdown multiple search selection/>" oid="IoawE6R7">
-          <SUI.Dropdown multiple search selection placeholder="Select Friends" items={data.friendMenu} oid="vRm887x9"/>
+      <SUI.Column>
+        <Example title="Multiple Search Selection" hint="<Dropdown multiple search selection/>">
+          <SUI.Dropdown multiple search selection placeholder="Select Friends" items={data.friendMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="gZLNDJtC">
-        <Example title="Search Button Dropdown" hint="<Dropdown search type='button' showArrow={false}/>" oid="YMmW1vxR">
-          <SUI.Dropdown search type="labeled icon button" showArrow={false} icon="world" text="Select Language" appearance="floating" items={data.languageMenu} oid="ATYtJZer"/>
+      <SUI.Column>
+        <Example title="Search Button Dropdown" hint="<Dropdown search type='button' showArrow={false}/>">
+          <SUI.Dropdown search type="labeled icon button" showArrow={false} icon="world" text="Select Language" appearance="floating" items={data.languageMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="owF1ec2D">
-        <Example title="Search In Menu" oid="Fo6vcZWC">
-          <SUI.Dropdown search type="labeled icon button" showArrow={false} icon="filter" text="Filter Posts" appearance="floating" items={data.filterMenu} oid="PyOBm4mJ"/>
-          <Todo oid="VDcH08Hr">
+      <SUI.Column>
+        <Example title="Search In Menu">
+          <SUI.Dropdown search type="labeled icon button" showArrow={false} icon="filter" text="Filter Posts" appearance="floating" items={data.filterMenu}/>
+          <Todo>
             Make a special component for the search input?
           </Todo>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="lGdyGYGo">
-        <Example title="Inline" oid="R5ptMVdu">
-          <SUI.Header icon="trophy" oid="mOV7P0tF">
+      <SUI.Column>
+        <Example title="Inline">
+          <SUI.Header icon="trophy">
             Trending repos
-            <SUI.Dropdown ref="inline" inline text="" value="Today" items={data.timeMenu} oid="OPAC97uy"/>
+            <SUI.Dropdown ref="inline" inline text="" value="Today" items={data.timeMenu}/>
           </SUI.Header>
-          <Bug oid="l7IcpvPV">
+          <Bug>
             Doesn&apos;t display the value unless you add &grave;text=&quot;&quot;&grave;...
           </Bug>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="OS25msY3">
-        <Example title="Pointing" oid="eSRAboxi">
-          <SUI.Menu oid="HEBli3aW">
-            <SUI.MenuItem href="#" oid="gZPEYEl9">
+      <SUI.Column>
+        <Example title="Pointing">
+          <SUI.Menu>
+            <SUI.MenuItem href="#">
               Home
             </SUI.MenuItem>
-            <SUI.MenuItem href="#" oid="ElFF6jY9">
+            <SUI.MenuItem href="#">
               Forums
             </SUI.MenuItem>
-            <SUI.Dropdown text="Language:" type="right link item" appearance="pointing" items={data.languageMenu} oid="LFnI2ICk"/>
+            <SUI.Dropdown text="Language:" type="right link item" appearance="pointing" items={data.languageMenu}/>
           </SUI.Menu>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="M3mCU2uX">
-        <Example title="Floating" oid="jXGTi18d">
-          <SUI.Buttons color="teal" oid="nmIZTbIw">
-            <SUI.Button oid="wOO58T5N">
+      <SUI.Column>
+        <Example title="Floating">
+          <SUI.Buttons color="teal">
+            <SUI.Button>
               Save
             </SUI.Button>
-            <SUI.Dropdown type="icon button" appearance="floating" items={data.comboMenu} oid="Vo4qhiM3"/>
+            <SUI.Dropdown type="icon button" appearance="floating" items={data.comboMenu}/>
           </SUI.Buttons>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="tu4pSjwm">
-        <Example title="Combo" hint="<Dropdown action='combo' type='combo icon button'/>" oid="fE4fUB9Q">
-          <SUI.Buttons color="teal" oid="NZABDOON">
-            <SUI.Button oid="TqoEBP4h">
+      <SUI.Column>
+        <Example title="Combo" hint="<Dropdown action='combo' type='combo icon button'/>">
+          <SUI.Buttons color="teal">
+            <SUI.Button>
               Save
             </SUI.Button>
-            <SUI.Dropdown type="combo icon button" action="combo" items={data.comboMenu} oid="SlS1RDaS"/>
+            <SUI.Dropdown type="combo icon button" action="combo" items={data.comboMenu}/>
           </SUI.Buttons>
         </Example>
       </SUI.Column>
     </SUI.Grid>
   </PageSection>
-  <PageSection title="States" oid="Z0dxFLxf">
-    <SUI.Grid columns={2} oid="g4tDhg3k">
-      <SUI.Column oid="RuUyMCvK">
-        <Example title="Loading" hint="<Dropdown loading/>" oid="vSZFFEhG">
-          <SUI.Dropdown selection placeholder="Search" loading items={data.friendMenu} oid="qtD5YnP6"/>
+  <PageSection title="States">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Loading" hint="<Dropdown loading/>">
+          <SUI.Dropdown selection placeholder="Search" loading items={data.friendMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="HkObOr4e">
-        <Example title="Error" hint="<Dropdown error/>" oid="X2MdfgMF">
-          <SUI.Dropdown error="Something went wrong" text="Friends" items={data.friendMenu} oid="HPraQ9eZ"/>
-          <Oak.Spacer oid="sWSe6BSo"/>
-          <SUI.Dropdown error="Something went wrong" selection text="Select Friend" items={data.friendMenu} oid="GqVwJfhY"/>
+      <SUI.Column>
+        <Example title="Error" hint="<Dropdown error/>">
+          <SUI.Dropdown error="Something went wrong" text="Friends" items={data.friendMenu}/>
+          <Oak.Spacer/>
+          <SUI.Dropdown error="Something went wrong" selection text="Select Friend" items={data.friendMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="VKHduoce">
-        <Example title="Hidden" hint="<Dropdown hidden/>" oid="YbVMmAKm">
-          <SUI.Dropdown hidden text="Friends" items={data.friendMenu} oid="JAFQZg1L"/>
-          <Oak.Spacer oid="fFPeqMVv"/>
-          <SUI.Dropdown hidden selection text="Select Friend" items={data.friendMenu} oid="UHLI0Cnf"/>
+      <SUI.Column>
+        <Example title="Hidden" hint="<Dropdown hidden/>">
+          <SUI.Dropdown hidden text="Friends" items={data.friendMenu}/>
+          <Oak.Spacer/>
+          <SUI.Dropdown hidden selection text="Select Friend" items={data.friendMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="siu36XJ0">
-        <Example title="Read Only" hint="<Dropdown readonly/>" oid="HyZcvHym">
-          <SUI.Dropdown readonly text="Friends" items={data.friendMenu} oid="uErs4diH"/>
-          <Oak.Spacer oid="eDhXksJG"/>
-          <SUI.Dropdown readonly selection text="Select Friend" items={data.friendMenu} oid="JWu8wqaQ"/>
+      <SUI.Column>
+        <Example title="Read Only" hint="<Dropdown readonly/>">
+          <SUI.Dropdown readonly text="Friends" items={data.friendMenu}/>
+          <Oak.Spacer/>
+          <SUI.Dropdown readonly selection text="Select Friend" items={data.friendMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="QHGrLAAC">
-        <Example title="Disabled" hint="<Dropdown disabled/>" oid="xyEt4Irx">
-          <SUI.Dropdown disabled text="Friends" items={data.friendMenu} oid="sekqCoWX"/>
-          <Oak.Spacer oid="NYqbC7Cv"/>
-          <SUI.Dropdown disabled selection text="Select Friend" items={data.friendMenu} oid="t82yxwwT"/>
+      <SUI.Column>
+        <Example title="Disabled" hint="<Dropdown disabled/>">
+          <SUI.Dropdown disabled text="Friends" items={data.friendMenu}/>
+          <Oak.Spacer/>
+          <SUI.Dropdown disabled selection text="Select Friend" items={data.friendMenu}/>
         </Example>
       </SUI.Column>
     </SUI.Grid>
   </PageSection>
-  <PageSection title="Appearance" oid="gRk2ReSr">
-    <SUI.Grid columns={2} oid="avxoaTu3">
-      <SUI.Column oid="TSrvNeYL">
-        <Example title="Scrolling" hint="<Dropdown appearance='scrolling'/>" oid="kMy7bh7U">
-          <SUI.Dropdown appearance="scrolling" selection placeholder="Select Language" items={data.languageMenu} oid="HEQnHrrI"/>
+  <PageSection title="Appearance">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Scrolling" hint="<Dropdown appearance='scrolling'/>">
+          <SUI.Dropdown appearance="scrolling" selection placeholder="Select Language" items={data.languageMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="TXoHmNSX">
-        <Example title="Compact" hint="<Dropdown appearance='compact'/>" oid="usv92WLK">
-          <SUI.Dropdown appearance="compact" selection placeholder="Compact" items={data.genderMenu} oid="lYaKsoZ2"/>
+      <SUI.Column>
+        <Example title="Compact" hint="<Dropdown appearance='compact'/>">
+          <SUI.Dropdown appearance="compact" selection placeholder="Compact" items={data.genderMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="E6JVw98T">
-        <Example title="Fluid" hint="<Dropdown appearance='fluid'/>" oid="Dxers0cv">
-          <SUI.Dropdown appearance="fluid" selection placeholder="Compact" items={data.genderMenu} oid="QJEfjdMH"/>
+      <SUI.Column>
+        <Example title="Fluid" hint="<Dropdown appearance='fluid'/>">
+          <SUI.Dropdown appearance="fluid" selection placeholder="Compact" items={data.genderMenu}/>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="eatWAELo">
-        <Example title="Transition" hint="<Dropdown transition='horizontal flip'/>" oid="fXpk8mLg">
-          <SUI.Dropdown transition="horizontal flip" appearance="floating" selection placeholder="Compact" items={data.genderMenu} oid="ADxsC5mg"/>
+      <SUI.Column>
+        <Example title="Transition" hint="<Dropdown transition='horizontal flip'/>">
+          <SUI.Dropdown transition="horizontal flip" appearance="floating" selection placeholder="Compact" items={data.genderMenu}/>
         </Example>
       </SUI.Column>
     </SUI.Grid>

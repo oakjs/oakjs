@@ -21,7 +21,7 @@ import React, { Children, Component, PropTypes } from "react";
 import ReactDOM from "react-dom";
 
 import fn from "oak-roots/util/fn";
-import { classNames } from "oak-roots/util/react";
+import { classNames, unknownProps } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
 
@@ -71,7 +71,7 @@ export default class SplitPanel extends OakComponent {
     const { direction, sizes } = this._props;
     if (!sizes) return;
 
-    const $root = this.$ref();
+    const $root = this.$getElement();
     const $children = $root.children(":not(.oak.divider)");
 
     sizes.forEach( (size, index) => {
@@ -107,7 +107,8 @@ export default class SplitPanel extends OakComponent {
     return children;
   }
 
-  getRenderProps(props) {
+  // Clone and munge the props before rendering.
+  mungeProps(props) {
     props = { ...props };
     let { appearance, className, direction, resizable, scrolling, } = props;
 
@@ -121,17 +122,24 @@ export default class SplitPanel extends OakComponent {
       className
     );
 
+    // munge children
     props.children = this.mungeChildren(props);
 
     return props;
   }
 
+  getRenderProps(props) {
+    return unknownProps(props, this.constructor, "id", "className", "style")
+  }
+
   render() {
     if (this.hidden) return null;
-    const props = this._props = this.getRenderProps(this.props);
-    // remove props we don't want to apply to main element
-    const { direction, children, hidden, scrolling, sizes, ...elementProps } = props;
-    return React.createElement("div", elementProps, ...children);
+    // Munge props and remember for `setChildSizes` above
+    const props = this._props = this.mungeProps(this.props);
+
+    // only apply unknown properties to the root element
+    const elementProps = this.getRenderProps(props);
+    return React.createElement("div", elementProps, ...props.children);
   }
 
 }

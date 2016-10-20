@@ -1,811 +1,811 @@
-<Oak.Page id="Grid" title="Grid" oid="VvaQ6VhN">
-  <PageTitle title="Grid" oid="O73ij1r0">
+<Oak.Page id="Grid" title="Grid">
+  <PageTitle title="Grid">
     A grid is used to harmonize negative space in a layout
   </PageTitle>
-  <PageSection title="Types" oid="TiTKPyCL">
-    <Example title="Basic Grid" oid="XrSBFK0t">
-      <SUI.Grid oid="UG9nXHpM">
-        <SUI.Column oid="abM3jt2A">
-          <SUI.Button appearance="fluid" oid="XGKnXuQu"/>
+  <PageSection title="Types">
+    <Example title="Basic Grid">
+      <SUI.Grid>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="PoyYJ56V">
-          <SUI.Button appearance="fluid" oid="OrTFZDdU"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="PJq3mSDc">
-          <SUI.Button appearance="fluid" oid="UHem87Rh"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="NCSeocCy">
-          <SUI.Button appearance="fluid" oid="N60qgijc"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="JtLt2gRZ">
-          <SUI.Button appearance="fluid" oid="P5gQIgYB"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="p1V9QDC3">
-          <SUI.Button appearance="fluid" oid="wSyILswk"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="udncEG2H">
-          <SUI.Button appearance="fluid" oid="yRK0fLQl"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="V2Tx1D4N">
-          <SUI.Button appearance="fluid" oid="awlNeB6e"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="gqwJngAj">
-          <SUI.Button appearance="fluid" oid="ewvdZFwf"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="FEGG3pf4">
-          <SUI.Button appearance="fluid" oid="nNvolAF6"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="V3Vdr41R">
-          <SUI.Button appearance="fluid" oid="EuHBZUiP"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="ZMe3rNDT">
-          <SUI.Button appearance="fluid" oid="JkGSV9sd"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="uV69xgtM">
-          <SUI.Button appearance="fluid" oid="W6Rwo452"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="wpkiOLpW">
-          <SUI.Button appearance="fluid" oid="yTc8gXU5"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="rxnMmH10">
-          <SUI.Button appearance="fluid" oid="LrFmKDMe"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
-        <SUI.Column oid="WMbP8G8u">
-          <SUI.Button appearance="fluid" oid="UO6gM4EL"/>
-        </SUI.Column>
-      </SUI.Grid>
-    </Example>
-    <Example title="Column Count" hint="<Grid columns={4}/>" oid="jMpKlGqw">
-      <SUI.Grid columns={4} oid="ADjM13kH">
-        <SUI.Column oid="F0bGmOT8">
-          <SUI.Button appearance="fluid" oid="kLJ03Pig"/>
-        </SUI.Column>
-        <SUI.Column oid="Cho8bAyX">
-          <SUI.Button appearance="fluid" oid="RNolAECi"/>
-        </SUI.Column>
-        <SUI.Column oid="lnsAaHPE">
-          <SUI.Button appearance="fluid" oid="R2OW121j"/>
-        </SUI.Column>
-        <SUI.Column oid="JQRPq6Va">
-          <SUI.Button appearance="fluid" oid="YvCK7JPj"/>
-        </SUI.Column>
-      </SUI.Grid>
-      <SUI.Grid columns={7} oid="SMh4FoE0">
-        <SUI.Column oid="XoPOGahB">
-          <SUI.Button appearance="fluid" oid="Aj4Hk1rx"/>
-        </SUI.Column>
-        <SUI.Column oid="xd6AIlyC">
-          <SUI.Button appearance="fluid" oid="x2gcTvxm"/>
-        </SUI.Column>
-        <SUI.Column oid="R0yAiUUZ">
-          <SUI.Button appearance="fluid" oid="GxSq9pgK"/>
-        </SUI.Column>
-        <SUI.Column oid="pJJQO9JD">
-          <SUI.Button appearance="fluid" oid="A5rcQe7U"/>
-        </SUI.Column>
-        <SUI.Column oid="P6QqhH9o">
-          <SUI.Button appearance="fluid" oid="URv3ihcs"/>
-        </SUI.Column>
-        <SUI.Column oid="iQ2ym203">
-          <SUI.Button appearance="fluid" oid="CFr9gE5g"/>
-        </SUI.Column>
-        <SUI.Column oid="HuvgrYG1">
-          <SUI.Button appearance="fluid" oid="tmDN7V0Z"/>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
         </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Divided" hint="<Grid appearance='divided'><Row/><Row/>...</Grid>" oid="VDPI9che">
-      <SUI.Grid appearance="divided" columns={3} oid="wokPf1EC">
-        <SUI.Row oid="gn7mZnbt">
-          <SUI.Column oid="x0BvtGI0">
-            <LoremIpsum tiny oid="ua57EPnY"/>
-          </SUI.Column>
-          <SUI.Column oid="PN1yVfOD">
-            <LoremIpsum tiny oid="YfmCMjDv"/>
-          </SUI.Column>
-          <SUI.Column oid="Dyg5h2hf">
-            <LoremIpsum tiny oid="tZiC6fW3"/>
-          </SUI.Column>
-        </SUI.Row>
-        <SUI.Row oid="mYSMXLOc">
-          <SUI.Column oid="jnVJW5VP">
-            <LoremIpsum tiny oid="ZNXNuHYT"/>
-          </SUI.Column>
-          <SUI.Column oid="hyKn2AbJ">
-            <LoremIpsum tiny oid="QKEnO2MC"/>
-          </SUI.Column>
-          <SUI.Column oid="G9ZpQ0Pp">
-            <LoremIpsum tiny oid="kgAoRMJ8"/>
-          </SUI.Column>
-        </SUI.Row>
+    <Example title="Column Count" hint="<Grid columns={4}/>">
+      <SUI.Grid columns={4}>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+      </SUI.Grid>
+      <SUI.Grid columns={7}>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Button appearance="fluid"/>
+        </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Vertically Divided" hint="<Grid appearance='vertically divided'><Row/><Row/>...</Grid>" oid="BhNrErjm">
-      <SUI.Grid appearance="vertically divided" oid="RPMlm23Z">
-        <SUI.Row columns={2} oid="WHMxZnE0">
-          <SUI.Column oid="auY1vmtp">
-            <LoremIpsum short oid="eA5Dog8D"/>
+    <Example title="Divided" hint="<Grid appearance='divided'><Row/><Row/>...</Grid>">
+      <SUI.Grid appearance="divided" columns={3}>
+        <SUI.Row>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
-          <SUI.Column oid="v7vtLJ9G">
-            <LoremIpsum short oid="rpdpnVqR"/>
+          <SUI.Column>
+            <LoremIpsum tiny/>
+          </SUI.Column>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row columns={3} oid="FEtEqQBo">
-          <SUI.Column oid="FE2HE9Nv">
-            <LoremIpsum tiny oid="Pn8Ey4qd"/>
+        <SUI.Row>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
-          <SUI.Column oid="uuKpYJ9I">
-            <LoremIpsum tiny oid="L9LBUUv0"/>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
-          <SUI.Column oid="FUXJ7rco">
-            <LoremIpsum tiny oid="lWg8okyv"/>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
     </Example>
-    <Example title="Celled" hint="<Grid appearance='celled'><Row/><Row/>...</Grid>" oid="SxiCMohX">
-      <SUI.Grid appearance="celled" oid="Rt86NyQD">
-        <SUI.Row oid="d0bvphQs">
-          <SUI.Column width={4} oid="L7l1mqo3">
-            <LoremIpsum tiny oid="KN3Zj2ZI"/>
+    <Example title="Vertically Divided" hint="<Grid appearance='vertically divided'><Row/><Row/>...</Grid>">
+      <SUI.Grid appearance="vertically divided">
+        <SUI.Row columns={2}>
+          <SUI.Column>
+            <LoremIpsum short/>
           </SUI.Column>
-          <SUI.Column width={12} oid="JuFhjJJy">
-            <LoremIpsum short oid="hv7tkMKQ"/>
+          <SUI.Column>
+            <LoremIpsum short/>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row columns={4} oid="MqlRLFJi">
-          <SUI.Column oid="YgF6IiDh">
-            <LoremIpsum tiny oid="fhIVmijE"/>
+        <SUI.Row columns={3}>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
-          <SUI.Column oid="ap0SDNcN">
-            <LoremIpsum tiny oid="oukk4qVv"/>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
-          <SUI.Column oid="kdf5YCPN">
-            <LoremIpsum tiny oid="ws308cbL"/>
-          </SUI.Column>
-          <SUI.Column oid="glgD08Kb">
-            <LoremIpsum tiny oid="dHEPkLDc"/>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
     </Example>
-    <Example title="Internally Celled" hint="<Grid appearance='internally celled'><Row/><Row/>...</Grid>" oid="eXa4E0N2">
-      <SUI.Grid appearance="internally celled" oid="foC3hNeF">
-        <SUI.Row oid="JK03M90C">
-          <SUI.Column width={4} oid="VyA9aiKm">
-            <LoremIpsum tiny oid="bn6jF1Ux"/>
+    <Example title="Celled" hint="<Grid appearance='celled'><Row/><Row/>...</Grid>">
+      <SUI.Grid appearance="celled">
+        <SUI.Row>
+          <SUI.Column width={4}>
+            <LoremIpsum tiny/>
           </SUI.Column>
-          <SUI.Column width={12} oid="BCyx4t4c">
-            <LoremIpsum short oid="TCdQPnTL"/>
+          <SUI.Column width={12}>
+            <LoremIpsum short/>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row columns={4} oid="oqTnUdK2">
-          <SUI.Column oid="WKFeklta">
-            <LoremIpsum tiny oid="loZ8EXN3"/>
+        <SUI.Row columns={4}>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
-          <SUI.Column oid="dtxq00F0">
-            <LoremIpsum tiny oid="Z1B7j2Tw"/>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
-          <SUI.Column oid="K3Ghctm9">
-            <LoremIpsum tiny oid="TcQXkbMv"/>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
-          <SUI.Column oid="cGXH8elc">
-            <LoremIpsum tiny oid="Q7ofTMVQ"/>
+          <SUI.Column>
+            <LoremIpsum tiny/>
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
     </Example>
-    <Example title="Padding" hint="<Grid appearance='padded'/>" oid="JQ96V83p">
-      <SUI.Subheader oid="T3RoiIkp">
+    <Example title="Internally Celled" hint="<Grid appearance='internally celled'><Row/><Row/>...</Grid>">
+      <SUI.Grid appearance="internally celled">
+        <SUI.Row>
+          <SUI.Column width={4}>
+            <LoremIpsum tiny/>
+          </SUI.Column>
+          <SUI.Column width={12}>
+            <LoremIpsum short/>
+          </SUI.Column>
+        </SUI.Row>
+        <SUI.Row columns={4}>
+          <SUI.Column>
+            <LoremIpsum tiny/>
+          </SUI.Column>
+          <SUI.Column>
+            <LoremIpsum tiny/>
+          </SUI.Column>
+          <SUI.Column>
+            <LoremIpsum tiny/>
+          </SUI.Column>
+          <SUI.Column>
+            <LoremIpsum tiny/>
+          </SUI.Column>
+        </SUI.Row>
+      </SUI.Grid>
+    </Example>
+    <Example title="Padding" hint="<Grid appearance='padded'/>">
+      <SUI.Subheader>
         No Padding
       </SUI.Subheader>
-      <div style={{border: "1px solid #eee"}} oid="Lv4g1ooY">
-        <SUI.Grid columns={2} oid="EhWVOkAE">
-          <SUI.Column oid="uqJm668f">
-            <SUI.Segment oid="j3xSJ2ab"/>
+      <div style={{border: "1px solid #eee"}}>
+        <SUI.Grid columns={2}>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="qGdPTP3d">
-            <SUI.Segment oid="iL41Bgxt"/>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
         </SUI.Grid>
       </div>
-      <Oak.Spacer oid="bZlcdN4q"/>
-      <SUI.Subheader oid="P7FF4wSV">
+      <Oak.Spacer/>
+      <SUI.Subheader>
         Padded
       </SUI.Subheader>
-      <div style={{border: "1px solid #eee"}} oid="Di4y7Gr5">
-        <SUI.Grid columns={2} appearance="padded" oid="Lmu0BsLa">
-          <SUI.Column oid="YdBMout6">
-            <SUI.Segment oid="uenGNtde"/>
+      <div style={{border: "1px solid #eee"}}>
+        <SUI.Grid columns={2} appearance="padded">
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="shA34dDc">
-            <SUI.Segment oid="XSxvetsl"/>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
         </SUI.Grid>
       </div>
-      <Oak.Spacer oid="K0Qmjok4"/>
-      <SUI.Subheader oid="cDg09jsj">
+      <Oak.Spacer/>
+      <SUI.Subheader>
         Horizontally Padded
       </SUI.Subheader>
-      <div style={{border: "1px solid #eee"}} oid="XHLaqI5D">
-        <SUI.Grid columns={2} appearance="horizontally padded" oid="QuKn6IBa">
-          <SUI.Column oid="IrooQb4o">
-            <SUI.Segment oid="FMixj3M5"/>
+      <div style={{border: "1px solid #eee"}}>
+        <SUI.Grid columns={2} appearance="horizontally padded">
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="fqDKDB5b">
-            <SUI.Segment oid="lS1TKy6j"/>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
         </SUI.Grid>
       </div>
-      <Oak.Spacer oid="whFSUaeR"/>
-      <SUI.Subheader oid="k7ABwC3J">
+      <Oak.Spacer/>
+      <SUI.Subheader>
         Vertically Padded
       </SUI.Subheader>
-      <div style={{border: "1px solid #eee"}} oid="oNtEfGC1">
-        <SUI.Grid columns={2} appearance="vertically padded" oid="nLcBKquf">
-          <SUI.Column oid="ujWNCrBV">
-            <SUI.Segment oid="jLZ3Mbnv"/>
+      <div style={{border: "1px solid #eee"}}>
+        <SUI.Grid columns={2} appearance="vertically padded">
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="x6Gujar2">
-            <SUI.Segment oid="xlj370jv"/>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
         </SUI.Grid>
       </div>
     </Example>
-    <Example title="Relaxed" hint="<Grid appearance='relaxed'/>" oid="G8pPWxTR">
-      <SUI.Subheader oid="SGdIDpMW">
+    <Example title="Relaxed" hint="<Grid appearance='relaxed'/>">
+      <SUI.Subheader>
         Normal
       </SUI.Subheader>
-      <SUI.Grid columns={4} oid="T2GJ7O8n">
-        <SUI.Column oid="CEbgvrlB">
-          <SUI.Segment oid="OA7BPdI2"/>
+      <SUI.Grid columns={4}>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="aae2vZWh">
-          <SUI.Segment oid="jfqDwkBJ"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="ncJJPmoJ">
-          <SUI.Segment oid="s4hwFGKR"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="RJeYi2uP">
-          <SUI.Segment oid="UF3WddqX"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
       </SUI.Grid>
-      <Oak.Spacer oid="jrKbW3ng"/>
-      <SUI.Subheader oid="NqbCQYgh">
+      <Oak.Spacer/>
+      <SUI.Subheader>
         Relaxed
       </SUI.Subheader>
-      <SUI.Grid columns={4} appearance="relaxed" oid="TekE23wX">
-        <SUI.Column oid="GA3xWqL0">
-          <SUI.Segment oid="EhKUMIMW"/>
+      <SUI.Grid columns={4} appearance="relaxed">
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="wlmIsm0W">
-          <SUI.Segment oid="ORawCE1o"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="a0DWBxjl">
-          <SUI.Segment oid="EVojMS2I"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="Rt1JWLh0">
-          <SUI.Segment oid="WGcEe17L"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
       </SUI.Grid>
-      <Oak.Spacer oid="B4Dkhhr5"/>
-      <SUI.Subheader oid="TDWl3jfM">
+      <Oak.Spacer/>
+      <SUI.Subheader>
         Very Relaxed
       </SUI.Subheader>
-      <SUI.Grid columns={4} appearance="very relaxed" oid="j3eqP86B">
-        <SUI.Column oid="GcQNZw8n">
-          <SUI.Segment oid="dVmcXBVl"/>
+      <SUI.Grid columns={4} appearance="very relaxed">
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="b14Z7MEK">
-          <SUI.Segment oid="g8jjbfZj"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="KrM016Mv">
-          <SUI.Segment oid="Y1rXAh1L"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="VkhSdryO">
-          <SUI.Segment oid="d6Z8hV5D"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Equal Width" hint="<Grid appearance='equal width'/>" oid="rEPmbKhO">
-      <SUI.Grid appearance="equal width" oid="NG6O1vtL">
-        <SUI.Column width={4} oid="V32vYBNp">
-          <SUI.Segment oid="Oict1iDJ"/>
+    <Example title="Equal Width" hint="<Grid appearance='equal width'/>">
+      <SUI.Grid appearance="equal width">
+        <SUI.Column width={4}>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="OaLP8txb">
-          <SUI.Segment oid="UNqYa9eZ"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column width={4} oid="IBMZwRkJ">
-          <SUI.Segment oid="yflaSGaK"/>
+        <SUI.Column width={4}>
+          <SUI.Segment/>
         </SUI.Column>
       </SUI.Grid>
-      <SUI.Grid appearance="equal width" oid="ew1vchE9">
-        <SUI.Row oid="UJwSvh8o">
-          <SUI.Column oid="YQpqU4tR">
-            <SUI.Segment oid="BXny5uWM"/>
+      <SUI.Grid appearance="equal width">
+        <SUI.Row>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="je4JsQ1V">
-            <SUI.Segment oid="StyD02Vf"/>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="JFmiHMP9">
-            <SUI.Segment oid="CXhnrlDL"/>
-          </SUI.Column>
-        </SUI.Row>
-        <SUI.Row oid="REEj1Eo7">
-          <SUI.Column oid="NYJbgcGs">
-            <SUI.Segment oid="Pcvt2dU2"/>
-          </SUI.Column>
-          <SUI.Column oid="ZPBomJwM">
-            <SUI.Segment oid="PA5xrSXS"/>
-          </SUI.Column>
-          <SUI.Column oid="RYffO7Aq">
-            <SUI.Segment oid="FOlxsi3N"/>
-          </SUI.Column>
-          <SUI.Column oid="wVsFO2Cn">
-            <SUI.Segment oid="dxVbTbTO"/>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
         </SUI.Row>
-      </SUI.Grid>
-    </Example>
-    <Example title="Streched" hint="<Grid><Row appearance='stretched'/></Grid>" oid="LaObv0oh">
-      <SUI.Grid columns={3} appearance="equal width" oid="aXfq2bSi">
-        <SUI.Row appearance="stretched" oid="JPNruI30">
-          <SUI.Column oid="jyHnlctN">
-            <SUI.Segment oid="Ho2N4yIh"/>
+        <SUI.Row>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="GLt1i0rv">
-            <SUI.Segment oid="BVjBKCjg"/>
-            <SUI.Segment oid="UCWPyZIc"/>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="TOIkVXbb">
-            <SUI.Segment oid="pqcfweha"/>
-            <SUI.Segment oid="j6e4NN7o"/>
-            <SUI.Segment oid="xviKG7jn"/>
+          <SUI.Column>
+            <SUI.Segment/>
+          </SUI.Column>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
     </Example>
-    <Example title="Colored" hint="<Grid><column color='red'/></Grid>" oid="mU60FwxC">
-      <Info oid="l0JdxAJP">
+    <Example title="Streched" hint="<Grid><Row appearance='stretched'/></Grid>">
+      <SUI.Grid columns={3} appearance="equal width">
+        <SUI.Row appearance="stretched">
+          <SUI.Column>
+            <SUI.Segment/>
+          </SUI.Column>
+          <SUI.Column>
+            <SUI.Segment/>
+            <SUI.Segment/>
+          </SUI.Column>
+          <SUI.Column>
+            <SUI.Segment/>
+            <SUI.Segment/>
+            <SUI.Segment/>
+          </SUI.Column>
+        </SUI.Row>
+      </SUI.Grid>
+    </Example>
+    <Example title="Colored" hint="<Grid><column color='red'/></Grid>">
+      <Info>
         Coloring rows or columns requires a
-        <b oid="gbyKo8qo">
+        <b>
           padded
         </b>
         grid.
       </Info>
-      <SUI.Grid columns={5} appearance="padded" oid="LIsd6pwf">
-        <SUI.Column color="red" oid="y7ujHkX5">
+      <SUI.Grid columns={5} appearance="padded">
+        <SUI.Column color="red">
           Red
         </SUI.Column>
-        <SUI.Column color="orange" oid="Xdpu4c1K">
+        <SUI.Column color="orange">
           orange
         </SUI.Column>
-        <SUI.Column color="yellow" oid="nnXwGvsV">
+        <SUI.Column color="yellow">
           yellow
         </SUI.Column>
-        <SUI.Column color="olive" oid="fn7jHVcA">
+        <SUI.Column color="olive">
           olive
         </SUI.Column>
-        <SUI.Column color="green" oid="sy3cFaTF">
+        <SUI.Column color="green">
           green
         </SUI.Column>
-        <SUI.Column color="teal" oid="AXafvyQ2">
+        <SUI.Column color="teal">
           teal
         </SUI.Column>
-        <SUI.Column color="blue" oid="xk29QA2o">
+        <SUI.Column color="blue">
           blue
         </SUI.Column>
-        <SUI.Column color="violet" oid="TB5rCXdS">
+        <SUI.Column color="violet">
           violet
         </SUI.Column>
-        <SUI.Column color="purple" oid="m0saEEfi">
+        <SUI.Column color="purple">
           purple
         </SUI.Column>
-        <SUI.Column color="pink" oid="TojiiIGS">
+        <SUI.Column color="pink">
           pink
         </SUI.Column>
-        <SUI.Column color="brown" oid="OKbtLXJY">
+        <SUI.Column color="brown">
           brown
         </SUI.Column>
-        <SUI.Column color="grey" oid="gFsxPUjU">
+        <SUI.Column color="grey">
           grey
         </SUI.Column>
-        <SUI.Column color="black" oid="TLudWfta">
+        <SUI.Column color="black">
           black
         </SUI.Column>
       </SUI.Grid>
-      <Oak.Spacer oid="Q8tBRGpR"/>
-      <SUI.Grid appearance="padded" oid="DIEelSh1">
-        <SUI.Row color="red" oid="sTiL0hDH">
-          <SUI.Column oid="OtN4tBMB">
+      <Oak.Spacer/>
+      <SUI.Grid appearance="padded">
+        <SUI.Row color="red">
+          <SUI.Column>
             Red
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row color="orange" oid="VKYspV68">
-          <SUI.Column oid="b7QDa93L">
+        <SUI.Row color="orange">
+          <SUI.Column>
             Orange
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row color="yellow" oid="KFIXEry8">
-          <SUI.Column oid="IPOCByXj">
+        <SUI.Row color="yellow">
+          <SUI.Column>
             Yellow
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
     </Example>
-    <Example title="Centered" hint="<Grid appearance='centered'/></Grid>" oid="JdVPhi1d">
-      <SUI.Grid columns={2} appearance="centered" oid="mEHguYTT">
-        <SUI.Column oid="SMdDN9oS">
-          <SUI.Segment oid="b7xQFSrx"/>
+    <Example title="Centered" hint="<Grid appearance='centered'/></Grid>">
+      <SUI.Grid columns={2} appearance="centered">
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Row columns={4} appearance="centered" oid="daZhpmsX">
-          <SUI.Column oid="GyfVBYXj">
-            <SUI.Segment oid="jW7W6XLJ"/>
+        <SUI.Row columns={4} appearance="centered">
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="Tf4aNcNp">
-            <SUI.Segment oid="iYaQvqlq"/>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
-          <SUI.Column oid="eCD20EP8">
-            <SUI.Segment oid="P51ZEtSv"/>
+          <SUI.Column>
+            <SUI.Segment/>
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
     </Example>
-    <Example title="Grid Text Alignment" hint="<Grid align='center'/></Grid>" oid="U6TyT5y5">
-      <SUI.Grid columns={3} align="left" oid="fPs9lLHR">
-        <SUI.Column oid="V6psrfcV">
-          <SUI.Segment oid="dZRCm8AW">
+    <Example title="Grid Text Alignment" hint="<Grid align='center'/></Grid>">
+      <SUI.Grid columns={3} align="left">
+        <SUI.Column>
+          <SUI.Segment>
             Left
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="cRd9AhEp">
-          <SUI.Segment oid="ofqXWgvO">
+        <SUI.Column>
+          <SUI.Segment>
             Left
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="wovb4m8C">
-          <SUI.Segment oid="WMG1dEUQ">
+        <SUI.Column>
+          <SUI.Segment>
             Left
           </SUI.Segment>
         </SUI.Column>
       </SUI.Grid>
-      <SUI.Grid columns={3} align="center" oid="oQWtjaA7">
-        <SUI.Column oid="U0m5U7w1">
-          <SUI.Segment oid="Pp7QZX9l">
+      <SUI.Grid columns={3} align="center">
+        <SUI.Column>
+          <SUI.Segment>
             Center
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="voyhX1vA">
-          <SUI.Segment oid="DfxU4f18">
+        <SUI.Column>
+          <SUI.Segment>
             Center
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="iu47dTJi">
-          <SUI.Segment oid="JVe774vd">
+        <SUI.Column>
+          <SUI.Segment>
             Center
           </SUI.Segment>
         </SUI.Column>
       </SUI.Grid>
-      <SUI.Grid columns={3} align="right" oid="HotNvohA">
-        <SUI.Column oid="s1RewnCO">
-          <SUI.Segment oid="LvjkCUUV">
+      <SUI.Grid columns={3} align="right">
+        <SUI.Column>
+          <SUI.Segment>
             Right
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="Ta26xOl2">
-          <SUI.Segment oid="D4UAjtGd">
+        <SUI.Column>
+          <SUI.Segment>
             Right
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="MOFx4Ves">
-          <SUI.Segment oid="JT486P4x">
+        <SUI.Column>
+          <SUI.Segment>
             Right
           </SUI.Segment>
         </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Row Text Alignment" hint="<Grid><Row align='center'/></Grid>" oid="Bf4pil4Q">
-      <SUI.Grid columns={3} oid="rimsI5ya">
-        <SUI.Row align="left" oid="dCauBRNl">
-          <SUI.Column oid="Mxd8iuQe">
-            <SUI.Segment oid="kZbG9rEl">
+    <Example title="Row Text Alignment" hint="<Grid><Row align='center'/></Grid>">
+      <SUI.Grid columns={3}>
+        <SUI.Row align="left">
+          <SUI.Column>
+            <SUI.Segment>
               Left
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="dD63B5e9">
-            <SUI.Segment oid="rgYyyhij">
+          <SUI.Column>
+            <SUI.Segment>
               Left
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="QPajVIOi">
-            <SUI.Segment oid="J2bMTKn8">
+          <SUI.Column>
+            <SUI.Segment>
               Left
             </SUI.Segment>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row align="center" oid="tJmjb4QL">
-          <SUI.Column oid="CLITEi35">
-            <SUI.Segment oid="lPwFIJ1u">
+        <SUI.Row align="center">
+          <SUI.Column>
+            <SUI.Segment>
               Center
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="lbjdH9v8">
-            <SUI.Segment oid="fiN2a8jk">
+          <SUI.Column>
+            <SUI.Segment>
               Center
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="PesAff9L">
-            <SUI.Segment oid="QoS4c0N3">
+          <SUI.Column>
+            <SUI.Segment>
               Center
             </SUI.Segment>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row align="right" oid="wCPYt6V1">
-          <SUI.Column oid="EA1qAgOw">
-            <SUI.Segment oid="PlJ2HNFg">
+        <SUI.Row align="right">
+          <SUI.Column>
+            <SUI.Segment>
               Right
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="AbO64Yau">
-            <SUI.Segment oid="lb9neTHC">
+          <SUI.Column>
+            <SUI.Segment>
               Right
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="vbWlEOiM">
-            <SUI.Segment oid="rBIQM92p">
+          <SUI.Column>
+            <SUI.Segment>
               Right
             </SUI.Segment>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row columns={2} align="justified" oid="RaqvDFhM">
-          <SUI.Column oid="Y4si83d3">
-            <LoremIpsum short oid="gkuVUUIv"/>
+        <SUI.Row columns={2} align="justified">
+          <SUI.Column>
+            <LoremIpsum short/>
           </SUI.Column>
-          <SUI.Column oid="S6apfglq">
-            <LoremIpsum short oid="AC5Y2Kp8"/>
+          <SUI.Column>
+            <LoremIpsum short/>
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
     </Example>
-    <Example title="Column Text Alignment" hint="<Grid><Column align='left'/></Grid>" oid="uUa5ZBSY">
-      <SUI.Grid columns={4} oid="wSp6oZ8E">
-        <SUI.Column align="left" oid="qmmxopE6">
-          <SUI.Segment oid="MUJA2gIt">
+    <Example title="Column Text Alignment" hint="<Grid><Column align='left'/></Grid>">
+      <SUI.Grid columns={4}>
+        <SUI.Column align="left">
+          <SUI.Segment>
             Left
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column align="center" oid="DtrcP791">
-          <SUI.Segment oid="ji8Kn5ku">
+        <SUI.Column align="center">
+          <SUI.Segment>
             Center
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column align="right" oid="WYq9UDq4">
-          <SUI.Segment oid="yXEISvBj">
+        <SUI.Column align="right">
+          <SUI.Segment>
             Right
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column align="justified" oid="ZUW48VPs">
-          <LoremIpsum tiny oid="nq3Wgjcw"/>
+        <SUI.Column align="justified">
+          <LoremIpsum tiny/>
         </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Vertical Alignment" hint="<Grid align='middle'/>" oid="XaghPGpn">
-      <SUI.Subheader oid="EXSRotsO">
+    <Example title="Vertical Alignment" hint="<Grid align='middle'/>">
+      <SUI.Subheader>
         align = top
       </SUI.Subheader>
-      <SUI.Grid columns={4} align="top" appearance="centered" oid="xmHALVyd">
-        <SUI.Column oid="H1j5S0BT">
-          <SUI.Segment oid="huNQTdfH"/>
+      <SUI.Grid columns={4} align="top" appearance="centered">
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="uPc07Xyk">
-          <SUI.Segment oid="HQkckfAn"/>
-          <SUI.Segment oid="r6932XJg"/>
+        <SUI.Column>
+          <SUI.Segment/>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="Y6y1kMJ2">
-          <SUI.Segment oid="VPKtYYNT"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
       </SUI.Grid>
-      <SUI.Divider oid="vbvkc4y6"/>
-      <SUI.Subheader oid="dNxOSjEY">
+      <SUI.Divider/>
+      <SUI.Subheader>
         align = middle
       </SUI.Subheader>
-      <SUI.Grid columns={4} align="middle" appearance="centered" oid="YO2LdDLt">
-        <SUI.Column oid="vZr8oODn">
-          <SUI.Segment oid="TK62aKoW"/>
+      <SUI.Grid columns={4} align="middle" appearance="centered">
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="vKCaVCn6">
-          <SUI.Segment oid="CLnfuXCG"/>
-          <SUI.Segment oid="x7CgyMoZ"/>
+        <SUI.Column>
+          <SUI.Segment/>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="FNepNq7A">
-          <SUI.Segment oid="bqdsw3jQ"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
       </SUI.Grid>
-      <SUI.Divider oid="ZGjsk28N"/>
-      <SUI.Subheader oid="w9ZwhPuD">
+      <SUI.Divider/>
+      <SUI.Subheader>
         align = bottom
       </SUI.Subheader>
-      <SUI.Grid columns={4} align="bottom" appearance="centered" oid="JJECx3cS">
-        <SUI.Column oid="qGrTOoQR">
-          <SUI.Segment oid="qt6MEpov"/>
+      <SUI.Grid columns={4} align="bottom" appearance="centered">
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="gBtRsKdV">
-          <SUI.Segment oid="mrYo4onE"/>
-          <SUI.Segment oid="qtsH1W6J"/>
+        <SUI.Column>
+          <SUI.Segment/>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="hfRQn9Rv">
-          <SUI.Segment oid="NkoFNoee"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
       </SUI.Grid>
     </Example>
   </PageSection>
-  <PageSection title="Responsive design" oid="rHvsktvJ">
-    <Info oid="HLTCeZUy">
+  <PageSection title="Responsive design">
+    <Info>
       Resize your browser to a small width to see these effects
     </Info>
-    <Example title="Doubling" hint="<Grid appearance='doubling'/>" oid="XBpVf5w0">
-      <SUI.Grid columns={5} appearance="doubling" oid="Tq8Ax8eT">
-        <SUI.Column oid="VduaqfBt">
-          <SUI.Segment oid="AUp8yEHE"/>
+    <Example title="Doubling" hint="<Grid appearance='doubling'/>">
+      <SUI.Grid columns={5} appearance="doubling">
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="DoK5iq47">
-          <SUI.Segment oid="xZWCUkj1"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="AW7AGxOj">
-          <SUI.Segment oid="DDguMv0c"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="bXdAVlsi">
-          <SUI.Segment oid="hI7NJ7Z8"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
-        <SUI.Column oid="TY8ZDDUA">
-          <SUI.Segment oid="fTfdw4w7"/>
-        </SUI.Column>
-      </SUI.Grid>
-    </Example>
-    <Example title="Stackable" hint="<Grid appearance='stackable'/>" oid="Qj4VirsA">
-      <SUI.Grid columns={2} appearance="stackable" oid="BGhHogOv">
-        <SUI.Column oid="yaKTiQ8l">
-          <SUI.Segment oid="Jf3yZCFx"/>
-        </SUI.Column>
-        <SUI.Column oid="Lt4C4ypr">
-          <SUI.Segment oid="KNGkVHlq"/>
+        <SUI.Column>
+          <SUI.Segment/>
         </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Reversed" hint="<Grid appearance='tablet reversed'/>" oid="AKc7QiiF">
-      <SUI.Subheader oid="x97V5uSq">
+    <Example title="Stackable" hint="<Grid appearance='stackable'/>">
+      <SUI.Grid columns={2} appearance="stackable">
+        <SUI.Column>
+          <SUI.Segment/>
+        </SUI.Column>
+        <SUI.Column>
+          <SUI.Segment/>
+        </SUI.Column>
+      </SUI.Grid>
+    </Example>
+    <Example title="Reversed" hint="<Grid appearance='tablet reversed'/>">
+      <SUI.Subheader>
         computer reversed
       </SUI.Subheader>
-      <SUI.Grid columns={4} appearance="equal width computer reversed" oid="mblHgR8D">
-        <SUI.Row oid="gkZgnn05">
-          <SUI.Column oid="diVXuMf2">
+      <SUI.Grid columns={4} appearance="equal width computer reversed">
+        <SUI.Row>
+          <SUI.Column>
             1st
           </SUI.Column>
-          <SUI.Column oid="TQJbq7I2">
+          <SUI.Column>
             2nd
           </SUI.Column>
-          <SUI.Column oid="ul686V7P">
+          <SUI.Column>
             3nd
           </SUI.Column>
-          <SUI.Column oid="soP8G4Lp">
+          <SUI.Column>
             4th
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
-      <SUI.Divider oid="R552uODn"/>
-      <SUI.Subheader oid="Mwxlu3Gm">
+      <SUI.Divider/>
+      <SUI.Subheader>
         tablet reversed
       </SUI.Subheader>
-      <SUI.Grid columns={4} appearance="equal width tablet reversed" oid="lq4QjRFw">
-        <SUI.Row oid="xtWJpuIA">
-          <SUI.Column oid="PvkoFGxw">
+      <SUI.Grid columns={4} appearance="equal width tablet reversed">
+        <SUI.Row>
+          <SUI.Column>
             1st
           </SUI.Column>
-          <SUI.Column oid="e6NowYMJ">
+          <SUI.Column>
             2nd
           </SUI.Column>
-          <SUI.Column oid="U5Vvmu2Y">
+          <SUI.Column>
             3nd
           </SUI.Column>
-          <SUI.Column oid="jStar9a8">
+          <SUI.Column>
             4th
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
-      <SUI.Divider oid="ZmsfugQF"/>
-      <SUI.Subheader oid="D4eiU5Jh">
+      <SUI.Divider/>
+      <SUI.Subheader>
         mobile reversed
       </SUI.Subheader>
-      <SUI.Grid columns={4} appearance="equal width mobile reversed" oid="WVRWiIwD">
-        <SUI.Row oid="dJDvJGWl">
-          <SUI.Column oid="AdVTreem">
+      <SUI.Grid columns={4} appearance="equal width mobile reversed">
+        <SUI.Row>
+          <SUI.Column>
             1st
           </SUI.Column>
-          <SUI.Column oid="FBkLqtrT">
+          <SUI.Column>
             2nd
           </SUI.Column>
-          <SUI.Column oid="XHT24pj9">
+          <SUI.Column>
             3nd
           </SUI.Column>
-          <SUI.Column oid="wToxZ3AR">
+          <SUI.Column>
             4th
           </SUI.Column>
         </SUI.Row>
       </SUI.Grid>
     </Example>
-    <Example title="Device visibility" hint="<Grid><Row appearance='computer only'/></Grid>" oid="PDgDDCN8">
-      <SUI.Grid oid="LlLCv9Qr">
-        <SUI.Row columns={2} appearance="large screen only" oid="LLd4rUJa">
-          <SUI.Column oid="S1LbIfKe">
-            <SUI.Segment oid="ZVsjED6v">
+    <Example title="Device visibility" hint="<Grid><Row appearance='computer only'/></Grid>">
+      <SUI.Grid>
+        <SUI.Row columns={2} appearance="large screen only">
+          <SUI.Column>
+            <SUI.Segment>
               Large Screen Only
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="e5KaZvu2">
-            <SUI.Segment oid="Y7RnU2u6">
+          <SUI.Column>
+            <SUI.Segment>
               Large Screen Only
             </SUI.Segment>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row columns={2} appearance="computer only" oid="G3kvliCt">
-          <SUI.Column oid="t13Vu0nl">
-            <SUI.Segment oid="DXaXFTSi">
+        <SUI.Row columns={2} appearance="computer only">
+          <SUI.Column>
+            <SUI.Segment>
               Computer Only
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="pDp1D9tx">
-            <SUI.Segment oid="XSvc14W0">
+          <SUI.Column>
+            <SUI.Segment>
               Computer Only
             </SUI.Segment>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row columns={2} appearance="tablet only" oid="sf5ZZ9k9">
-          <SUI.Column oid="mTThuZAX">
-            <SUI.Segment oid="CjLgXr1S">
+        <SUI.Row columns={2} appearance="tablet only">
+          <SUI.Column>
+            <SUI.Segment>
               Tablet Only
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="ABLD38J0">
-            <SUI.Segment oid="HfhWOk6U">
+          <SUI.Column>
+            <SUI.Segment>
               Tablet Only
             </SUI.Segment>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row columns={2} appearance="mobile only" oid="k2yeCv5Z">
-          <SUI.Column oid="cviCnkGS">
-            <SUI.Segment oid="O4sChaDU">
+        <SUI.Row columns={2} appearance="mobile only">
+          <SUI.Column>
+            <SUI.Segment>
               Mobile Only
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="qqZoi8Kw">
-            <SUI.Segment oid="W6FPHXN0">
+          <SUI.Column>
+            <SUI.Segment>
               Mobile Only
             </SUI.Segment>
           </SUI.Column>
         </SUI.Row>
-        <SUI.Row appearance="equal width" oid="BuoYpYMi">
-          <SUI.Column appearance="large screen only" oid="mCDE9BV2">
-            <SUI.Segment oid="rKh3BsmK">
+        <SUI.Row appearance="equal width">
+          <SUI.Column appearance="large screen only">
+            <SUI.Segment>
               Mobile Only
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column appearance="computer only" oid="gHMOJeiw">
-            <SUI.Segment oid="P5wZc2TE">
+          <SUI.Column appearance="computer only">
+            <SUI.Segment>
               Computer Only
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column appearance="tablet only" oid="jN1ffEx9">
-            <SUI.Segment oid="iLm48FsC">
+          <SUI.Column appearance="tablet only">
+            <SUI.Segment>
               Tablet Only
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column appearance="mobile only" oid="iw0cPj71">
-            <SUI.Segment oid="eyhWp2LO">
+          <SUI.Column appearance="mobile only">
+            <SUI.Segment>
               Mobile Only
             </SUI.Segment>
           </SUI.Column>
-          <SUI.Column oid="jZFbkqtl">
-            <SUI.Segment oid="IElbBXyX">
+          <SUI.Column>
+            <SUI.Segment>
               All screens
             </SUI.Segment>
           </SUI.Column>

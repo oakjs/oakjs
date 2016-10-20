@@ -3,6 +3,9 @@
 //////////////////////////////
 
 import { PropTypes } from "react";
+
+import Rect from "oak-roots/Rect";
+import { requestAnimationFrame } from "./browser";
 import { knownProperties, unknownProperties } from "./object";
 
 export const stringOrFn = PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]);
@@ -32,8 +35,17 @@ export function knownProps(props, Component) {
 }
 
 // Return subset of `props` which were NOT defined in `Component.propTypes`.
-export function unknownProps(props, Component) {
-  return unknownProperties(props, Component.propTypes);
+// If you want some props which *are* in propTypes, pass them after the `Component`,
+//	and we'll add them if their values are not `undefined`.
+// e.g.	`unknownProps(this.props, this.constructor, "id", "className", "style")`
+export function unknownProps(props, Component, ...extrasToAdd) {
+	// Get a map of known keys, MINUS `extrasToAdd`
+	let knownProps = Component.propTypes;
+	if (extrasToAdd.length) {
+		knownProps = {...knownProps};
+		extrasToAdd.forEach(key => { delete knownProps[key] });
+	}
+	return unknownProperties(props, knownProps);
 }
 
 
@@ -65,6 +77,26 @@ export function mergeProps(...propSets) {
   return props;
 }
 
+// Update the css style of `element` to match `rect`.
+// `rect` can be a `Rect` object or a function which returns a `Rect`.
+// If `getRect()` returns `undefined`, clears the style.
+// NOTE: MODIFIES THE DOM!  This may get overwritten on update if React manipulates `element.style`.
+export function updateRect(element, rect) {
+	if (!element) return;
 
+	// If `rect` is a function, recurse with the actual value.
+	if (rect instanceof Function) return updateRect(element, rect());
+
+	const style = (rect instanceof Rect ? rect.styleString : "");
+
+	// Use `requestAnimationFrame` to update so we're separating our read/write cycles.
+	requestAnimationFrame( () => element.setAttribute("style", style) );
+}
+
+// Show or hide an `element` according to boolean `condition`,
+// NOTE: MODIFIES THE DOM!  This may get overwritten on update if React manipulates `element.style`.
+export function toggleElement(element, condition) {
+	if (element) element.style.display = (!!condition ? "block" : "none");
+}
 
 export default {...exports};

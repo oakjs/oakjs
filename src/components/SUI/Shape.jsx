@@ -6,7 +6,6 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { autobind } from "oak-roots/util/decorators";
 
 import { isElement, hasClass } from "./SUI";
 import ElementBuffer from "./ElementBuffer";
@@ -55,7 +54,7 @@ class SUIShape extends SUIModuleComponent {
 
   componentDidMount() {
     // if we don't already have an active side
-    if (this.$ref().find(".side.active").length === 0) {
+    if (this.$getElement().find(".side.active").length === 0) {
       // activate the initial side BEFORE initializing module
       const { active } = this.props;
       if (active) this.activateSide(active);
@@ -81,7 +80,7 @@ class SUIShape extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().shape(...args);
+    return this.$getElement().shape(...args);
   }
 
   //////////////////////////////
@@ -147,7 +146,7 @@ class SUIShape extends SUIModuleComponent {
   // Activate side IMMEDIATELY
   activateSide(identifier) {
     const selector = this.getSideSelector(identifier);
-    this.$ref().find(selector).first().addClass("active");
+    this.$getElement().find(selector).first().addClass("active");
   }
 
 

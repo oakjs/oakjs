@@ -30,7 +30,7 @@ export default class Page extends ComponentController {
 
 
   //////////////////////////////
-  //  Project + Page Syntactic sugar
+  //  Section + Project Syntactic sugar
   //////////////////////////////
 
   get section() { return this.parent }

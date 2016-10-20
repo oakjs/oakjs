@@ -5,16 +5,25 @@
 import React, { PropTypes } from "react";
 
 import Rect from "oak-roots/Rect";
+import { updateRect, toggleElement } from "oak-roots/util/react";
 
-import oak from "../oak";
+import OakComponent from "./OakComponent";
 import SelectionRect from "./SelectionRect";
-import ResizeHandle from "./ResizeHandle";
 
 import "./Resizer.css";
 
-export default class Resizer extends React.Component {
+export default class Resizer extends OakComponent {
   static propTypes = {
-    selection: PropTypes.any,
+    // Array of selected items.
+    selection: PropTypes.array,
+
+    // Return a `Rect` for the current position of an item from `selection`.
+    getRectForSelectedItem: PropTypes.func,
+
+    // Return a unique identifier for an item from `selection`.
+    // By default we'll just `toString()` the item.
+    getKeyForSelectedItem: PropTypes.func,
+
     canResizeWidth: PropTypes.bool,
     canResizeHeight: PropTypes.bool,
 
@@ -24,50 +33,84 @@ export default class Resizer extends React.Component {
 
 
   //////////////////////////////
+  // Events and geometry
+  //////////////////////////////
+
+  // Mouse wend down in one of our handles.
+  onHandleDown(event, handle) {
+    if (this.props.onHandleDown) this.props.onHandleDown(event, handle)
+  }
+
+  // Update our child `<SelectionRect>`s to match the current geometry of the `selection`.
+  updateGeometry() {
+    const { selection } = this.props;
+    if (!selection || !selection.length) return null;
+
+    // iterate through selected elements, accumulating `rects` of each
+    const rects = [];
+    selection.map( item => {
+      const element = this.getElement(`selection-${item}`);
+      if (!element) return;
+
+      const rect = this.props.getRectForSelectedItem(item);
+      updateRect(element, rect);
+
+      // add to the list of rects so we can calculate outer size
+      if (rect) rects.push(rect);
+    })
+
+    // size the outer rectangle
+    const outerRect = Rect.containingRect(rects);
+    updateRect(this.getElement(), outerRect);
+    updateRect(this.getElement("resizer"), outerRect);
+
+    // Show/hide handles according to outerRect
+    const activeHandles = this.getActiveHandles(outerRect);
+    this.constructor.ALL_HANDLES.forEach( handle => {
+      const element = this.getElement(`handle-${handle}`);
+      const isActive = activeHandles.includes(handle)
+      toggleElement(element, isActive);
+    });
+
+  }
+
+  //////////////////////////////
   // Selection rectangles
   //////////////////////////////
 
-  renderSelectionRects(rects) {
-    const { selection } = this.props;
-    if (!selection) return null;
-
-    const selectionRects = selection.map( oid => this.renderSelectionRect(oid, rects) )
-      .filter(Boolean);
-
-    // if no rects returned, forget it
-    if (selectionRects.length === 0) return null;
-    return selectionRects;
+  // Return string key for the `item` from the selection.
+  // By default we just convert `item` to a string.
+  getKeyForSelectedItem(item) {
+    if (this.props.getKeyForSelectedItem) return this.props.getKeyForSelectedItem(item);
+    return ""+item;
   }
 
-  // Render an `oid` as a `<SelectionRect>`.
-  // If you pass a `rects` array, we'll add the rect of the element to it.
-  renderSelectionRect(oid, rects) {
-    const rect = oak.getRectForOid(oid);
-    if (!rect || rect.isEmpty) return null;
-
-    if (rects) rects.push(rect);
-    const rectProps = {
-      key: oid,
-      type: "selection",
-      oid,
-      rect,
-      onMouseDown: this.props.onSelectionDown
-    }
-    return <SelectionRect {...rectProps} />;
+  // Render a `<SelectionRect>` for each item in the selection.
+  // Their geometry will be set in `updateGeometry()`.
+  renderSelectionRects() {
+    const { selection, onSelectionDown } = this.props;
+    return selection.map( item => {
+      const key = this.getKeyForSelectedItem(item);
+      return <SelectionRect type="selection" key={key} ref={`selection-${key}`} onMouseDown={onSelectionDown}/>
+    });
   }
 
   //////////////////////////////
   // Resize handles
   //////////////////////////////
 
+  static NARROW_WIDTH = 30;
+  static SHORT_HEIGHT = 30;
+  static ALL_HANDLES = [ "t", "r", "b", "l", "tl","tr", "bl", "br" ];
+
   // Return the list of resizer handles we should show for the current selection.
   // TODO: don't show handles that don't apply!!!
-  getResizeHandles(containingRect) {
+  getActiveHandles(containingRect) {
     const { canResizeWidth, canResizeHeight } = this.props;
-    if (!canResizeWidth && !canResizeWidth) return undefined;
+    if (!containingRect || !canResizeWidth && !canResizeWidth) return [];
 
-    const isNarrow = containingRect.width < 60;
-    const isShort = containingRect.height < 60;
+    const isNarrow = containingRect.width < Resizer.NARROW_WIDTH;
+    const isShort = containingRect.height < Resizer.SHORT_HEIGHT;
 
     if (canResizeWidth && canResizeHeight) {
       if (isNarrow && isShort) return ["br"];
@@ -87,38 +130,34 @@ export default class Resizer extends React.Component {
     }
   }
 
-  renderHandles(containingRect) {
-    const handles = this.getResizeHandles(containingRect);
-    if (!handles) return null;
-    return handles.map( handle => this.renderHandle(handle) );
+  // Render ALL of the possible handles.
+  //  We'll actually show or hide them during `updateGeometry()`.
+  renderHandles() {
+    // TODO: memoize
+    if (!this.props.canResizeWidth && !this.props.canResizeHeight) return undefined;
+
+    return this.constructor.ALL_HANDLES.map( handle => <div {...{
+      className: `oak ResizeHandle ${handle}`,
+      key: handle,
+      ref: `handle-${handle}`,
+      handle,
+      onMouseDown: (event) => this.onHandleDown(event, handle)
+    }}/> );
   }
 
-  renderHandle(handle) {
-    const handleProps = {
-      key: handle,
-      handle,
-      onMouseDown: (event) => this.props.onHandleDown(event, handle)
-    }
-    return <ResizeHandle {...handleProps} />;
-  }
+  //////////////////////////////
+  // Generic render
+  //////////////////////////////
 
   render() {
-    // rects of all SelectionRects so we know how big the outer bounds are
-    const rects = [];
-    const selectionRects = this.renderSelectionRects(rects);
-    if (!selectionRects) return null;
-
-    // how big is the resizer?
-    const resizerRect = Rect.containingRect(rects);
-
-    // Render handles as necessary
-    const handles = this.renderHandles(resizerRect);
+    const { selection } = this.props;
+    if (!selection || !selection.length) return null;
 
     return (
-      <div className="oak Resizer" style={resizerRect}>
-        { selectionRects }
-        { <SelectionRect type="resizer" rect={resizerRect} /> }
-        { handles }
+      <div className="oak Resizer">
+        { this.renderSelectionRects() }
+        { <SelectionRect type="resizer" ref="resizer" /> }
+        { this.renderHandles() }
       </div>
     )
   }

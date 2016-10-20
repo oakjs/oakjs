@@ -1,43 +1,43 @@
-<Oak.Page id="Sticky" title="Sticky" oid="RM70lkxQ">
-  <PageTitle title="Sticky" oid="r2lYa66h">
+<Oak.Page id="Sticky" title="Sticky">
+  <PageTitle title="Sticky">
     Sticky content fixes itself to the browser viewport as content is scrolled
-    <Bug oid="Qxsk4KoW">
+    <Bug>
       Not sure why Sticky is disappearing on scroll, AFAICT it&apos;s set up correctly.
     </Bug>
-    <Todo oid="rv4iNrWj">
-      <ul oid="DjgRI30W">
-        <li oid="eXpt3oP2">
+    <Todo>
+      <ul>
+        <li>
           Other styles
         </li>
-        <li oid="OYitfI8X">
+        <li>
           Events
         </li>
       </ul>
     </Todo>
   </PageTitle>
-  <PageSection title="Sticky" oid="mNVLSb04">
-    <SUI.Rail internal left oid="v9fG2TlN">
-      <SUI.Sticky ref="leftSticky" bound context="#sticky" oid="WXiC8IlP">
-        <SUI.Segment oid="oCCsY46a">
-          <LoremIpsum short oid="PyTy8NUo"/>
+  <PageSection title="Sticky">
+    <SUI.Rail internal left>
+      <SUI.Sticky ref="leftSticky" bound context="#sticky">
+        <SUI.Segment>
+          <LoremIpsum short/>
         </SUI.Segment>
       </SUI.Sticky>
     </SUI.Rail>
-    <SUI.Rail internal right oid="Et1UnU4O">
-      <SUI.Sticky context="#sticky" oid="f2Vkhoci">
-        <SUI.Segment oid="HVFLHqgb">
-          <LoremIpsum short oid="RNxuL2mE"/>
+    <SUI.Rail internal right>
+      <SUI.Sticky context="#sticky">
+        <SUI.Segment>
+          <LoremIpsum short/>
         </SUI.Segment>
       </SUI.Sticky>
     </SUI.Rail>
-    <Example id="sticky" title="Sticky" style={{marginLeft:350, marginRight:350}} oid="jAbM874w">
-      <LoremIpsum oid="VmvTdT9D"/>
-      <LoremIpsum oid="h4Nb3no5"/>
-      <LoremIpsum oid="AUmvfnIL"/>
-      <LoremIpsum oid="tEhF4MMq"/>
-      <LoremIpsum oid="kmEmIByo"/>
-      <LoremIpsum oid="L48KMObU"/>
-      <LoremIpsum oid="C4oPRXDU"/>
+    <Example id="sticky" title="Sticky" style={{marginLeft:350, marginRight:350}}>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
+      <LoremIpsum/>
     </Example>
   </PageSection>
 </Oak.Page>

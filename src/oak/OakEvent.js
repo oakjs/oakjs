@@ -36,7 +36,6 @@ export default class OakEvent {
 //    - clientLoc       Current mouse coordinate WITHOUT SCROLL
 //    - target          Current element under the mouse (including <SelectionOverlay>)
 //    - mouseTarget     Current element under the mouse (NOT including <SelectionOverlay>)
-//    - mouseComponent  Current JSXElement under the mouse (NOT including <SelectionOverlay>)
 //
 //  Mouse Button
 //    NOTE: only "left" mouse button is fully supported, see `_captureMouseDown()`
@@ -45,8 +44,9 @@ export default class OakEvent {
 //    - leftButtonDown  `true` if "left" mouse button is down.
 //
 //  Mouse down / dragging:
-//    - downPageLoc     Mousedown coordinate WITH SCROLL
 //    - isDragging      Has a drag been initiated?  (MouseDown + mouse move required)
+//    - downPageLoc     If left mouse down: Mousedown coordinate WITH SCROLL
+//    - downClientLoc   If left mouse down: Mousedown coordinate WITHOUT SCROLL
 //    - downTarget      If left mouse down: Element underneath the mouse on mousedown.
 //    - dragDelta       If left mouse down: Delta between mouseDown and current mouse position.
 //    - dragDirection   If left mouse down: Direction of movement since mousedown.
@@ -148,51 +148,48 @@ export default class OakEvent {
   }
 
   //////////////////////////////
-  // OID Element detection
+  // Mouse Move / Down detection
   //////////////////////////////
 
-  // Element under the mouse, NOT including the `SelectionOverlay`.
+  // DOM Element under the mouse, NOT including the `SelectionOverlay`.
   // NOTE: this is pretty expensive to calculate...
+  // NOTE: this can be called at any time, as it's based on the stored `event.clientLoc`.
   get mouseTarget() {
-    return OakEvent._getMouseTarget();
+    if (oak.event) return OakEvent._getTopElement(oak.event.clientLoc);
   }
 
-  // OID Element under the mouse
-  get _mouseOid() {
-    return OakEvent._getClosestOid(this.mouseTarget);
+  // DOM Element under the mouse when the mouse went down, NOT including the `SelectionOverlay`.
+  // NOTE: this is pretty expensive to calculate...
+  // NOTE: this can be called at any time, as it's based on the stored `event.clientLoc`.
+  get downTarget() {
+    if (oak.event) return OakEvent._getTopElement(oak.event.downClientLoc);
   }
 
-  // Editable component under the mouse
-  get mouseComponent() {
-    return oak.getComponentForOid(this._mouseOid);
+  // Return the top-most element under the mouse.
+  // Returns `undefined` if we can't figure it out.
+  //
+  // NOTE: If you have overlays which you do NOT want to be counted in this
+  //       (eg the `Oak.SelectionOverlay` which shows the selection),
+  //       give them the DOM attribute `[data-hide-while-selecting]`
+  //       and we'll ignore them when figuring out the element.
+  //
+  // NOTE: This is relatively expensive to figure out, as it references,
+  //       and possibly manipulates, the DOM.
+  //
+  static _getTopElement(clientLoc) {
+    if (!clientLoc) return undefined;
+
+    // turn off pointer events for anything with our flag attribute.
+    const toHide = document.querySelectorAll("[data-hide-while-selecting]");
+    if (toHide.length) toHide.forEach( element => element.style.pointerEvents = "none" );
+
+    const target = document.elementFromPoint(clientLoc.x, clientLoc.y) || undefined;
+
+    // restore pointer events
+    if (toHide.length) toHide.forEach( element => element.style.pointerEvents = "" );
+
+    return target;
   }
-
-  // OID Element under the mouse when mouse went down
-  get _downOid() {
-    return OakEvent._getClosestOid(this.downTarget);
-  }
-
-  // Editable component where the mouse went down.
-  get downComponent() {
-    return oak.getComponentForOid(this._downOid);
-  }
-
-  // Return the `oid` of the closest element with a `data-oid` attribute to the `target` element.
-  // NOTE: only returns elements in the current `oak.editController`.
-  static _getClosestOid(target) {
-    if (!target) return undefined;
-
-    const oidTarget = roots.elements.closestMatching(target, "[data-oid]");
-    if (!oidTarget) return undefined;
-
-    const oid = oidTarget.getAttribute("data-oid");
-    if (oak.state.editController) {
-      const component = oak.getEditableComponentForOid(oid);
-      if (component) return oid;
-    }
-    return undefined;
-  }
-
 
 
   //////////////////////////////
@@ -244,7 +241,7 @@ export default class OakEvent {
     if (button === "left") {
       oakEvent.type = "mousedown";
       oakEvent.downPageLoc = oakEvent.pageLoc;
-      oakEvent.downTarget = oakEvent.mouseTarget;
+      oakEvent.downClientLoc = oakEvent.clientLoc;
       oakEvent.button = button;
     }
     else if (button === "right") {
@@ -265,8 +262,8 @@ export default class OakEvent {
   // Clear event data set on mouseDown.
   _clearMouseDownData() {
     delete this.button;
+    delete this.downClientLoc;
     delete this.downPageLoc;
-    delete this.downTarget;
     delete this.isDragging;
     delete this.menuTarget;
   }
@@ -411,28 +408,6 @@ export default class OakEvent {
       target: event.target,
     }
   }
-
-  // Return the target element under the mouse NOT including the `#SelectionOverlay` layer.
-  // Returns `undefined` if we can't figure it out.
-  //
-  // NOTE: this is expensive to figure out, as it references, and possibly manipulates, the DOM.
-  // NOTE: this can be called at any time, as it's based on the stored `event.clientLoc`.
-  static _getMouseTarget() {
-    if (!oak.event || !oak.event.clientLoc) return undefined;
-
-    // hide SelectionOverlay so it doesn't mask the page
-    const selectionOverlay = document.querySelector("#SelectionOverlay");
-    if (selectionOverlay) selectionOverlay.style.display = "none";
-
-    const target = document.elementFromPoint(oak.event.clientLoc.x, oak.event.clientLoc.y) || undefined;
-
-    // restore SelectionOverlay
-    if (selectionOverlay) selectionOverlay.style.display = "";
-
-    return target;
-  }
-
-
 
 
 

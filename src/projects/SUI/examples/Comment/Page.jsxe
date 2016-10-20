@@ -1,70 +1,70 @@
-<Oak.Page id="Comment" title="Comment" oid="ab6kprAa">
-  <PageTitle title="Comment" oid="KlN2ZEGQ">
+<Oak.Page id="Comment" title="Comment">
+  <PageTitle title="Comment">
     A comment displays user feedback to site content
-    <Info oid="F7judowD">
+    <Info>
       Note that &lt;Comment&gt; elements must be inside a &lt;Comments&gt; element to format properly.
     </Info>
-    <Todo oid="fdTI3h4i">
+    <Todo>
       Reply form
     </Todo>
   </PageTitle>
-  <PageSection title="Content" oid="MJfnMc4H">
-    <SUI.Grid columns={2} oid="nAL4Io7A">
-      <SUI.Column oid="nxCPo9Y9">
-        <Example title="Text attribute" hint="<Comment text='...'/>" oid="Boh7aZM5">
-          <SUI.Comments oid="scSIc3EN">
-            <SUI.Comment text="Comment 1" oid="hqXjXIDC"/>
-            <SUI.Comment text="Comment 2" oid="rGWgSBy9"/>
-            <SUI.Comment text="Comment 3" oid="rAUKyWLu"/>
+  <PageSection title="Content">
+    <SUI.Grid columns={2}>
+      <SUI.Column>
+        <Example title="Text attribute" hint="<Comment text='...'/>">
+          <SUI.Comments>
+            <SUI.Comment text="Comment 1"/>
+            <SUI.Comment text="Comment 2"/>
+            <SUI.Comment text="Comment 3"/>
           </SUI.Comments>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="F8Sd1Fug">
-        <Example title="Author and AuthorLink attributes" hint="<Comment author='...'/>" oid="yQBjtY9Z">
-          <SUI.Comments oid="vamEacYT">
-            <SUI.Comment author="Elliot" text="This comment has no authorLink, so you can't click my name." oid="hNYybqbo"/>
-            <SUI.Comment author="Joe" authorLink="/go/to/joe" text="This comment has an authorLink" oid="GOQ6rsrV"/>
+      <SUI.Column>
+        <Example title="Author and AuthorLink attributes" hint="<Comment author='...'/>">
+          <SUI.Comments>
+            <SUI.Comment author="Elliot" text="This comment has no authorLink, so you can't click my name."/>
+            <SUI.Comment author="Joe" authorLink="/go/to/joe" text="This comment has an authorLink"/>
           </SUI.Comments>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="UqKIHYST">
-        <Example title="Avatar attribute" hint="<Comment avatar='...'/>" oid="CVDU17gC">
-          <SUI.Comments oid="QpS7hgMN">
-            <SUI.Comment author="Elliot" avatar={data.elliotAvatar} text="This comment has no authorLink, so you can't click my avatar." oid="viUrVgd0"/>
-            <SUI.Comment author="Joe" avatar={data.joeAvatar} authorLink="/go/to/joe" text="This comment has an authorLink" oid="a00EVal3"/>
+      <SUI.Column>
+        <Example title="Avatar attribute" hint="<Comment avatar='...'/>">
+          <SUI.Comments>
+            <SUI.Comment author="Elliot" avatar={data.elliotAvatar} text="This comment has no authorLink, so you can't click my avatar."/>
+            <SUI.Comment author="Joe" avatar={data.joeAvatar} authorLink="/go/to/joe" text="This comment has an authorLink"/>
           </SUI.Comments>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="fC8QeNFR">
-        <Example title="Metadata attribute" hint="<Comment metadata='...'/>" oid="A4uZf4U4">
-          <SUI.Comments oid="rRPbEB7O">
-            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!" oid="TuNOY1oV"/>
-            <SUI.Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="Congratulations!" oid="OuCXicY6"/>
+      <SUI.Column>
+        <Example title="Metadata attribute" hint="<Comment metadata='...'/>">
+          <SUI.Comments>
+            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!"/>
+            <SUI.Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="Congratulations!"/>
           </SUI.Comments>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="n1bZkQKj">
-        <Example title="Actions attribute" hint="<Comment actions={...}/>" oid="ht7LZ2Uk">
-          <SUI.Comments oid="crOmwPoF">
-            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!" actions={data.actions} oid="dywUJHuj"/>
-            <SUI.Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" actions={data.actions} oid="wUkFxGUt"/>
-            <SUI.Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="Congratulations!" actions={data.actions} oid="GxUXYOvN"/>
+      <SUI.Column>
+        <Example title="Actions attribute" hint="<Comment actions={...}/>">
+          <SUI.Comments>
+            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!" actions={data.actions}/>
+            <SUI.Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" actions={data.actions}/>
+            <SUI.Comment metadata="Just now" author="Joe" avatar={data.joeAvatar} text="Congratulations!" actions={data.actions}/>
           </SUI.Comments>
         </Example>
       </SUI.Column>
-      <SUI.Column oid="hQ6NPU1P">
-        <Example title="Nested Comments" hint="<Comment...><Comments/></Comment>" oid="KPBuY8Sh">
-          <SUI.Comments oid="AqfWen8k">
-            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!" oid="GbC7msII">
-              <SUI.Comments oid="LRtYHQBJ">
-                <SUI.Comment metadata="2 hours ago" author="Joe" avatar={data.joeAvatar} text="That's rad!" oid="syClAocb">
-                  <SUI.Comments oid="kMo4jQtg">
-                    <SUI.Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="Yes it is!" oid="BUPWD4vA"/>
+      <SUI.Column>
+        <Example title="Nested Comments" hint="<Comment...><Comments/></Comment>">
+          <SUI.Comments>
+            <SUI.Comment metadata="Yesterday at 12:30AM" author="Elliot" avatar={data.elliotAvatar} text="I got the job!">
+              <SUI.Comments>
+                <SUI.Comment metadata="2 hours ago" author="Joe" avatar={data.joeAvatar} text="That's rad!">
+                  <SUI.Comments>
+                    <SUI.Comment metadata="Just now" author="Elliot" avatar={data.elliotAvatar} text="Yes it is!"/>
                   </SUI.Comments>
                 </SUI.Comment>
               </SUI.Comments>
             </SUI.Comment>
-            <SUI.Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!" oid="oQwRppHI"/>
+            <SUI.Comment metadata="10 minutes ago" author="Stevie" avatar={data.stevieAvatar} text="That makes me happy!!"/>
           </SUI.Comments>
         </Example>
       </SUI.Column>

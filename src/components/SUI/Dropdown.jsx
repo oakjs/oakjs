@@ -6,7 +6,6 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { autobind } from "oak-roots/util/decorators";
 
 import { getPointingClass } from "./constants";
 
@@ -165,7 +164,7 @@ class SUIDropdown extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    this.$ref().dropdown(...args);
+    this.$getElement().dropdown(...args);
   }
 
   // Update `value` as parsimoniously as possible to minimize
@@ -256,7 +255,7 @@ class SUIDropdown extends SUIModuleComponent {
     if (this.props.hidden) return null;
 
     const {
-      oid, id, className, style,
+      id, className, style,
       type, selection, multiple, search,
       text, placeholder, icon, children,
       items, menuClassName, menuAppearance,
@@ -268,7 +267,6 @@ class SUIDropdown extends SUIModuleComponent {
 
     const elements = new ElementBuffer({
       props : {
-        "data-oid": oid,
         id,
         style,
         className: [className, "ui", appearance, getPointingClass(pointing),

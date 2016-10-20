@@ -29,6 +29,7 @@ export class ComponentProxy extends React.Component {
   }
 
   // If you have a fixed concept of who your controller is, override this.
+//TODO: getter
   getController() {
     return this.props.component;
   }

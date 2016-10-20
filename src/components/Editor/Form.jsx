@@ -92,7 +92,7 @@ export default class Form extends OakComponent {
     if (!autoFocus) return;
 
     const selector = (autoFocus === true ? `[name]` : `[name='${autoFocus}']`);
-    const field = this.$ref().find(selector).filter(":not([disabled])")[0];
+    const field = this.$getElement().find(selector).filter(":not([disabled])")[0];
     if (!field) return;
 
     // attempt to `select()` the field first
@@ -240,9 +240,7 @@ export default class Form extends OakComponent {
     return {
       id: props.id,
       style: props.style,
-      className: this.getFormClassName(props),
-// TODO: add all unknown props... ???
-      "data-oid": props["data-oid"]
+      className: this.getFormClassName(props)
     }
   }
 

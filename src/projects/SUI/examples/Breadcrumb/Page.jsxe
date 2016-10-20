@@ -1,53 +1,53 @@
-<Oak.Page id="Breadcrumb" title="Breadcrumb" oid="KKwTjYmr">
-  <PageTitle title="Breadcrumb" oid="uUT0BNJE">
+<Oak.Page id="Breadcrumb" title="Breadcrumb">
+  <PageTitle title="Breadcrumb">
     A breadcrumb is used to show hierarchy between content
   </PageTitle>
-  <PageSection title="Content" oid="ZZd8qTC4">
-    <Example title="Map of items" hint="<Breadcrumb items={{...}}/>" oid="auAbr1nl">
-      <SUI.Breadcrumb items={data.map} oid="LFc5rl61"/>
+  <PageSection title="Content">
+    <Example title="Map of items" hint="<Breadcrumb items={{...}}/>">
+      <SUI.Breadcrumb items={data.map}/>
     </Example>
-    <Example title="List of item objects" hint="<Breadcrumb items={[ {link, title, active}, ...]}/>" oid="WVw4mIvO">
-      <SUI.Breadcrumb items={data.items} oid="LcA9kqBq"/>
+    <Example title="List of item objects" hint="<Breadcrumb items={[ {link, title, active}, ...]}/>">
+      <SUI.Breadcrumb items={data.items}/>
     </Example>
-    <Example title="List of strings" hint="<Breadcrumb items={[ '...', '...', ...}/>" oid="LS0LMq1k">
-      <SUI.Breadcrumb items={data.strings} oid="DF2ZHtn5"/>
+    <Example title="List of strings" hint="<Breadcrumb items={[ '...', '...', ...}/>">
+      <SUI.Breadcrumb items={data.strings}/>
     </Example>
-    <Example title="Inline content" hint="<Breadcrumb>...</Breadcrumb>" oid="GmVe8RQI">
-      <SUI.Breadcrumb oid="hv3Ww5l2">
-        <a href="#" className="section" oid="DJO6BUm8">
+    <Example title="Inline content" hint="<Breadcrumb>...</Breadcrumb>">
+      <SUI.Breadcrumb>
+        <a href="#" className="section">
           Home
         </a>
-        <div className="divider" oid="f6vDqwxA">
+        <div className="divider">
           /
         </div>
-        <div className="active section" oid="JNyrRWcB">
+        <div className="active section">
           Search for:
-          <a href="#" oid="CtsaADKF">
+          <a href="#">
             paper towels
           </a>
         </div>
       </SUI.Breadcrumb>
     </Example>
   </PageSection>
-  <PageSection title="Appearance" oid="BMWcoKg2">
-    <Example title="Text divider" hint="<Breadcrumb divider='/'/>" oid="dx5DqfN8">
-      <SUI.Breadcrumb items={data.map} oid="NCfLcyTg"/>
-      <Oak.Spacer oid="tNTBBuFt"/>
-      <SUI.Breadcrumb divider="•" items={data.map} oid="brS9bQmv"/>
+  <PageSection title="Appearance">
+    <Example title="Text divider" hint="<Breadcrumb divider='/'/>">
+      <SUI.Breadcrumb items={data.map}/>
+      <Oak.Spacer/>
+      <SUI.Breadcrumb divider="•" items={data.map}/>
     </Example>
-    <Example title="Icon divider" hint="<Breadcrumb icon='right chevron'/>" oid="xxeFwpgm">
-      <SUI.Breadcrumb icon="right chevron" items={data.map} oid="pgm45tBH"/>
-      <Oak.Spacer oid="REtYiGfn"/>
-      <SUI.Breadcrumb icon="right arrow" items={data.map} oid="x8eIQHyl"/>
+    <Example title="Icon divider" hint="<Breadcrumb icon='right chevron'/>">
+      <SUI.Breadcrumb icon="right chevron" items={data.map}/>
+      <Oak.Spacer/>
+      <SUI.Breadcrumb icon="right arrow" items={data.map}/>
     </Example>
-    <Example title="Size" hint="<Breadcrumb size='small'/>" oid="UTjGIhuU">
-      <SUI.Breadcrumb size="small" items={data.map} oid="reKcueHc"/>
-      <Oak.Spacer oid="sShqMjhI"/>
-      <SUI.Breadcrumb size="medium" items={data.map} oid="wPqLU2Ry"/>
-      <Oak.Spacer oid="tVMLZJrv"/>
-      <SUI.Breadcrumb size="large" items={data.map} oid="fVH7tsUq"/>
-      <Oak.Spacer oid="DjO9vu22"/>
-      <SUI.Breadcrumb size="huge" items={data.map} oid="bpG6BnCp"/>
+    <Example title="Size" hint="<Breadcrumb size='small'/>">
+      <SUI.Breadcrumb size="small" items={data.map}/>
+      <Oak.Spacer/>
+      <SUI.Breadcrumb size="medium" items={data.map}/>
+      <Oak.Spacer/>
+      <SUI.Breadcrumb size="large" items={data.map}/>
+      <Oak.Spacer/>
+      <SUI.Breadcrumb size="huge" items={data.map}/>
     </Example>
   </PageSection>
 </Oak.Page>

@@ -2,59 +2,105 @@
 // Overlay which shows/manages selection
 //////////////////////////////
 
+import React, { PropTypes } from "react";
+
+import { updateRect } from "oak-roots/util/react";
 import { throttle } from "oak-roots/util/decorators";
-import Point from "oak-roots/Point";
-import Rect from "oak-roots/Rect";
-import { UndoTransaction } from "oak-roots/UndoQueue";
 
 import { getDragPreviewForElements } from "oak-roots/util/elements";
 
 import DragMovePreview from "./DragMovePreview";
 import DragSelectRect from "./DragSelectRect";
 import OakComponent from "./OakComponent";
-import SelectionRect from "./SelectionRect";
 import Resizer from "./Resizer";
+import SelectionRect from "./SelectionRect";
 
 import "./SelectionOverlay.less";
 
 export default class SelectionOverlay extends OakComponent {
+  static propTypes = {
+    controller: PropTypes.object,
+    canResizeWidth: PropTypes.bool,
+    canResizeHeight: PropTypes.bool
+// TODO: canMultiSelect
+  }
+
+// TODO: these are not the right defaults, unless we can actually resize components!
+  static defaultProps = {
+    canResizeWidth: true,
+    canResizeHeight: true
+  }
+
   constructor() {
     super(...arguments);
     this.state = {};
   }
 
-  componentDidMount() {
-    super.componentDidMount();
-    // update selection rectangle(s) when window scrolls, zooms or resizes
-    $(document).on("scroll", this.onScroll);
-    $(document).on("zoom", this.onZoom);
-    $(window).on("resize", this.onResize);
-  }
-
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    $(document).off("scroll", this.onScroll);
-    $(document).off("zoom", this.onZoom);
-    $(window).off("resize", this.onResize);
-  }
-
-  getElement(oid) {
-    return oak.editController.jsxFragment.getElement(oid);
-  }
 
   //////////////////////////////
-  // Window/document events which change browser geometry
-  // and update selection rectangles
+  // Syntactic sugar
   //////////////////////////////
 
+  // Controller who manages our geometry.
+  get controller() {
+    return this.props.controller;
+  }
+
+  // Array of currently selected `oids` in our `controller`.
+  // ALWAYS returns an array.
+  get selection() {
+    return (this.props.controller && this.props.controller.selection) || [];
+  }
+
+  // Array of JSXElements which are currently selected.
+  // ALWAYS returns an array.
+  get selectedElements() {
+    return (this.props.controller && this.props.controller.selectedElements) || [];
+  }
+
+
+  //////////////////////////////
+  // Events and geometry
+  //////////////////////////////
+
+  // Update our geometry to match the current state of the selection.
+  updateGeometry() {
+    const controller = this.controller;
+    if (!controller) return;
+
+    // Update the outer rect of the component to the rect of the controller.
+    updateRect(this.getElement(), controller.getRectForOid(controller.oid));
+
+    // update the rect of the dropParent, outsetting by 5 for better visual effect
+    let dropRect = controller.getRectForOid(this.state.dropParent);
+    if (dropRect) dropRect.outset(5);
+    updateRect(this.getElement("dropTarget"), dropRect);
+  }
+
+  // Update selection rectangle(s) when window scrolls, zooms or resizes.
+  installEvents() {
+    document.addEventListener("scroll", this.onScroll);
+    document.addEventListener("zoom", this.onZoom);
+    window.addEventListener("resize", this.onResize);
+  }
+
+  removeEvents() {
+    document.removeEventListener("scroll", this.onScroll);
+    document.removeEventListener("zoom", this.onZoom);
+    window.removeEventListener("resize", this.onResize);
+  }
+
+  // On document scroll event, update selection rectangles.
   onScroll = (event) => {
     this._updateSelectionRects();
   }
 
+  // On document zoom event, update selection rectangles.
   onZoom = (event) => {
     this._updateSelectionRects();
   }
 
+  // On window resize event, update selection rectangles.
   onResize = (event) => {
     this._updateSelectionRects();
   }
@@ -62,50 +108,18 @@ export default class SelectionOverlay extends OakComponent {
   // Update selection due to an event (scroll, zoom, etc).
   @throttle(10)
   _updateSelectionRects() {
-    if (!this._isMounted) return;
+    // if we're not currently drawn, forget it
+    if (this.getElement()) return;
 
     // if we have a selection, force update
-    if (oak.selection && oak.selection.length) {
-      this.forceUpdate();
-    }
-
-    this._clearHoverRect();
-  }
-
-  // NOTE: we set hover rectangle manually rather than fully redrawing
-  //       so we're not redrawing the overlay on mousemove.
-  //       This is more efficient and prevents cursor flash.
-  @throttle(1)
-  _updateHoverRect(event) {
-    const mouseOid = oak.event._mouseOid;
-    const isInsideHandle = event && $(event.target).is(".ResizeHandle");
-    let rect;
-    if (mouseOid && !isInsideHandle && !oak.event.anyButtonDown) {
-      rect = oak.getRectForOid(mouseOid);
-    }
-    this._moveRect("hover", rect);
-  }
-
-  _clearHoverRect() {
-    this._moveRect("hover");
-  }
-
-  _moveRect(ref, rect) {
-    if (!this._isMounted || !this.refs[ref]) return;
-
-    const $element = $(ReactDOM.findDOMNode(this.refs[ref]))
-    if (rect) $element.css(rect);
-    else      $element.attr("style", "");
+    const selection = this.selection || [];
+    if (selection.length) this.forceUpdate();
   }
 
 
   //////////////////////////////
   // Mouse events which manipulate selection
   //////////////////////////////
-
-  onMouseMove = (event) => {
-    this._updateHoverRect(event);
-  }
 
   // Mouse down on overlay itself
   onMouseDown = (event) => {
@@ -118,49 +132,51 @@ export default class SelectionOverlay extends OakComponent {
   //////////////////////////////
 
   onSelectionDown = (event) => {
-    // if they went down on the editController root element, start drag selecting
-    const oid = oak.event._downOid;
-    if (!oid || oak.editController && oak.editController.oid === oid) {
+    const { controller } = this;
+    if (!controller) return;
+
+    // get info for where the mouse went down
+    const downInfo = controller.getMouseDownInfo();
+    const downOid = downInfo && downInfo.oid;
+
+    // if they went down on the editController root element, or comman/meta key is down,
+    //  start drag selecting immediately
+    if (downOid === controller.oid || oak.event.commandKey) {
       return this.startDragSelecting(event);
     }
-//console.info("onSelectionDown", oid);
-    // if command/meta down
-    if (oak.event.commandKey) {
-      event.stopPropagation();
-      event.preventDefault();
-      this.startDragSelecting();
-      return;
 
-    // if shift is down,
-// TODO: verify that we can multi-select...
-    } else if (oak.event.shiftKey) {
-      // toggle selection of the element if there is one
-      if (oid) oak.actions.toggleSelection({ elements: oid });
-    }
-    // otherwise select just the oid
-    else if (!oak.selection.includes(oid)) {
-      oak.actions.setSelection({ elements: oid });
+    // update selection based on `downOid`
+    if (downOid) {
+      // if shift is down, toggle selection of the element
+      if (oak.event.shiftKey) {
+        oak.actions.toggleSelection({ controller, elements: downOid });
+      }
+      // otherwise select just the element if it's not already selected
+      else if (!this.selection.includes(downOid)) {
+        oak.actions.setSelection({ controller, elements: downOid });
+      }
     }
 
     // If anything is selected, start dragging
-    if (oak.selection.length) {
+    // NOTE: check selection explicitly here in case it changes based on the above
+    if (this.selection.length) {
       this.startDragMoving(event);
     }
   }
 
-  // mouse went up on selectionRect WITHOUT dragging
-  onSelectionRectUp = (event) => {
-    const oid = oak.event._downOid;
-    console.info("onSelectionRectUp", oid);
-    if (oid && !oak.event.shiftKey && oak.selection.length > 1) {
-      oak.actions.setSelection({ elements: oid });
-    }
-  }
-
-
   //////////////////////////////
   //  Drag selection
   //////////////////////////////
+
+  renderDragSelectRect() {
+    if (!this.state.dragSelecting) return;
+    return <DragSelectRect getSelectionForRect={this.getSelectionForRect} onDragEnd={this.onDragSelectionEnd} />
+  }
+
+  // Callback to get the selection for the specified `clientRect`.
+  getSelectionForRect = (clientRect) => {
+    if (this.controller) return this.controller.getElementsIntersectingRect(clientRect);
+  }
 
   // Start drawing a <DragSelectRect> when the mouse goes down.
   startDragSelecting = (event) => {
@@ -171,18 +187,13 @@ export default class SelectionOverlay extends OakComponent {
     this.setState({ dragSelecting: true });
   }
 
-  renderDragSelectRect() {
-    if (!this.state.dragSelecting) return;
-    return <DragSelectRect onDragEnd={this.onDragSelectionEnd} />
-  }
-
   // Callback when drag-selection completes:
   //  `event` is the mouseup event
-  //  `selection` is the list of `oids` which were intersected.
-  //  `selectionRects` is the list of `clientRect`s for those oids.
-  onDragSelectionEnd = (event, { selection, selectionRects } = {}) => {
+  //  `selection` is the list of `{ oid, dom, jsxe, rect }` for the things to be selected.
+  onDragSelectionEnd = (event, { selection } = {}) => {
     if (selection && selection.length) {
-      oak.actions.setSelection({ elements: selection});
+      const oids = selection.map( info => info.oid );
+      oak.actions.setSelection({ controller: this.controller, elements: oids });
     }
     else {
       oak.actions.clearSelection();
@@ -196,11 +207,12 @@ export default class SelectionOverlay extends OakComponent {
   //////////////////////////////
 
   startDragMoving(event) {
-    // Get all of the draggable components
-    const components = oak.selectedComponents
-      .filter(component => component.canDrag());
+    const { controller } = this;
 
-    if (components.length === 0) {
+    // Get all of the selected jsxElements which are draggable
+    const jsxElements = this.selectedElements.filter(jsxElement => jsxElement.canDrag());
+
+    if (jsxElements.length === 0) {
       console.warn("SelectionOverlay.startDragMoving(): no draggable elements found in selection!");
       return;
     }
@@ -210,16 +222,17 @@ export default class SelectionOverlay extends OakComponent {
       event.preventDefault();
     }
 
-    // get the DOM elements which correspond to those components
-    const elements = components.map( component => component.renderedElement );
+    // get the DOM elements which correspond to those jsxElements
+    const dragOids = jsxElements.map( jsxElement => jsxElement.oid );
+    const domElements = dragOids.map( oid => controller.getDOMElementForOid(oid) );
 
     // clone the elements for the preview here, so we only do it once per drag
-    const preview = getDragPreviewForElements(elements);
+    const preview = getDragPreviewForElements(domElements);
 
     this.setState({
       dragMoving: true,
-      dragComponents: components,
-      dragOids: components.map( component => component.oid ),
+      dragOids,
+      dragComponents: jsxElements,
       dropParent: undefined,
       dropPosition: undefined,
       dragMoveProps: {
@@ -242,8 +255,18 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
   // `info.target` is the `oid` of the target parent if there is one
   onDragMove = (event, info) => {
+    const { controller } = this.props;
+    if (!controller) return;
+
+    const mouseInfo = controller.getMouseInfo();
+    const jsxElement = mouseInfo && mouseInfo.jsxe;
+    if (!jsxElement) {
+      console.warn(`SelectionOverlay.onDragMove(): couldn't get jsxElement under mouse`);
+      return;
+    }
+
     const { dropParent, dropPosition } = this.state;
-    const { parent, position } = this.getDropTarget(oak.event.mouseComponent) || {};
+    const { parent, position } = this.getDropTarget(jsxElement) || {};
 
     // Forget it if no change
     if (parent === "NO_CHANGE" || (parent === dropParent && position === dropPosition)) return;
@@ -265,8 +288,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
     this.setState({
       dropParent: parent,
-      dropPosition: position,
-      dropParentRect: parent && oak.getRectForOid(parent)
+      dropPosition: position
     });
 
     // Call the immediate `forceUpdate` routine
@@ -305,7 +327,6 @@ console.log("startDragMoving", info, this.state.dragComponents);
       dragOids: undefined,
       dragComponents: undefined,
       dropParent: undefined,
-      dropParentRect: undefined,
       dropPosition: undefined,
       dragMoveProps: undefined
     });
@@ -329,25 +350,25 @@ console.log("startDragMoving", info, this.state.dragComponents);
   //   - iterate through items in each row:
   //    - if dropping on the "left side" of an element, drop before it
   //    - if dropping on the "right side" or "after" an element, drop after it.
-  getDropTarget(mouseComponent) {
-    const parent = this.getDropParent(mouseComponent);
+  getDropTarget(jsxElement) {
+    const parent = this.getDropParent(jsxElement);
     if (!parent) return undefined;
 
     const position = this.getDropPosition(parent);
     return { parent: parent.oid, position };
   }
 
-  // Figure out the drop parent, starting at the `mouseComponent`
+  // Figure out the drop parent, starting at the `jsxElement`
   //  and going up until we find something that can accept the `dragComponents`.
   // Returns `undefined` if no parent found.
-  getDropParent(mouseComponent) {
-    if (!mouseComponent) return undefined;
+  getDropParent(jsxElement) {
+    if (!jsxElement) return undefined;
 
     const { dragComponents } = this.state;
-    let parent = mouseComponent;
+    let parent = jsxElement;
     while (parent) {
       if (parent.canDrop(dragComponents)) return parent;
-      parent = this.getElement(parent._parent);
+      parent = this.controller.getJSXElementForOid(parent._parent);
     }
   }
 
@@ -368,7 +389,10 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
   // Return an array of `{ oid, position, rect }` for children of our dropParent.
   getDropChildrenRects(dropParent) {
-    if (typeof dropParent === "string") dropParent = this.getElement(dropParent);
+    const controller = this.controller;
+    if (!controller) return undefined;
+
+    if (typeof dropParent === "string") dropParent = controller.getJSXElementForOid(dropParent);
     if (!dropParent || !dropParent.children && !dropParent.children.length) return undefined;
 
     // divide into rows
@@ -378,7 +402,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
     let positionDelta = 0;
     const children = dropParent.children.map( (child, index) => {
       const oid = child.oid;
-      const rect = oid && oak.getRectForOid(oid);
+      const rect = controller.getRectForOid(oid);
       if (!rect) return;
 
 //       const insideSelection = dragOids.includes(oid);
@@ -389,7 +413,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
     }).filter(Boolean);
 
     // divide into rows
-    const parentRect = oak.getRectForOid(dropParent.oid);
+    const parentRect = controller.getRectForOid(dropParent.oid);
     let rows = [ [] ];
     let row = 0;
     let rowEnd = parentRect.left;
@@ -494,54 +518,63 @@ console.log("startDragMoving", info, this.state.dragComponents);
 
 
   //////////////////////////////
-  //  Rendering
+  //  Hover element -- updates on mouseMove to show the element they're currently "over"
   //////////////////////////////
+
+//TODO: throttle???
+  onMouseMove = (event) => {
+    if (this.refs.hover) this.refs.hover.updateRect();
+  }
 
   renderHoverElement() {
     if (this.state.dragSelecting) return;
-    return <SelectionRect ref="hover" type="hover" onMouseDown={this.onSelectionDown}/>;
+    return <SelectionRect ref="hover" type="hover" onMouseDown={this.onSelectionDown} getRect={this.getHoverRect}/>;
   }
 
+  // Return the dynamic rect to show for the `hover` element.
+  getHoverRect = () => {
+    const { controller } = this.props;
+    if (!controller) return;
+
+    const mouseInfo = controller.getMouseInfo();
+    if (!mouseInfo) return;
+
+//TODO: not sure this is working...
+    const isInsideHandle = event && $(oak.event.target).is(".oak.ResizeHandle");
+    if (isInsideHandle || oak.event.anyButtonDown) return;
+
+    return mouseInfo.rect;
+  }
+
+
+
+  //////////////////////////////
+  //  Rendering
+  //////////////////////////////
+
   renderSelection() {
+    const { controller, canResizeWidth, canResizeHeight } = this.props;
     if (this.state.dragSelecting || this.state.dragMoving) return;
     const props = {
-      selection: oak.selection,
-      canResizeWidth: true,     // TODO
-      canResizeHeight: true,    // TODO
+      selection: this.selection,
+      getRectForSelectedItem: (oid) => controller.getRectForOid(oid),
+      canResizeWidth: canResizeWidth,
+      canResizeHeight: canResizeHeight,
       onSelectionDown: this.onSelectionDown,
       onHandleDown: this.onResizeHandleDown
     }
     return <Resizer {...props} />;
   }
 
-  renderDropChildrenRects() {
-    const rects = this.getDropChildrenRects(this.state.dropParent);
-    if (!rects) return [];
-
-    return rects.map( ({ oid, position, rect }, rectIndex) => {
-      return <SelectionRect key={rectIndex} type="activeDropChild" rect={rect} position={position}/>;
-    }).filter(Boolean);
-  }
-
-  renderDropTargetRect() {
-    const rect = this.state.dropParentRect;
-    if (!rect) return;
-
-    return [
-      <SelectionRect key="dropTarget" type="activeDropTarget" rect={rect.outset(5)}/>
-    ].concat(this.renderDropChildrenRects());
-  }
-
-
   render() {
-    const { oak } = this.context;
-    if (!oak.isEditing) return null;
+    const { controller } = this;
+    if (!controller || !controller.isSelecting) return null;
 
     const props = {
       id: "SelectionOverlay",
       onMouseDown: this.onMouseDown,
       onMouseMove: this.onMouseMove,
-      style: oak.getRectForOid(oak.editController && oak.editController.oid)
+      "data-hide-while-selecting": true
     }
 
     return (
@@ -550,7 +583,7 @@ console.log("startDragMoving", info, this.state.dragComponents);
         { this.renderSelection() }
         { this.renderDragSelectRect() }
         { this.renderDragMovePreview() }
-        { this.renderDropTargetRect() }
+        <SelectionRect ref="dropTarget" key="dropTarget" type="activeDropTarget"/>
       </div>
     );
   }

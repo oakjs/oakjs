@@ -1,37 +1,37 @@
-<Oak.Page id="Toggle" title="Toggle" oid="nR3fnSVg">
-  <PageTitle title="Toggle" oid="DTxmvk7J">
+<Oak.Page id="Toggle" title="Toggle">
+  <PageTitle title="Toggle">
     A toggle allows the user turn a setting on or off.
   </PageTitle>
-  <PageSection title="States" oid="SFZeIO5L">
-    <Oak.Columns oid="Ge17aMnB">
-      <Example title="Unchecked" oid="Fq0mEbd9">
-        <SUI.Toggle label="Unchecked Toggle" oid="eVmVEkR9"/>
+  <PageSection title="States">
+    <Oak.Columns>
+      <Example title="Unchecked">
+        <SUI.Toggle label="Unchecked Toggle"/>
       </Example>
-      <Example title="Checked" hint="<Toggle checked/>" oid="dyvUOoA4">
-        <SUI.Toggle checked label="Checked Toggle" oid="Y5JMK6j3"/>
-      </Example>
-    </Oak.Columns>
-    <Oak.Columns oid="rWNQ1gw3">
-      <Example title="Read-only" hint="<Toggle readonly/>" oid="iCHCtYcn">
-        <SUI.Toggle readonly label="Read-only Toggle" oid="senBX8lD"/>
-      </Example>
-      <Example title="Disabled" hint="<Toggle disabled/>" oid="EAVOao2N">
-        <SUI.Toggle disabled label="Disabled Toggle" oid="JGSURLJZ"/>
+      <Example title="Checked" hint="<Toggle checked/>">
+        <SUI.Toggle checked label="Checked Toggle"/>
       </Example>
     </Oak.Columns>
-    <Oak.Columns oid="qpK5eDFD">
-      <Example title="Hidden" hint="<Toggle hidden/>" oid="OThGCqrr">
-        <SUI.Toggle hidden label="Hidden Toggle" oid="Wt2DTgUQ"/>
+    <Oak.Columns>
+      <Example title="Read-only" hint="<Toggle readonly/>">
+        <SUI.Toggle readonly label="Read-only Toggle"/>
       </Example>
-      <Example title="Error" hint="<Toggle error/>" oid="nstmhi8J">
-        <SUI.Toggle error="Something went wrong" label="Error Toggle" oid="PkX0s9rl"/>
+      <Example title="Disabled" hint="<Toggle disabled/>">
+        <SUI.Toggle disabled label="Disabled Toggle"/>
+      </Example>
+    </Oak.Columns>
+    <Oak.Columns>
+      <Example title="Hidden" hint="<Toggle hidden/>">
+        <SUI.Toggle hidden label="Hidden Toggle"/>
+      </Example>
+      <Example title="Error" hint="<Toggle error/>">
+        <SUI.Toggle error="Something went wrong" label="Error Toggle"/>
       </Example>
     </Oak.Columns>
   </PageSection>
-  <PageSection title="Appearance" oid="NWWvPmbA">
-    <Example title="Fitted" hint="<Toggle appearance='fitted'/>" oid="ZadfXvfW">
-      <SUI.Segment appearance="left floated compact" oid="mL4oiGBQ">
-        <SUI.Toggle appearance="fitted" oid="ej2MPIcd"/>
+  <PageSection title="Appearance">
+    <Example title="Fitted" hint="<Toggle appearance='fitted'/>">
+      <SUI.Segment appearance="left floated compact">
+        <SUI.Toggle appearance="fitted"/>
       </SUI.Segment>
     </Example>
   </PageSection>

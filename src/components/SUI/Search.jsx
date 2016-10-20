@@ -6,7 +6,6 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { autobind } from "oak-roots/util/decorators";
 
 import ElementBuffer from "./ElementBuffer";
 import Input from "./Input";
@@ -100,7 +99,7 @@ class SUISearch extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().search(...args);
+    return this.$getElement().search(...args);
   }
 
   setModuleProps(props = {}) {

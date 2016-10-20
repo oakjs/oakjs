@@ -60,7 +60,7 @@ export default class SUIModuleComponent extends SUIComponent {
 
   // Send parameters or instructions to the  module.
   // You MUST override this in your subclass.
-  //  e.g.  `this.ref().myModule(...args)`
+  //  e.g.  `this.$getElement().myModule(...args)`
   tellModule(...args) {
     throw new TypeError(`Class ${this.constructor.name} MUST implement 'tellModule()'`);
   }

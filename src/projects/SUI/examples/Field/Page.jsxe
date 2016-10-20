@@ -1,191 +1,191 @@
-<Oak.Page id="Field" title="Field" oid="wYIawasp">
-  <PageTitle title="Field" oid="YSqROF6R">
+<Oak.Page id="Field" title="Field">
+  <PageTitle title="Field">
     A field is a form element containing a label and an input.
-    <Info oid="QjLAjVQk">
+    <Info>
       Note that a Field will only display properly if inside a Form.
     </Info>
-    <Todo oid="qR823jah">
-      <ul oid="PVcO0mb1">
-        <li oid="vrhnCb8y">
+    <Todo>
+      <ul>
+        <li>
           Support &grave;type=select&apos;??
         </li>
-        <li oid="cABe8o0Z">
+        <li>
           Output field type??
         </li>
-        <li oid="CKQr3klN">
+        <li>
           Add Dropdown, Checkbox, etc examples.
         </li>
       </ul>
     </Todo>
   </PageTitle>
-  <PageSection title="Content" oid="uOKBErAb">
-    <Example title="Inline Content" hint="<Field><Input/></Field>" oid="qcOKqyvO">
-      <SUI.Form oid="jw34vgWN">
-        <SUI.Field oid="j4RJ7DZj">
-          <label oid="j3lMibYj">
+  <PageSection title="Content">
+    <Example title="Inline Content" hint="<Field><Input/></Field>">
+      <SUI.Form>
+        <SUI.Field>
+          <label>
             First Name
           </label>
-          <input type="text" placeholder="this field was field specified as an html <input>" oid="C6wDn6XJ"/>
+          <input type="text" placeholder="this field was field specified as an html <input>"/>
         </SUI.Field>
-        <SUI.Field oid="eDE3fpO9">
-          <label oid="XXN6tuK6">
+        <SUI.Field>
+          <label>
             First Name
           </label>
-          <SUI.Input type="text" placeholder="this field was specified as an SUI <Input>" oid="c7CNOfwP"/>
+          <SUI.Input type="text" placeholder="this field was specified as an SUI <Input>"/>
         </SUI.Field>
       </SUI.Form>
     </Example>
-    <Example title="Fields Specified with `type`, `label`, etc Attributes" hint="<Field type='text' label='...'/>" oid="pLJopjQF">
-      <SUI.Form appearance="equal width" oid="vG6fl8yo">
-        <SUI.Fields appearance="compact" oid="uICIRo8Z">
-          <SUI.Field label="type=text" oid="na5N0155"/>
-          <SUI.Field label="type=button" oid="su4fHrRe"/>
-          <SUI.Field label="type=checkbox" oid="v29iPsSp"/>
+    <Example title="Fields Specified with `type`, `label`, etc Attributes" hint="<Field type='text' label='...'/>">
+      <SUI.Form appearance="equal width">
+        <SUI.Fields appearance="compact">
+          <SUI.Field label="type=text"/>
+          <SUI.Field label="type=button"/>
+          <SUI.Field label="type=checkbox"/>
         </SUI.Fields>
-        <SUI.Fields oid="COLlmfBi">
-          <SUI.Field type="text" oid="huH4GUUN"/>
-          <SUI.Field type="button" value="OK" error="SUI styling messes this up" oid="ql9s7XT1"/>
-          <SUI.Field type="checkbox" label="Checkbox label" oid="VmxiPovf"/>
+        <SUI.Fields>
+          <SUI.Field type="text"/>
+          <SUI.Field type="button" value="OK" error="SUI styling messes this up"/>
+          <SUI.Field type="checkbox" label="Checkbox label"/>
         </SUI.Fields>
-        <Oak.Spacer size="large" oid="MvstZAEA"/>
-        <SUI.Fields appearance="compact" oid="nospgEB5">
-          <SUI.Field label="type=date" oid="l0aSMLpd"/>
-          <SUI.Field label="type=datetime" oid="gjuMx4Db"/>
-          <SUI.Field label="type=datetime-local" oid="c1isAKsp"/>
+        <Oak.Spacer size="large"/>
+        <SUI.Fields appearance="compact">
+          <SUI.Field label="type=date"/>
+          <SUI.Field label="type=datetime"/>
+          <SUI.Field label="type=datetime-local"/>
         </SUI.Fields>
-        <SUI.Fields oid="RoKRcM0H">
-          <SUI.Field type="date" oid="vLmtQeVZ"/>
-          <SUI.Field type="datetime" oid="gJxtCTAO"/>
-          <SUI.Field type="datetime-local" oid="RJV0xOAy"/>
+        <SUI.Fields>
+          <SUI.Field type="date"/>
+          <SUI.Field type="datetime"/>
+          <SUI.Field type="datetime-local"/>
         </SUI.Fields>
-        <Oak.Spacer size="large" oid="N7qRkq9f"/>
-        <SUI.Fields appearance="compact" oid="RB6lhKR8">
-          <SUI.Field label="type=email" oid="hNPhyt4X"/>
-          <SUI.Field label="type=file" oid="q1JqQO76"/>
-          <SUI.Field label="type=hidden" oid="qNoxYy4A"/>
+        <Oak.Spacer size="large"/>
+        <SUI.Fields appearance="compact">
+          <SUI.Field label="type=email"/>
+          <SUI.Field label="type=file"/>
+          <SUI.Field label="type=hidden"/>
         </SUI.Fields>
-        <SUI.Fields oid="T9vPLTtV">
-          <SUI.Field type="email" oid="N0TBS5FH"/>
-          <SUI.Field type="file" oid="BArxbBjb"/>
-          <SUI.Field type="hidden" oid="ugN3qLtO"/>
+        <SUI.Fields>
+          <SUI.Field type="email"/>
+          <SUI.Field type="file"/>
+          <SUI.Field type="hidden"/>
         </SUI.Fields>
-        <Oak.Spacer size="large" oid="gDRCAZfd"/>
-        <SUI.Fields appearance="compact" oid="fiM1TCFU">
-          <SUI.Field label="type=image" oid="GpsUlkDV"/>
-          <SUI.Field label="type=month" oid="TWYxfG63"/>
-          <SUI.Field label="type=number" oid="iax4Hj6k"/>
+        <Oak.Spacer size="large"/>
+        <SUI.Fields appearance="compact">
+          <SUI.Field label="type=image"/>
+          <SUI.Field label="type=month"/>
+          <SUI.Field label="type=number"/>
         </SUI.Fields>
-        <SUI.Fields oid="JC7dJ5EE">
-          <SUI.Field type="image" error="SUI styling messes this up" oid="I9OBEHU9"/>
-          <SUI.Field type="month" oid="S2kRDyFb"/>
-          <SUI.Field type="number" min={0} max={10} oid="kBVnXGWy"/>
+        <SUI.Fields>
+          <SUI.Field type="image" error="SUI styling messes this up"/>
+          <SUI.Field type="month"/>
+          <SUI.Field type="number" min={0} max={10}/>
         </SUI.Fields>
-        <Oak.Spacer size="large" oid="AB5KmUwa"/>
-        <SUI.Fields appearance="compact" oid="bq050yyk">
-          <SUI.Field label="type=password" oid="Alrr4eqX"/>
-          <SUI.Field label="type=radio" oid="jtilxd3r"/>
-          <SUI.Field label="type=range" oid="IVZe2ZWl"/>
+        <Oak.Spacer size="large"/>
+        <SUI.Fields appearance="compact">
+          <SUI.Field label="type=password"/>
+          <SUI.Field label="type=radio"/>
+          <SUI.Field label="type=range"/>
         </SUI.Fields>
-        <SUI.Fields oid="OBJ1r9M1">
-          <SUI.Field type="password" oid="YjMP7JDf"/>
-          <SUI.Field type="radio" name="a" value="1" label="Radio label" oid="hC4cpt6D"/>
-          <SUI.Field type="range" min={0} max={10} oid="d3DYyflE"/>
+        <SUI.Fields>
+          <SUI.Field type="password"/>
+          <SUI.Field type="radio" name="a" value="1" label="Radio label"/>
+          <SUI.Field type="range" min={0} max={10}/>
         </SUI.Fields>
-        <Oak.Spacer size="large" oid="Fm08mGT0"/>
-        <SUI.Fields appearance="compact" oid="t9UWlQCf">
-          <SUI.Field label="type=reset" oid="ccd173I8"/>
-          <SUI.Field label="type=search" oid="Y1En8IRf"/>
-          <SUI.Field label="type=submit" oid="NL1MI6Li"/>
+        <Oak.Spacer size="large"/>
+        <SUI.Fields appearance="compact">
+          <SUI.Field label="type=reset"/>
+          <SUI.Field label="type=search"/>
+          <SUI.Field label="type=submit"/>
         </SUI.Fields>
-        <SUI.Fields oid="YqfYDCVJ">
-          <SUI.Field type="reset" value="Reset" error="SUI styling messes this up" oid="n7IifuYW"/>
-          <SUI.Field type="search" oid="xaY8AhfK"/>
-          <SUI.Field type="submit" value="Submit" error="SUI styling messes this up" oid="LkVt7BWd"/>
+        <SUI.Fields>
+          <SUI.Field type="reset" value="Reset" error="SUI styling messes this up"/>
+          <SUI.Field type="search"/>
+          <SUI.Field type="submit" value="Submit" error="SUI styling messes this up"/>
         </SUI.Fields>
-        <Oak.Spacer size="large" oid="nb3NGnJE"/>
-        <SUI.Fields appearance="compact" oid="W8L7VIq7">
-          <SUI.Field label="type=tel" oid="B7cTW848"/>
-          <SUI.Field label="type=time" oid="cwjNn79R"/>
-          <SUI.Field label="type=toggle" oid="O1i2SUVL"/>
+        <Oak.Spacer size="large"/>
+        <SUI.Fields appearance="compact">
+          <SUI.Field label="type=tel"/>
+          <SUI.Field label="type=time"/>
+          <SUI.Field label="type=toggle"/>
         </SUI.Fields>
-        <SUI.Fields oid="ac3KPqvM">
-          <SUI.Field type="tel" oid="Bv9R3Alp"/>
-          <SUI.Field type="time" oid="jAEbmx3V"/>
-          <SUI.Field type="toggle" oid="j3g6PaPu"/>
+        <SUI.Fields>
+          <SUI.Field type="tel"/>
+          <SUI.Field type="time"/>
+          <SUI.Field type="toggle"/>
         </SUI.Fields>
-        <Oak.Spacer size="large" oid="BkTJEAQL"/>
-        <SUI.Fields appearance="compact" oid="dbMbNGM3">
-          <SUI.Field label="type=url" oid="jiOnjIXO"/>
-          <SUI.Field label="type=week" oid="Stw2n0sB"/>
-          <SUI.Field label="type=textarea" oid="p9XMpRJ6"/>
+        <Oak.Spacer size="large"/>
+        <SUI.Fields appearance="compact">
+          <SUI.Field label="type=url"/>
+          <SUI.Field label="type=week"/>
+          <SUI.Field label="type=textarea"/>
         </SUI.Fields>
-        <SUI.Fields oid="vmYQ8GCy">
-          <SUI.Field type="url" oid="jPK0DZ5N"/>
-          <SUI.Field type="week" oid="CTaeP7HS"/>
-          <SUI.Field type="textarea" oid="v2QAPkUR"/>
+        <SUI.Fields>
+          <SUI.Field type="url"/>
+          <SUI.Field type="week"/>
+          <SUI.Field type="textarea"/>
         </SUI.Fields>
       </SUI.Form>
     </Example>
   </PageSection>
-  <PageSection title="States" oid="WTELvZ8H">
-    <Oak.Columns oid="lbt79rPe">
-      <Example title="Readonly" hint="<Field readonly/>" oid="gisEqD0T">
-        <SUI.Form state="error" oid="qKkyipd5">
-          <SUI.Field readonly type="text" label="Read Only Field" value="text" oid="Rj8jVvlb"/>
-          <Info oid="cSRZ9STr">
+  <PageSection title="States">
+    <Oak.Columns>
+      <Example title="Readonly" hint="<Field readonly/>">
+        <SUI.Form state="error">
+          <SUI.Field readonly type="text" label="Read Only Field" value="text"/>
+          <Info>
             Text field is selectable, this is correct according to the standard.
           </Info>
-          <SUI.Field readonly type="checkbox" rightLabel="Read Only Checkbox" oid="F1TmWUCQ"/>
-          <SUI.Field readonly type="radio" rightLabel="Read Only Radio Button" oid="IagHnoRo"/>
+          <SUI.Field readonly type="checkbox" rightLabel="Read Only Checkbox"/>
+          <SUI.Field readonly type="radio" rightLabel="Read Only Radio Button"/>
         </SUI.Form>
       </Example>
-      <Example title="Disabled" hint="<Field disabled/>" oid="dy6Spbby">
-        <SUI.Form oid="ReGoSiP2">
-          <SUI.Field disabled type="text" label="Disabled Field" oid="oolifk2Z"/>
-          <SUI.Field disabled type="checkbox" rightLabel="Disabled Checkbox" oid="wZ6D1dAN"/>
-          <SUI.Field disabled type="radio" rightLabel="Disabled Radio Button" oid="xKpyYmyG"/>
+      <Example title="Disabled" hint="<Field disabled/>">
+        <SUI.Form>
+          <SUI.Field disabled type="text" label="Disabled Field"/>
+          <SUI.Field disabled type="checkbox" rightLabel="Disabled Checkbox"/>
+          <SUI.Field disabled type="radio" rightLabel="Disabled Radio Button"/>
         </SUI.Form>
       </Example>
-      <Example title="Error" hint="<Field error> or <Field error='...'" oid="cap5SVxt">
-        <SUI.Form oid="jsZMwEtW">
-          <SUI.Field error type="text" label="Error Field with No Error Message" oid="fLQQIL5I"/>
-          <SUI.Field error="Something went wrong" type="text" label="Error Field with Message" oid="FP25UAda"/>
-          <SUI.Field error="Something went wrong" type="checkbox" rightLabel="Errors work for Checkboxes" oid="Rxbr4ERE"/>
+      <Example title="Error" hint="<Field error> or <Field error='...'">
+        <SUI.Form>
+          <SUI.Field error type="text" label="Error Field with No Error Message"/>
+          <SUI.Field error="Something went wrong" type="text" label="Error Field with Message"/>
+          <SUI.Field error="Something went wrong" type="checkbox" rightLabel="Errors work for Checkboxes"/>
         </SUI.Form>
       </Example>
     </Oak.Columns>
-    <Oak.Columns oid="uYoar2Lx">
-      <Example title="Required" hint="<Field requied>" oid="iw6X4Pjl">
-        <SUI.Form oid="Ml7OX5E0">
-          <SUI.Field required appearance="fluid" type="text" label="Last Name" oid="t1TMPOcA"/>
-          <SUI.Field required type="checkbox" rightLabel="I agree to the terms and conditions" oid="Egcbu1bH"/>
+    <Oak.Columns>
+      <Example title="Required" hint="<Field requied>">
+        <SUI.Form>
+          <SUI.Field required appearance="fluid" type="text" label="Last Name"/>
+          <SUI.Field required type="checkbox" rightLabel="I agree to the terms and conditions"/>
         </SUI.Form>
       </Example>
     </Oak.Columns>
   </PageSection>
-  <PageSection title="Appearance" oid="nRlkmZX5">
-    <Example title="Inline" hint="<Field inline label='...'/>" oid="A6AYPACQ">
-      <SUI.Form oid="aSsXESkV">
-        <SUI.Field inline type="text" label="Field Label" oid="qY3djyH3"/>
-        <SUI.Field inline type="checkbox" label="Field Label" rightLabel="Checkbox label" oid="qN6tm6PX"/>
+  <PageSection title="Appearance">
+    <Example title="Inline" hint="<Field inline label='...'/>">
+      <SUI.Form>
+        <SUI.Field inline type="text" label="Field Label"/>
+        <SUI.Field inline type="checkbox" label="Field Label" rightLabel="Checkbox label"/>
       </SUI.Form>
     </Example>
-    <Example title="Width" hint="<Field columns={3}/>" oid="aZY3CDnI">
-      <SUI.Form oid="Ko30MlH3">
-        <SUI.Fields oid="XClsd9PI">
-          <SUI.Field columns={6} type="text" label="First Name" oid="LZFAXQeu"/>
-          <SUI.Field columns={4} type="text" label="Middle" oid="QSTTXysu"/>
-          <SUI.Field columns={6} type="text" label="Last Name" oid="uRTZB7kc"/>
+    <Example title="Width" hint="<Field columns={3}/>">
+      <SUI.Form>
+        <SUI.Fields>
+          <SUI.Field columns={6} type="text" label="First Name"/>
+          <SUI.Field columns={4} type="text" label="Middle"/>
+          <SUI.Field columns={6} type="text" label="Last Name"/>
         </SUI.Fields>
-        <SUI.Fields oid="NOt2XK1D">
-          <SUI.Field columns={2} type="text" placeholder="2 wide" oid="WL94jR7V"/>
-          <SUI.Field columns={12} type="text" placeholder="12 wide" oid="cA8Zx3qY"/>
-          <SUI.Field columns={2} type="text" placeholder="2 wide" oid="f3WLjb6m"/>
+        <SUI.Fields>
+          <SUI.Field columns={2} type="text" placeholder="2 wide"/>
+          <SUI.Field columns={12} type="text" placeholder="12 wide"/>
+          <SUI.Field columns={2} type="text" placeholder="2 wide"/>
         </SUI.Fields>
-        <SUI.Fields oid="f52Xsxi7">
-          <SUI.Field columns={8} type="text" placeholder="8 wide" oid="FrYTh4k5"/>
-          <SUI.Field columns={6} type="text" placeholder="6 wide" oid="T3swdNA0"/>
-          <SUI.Field columns={2} type="text" placeholder="2 wide" oid="h4rRlFnw"/>
+        <SUI.Fields>
+          <SUI.Field columns={8} type="text" placeholder="8 wide"/>
+          <SUI.Field columns={6} type="text" placeholder="6 wide"/>
+          <SUI.Field columns={2} type="text" placeholder="2 wide"/>
         </SUI.Fields>
       </SUI.Form>
     </Example>
