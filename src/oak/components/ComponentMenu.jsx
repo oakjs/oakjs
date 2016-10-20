@@ -5,7 +5,7 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { classNames } from "oak-roots/util/react";
+import { classNames, knownProps } from "oak-roots/util/react";
 
 function getComponentItemProps(component, menuProps) {
   const active = (component === menuProps.selected);
@@ -24,13 +24,10 @@ function getComponentItemProps(component, menuProps) {
 export default function ComponentMenu(props, context) {
   const { oak } = context;
   const { Oak, SUI } = context.components;
-  let { components, checkSelected, emptyMessage, publicOnly, selected } = props;
+  let { components, checkSelected, emptyMessage, selected } = props;
 
   // Forget it if we didn't get any component to render
   if (!components) return null;
-
-  // NOTE: this implicitly references the `account` singleton.
-  if (publicOnly) components = components.filter(component => !component.isPrivate)
 
   let menuItems;
   if (components.length === 0) {
@@ -40,8 +37,9 @@ export default function ComponentMenu(props, context) {
     menuItems = components.map(component => <SUI.MenuItem {...getComponentItemProps(component, props)}/>);
   }
 
-  // pass all props including className along to menu
-  return React.createElement(SUI.Menu, props, menuItems);
+  // pass only props to menu that it understands
+  const menuProps = knownProps(props, SUI.Menu, "id", "className", "style");
+  return React.createElement(SUI.Menu, menuProps, menuItems);
 }
 
 ComponentMenu.propTypes = {

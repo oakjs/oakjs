@@ -1,14 +1,14 @@
-<Oak.Section id="examples" title="Examples" oid="SMaT8WT0">
+<Oak.Section id="examples" title="Examples">
   <Oak.Panel scrolling>
     <Oak.RightSidebar width={150}>
-      <SUI.Menu id="PageSidebarMenu" appearance="inverted attached vertical sticky" oid="we40f12G">
-        <SUI.MenuHeader oid="IanBiOwq">
+      <SUI.Menu id="PageSidebarMenu" appearance="inverted attached vertical sticky">
+        <SUI.MenuHeader>
           Components
         </SUI.MenuHeader>
-        <Oak.PageMenu appearance="inverted vertical" oid="VEL5c4kJ"/>
-        <Oak.Spacer size="large" oid="kILJxOdp"/>
+        <Oak.PageMenu appearance="inverted vertical"/>
+        <Oak.Spacer size="large"/>
       </SUI.Menu>
     </Oak.RightSidebar>
-    <Oak.CurrentPage oid="VJfF0xbf"/>
+    <Oak.CurrentPage/>
   </Oak.Panel>
 </Oak.Section>

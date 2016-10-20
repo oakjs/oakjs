@@ -1,718 +1,718 @@
-<Oak.Page id="Label" title="Label" oid="SA4egCkk">
-  <PageTitle title="Label" oid="ZjjU5NZZ">
+<Oak.Page id="Label" title="Label">
+  <PageTitle title="Label">
     A label displays content classification
   </PageTitle>
-  <PageSection title="Content" oid="RSDEoM2L">
-    <Example title="Text" oid="lUHZOyga">
-      <SUI.Label content="Label with content attribute" oid="nQWXP68E"/>
-      <SUI.Label oid="ssAJuRn7">
+  <PageSection title="Content">
+    <Example title="Text">
+      <SUI.Label content="Label with content attribute"/>
+      <SUI.Label>
         Label with inline content
       </SUI.Label>
     </Example>
-    <Example title="Icon" oid="XoeqXIlD">
-      <SUI.Label icon="mail" content="Label with content and icon attributes" oid="ROZOITnb"/>
-      <SUI.Label icon="mail" iconOn="right" content="Label with content and icon attributes" oid="kebdkAmI"/>
-      <Oak.Spacer oid="BM35Ygr5"/>
-      <SUI.Label oid="qJFXaItb">
-        <SUI.Icon icon="mail" oid="LLLHEsDw"/>
+    <Example title="Icon">
+      <SUI.Label icon="mail" content="Label with content and icon attributes"/>
+      <SUI.Label icon="mail" iconOn="right" content="Label with content and icon attributes"/>
+      <Oak.Spacer/>
+      <SUI.Label>
+        <SUI.Icon icon="mail"/>
         Label with inline content and icon
       </SUI.Label>
-      <SUI.Label appearance="right icon" oid="TfG8ayjD">
+      <SUI.Label appearance="right icon">
         Label with inline content and icon
-        <SUI.Icon icon="mail" oid="WNTYsQYg"/>
+        <SUI.Icon icon="mail"/>
       </SUI.Label>
     </Example>
-    <Example title="Detail" oid="w1XZ5TE7">
-      <SUI.Label content="Label with content and detail attributes" detail="Detail here" oid="biOn0LE2"/>
-      <SUI.Label oid="UuLB0r2P">
+    <Example title="Detail">
+      <SUI.Label content="Label with content and detail attributes" detail="Detail here"/>
+      <SUI.Label>
         Label with inline content and detail
-        <div className="detail" oid="Vumohs1W">
+        <div className="detail">
           Detail here
         </div>
       </SUI.Label>
-      <Oak.Spacer oid="bdcNYhJ8"/>
-      <SUI.Label icon="mail" content="Label with detail and icon" detail="Detail here" oid="mcP7O33C"/>
-      <SUI.Label icon="mail" iconOn="right" content="Label with detail and icon" detail="Detail here" oid="bGjTheP3"/>
-      <Oak.Spacer oid="A0gPfTkx"/>
-      <SUI.Label closable content="Closable label with detail and icon" detail="Detail here" oid="bZLZp3Fb"/>
+      <Oak.Spacer/>
+      <SUI.Label icon="mail" content="Label with detail and icon" detail="Detail here"/>
+      <SUI.Label icon="mail" iconOn="right" content="Label with detail and icon" detail="Detail here"/>
+      <Oak.Spacer/>
+      <SUI.Label closable content="Closable label with detail and icon" detail="Detail here"/>
     </Example>
-    <Example title="Image" hint="<Label image='http://...'/>" oid="F3Uy8qdP">
-      <SUI.Label image={data.joeAvatar} oid="Y5uuhH1I">
+    <Example title="Image" hint="<Label image='http://...'/>">
+      <SUI.Label image={data.joeAvatar}>
         Joe
       </SUI.Label>
-      <SUI.Label image={data.elliotAvatar} oid="AADoM9xx">
+      <SUI.Label image={data.elliotAvatar}>
         Elliot
       </SUI.Label>
-      <SUI.Label image={data.stevieAvatar} oid="iZ61Z7Dw">
+      <SUI.Label image={data.stevieAvatar}>
         Stevie
       </SUI.Label>
-      <Oak.Spacer oid="jTOKyZrm"/>
-      <SUI.Label image={data.joeAvatar} imageOn="right" oid="AIvVuQjA">
+      <Oak.Spacer/>
+      <SUI.Label image={data.joeAvatar} imageOn="right">
         Joe
       </SUI.Label>
-      <SUI.Label image={data.elliotAvatar} imageOn="right" oid="prCFKf9y">
+      <SUI.Label image={data.elliotAvatar} imageOn="right">
         Elliot
       </SUI.Label>
-      <SUI.Label image={data.stevieAvatar} imageOn="right" oid="fVXW9lFr">
+      <SUI.Label image={data.stevieAvatar} imageOn="right">
         Stevie
       </SUI.Label>
-      <Oak.Spacer oid="njNaKpG5"/>
-      <SUI.Label color="yellow" image={data.joeAvatar} oid="jsYWA4Mo">
+      <Oak.Spacer/>
+      <SUI.Label color="yellow" image={data.joeAvatar}>
         Joe
       </SUI.Label>
-      <SUI.Label color="teal" image={data.elliotAvatar} oid="j2ENOyNL">
+      <SUI.Label color="teal" image={data.elliotAvatar}>
         Elliot
-        <div className="detail" oid="j4QFcKfu">
+        <div className="detail">
           Professor
         </div>
       </SUI.Label>
     </Example>
-    <Example title="Including image" hint="<Label><Image src='http://...'/></Label>" oid="IAWbVUu4">
-      <SUI.Label oid="XhFgr9LD">
-        <SUI.Image src={data.joeAvatar} size="tiny" oid="JoHvQ4KM"/>
+    <Example title="Including image" hint="<Label><Image src='http://...'/></Label>">
+      <SUI.Label>
+        <SUI.Image src={data.joeAvatar} size="tiny"/>
         Joe
       </SUI.Label>
-      <SUI.Label oid="pDZ4JdXE">
-        <SUI.Image src={data.elliotAvatar} size="tiny" oid="yraAC2h4"/>
+      <SUI.Label>
+        <SUI.Image src={data.elliotAvatar} size="tiny"/>
         Elliot
       </SUI.Label>
-      <SUI.Label oid="qTUS673g">
-        <SUI.Image src={data.stevieAvatar} size="tiny" oid="DbrgX6lj"/>
+      <SUI.Label>
+        <SUI.Image src={data.stevieAvatar} size="tiny"/>
         Stevie
       </SUI.Label>
-      <Oak.Spacer oid="JkxZ0PRZ"/>
-      <SUI.Label oid="lvoBvk3o">
-        <SUI.Image src={data.joeAvatar} appearance="avatar" size="tiny" oid="nIqRNh4Q"/>
+      <Oak.Spacer/>
+      <SUI.Label>
+        <SUI.Image src={data.joeAvatar} appearance="avatar" size="tiny"/>
         Joe
       </SUI.Label>
-      <SUI.Label oid="C4IVBIWa">
-        <SUI.Image src={data.elliotAvatar} appearance="avatar" size="tiny" oid="hZahS1ll"/>
+      <SUI.Label>
+        <SUI.Image src={data.elliotAvatar} appearance="avatar" size="tiny"/>
         Elliot
       </SUI.Label>
-      <SUI.Label oid="dCYsdZUh">
-        <SUI.Image src={data.stevieAvatar} appearance="avatar" size="tiny" oid="rl0yrZ7c"/>
+      <SUI.Label>
+        <SUI.Image src={data.stevieAvatar} appearance="avatar" size="tiny"/>
         Stevie
       </SUI.Label>
     </Example>
-    <Example title="Link" hint="<Label tagName='a'.../>" oid="fu5CUETL">
-      <SUI.Label tagName="a" content="Google" icon="google" href="http://google.com" target="_blank" oid="FDtLirVy"/>
+    <Example title="Link" hint="<Label tagName='a'.../>">
+      <SUI.Label tagName="a" content="Google" icon="google" href="http://google.com" target="_blank"/>
     </Example>
   </PageSection>
-  <PageSection title="Appearance" oid="S1kBe3Ue">
-    <Example title="Basic" hint="<Label appearance='basic'/>" oid="TqCJS4A3">
-      <SUI.Label appearance="basic" oid="XSgVbaEw">
+  <PageSection title="Appearance">
+    <Example title="Basic" hint="<Label appearance='basic'/>">
+      <SUI.Label appearance="basic">
         Basic
       </SUI.Label>
-      <SUI.Label appearance="basic" image={data.elliotAvatar} size="small" oid="IA1JNKku">
+      <SUI.Label appearance="basic" image={data.elliotAvatar} size="small">
         Elliot
       </SUI.Label>
-      <SUI.Label appearance="basic" pointing oid="XAntwOXd">
+      <SUI.Label appearance="basic" pointing>
         Pointing
       </SUI.Label>
-      <SUI.Label appearance="basic" pointing="down" color="red" oid="VxRl3Plt">
+      <SUI.Label appearance="basic" pointing="down" color="red">
         Red Pointing
       </SUI.Label>
-      <SUI.Label appearance="basic" color="blue" oid="YXB7oQct">
+      <SUI.Label appearance="basic" color="blue">
         Blue
       </SUI.Label>
     </Example>
-    <Example title="Transparent" hint="<Label appearance='transparent'/>" oid="dbsR0b14">
-      <Todo oid="rt0kIGdw">
+    <Example title="Transparent" hint="<Label appearance='transparent'/>">
+      <Todo>
         Transparent colors would be cool...
       </Todo>
-      <SUI.Label appearance="transparent" oid="uOprANmb">
+      <SUI.Label appearance="transparent">
         transparent
       </SUI.Label>
-      <SUI.Label appearance="transparent baisc" oid="NQvjECGF">
+      <SUI.Label appearance="transparent baisc">
         transparent basic
       </SUI.Label>
-      <SUI.Label appearance="transparent" image={data.elliotAvatar} size="small" oid="YRPU4GIq">
+      <SUI.Label appearance="transparent" image={data.elliotAvatar} size="small">
         Elliot
       </SUI.Label>
-      <SUI.Label appearance="transparent" pointing oid="XfmMcH9T">
+      <SUI.Label appearance="transparent" pointing>
         Pointing
       </SUI.Label>
-      <SUI.Label appearance="transparent" pointing="down" color="red" oid="nEQDWU1u">
+      <SUI.Label appearance="transparent" pointing="down" color="red">
         Red Pointing
       </SUI.Label>
-      <SUI.Label appearance="transparent" color="blue" oid="GvWJtWlF">
+      <SUI.Label appearance="transparent" color="blue">
         Blue
       </SUI.Label>
     </Example>
-    <Example title="Inverted" hint="<Label appearance='inverted'/>" oid="oEhcKuwM">
-      <Todo oid="mjafO4m4">
+    <Example title="Inverted" hint="<Label appearance='inverted'/>">
+      <Todo>
         SUI doesn&apos;t support inverted unless you specify a color...
       </Todo>
-      <SUI.Segment appearance="inverted" oid="i7qpUqot">
-        <SUI.Label appearance="inverted" oid="s8aVJNZx">
+      <SUI.Segment appearance="inverted">
+        <SUI.Label appearance="inverted">
           inverted
         </SUI.Label>
-        <SUI.Label appearance="inverted baisc" oid="cdR8MQCU">
+        <SUI.Label appearance="inverted baisc">
           inverted basic
         </SUI.Label>
-        <SUI.Label appearance="inverted" image={data.elliotAvatar} size="small" oid="av43A4QM">
+        <SUI.Label appearance="inverted" image={data.elliotAvatar} size="small">
           Elliot
         </SUI.Label>
-        <SUI.Label appearance="inverted" pointing oid="VZRDQakg">
+        <SUI.Label appearance="inverted" pointing>
           Pointing
         </SUI.Label>
-        <SUI.Label appearance="inverted" pointing="down" color="red" oid="KeIjHits">
+        <SUI.Label appearance="inverted" pointing="down" color="red">
           Red Pointing
         </SUI.Label>
-        <SUI.Label appearance="inverted" color="blue" oid="lsK2xhKu">
+        <SUI.Label appearance="inverted" color="blue">
           Blue
         </SUI.Label>
       </SUI.Segment>
     </Example>
-    <Example title="Colors" hint="<Label appearance='circular'/>" oid="skVtnnKI">
-      <SUI.Label oid="tfHsA9J2">
+    <Example title="Colors" hint="<Label appearance='circular'/>">
+      <SUI.Label>
         (no color)
       </SUI.Label>
-      <SUI.Label color="red" oid="hPb3ZKoc">
+      <SUI.Label color="red">
         red
       </SUI.Label>
-      <SUI.Label color="orange" oid="sfwiNsJg">
+      <SUI.Label color="orange">
         orange
       </SUI.Label>
-      <SUI.Label color="yellow" oid="l8eDheP2">
+      <SUI.Label color="yellow">
         yellow
       </SUI.Label>
-      <SUI.Label color="olive" oid="gOchVOCL">
+      <SUI.Label color="olive">
         olive
       </SUI.Label>
-      <SUI.Label color="green" oid="P3Stma0B">
+      <SUI.Label color="green">
         green
       </SUI.Label>
-      <SUI.Label color="teal" oid="g4lDagPk">
+      <SUI.Label color="teal">
         teal
       </SUI.Label>
-      <SUI.Label color="blue" oid="NjAn6NKm">
+      <SUI.Label color="blue">
         blue
       </SUI.Label>
-      <SUI.Label color="violet" oid="I1MOt5Bj">
+      <SUI.Label color="violet">
         violet
       </SUI.Label>
-      <SUI.Label color="purple" oid="u7UFggIy">
+      <SUI.Label color="purple">
         purple
       </SUI.Label>
-      <SUI.Label color="pink" oid="ddCBTea2">
+      <SUI.Label color="pink">
         pink
       </SUI.Label>
-      <SUI.Label color="brown" oid="mGCd8xOu">
+      <SUI.Label color="brown">
         brown
       </SUI.Label>
-      <SUI.Label color="grey" oid="tkFZMyyJ">
+      <SUI.Label color="grey">
         grey
       </SUI.Label>
-      <SUI.Label color="black" oid="YlO9HJEL">
+      <SUI.Label color="black">
         black
       </SUI.Label>
     </Example>
-    <Example title="Pointing" hint="<Label pointing/> or <Label pointing='right'/>" oid="v7WOme7k">
-      <SUI.Grid columns={2} oid="qfNlaYj3">
-        <SUI.Column oid="aKuQ33Qb">
-          <SUI.Input appearance="fluid" placeholder="First name" oid="h5uq0YiP"/>
-          <SUI.Label pointing oid="W12Q36Fq">
+    <Example title="Pointing" hint="<Label pointing/> or <Label pointing='right'/>">
+      <SUI.Grid columns={2}>
+        <SUI.Column>
+          <SUI.Input appearance="fluid" placeholder="First name"/>
+          <SUI.Label pointing>
             Please enter a value
           </SUI.Label>
         </SUI.Column>
-        <SUI.Column oid="CWI3Usv3">
-          <SUI.Label pointing="down" oid="NhQndg8P">
+        <SUI.Column>
+          <SUI.Label pointing="down">
             Please enter a value
           </SUI.Label>
-          <SUI.Input appearance="fluid" placeholder="First name" oid="RVCTDcxp"/>
+          <SUI.Input appearance="fluid" placeholder="First name"/>
         </SUI.Column>
-        <SUI.Column oid="Pbuq54ar">
-          <SUI.Label pointing="right" color="red" appearance="basic" oid="HRtMrvL9">
+        <SUI.Column>
+          <SUI.Label pointing="right" color="red" appearance="basic">
             6 characters or more
           </SUI.Label>
-          <SUI.Input type="password" value="xxx" error oid="rnmFZIiS"/>
+          <SUI.Input type="password" value="xxx" error/>
         </SUI.Column>
-        <SUI.Column oid="ZkhfOyf1">
-          <SUI.Input placeholder="Username" oid="rRNMr1eB"/>
-          <SUI.Label pointing="left" color="red" oid="yUlTgPZA">
+        <SUI.Column>
+          <SUI.Input placeholder="Username"/>
+          <SUI.Label pointing="left" color="red">
             That name is taken.
           </SUI.Label>
         </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Corner" hint="<Label appearance='left corner'/>" oid="rkOgX2oG">
-      <SUI.Grid columns={3} oid="uyXBPDaP">
-        <SUI.Column oid="G315eO3m">
-          <SUI.Image src={data.placeholderImage} appearance="fluid" oid="B97f8D3y">
-            <SUI.Label appearance="corner" icon="heart" oid="OkbG3fng"/>
+    <Example title="Corner" hint="<Label appearance='left corner'/>">
+      <SUI.Grid columns={3}>
+        <SUI.Column>
+          <SUI.Image src={data.placeholderImage} appearance="fluid">
+            <SUI.Label appearance="corner" icon="heart"/>
           </SUI.Image>
         </SUI.Column>
-        <SUI.Column oid="PTUc3j8F">
-          <SUI.Image src={data.placeholderImage} appearance="fluid" oid="B5A9AFpE">
-            <SUI.Label appearance="left corner" icon="heart" oid="P0xwPS7F"/>
+        <SUI.Column>
+          <SUI.Image src={data.placeholderImage} appearance="fluid">
+            <SUI.Label appearance="left corner" icon="heart"/>
           </SUI.Image>
         </SUI.Column>
-        <SUI.Column oid="ueFxTvra">
-          <SUI.Image src={data.placeholderImage} appearance="fluid" oid="T47r39pM">
-            <SUI.Label appearance="right corner" icon="heart" oid="ITDC8sqs"/>
+        <SUI.Column>
+          <SUI.Image src={data.placeholderImage} appearance="fluid">
+            <SUI.Label appearance="right corner" icon="heart"/>
           </SUI.Image>
         </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Tag" hint="<Label appearance='tag'/>" oid="jFcD3TMT">
-      <SUI.Label appearance="tag" oid="IMCnC8no">
+    <Example title="Tag" hint="<Label appearance='tag'/>">
+      <SUI.Label appearance="tag">
         New
       </SUI.Label>
-      <SUI.Label appearance="tag" color="red" oid="sdPk9kGY">
+      <SUI.Label appearance="tag" color="red">
         Upcoming
       </SUI.Label>
-      <SUI.Label appearance="tag" color="teal" oid="u6LLD40t">
+      <SUI.Label appearance="tag" color="teal">
         Featured
       </SUI.Label>
     </Example>
-    <Example title="Ribbon" hint="<Label appearance='ribbon'/>" oid="Eq7y7hLo">
-      <SUI.Grid columns={2} oid="OsLUXcAm">
-        <SUI.Column oid="mMuM342T">
-          <SUI.Segment appearance="raised" oid="lr4Jbg4e">
-            <SUI.Label appearance="ribbon" oid="MRAlRipE">
+    <Example title="Ribbon" hint="<Label appearance='ribbon'/>">
+      <SUI.Grid columns={2}>
+        <SUI.Column>
+          <SUI.Segment appearance="raised">
+            <SUI.Label appearance="ribbon">
               Overview
             </SUI.Label>
-            <span oid="eHxqNxkk">
+            <span>
               Account Details
             </span>
-            <LoremIpsum short oid="HXMj5uuK"/>
-            <Oak.Spacer oid="HCqV7laV"/>
-            <SUI.Label appearance="ribbon" color="red" oid="oRbg08wH">
+            <LoremIpsum short/>
+            <Oak.Spacer/>
+            <SUI.Label appearance="ribbon" color="red">
               Community
             </SUI.Label>
-            <span oid="J11UnmCi">
+            <span>
               User Reviews
             </span>
-            <LoremIpsum short oid="lZWEpDmX"/>
+            <LoremIpsum short/>
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="VXhMe7oP">
-          <SUI.Segment appearance="raised" oid="VZlrgVhc">
-            <SUI.Label appearance="right ribbon" color="orange" oid="vLSFqanX">
+        <SUI.Column>
+          <SUI.Segment appearance="raised">
+            <SUI.Label appearance="right ribbon" color="orange">
               Specs
             </SUI.Label>
-            <LoremIpsum short oid="rSh7aUeY"/>
-            <Oak.Spacer oid="SyobVCHk"/>
-            <SUI.Label appearance="right ribbon" color="teal" oid="rmtjCmNF">
+            <LoremIpsum short/>
+            <Oak.Spacer/>
+            <SUI.Label appearance="right ribbon" color="teal">
               Reviews
             </SUI.Label>
-            <LoremIpsum short oid="bYrwDsVW"/>
+            <LoremIpsum short/>
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="h9Wn8cDl">
-          <SUI.Image src={data.placeholderImage} appearance="fluid" oid="WuTouM29">
-            <SUI.Label appearance="black ribbon" icon="hotel" oid="k110COAX">
+        <SUI.Column>
+          <SUI.Image src={data.placeholderImage} appearance="fluid">
+            <SUI.Label appearance="black ribbon" icon="hotel">
               Hotel
             </SUI.Label>
           </SUI.Image>
         </SUI.Column>
-        <SUI.Column oid="ZcOsfCdR">
-          <SUI.Image src={data.placeholderImage} appearance="fluid" oid="Os2N1oN0">
-            <SUI.Label appearance="right ribbon" color="red" icon="food" oid="L71XNXGF">
+        <SUI.Column>
+          <SUI.Image src={data.placeholderImage} appearance="fluid">
+            <SUI.Label appearance="right ribbon" color="red" icon="food">
               Food
             </SUI.Label>
           </SUI.Image>
         </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Attached" hint="<Label appearance='top attached'/>" oid="IKOAovdF">
-      <SUI.Grid columns={3} oid="A92joRNv">
-        <SUI.Column oid="XlmTe3cB">
-          <SUI.Segment oid="C3NQxytB">
-            <SUI.Label appearance="top left attached" oid="uZXKR1YP">
+    <Example title="Attached" hint="<Label appearance='top attached'/>">
+      <SUI.Grid columns={3}>
+        <SUI.Column>
+          <SUI.Segment>
+            <SUI.Label appearance="top left attached">
               top right
             </SUI.Label>
-            <LoremIpsum tiny oid="jYkwpIop"/>
+            <LoremIpsum tiny/>
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="Cipe1SZL">
-          <SUI.Segment oid="awTnC9ol">
-            <SUI.Label appearance="top attached" oid="QN9FqSgK">
+        <SUI.Column>
+          <SUI.Segment>
+            <SUI.Label appearance="top attached">
               top attached
             </SUI.Label>
-            <LoremIpsum tiny oid="nC5nJtuG"/>
+            <LoremIpsum tiny/>
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="pe7jY0Up">
-          <SUI.Segment oid="ZVyGsvQ0">
-            <SUI.Label appearance="top right attached" oid="QQjJ4mXl">
+        <SUI.Column>
+          <SUI.Segment>
+            <SUI.Label appearance="top right attached">
               top right
             </SUI.Label>
-            <LoremIpsum tiny oid="UosOpkeF"/>
+            <LoremIpsum tiny/>
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="KwELHQPH">
-          <SUI.Segment oid="Q8XFCRPj">
-            <SUI.Label appearance="bottom left attached" oid="XN60iFDS">
+        <SUI.Column>
+          <SUI.Segment>
+            <SUI.Label appearance="bottom left attached">
               bottom right
             </SUI.Label>
-            <LoremIpsum tiny oid="MuIQ5NHj"/>
+            <LoremIpsum tiny/>
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="T2KaFUFf">
-          <SUI.Segment oid="ALbPBRoF">
-            <SUI.Label appearance="bottom attached" oid="M4O2nTpP">
+        <SUI.Column>
+          <SUI.Segment>
+            <SUI.Label appearance="bottom attached">
               bottom attached
             </SUI.Label>
-            <LoremIpsum tiny oid="rOd0jwck"/>
+            <LoremIpsum tiny/>
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="sfVQ0xEe">
-          <SUI.Segment oid="PC6dtVMM">
-            <SUI.Label appearance="bottom right attached" oid="MnBFFtXB">
+        <SUI.Column>
+          <SUI.Segment>
+            <SUI.Label appearance="bottom right attached">
               bottom right
             </SUI.Label>
-            <LoremIpsum tiny oid="MvCxgKF0"/>
+            <LoremIpsum tiny/>
           </SUI.Segment>
         </SUI.Column>
       </SUI.Grid>
     </Example>
-    <Example title="Horizontal" hint="<Label appearance='horizontal'/>" oid="t12Aivye">
-      <Todo oid="vPAqC3nD">
+    <Example title="Horizontal" hint="<Label appearance='horizontal'/>">
+      <Todo>
         refactor this to a &lt;List&gt;
       </Todo>
-      <div className="ui divided section list" oid="AdklumC5">
-        <div className="item" oid="eKTgM2OJ">
-          <SUI.Label appearance="horizontal" color="red" oid="lDbk4Rtj">
+      <div className="ui divided section list">
+        <div className="item">
+          <SUI.Label appearance="horizontal" color="red">
             Fruit
           </SUI.Label>
           Kumquats
         </div>
-        <div className="item" oid="YqpRRm5w">
-          <SUI.Label appearance="horizontal" color="purple" oid="Ccgics25">
+        <div className="item">
+          <SUI.Label appearance="horizontal" color="purple">
             Candy
           </SUI.Label>
           Ice Cream
         </div>
-        <div className="item" oid="fMw0sGnS">
-          <SUI.Label appearance="horizontal" color="red" oid="VFoy1d42">
+        <div className="item">
+          <SUI.Label appearance="horizontal" color="red">
             Fruit
           </SUI.Label>
           Orange
         </div>
       </div>
     </Example>
-    <Example title="Floating" hint="<Label floating/>" oid="Y5G7OBnn">
-      <SUI.Menu appearance="compact" oid="UaADRrFn">
-        <SUI.MenuItem icon="mail" label="Messages" oid="L1pf7gcQ">
-          <SUI.Label floating color="red" oid="QF5M3xL1">
+    <Example title="Floating" hint="<Label floating/>">
+      <SUI.Menu appearance="compact">
+        <SUI.MenuItem icon="mail" label="Messages">
+          <SUI.Label floating color="red">
             22
           </SUI.Label>
         </SUI.MenuItem>
-        <SUI.MenuItem icon="users" label="Friends" oid="Fil23T35">
-          <SUI.Label floating color="teal" oid="UfuSHpWX">
+        <SUI.MenuItem icon="users" label="Friends">
+          <SUI.Label floating color="teal">
             3
           </SUI.Label>
         </SUI.MenuItem>
       </SUI.Menu>
     </Example>
-    <Example title="Closable" hint="<Label closable onClose='...'/>" oid="WF985Hon">
-      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Joe")} oid="EHk2jHlv">
+    <Example title="Closable" hint="<Label closable onClose='...'/>">
+      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Joe")}>
         Joe
       </SUI.Label>
-      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Elliot")} oid="c3odCCWH">
+      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Elliot")}>
         Elliot
       </SUI.Label>
-      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Stevie")} oid="VSfuglE7">
+      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Stevie")}>
         Stevie
       </SUI.Label>
-      <Oak.Spacer oid="eLLGpE63"/>
-      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Joe")} icon="mail" oid="cq5tBiaE">
+      <Oak.Spacer/>
+      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Joe")} icon="mail">
         Joe
       </SUI.Label>
-      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Elliot")} icon="mail" oid="h8tfrX9W">
+      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Elliot")} icon="mail">
         Elliot
       </SUI.Label>
-      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Stevie")} icon="mail" oid="et3jj6Ep">
+      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Stevie")} icon="mail">
         Stevie
       </SUI.Label>
-      <Oak.Spacer oid="lgLVKfiJ"/>
-      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Joe")} image={data.joeAvatar} oid="Tj0GjKIQ">
+      <Oak.Spacer/>
+      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Joe")} image={data.joeAvatar}>
         Joe
       </SUI.Label>
-      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Elliot")} image={data.elliotAvatar} oid="FYT9oF5n">
+      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Elliot")} image={data.elliotAvatar}>
         Elliot
       </SUI.Label>
-      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Stevie")} image={data.stevieAvatar} oid="lQkDJ0sZ">
+      <SUI.Label closable onClose={data.onClosed.bind(undefined, "Stevie")} image={data.stevieAvatar}>
         Stevie
       </SUI.Label>
     </Example>
-    <Example title="Circular" hint="<Label appearance='circular'/>" oid="UCEUGdyh">
-      <SUI.Label appearance="circular" oid="XIyr95oo">
+    <Example title="Circular" hint="<Label appearance='circular'/>">
+      <SUI.Label appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="red" appearance="circular" oid="bISqDkFE">
+      <SUI.Label color="red" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="orange" appearance="circular" oid="HmCbaijw">
+      <SUI.Label color="orange" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="yellow" appearance="circular" oid="OtW6bXMi">
+      <SUI.Label color="yellow" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="olive" appearance="circular" oid="eKAQxBCV">
+      <SUI.Label color="olive" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="green" appearance="circular" oid="KNut8S0W">
+      <SUI.Label color="green" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="teal" appearance="circular" oid="vmxME7wT">
+      <SUI.Label color="teal" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="blue" appearance="circular" oid="AxoKqUiD">
+      <SUI.Label color="blue" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="violet" appearance="circular" oid="rSj7r5x6">
+      <SUI.Label color="violet" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="purple" appearance="circular" oid="UPlSc7gU">
+      <SUI.Label color="purple" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="pink" appearance="circular" oid="ZiYMsl8n">
+      <SUI.Label color="pink" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="brown" appearance="circular" oid="KZ50ePVU">
+      <SUI.Label color="brown" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="grey" appearance="circular" oid="yQ58TvLO">
+      <SUI.Label color="grey" appearance="circular">
         2
       </SUI.Label>
-      <SUI.Label color="black" appearance="circular" oid="gkuD1Lij">
+      <SUI.Label color="black" appearance="circular">
         2
       </SUI.Label>
-      <Oak.Spacer oid="mj12Mqg6"/>
-      <SUI.Label appearance="circular" oid="XcOgwCxh">
+      <Oak.Spacer/>
+      <SUI.Label appearance="circular">
         200
       </SUI.Label>
-      <SUI.Label appearance="circular" color="teal" oid="TqqhEEhb">
+      <SUI.Label appearance="circular" color="teal">
         2,000
       </SUI.Label>
-      <SUI.Label appearance="circular" color="blue" oid="j6HBXa3a">
+      <SUI.Label appearance="circular" color="blue">
         2,000,000
       </SUI.Label>
     </Example>
-    <Example title="Dots (empty circular)" hint="<Label appearance='empty circular'/>" oid="GK8V0WwT">
-      <SUI.Label appearance="empty circular" oid="ZcfpGqYG"></SUI.Label>
-      <SUI.Label color="red" appearance="empty circular" oid="krxHe6CG"></SUI.Label>
-      <SUI.Label color="orange" appearance="empty circular" oid="BPv804hL"></SUI.Label>
-      <SUI.Label color="yellow" appearance="empty circular" oid="XE8ZZgVl"></SUI.Label>
-      <SUI.Label color="olive" appearance="empty circular" oid="NoyQamVJ"></SUI.Label>
-      <SUI.Label color="green" appearance="empty circular" oid="sPxAekq3"></SUI.Label>
-      <SUI.Label color="teal" appearance="empty circular" oid="qj3SvAv4"></SUI.Label>
-      <SUI.Label color="blue" appearance="empty circular" oid="r6jJXn8Y"></SUI.Label>
-      <SUI.Label color="violet" appearance="empty circular" oid="NTPVgtXV"></SUI.Label>
-      <SUI.Label color="purple" appearance="empty circular" oid="JS1GZ0N9"></SUI.Label>
-      <SUI.Label color="pink" appearance="empty circular" oid="eqGat3HO"></SUI.Label>
-      <SUI.Label color="brown" appearance="empty circular" oid="SILJs2Kw"></SUI.Label>
-      <SUI.Label color="grey" appearance="empty circular" oid="VmbtRujM"></SUI.Label>
-      <SUI.Label color="black" appearance="empty circular" oid="OENooLLj"></SUI.Label>
+    <Example title="Dots (empty circular)" hint="<Label appearance='empty circular'/>">
+      <SUI.Label appearance="empty circular"></SUI.Label>
+      <SUI.Label color="red" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="orange" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="yellow" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="olive" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="green" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="teal" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="blue" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="violet" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="purple" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="pink" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="brown" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="grey" appearance="empty circular"></SUI.Label>
+      <SUI.Label color="black" appearance="empty circular"></SUI.Label>
     </Example>
-    <Example title="Sizes" hint="<Label size='large'/>" oid="vHbrjuSY">
-      <SUI.Label size="mini" oid="pHqHDyBN">
+    <Example title="Sizes" hint="<Label size='large'/>">
+      <SUI.Label size="mini">
         mini
       </SUI.Label>
-      <SUI.Label size="mini" icon="mail" oid="CgWlshCZ">
+      <SUI.Label size="mini" icon="mail">
         icon
       </SUI.Label>
-      <SUI.Label size="mini" icon="mail" iconOn="right" oid="S4PQZlV0">
+      <SUI.Label size="mini" icon="mail" iconOn="right">
         icon
       </SUI.Label>
-      <SUI.Label size="mini" image={data.joeAvatar} oid="mZruaR0W">
+      <SUI.Label size="mini" image={data.joeAvatar}>
         image
       </SUI.Label>
-      <SUI.Label size="mini" image={data.joeAvatar} imageOn="right" oid="eF3H9k1P">
+      <SUI.Label size="mini" image={data.joeAvatar} imageOn="right">
         image
       </SUI.Label>
-      <Oak.Spacer oid="RRTYa9r3"/>
-      <SUI.Label size="tiny" oid="fvpVjdHm">
+      <Oak.Spacer/>
+      <SUI.Label size="tiny">
         tiny
       </SUI.Label>
-      <SUI.Label size="tiny" icon="mail" oid="TJXCwtaD">
+      <SUI.Label size="tiny" icon="mail">
         icon
       </SUI.Label>
-      <SUI.Label size="tiny" icon="mail" iconOn="right" oid="XuIxNC2d">
+      <SUI.Label size="tiny" icon="mail" iconOn="right">
         icon
       </SUI.Label>
-      <SUI.Label size="tiny" image={data.joeAvatar} oid="MwFe87OA">
+      <SUI.Label size="tiny" image={data.joeAvatar}>
         image
       </SUI.Label>
-      <SUI.Label size="tiny" image={data.joeAvatar} imageOn="right" oid="i9ONUyI8">
+      <SUI.Label size="tiny" image={data.joeAvatar} imageOn="right">
         image
       </SUI.Label>
-      <Oak.Spacer oid="h7NuwDBL"/>
-      <SUI.Label size="small" oid="xgB8nrUL">
+      <Oak.Spacer/>
+      <SUI.Label size="small">
         small
       </SUI.Label>
-      <SUI.Label size="small" icon="mail" oid="N0nIH5qf">
+      <SUI.Label size="small" icon="mail">
         icon
       </SUI.Label>
-      <SUI.Label size="small" icon="mail" iconOn="right" oid="k3GnZUGF">
+      <SUI.Label size="small" icon="mail" iconOn="right">
         icon
       </SUI.Label>
-      <SUI.Label size="small" image={data.joeAvatar} oid="osJSbXWr">
+      <SUI.Label size="small" image={data.joeAvatar}>
         image
       </SUI.Label>
-      <SUI.Label size="small" image={data.joeAvatar} imageOn="right" oid="i36hDwAe">
+      <SUI.Label size="small" image={data.joeAvatar} imageOn="right">
         image
       </SUI.Label>
-      <Oak.Spacer oid="Ufv2G4jL"/>
-      <SUI.Label size="medium" oid="Amu2kKRi">
+      <Oak.Spacer/>
+      <SUI.Label size="medium">
         medium
       </SUI.Label>
-      <SUI.Label size="medium" icon="mail" oid="XWE2uTf0">
+      <SUI.Label size="medium" icon="mail">
         icon
       </SUI.Label>
-      <SUI.Label size="medium" icon="mail" iconOn="right" oid="P8xw0gAd">
+      <SUI.Label size="medium" icon="mail" iconOn="right">
         icon
       </SUI.Label>
-      <SUI.Label size="medium" image={data.joeAvatar} oid="CxS2aFo4">
+      <SUI.Label size="medium" image={data.joeAvatar}>
         image
       </SUI.Label>
-      <SUI.Label size="medium" image={data.joeAvatar} imageOn="right" oid="YiJe9FLw">
+      <SUI.Label size="medium" image={data.joeAvatar} imageOn="right">
         image
       </SUI.Label>
-      <Oak.Spacer oid="oraI5Ioa"/>
-      <SUI.Label size="large" oid="aMEVmPv6">
+      <Oak.Spacer/>
+      <SUI.Label size="large">
         large
       </SUI.Label>
-      <SUI.Label size="large" icon="mail" oid="TpesoNnR">
+      <SUI.Label size="large" icon="mail">
         icon
       </SUI.Label>
-      <SUI.Label size="large" icon="mail" iconOn="right" oid="VCWQqg4m">
+      <SUI.Label size="large" icon="mail" iconOn="right">
         icon
       </SUI.Label>
-      <SUI.Label size="large" image={data.joeAvatar} oid="dUNc9aed">
+      <SUI.Label size="large" image={data.joeAvatar}>
         image
       </SUI.Label>
-      <SUI.Label size="large" image={data.joeAvatar} imageOn="right" oid="Bg4Eb0qT">
+      <SUI.Label size="large" image={data.joeAvatar} imageOn="right">
         image
       </SUI.Label>
-      <Oak.Spacer oid="YheYP8yS"/>
-      <SUI.Label size="big" oid="ICp5bo0S">
+      <Oak.Spacer/>
+      <SUI.Label size="big">
         big
       </SUI.Label>
-      <SUI.Label size="big" icon="mail" oid="hK2aZoU8">
+      <SUI.Label size="big" icon="mail">
         icon
       </SUI.Label>
-      <SUI.Label size="big" icon="mail" iconOn="right" oid="k5n71aaX">
+      <SUI.Label size="big" icon="mail" iconOn="right">
         icon
       </SUI.Label>
-      <SUI.Label size="big" image={data.joeAvatar} oid="VIcmPqkT">
+      <SUI.Label size="big" image={data.joeAvatar}>
         image
       </SUI.Label>
-      <SUI.Label size="big" image={data.joeAvatar} imageOn="right" oid="PP2e4nc0">
+      <SUI.Label size="big" image={data.joeAvatar} imageOn="right">
         image
       </SUI.Label>
-      <Oak.Spacer oid="EH9gkNdf"/>
-      <SUI.Label size="huge" oid="wpBXc4va">
+      <Oak.Spacer/>
+      <SUI.Label size="huge">
         huge
       </SUI.Label>
-      <SUI.Label size="huge" icon="mail" oid="mkpnURUd">
+      <SUI.Label size="huge" icon="mail">
         icon
       </SUI.Label>
-      <SUI.Label size="huge" icon="mail" iconOn="right" oid="MZ26OeZY">
+      <SUI.Label size="huge" icon="mail" iconOn="right">
         icon
       </SUI.Label>
-      <SUI.Label size="huge" image={data.joeAvatar} oid="LosHdr3S">
+      <SUI.Label size="huge" image={data.joeAvatar}>
         image
       </SUI.Label>
-      <SUI.Label size="huge" image={data.joeAvatar} imageOn="right" oid="IKUNCUeP">
+      <SUI.Label size="huge" image={data.joeAvatar} imageOn="right">
         image
       </SUI.Label>
-      <Oak.Spacer oid="wM9YRbED"/>
-      <SUI.Label size="massive" oid="HX2CaXNO">
+      <Oak.Spacer/>
+      <SUI.Label size="massive">
         massive
       </SUI.Label>
-      <SUI.Label size="massive" icon="mail" oid="nJnpFWPl">
+      <SUI.Label size="massive" icon="mail">
         icon
       </SUI.Label>
-      <SUI.Label size="massive" icon="mail" iconOn="right" oid="yQBUAH2V">
+      <SUI.Label size="massive" icon="mail" iconOn="right">
         icon
       </SUI.Label>
-      <SUI.Label size="massive" image={data.joeAvatar} oid="WTV1OoH9">
+      <SUI.Label size="massive" image={data.joeAvatar}>
         image
       </SUI.Label>
-      <SUI.Label size="massive" image={data.joeAvatar} imageOn="right" oid="xjx0XMKB">
+      <SUI.Label size="massive" image={data.joeAvatar} imageOn="right">
         image
       </SUI.Label>
     </Example>
   </PageSection>
-  <PageSection title="States" oid="MEjBgoyL">
-    <Example title="Hidden" hint="<Label hidden/>" oid="eBaAD1S9">
-      <SUI.Label pointing="right" oid="qDGACWaA">
+  <PageSection title="States">
+    <Example title="Hidden" hint="<Label hidden/>">
+      <SUI.Label pointing="right">
         Hidden label here
       </SUI.Label>
-      <SUI.Label hidden oid="KJOoXTNu">
+      <SUI.Label hidden>
         You should not see me
       </SUI.Label>
-      <SUI.Label pointing="left" oid="w8mE61VF">
+      <SUI.Label pointing="left">
         Hidden label here
       </SUI.Label>
     </Example>
-    <Example title="Disabled" hint="<Label disabled/>" oid="PXSGnvNF">
-      <SUI.Label disabled oid="II0tI9Cp">
+    <Example title="Disabled" hint="<Label disabled/>">
+      <SUI.Label disabled>
         Normal
       </SUI.Label>
-      <SUI.Label disabled image={data.elliotAvatar} size="small" oid="jdwSsN1h">
+      <SUI.Label disabled image={data.elliotAvatar} size="small">
         Elliot
       </SUI.Label>
-      <SUI.Label disabled pointing oid="rxAm2QpG">
+      <SUI.Label disabled pointing>
         Pointing
       </SUI.Label>
-      <SUI.Label disabled pointing="down" color="red" oid="k0cyoA2w">
+      <SUI.Label disabled pointing="down" color="red">
         Red Pointing
       </SUI.Label>
-      <SUI.Label disabled color="blue" oid="ToBt8wdW">
+      <SUI.Label disabled color="blue">
         Blue
       </SUI.Label>
-      <Oak.Spacer oid="pAhD2XZl"/>
-      <SUI.Label disabled appearance="basic" oid="RUHHHB1H">
+      <Oak.Spacer/>
+      <SUI.Label disabled appearance="basic">
         Basic
       </SUI.Label>
-      <SUI.Label disabled appearance="basic" image={data.elliotAvatar} size="small" oid="DBSgiWy0">
+      <SUI.Label disabled appearance="basic" image={data.elliotAvatar} size="small">
         Elliot
       </SUI.Label>
-      <SUI.Label disabled appearance="basic" pointing oid="NAHTIiUD">
+      <SUI.Label disabled appearance="basic" pointing>
         Pointing
       </SUI.Label>
-      <SUI.Label disabled appearance="basic" pointing="down" color="red" oid="VAd5SRJ2">
+      <SUI.Label disabled appearance="basic" pointing="down" color="red">
         Red Pointing
       </SUI.Label>
-      <SUI.Label disabled appearance="basic" color="blue" oid="uSu0Ij8t">
+      <SUI.Label disabled appearance="basic" color="blue">
         Blue
       </SUI.Label>
-      <Oak.Spacer oid="msEHEKo5"/>
-      <SUI.Label disabled appearance="transparent" oid="IiBNhbP6">
+      <Oak.Spacer/>
+      <SUI.Label disabled appearance="transparent">
         transparent
       </SUI.Label>
-      <SUI.Label disabled appearance="transparent" image={data.elliotAvatar} size="small" oid="F2pw9LKY">
+      <SUI.Label disabled appearance="transparent" image={data.elliotAvatar} size="small">
         Elliot
       </SUI.Label>
-      <SUI.Label disabled appearance="transparent" pointing oid="Uc9btJf5">
+      <SUI.Label disabled appearance="transparent" pointing>
         Pointing
       </SUI.Label>
-      <SUI.Label disabled appearance="transparent" pointing="down" color="red" oid="MxBjFTJ5">
+      <SUI.Label disabled appearance="transparent" pointing="down" color="red">
         Red Pointing
       </SUI.Label>
-      <SUI.Label disabled appearance="transparent" color="blue" oid="KTw6RZ2n">
+      <SUI.Label disabled appearance="transparent" color="blue">
         Blue
       </SUI.Label>
     </Example>
-    <Example title="Active" hint="<Label active/>" oid="GIWk2lQS">
-      <SUI.Label active oid="OfYQAyFs">
+    <Example title="Active" hint="<Label active/>">
+      <SUI.Label active>
         Normal
       </SUI.Label>
-      <SUI.Label active image={data.elliotAvatar} size="small" oid="lNdJ7ZjD">
+      <SUI.Label active image={data.elliotAvatar} size="small">
         Elliot
       </SUI.Label>
-      <SUI.Label active pointing oid="D8b8FG1Q">
+      <SUI.Label active pointing>
         Pointing
       </SUI.Label>
-      <SUI.Label active pointing="down" color="red" oid="oWJdMTsj">
+      <SUI.Label active pointing="down" color="red">
         Red Pointing
       </SUI.Label>
-      <SUI.Label active color="blue" oid="yopLO1pb">
+      <SUI.Label active color="blue">
         Blue
       </SUI.Label>
     </Example>

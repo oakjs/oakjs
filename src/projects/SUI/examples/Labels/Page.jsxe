@@ -1,211 +1,211 @@
-<Oak.Page id="Labels" title="Labels" oid="qonhjgwP">
-  <PageTitle title="Labels" oid="jrj26xgj">
+<Oak.Page id="Labels" title="Labels">
+  <PageTitle title="Labels">
     A group of
-    <Oak.Link page="SUI/examples/Label" oid="iliHoRRC">
+    <Oak.Link page="SUI/examples/Label">
       Labels
     </Oak.Link>
     .
   </PageTitle>
-  <PageSection title="Appearance" oid="ZnkkkHFu">
-    <Example title="Normal" hint="<Labels/>" oid="WBO96Aur">
-      <SUI.Labels oid="d3FwRW3V">
-        <SUI.Label oid="E2nQHK8W">
+  <PageSection title="Appearance">
+    <Example title="Normal" hint="<Labels/>">
+      <SUI.Labels>
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="kgaZuyg4"/>
-        <SUI.Label content="Item with detail" detail="Detail" oid="ijY86Mey"/>
-        <SUI.Label image={data.elliotAvatar} size="small" oid="fidsVECK">
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label content="Item with detail" detail="Detail"/>
+        <SUI.Label image={data.elliotAvatar} size="small">
           Elliot
         </SUI.Label>
       </SUI.Labels>
     </Example>
-    <Example title="Colors" hint="<Labels color='red'/>" oid="rMdA0PcO">
-      <SUI.Labels color="red" oid="NG4PEb3Q">
-        <SUI.Label oid="onHXyIpC">
+    <Example title="Colors" hint="<Labels color='red'/>">
+      <SUI.Labels color="red">
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="RTyABjPM"/>
-        <SUI.Label content="Item with detail" detail="Detail" oid="BBrlxPRW"/>
-        <SUI.Label image={data.elliotAvatar} size="small" oid="M2QXIUKc">
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label content="Item with detail" detail="Detail"/>
+        <SUI.Label image={data.elliotAvatar} size="small">
           Elliot
         </SUI.Label>
       </SUI.Labels>
     </Example>
-    <Example title="Circular" hint="<Labels appearance='circular'/>" oid="VSfEvFIF">
-      <SUI.Labels appearance="circular" oid="WUThcdSb">
-        <SUI.Label oid="Tc9itd43">
+    <Example title="Circular" hint="<Labels appearance='circular'/>">
+      <SUI.Labels appearance="circular">
+        <SUI.Label>
           2
         </SUI.Label>
-        <SUI.Label oid="Dx2QYxc7">
+        <SUI.Label>
           200
         </SUI.Label>
-        <SUI.Label oid="TOEt2hDR">
+        <SUI.Label>
           20,000
         </SUI.Label>
-        <SUI.Label oid="xsrcP5pC">
+        <SUI.Label>
           2,000,000
         </SUI.Label>
       </SUI.Labels>
     </Example>
-    <Example title="Dots (empty circular)" hint="<Labels appearance='empty circular'/>" oid="gvGmMLSs">
-      <SUI.Labels appearance="empty circular" oid="bMes392a">
-        <SUI.Label color="red" oid="p4yNYf27"/>
-        <SUI.Label color="green" oid="twXjYuhV"/>
-        <SUI.Label color="blue" oid="g3gwQOcX"/>
-        <SUI.Label color="yellow" oid="xtiv5L6r"/>
+    <Example title="Dots (empty circular)" hint="<Labels appearance='empty circular'/>">
+      <SUI.Labels appearance="empty circular">
+        <SUI.Label color="red"/>
+        <SUI.Label color="green"/>
+        <SUI.Label color="blue"/>
+        <SUI.Label color="yellow"/>
       </SUI.Labels>
     </Example>
-    <Example title="Tag" hint="<Labels appearance='tag'/>" oid="rrsSG51W">
-      <SUI.Labels appearance="tag" oid="HHN8ovpy">
-        <SUI.Label oid="NkU1yKYF">
+    <Example title="Tag" hint="<Labels appearance='tag'/>">
+      <SUI.Labels appearance="tag">
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="oKwy039J"/>
-        <SUI.Label color="grey" content="Item with detail" detail="Detail" oid="mI93oqcc"/>
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label color="grey" content="Item with detail" detail="Detail"/>
       </SUI.Labels>
     </Example>
-    <Example title="horizontal" hint="<Labels appearance='horizontal'/>" oid="H285JeiV">
-      <SUI.Labels appearance="horizontal" oid="UECyLFCy">
-        <SUI.Label oid="m7ltn9fY">
+    <Example title="horizontal" hint="<Labels appearance='horizontal'/>">
+      <SUI.Labels appearance="horizontal">
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="hfs3XIJq"/>
-        <SUI.Label color="grey" content="Item with detail" detail="Detail" oid="PakXxSwQ"/>
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label color="grey" content="Item with detail" detail="Detail"/>
         Text Here
       </SUI.Labels>
     </Example>
-    <Example title="Sizes" hint="<Labels size='large'/>" oid="RMLRU36k">
-      <SUI.Labels size="tiny" oid="hq1AiHEZ">
-        <SUI.Label oid="CaehvDgM">
+    <Example title="Sizes" hint="<Labels size='large'/>">
+      <SUI.Labels size="tiny">
+        <SUI.Label>
           Tiny label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="xhHmrvT9"/>
-        <SUI.Label color="grey" content="Item with detail" detail="Detail" oid="ccAkyvg7"/>
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label color="grey" content="Item with detail" detail="Detail"/>
       </SUI.Labels>
-      <SUI.Labels size="large" oid="Fl0tac9g">
-        <SUI.Label oid="uXTxYXdN">
+      <SUI.Labels size="large">
+        <SUI.Label>
           Large label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="dwnVNid0"/>
-        <SUI.Label color="grey" content="Item with detail" detail="Detail" oid="eJnHSUa0"/>
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label color="grey" content="Item with detail" detail="Detail"/>
       </SUI.Labels>
     </Example>
-    <Example title="Fluid" hint="<Labels appearance='fluid'/>" oid="Emxbuooh">
-      <SUI.Labels appearance="fluid" oid="E2pmxB3B">
-        <SUI.Label oid="GK6Ljf5n">
+    <Example title="Fluid" hint="<Labels appearance='fluid'/>">
+      <SUI.Labels appearance="fluid">
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="SluJtqc9"/>
-        <SUI.Label color="grey" content="Item with detail" detail="Detail" oid="TyuCUTOB"/>
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label color="grey" content="Item with detail" detail="Detail"/>
       </SUI.Labels>
     </Example>
   </PageSection>
-  <PageSection title="States" oid="L6Uaku9s">
-    <Example title="Hidden" hint="<Labels hidden/>" oid="iaaB8cZA">
-      <SUI.Label pointing="down" oid="cJkKoQIx">
+  <PageSection title="States">
+    <Example title="Hidden" hint="<Labels hidden/>">
+      <SUI.Label pointing="down">
         Hidden labels here
       </SUI.Label>
-      <SUI.Labels hidden oid="YKJ1cq1F">
-        <SUI.Label oid="MguqRmTa">
+      <SUI.Labels hidden>
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="lRcRPSgF"/>
-        <SUI.Label content="Item with detail" detail="Detail" oid="uhnxe4fm"/>
-        <SUI.Label image={data.elliotAvatar} size="small" oid="ahnp2QAZ">
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label content="Item with detail" detail="Detail"/>
+        <SUI.Label image={data.elliotAvatar} size="small">
           Elliot
         </SUI.Label>
       </SUI.Labels>
-      <SUI.Label pointing="up" oid="sCl6HOHW">
+      <SUI.Label pointing="up">
         Hidden labels here
       </SUI.Label>
     </Example>
-    <Example title="Disabled" hint="<Labels disabled/>" oid="V03vkLJU">
-      <SUI.Labels disabled oid="T3hZg8GY">
-        <SUI.Label oid="HwyGsK7X">
+    <Example title="Disabled" hint="<Labels disabled/>">
+      <SUI.Labels disabled>
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="JeeXsRk4"/>
-        <SUI.Label content="Item with detail" detail="Detail" oid="OtcKsPgT"/>
-        <SUI.Label image={data.elliotAvatar} size="small" oid="bekwg9Dy">
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label content="Item with detail" detail="Detail"/>
+        <SUI.Label image={data.elliotAvatar} size="small">
           Elliot
         </SUI.Label>
       </SUI.Labels>
     </Example>
   </PageSection>
-  <PageSection title="Not Working but should work... ?" oid="AEllN9lf">
-    <Example title="Basic" hint="<Labels appearance='basic'/>" oid="hOMgnyXU">
-      <Bug oid="xuXNDwuW">
+  <PageSection title="Not Working but should work... ?">
+    <Example title="Basic" hint="<Labels appearance='basic'/>">
+      <Bug>
         This appears to be broken in Semantic UI.
       </Bug>
-      <SUI.Labels appearance="basic" oid="ayCimoUi">
-        <SUI.Label oid="ONaYZm4F">
+      <SUI.Labels appearance="basic">
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="tldb2a3a"/>
-        <SUI.Label content="Item with detail" detail="Detail" oid="vOmmnqwq"/>
-        <SUI.Label image={data.elliotAvatar} size="small" oid="DMAfCwrF">
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label content="Item with detail" detail="Detail"/>
+        <SUI.Label image={data.elliotAvatar} size="small">
           Elliot
         </SUI.Label>
       </SUI.Labels>
     </Example>
-    <Example title="Transparent" hint="<Labels appearance='transparent'/>" oid="L0fDPuPl">
-      <Bug oid="wXNHJVJp">
+    <Example title="Transparent" hint="<Labels appearance='transparent'/>">
+      <Bug>
         This appears to be broken in Semantic UI.
       </Bug>
-      <SUI.Labels appearance="transparent" oid="Zi0EwhFx">
-        <SUI.Label oid="v7ELZUEB">
+      <SUI.Labels appearance="transparent">
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="BDiKkwJ9"/>
-        <SUI.Label content="Item with detail" detail="Detail" oid="CH3PmjXr"/>
-        <SUI.Label image={data.elliotAvatar} size="small" oid="lCBBKEVs">
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label content="Item with detail" detail="Detail"/>
+        <SUI.Label image={data.elliotAvatar} size="small">
           Elliot
         </SUI.Label>
       </SUI.Labels>
     </Example>
-    <Example title="Inverted" hint="<Labels appearance='inverted'/>" oid="OhQe8kIb">
-      <Bug oid="EZpgpywZ">
+    <Example title="Inverted" hint="<Labels appearance='inverted'/>">
+      <Bug>
         This appears to be broken in Semantic UI.
       </Bug>
-      <SUI.Segment appearance="inverted" oid="mQbiCmHq">
-        <SUI.Labels appearance="inverted" oid="Q4P72oN1">
-          <SUI.Label oid="SSq2DQ1l">
+      <SUI.Segment appearance="inverted">
+        <SUI.Labels appearance="inverted">
+          <SUI.Label>
             Text label
           </SUI.Label>
-          <SUI.Label icon="mail" content="Messages" detail="30" oid="lrRWSAU8"/>
-          <SUI.Label content="Item with detail" detail="Detail" oid="FAh0UrNR"/>
-          <SUI.Label image={data.elliotAvatar} size="small" oid="YZ70DxQA">
+          <SUI.Label icon="mail" content="Messages" detail="30"/>
+          <SUI.Label content="Item with detail" detail="Detail"/>
+          <SUI.Label image={data.elliotAvatar} size="small">
             Elliot
           </SUI.Label>
         </SUI.Labels>
       </SUI.Segment>
     </Example>
-    <Example title="active" hint="<Labels active/>" oid="bFRjkYgr">
-      <Bug oid="e7LpICmM">
+    <Example title="active" hint="<Labels active/>">
+      <Bug>
         This appears to be broken in Semantic UI.
       </Bug>
-      <SUI.Labels active oid="NBEX9NIQ">
-        <SUI.Label oid="okJaFyuh">
+      <SUI.Labels active>
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="fNaLKxkW"/>
-        <SUI.Label content="Item with detail" detail="Detail" oid="U2YLa56D"/>
-        <SUI.Label image={data.elliotAvatar} size="small" oid="ZFrRpOC3">
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label content="Item with detail" detail="Detail"/>
+        <SUI.Label image={data.elliotAvatar} size="small">
           Elliot
         </SUI.Label>
       </SUI.Labels>
     </Example>
-    <Example title="Closable" hint="<Labels closable/>" oid="RFE7Axd1">
-      <Bug oid="k9kY4qCs">
+    <Example title="Closable" hint="<Labels closable/>">
+      <Bug>
         Unclear how to do this in react... :-(
       </Bug>
-      <SUI.Labels closable oid="cidq3EDg">
-        <SUI.Label oid="GXet7Jy5">
+      <SUI.Labels closable>
+        <SUI.Label>
           Text label
         </SUI.Label>
-        <SUI.Label icon="mail" content="Messages" detail="30" oid="obH3AliR"/>
-        <SUI.Label content="Item with detail" detail="Detail" oid="lE7Yc3AK"/>
-        <SUI.Label image={data.elliotAvatar} size="small" oid="uD2XTc1m">
+        <SUI.Label icon="mail" content="Messages" detail="30"/>
+        <SUI.Label content="Item with detail" detail="Detail"/>
+        <SUI.Label image={data.elliotAvatar} size="small">
           Elliot
         </SUI.Label>
       </SUI.Labels>

@@ -87,7 +87,8 @@ export function resetElementProps(options) {
 //       use `removeChildrenAtPositions()` instead.
 export function removeElements(options = {}) {
   const {
-    controller, elements = oak.selectedComponents,
+    controller = oak.editController,
+    elements = controller && controller.selectedElements,
     actionName = "Delete Elements", autoExecute
   } = options;
 
@@ -108,7 +109,7 @@ export function removeElements(options = {}) {
 new Action({
   id: "oak.removeElements", title: "Delete", shortcut: "Meta Backspace",
   handler: removeElements,
-  disabled: () => oak.selectionIsEmpty
+  disabled: () => !oak.editController || !oak.editController.selection.length
 });
 
 
@@ -125,7 +126,8 @@ new Action({
 // Optional options:  `controller`, `autoExecute`, `actionName`
 export function addElements(options = {}) {
   const {
-    controller, parent, position, elements, autoSelect,
+    controller = oak.editController,
+    parent, position, elements, autoSelect,
     actionName = "Add Elements", autoExecute
   } = options;
 
@@ -149,7 +151,8 @@ export function addElements(options = {}) {
 //       that which `canDrop()` the elements.
 export function addElementsToParentOrSelection(options = {}) {
   const {
-    controller, position, elements, autoSelect,
+    controller = oak.editController,
+    position, elements, autoSelect,
     actionName = "Add Elements", autoExecute
   } = options;
 
@@ -157,7 +160,7 @@ export function addElementsToParentOrSelection(options = {}) {
 
   // default to the first selected thing (or whoever of it's parents can accept the elements).
 // TODO: paste OVER (replace) selection?  Paste immediately AFTER selection?
-  let parent = options.parent || oak.selectedComponents[0] || oak.editController.oid;
+  let parent = options.parent || controller.selectedElements[0] || controller.oid;
   if (typeof parent === "string") parent = fragment.getElementOrDie(parent, actionName);
 
   // Recurse up until we get to a droppable thing.
@@ -185,7 +188,8 @@ export function addElementsToParentOrSelection(options = {}) {
 export function createElement(options = {}) {
   const {
     type, props,
-    controller, parent, position, autoSelect = true,
+    controller = oak.editController,
+    parent, position, autoSelect = true,
     actionName = "Create Element", autoExecute
   } = options;
 
@@ -218,7 +222,8 @@ export function createElement(options = {}) {
 // Optional options:  `controller`, `autoExecute`, `actionName`
 export function moveElements(options = {}) {
   const {
-    controller, elements, parent, position, autoSelect,
+    controller = oak.editController,
+    elements, parent, position, autoSelect,
     actionName = "Move Elements", autoExecute
   } = options;
 
@@ -251,12 +256,12 @@ export function moveElements(options = {}) {
 //
 // NOTE: don't call this directly, use one of the `setElement*()` or `*Element()` calls.
 export function changeFragmentTransaction({
-  controller, transformer, autoSelect,
+  controller = oak.editController, transformer, autoSelect,
   actionName, autoExecute
 }) {
   controller = utils.getControllerOrDie(controller, actionName);
   const originalFragment = controller.jsxFragment;
-  const originalSelection = autoSelect && oak.selection;
+  const originalSelection = autoSelect && controller.selection;
 
   // clone the original fragment and transform it
   const newFragment = originalFragment.clone();
@@ -275,10 +280,8 @@ export function changeFragmentTransaction({
 }
 
 function _setControllerFragment(controller, fragment, selection) {
-  controller.jsxFragment = fragment;
-  controller.dirty(true);
-  controller.onComponentChanged();
-  if (selection) utils.setSelection(selection);
+  controller._setFragment(fragment);
+  if (selection) utils.setComponentState(controller, { selection });
 }
 
 

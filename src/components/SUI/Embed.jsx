@@ -6,7 +6,6 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { autobind } from "oak-roots/util/decorators";
 
 import SUIModuleComponent from "./SUIModuleComponent";
 
@@ -74,7 +73,7 @@ class SUIEmbed extends SUIModuleComponent {
   }
 
   tellModule(...args) {
-    return this.$ref().embed(...args);
+    return this.$getElement().embed(...args);
   }
 
   //////////////////////////////

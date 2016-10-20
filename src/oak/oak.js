@@ -7,18 +7,16 @@
 //////////////////////////////
 
 import { preference } from "oak-roots/util/preference";
-import { debounce, proto } from "oak-roots/util/decorators";
+import { debounce } from "oak-roots/util/decorators";
 import elements from "oak-roots/util/elements";
 import global from "oak-roots/util/global";
+import { classNames, unknownProps } from "oak-roots/util/react";
 import UndoQueue from "oak-roots/UndoQueue";
 
 import Account from "./Account";
 import actions from "./actions";
 import ComponentController from "./ComponentController";
 import OakEvent from "./OakEvent";
-import Page from "./Page";
-import Project from "./Project";
-import Section from "./Section";
 
 import OakComponent from "./components/OakComponent";
 import Stub from "./components/Stub";
@@ -34,23 +32,22 @@ class OakJS {
       throw new ReferenceError(message);
     }
 
-    // Set oak.actions to all defined global actions.
-    Object.defineProperty(this, "actions", { value: actions });
-
-    // Initialize application state from `localStorage`.
-    this._initState();
-
-    // `oak.runner` is the player/editor ui root
-    this.runner = {};
-
-    // Create the global undoQueue
-    this.undoQueue = new UndoQueue();
-
     // `oak.account` represents all projects / sections / pages this "user" can see.
 //REFACTOR:  add user concept...
     this.account = new Account({ oak: this });
 
+    // Set oak.actions to all defined global actions.
+    this.actions = actions;
+
+    // Create the global undoQueue
+    this.undoQueue = new UndoQueue();
+
+    // `oak.runner` is the player/editor ui root
+//TODO: this is app state, right?
+    this.runner = {};
+
     // load the account, since we have to do that before we can display anything
+//TODO: loadAccount as an action?
     this.account.load();
   }
 
@@ -78,6 +75,7 @@ class OakJS {
   //  We only expect to have one `runner page` open at a time,
   //  so pointing directly to those pages is probably fine.
   setRunnerPage(page) {
+//TODO: do an oak.setState() with path?
     this.runner.page = page;
     this.runner.project = page && page.project;
     this.runner.section = page && page.section;
@@ -85,62 +83,13 @@ class OakJS {
 
 
   //////////////////////////////
-  //  App State
+  //  App State & State syntactic sugar
   //////////////////////////////
 
-  // Set oak state in an undo-able way.
-  setState(deltas) {
-    oak.actions.setAppState({ state: deltas });
-  }
-
-  static DEFAULT_STATE = {
-    editing: false,           // Are we currently editing?
-    editController: "Page",   // What we're editing: "Page", "Section", "Project". "Component"?
-    selection: [],            // Array of `oid`s selected in the editor.
-  }
-
-  // Initialize application state.
-  // DON'T CALL THIS, it will be called automatically when the oak is constructed.
-  _initState() {
-    // App state, which we store in localStorage and reload when reloading the page.
-    // We pick up new values added to `DEFAULT_STATE`.
-    // NOTE: NEVER update this directly, use `oak.action.setState()` or some sugary variant thereof.
-    const savedState = Object.assign({}, this.constructor.DEFAULT_STATE, this.preference("appState"));
-
-    // default selection and freeze it so it doesn't get modified here
-    if (!savedState.selection) savedState.selection = [];
-    Object.freeze(savedState.selection);
-
-    // save and freeze oak state
-    this.state = Object.freeze(savedState);
-  }
-
-  //////////////////////////////
-  //  App preferences (how is this different than state?)
-  //////////////////////////////
-
-  // Get/set/clear a JSON-stringified 'preference' stored in `localStorage`.
-  // Specfy:
-  //  - `key` only to get a value,
-  //  - `key, `value`, to set a preference value.
-  //  - `key, null` to clear a value.
-  preference(...args) {
-    if (!typeof args[0] === "string") {
-      console.warn(`oak.preference(${args}): first argument must be a string`);
-      return undefined;
-    }
-    args[0] = "-oak-" + args[0];
-    return preference(...args);
-  }
-
-
-  //////////////////////////////
-  //  State syntactic sugar
-  //////////////////////////////
-
-  // Are we currently in "edit" mode?
-  get isEditing() {
-    return !!oak.state.editing;
+  // Initial app state.
+  state = {
+    // What are we currently editing?  "Page", "Section", "Project" etc.
+    editController: "Page"
   }
 
   // Return the `ComponentController` for the current `appState.editController`,
@@ -156,36 +105,9 @@ class OakJS {
     return undefined;
   }
 
-  // Does the current editController need to save?
-  get editControllerIsDirty() {
-    const controller = this.editController;
-    return !!controller && controller.isDirty;
-  }
-
-  // Return the currently selected elements (as a list of `oid`s).
-  // NOTE: this is a FROZEN array!
-  get selection() {
-    return this.state.selection;
-  }
-
-  // Syntactic sugar for enabling actions, etc.
-  get selectionIsEmpty() {
-    return this.selection.length === 0;
-  }
-
-  // Return the `JSXElement`s which correspond to the selection.
-  get selectedComponents() {
-    return this.selection.map( oid => this.getEditableComponentForOid(oid) ).filter(Boolean);
-  }
-
-  // Return the FIRST selected component of the specified type.
-  // Returns `undefined` if no such component was found.
-  getSelectedComponent(type) {
-    return this.selectedComponents.filter( component => component.type === type )[0];
-  }
 
   //////////////////////////////
-  //  Browser event data
+  //  Browser event data -- see `oak-roots/OakEvent`
   //////////////////////////////
 
   // Set the current event.
@@ -199,7 +121,7 @@ class OakJS {
 
 
   //////////////////////////////
-  //  Actions / Undo / State / preferences / etc
+  //  Undo / Update
   //////////////////////////////
 
   undo() {
@@ -270,7 +192,6 @@ class OakJS {
   //////////////////////////////
 
   // oak.Component base class for dynamically loaded components.
-  @proto
   Component = OakComponent;
 
   // All known components
@@ -301,90 +222,10 @@ class OakJS {
   }
 
 
-  //////////////////////////////
-  //  Oid => Component => Oid
-  // TODO: move these into `oak.event` or some such???
-  //////////////////////////////
-
-  // Return the JSXElement `Component` for an `oid`,
-  // but only for components which are editable.
-  getEditableComponentForOid(oid) {
-    return this.getComponentForOid(oid, [ this.editController ]);
-  }
-
-  // Given an oid, return the component that it corresponds to.
-  getComponentForOid(oid, controllers = [ this.page, this.section, this.project ]) {
-    if (!oid) return undefined;
-    if (!Array.isArray(controllers)) controllers = [controllers];
-
-    for (let controller of controllers) {
-      if (controller) {
-        const component = controller.getComponentForOid(oid);
-        if (component) return component;
-      }
-    }
-  }
-
-  getElementForOid(oid) {
-    return document.querySelector(`[data-oid='${oid}']`);
-  }
-
-  // Given an `oid`, return the `clientRect` for it as currently rendered.
-  getRectForOid(oid) {
-    const element = this.getElementForOid(oid);
-    return elements.clientRect(element);
-  }
-
-  // Return a map of `{ oids, rects }` for all `oid` elements on the page.
-  //
-  // Pass an `onlyOids` map to restrict to only those elements.
-  // Pass an `intersectingClientRect` to restrict to only oids which intersect that rect.
-  getOidRects(onlyOids, intersectingClientRect) {
-    if (!this.page || !this.page.component) return undefined;
-//    console.time("oidRects");
-    //TODO: somehow we want to know the root element on the page so don't include toolbars...
-    const oidElements = document.querySelectorAll("[data-oid]");
-    const oids = [];
-    const rects = [];
-    let i = -1, element;
-    while (element = oidElements[++i]) {
-      const oid = element.getAttribute("data-oid");
-
-      // skip if not in the `onlyOids` map
-      if (onlyOids && onlyOids[oid] === undefined) continue;
-
-      // skip if doesn't intersect the `intersectingClientRect`
-      const rect = elements.clientRect(element);
-      if (intersectingClientRect && !intersectingClientRect.intersects(rect)) continue;
-
-      // ok, add to our lists
-      oids.push(oid);
-      rects.push(rect);
-    }
-//    console.timeEnd("oidRects");
-    return { oids, rects };
-  }
-
-  // Return a map of `{ oids, rects }` for all `oid` elements on the specified `controller`.
-  getOidRectsForController(controller = this.editController, intersectingClientRect, includeContextRoot = false) {
-    const { oids, rects } = this.getOidRects(controller.oids, intersectingClientRect) || {};
-
-    // Remove the controller root oid if specified
-    if (!includeContextRoot) {
-      const index = oids.indexOf(controller.oid);
-      if (index !== -1) {
-        oids.splice(index, 1);
-        rects.splice(index, 1);
-      }
-    }
-
-    return { oids, rects };
-  }
-
-
   //
   //  Modal:  Alert / Prompt / etc
   //
+  // TODO: separate out modal controller
   // TODO: stack of modals with pop behavior...
   //
 
@@ -504,6 +345,12 @@ class OakJS {
 
 
   //
+  //  React utilities for use in composite components
+  //
+  classNames = classNames;
+  unknownProps = unknownProps;
+
+  //
   //  Event handling
   //
 
@@ -529,6 +376,6 @@ export default oak;
 // globalize for reflection
 global.oak = oak;
 
-// When window is resized, update everything. (???)
+// When window is resized, update everything.
 $(window).on("resize", oak.onWindowResized);
 

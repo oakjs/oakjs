@@ -1,4 +1,4 @@
-<SUI.Segment appearance="basic very padded" id={props.id} data-oid={props["data-oid"]}>
+<SUI.Segment appearance="basic very padded" id={props.id}>
   <SUI.Header size="large" dividing>
     {props.title}
   </SUI.Header>

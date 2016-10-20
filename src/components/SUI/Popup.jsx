@@ -6,7 +6,6 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { autobind } from "oak-roots/util/decorators";
 
 import { isElement, hasClass } from "./SUI";
 import ElementBuffer from "./ElementBuffer";
@@ -130,7 +129,7 @@ class SUIPopup extends SUIModuleComponent {
     if (target && target.jquery) return target;
 
     // if not specified, use previously defined element
-    return this.$ref().prev();
+    return this.$getElement().prev();
   }
 
   tellModule(...args) {
@@ -141,7 +140,7 @@ class SUIPopup extends SUIModuleComponent {
   setModuleProps(props) {
     if (props) {
       props.target = this.getTarget();
-      props.popup = this.$ref();
+      props.popup = this.$getElement();
     }
     super.setModuleProps(props);
   }

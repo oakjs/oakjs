@@ -6,7 +6,6 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { autobind } from "oak-roots/util/decorators";
 
 import { isElement, hasClass } from "./SUI";
 import ElementBuffer from "./ElementBuffer";
@@ -75,7 +74,7 @@ class SUISticky extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().sticky(...args);
+    return this.$getElement().sticky(...args);
   }
 
   setModuleProps(props) {

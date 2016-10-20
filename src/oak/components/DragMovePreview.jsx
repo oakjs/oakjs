@@ -61,7 +61,7 @@ export default class DragMovePreview extends OakComponent {
 
   onDragStart = (event, info) => {
     // Empty the preview container
-    const $container = this.$ref();
+    const $container = this.$getElement();
     $container.empty();
 
     // Ingest the preview inside the container
@@ -72,7 +72,7 @@ export default class DragMovePreview extends OakComponent {
   }
 
   onDrag = (event, info) => {
-    const $container = this.$ref();
+    const $container = this.$getElement();
 
     // offset the container according to the mouse
     const { offset } = this.props;
@@ -92,7 +92,8 @@ export default class DragMovePreview extends OakComponent {
 
   getTarget = (event) => {
     if (this.props.getTarget) return this.props.getTarget(event);
-    return oak.event._mouseOid;
+    const mouseElement = oak.editController && oak.editController.getMouseInfo();
+    return mouseElement && mouseElement.oid;
   }
 
   // Update our `state.target` and `state.selectionRects` based on current geometry.

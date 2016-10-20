@@ -1,149 +1,149 @@
-<Oak.Page id="Loader" title="Loader" oid="Yj4D1FR5">
-  <PageTitle title="Loader" oid="KL3QEdhT">
+<Oak.Page id="Loader" title="Loader">
+  <PageTitle title="Loader">
     A loader alerts a user to wait for an activity to complete
   </PageTitle>
-  <PageSection title="Types" oid="Ty23HNQy">
-    <Example title="Simple" oid="Ay16kjw3">
-      <SUI.Segment oid="olqpjFut">
-        <LoremIpsum short oid="stWb1wPR"/>
-        <SUI.Dimmer visible oid="OrWDhdSk">
-          <SUI.Loader oid="jf1mYGpX"/>
+  <PageSection title="Types">
+    <Example title="Simple">
+      <SUI.Segment>
+        <LoremIpsum short/>
+        <SUI.Dimmer visible>
+          <SUI.Loader/>
         </SUI.Dimmer>
       </SUI.Segment>
     </Example>
-    <Example title="Text content" hint="<Loader content='...'/> or <Loader>...</Loader>" oid="tfemRyjt">
-      <SUI.Segment oid="Uatmc9e2">
-        <LoremIpsum short oid="Li7xKeB2"/>
-        <SUI.Dimmer visible oid="bhc8xIaA">
-          <SUI.Loader content="Content attribute" oid="AApADJA2"/>
+    <Example title="Text content" hint="<Loader content='...'/> or <Loader>...</Loader>">
+      <SUI.Segment>
+        <LoremIpsum short/>
+        <SUI.Dimmer visible>
+          <SUI.Loader content="Content attribute"/>
         </SUI.Dimmer>
       </SUI.Segment>
-      <SUI.Segment oid="WMMpX0AR">
-        <LoremIpsum short oid="ZsPNaagQ"/>
-        <SUI.Dimmer visible oid="dXgIomQf">
-          <SUI.Loader oid="dfabot2B">
+      <SUI.Segment>
+        <LoremIpsum short/>
+        <SUI.Dimmer visible>
+          <SUI.Loader>
             Inline content
           </SUI.Loader>
         </SUI.Dimmer>
       </SUI.Segment>
     </Example>
   </PageSection>
-  <PageSection title="States" oid="pZfRfaPb">
-    <Example title="Active" hint="<Loader active/>" oid="dBu3NmlY">
-      <SUI.Segment oid="op6KslPA">
-        <SUI.Loader active oid="Tq39m6g6"/>
-        <LoremIpsum short oid="gQC04CKy"/>
+  <PageSection title="States">
+    <Example title="Active" hint="<Loader active/>">
+      <SUI.Segment>
+        <SUI.Loader active/>
+        <LoremIpsum short/>
       </SUI.Segment>
-      <Info oid="Pd1IN60s">
+      <Info>
         An active loader may not be completely visible if not inside a dimmer
       </Info>
     </Example>
-    <Example title="Indeterminate" hint="<Loader indeterminate/>" oid="RsHTbCWx">
-      <SUI.Segment oid="tp8wHE9D">
-        <SUI.Dimmer visible oid="lJqFCMO9">
-          <SUI.Loader indeterminate oid="tcV7bI63">
+    <Example title="Indeterminate" hint="<Loader indeterminate/>">
+      <SUI.Segment>
+        <SUI.Dimmer visible>
+          <SUI.Loader indeterminate>
             Preparing files
           </SUI.Loader>
         </SUI.Dimmer>
-        <LoremIpsum short oid="Tulq6m94"/>
+        <LoremIpsum short/>
       </SUI.Segment>
     </Example>
-    <Example title="Hidden" hint="<Loader hidden/>" oid="wJHb3VmF">
-      <SUI.Segment oid="W1uJP2L0">
-        <SUI.Label pointing="right" content="Hidden loader here" oid="vbHhwGRT"/>
-        <SUI.Loader hidden oid="Lcfb8pOr">
+    <Example title="Hidden" hint="<Loader hidden/>">
+      <SUI.Segment>
+        <SUI.Label pointing="right" content="Hidden loader here"/>
+        <SUI.Loader hidden>
           Preparing files
         </SUI.Loader>
-        <SUI.Label pointing="left" content="Hidden loader here" oid="DUOcPdHt"/>
+        <SUI.Label pointing="left" content="Hidden loader here"/>
       </SUI.Segment>
     </Example>
-    <Example title="Disabled" hint="<Loader disabled/>" oid="g5fJeo6G">
-      <SUI.Segment oid="TyboDhGx">
-        <SUI.Label pointing="right" content="Disabled loader here" oid="PAh0a0In"/>
-        <SUI.Loader disabled oid="AgYTkaoq">
+    <Example title="Disabled" hint="<Loader disabled/>">
+      <SUI.Segment>
+        <SUI.Label pointing="right" content="Disabled loader here"/>
+        <SUI.Loader disabled>
           Preparing files
         </SUI.Loader>
-        <SUI.Label pointing="left" content="Disabled loader here" oid="e32KoWlu"/>
+        <SUI.Label pointing="left" content="Disabled loader here"/>
       </SUI.Segment>
     </Example>
   </PageSection>
-  <PageSection title="Appearance" oid="tYeknFAN">
-    <Example title="Inverted" hint="<Loader appearance='inverted'/>" oid="upCk1CMZ">
-      <SUI.Segment appearance="inverted" oid="xYUUGhgG">
-        <SUI.Loader appearance="inverted" content="Loading..." active oid="ZaRPKUSu"/>
-        <br oid="IbDc5iYM"/>
-        <br oid="bo535LZK"/>
-        <br oid="vxF1aueb"/>
+  <PageSection title="Appearance">
+    <Example title="Inverted" hint="<Loader appearance='inverted'/>">
+      <SUI.Segment appearance="inverted">
+        <SUI.Loader appearance="inverted" content="Loading..." active/>
+        <br/>
+        <br/>
+        <br/>
       </SUI.Segment>
-      <Info oid="dxMIORWi">
+      <Info>
         Loaders will automatically be inverted inside an inverted dimmer.
       </Info>
-      <SUI.Segment oid="yarfUm3Y">
-        <SUI.Dimmer appearance="blurring inverted" visible oid="PEJEBnfq">
-          <SUI.Loader content="Loading" oid="BXLsw03I"/>
+      <SUI.Segment>
+        <SUI.Dimmer appearance="blurring inverted" visible>
+          <SUI.Loader content="Loading"/>
         </SUI.Dimmer>
-        <LoremIpsum short oid="G5YsHCSi"/>
+        <LoremIpsum short/>
       </SUI.Segment>
     </Example>
-    <Example title="Inline" hint="<Loader appearance='inline'/>" oid="o5Q9GSKt">
-      <SUI.Segment oid="V4YuR7mv">
-        <SUI.Loader appearance="inline" active size="small" oid="L1M1YBa8"/>
-        <SUI.Loader appearance="inline" active size="medium" oid="hKvjf5gq"/>
-        <SUI.Loader appearance="inline" active size="large" oid="B7ArPci5"/>
+    <Example title="Inline" hint="<Loader appearance='inline'/>">
+      <SUI.Segment>
+        <SUI.Loader appearance="inline" active size="small"/>
+        <SUI.Loader appearance="inline" active size="medium"/>
+        <SUI.Loader appearance="inline" active size="large"/>
       </SUI.Segment>
     </Example>
-    <Example title="Sizes" hint="<Loader size='large'/>" oid="GggIr88w">
-      <SUI.Grid columns={2} oid="ypvnKuaS">
-        <SUI.Column oid="jhDkmZjp">
-          <SUI.Segment oid="ok9E3NKe">
-            <SUI.Dimmer visible oid="fTlCAbE0">
-              <SUI.Loader active size="mini" content="Mini loader" oid="VM5VsGwp"/>
+    <Example title="Sizes" hint="<Loader size='large'/>">
+      <SUI.Grid columns={2}>
+        <SUI.Column>
+          <SUI.Segment>
+            <SUI.Dimmer visible>
+              <SUI.Loader active size="mini" content="Mini loader"/>
             </SUI.Dimmer>
-            <LoremIpsum tiny oid="ijBEaCbw"/>
+            <LoremIpsum tiny/>
           </SUI.Segment>
-          <SUI.Segment oid="yiKkaf0x">
-            <SUI.Dimmer visible oid="rwXHkJ9h">
-              <SUI.Loader active size="small" content="Small loader" oid="BUkcrLRw"/>
+          <SUI.Segment>
+            <SUI.Dimmer visible>
+              <SUI.Loader active size="small" content="Small loader"/>
             </SUI.Dimmer>
-            <LoremIpsum short oid="iUgN6WdV"/>
+            <LoremIpsum short/>
           </SUI.Segment>
-          <SUI.Segment oid="UbHYOjgH">
-            <SUI.Dimmer visible oid="f0mY9dWp">
-              <SUI.Loader active size="medium" content="Medium loader (default size)" oid="XZSQBUFB"/>
+          <SUI.Segment>
+            <SUI.Dimmer visible>
+              <SUI.Loader active size="medium" content="Medium loader (default size)"/>
             </SUI.Dimmer>
-            <LoremIpsum medium oid="KLWClpOV"/>
+            <LoremIpsum medium/>
           </SUI.Segment>
-          <SUI.Segment oid="wHs46yRk">
-            <SUI.Dimmer visible oid="Et5ExI51">
-              <SUI.Loader active size="large" content="Large loader" oid="NrwojTvc"/>
+          <SUI.Segment>
+            <SUI.Dimmer visible>
+              <SUI.Loader active size="large" content="Large loader"/>
             </SUI.Dimmer>
-            <LoremIpsum oid="LLOU8TBZ"/>
+            <LoremIpsum/>
           </SUI.Segment>
         </SUI.Column>
-        <SUI.Column oid="gEpqpBFc">
-          <SUI.Segment oid="xHx6We0Z">
-            <SUI.Dimmer visible appearance="inverted" oid="QF9XFUrT">
-              <SUI.Loader active size="mini" content="Mini loader" oid="s24UAePX"/>
+        <SUI.Column>
+          <SUI.Segment>
+            <SUI.Dimmer visible appearance="inverted">
+              <SUI.Loader active size="mini" content="Mini loader"/>
             </SUI.Dimmer>
-            <LoremIpsum tiny oid="EWRx55a8"/>
+            <LoremIpsum tiny/>
           </SUI.Segment>
-          <SUI.Segment oid="hRSby1aV">
-            <SUI.Dimmer visible appearance="inverted" oid="RfhKJAtM">
-              <SUI.Loader active size="small" content="Small loader" oid="GK7bGMlV"/>
+          <SUI.Segment>
+            <SUI.Dimmer visible appearance="inverted">
+              <SUI.Loader active size="small" content="Small loader"/>
             </SUI.Dimmer>
-            <LoremIpsum short oid="ph1ivgGK"/>
+            <LoremIpsum short/>
           </SUI.Segment>
-          <SUI.Segment oid="sNMdS2Ad">
-            <SUI.Dimmer visible appearance="inverted" oid="xh2WBJbP">
-              <SUI.Loader active size="medium" content="Medium loader (default size)" oid="IQaD9CAI"/>
+          <SUI.Segment>
+            <SUI.Dimmer visible appearance="inverted">
+              <SUI.Loader active size="medium" content="Medium loader (default size)"/>
             </SUI.Dimmer>
-            <LoremIpsum medium oid="eeFNeX0L"/>
+            <LoremIpsum medium/>
           </SUI.Segment>
-          <SUI.Segment oid="LAD10Osx">
-            <SUI.Dimmer visible appearance="inverted" oid="NTWT7Sva">
-              <SUI.Loader active size="large" content="Large loader" oid="fb9Zn1Db"/>
+          <SUI.Segment>
+            <SUI.Dimmer visible appearance="inverted">
+              <SUI.Loader active size="large" content="Large loader"/>
             </SUI.Dimmer>
-            <LoremIpsum oid="pMAWDtPC"/>
+            <LoremIpsum/>
           </SUI.Segment>
         </SUI.Column>
       </SUI.Grid>

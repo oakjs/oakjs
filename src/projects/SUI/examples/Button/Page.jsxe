@@ -1,235 +1,236 @@
-<Oak.Page id="Button" title="Button" oid="Hyt3Cc1t">
-  <PageTitle title="Button" oid="wSOutIDS">
+<Oak.Page id="Button" title="Button">
+  <PageTitle title="Button">
     A button indicates a possible user action.
   </PageTitle>
-  <PageSection title="Content" oid="d2KkQ7A8">
-    <Example title="Inline or Attribute Content" oid="T6l3dQl6">
-      <SUI.Button title="Button with Title Attribute" oid="QNbZq87Q"/>
-      <SUI.Button icon="checkmark" title="Button with Title and Icon Attributes" oid="FCYFxmh7"/>
-      <Oak.Spacer oid="lsesliYj"/>
-      <SUI.Button oid="IX5xMBu4">
+  <PageSection title="Content">
+    <Example title="Inline or Attribute Content">
+      <SUI.Button title="Button with Title Attribute"/>
+      <SUI.Button icon="checkmark" title="Button with Title and Icon Attributes"/>
+      <Oak.Spacer/>
+      <SUI.Button>
         Button With Inline Text
       </SUI.Button>
-      <SUI.Button oid="wOw7ipcH">
-        <SUI.Icon icon="checkmark" oid="r00VP0lv"/>
+      <SUI.Button>
+        <SUI.Icon icon="checkmark"/>
         Button With Inline Text and Icon
       </SUI.Button>
+      <SUI.Button icon="checkmark" title="Button with Title and Icon Attributes"/>
     </Example>
-    <Example title="Icon" hint="<Button icon='name'/>" oid="TSmWTcOl">
-      <SUI.Button icon="cloud" oid="qIdZTeyb"/>
+    <Example title="Icon" hint="<Button icon='name'/>">
+      <SUI.Button icon="cloud"/>
     </Example>
-    <Example title="Icon + Text" oid="ZBcyNmLS">
-      <SUI.Button icon="cloud" title="Upload to Cloud" oid="ELIa9CqZ"/>
+    <Example title="Icon + Text">
+      <SUI.Button icon="cloud" title="Upload to Cloud"/>
     </Example>
-    <Example title="Labeled Icon" oid="O3Piu1dU">
-      <SUI.Button icon="pause" title="Pause" appearance="labeled icon" oid="FmF6Y6xE"/>
-      <SUI.Button icon="right arrow" appearance="right labeled icon" oid="MRX93n2h">
+    <Example title="Labeled Icon">
+      <SUI.Button icon="pause" title="Pause" appearance="labeled icon"/>
+      <SUI.Button icon="right arrow" appearance="right labeled icon">
         Next
       </SUI.Button>
     </Example>
-    <Example title="Labeled" oid="gS8UkKqk">
-      <SUI.Button icon="heart" label="1000" oid="WeWMA8D9">
+    <Example title="Labeled">
+      <SUI.Button icon="heart" label="1000">
         Like
       </SUI.Button>
-      <SUI.Button icon="fork" label="1000" labelOn="left" oid="maf1XYcr"/>
-      <SUI.Button title="Like" icon="heart" label="1000" labelOn="left" labelAppearance="basic right pointing" oid="eZTxs2r8"/>
-      <SUI.Button icon="heart" label="1000" color="red" labelAppearance="basic left pointing" oid="DIBYBMNF">
+      <SUI.Button icon="fork" label="1000" labelOn="left"/>
+      <SUI.Button title="Like" icon="heart" label="1000" labelOn="left" labelAppearance="basic right pointing"/>
+      <SUI.Button icon="heart" label="1000" color="red" labelAppearance="basic left pointing">
         Like
       </SUI.Button>
-      <SUI.Button icon="fork" label="1000" appearance="basic" color="blue" labelAppearance="basic left pointing" oid="ckkvdPDv">
+      <SUI.Button icon="fork" label="1000" appearance="basic" color="blue" labelAppearance="basic left pointing">
         Forks
       </SUI.Button>
     </Example>
   </PageSection>
-  <PageSection title="Appearance" oid="BUqAn3Pw">
-    <Example title="Emphasis" oid="vI3dnqdG">
-      <SUI.Button oid="aqPWawfa">
+  <PageSection title="Appearance">
+    <Example title="Emphasis">
+      <SUI.Button>
         Normal
       </SUI.Button>
-      <SUI.Button color="primary" oid="bW4IkRSf">
+      <SUI.Button color="primary">
         Primary
       </SUI.Button>
-      <SUI.Button color="secondary" oid="W1y7P9oj">
+      <SUI.Button color="secondary">
         Secondary
       </SUI.Button>
-      <SUI.Button color="positive" oid="uj136M0J">
+      <SUI.Button color="positive">
         Positive
       </SUI.Button>
-      <SUI.Button color="negative" oid="PJM93v4x">
+      <SUI.Button color="negative">
         Negative
       </SUI.Button>
     </Example>
-    <Example title="Color" oid="tDA8ccP8">
-      <SUI.Button color="red" title="Red" oid="ZuaEg7QH"/>
-      <SUI.Button color="orange" title="Orange" oid="FQ6ITsol"/>
-      <SUI.Button color="yellow" title="Yellow" oid="go2HGk1s"/>
-      <SUI.Button color="olive" title="Olive" oid="BRePboNs"/>
-      <SUI.Button color="green" title="Green" oid="Mek8UnPA"/>
-      <SUI.Button color="teal" title="Teal" oid="mwP3f0xN"/>
-      <SUI.Button color="blue" title="Blue" oid="cgrcoyVl"/>
-      <Oak.Spacer oid="uGikGwra"/>
-      <SUI.Button color="violet" title="Violet" oid="QiZ1uCtf"/>
-      <SUI.Button color="purple" title="Purple" oid="iV3XApsn"/>
-      <SUI.Button color="pink" title="Pink" oid="ngwYeMj1"/>
-      <SUI.Button color="brown" title="Brown" oid="OpfRK0TP"/>
-      <SUI.Button color="grey" title="Grey" oid="kJireu7q"/>
-      <SUI.Button color="black" title="Black" oid="nZ5WhfOY"/>
+    <Example title="Color">
+      <SUI.Button color="red" title="Red"/>
+      <SUI.Button color="orange" title="Orange"/>
+      <SUI.Button color="yellow" title="Yellow"/>
+      <SUI.Button color="olive" title="Olive"/>
+      <SUI.Button color="green" title="Green"/>
+      <SUI.Button color="teal" title="Teal"/>
+      <SUI.Button color="blue" title="Blue"/>
+      <Oak.Spacer/>
+      <SUI.Button color="violet" title="Violet"/>
+      <SUI.Button color="purple" title="Purple"/>
+      <SUI.Button color="pink" title="Pink"/>
+      <SUI.Button color="brown" title="Brown"/>
+      <SUI.Button color="grey" title="Grey"/>
+      <SUI.Button color="black" title="Black"/>
     </Example>
-    <Example title="Basic" oid="OfchQia1">
-      <SUI.Button appearance="basic" icon="user" oid="V8BhRVtB">
+    <Example title="Basic">
+      <SUI.Button appearance="basic" icon="user">
         Add
       </SUI.Button>
-      <SUI.Button appearance="basic" color="red" title="Red" oid="dWvrofXg"/>
-      <SUI.Button appearance="basic" color="orange" title="Orange" oid="ZM7uSGoH"/>
-      <SUI.Button appearance="basic" color="yellow" title="Yellow" oid="kAvKM8y5"/>
-      <SUI.Button appearance="basic" color="olive" title="Olive" oid="GseAkMpH"/>
-      <SUI.Button appearance="basic" color="green" title="Green" oid="p98oIEqX"/>
-      <SUI.Button appearance="basic" color="teal" title="Teal" oid="AHOZI36H"/>
-      <Oak.Spacer oid="URAO8sQK"/>
-      <SUI.Button appearance="basic" color="blue" title="Blue" oid="SiYWAAJi"/>
-      <SUI.Button appearance="basic" color="violet" title="Violet" oid="OWZL1W3L"/>
-      <SUI.Button appearance="basic" color="purple" title="Purple" oid="G72aTmbj"/>
-      <SUI.Button appearance="basic" color="pink" title="Pink" oid="r1QlobIG"/>
-      <SUI.Button appearance="basic" color="brown" title="Brown" oid="AAZdJ6mV"/>
-      <SUI.Button appearance="basic" color="grey" title="Grey" oid="vHLSFLmw"/>
-      <SUI.Button appearance="basic" color="black" title="Black" oid="nSUYkcU8"/>
+      <SUI.Button appearance="basic" color="red" title="Red"/>
+      <SUI.Button appearance="basic" color="orange" title="Orange"/>
+      <SUI.Button appearance="basic" color="yellow" title="Yellow"/>
+      <SUI.Button appearance="basic" color="olive" title="Olive"/>
+      <SUI.Button appearance="basic" color="green" title="Green"/>
+      <SUI.Button appearance="basic" color="teal" title="Teal"/>
+      <Oak.Spacer/>
+      <SUI.Button appearance="basic" color="blue" title="Blue"/>
+      <SUI.Button appearance="basic" color="violet" title="Violet"/>
+      <SUI.Button appearance="basic" color="purple" title="Purple"/>
+      <SUI.Button appearance="basic" color="pink" title="Pink"/>
+      <SUI.Button appearance="basic" color="brown" title="Brown"/>
+      <SUI.Button appearance="basic" color="grey" title="Grey"/>
+      <SUI.Button appearance="basic" color="black" title="Black"/>
     </Example>
-    <Example title="Inverted" oid="xIwc9lAv">
-      <SUI.Segment appearance="inverted" oid="Mb3526q0">
-        <SUI.Button appearance="inverted" icon="user" oid="Q6U4rmxU">
+    <Example title="Inverted">
+      <SUI.Segment appearance="inverted">
+        <SUI.Button appearance="inverted" icon="user">
           Add
         </SUI.Button>
-        <SUI.Button appearance="inverted" color="red" title="Red" oid="Znbrllsi"/>
-        <SUI.Button appearance="inverted" color="orange" title="Orange" oid="gnFjV4aA"/>
-        <SUI.Button appearance="inverted" color="yellow" title="Yellow" oid="giPkVnLr"/>
-        <SUI.Button appearance="inverted" color="olive" title="Olive" oid="ncuns2kM"/>
-        <SUI.Button appearance="inverted" color="green" title="Green" oid="S6aeQjEx"/>
-        <SUI.Button appearance="inverted" color="teal" title="Teal" oid="G75j3T7X"/>
-        <Oak.Spacer oid="ppPyJGYX"/>
-        <SUI.Button appearance="inverted" color="blue" title="Blue" oid="MITckWFq"/>
-        <SUI.Button appearance="inverted" color="violet" title="Violet" oid="UiKF1v1d"/>
-        <SUI.Button appearance="inverted" color="purple" title="Purple" oid="iGxQLiwu"/>
-        <SUI.Button appearance="inverted" color="pink" title="Pink" oid="drcoH5du"/>
-        <SUI.Button appearance="inverted" color="brown" title="Brown" oid="lORhHGIv"/>
-        <SUI.Button appearance="inverted" color="grey" title="Grey" oid="jJrtSVhc"/>
-        <SUI.Button appearance="inverted" color="black" title="Black" oid="elJoYEoV"/>
+        <SUI.Button appearance="inverted" color="red" title="Red"/>
+        <SUI.Button appearance="inverted" color="orange" title="Orange"/>
+        <SUI.Button appearance="inverted" color="yellow" title="Yellow"/>
+        <SUI.Button appearance="inverted" color="olive" title="Olive"/>
+        <SUI.Button appearance="inverted" color="green" title="Green"/>
+        <SUI.Button appearance="inverted" color="teal" title="Teal"/>
+        <Oak.Spacer/>
+        <SUI.Button appearance="inverted" color="blue" title="Blue"/>
+        <SUI.Button appearance="inverted" color="violet" title="Violet"/>
+        <SUI.Button appearance="inverted" color="purple" title="Purple"/>
+        <SUI.Button appearance="inverted" color="pink" title="Pink"/>
+        <SUI.Button appearance="inverted" color="brown" title="Brown"/>
+        <SUI.Button appearance="inverted" color="grey" title="Grey"/>
+        <SUI.Button appearance="inverted" color="black" title="Black"/>
       </SUI.Segment>
-      <SUI.Segment appearance="inverted" oid="bREGJIBE">
-        <SUI.Button appearance={["inverted", "basic"]} icon="user" oid="DhsoZdYv">
+      <SUI.Segment appearance="inverted">
+        <SUI.Button appearance={["inverted", "basic"]} icon="user">
           Add
         </SUI.Button>
-        <SUI.Button appearance={["inverted", "basic"]} color="red" title="Basic Red" oid="kbmE2d0W"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="orange" title="Basic Orange" oid="HnZWBcDp"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="yellow" title="Basic Yellow" oid="knTAxCZU"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="olive" title="Basic Olive" oid="wCfNRpaL"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="green" title="Basic Green" oid="IVsZI4w1"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="teal" title="Basic Teal" oid="LKRDhKqp"/>
-        <Oak.Spacer oid="W8ZGkerr"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="blue" title="Basic Blue" oid="ot2NAEPd"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="violet" title="Basic Violet" oid="ujcvoKb0"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="purple" title="Basic Purple" oid="TJqjLe7n"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="pink" title="Basic Pink" oid="MnQxsbdW"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="brown" title="Basic Brown" oid="HB9yNJud"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="grey" title="Basic Grey" oid="nJIH31Jb"/>
-        <SUI.Button appearance={["inverted", "basic"]} color="black" title="Basic Black" oid="IRBnXVft"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="red" title="Basic Red"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="orange" title="Basic Orange"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="yellow" title="Basic Yellow"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="olive" title="Basic Olive"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="green" title="Basic Green"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="teal" title="Basic Teal"/>
+        <Oak.Spacer/>
+        <SUI.Button appearance={["inverted", "basic"]} color="blue" title="Basic Blue"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="violet" title="Basic Violet"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="purple" title="Basic Purple"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="pink" title="Basic Pink"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="brown" title="Basic Brown"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="grey" title="Basic Grey"/>
+        <SUI.Button appearance={["inverted", "basic"]} color="black" title="Basic Black"/>
       </SUI.Segment>
     </Example>
-    <Example title="Social" oid="CpMpYec9">
-      <SUI.Button appearance="facebook" icon="facebook" title="Facebook" oid="tbHDxDii"/>
-      <SUI.Button appearance="twitter" icon="twitter" title="Twitter" oid="T1N9UIRu"/>
-      <SUI.Button appearance="google plus" icon="google plus" title="Google Plus" oid="YZ298c9s"/>
-      <SUI.Button appearance="vk" icon="vk" title="VKk" oid="Kpd0jhoR"/>
-      <SUI.Button appearance="linkedin" icon="linkedin" title="LinkedIn" oid="tyi9LgYs"/>
-      <SUI.Button appearance="instagram" icon="instagram" title="Instagram" oid="BE6m71JV"/>
-      <SUI.Button appearance="youtube" icon="youtube" title="YouTube" oid="pAUXFwMQ"/>
+    <Example title="Social">
+      <SUI.Button appearance="facebook" icon="facebook" title="Facebook"/>
+      <SUI.Button appearance="twitter" icon="twitter" title="Twitter"/>
+      <SUI.Button appearance="google plus" icon="google plus" title="Google Plus"/>
+      <SUI.Button appearance="vk" icon="vk" title="VKk"/>
+      <SUI.Button appearance="linkedin" icon="linkedin" title="LinkedIn"/>
+      <SUI.Button appearance="instagram" icon="instagram" title="Instagram"/>
+      <SUI.Button appearance="youtube" icon="youtube" title="YouTube"/>
     </Example>
-    <Example title="Size" oid="ZMuLKkA3">
-      <SUI.Button size="mini" title="Mini" oid="X3vfni03"/>
-      <SUI.Button size="tiny" title="Tiny" oid="rxeZMW23"/>
-      <SUI.Button size="small" title="Small" oid="cxpRl7Fn"/>
-      <SUI.Button size="medium" title="Medium" oid="o2SOgQFd"/>
-      <SUI.Button size="large" title="Large" oid="bNuWMRpQ"/>
-      <SUI.Button size="big" title="Big" oid="xHiiXqqt"/>
-      <SUI.Button size="huge" title="Huge" oid="BcmVptD4"/>
-      <SUI.Button size="massive" title="Massive" oid="XF60TIM7"/>
+    <Example title="Size">
+      <SUI.Button size="mini" title="Mini"/>
+      <SUI.Button size="tiny" title="Tiny"/>
+      <SUI.Button size="small" title="Small"/>
+      <SUI.Button size="medium" title="Medium"/>
+      <SUI.Button size="large" title="Large"/>
+      <SUI.Button size="big" title="Big"/>
+      <SUI.Button size="huge" title="Huge"/>
+      <SUI.Button size="massive" title="Massive"/>
     </Example>
-    <Example title="Floated" oid="jZmRjdNc">
-      <SUI.Segment clearing oid="X3EblJRq">
-        <SUI.Button floated="left" title="Left Floated" oid="PJPt6pHs"/>
-        <SUI.Button floated="right" title="Right Floated" oid="BC9t0yN5"/>
+    <Example title="Floated">
+      <SUI.Segment clearing>
+        <SUI.Button floated="left" title="Left Floated"/>
+        <SUI.Button floated="right" title="Right Floated"/>
       </SUI.Segment>
     </Example>
-    <Example title="Compact" oid="wkEM740D">
-      <SUI.Button compact title="Hold" oid="tiRTH1Mr"/>
-      <SUI.Button compact icon="pause" oid="RUE02ule"/>
-      <SUI.Button compact icon="pause" title="Pause" appearance="labeled icon" oid="EQpevgaG"/>
+    <Example title="Compact">
+      <SUI.Button compact title="Hold"/>
+      <SUI.Button compact icon="pause"/>
+      <SUI.Button compact icon="pause" title="Pause" appearance="labeled icon"/>
     </Example>
-    <Example title="Toggle" oid="jM63Rnqu">
-      <SUI.Button toggle title="Vote" oid="FCjHNU8R"/>
-      <Bug content="`toggle` is not working." oid="v5R8L4Zq"/>
+    <Example title="Toggle">
+      <SUI.Button toggle title="Vote"/>
+      <Bug content="`toggle` is not working."/>
     </Example>
-    <Example title="Fluid" oid="JXOO8phN">
-      <SUI.Segment oid="uMmwj3au">
-        <SUI.Button appearance="fluid" title="Fits container" oid="Ddft4d6p"/>
+    <Example title="Fluid">
+      <SUI.Segment>
+        <SUI.Button appearance="fluid" title="Fits container"/>
       </SUI.Segment>
     </Example>
-    <Example title="Circular" oid="YJNVExtb">
-      <SUI.Button appearance="circular" icon="settings" oid="chJYP7Tv"/>
-      <SUI.Button appearance={["circular", "facebook"]} icon="facebook" oid="s2rcvowS"/>
-      <SUI.Button appearance={["circular", "twitter"]} icon="twitter" oid="C47WX0pk"/>
-      <SUI.Button appearance={["circular", "linkedin"]} icon="linkedin" oid="M5hLQXiQ"/>
-      <SUI.Button appearance={["circular", "google plus"]} icon="google plus" oid="VlOZ11vs"/>
+    <Example title="Circular">
+      <SUI.Button appearance="circular" icon="settings"/>
+      <SUI.Button appearance={["circular", "facebook"]} icon="facebook"/>
+      <SUI.Button appearance={["circular", "twitter"]} icon="twitter"/>
+      <SUI.Button appearance={["circular", "linkedin"]} icon="linkedin"/>
+      <SUI.Button appearance={["circular", "google plus"]} icon="google plus"/>
     </Example>
-    <Example title="Vertically Attached" oid="bUV171ij">
-      <SUI.Button attached="top" title="Top" oid="tOn4q7iT"/>
-      <SUI.Segment appearance="attached" oid="tJa2i9M9">
-        <p oid="FQ5D6xG9">
+    <Example title="Vertically Attached">
+      <SUI.Button attached="top" title="Top"/>
+      <SUI.Segment appearance="attached">
+        <p>
           Segment Content Here
         </p>
       </SUI.Segment>
-      <SUI.Button attached="bottom" title="Bottom" oid="FmaHanyW"/>
+      <SUI.Button attached="bottom" title="Bottom"/>
     </Example>
-    <Example title="Horizontally Attached" oid="mBOOZ8tt">
-      <SUI.Button attached="left" title="Left" oid="rFODFg4d"/>
-      <SUI.Button attached="right" title="Right" oid="TEYKHHQV"/>
+    <Example title="Horizontally Attached">
+      <SUI.Button attached="left" title="Left"/>
+      <SUI.Button attached="right" title="Right"/>
     </Example>
   </PageSection>
-  <PageSection title="States" oid="CmsHHBst">
-    <Example title="Active" oid="XLRUgnTv">
-      <SUI.Button active icon="user" title="Follow" oid="utBRAMTJ"/>
+  <PageSection title="States">
+    <Example title="Active">
+      <SUI.Button active icon="user" title="Follow"/>
     </Example>
-    <Example title="Disabled" oid="ubATVFTN">
-      <SUI.Button disabled icon="user" title="Follow" oid="JK6qgSeG"/>
+    <Example title="Disabled">
+      <SUI.Button disabled icon="user" title="Follow"/>
     </Example>
-    <Example title="Loading" oid="qPZhfQjq">
-      <SUI.Button loading title="Loading" oid="YBsS4whE"/>
-      <SUI.Button loading appearance="basic" title="Loading" oid="DjoM5Wmh"/>
-      <SUI.Button loading color="primary" title="Loading" oid="I3Ld1iso"/>
-      <SUI.Button loading color="secondary" title="Loading" oid="Glgbdtbb"/>
+    <Example title="Loading">
+      <SUI.Button loading title="Loading"/>
+      <SUI.Button loading appearance="basic" title="Loading"/>
+      <SUI.Button loading color="primary" title="Loading"/>
+      <SUI.Button loading color="secondary" title="Loading"/>
     </Example>
-    <Example title="Animated" oid="EK3nAn64">
-      <SUI.Button appearance="animated" oid="RuWTMfRm">
-        <div className="visible content" oid="vNy9n0nW">
+    <Example title="Animated">
+      <SUI.Button appearance="animated">
+        <div className="visible content">
           Horizontal
         </div>
-        <div className="hidden content" oid="SDK3aDou">
-          <SUI.Icon icon="right arrow" oid="ShNXg11F"/>
+        <div className="hidden content">
+          <SUI.Icon icon="right arrow"/>
         </div>
       </SUI.Button>
-      <SUI.Button appearance="vertical animated" oid="M1MRhAO2">
-        <div className="visible content" oid="anN4LFVl">
+      <SUI.Button appearance="vertical animated">
+        <div className="visible content">
           Vertical
         </div>
-        <div className="hidden content" oid="N2jYfqQa">
-          <SUI.Icon icon="right arrow" oid="Q1egWNqU"/>
+        <div className="hidden content">
+          <SUI.Icon icon="right arrow"/>
         </div>
       </SUI.Button>
-      <SUI.Button appearance="animated fade" oid="ugQtu9lQ">
-        <div className="visible content" oid="slotnPA9">
+      <SUI.Button appearance="animated fade">
+        <div className="visible content">
           Fade
         </div>
-        <div className="hidden content" oid="iKcEMOLa">
-          <SUI.Icon icon="right arrow" oid="rJl33Dl9"/>
+        <div className="hidden content">
+          <SUI.Icon icon="right arrow"/>
         </div>
       </SUI.Button>
     </Example>

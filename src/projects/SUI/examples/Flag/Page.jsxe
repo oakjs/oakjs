@@ -1,2682 +1,2682 @@
-<Oak.Page id="Flag" title="Flag" oid="dXPhjWgN">
-  <PageTitle title="Flag" oid="auiT2dNY">
+<Oak.Page id="Flag" title="Flag">
+  <PageTitle title="Flag">
     A flag is is used to represent a political state.
   </PageTitle>
-  <SUI.Segment appearance="basic text container" oid="nrxtG7Gl">
-    <table className="ui compact celled striped definition table" oid="Yub8TCSZ">
-      <thead oid="AJDnCFdd">
-        <tr oid="st0E34IX">
-          <th className="one wide" oid="TdvkFh2M">
+  <SUI.Segment appearance="basic text container">
+    <table className="ui compact celled striped definition table">
+      <thead>
+        <tr>
+          <th className="one wide">
             Flag
           </th>
-          <th oid="Qv0eKbqK">
+          <th>
             Name
           </th>
-          <th oid="DgUevtjp">
+          <th>
             ISO Code
           </th>
         </tr>
       </thead>
-      <tbody oid="eVHxXM3P">
-        <tr oid="tKF18Z5Z">
-          <td oid="AsahUXEH">
-            <SUI.Flag country="af" oid="BY4uiu7t"/>
+      <tbody>
+        <tr>
+          <td>
+            <SUI.Flag country="af"/>
           </td>
-          <td oid="JXF7OkRW">
+          <td>
             Afghanistan
           </td>
-          <td oid="PlIwgKVM">
+          <td>
             af
           </td>
         </tr>
-        <tr oid="TwPXP2U0">
-          <td oid="NIuRPjJF">
-            <SUI.Flag country="ax" oid="Jf2cV8WI"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ax"/>
           </td>
-          <td oid="TBGsGTN8">
+          <td>
             Aland Islands
           </td>
-          <td oid="AIw34v6Z">
+          <td>
             ax
           </td>
         </tr>
-        <tr oid="TDy8qOoJ">
-          <td oid="yfspQsvx">
-            <SUI.Flag country="al" oid="kGjGsaOf"/>
+        <tr>
+          <td>
+            <SUI.Flag country="al"/>
           </td>
-          <td oid="KhGsK6bL">
+          <td>
             Albania
           </td>
-          <td oid="Y8VdCoNK">
+          <td>
             al
           </td>
         </tr>
-        <tr oid="G2Vlgn9Z">
-          <td oid="yBTG6FwX">
-            <SUI.Flag country="dz" oid="mNfW9IRV"/>
+        <tr>
+          <td>
+            <SUI.Flag country="dz"/>
           </td>
-          <td oid="cxxFNJir">
+          <td>
             Algeria
           </td>
-          <td oid="LyuHKFWt">
+          <td>
             dz
           </td>
         </tr>
-        <tr oid="I8SZHjbQ">
-          <td oid="XAeY17nL">
-            <SUI.Flag country="as" oid="lvxJPkpD"/>
+        <tr>
+          <td>
+            <SUI.Flag country="as"/>
           </td>
-          <td oid="Sn4Vl0he">
+          <td>
             American Samoa
           </td>
-          <td oid="dofJBUpQ">
+          <td>
             as
           </td>
         </tr>
-        <tr oid="FODFCd9o">
-          <td oid="IXLaP3jx">
-            <SUI.Flag country="ad" oid="mQCErHbl"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ad"/>
           </td>
-          <td oid="bKtAqev8">
+          <td>
             Andorra
           </td>
-          <td oid="IqH0jMHx">
+          <td>
             ad
           </td>
         </tr>
-        <tr oid="BSHrYiAi">
-          <td oid="vTPNvdfI">
-            <SUI.Flag country="ao" oid="jCxv0LCg"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ao"/>
           </td>
-          <td oid="CN2ca2bg">
+          <td>
             Angola
           </td>
-          <td oid="cRMODlhe">
+          <td>
             ao
           </td>
         </tr>
-        <tr oid="byIaCNYC">
-          <td oid="RhKB9TIB">
-            <SUI.Flag country="ai" oid="bh8Sc1f4"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ai"/>
           </td>
-          <td oid="EeZfEwqK">
+          <td>
             Anguilla
           </td>
-          <td oid="wWcfP0qr">
+          <td>
             ai
           </td>
         </tr>
-        <tr oid="s5DlKngP">
-          <td oid="Mj6WLiqC">
-            <SUI.Flag country="ag" oid="oWwkw4wW"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ag"/>
           </td>
-          <td oid="ErlwC11P">
+          <td>
             Antigua
           </td>
-          <td oid="BabbFD4s">
+          <td>
             ag
           </td>
         </tr>
-        <tr oid="m8Xj6cpW">
-          <td oid="DjHeFkCP">
-            <SUI.Flag country="ar" oid="MmpJ5R9B"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ar"/>
           </td>
-          <td oid="bxYigppu">
+          <td>
             Argentina
           </td>
-          <td oid="RLQeGNBE">
+          <td>
             ar
           </td>
         </tr>
-        <tr oid="XxWj9Lxy">
-          <td oid="GBmRVcgW">
-            <SUI.Flag country="am" oid="rs6FIGlm"/>
+        <tr>
+          <td>
+            <SUI.Flag country="am"/>
           </td>
-          <td oid="KO6HkJLj">
+          <td>
             Armenia
           </td>
-          <td oid="xh6mUFVS">
+          <td>
             am
           </td>
         </tr>
-        <tr oid="trPy6a9a">
-          <td oid="yx023LN1">
-            <SUI.Flag country="aw" oid="VlXT30qy"/>
+        <tr>
+          <td>
+            <SUI.Flag country="aw"/>
           </td>
-          <td oid="PNPYvNMG">
+          <td>
             Aruba
           </td>
-          <td oid="HRJG4dM6">
+          <td>
             aw
           </td>
         </tr>
-        <tr oid="lAdc14H1">
-          <td oid="XqES1J52">
-            <SUI.Flag country="au" oid="gtRnr7PS"/>
+        <tr>
+          <td>
+            <SUI.Flag country="au"/>
           </td>
-          <td oid="QChmj4Ww">
+          <td>
             Australia
           </td>
-          <td oid="dhn5QFw1">
+          <td>
             au
           </td>
         </tr>
-        <tr oid="CGMwkyqJ">
-          <td oid="rx7KZ7vU">
-            <SUI.Flag country="at" oid="ABQjU3th"/>
+        <tr>
+          <td>
+            <SUI.Flag country="at"/>
           </td>
-          <td oid="ksFAq6ok">
+          <td>
             Austria
           </td>
-          <td oid="WnfXMyx7">
+          <td>
             at
           </td>
         </tr>
-        <tr oid="vdSn4g5D">
-          <td oid="bTQAvnOg">
-            <SUI.Flag country="az" oid="nKv9poy6"/>
+        <tr>
+          <td>
+            <SUI.Flag country="az"/>
           </td>
-          <td oid="aM7B1O3S">
+          <td>
             Azerbaijan
           </td>
-          <td oid="tG9qHLIZ">
+          <td>
             az
           </td>
         </tr>
-        <tr oid="h1GrCn62">
-          <td oid="o7DWDQ2I">
-            <SUI.Flag country="bs" oid="ghTmrxYc"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bs"/>
           </td>
-          <td oid="y6oQOlhA">
+          <td>
             Bahamas
           </td>
-          <td oid="mL6aBkJY">
+          <td>
             bs
           </td>
         </tr>
-        <tr oid="JSE7j4pO">
-          <td oid="t6SHmItU">
-            <SUI.Flag country="bh" oid="mkCsDXJK"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bh"/>
           </td>
-          <td oid="mU3VUZO6">
+          <td>
             Bahrain
           </td>
-          <td oid="Clbs0TQ1">
+          <td>
             bh
           </td>
         </tr>
-        <tr oid="WhLQT3xX">
-          <td oid="f8WQAiSL">
-            <SUI.Flag country="bd" oid="bCX8T1Pp"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bd"/>
           </td>
-          <td oid="Yr0Cl4D2">
+          <td>
             Bangladesh
           </td>
-          <td oid="KA9pwNnG">
+          <td>
             bd
           </td>
         </tr>
-        <tr oid="ENT6qZhd">
-          <td oid="LHoola85">
-            <SUI.Flag country="bb" oid="vIp3bQnC"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bb"/>
           </td>
-          <td oid="k2lUOXSp">
+          <td>
             Barbados
           </td>
-          <td oid="jHpD6JG6">
+          <td>
             bb
           </td>
         </tr>
-        <tr oid="QrCZBtkR">
-          <td oid="qrbPeWsH">
-            <SUI.Flag country="by" oid="qLaL6ibc"/>
+        <tr>
+          <td>
+            <SUI.Flag country="by"/>
           </td>
-          <td oid="kOAURHvi">
+          <td>
             Belarus
           </td>
-          <td oid="INNgCJvK">
+          <td>
             by
           </td>
         </tr>
-        <tr oid="jMhD4ZJf">
-          <td oid="oHKJtfWs">
-            <SUI.Flag country="be" oid="ykuaj3oY"/>
+        <tr>
+          <td>
+            <SUI.Flag country="be"/>
           </td>
-          <td oid="QjRHBMvk">
+          <td>
             Belgium
           </td>
-          <td oid="MMkOItl3">
+          <td>
             be
           </td>
         </tr>
-        <tr oid="QEnNZZIa">
-          <td oid="PYj94jAI">
-            <SUI.Flag country="bz" oid="vqUVedRX"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bz"/>
           </td>
-          <td oid="JvhHbdhX">
+          <td>
             Belize
           </td>
-          <td oid="iDm7QAh7">
+          <td>
             bz
           </td>
         </tr>
-        <tr oid="nPm0uDjl">
-          <td oid="aSlRNXXn">
-            <SUI.Flag country="bj" oid="wixe7yMu"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bj"/>
           </td>
-          <td oid="J7LgTH5a">
+          <td>
             Benin
           </td>
-          <td oid="bpRbPsSn">
+          <td>
             bj
           </td>
         </tr>
-        <tr oid="sfkDBmoX">
-          <td oid="FgcHa3Yg">
-            <SUI.Flag country="bm" oid="wqmXgB3L"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bm"/>
           </td>
-          <td oid="dRVfinGg">
+          <td>
             Bermuda
           </td>
-          <td oid="xWIVQy5O">
+          <td>
             bm
           </td>
         </tr>
-        <tr oid="YTqpNpWL">
-          <td oid="j6QOVDK4">
-            <SUI.Flag country="bt" oid="ryp2rQQd"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bt"/>
           </td>
-          <td oid="p8d9teiv">
+          <td>
             Bhutan
           </td>
-          <td oid="DMALSc00">
+          <td>
             bt
           </td>
         </tr>
-        <tr oid="sOYGkxBt">
-          <td oid="E9sLQw6a">
-            <SUI.Flag country="bo" oid="pWPlsCee"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bo"/>
           </td>
-          <td oid="eCCo8Uyq">
+          <td>
             Bolivia
           </td>
-          <td oid="eWEeNTPq">
+          <td>
             bo
           </td>
         </tr>
-        <tr oid="b3YC2UOB">
-          <td oid="HW1T1y4b">
-            <SUI.Flag country="ba" oid="lk50YcP6"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ba"/>
           </td>
-          <td oid="bFmHTSbI">
+          <td>
             Bosnia
           </td>
-          <td oid="OjYwROYN">
+          <td>
             ba
           </td>
         </tr>
-        <tr oid="CeBVlpT2">
-          <td oid="mD1SwPAL">
-            <SUI.Flag country="bw" oid="ohQioG39"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bw"/>
           </td>
-          <td oid="mcUL4GZS">
+          <td>
             Botswana
           </td>
-          <td oid="f3vteijp">
+          <td>
             bw
           </td>
         </tr>
-        <tr oid="leMSO9q4">
-          <td oid="rN9raBT0">
-            <SUI.Flag country="bv" oid="PLyrSXmv"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bv"/>
           </td>
-          <td oid="Tqvd0B01">
+          <td>
             Bouvet Island
           </td>
-          <td oid="bKgHOoKd">
+          <td>
             bv
           </td>
         </tr>
-        <tr oid="wmerfGJH">
-          <td oid="VbEX0vwy">
-            <SUI.Flag country="br" oid="ewD60r9O"/>
+        <tr>
+          <td>
+            <SUI.Flag country="br"/>
           </td>
-          <td oid="TNd86kpH">
+          <td>
             Brazil
           </td>
-          <td oid="EqPFA2mR">
+          <td>
             br
           </td>
         </tr>
-        <tr oid="yOIGl1yv">
-          <td oid="sE8QwH1j">
-            <SUI.Flag country="vg" oid="J4Pjcbxi"/>
+        <tr>
+          <td>
+            <SUI.Flag country="vg"/>
           </td>
-          <td oid="iQHgBkxj">
+          <td>
             British Virgin Islands
           </td>
-          <td oid="x2MEgE7f">
+          <td>
             vg
           </td>
         </tr>
-        <tr oid="HM78QxUH">
-          <td oid="O5DsGWGv">
-            <SUI.Flag country="bn" oid="svkeGZRR"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bn"/>
           </td>
-          <td oid="wsYVrkCu">
+          <td>
             Brunei
           </td>
-          <td oid="Qd4V5VdI">
+          <td>
             bn
           </td>
         </tr>
-        <tr oid="qxxqxW3R">
-          <td oid="gkJvMi6M">
-            <SUI.Flag country="bg" oid="VAkpN9My"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bg"/>
           </td>
-          <td oid="hf8J7Dc4">
+          <td>
             Bulgaria
           </td>
-          <td oid="tijcsmcY">
+          <td>
             bg
           </td>
         </tr>
-        <tr oid="qQnEnV4c">
-          <td oid="njgmOulK">
-            <SUI.Flag country="bf" oid="N7Cey5G4"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bf"/>
           </td>
-          <td oid="mq5PGPNr">
+          <td>
             Burkina Faso
           </td>
-          <td oid="ua9guwv8">
+          <td>
             bf
           </td>
         </tr>
-        <tr oid="Xk6X4Pob">
-          <td oid="R2LIv5ti">
-            <SUI.Flag country="ar" oid="r2GMuUhJ"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ar"/>
           </td>
-          <td oid="in0ZkZIW">
+          <td>
             Burma
           </td>
-          <td oid="Vsq048Gy">
+          <td>
             ar
           </td>
         </tr>
-        <tr oid="u2ToPwwN">
-          <td oid="ZJbvKYG6">
-            <SUI.Flag country="bi" oid="qN555cJr"/>
+        <tr>
+          <td>
+            <SUI.Flag country="bi"/>
           </td>
-          <td oid="SSalX7yX">
+          <td>
             Burundi
           </td>
-          <td oid="UG4EOQYg">
+          <td>
             bi
           </td>
         </tr>
-        <tr oid="pyTN8MV0">
-          <td oid="YBH28VUJ">
-            <SUI.Flag country="tc" oid="NqNOk3hS"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tc"/>
           </td>
-          <td oid="DOit1HpP">
+          <td>
             Caicos Islands
           </td>
-          <td oid="LBQUeAUh">
+          <td>
             tc
           </td>
         </tr>
-        <tr oid="UjJUpBeA">
-          <td oid="G7XgJ3Fg">
-            <SUI.Flag country="kh" oid="JbXLSbjl"/>
+        <tr>
+          <td>
+            <SUI.Flag country="kh"/>
           </td>
-          <td oid="Uks7rA8r">
+          <td>
             Cambodia
           </td>
-          <td oid="u3KCtwtg">
+          <td>
             kh
           </td>
         </tr>
-        <tr oid="PyjdCYTY">
-          <td oid="sOgPn1e3">
-            <SUI.Flag country="cm" oid="RCYSC0Ml"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cm"/>
           </td>
-          <td oid="dFxpDGFp">
+          <td>
             Cameroon
           </td>
-          <td oid="m0eveMKV">
+          <td>
             cm
           </td>
         </tr>
-        <tr oid="yoq1qSHA">
-          <td oid="geVkwPJ8">
-            <SUI.Flag country="ca" oid="Fvxv1fyg"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ca"/>
           </td>
-          <td oid="sP0YnxKG">
+          <td>
             Canada
           </td>
-          <td oid="JIp75c4B">
+          <td>
             ca
           </td>
         </tr>
-        <tr oid="Q4IFt3Re">
-          <td oid="CKtbtdn1">
-            <SUI.Flag country="cv" oid="nj2iGews"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cv"/>
           </td>
-          <td oid="JtY1FMjO">
+          <td>
             Cape Verde
           </td>
-          <td oid="bj4mSVpB">
+          <td>
             cv
           </td>
         </tr>
-        <tr oid="AMe4OjRX">
-          <td oid="GjESRp5X">
-            <SUI.Flag country="ky" oid="wo6fIwAi"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ky"/>
           </td>
-          <td oid="U3vimk3O">
+          <td>
             Cayman Islands
           </td>
-          <td oid="WoQg1lSC">
+          <td>
             ky
           </td>
         </tr>
-        <tr oid="gI2BZiSA">
-          <td oid="jXXIJxbT">
-            <SUI.Flag country="cf" oid="CKIYTfeU"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cf"/>
           </td>
-          <td oid="GhMFeB1F">
+          <td>
             Central African Republic
           </td>
-          <td oid="DH6mDQ9y">
+          <td>
             cf
           </td>
         </tr>
-        <tr oid="podu8Rca">
-          <td oid="Ihtyu2C8">
-            <SUI.Flag country="td" oid="KWjjxF2V"/>
+        <tr>
+          <td>
+            <SUI.Flag country="td"/>
           </td>
-          <td oid="D8lh9Cx7">
+          <td>
             Chad
           </td>
-          <td oid="yCmBel4d">
+          <td>
             td
           </td>
         </tr>
-        <tr oid="jWGZddks">
-          <td oid="U9S3syub">
-            <SUI.Flag country="cl" oid="wjIYHyp1"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cl"/>
           </td>
-          <td oid="Vsqo7B8m">
+          <td>
             Chile
           </td>
-          <td oid="YANTMevg">
+          <td>
             cl
           </td>
         </tr>
-        <tr oid="gnjPrO0i">
-          <td oid="SiZT1dX9">
-            <SUI.Flag country="cn" oid="VbQ8EjQV"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cn"/>
           </td>
-          <td oid="p0JFMv8m">
+          <td>
             China
           </td>
-          <td oid="SD8F9NVM">
+          <td>
             cn
           </td>
         </tr>
-        <tr oid="oKkAGF4D">
-          <td oid="QkcxRkhp">
-            <SUI.Flag country="cx" oid="GqTN6Wly"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cx"/>
           </td>
-          <td oid="WnEB8GW5">
+          <td>
             Christmas Island
           </td>
-          <td oid="gylNWfTO">
+          <td>
             cx
           </td>
         </tr>
-        <tr oid="ALNAK6is">
-          <td oid="LQ8p35C6">
-            <SUI.Flag country="cc" oid="wn5AMvfF"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cc"/>
           </td>
-          <td oid="RBTY1wl8">
+          <td>
             Cocos Islands
           </td>
-          <td oid="ndEy13gC">
+          <td>
             cc
           </td>
         </tr>
-        <tr oid="ZZoq4GKW">
-          <td oid="exLw9B5R">
-            <SUI.Flag country="co" oid="ueaKVkdL"/>
+        <tr>
+          <td>
+            <SUI.Flag country="co"/>
           </td>
-          <td oid="edTWh3kF">
+          <td>
             Colombia
           </td>
-          <td oid="wQXNdZRd">
+          <td>
             co
           </td>
         </tr>
-        <tr oid="ybDbQY7D">
-          <td oid="m0hF3Kxq">
-            <SUI.Flag country="km" oid="SHWaYy1G"/>
+        <tr>
+          <td>
+            <SUI.Flag country="km"/>
           </td>
-          <td oid="Y1hfBJdZ">
+          <td>
             Comoros
           </td>
-          <td oid="SSbYHnJW">
+          <td>
             km
           </td>
         </tr>
-        <tr oid="sT44h8JR">
-          <td oid="jg96MZuR">
-            <SUI.Flag country="cg" oid="nCLIZhX4"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cg"/>
           </td>
-          <td oid="Ogd0eiNE">
+          <td>
             Congo Brazzaville
           </td>
-          <td oid="UaQSJ5TC">
+          <td>
             cg
           </td>
         </tr>
-        <tr oid="JZtkowFc">
-          <td oid="ts1vOF2a">
-            <SUI.Flag country="cd" oid="bYeukJu6"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cd"/>
           </td>
-          <td oid="nJ7pf3aF">
+          <td>
             Congo
           </td>
-          <td oid="FyBnFXOv">
+          <td>
             cd
           </td>
         </tr>
-        <tr oid="HNkwuM6B">
-          <td oid="vwofCLRt">
-            <SUI.Flag country="ck" oid="Ix0LFu7l"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ck"/>
           </td>
-          <td oid="cTJFWH6h">
+          <td>
             Cook Islands
           </td>
-          <td oid="pWqqJywU">
+          <td>
             ck
           </td>
         </tr>
-        <tr oid="WRsMmBwP">
-          <td oid="LhogWXLe">
-            <SUI.Flag country="cr" oid="DTFXKlDV"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cr"/>
           </td>
-          <td oid="dSbskpeO">
+          <td>
             Costa Rica
           </td>
-          <td oid="SUWhBsYU">
+          <td>
             cr
           </td>
         </tr>
-        <tr oid="PQsHiHNK">
-          <td oid="sqLCVgTB">
-            <SUI.Flag country="ci" oid="rc5FvJc9"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ci"/>
           </td>
-          <td oid="swQjv7Ex">
+          <td>
             Cote Divoire
           </td>
-          <td oid="c3RQqlS6">
+          <td>
             ci
           </td>
         </tr>
-        <tr oid="Pps3T8uV">
-          <td oid="SQBZd9RO">
-            <SUI.Flag country="hr" oid="SjS4cMQv"/>
+        <tr>
+          <td>
+            <SUI.Flag country="hr"/>
           </td>
-          <td oid="UA6lLX1N">
+          <td>
             Croatia
           </td>
-          <td oid="f0aNma6P">
+          <td>
             hr
           </td>
         </tr>
-        <tr oid="H5vs9rtJ">
-          <td oid="RIh8HyWX">
-            <SUI.Flag country="cu" oid="PW2OGdLK"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cu"/>
           </td>
-          <td oid="MpmR8Xxc">
+          <td>
             Cuba
           </td>
-          <td oid="maJAjudG">
+          <td>
             cu
           </td>
         </tr>
-        <tr oid="l6tjjnG1">
-          <td oid="fFxQuZty">
-            <SUI.Flag country="cy" oid="ryDpELEu"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cy"/>
           </td>
-          <td oid="RloahsuZ">
+          <td>
             Cyprus
           </td>
-          <td oid="ATt33OSM">
+          <td>
             cy
           </td>
         </tr>
-        <tr oid="qW7KLDYw">
-          <td oid="QVPVfMpl">
-            <SUI.Flag country="cz" oid="PQKGNjhr"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cz"/>
           </td>
-          <td oid="bWailtGS">
+          <td>
             Czech Republic
           </td>
-          <td oid="vk2nn69K">
+          <td>
             cz
           </td>
         </tr>
-        <tr oid="rygGr95J">
-          <td oid="Jaj3JJC3">
-            <SUI.Flag country="dk" oid="vpE1ewC5"/>
+        <tr>
+          <td>
+            <SUI.Flag country="dk"/>
           </td>
-          <td oid="HnhT7YHC">
+          <td>
             Denmark
           </td>
-          <td oid="gVDkkKrJ">
+          <td>
             dk
           </td>
         </tr>
-        <tr oid="k1xNpdsR">
-          <td oid="ZxUqfme1">
-            <SUI.Flag country="dj" oid="VqHB5C2p"/>
+        <tr>
+          <td>
+            <SUI.Flag country="dj"/>
           </td>
-          <td oid="gE5D13kx">
+          <td>
             Djibouti
           </td>
-          <td oid="xMwEgUFs">
+          <td>
             dj
           </td>
         </tr>
-        <tr oid="HeZgb57k">
-          <td oid="bRToDYM0">
-            <SUI.Flag country="dm" oid="t5ZJEseb"/>
+        <tr>
+          <td>
+            <SUI.Flag country="dm"/>
           </td>
-          <td oid="leWKLBic">
+          <td>
             Dominica
           </td>
-          <td oid="q96Hbhmo">
+          <td>
             dm
           </td>
         </tr>
-        <tr oid="d0WKcsnJ">
-          <td oid="c1A6GNaN">
-            <SUI.Flag country="do" oid="lHtt2vLe"/>
+        <tr>
+          <td>
+            <SUI.Flag country="do"/>
           </td>
-          <td oid="KyffIo0G">
+          <td>
             Dominican Republic
           </td>
-          <td oid="axkqsUi9">
+          <td>
             do
           </td>
         </tr>
-        <tr oid="aFLjdg9u">
-          <td oid="CsSQkCe1">
-            <SUI.Flag country="ec" oid="iYnfPNYQ"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ec"/>
           </td>
-          <td oid="kAqVBUas">
+          <td>
             Ecuador
           </td>
-          <td oid="AhN83iOS">
+          <td>
             ec
           </td>
         </tr>
-        <tr oid="gJonCr1W">
-          <td oid="vOUFYgPh">
-            <SUI.Flag country="eg" oid="yuBHfuSn"/>
+        <tr>
+          <td>
+            <SUI.Flag country="eg"/>
           </td>
-          <td oid="ug6Hb3VB">
+          <td>
             Egypt
           </td>
-          <td oid="aSlTqPNB">
+          <td>
             eg
           </td>
         </tr>
-        <tr oid="n7mQS3Il">
-          <td oid="rEf8NaJU">
-            <SUI.Flag country="sv" oid="y5iC3O9R"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sv"/>
           </td>
-          <td oid="GbooKJrK">
+          <td>
             El Salvador
           </td>
-          <td oid="XXuaPgvn">
+          <td>
             sv
           </td>
         </tr>
-        <tr oid="Xrg1f4Ky">
-          <td oid="BmemFWjD">
-            <SUI.Flag country="gb" oid="drfpMWlA"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gb"/>
           </td>
-          <td oid="J4jG4Wqx">
+          <td>
             England
           </td>
-          <td oid="kZ9HSx6X">
+          <td>
             gb
           </td>
         </tr>
-        <tr oid="GZh25FQv">
-          <td oid="ON7ULGFY">
-            <SUI.Flag country="gq" oid="v19mg0ZO"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gq"/>
           </td>
-          <td oid="o9XtujEK">
+          <td>
             Equatorial Guinea
           </td>
-          <td oid="m0BrLMsy">
+          <td>
             gq
           </td>
         </tr>
-        <tr oid="jDW2OQh2">
-          <td oid="vxHDvmBH">
-            <SUI.Flag country="er" oid="hjpCUZy0"/>
+        <tr>
+          <td>
+            <SUI.Flag country="er"/>
           </td>
-          <td oid="DHvZBXr1">
+          <td>
             Eritrea
           </td>
-          <td oid="mpc0WKgn">
+          <td>
             er
           </td>
         </tr>
-        <tr oid="upg69cMS">
-          <td oid="WJLBugMx">
-            <SUI.Flag country="ee" oid="HpBCWqY5"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ee"/>
           </td>
-          <td oid="km4cs5PK">
+          <td>
             Estonia
           </td>
-          <td oid="Af73d1Lk">
+          <td>
             ee
           </td>
         </tr>
-        <tr oid="TDaTBFOn">
-          <td oid="pyVk5PvG">
-            <SUI.Flag country="et" oid="XW6Druon"/>
+        <tr>
+          <td>
+            <SUI.Flag country="et"/>
           </td>
-          <td oid="QrSR3GFt">
+          <td>
             Ethiopia
           </td>
-          <td oid="IgYmOjNf">
+          <td>
             et
           </td>
         </tr>
-        <tr oid="gQRfWA9t">
-          <td oid="Eos1re7x">
-            <SUI.Flag country="eu" oid="fgnR4I35"/>
+        <tr>
+          <td>
+            <SUI.Flag country="eu"/>
           </td>
-          <td oid="sk4jiXSy">
+          <td>
             European Union
           </td>
-          <td oid="sc6MjvHJ">
+          <td>
             eu
           </td>
         </tr>
-        <tr oid="sjEAJx31">
-          <td oid="HYghh2Rk">
-            <SUI.Flag country="fk" oid="xZ9QkW4O"/>
+        <tr>
+          <td>
+            <SUI.Flag country="fk"/>
           </td>
-          <td oid="VUqXu0n7">
+          <td>
             Falkland Islands
           </td>
-          <td oid="GQyP7SO0">
+          <td>
             fk
           </td>
         </tr>
-        <tr oid="IekJ1u6F">
-          <td oid="YHwO985H">
-            <SUI.Flag country="fo" oid="aOj1XZYf"/>
+        <tr>
+          <td>
+            <SUI.Flag country="fo"/>
           </td>
-          <td oid="wZ9qeKOs">
+          <td>
             Faroe Islands
           </td>
-          <td oid="nhoOXhbM">
+          <td>
             fo
           </td>
         </tr>
-        <tr oid="Sm4Vh2oV">
-          <td oid="yAl6pM4l">
-            <SUI.Flag country="fj" oid="Aij4Sqdg"/>
+        <tr>
+          <td>
+            <SUI.Flag country="fj"/>
           </td>
-          <td oid="aQcPRIBb">
+          <td>
             Fiji
           </td>
-          <td oid="cQVO2Nk9">
+          <td>
             fj
           </td>
         </tr>
-        <tr oid="ikxwAMKY">
-          <td oid="KxgiL8qJ">
-            <SUI.Flag country="fi" oid="LsKvV1oa"/>
+        <tr>
+          <td>
+            <SUI.Flag country="fi"/>
           </td>
-          <td oid="tcCrW5Rg">
+          <td>
             Finland
           </td>
-          <td oid="GrgdGgSJ">
+          <td>
             fi
           </td>
         </tr>
-        <tr oid="dQEbDYlm">
-          <td oid="pEoeQfRJ">
-            <SUI.Flag country="fr" oid="lsIdG7eB"/>
+        <tr>
+          <td>
+            <SUI.Flag country="fr"/>
           </td>
-          <td oid="ApNy3gSL">
+          <td>
             France
           </td>
-          <td oid="DjluNekK">
+          <td>
             fr
           </td>
         </tr>
-        <tr oid="dkvT39VH">
-          <td oid="khqOdVke">
-            <SUI.Flag country="gf" oid="V8JJsWSe"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gf"/>
           </td>
-          <td oid="sYrkQUgk">
+          <td>
             French Guiana
           </td>
-          <td oid="cS92lXS9">
+          <td>
             gf
           </td>
         </tr>
-        <tr oid="e17vSmKs">
-          <td oid="qf48GMLs">
-            <SUI.Flag country="pf" oid="ZgBiqd8X"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pf"/>
           </td>
-          <td oid="ai5BhTbN">
+          <td>
             French Polynesia
           </td>
-          <td oid="uqy6vOnF">
+          <td>
             pf
           </td>
         </tr>
-        <tr oid="OSA25gUK">
-          <td oid="me2dmwDF">
-            <SUI.Flag country="tf" oid="gdECHUc4"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tf"/>
           </td>
-          <td oid="lVMrUtSq">
+          <td>
             French Territories
           </td>
-          <td oid="VnHtKB7u">
+          <td>
             tf
           </td>
         </tr>
-        <tr oid="v95EmP7d">
-          <td oid="xZEDMK8p">
-            <SUI.Flag country="ga" oid="u0M13c38"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ga"/>
           </td>
-          <td oid="cr4L4LxR">
+          <td>
             Gabon
           </td>
-          <td oid="eLXMP091">
+          <td>
             ga
           </td>
         </tr>
-        <tr oid="akrZgGdk">
-          <td oid="edXTY2Ts">
-            <SUI.Flag country="gm" oid="BcHopqS0"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gm"/>
           </td>
-          <td oid="yLbuMYb9">
+          <td>
             Gambia
           </td>
-          <td oid="I7IRLXwl">
+          <td>
             gm
           </td>
         </tr>
-        <tr oid="QopILhSx">
-          <td oid="cd5oEZL2">
-            <SUI.Flag country="ge" oid="rLKQRVln"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ge"/>
           </td>
-          <td oid="J4HKdfSV">
+          <td>
             Georgia
           </td>
-          <td oid="sklVjygi">
+          <td>
             ge
           </td>
         </tr>
-        <tr oid="Pc1fT6Ng">
-          <td oid="m71CeSWm">
-            <SUI.Flag country="de" oid="nqMF91EG"/>
+        <tr>
+          <td>
+            <SUI.Flag country="de"/>
           </td>
-          <td oid="AwXC4Moa">
+          <td>
             Germany
           </td>
-          <td oid="I1xahZ3D">
+          <td>
             de
           </td>
         </tr>
-        <tr oid="iou1U2JQ">
-          <td oid="ySQnxwTC">
-            <SUI.Flag country="gh" oid="BBwAVj83"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gh"/>
           </td>
-          <td oid="oaV2Irqp">
+          <td>
             Ghana
           </td>
-          <td oid="HLr8Kr4o">
+          <td>
             gh
           </td>
         </tr>
-        <tr oid="CS5UZJiD">
-          <td oid="npVFdXqq">
-            <SUI.Flag country="gi" oid="EeZ9BFsw"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gi"/>
           </td>
-          <td oid="nCaqnd9H">
+          <td>
             Gibraltar
           </td>
-          <td oid="XJ1yVb7I">
+          <td>
             gi
           </td>
         </tr>
-        <tr oid="TWekfTTR">
-          <td oid="dTRYs4Ia">
-            <SUI.Flag country="gr" oid="KQSyUKiq"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gr"/>
           </td>
-          <td oid="yDn9x2Bg">
+          <td>
             Greece
           </td>
-          <td oid="Jl9wJpDm">
+          <td>
             gr
           </td>
         </tr>
-        <tr oid="qo3tiIqe">
-          <td oid="nCalyWwU">
-            <SUI.Flag country="gl" oid="odXJWx8C"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gl"/>
           </td>
-          <td oid="fIvr46Pn">
+          <td>
             Greenland
           </td>
-          <td oid="Ca9Q3jQk">
+          <td>
             gl
           </td>
         </tr>
-        <tr oid="kVCvR3bS">
-          <td oid="fesMoSnL">
-            <SUI.Flag country="gd" oid="U91yyCkZ"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gd"/>
           </td>
-          <td oid="m1SdEPAE">
+          <td>
             Grenada
           </td>
-          <td oid="unYJoiLL">
+          <td>
             gd
           </td>
         </tr>
-        <tr oid="bDs0FXjd">
-          <td oid="cWECI9vx">
-            <SUI.Flag country="gp" oid="CyIeXTXB"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gp"/>
           </td>
-          <td oid="D0xkBYZT">
+          <td>
             Guadeloupe
           </td>
-          <td oid="oY5asOYu">
+          <td>
             gp
           </td>
         </tr>
-        <tr oid="FPAF75tU">
-          <td oid="qHZJIkOI">
-            <SUI.Flag country="gu" oid="brSYFdya"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gu"/>
           </td>
-          <td oid="Z2LGGUbZ">
+          <td>
             Guam
           </td>
-          <td oid="imR81Qlo">
+          <td>
             gu
           </td>
         </tr>
-        <tr oid="ZG4h6a0O">
-          <td oid="ERMoGMKU">
-            <SUI.Flag country="gt" oid="GFgebtOL"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gt"/>
           </td>
-          <td oid="dQg9MRTk">
+          <td>
             Guatemala
           </td>
-          <td oid="qiJ3U9GD">
+          <td>
             gt
           </td>
         </tr>
-        <tr oid="CBr0ODGN">
-          <td oid="Mq0w6HaB">
-            <SUI.Flag country="gw" oid="n8lulCSw"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gw"/>
           </td>
-          <td oid="y8CEFVNi">
+          <td>
             Guinea-Bissau
           </td>
-          <td oid="bZikoe56">
+          <td>
             gw
           </td>
         </tr>
-        <tr oid="sCKjuiyH">
-          <td oid="ehJytSuC">
-            <SUI.Flag country="gn" oid="flDculKL"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gn"/>
           </td>
-          <td oid="MtdQvKss">
+          <td>
             Guinea
           </td>
-          <td oid="NPnia2dW">
+          <td>
             gn
           </td>
         </tr>
-        <tr oid="fGYZ8crE">
-          <td oid="NhlTf4n8">
-            <SUI.Flag country="gy" oid="MDU4ykcX"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gy"/>
           </td>
-          <td oid="jGsCx8qe">
+          <td>
             Guyana
           </td>
-          <td oid="M3k4cEOh">
+          <td>
             gy
           </td>
         </tr>
-        <tr oid="PpNQJyo1">
-          <td oid="OZpu8VSO">
-            <SUI.Flag country="ht" oid="I1rEA0Gf"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ht"/>
           </td>
-          <td oid="pis2PLpl">
+          <td>
             Haiti
           </td>
-          <td oid="LDIp9IjP">
+          <td>
             ht
           </td>
         </tr>
-        <tr oid="xuUMHFjp">
-          <td oid="XAwRU9Do">
-            <SUI.Flag country="hm" oid="GLhNyKtg"/>
+        <tr>
+          <td>
+            <SUI.Flag country="hm"/>
           </td>
-          <td oid="uxvQu1MR">
+          <td>
             Heard Island
           </td>
-          <td oid="vjaa20Cu">
+          <td>
             hm
           </td>
         </tr>
-        <tr oid="vcyF0HCf">
-          <td oid="BXO5nujv">
-            <SUI.Flag country="hn" oid="KibZTtE9"/>
+        <tr>
+          <td>
+            <SUI.Flag country="hn"/>
           </td>
-          <td oid="XCW114FF">
+          <td>
             Honduras
           </td>
-          <td oid="YBLdssdn">
+          <td>
             hn
           </td>
         </tr>
-        <tr oid="OLsbUt5n">
-          <td oid="FmdKfHsZ">
-            <SUI.Flag country="hk" oid="EaDE8YJs"/>
+        <tr>
+          <td>
+            <SUI.Flag country="hk"/>
           </td>
-          <td oid="fkv7cIhq">
+          <td>
             Hong Kong
           </td>
-          <td oid="TbbsXchY">
+          <td>
             hk
           </td>
         </tr>
-        <tr oid="ty5Nigjw">
-          <td oid="loDXLOQA">
-            <SUI.Flag country="hu" oid="wKyuICJs"/>
+        <tr>
+          <td>
+            <SUI.Flag country="hu"/>
           </td>
-          <td oid="AtV482Nx">
+          <td>
             Hungary
           </td>
-          <td oid="kCup3wDy">
+          <td>
             hu
           </td>
         </tr>
-        <tr oid="IjH6DnIT">
-          <td oid="AgfhHX00">
-            <SUI.Flag country="is" oid="TBOmmmEG"/>
+        <tr>
+          <td>
+            <SUI.Flag country="is"/>
           </td>
-          <td oid="PQSkfHh4">
+          <td>
             Iceland
           </td>
-          <td oid="oLoPuB9Y">
+          <td>
             is
           </td>
         </tr>
-        <tr oid="PIp4aVFC">
-          <td oid="xET8iVSt">
-            <SUI.Flag country="in" oid="rEPD8UnY"/>
+        <tr>
+          <td>
+            <SUI.Flag country="in"/>
           </td>
-          <td oid="qADIXy6O">
+          <td>
             India
           </td>
-          <td oid="Vd6TQ3MD">
+          <td>
             in
           </td>
         </tr>
-        <tr oid="Fb8AK7Ms">
-          <td oid="r0vk6ECH">
-            <SUI.Flag country="io" oid="Ox4GgPck"/>
+        <tr>
+          <td>
+            <SUI.Flag country="io"/>
           </td>
-          <td oid="GkwrdMqk">
+          <td>
             Indian Ocean Territory
           </td>
-          <td oid="G8TEqYRM">
+          <td>
             io
           </td>
         </tr>
-        <tr oid="Urfvxyrh">
-          <td oid="nG52XpOA">
-            <SUI.Flag country="id" oid="EjsQI8uQ"/>
+        <tr>
+          <td>
+            <SUI.Flag country="id"/>
           </td>
-          <td oid="ejoAvdF0">
+          <td>
             Indonesia
           </td>
-          <td oid="ThctOjEH">
+          <td>
             id
           </td>
         </tr>
-        <tr oid="EApFd7mq">
-          <td oid="JB9Jc4VV">
-            <SUI.Flag country="ir" oid="XaICJRPF"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ir"/>
           </td>
-          <td oid="HxBxb1DN">
+          <td>
             Iran
           </td>
-          <td oid="p7doo9dV">
+          <td>
             ir
           </td>
         </tr>
-        <tr oid="lmp6HClM">
-          <td oid="T7RxMnF9">
-            <SUI.Flag country="iq" oid="SsK4tlVn"/>
+        <tr>
+          <td>
+            <SUI.Flag country="iq"/>
           </td>
-          <td oid="AYxUkx1q">
+          <td>
             Iraq
           </td>
-          <td oid="eefKVLwa">
+          <td>
             iq
           </td>
         </tr>
-        <tr oid="wQiBlAcV">
-          <td oid="UTanET18">
-            <SUI.Flag country="ie" oid="qufVFgbL"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ie"/>
           </td>
-          <td oid="yNl0Sp6L">
+          <td>
             Ireland
           </td>
-          <td oid="hI6upWhX">
+          <td>
             ie
           </td>
         </tr>
-        <tr oid="K9pR69B9">
-          <td oid="Tq2sQJxT">
-            <SUI.Flag country="il" oid="rHcTCNgU"/>
+        <tr>
+          <td>
+            <SUI.Flag country="il"/>
           </td>
-          <td oid="MmSKoyiC">
+          <td>
             Israel
           </td>
-          <td oid="uM2aFav9">
+          <td>
             il
           </td>
         </tr>
-        <tr oid="nFxrrrsB">
-          <td oid="P2bjLREq">
-            <SUI.Flag country="it" oid="a2CbQnbW"/>
+        <tr>
+          <td>
+            <SUI.Flag country="it"/>
           </td>
-          <td oid="vrhuFB7U">
+          <td>
             Italy
           </td>
-          <td oid="huA1OydH">
+          <td>
             it
           </td>
         </tr>
-        <tr oid="oiR9vp5N">
-          <td oid="GOjpR3bU">
-            <SUI.Flag country="jm" oid="XWTanopK"/>
+        <tr>
+          <td>
+            <SUI.Flag country="jm"/>
           </td>
-          <td oid="EFjtRxc1">
+          <td>
             Jamaica
           </td>
-          <td oid="mhNp8T0j">
+          <td>
             jm
           </td>
         </tr>
-        <tr oid="kr1YTTv8">
-          <td oid="GwuHnxOx">
-            <SUI.Flag country="jp" oid="dJgCSSxk"/>
+        <tr>
+          <td>
+            <SUI.Flag country="jp"/>
           </td>
-          <td oid="BQy6hRh7">
+          <td>
             Japan
           </td>
-          <td oid="ImYHSGt1">
+          <td>
             jp
           </td>
         </tr>
-        <tr oid="bF7gPegP">
-          <td oid="jMmHIxtA">
-            <SUI.Flag country="jo" oid="A0SR9lgA"/>
+        <tr>
+          <td>
+            <SUI.Flag country="jo"/>
           </td>
-          <td oid="RBy75ua0">
+          <td>
             Jordan
           </td>
-          <td oid="RA3vG0fe">
+          <td>
             jo
           </td>
         </tr>
-        <tr oid="x43xlaS8">
-          <td oid="x6wx6hni">
-            <SUI.Flag country="kz" oid="sAxhULEd"/>
+        <tr>
+          <td>
+            <SUI.Flag country="kz"/>
           </td>
-          <td oid="ySpNJs1G">
+          <td>
             Kazakhstan
           </td>
-          <td oid="NNB8GIap">
+          <td>
             kz
           </td>
         </tr>
-        <tr oid="Bebb9vC8">
-          <td oid="x7LEMCY4">
-            <SUI.Flag country="ke" oid="NIEonPC6"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ke"/>
           </td>
-          <td oid="D3prXDl9">
+          <td>
             Kenya
           </td>
-          <td oid="mRZrUGkB">
+          <td>
             ke
           </td>
         </tr>
-        <tr oid="oNGOtMWU">
-          <td oid="uA1b8en3">
-            <SUI.Flag country="ki" oid="FaUX9V9x"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ki"/>
           </td>
-          <td oid="a4cqwJFZ">
+          <td>
             Kiribati
           </td>
-          <td oid="ewCq2T2y">
+          <td>
             ki
           </td>
         </tr>
-        <tr oid="VwTM230Z">
-          <td oid="p0jNcEQL">
-            <SUI.Flag country="kw" oid="t90BG7b1"/>
+        <tr>
+          <td>
+            <SUI.Flag country="kw"/>
           </td>
-          <td oid="tXpbBbDK">
+          <td>
             Kuwait
           </td>
-          <td oid="cRx7h46n">
+          <td>
             kw
           </td>
         </tr>
-        <tr oid="FFbrlYoJ">
-          <td oid="Wl70prs0">
-            <SUI.Flag country="kg" oid="Xa7WQSFs"/>
+        <tr>
+          <td>
+            <SUI.Flag country="kg"/>
           </td>
-          <td oid="Z4efSEKP">
+          <td>
             Kyrgyzstan
           </td>
-          <td oid="AD9FOgsa">
+          <td>
             kg
           </td>
         </tr>
-        <tr oid="s5wTmoVe">
-          <td oid="kSSPW8IB">
-            <SUI.Flag country="la" oid="PWlcmyO2"/>
+        <tr>
+          <td>
+            <SUI.Flag country="la"/>
           </td>
-          <td oid="PO2dbnc8">
+          <td>
             Laos
           </td>
-          <td oid="tiBEj3dL">
+          <td>
             la
           </td>
         </tr>
-        <tr oid="jP3vCldk">
-          <td oid="SdDUErXV">
-            <SUI.Flag country="lv" oid="s5W9gfCO"/>
+        <tr>
+          <td>
+            <SUI.Flag country="lv"/>
           </td>
-          <td oid="XU5uY0G1">
+          <td>
             Latvia
           </td>
-          <td oid="j59QNUYC">
+          <td>
             lv
           </td>
         </tr>
-        <tr oid="AnVrEiL6">
-          <td oid="fOTvhGKS">
-            <SUI.Flag country="lb" oid="I0MTUb3N"/>
+        <tr>
+          <td>
+            <SUI.Flag country="lb"/>
           </td>
-          <td oid="vYrKgoSy">
+          <td>
             Lebanon
           </td>
-          <td oid="u1QnnbYn">
+          <td>
             lb
           </td>
         </tr>
-        <tr oid="bCiq5Y3r">
-          <td oid="h2alF9jn">
-            <SUI.Flag country="ls" oid="BWsBCfyh"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ls"/>
           </td>
-          <td oid="C2IUpcSf">
+          <td>
             Lesotho
           </td>
-          <td oid="NX0p2g0G">
+          <td>
             ls
           </td>
         </tr>
-        <tr oid="tLxOPMg6">
-          <td oid="aqNaaQ9G">
-            <SUI.Flag country="lr" oid="wLTCAHbN"/>
+        <tr>
+          <td>
+            <SUI.Flag country="lr"/>
           </td>
-          <td oid="Cf1xMobh">
+          <td>
             Liberia
           </td>
-          <td oid="VQVfQNSn">
+          <td>
             lr
           </td>
         </tr>
-        <tr oid="kCqYkPpV">
-          <td oid="d5sGpQ12">
-            <SUI.Flag country="ly" oid="FEihB6ux"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ly"/>
           </td>
-          <td oid="liZEpiFP">
+          <td>
             Libya
           </td>
-          <td oid="DK0xeXLP">
+          <td>
             ly
           </td>
         </tr>
-        <tr oid="NUn2Vpiv">
-          <td oid="L7DD7QAu">
-            <SUI.Flag country="li" oid="J3degXOX"/>
+        <tr>
+          <td>
+            <SUI.Flag country="li"/>
           </td>
-          <td oid="JyiPsqo7">
+          <td>
             Liechtenstein
           </td>
-          <td oid="nrbyZWym">
+          <td>
             li
           </td>
         </tr>
-        <tr oid="CFsC8NPT">
-          <td oid="gDMRJ0ts">
-            <SUI.Flag country="lt" oid="veKkXaA7"/>
+        <tr>
+          <td>
+            <SUI.Flag country="lt"/>
           </td>
-          <td oid="UpFJKLu0">
+          <td>
             Lithuania
           </td>
-          <td oid="V3MtUOtJ">
+          <td>
             lt
           </td>
         </tr>
-        <tr oid="t74VY8av">
-          <td oid="Eprh6uXr">
-            <SUI.Flag country="lu" oid="UWvX2c3H"/>
+        <tr>
+          <td>
+            <SUI.Flag country="lu"/>
           </td>
-          <td oid="ZDP8tofk">
+          <td>
             Luxembourg
           </td>
-          <td oid="LIgEkMu3">
+          <td>
             lu
           </td>
         </tr>
-        <tr oid="DwSws2fB">
-          <td oid="yBUQywEH">
-            <SUI.Flag country="mo" oid="G6HOfgGa"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mo"/>
           </td>
-          <td oid="QRPfmeSQ">
+          <td>
             Macau
           </td>
-          <td oid="jykZL5ri">
+          <td>
             mo
           </td>
         </tr>
-        <tr oid="bvHMUxJV">
-          <td oid="nVvHx1T8">
-            <SUI.Flag country="mk" oid="cTxyjkeS"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mk"/>
           </td>
-          <td oid="M5VCKIxg">
+          <td>
             Macedonia
           </td>
-          <td oid="nyxMCLbE">
+          <td>
             mk
           </td>
         </tr>
-        <tr oid="Y3qZoZsC">
-          <td oid="QFQLQBnq">
-            <SUI.Flag country="mg" oid="Ui20MlQm"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mg"/>
           </td>
-          <td oid="SkesPiLh">
+          <td>
             Madagascar
           </td>
-          <td oid="QjZ7LZYB">
+          <td>
             mg
           </td>
         </tr>
-        <tr oid="TCTZX5YV">
-          <td oid="YER6xBt4">
-            <SUI.Flag country="mw" oid="SsYn73SZ"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mw"/>
           </td>
-          <td oid="FC2esmrI">
+          <td>
             Malawi
           </td>
-          <td oid="nfCYPQ3m">
+          <td>
             mw
           </td>
         </tr>
-        <tr oid="TqQytlRO">
-          <td oid="hy7OuN19">
-            <SUI.Flag country="my" oid="nRx393Jt"/>
+        <tr>
+          <td>
+            <SUI.Flag country="my"/>
           </td>
-          <td oid="yy0r1Ei0">
+          <td>
             Malaysia
           </td>
-          <td oid="RwIEy0Dx">
+          <td>
             my
           </td>
         </tr>
-        <tr oid="RMVPcPdK">
-          <td oid="HFHvFCy1">
-            <SUI.Flag country="mv" oid="iaqpuQiH"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mv"/>
           </td>
-          <td oid="O6iZQyjj">
+          <td>
             Maldives
           </td>
-          <td oid="m0ftvSxE">
+          <td>
             mv
           </td>
         </tr>
-        <tr oid="lJCLAYIf">
-          <td oid="aaqdZm3r">
-            <SUI.Flag country="ml" oid="P1vndXI7"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ml"/>
           </td>
-          <td oid="FOEFsNU1">
+          <td>
             Mali
           </td>
-          <td oid="qFqQXYOi">
+          <td>
             ml
           </td>
         </tr>
-        <tr oid="H8gPb4EA">
-          <td oid="UDE8960E">
-            <SUI.Flag country="mt" oid="xVZ0NNY5"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mt"/>
           </td>
-          <td oid="V82K25aj">
+          <td>
             Malta
           </td>
-          <td oid="DPx4EcoM">
+          <td>
             mt
           </td>
         </tr>
-        <tr oid="fFD9k5nT">
-          <td oid="v9o8rtUc">
-            <SUI.Flag country="mh" oid="ZuVq5klr"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mh"/>
           </td>
-          <td oid="L6adKDKQ">
+          <td>
             Marshall Islands
           </td>
-          <td oid="ju1rYijy">
+          <td>
             mh
           </td>
         </tr>
-        <tr oid="cQsE5JAm">
-          <td oid="EIK0n3rZ">
-            <SUI.Flag country="mq" oid="GxjRwN6d"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mq"/>
           </td>
-          <td oid="cVFTpe0P">
+          <td>
             Martinique
           </td>
-          <td oid="mRqFqDal">
+          <td>
             mq
           </td>
         </tr>
-        <tr oid="V0D8ilnh">
-          <td oid="s2xwEb3D">
-            <SUI.Flag country="mr" oid="CaaaTrBi"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mr"/>
           </td>
-          <td oid="gAFLtooR">
+          <td>
             Mauritania
           </td>
-          <td oid="V6OxYlpa">
+          <td>
             mr
           </td>
         </tr>
-        <tr oid="JIYVKlvw">
-          <td oid="SDqVMvet">
-            <SUI.Flag country="mu" oid="di2X7grA"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mu"/>
           </td>
-          <td oid="Vr096NYc">
+          <td>
             Mauritius
           </td>
-          <td oid="cAkowCGQ">
+          <td>
             mu
           </td>
         </tr>
-        <tr oid="EMt8VjVc">
-          <td oid="LYL9DiZV">
-            <SUI.Flag country="yt" oid="tOAVaZQL"/>
+        <tr>
+          <td>
+            <SUI.Flag country="yt"/>
           </td>
-          <td oid="B11nXcUa">
+          <td>
             Mayotte
           </td>
-          <td oid="AEHNPM39">
+          <td>
             yt
           </td>
         </tr>
-        <tr oid="X1lQuFjp">
-          <td oid="y4oj0RJE">
-            <SUI.Flag country="mx" oid="D6mBrrW2"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mx"/>
           </td>
-          <td oid="vQFGYq7s">
+          <td>
             Mexico
           </td>
-          <td oid="uhAQ9RLK">
+          <td>
             mx
           </td>
         </tr>
-        <tr oid="x67lOqhS">
-          <td oid="RowsbUfw">
-            <SUI.Flag country="fm" oid="MHVnFOMl"/>
+        <tr>
+          <td>
+            <SUI.Flag country="fm"/>
           </td>
-          <td oid="rWuv14CN">
+          <td>
             Micronesia
           </td>
-          <td oid="xgZZIuVD">
+          <td>
             fm
           </td>
         </tr>
-        <tr oid="E19604OK">
-          <td oid="eY8tMDbT">
-            <SUI.Flag country="md" oid="KoDM2c0L"/>
+        <tr>
+          <td>
+            <SUI.Flag country="md"/>
           </td>
-          <td oid="Dm4Oqb2Y">
+          <td>
             Moldova
           </td>
-          <td oid="ojo8KD40">
+          <td>
             md
           </td>
         </tr>
-        <tr oid="kEbg9tMp">
-          <td oid="B11S0abi">
-            <SUI.Flag country="mc" oid="WcheSawU"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mc"/>
           </td>
-          <td oid="S5KfmSsn">
+          <td>
             Monaco
           </td>
-          <td oid="qZEPmqR3">
+          <td>
             mc
           </td>
         </tr>
-        <tr oid="wes3jQAQ">
-          <td oid="kckZCSFU">
-            <SUI.Flag country="mn" oid="cDMgrV77"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mn"/>
           </td>
-          <td oid="AcVWxSqf">
+          <td>
             Mongolia
           </td>
-          <td oid="YW8VIFXd">
+          <td>
             mn
           </td>
         </tr>
-        <tr oid="To1XHnbg">
-          <td oid="bq44F78r">
-            <SUI.Flag country="me" oid="O4U9qsoH"/>
+        <tr>
+          <td>
+            <SUI.Flag country="me"/>
           </td>
-          <td oid="AgZge96r">
+          <td>
             Montenegro
           </td>
-          <td oid="kfFYTWO5">
+          <td>
             me
           </td>
         </tr>
-        <tr oid="VXpEOpni">
-          <td oid="UQaFWUrj">
-            <SUI.Flag country="ms" oid="XZCjphi8"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ms"/>
           </td>
-          <td oid="aypi4qja">
+          <td>
             Montserrat
           </td>
-          <td oid="NoNtKF54">
+          <td>
             ms
           </td>
         </tr>
-        <tr oid="J6i0nJ0t">
-          <td oid="eLK7x06Y">
-            <SUI.Flag country="ma" oid="wp6eQW5q"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ma"/>
           </td>
-          <td oid="gGh6WCdi">
+          <td>
             Morocco
           </td>
-          <td oid="Sq9r31NO">
+          <td>
             ma
           </td>
         </tr>
-        <tr oid="aSrFBGDW">
-          <td oid="ViDcw45S">
-            <SUI.Flag country="mz" oid="D4gFIv5R"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mz"/>
           </td>
-          <td oid="ma8CZMv3">
+          <td>
             Mozambique
           </td>
-          <td oid="K8OT9BPO">
+          <td>
             mz
           </td>
         </tr>
-        <tr oid="N0nPtSX1">
-          <td oid="E2JV6VIP">
-            <SUI.Flag country="na" oid="joc8ZSPT"/>
+        <tr>
+          <td>
+            <SUI.Flag country="na"/>
           </td>
-          <td oid="r2lhPHaA">
+          <td>
             Namibia
           </td>
-          <td oid="s8TRlPAT">
+          <td>
             na
           </td>
         </tr>
-        <tr oid="RSUAYDDB">
-          <td oid="yQKotAlo">
-            <SUI.Flag country="nr" oid="dFEoCDMp"/>
+        <tr>
+          <td>
+            <SUI.Flag country="nr"/>
           </td>
-          <td oid="FSXrBSw0">
+          <td>
             Nauru
           </td>
-          <td oid="rsyjkYDT">
+          <td>
             nr
           </td>
         </tr>
-        <tr oid="S9T4KNI0">
-          <td oid="Eg2CXk9y">
-            <SUI.Flag country="np" oid="ZPCThbaj"/>
+        <tr>
+          <td>
+            <SUI.Flag country="np"/>
           </td>
-          <td oid="KeTmYIsT">
+          <td>
             Nepal
           </td>
-          <td oid="gDPfmxLx">
+          <td>
             np
           </td>
         </tr>
-        <tr oid="KpklNOpH">
-          <td oid="F7SRe57F">
-            <SUI.Flag country="an" oid="EIcdGu1O"/>
+        <tr>
+          <td>
+            <SUI.Flag country="an"/>
           </td>
-          <td oid="XCvbVAV7">
+          <td>
             Netherlands Antilles
           </td>
-          <td oid="ppUEA43p">
+          <td>
             an
           </td>
         </tr>
-        <tr oid="uOv4OL3A">
-          <td oid="HktPqXcN">
-            <SUI.Flag country="nl" oid="d8V2X3Y0"/>
+        <tr>
+          <td>
+            <SUI.Flag country="nl"/>
           </td>
-          <td oid="ujleSkjE">
+          <td>
             Netherlands
           </td>
-          <td oid="WeCR5Zvi">
+          <td>
             nl
           </td>
         </tr>
-        <tr oid="tkPBt2ms">
-          <td oid="sjSHqjgY">
-            <SUI.Flag country="nc" oid="Z58xlIa0"/>
+        <tr>
+          <td>
+            <SUI.Flag country="nc"/>
           </td>
-          <td oid="cj1cGlie">
+          <td>
             New Caledonia
           </td>
-          <td oid="sv9iVBGu">
+          <td>
             nc
           </td>
         </tr>
-        <tr oid="EyLDeOQO">
-          <td oid="PE42S28b">
-            <SUI.Flag country="pg" oid="QkdJMqXN"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pg"/>
           </td>
-          <td oid="jVjM9yw4">
+          <td>
             New Guinea
           </td>
-          <td oid="KvStrd2o">
+          <td>
             pg
           </td>
         </tr>
-        <tr oid="gwhIK4Z1">
-          <td oid="o5x7pd78">
-            <SUI.Flag country="nz" oid="KvYtMssZ"/>
+        <tr>
+          <td>
+            <SUI.Flag country="nz"/>
           </td>
-          <td oid="llQNjP3U">
+          <td>
             New Zealand
           </td>
-          <td oid="qGuwt2WC">
+          <td>
             nz
           </td>
         </tr>
-        <tr oid="KevHRRjM">
-          <td oid="klSry9n5">
-            <SUI.Flag country="ni" oid="ioSPfOvJ"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ni"/>
           </td>
-          <td oid="IJuHnTWy">
+          <td>
             Nicaragua
           </td>
-          <td oid="LBRm3lBK">
+          <td>
             ni
           </td>
         </tr>
-        <tr oid="v5STyW64">
-          <td oid="IafBQPhh">
-            <SUI.Flag country="ne" oid="E9A17yeB"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ne"/>
           </td>
-          <td oid="Ty1rYqLG">
+          <td>
             Niger
           </td>
-          <td oid="OWOWABKE">
+          <td>
             ne
           </td>
         </tr>
-        <tr oid="ywJPsNfl">
-          <td oid="NNxSf3uZ">
-            <SUI.Flag country="ng" oid="ee8mnExC"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ng"/>
           </td>
-          <td oid="tFx1d2mP">
+          <td>
             Nigeria
           </td>
-          <td oid="sUZolVYd">
+          <td>
             ng
           </td>
         </tr>
-        <tr oid="cTIEw9WL">
-          <td oid="LYrv0tgM">
-            <SUI.Flag country="nu" oid="n4stHmiN"/>
+        <tr>
+          <td>
+            <SUI.Flag country="nu"/>
           </td>
-          <td oid="DdPMwkqj">
+          <td>
             Niue
           </td>
-          <td oid="M8CZpdTV">
+          <td>
             nu
           </td>
         </tr>
-        <tr oid="vtXcaDrQ">
-          <td oid="UHdOpsTt">
-            <SUI.Flag country="nf" oid="f8bOTHrR"/>
+        <tr>
+          <td>
+            <SUI.Flag country="nf"/>
           </td>
-          <td oid="mR3OVi4S">
+          <td>
             Norfolk Island
           </td>
-          <td oid="AX6bJZe9">
+          <td>
             nf
           </td>
         </tr>
-        <tr oid="xI3w00BU">
-          <td oid="ewInpwCl">
-            <SUI.Flag country="kp" oid="yl9cIjv3"/>
+        <tr>
+          <td>
+            <SUI.Flag country="kp"/>
           </td>
-          <td oid="t1lmVXnn">
+          <td>
             North Korea
           </td>
-          <td oid="PgybHj0x">
+          <td>
             kp
           </td>
         </tr>
-        <tr oid="pBmltFKB">
-          <td oid="Svh8upOm">
-            <SUI.Flag country="mp" oid="ecuQQx6M"/>
+        <tr>
+          <td>
+            <SUI.Flag country="mp"/>
           </td>
-          <td oid="CbOCh9a0">
+          <td>
             Northern Mariana Islands
           </td>
-          <td oid="YwL7ekWG">
+          <td>
             mp
           </td>
         </tr>
-        <tr oid="oxuHo6tN">
-          <td oid="s7Tb5Lca">
-            <SUI.Flag country="no" oid="nYXellEG"/>
+        <tr>
+          <td>
+            <SUI.Flag country="no"/>
           </td>
-          <td oid="cIFHrL7H">
+          <td>
             Norway
           </td>
-          <td oid="OwIoFPbu">
+          <td>
             no
           </td>
         </tr>
-        <tr oid="mRAC0OFW">
-          <td oid="GF0criyg">
-            <SUI.Flag country="om" oid="P1LdcXHH"/>
+        <tr>
+          <td>
+            <SUI.Flag country="om"/>
           </td>
-          <td oid="ZoQ1TJUD">
+          <td>
             Oman
           </td>
-          <td oid="QNmkfCds">
+          <td>
             om
           </td>
         </tr>
-        <tr oid="Vuff5Si6">
-          <td oid="tkYZUCHi">
-            <SUI.Flag country="pk" oid="t3xCR35E"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pk"/>
           </td>
-          <td oid="gPbsoF8g">
+          <td>
             Pakistan
           </td>
-          <td oid="e1ugnOWX">
+          <td>
             pk
           </td>
         </tr>
-        <tr oid="briw91hu">
-          <td oid="IbAofXp2">
-            <SUI.Flag country="pw" oid="wYFO4iEi"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pw"/>
           </td>
-          <td oid="mUfcXil0">
+          <td>
             Palau
           </td>
-          <td oid="wVN0O4vv">
+          <td>
             pw
           </td>
         </tr>
-        <tr oid="Fh3Yav94">
-          <td oid="orG66viK">
-            <SUI.Flag country="ps" oid="rmBKPosW"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ps"/>
           </td>
-          <td oid="xjxl3WZ8">
+          <td>
             Palestine
           </td>
-          <td oid="uxQBhF4C">
+          <td>
             ps
           </td>
         </tr>
-        <tr oid="UtIaVxvJ">
-          <td oid="MsSpnN1t">
-            <SUI.Flag country="pa" oid="fO6j0VTw"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pa"/>
           </td>
-          <td oid="HFcc93Cp">
+          <td>
             Panama
           </td>
-          <td oid="c9g5Lh74">
+          <td>
             pa
           </td>
         </tr>
-        <tr oid="mZ6IjS2O">
-          <td oid="u67fvpLm">
-            <SUI.Flag country="py" oid="C8RI50ZO"/>
+        <tr>
+          <td>
+            <SUI.Flag country="py"/>
           </td>
-          <td oid="voaNALpx">
+          <td>
             Paraguay
           </td>
-          <td oid="adBNc5Jf">
+          <td>
             py
           </td>
         </tr>
-        <tr oid="sBp1gWTg">
-          <td oid="msGnmAL2">
-            <SUI.Flag country="pe" oid="EEFOLt1e"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pe"/>
           </td>
-          <td oid="YrcjJWTN">
+          <td>
             Peru
           </td>
-          <td oid="UpGpLQVB">
+          <td>
             pe
           </td>
         </tr>
-        <tr oid="kb2QSDLP">
-          <td oid="pX4Cq6Ot">
-            <SUI.Flag country="ph" oid="I9PsUhPk"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ph"/>
           </td>
-          <td oid="HjvW13OM">
+          <td>
             Philippines
           </td>
-          <td oid="NtlfZPtF">
+          <td>
             ph
           </td>
         </tr>
-        <tr oid="hHFfM0Hb">
-          <td oid="ExwSotsN">
-            <SUI.Flag country="pn" oid="GBOq7SGC"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pn"/>
           </td>
-          <td oid="HswZ93FP">
+          <td>
             Pitcairn Islands
           </td>
-          <td oid="dk45SYdc">
+          <td>
             pn
           </td>
         </tr>
-        <tr oid="x8wlpRnR">
-          <td oid="gBB2Btdp">
-            <SUI.Flag country="pl" oid="R5sHNGY3"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pl"/>
           </td>
-          <td oid="ejsRJiJD">
+          <td>
             Poland
           </td>
-          <td oid="PEXWvRfY">
+          <td>
             pl
           </td>
         </tr>
-        <tr oid="lNo3IYtv">
-          <td oid="LMG1MZgp">
-            <SUI.Flag country="pt" oid="B85KWef1"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pt"/>
           </td>
-          <td oid="KpdSilvA">
+          <td>
             Portugal
           </td>
-          <td oid="ZRjeC6nI">
+          <td>
             pt
           </td>
         </tr>
-        <tr oid="wMoVXnxe">
-          <td oid="DVmFOWXt">
-            <SUI.Flag country="pr" oid="KTRSUbOZ"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pr"/>
           </td>
-          <td oid="DXWNnQkM">
+          <td>
             Puerto Rico
           </td>
-          <td oid="AwZNwLuT">
+          <td>
             pr
           </td>
         </tr>
-        <tr oid="agy6386W">
-          <td oid="wduxmctK">
-            <SUI.Flag country="qa" oid="CRk1Cl0e"/>
+        <tr>
+          <td>
+            <SUI.Flag country="qa"/>
           </td>
-          <td oid="PRDfBY4Z">
+          <td>
             Qatar
           </td>
-          <td oid="gFX11D8F">
+          <td>
             qa
           </td>
         </tr>
-        <tr oid="RJ9P31GT">
-          <td oid="fvdXR2xt">
-            <SUI.Flag country="re" oid="xO8x8hWN"/>
+        <tr>
+          <td>
+            <SUI.Flag country="re"/>
           </td>
-          <td oid="Ko9ldDLP">
+          <td>
             Reunion
           </td>
-          <td oid="pey8pUjN">
+          <td>
             re
           </td>
         </tr>
-        <tr oid="oPIuTK8B">
-          <td oid="LIcIQFCi">
-            <SUI.Flag country="ro" oid="cHANhRUV"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ro"/>
           </td>
-          <td oid="sdXkSWoR">
+          <td>
             Romania
           </td>
-          <td oid="fJDMHAx2">
+          <td>
             ro
           </td>
         </tr>
-        <tr oid="oQZScP3M">
-          <td oid="Hd2FcLCq">
-            <SUI.Flag country="ru" oid="ZeQ9O09O"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ru"/>
           </td>
-          <td oid="Kc192IvX">
+          <td>
             Russia
           </td>
-          <td oid="c5rpA9ST">
+          <td>
             ru
           </td>
         </tr>
-        <tr oid="a3vyU7ZJ">
-          <td oid="YHpVNtg0">
-            <SUI.Flag country="rw" oid="MUUpdNbE"/>
+        <tr>
+          <td>
+            <SUI.Flag country="rw"/>
           </td>
-          <td oid="qlMLHB6s">
+          <td>
             Rwanda
           </td>
-          <td oid="uKZGeCpy">
+          <td>
             rw
           </td>
         </tr>
-        <tr oid="aTOPg9vy">
-          <td oid="MpMkcTAB">
-            <SUI.Flag country="sh" oid="jnCjWrDI"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sh"/>
           </td>
-          <td oid="j09yELMO">
+          <td>
             Saint Helena
           </td>
-          <td oid="kh508c12">
+          <td>
             sh
           </td>
         </tr>
-        <tr oid="M32G93mx">
-          <td oid="xFeDplEV">
-            <SUI.Flag country="kn" oid="bZMe19J8"/>
+        <tr>
+          <td>
+            <SUI.Flag country="kn"/>
           </td>
-          <td oid="LrIxX3dP">
+          <td>
             Saint Kitts and Nevis
           </td>
-          <td oid="kS6RnTsR">
+          <td>
             kn
           </td>
         </tr>
-        <tr oid="HSMRHpqV">
-          <td oid="ut1D9XU1">
-            <SUI.Flag country="lc" oid="XXyhOx4b"/>
+        <tr>
+          <td>
+            <SUI.Flag country="lc"/>
           </td>
-          <td oid="oLisUI5c">
+          <td>
             Saint Lucia
           </td>
-          <td oid="FSwe53Qs">
+          <td>
             lc
           </td>
         </tr>
-        <tr oid="wE9f1wyM">
-          <td oid="HDXWQ2Yg">
-            <SUI.Flag country="pm" oid="cMiPdsHS"/>
+        <tr>
+          <td>
+            <SUI.Flag country="pm"/>
           </td>
-          <td oid="XlcN5BxG">
+          <td>
             Saint Pierre
           </td>
-          <td oid="SRyuvZQi">
+          <td>
             pm
           </td>
         </tr>
-        <tr oid="REoE0WdS">
-          <td oid="uDFreIOh">
-            <SUI.Flag country="vc" oid="jC8E0bZd"/>
+        <tr>
+          <td>
+            <SUI.Flag country="vc"/>
           </td>
-          <td oid="dqTKpnjm">
+          <td>
             Saint Vincent
           </td>
-          <td oid="uyLPXA0s">
+          <td>
             vc
           </td>
         </tr>
-        <tr oid="K3JqG1CX">
-          <td oid="IMbbTeEf">
-            <SUI.Flag country="ws" oid="QS4dNT3Y"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ws"/>
           </td>
-          <td oid="ZJH0dMK6">
+          <td>
             Samoa
           </td>
-          <td oid="ZULILLMM">
+          <td>
             ws
           </td>
         </tr>
-        <tr oid="HuQVVUUC">
-          <td oid="kC2s64TC">
-            <SUI.Flag country="sm" oid="pQYsR6JN"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sm"/>
           </td>
-          <td oid="ZnKkFP0i">
+          <td>
             San Marino
           </td>
-          <td oid="GAK44Sxu">
+          <td>
             sm
           </td>
         </tr>
-        <tr oid="G39Owy2k">
-          <td oid="Pj06rTXi">
-            <SUI.Flag country="gs" oid="vdmPLGkR"/>
+        <tr>
+          <td>
+            <SUI.Flag country="gs"/>
           </td>
-          <td oid="hyaw4j2L">
+          <td>
             Sandwich Islands
           </td>
-          <td oid="AwiXKg6A">
+          <td>
             gs
           </td>
         </tr>
-        <tr oid="SG4JbvNs">
-          <td oid="RscYdvHZ">
-            <SUI.Flag country="st" oid="iuFpgi2J"/>
+        <tr>
+          <td>
+            <SUI.Flag country="st"/>
           </td>
-          <td oid="N6TajDlB">
+          <td>
             Sao Tome
           </td>
-          <td oid="km2pDN63">
+          <td>
             st
           </td>
         </tr>
-        <tr oid="SyqUFOYV">
-          <td oid="T9e00YLi">
-            <SUI.Flag country="sa" oid="B8v46TLd"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sa"/>
           </td>
-          <td oid="dyYsDZZM">
+          <td>
             Saudi Arabia
           </td>
-          <td oid="KyqLiln8">
+          <td>
             sa
           </td>
         </tr>
-        <tr oid="jFuv7SV1">
-          <td oid="w85H8k86">
-            <SUI.Flag country="sn" oid="b47OlWN6"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sn"/>
           </td>
-          <td oid="mES5KSew">
+          <td>
             Senegal
           </td>
-          <td oid="v0fvkCVy">
+          <td>
             sn
           </td>
         </tr>
-        <tr oid="ebnigwPi">
-          <td oid="sHN3kaWq">
-            <SUI.Flag country="cs" oid="wrSgZ714"/>
+        <tr>
+          <td>
+            <SUI.Flag country="cs"/>
           </td>
-          <td oid="MPCXX9BU">
+          <td>
             Serbia
           </td>
-          <td oid="P7IyZ2Vb">
+          <td>
             cs
           </td>
         </tr>
-        <tr oid="V2KEgvvq">
-          <td oid="kVj6ixyZ">
-            <SUI.Flag country="rs" oid="lsWBT7rk"/>
+        <tr>
+          <td>
+            <SUI.Flag country="rs"/>
           </td>
-          <td oid="AgklOJlV">
+          <td>
             Serbia
           </td>
-          <td oid="TZaKAdD7">
+          <td>
             rs
           </td>
         </tr>
-        <tr oid="mOgu4CRY">
-          <td oid="nyACJi9j">
-            <SUI.Flag country="sc" oid="XTs5G8Ek"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sc"/>
           </td>
-          <td oid="JEduo3uF">
+          <td>
             Seychelles
           </td>
-          <td oid="ywkRukUF">
+          <td>
             sc
           </td>
         </tr>
-        <tr oid="oOfWpxP3">
-          <td oid="OKVOqNqj">
-            <SUI.Flag country="sl" oid="L3G1Te1G"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sl"/>
           </td>
-          <td oid="ObcVmHcg">
+          <td>
             Sierra Leone
           </td>
-          <td oid="aGvsWVAH">
+          <td>
             sl
           </td>
         </tr>
-        <tr oid="LI3VXsCy">
-          <td oid="oVrqUQwd">
-            <SUI.Flag country="sg" oid="bN9bavSS"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sg"/>
           </td>
-          <td oid="hGCJwHGn">
+          <td>
             Singapore
           </td>
-          <td oid="oZKskMYe">
+          <td>
             sg
           </td>
         </tr>
-        <tr oid="DlHtnIkd">
-          <td oid="t8P6BGaK">
-            <SUI.Flag country="sk" oid="DFBOTtPm"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sk"/>
           </td>
-          <td oid="uTfj4OjJ">
+          <td>
             Slovakia
           </td>
-          <td oid="wSoZBLVv">
+          <td>
             sk
           </td>
         </tr>
-        <tr oid="qEpIB9LK">
-          <td oid="DtIp2dgR">
-            <SUI.Flag country="si" oid="wJUuwE7D"/>
+        <tr>
+          <td>
+            <SUI.Flag country="si"/>
           </td>
-          <td oid="NkhEBLC2">
+          <td>
             Slovenia
           </td>
-          <td oid="PQQ8JM9i">
+          <td>
             si
           </td>
         </tr>
-        <tr oid="Q83Whx0M">
-          <td oid="HapIKVmb">
-            <SUI.Flag country="sb" oid="KfodUyd3"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sb"/>
           </td>
-          <td oid="QIMmbOcP">
+          <td>
             Solomon Islands
           </td>
-          <td oid="lRcNB5er">
+          <td>
             sb
           </td>
         </tr>
-        <tr oid="d7BapVYy">
-          <td oid="dnDFsUZv">
-            <SUI.Flag country="so" oid="JyW2qEjw"/>
+        <tr>
+          <td>
+            <SUI.Flag country="so"/>
           </td>
-          <td oid="ocdxpIPr">
+          <td>
             Somalia
           </td>
-          <td oid="KcbAK4gr">
+          <td>
             so
           </td>
         </tr>
-        <tr oid="F9XUoWvy">
-          <td oid="FHIdE3p4">
-            <SUI.Flag country="za" oid="YLWMQAUK"/>
+        <tr>
+          <td>
+            <SUI.Flag country="za"/>
           </td>
-          <td oid="I79LMYQi">
+          <td>
             South Africa
           </td>
-          <td oid="nIgdHR5I">
+          <td>
             za
           </td>
         </tr>
-        <tr oid="s3CuHjqt">
-          <td oid="Wl6wcxWD">
-            <SUI.Flag country="kr" oid="gJsHljD6"/>
+        <tr>
+          <td>
+            <SUI.Flag country="kr"/>
           </td>
-          <td oid="kJtAj7vh">
+          <td>
             South Korea
           </td>
-          <td oid="HVB6Z2oo">
+          <td>
             kr
           </td>
         </tr>
-        <tr oid="V2qgdhK3">
-          <td oid="kCxu6Y54">
-            <SUI.Flag country="es" oid="DdmoHcem"/>
+        <tr>
+          <td>
+            <SUI.Flag country="es"/>
           </td>
-          <td oid="p8sHrA6R">
+          <td>
             Spain
           </td>
-          <td oid="eq1wGu6k">
+          <td>
             es
           </td>
         </tr>
-        <tr oid="jMwLGdZY">
-          <td oid="IMkhfBlP">
-            <SUI.Flag country="lk" oid="o8oFSATv"/>
+        <tr>
+          <td>
+            <SUI.Flag country="lk"/>
           </td>
-          <td oid="YKnNm1OS">
+          <td>
             Sri Lanka
           </td>
-          <td oid="aqSHDbpS">
+          <td>
             lk
           </td>
         </tr>
-        <tr oid="pB4Z3nVb">
-          <td oid="R7W8uF7c">
-            <SUI.Flag country="sd" oid="DrZEHSq8"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sd"/>
           </td>
-          <td oid="OdMYp32y">
+          <td>
             Sudan
           </td>
-          <td oid="cT24h3j9">
+          <td>
             sd
           </td>
         </tr>
-        <tr oid="sSpKpaW0">
-          <td oid="trFwBZ22">
-            <SUI.Flag country="sr" oid="hCLsy2K7"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sr"/>
           </td>
-          <td oid="dLo6C61c">
+          <td>
             Suriname
           </td>
-          <td oid="EHHGMMcO">
+          <td>
             sr
           </td>
         </tr>
-        <tr oid="EsaE4sav">
-          <td oid="eHqhoT67">
-            <SUI.Flag country="sj" oid="cYU586fU"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sj"/>
           </td>
-          <td oid="SLq7m4ku">
+          <td>
             Svalbard
           </td>
-          <td oid="j7TCVBkT">
+          <td>
             sj
           </td>
         </tr>
-        <tr oid="Zorr6DBW">
-          <td oid="LHHIKJe4">
-            <SUI.Flag country="sz" oid="SrE3B4CJ"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sz"/>
           </td>
-          <td oid="kuKX1xDg">
+          <td>
             Swaziland
           </td>
-          <td oid="IrRWiakT">
+          <td>
             sz
           </td>
         </tr>
-        <tr oid="jvuc2kvM">
-          <td oid="tItOxpYP">
-            <SUI.Flag country="se" oid="oNRY8s62"/>
+        <tr>
+          <td>
+            <SUI.Flag country="se"/>
           </td>
-          <td oid="T2kPXmLP">
+          <td>
             Sweden
           </td>
-          <td oid="t7kktpIc">
+          <td>
             se
           </td>
         </tr>
-        <tr oid="pT1wMNPM">
-          <td oid="WYBdh8uB">
-            <SUI.Flag country="ch" oid="RdH4HwX4"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ch"/>
           </td>
-          <td oid="Ljn2yE0s">
+          <td>
             Switzerland
           </td>
-          <td oid="LUoUOWnG">
+          <td>
             ch
           </td>
         </tr>
-        <tr oid="xIsEhO00">
-          <td oid="mXHur0QQ">
-            <SUI.Flag country="sy" oid="On8VyPsg"/>
+        <tr>
+          <td>
+            <SUI.Flag country="sy"/>
           </td>
-          <td oid="jyrMhPTl">
+          <td>
             Syria
           </td>
-          <td oid="mJAiRSWL">
+          <td>
             sy
           </td>
         </tr>
-        <tr oid="TK7HtMhf">
-          <td oid="ygS4B1Ns">
-            <SUI.Flag country="tw" oid="pli4G0nm"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tw"/>
           </td>
-          <td oid="iNojxXL8">
+          <td>
             Taiwan
           </td>
-          <td oid="TYwQCMZq">
+          <td>
             tw
           </td>
         </tr>
-        <tr oid="Rtb1lKsD">
-          <td oid="s1GL1QVh">
-            <SUI.Flag country="tj" oid="CFZVGlx0"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tj"/>
           </td>
-          <td oid="BLP0OyO8">
+          <td>
             Tajikistan
           </td>
-          <td oid="Ukw3JACT">
+          <td>
             tj
           </td>
         </tr>
-        <tr oid="NPAUkxqJ">
-          <td oid="oQjh2wid">
-            <SUI.Flag country="tz" oid="YZBDomhy"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tz"/>
           </td>
-          <td oid="nbAEcgcW">
+          <td>
             Tanzania
           </td>
-          <td oid="cJ1AFCYI">
+          <td>
             tz
           </td>
         </tr>
-        <tr oid="afjbGDIb">
-          <td oid="Hkn3Fbs6">
-            <SUI.Flag country="th" oid="K4FOtegF"/>
+        <tr>
+          <td>
+            <SUI.Flag country="th"/>
           </td>
-          <td oid="Wr9IKtcn">
+          <td>
             Thailand
           </td>
-          <td oid="rILjdMhx">
+          <td>
             th
           </td>
         </tr>
-        <tr oid="yS8G1B1H">
-          <td oid="OsOn5jSQ">
-            <SUI.Flag country="tl" oid="Z2lXJihU"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tl"/>
           </td>
-          <td oid="R5XLnqVc">
+          <td>
             Timorleste
           </td>
-          <td oid="oOUX3dVj">
+          <td>
             tl
           </td>
         </tr>
-        <tr oid="vUHvOBVA">
-          <td oid="dR1F0fcZ">
-            <SUI.Flag country="tg" oid="Biw1VL3q"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tg"/>
           </td>
-          <td oid="KtU5Dvea">
+          <td>
             Togo
           </td>
-          <td oid="OXma2gcb">
+          <td>
             tg
           </td>
         </tr>
-        <tr oid="UxavYhVy">
-          <td oid="bcVL7cNZ">
-            <SUI.Flag country="tk" oid="sPeqfdFx"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tk"/>
           </td>
-          <td oid="PKxiTcRm">
+          <td>
             Tokelau
           </td>
-          <td oid="l7W2WLe9">
+          <td>
             tk
           </td>
         </tr>
-        <tr oid="gKc3aCSX">
-          <td oid="Mu92EDHt">
-            <SUI.Flag country="to" oid="kR0YhRCK"/>
+        <tr>
+          <td>
+            <SUI.Flag country="to"/>
           </td>
-          <td oid="b5A940m0">
+          <td>
             Tonga
           </td>
-          <td oid="qWVObDp8">
+          <td>
             to
           </td>
         </tr>
-        <tr oid="Mb0eao2X">
-          <td oid="u2G3fG3D">
-            <SUI.Flag country="tt" oid="pobFEiv2"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tt"/>
           </td>
-          <td oid="pibRsPBT">
+          <td>
             Trinidad
           </td>
-          <td oid="Olk6gvqI">
+          <td>
             tt
           </td>
         </tr>
-        <tr oid="s2f7fael">
-          <td oid="iV31RFPa">
-            <SUI.Flag country="tn" oid="XcPRViGd"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tn"/>
           </td>
-          <td oid="YurBcxLl">
+          <td>
             Tunisia
           </td>
-          <td oid="jcT6OBWA">
+          <td>
             tn
           </td>
         </tr>
-        <tr oid="ExR9Fuqm">
-          <td oid="IRO966YC">
-            <SUI.Flag country="tr" oid="lbf6yj87"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tr"/>
           </td>
-          <td oid="p76HqGRy">
+          <td>
             Turkey
           </td>
-          <td oid="KXB1BVmG">
+          <td>
             tr
           </td>
         </tr>
-        <tr oid="tkdAHHRl">
-          <td oid="Jdi0guoZ">
-            <SUI.Flag country="tm" oid="BcHW7G5u"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tm"/>
           </td>
-          <td oid="FMMYP3TG">
+          <td>
             Turkmenistan
           </td>
-          <td oid="SCFxdt10">
+          <td>
             tm
           </td>
         </tr>
-        <tr oid="iW5A1KJi">
-          <td oid="GSJu07ex">
-            <SUI.Flag country="tv" oid="iBO9W0AY"/>
+        <tr>
+          <td>
+            <SUI.Flag country="tv"/>
           </td>
-          <td oid="cpMf1orY">
+          <td>
             Tuvalu
           </td>
-          <td oid="lSCmZxMa">
+          <td>
             tv
           </td>
         </tr>
-        <tr oid="qFfKWc18">
-          <td oid="FfEKWslN">
-            <SUI.Flag country="ug" oid="NPVAm6dg"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ug"/>
           </td>
-          <td oid="Mw24I9fw">
+          <td>
             Uganda
           </td>
-          <td oid="xwcnWNL1">
+          <td>
             ug
           </td>
         </tr>
-        <tr oid="ov2sch5r">
-          <td oid="kL8UXKqy">
-            <SUI.Flag country="ua" oid="ZTpErS9A"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ua"/>
           </td>
-          <td oid="JObLCluw">
+          <td>
             Ukraine
           </td>
-          <td oid="c801uf5I">
+          <td>
             ua
           </td>
         </tr>
-        <tr oid="EI0j2ryo">
-          <td oid="t2XlE95Y">
-            <SUI.Flag country="ae" oid="ySAhpbsX"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ae"/>
           </td>
-          <td oid="mSqkSC9q">
+          <td>
             United Arab Emirates
           </td>
-          <td oid="igHwiPxq">
+          <td>
             ae
           </td>
         </tr>
-        <tr oid="UccfKiIO">
-          <td oid="HtyOTKfN">
-            <SUI.Flag country="us" oid="uPYFvm0k"/>
+        <tr>
+          <td>
+            <SUI.Flag country="us"/>
           </td>
-          <td oid="p9f5FLZO">
+          <td>
             United States
           </td>
-          <td oid="cJWVXmiG">
+          <td>
             us
           </td>
         </tr>
-        <tr oid="pEx3vLFN">
-          <td oid="J0LKvPRE">
-            <SUI.Flag country="uy" oid="EFsc0Kdl"/>
+        <tr>
+          <td>
+            <SUI.Flag country="uy"/>
           </td>
-          <td oid="JFQJNigS">
+          <td>
             Uruguay
           </td>
-          <td oid="M1LG4CuN">
+          <td>
             uy
           </td>
         </tr>
-        <tr oid="wHpTRNYv">
-          <td oid="bQiHotMc">
-            <SUI.Flag country="um" oid="kndNAygT"/>
+        <tr>
+          <td>
+            <SUI.Flag country="um"/>
           </td>
-          <td oid="uMw44d53">
+          <td>
             Us Minor Islands
           </td>
-          <td oid="Fg1Tfuxl">
+          <td>
             um
           </td>
         </tr>
-        <tr oid="ghYE1gIC">
-          <td oid="BIPNayoV">
-            <SUI.Flag country="vi" oid="mlAId1f2"/>
+        <tr>
+          <td>
+            <SUI.Flag country="vi"/>
           </td>
-          <td oid="P6iMLt15">
+          <td>
             Us Virgin Islands
           </td>
-          <td oid="A3GTBJmL">
+          <td>
             vi
           </td>
         </tr>
-        <tr oid="suXWgUEx">
-          <td oid="c5l8WXKt">
-            <SUI.Flag country="uz" oid="tZavhosq"/>
+        <tr>
+          <td>
+            <SUI.Flag country="uz"/>
           </td>
-          <td oid="my4B0WjQ">
+          <td>
             Uzbekistan
           </td>
-          <td oid="OqtWa37a">
+          <td>
             uz
           </td>
         </tr>
-        <tr oid="gZLBDrx9">
-          <td oid="kdo4sR8b">
-            <SUI.Flag country="vu" oid="Dwd3MPOj"/>
+        <tr>
+          <td>
+            <SUI.Flag country="vu"/>
           </td>
-          <td oid="FiaB212f">
+          <td>
             Vanuatu
           </td>
-          <td oid="XeC03ObB">
+          <td>
             vu
           </td>
         </tr>
-        <tr oid="bSCELnUs">
-          <td oid="v49F9wdS">
-            <SUI.Flag country="va" oid="iJZaQdRx"/>
+        <tr>
+          <td>
+            <SUI.Flag country="va"/>
           </td>
-          <td oid="VFL2i5wI">
+          <td>
             Vatican City
           </td>
-          <td oid="opXGoZ6I">
+          <td>
             va
           </td>
         </tr>
-        <tr oid="ToFwrcBX">
-          <td oid="aZw6aNp0">
-            <SUI.Flag country="ve" oid="lfU7vILc"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ve"/>
           </td>
-          <td oid="ZQXsrbtq">
+          <td>
             Venezuela
           </td>
-          <td oid="xF0qZhhc">
+          <td>
             ve
           </td>
         </tr>
-        <tr oid="YrdrQGvi">
-          <td oid="mmJj7Kl8">
-            <SUI.Flag country="vn" oid="EIkLwnYg"/>
+        <tr>
+          <td>
+            <SUI.Flag country="vn"/>
           </td>
-          <td oid="fN3XvXb2">
+          <td>
             Vietnam
           </td>
-          <td oid="cZ7BCpt1">
+          <td>
             vn
           </td>
         </tr>
-        <tr oid="AviR4BkA">
-          <td oid="xKPSHdp8">
-            <SUI.Flag country="wf" oid="XpqK2fDL"/>
+        <tr>
+          <td>
+            <SUI.Flag country="wf"/>
           </td>
-          <td oid="VOmBgRPL">
+          <td>
             Wallis and Futuna
           </td>
-          <td oid="vfjHA7vK">
+          <td>
             wf
           </td>
         </tr>
-        <tr oid="x1gw7id1">
-          <td oid="vnjPFO6a">
-            <SUI.Flag country="eh" oid="VJbHuo5Q"/>
+        <tr>
+          <td>
+            <SUI.Flag country="eh"/>
           </td>
-          <td oid="unaR7Q5K">
+          <td>
             Western Sahara
           </td>
-          <td oid="pIjqLOU3">
+          <td>
             eh
           </td>
         </tr>
-        <tr oid="A2UFuTFY">
-          <td oid="a5EQiTMK">
-            <SUI.Flag country="ye" oid="ZFxq1UK0"/>
+        <tr>
+          <td>
+            <SUI.Flag country="ye"/>
           </td>
-          <td oid="xPxw8QYg">
+          <td>
             Yemen
           </td>
-          <td oid="cX3TyrAk">
+          <td>
             ye
           </td>
         </tr>
-        <tr oid="XR1JWvCI">
-          <td oid="QYZFWpHI">
-            <SUI.Flag country="zm" oid="jtiGFKqI"/>
+        <tr>
+          <td>
+            <SUI.Flag country="zm"/>
           </td>
-          <td oid="B6dHtO2c">
+          <td>
             Zambia
           </td>
-          <td oid="ScpOYqt4">
+          <td>
             zm
           </td>
         </tr>
-        <tr oid="O9yRcYs8">
-          <td oid="wWQmyM8f">
-            <SUI.Flag country="zw" oid="Q7Gw3J9A"/>
+        <tr>
+          <td>
+            <SUI.Flag country="zw"/>
           </td>
-          <td oid="saNQwuUC">
+          <td>
             Zimbabwe
           </td>
-          <td oid="CVYRiWa0">
+          <td>
             zw
           </td>
         </tr>

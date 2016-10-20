@@ -32,10 +32,8 @@ export function _navigateToRouteTransaction(options = {}) {
   const currentRoute = oak.page && oak.page.route;
   if (route === currentRoute) return;
 
-  // clear selection upon navigation as well
-  const oldSelection = [].concat(oak.selection);
-  function undo(){ return utils.navigateToRoute(currentRoute, replace, oldSelection) }
-  function redo(){ return utils.navigateToRoute(route, replace, []) }
+  function undo(){ return utils.navigateToRoute(currentRoute, replace) }
+  function redo(){ return utils.navigateToRoute(route, replace) }
 
   return new UndoTransaction({
     redoActions:[redo],

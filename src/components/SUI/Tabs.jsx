@@ -6,7 +6,6 @@
 //////////////////////////////
 
 import React, { PropTypes } from "react";
-import { autobind } from "oak-roots/util/decorators";
 
 import { isElement, hasClass } from "./SUI";
 import ElementBuffer from "./ElementBuffer";
@@ -139,12 +138,12 @@ class SUITabs extends SUIModuleComponent {
   static moduleProps = moduleProps;
 
   tellModule(...args) {
-    return this.$ref().find(".tabular.menu .item").tab(...args);
+    return this.$getElement().find(".tabular.menu .item").tab(...args);
   }
 
   setModuleProps(props = {}) {
     // if context isn't set, use our `$ref
-    if (!props.context) props.context = this.$ref();
+    if (!props.context) props.context = this.$getElement();
 
     super.setModuleProps(props);
   }
@@ -173,7 +172,7 @@ class SUITabs extends SUIModuleComponent {
   getTabName(identifier) {
     // if we got a number, return the `data-tab` attribute of that tab
     if (typeof identifier === "number") {
-      const tabs = this.$ref().children(".tab");
+      const tabs = this.$getElement().children(".tab");
       const tab = tabs[identifier-1];
       if (tab) return $(tab).attr("data-tab");
       return undefined;

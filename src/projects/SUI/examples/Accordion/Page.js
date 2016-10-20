@@ -22,13 +22,13 @@ getInitialData() {
       "How do you acquire a dog?": ACQUIRING_A_DOG
     },
 
-    whatIsADogTitle: <div className="title" appearance="active"><i className="dropdown icon"/>What is a dog?</div>,
+    whatIsADogTitle: <div className="title active"><i className="dropdown icon"/>What is a dog?</div>,
     whatIsADogContent: <div className="content">{WHAT_IS_A_DOG}</div>,
 
-    kindsOfDogsTitle: <div className="title" appearance="active"><i className="dropdown icon"/>What kinds of dogs are there?</div>,
+    kindsOfDogsTitle: <div className="title active"><i className="dropdown icon"/>What kinds of dogs are there?</div>,
     kindsOfDogsContent: <div className="content">{WHAT_IS_A_DOG}</div>,
 
-    acquiringADogTitle: <div className="title" appearance="active"><i className="dropdown icon"/>How do you acquire a dog?</div>,
+    acquiringADogTitle: <div className="title active"><i className="dropdown icon"/>How do you acquire a dog?</div>,
     acquiringADogContent: <div className="content">{ACQUIRING_A_DOG}</div>,
 
     dogStringArray: [

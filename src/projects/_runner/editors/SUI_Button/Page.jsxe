@@ -1,40 +1,40 @@
-<Oak.Page id="SUI_Button" title="SUI-Button" oid="yD0HwCK2">
-  <Editor.ElementEditor element={oak.getSelectedComponent("SUI-Button")} controller={oak.editController} oid="oh7VXOLk">
-    <SUI.Button title="Button1" oid="UpttjRXX"/>
-    <SUI.Button title="Button2" appearance="circular" oid="XUpttjRXX"/>
-    <Oak.Spacer oid="PijUW4lf"/>
-    <Editor.Output title="Component" value="SUI-Button" oid="Ds2XO68J"/>
-    <Editor.Text name="title" title="title" oid="MZfFGZku"/>
-    <Editor.Text name="icon" title="icon" oid="AwbDKHB1"/>
-    <Editor.Text name="label" title="label" oid="G0vSfjPH"/>
-    <Editor.Select name="labelOn" title="labelOn" options="left,right" hidden={(value,form)=>!form.get("label")} oid="uAmlksuQ"/>
-    <Editor.Dropdown name="labelAppearance" title="labelAppearance" hidden={(value,form)=>!form.get("label")} oid="nni7Y0F5"
+<Oak.Page id="SUI_Button" title="SUI-Button">
+  <Editor.ElementEditor element={oak.editController && oak.editController.getSelectedElementOfType("SUI-Button")} controller={oak.editController}>
+    <SUI.Button title="Button1"/>
+    <SUI.Button title="Button2" appearance="circular"/>
+    <Oak.Spacer/>
+    <Editor.Output title="Component" value="SUI-Button"/>
+    <Editor.Text name="title" title="title"/>
+    <Editor.Text name="icon" title="icon"/>
+    <Editor.Text name="label" title="label"/>
+    <Editor.Select name="labelOn" title="labelOn" options="left,right" hidden={(value,form)=>!form.get("label")}/>
+    <Editor.Dropdown name="labelAppearance" title="labelAppearance" hidden={(value,form)=>!form.get("label")}
       search selection multiple options="basic,left,right,pointing,red,orange,yellow,olive,green,teal,blue,violet,purple,pink,brown,grey,black"
     />
-    <Editor.Text name="id" title="id" oid="OEDp2K7J"/>
-    <Editor.Text name="ref" title="ref" oid="xURiXJGQ"/>
-    <h4 oid="BkSDuSnl">
+    <Editor.Text name="id" title="id"/>
+    <Editor.Text name="ref" title="ref"/>
+    <h4>
       Events
     </h4>
-    <Editor.Text name="onClick" title="onClick" oid="ZcB5gJP6"/>
-    <h4 oid="aH5SlRYt">
+    <Editor.Text name="onClick" title="onClick"/>
+    <h4>
       Appearance
     </h4>
     <Editor.Dropdown name="appearance" title="appearance" search selection multiple items="circular,basic,inverted,fluid,labeled icon,right labeled icon,facebook,twitter,google plus,vk,linkedin,instagram,youtube"/>
-    <Editor.Text name="appearance" title="appearance" oid="XXXX"/>
-    <Editor.Select name="size" title="size" options="mini,tiny,small,medium,large,big,huge,massive" oid="nhfFfRPX"/>
-    <Editor.Select name="color" title="color" options="primary,secondary,-,positive,negative,-,red,orange,yellow,olive,green,teal,blue,violet,purple,pink,brown,grey,black" oid="Tf8i0Nux"/>
-    <Editor.Select name="floated" title="floated" options="left,right" oid="JEuDs7rb"/>
-    <Editor.Select name="attached" title="attached" options="top,bottom,left,right" oid="LPWFQryv"/>
-    <Editor.Text name="className" title="className" oid="Bf2X1Chs"/>
-    <Editor.Text name="style" title="style" oid="hmcVxn5Q"/>
-    <h4 oid="IxpXMsYt">
+    <Editor.Text name="appearance" title="appearance"/>
+    <Editor.Select name="size" title="size" options="mini,tiny,small,medium,large,big,huge,massive"/>
+    <Editor.Select name="color" title="color" options="primary,secondary,-,positive,negative,-,red,orange,yellow,olive,green,teal,blue,violet,purple,pink,brown,grey,black"/>
+    <Editor.Select name="floated" title="floated" options="left,right"/>
+    <Editor.Select name="attached" title="attached" options="top,bottom,left,right"/>
+    <Editor.Text name="className" title="className"/>
+    <Editor.Text name="style" title="style"/>
+    <h4>
       State
     </h4>
-    <Editor.Checkbox name="active" title="active" oid="ipT1rBCD"/>
-    <Editor.Checkbox name="disabled" title="disabled" oid="VHQAhkEj"/>
-    <Editor.Checkbox name="hidden" title="hidden" oid="VXoG9ZqL"/>
-    <Editor.Checkbox name="loading" title="loading" oid="WN7nSdyP"/>
-    <Editor.Checkbox name="toggle" title="toggle" oid="BQjdMU28"/>
+    <Editor.Checkbox name="active" title="active"/>
+    <Editor.Checkbox name="disabled" title="disabled"/>
+    <Editor.Checkbox name="hidden" title="hidden"/>
+    <Editor.Checkbox name="loading" title="loading"/>
+    <Editor.Checkbox name="toggle" title="toggle"/>
   </Editor.ElementEditor>
 </Oak.Page>

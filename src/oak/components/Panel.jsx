@@ -31,7 +31,7 @@
 import React, { Children, Component, PropTypes } from "react";
 
 import fn from "oak-roots/util/fn";
-import { classNames, mergeProps, stringOrFn, boolOrFn } from "oak-roots/util/react";
+import { classNames, unknownProps } from "oak-roots/util/react";
 
 import AutoResized from "./AutoResized";
 import OakComponent from "./OakComponent";
@@ -81,7 +81,7 @@ export default class Panel extends AutoResized(OakComponent) {
   // TESTME
   componentWillReceiveProps(nextProps) {
     if (this.props.scrolling && !nextProps.scrolling) {
-      this.$ref("body").height("");
+      this.$getElement("body").height("");
     }
   }
 
@@ -114,12 +114,12 @@ export default class Panel extends AutoResized(OakComponent) {
     const children = [];
     // header
     if (header) children.push(header);
-    // "main" row contains <LeftSidebar>...contents...<RightSidebar>
-    const main = [];
-    if (left) main.push(left);
-    main.push(React.createElement("div", { className: "contents", ref: "contents" }, ...contents));
-    if (right) main.push(right);
-    children.push(React.createElement("div", { className: "body", ref: "body" }, ...main));
+    // "body" row contains <LeftSidebar>...contents...<RightSidebar>
+    const body = [];
+    if (left) body.push(left);
+    body.push(React.createElement("div", { className: "contents", ref: "contents" }, ...contents));
+    if (right) body.push(right);
+    children.push(React.createElement("div", { className: "body", ref: "body" }, ...body));
     // footer
     if (footer) children.push(footer);
 
@@ -127,18 +127,16 @@ export default class Panel extends AutoResized(OakComponent) {
   }
 
   getRenderProps(props) {
-    props = { ...props };
-
-    const { fluid, scrolling } = props;
-    props.className = classNames(
-      "oak",
-      { fluid, scrolling },
-      "Panel",
-      props.className
-    );
-
-    props.children = this.mungeChildren(props);
-    return props;
+    return {
+      ...unknownProps(props, this.constructor, "id", "style"),
+      className: classNames(
+        "oak",
+        { fluid: props.fluid, scrolling: props.scrolling },
+        "Panel",
+        props.className
+      ),
+      children: this.mungeChildren(props),
+    }
   }
 
   render() {
@@ -153,18 +151,13 @@ export default class Panel extends AutoResized(OakComponent) {
 // TODO: <PanelHeader> ???
 export class PanelHeader extends OakComponent {
   getRenderProps(props) {
-    props = { ...props };
-
-    // Add known className
-    props.className = classNames("oak PanelHeader", props.className);
-
-    // height => style.height
-    if (props.height) {
-      props.style = mergeProps(props.style, { height: props.height });
-      delete props.height;
+    const heightStyle = "height" in props ? { height: props.height } : undefined;
+    return {
+      ...unknownProps(props, this.constructor, "id"),
+      className: classNames( "oak PanelHeader", props.className ),
+      style: {...props.style, ...heightStyle},
+      children: props.children
     }
-
-    return props;
   }
 
   render() {
@@ -178,15 +171,13 @@ export class PanelHeader extends OakComponent {
 // <PanelFooter> class inside a <Panel>
 export class PanelFooter extends OakComponent {
   getRenderProps(props) {
-    props = { ...props };
-    props.className = classNames("oak PanelFooter", props.className);
-
-    // height => style.height
-    if (props.height) {
-      props.style = mergeProps(props.style, { height: props.height });
-      delete props.height;
+    const heightStyle = "height" in props ? { height: props.height } : undefined;
+    return {
+      ...unknownProps(props, this.constructor, "id"),
+      className: classNames( "oak PanelFooter", props.className ),
+      style: {...props.style, ...heightStyle},
+      children: props.children
     }
-    return props;
   }
 
   render() {
@@ -205,14 +196,13 @@ export class LeftSidebar extends OakComponent {
   }
 
   getRenderProps(props) {
-    props = { ...props };
-    props.className = classNames("oak LeftSidebar", props.className);
-    // width => style.width
-    if (props.width) {
-      props.style = mergeProps(props.style, { width: props.width });
-      delete props.width;
+    const widthStyle = "width" in props ? { width: props.width } : undefined;
+    return {
+      ...unknownProps(props, this.constructor, "id"),
+      className: classNames( "oak LeftSidebar", props.className ),
+      style: {...props.style, ...widthStyle},
+      children: props.children
     }
-    return props;
   }
 
   render() {
@@ -226,14 +216,13 @@ export class LeftSidebar extends OakComponent {
 // <RightSidebar> class inside a <Panel>
 export class RightSidebar extends OakComponent {
   getRenderProps(props) {
-    props = { ...props };
-    props.className = classNames("oak RightSidebar", props.className);
-    // width => style.width
-    if (props.width) {
-      props.style = mergeProps(props.style, { width: props.width });
-      delete props.width;
+    const widthStyle = "width" in props ? { width: props.width } : undefined;
+    return {
+      ...unknownProps(props, this.constructor, "id"),
+      className: classNames( "oak RightSidebar", props.className ),
+      style: {...props.style, ...widthStyle},
+      children: props.children
     }
-    return props;
   }
 
   render() {

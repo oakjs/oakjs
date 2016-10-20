@@ -14,3 +14,15 @@ export default {
   dev,
   production,
 }
+
+
+// import babel external helpers for everyone downstream
+import "babel-core/external-helpers";
+
+// Ignore .less/.css/image files in server compilation.
+// NOTE: this will likely break server-side page generation...
+require.extensions['.less'] = Function.prototype;
+require.extensions['.css'] = Function.prototype;
+require.extensions['.png'] = Function.prototype;
+require.extensions['.jpg'] = Function.prototype;
+

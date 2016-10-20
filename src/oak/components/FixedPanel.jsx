@@ -49,7 +49,7 @@ export default class FixedPanel extends AutoResized(OakComponent) {
     size.width = Math.min($root.outerWidth(), maxWidth);
     size.height = Math.min($root.outerHeight(), maxHeight);
 
-    this.$ref("popout").css(size);
+    this.$getElement("popout").css(size);
   }
 
   render() {

@@ -10,7 +10,6 @@
 
 import React, { PropTypes } from "react";
 
-import PreferentialComponent from "oak-roots/PreferentialComponent";
 import { classNames } from "oak-roots/util/react";
 
 import OakComponent from "./OakComponent";
@@ -19,45 +18,29 @@ import "./ComponentTree.less";
 
 
 
-export default class ComponentTree extends PreferentialComponent(OakComponent) {
+export default class ComponentTree extends OakComponent {
 
   static propTypes = {
     controller: PropTypes.object,
     appearance: PropTypes.string,
   }
 
-//
-// Syntactic sugar
-//
-  getRootElement(props = this.props) {
-    return props.controller && props.controller.jsxFragment && props.controller.jsxFragment.root;
+  constructor(props) {
+    super(props);
+    this.state = { opens : this.initOpens(props.controller) };
+  }
+
+
+  // When we receive new props, reset opens if the controller actually changes.
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.controller !== this.props.controller) {
+      this.setState({ opens: this.initOpens(nextProps.controller) });
+    }
   }
 
 
 //
-//  Remember `opens` map for all `<ComponentTrees>` with the same root `oid`.
-//
-
-  // Remember opens across sessions.
-  static storage = localStorage;
-
-  getPrefId(props) {
-    const root = this.getRootElement(props);
-    if (root) return `oak.ComponentTree.opensFor.${root.props.oid}`;
-  }
-
-  getDefaultPrefs(props) {
-    const prefs = { opens: {} };
-    // default to opening the root element
-    const root = this.getRootElement(props);
-    if (root) prefs.opens[root.props.oid] = 1;
-
-    return prefs;
-  }
-
-
-//
-//  selection (from `oak.selection`)
+//  selection (from `oak.editController.selection`)
 //
 
   // Select a particular item specified by its oid.
@@ -68,7 +51,7 @@ export default class ComponentTree extends PreferentialComponent(OakComponent) {
 
   // Is some element selected?
   isSelected(oid) {
-    return oid && oak.selection.includes(oid);
+    return oid && oak.editController && oak.editController.selection.includes(oid);
   }
 
 
@@ -76,10 +59,16 @@ export default class ComponentTree extends PreferentialComponent(OakComponent) {
 //  open / close children
 //
 
+  // Return initial `opens` map given a specified `controller`;
+  initOpens(controller) {
+    const opens = {};
+    if (controller && controller.jsxFragment) opens[controller.jsxFragment.root.oid] = 1;
+    return opens;
+  }
+
   // Should some element be "open" in the list?
   isOpen(oid) {
-    if (!this.state.opens) return false;
-    return this.state.opens[oid];
+    return !!this.state.opens[oid];
   }
 
   toggle(oid) {
@@ -97,7 +86,7 @@ export default class ComponentTree extends PreferentialComponent(OakComponent) {
       this.props.controller.jsxFragment.forEachDescendent(oid, (element) => element.props && (opens[element.props.oid] = true) );
     }
 
-    this.savePrefs({ opens });
+    this.setState({ opens });
   }
 
   close(oid) {
@@ -110,7 +99,7 @@ export default class ComponentTree extends PreferentialComponent(OakComponent) {
       this.props.controller.jsxFragment.forEachDescendent(oid, (element) => element.props && (delete opens[element.props.oid]) );
     }
 
-    this.savePrefs({ opens });
+    this.setState({ opens });
   }
 
 //
@@ -144,20 +133,21 @@ class ComponentTreeItem extends OakComponent {
   }
 
   render() {
-    if (this.hidden) return null;
-
-    const { menu, item } = this.props;
     // Pull out components used below.
     const { SUI } = this.context.components;
 
-    if (typeof item === "string") return <div className='textNode'><SUI.Icon icon="none"/>“{item}”</div>;
+    // short circuit for text node
+    if (typeof this.props.item === "string") {
+      return <div className='textNode'><SUI.Icon icon="none"/>“{this.props.item}”</div>;
+    }
 
-    const { children } = item;
+    const { menu, item: element } = this.props;
+    const { oid, children } = element;
     const childCount = (children && children.length) || 0;
     const singleTextChild = childCount === 1 && typeof children[0] === "string" && !!children[0];
     const showChildren = childCount > 0 && !singleTextChild;
 
-    const { id, className, oid, title } = item.props || {};
+    const { id, className, title } = element.props || {};
 
     const selected = menu.isSelected(oid);
     const open = showChildren && menu.isOpen(oid);
@@ -168,14 +158,14 @@ class ComponentTreeItem extends OakComponent {
       <div className={elementClass}>
         <div className="name">
           {showChildren ? <SUI.Icon icon={openIcon} onClick={() => menu.toggle(oid)}/> : <SUI.Icon icon="none"/>}
-          <span className="type" onClick={() => menu.select(oid)}>{item.type}
+          <span className="type" onClick={() => menu.select(oid)}>{element.type}
             {id && <span className="id">#{id}</span>}
             {className && <span className="className">.{className.split(" ").join(".")}</span>}
             {singleTextChild && <span className="innerText">“{children[0]}”</span>}
             {!singleTextChild && title && <span className="title">“{title}”</span>}
           </span>
         </div>
-        {open && showChildren && this.renderChildren(menu, item)}
+        {open && showChildren && this.renderChildren(menu, element)}
       </div>
     )
   }
