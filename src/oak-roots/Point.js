@@ -136,6 +136,7 @@ export default class Point {
   //if argument is null, return false".
   // Return true if the thing looks, tastes, and acts like a point
   static isPointLike(thing) {
+    //////////////////////
     // if a thing is not a thing, then get lost
     if (!thing) {
       return false;
@@ -153,12 +154,21 @@ export default class Point {
       return false;
     }
     */
+    //////////////////////
 
+    //////////////////////
+    if (thing instanceof Point){
+      return true;
+    }
+
+    /*
     // hey, if a thing exists AND if the thing is a point, then we're good
     if (arguments.length === 1 && arguments[0] instanceof Point) {
     //if (thing instanceof Point) {
       return true;
     }
+    */
+    //////////////////////
 
     // hey thing-that's-not-a-point, are you point-like with valid xy?
     else if (((typeof thing.x === 'number' )  // let all numbers pass (including NaN)
