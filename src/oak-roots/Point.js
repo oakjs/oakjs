@@ -130,7 +130,7 @@ export default class Point {
   //////////////////////////////
   //  Validate
   //////////////////////////////
-
+  //TODO: apply feedback from code review
   //if argument is null, return false".
   // Return true if the thing looks, tastes, and acts like a point
   static isPointLike(thing) {
