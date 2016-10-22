@@ -156,15 +156,14 @@ export default class Point {
     */
     //////////////////////
 
+
     //////////////////////
     if (thing instanceof Point){
       return true;
     }
-
     /*
     // hey, if a thing exists AND if the thing is a point, then we're good
     if (arguments.length === 1 && arguments[0] instanceof Point) {
-    //if (thing instanceof Point) {
       return true;
     }
     */
