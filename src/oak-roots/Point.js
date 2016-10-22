@@ -131,19 +131,28 @@ export default class Point {
   //  Validate
   //////////////////////////////
   //TODO: apply feedback from code review
+  // Figure out exception case first, then bail.
+  // What's the anomolous input?
   //if argument is null, return false".
   // Return true if the thing looks, tastes, and acts like a point
   static isPointLike(thing) {
-    // return false if noone is home
+    // if a thing is not a thing, then get lost
+    if (!thing) {
+      return false;
+    }
+
+    /*
+    // return false if nobody's home
     if (arguments.length === 0){
       return false;
     }
 
-    // return false if your something undefined, return false
+    // return false if you're something undefined, return false
     // previously isPointLike caused an error when passed an undefined object
     if (typeof thing === 'undefined'){
       return false;
     }
+    */
 
     // hey, if a thing exists AND if the thing is a point, then we're good
     if (arguments.length === 1 && arguments[0] instanceof Point) {
