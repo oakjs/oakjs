@@ -130,95 +130,145 @@ export default class Point {
   //////////////////////////////
   //  Validate
   //////////////////////////////
-  //TODO: apply feedback from code review
-  // Figure out exception case first, then bail.
-  // What's the anomolous input?
-  //if argument is null, return false".
-  // Return true if the thing looks, tastes, and acts like a point
+  // Allows:
+  //    point objects
+  //    AND
+  //    point-like objects with valid x,y cordinates
   static isPointLike(thing) {
     //////////////////////
-    // check for thing-ness.
-    // if a thing is not a thing, then NO GO
-    /* catches: no argument, an undefined arugment
-        - no argument
-        - an undefined argument (not to be confused with
-            a valid argument whose parameters are undefined)
-       passes:  an object with undefined parameters
-    */
+    // check for something defined
+    // RETURNS false if:
+    //    if NO-THING or
+    //    if thing === undefined
     if (!thing) {
       return false;
     }
-
     /*
-    // 1. return false if nobody's home
-    if (arguments.length === 0){
-      return false;
-    }
-
-    // 2. return false if you're something undefined, return false
-    // previously isPointLike caused an error when passed an undefined object
-    if (typeof thing === 'undefined'){
-      return false;
-    }
+      FILTERS OUT arguments of type:
+        - undefined
+            (not to be confused with a valid argument
+            whose parameters are undefined)
+        - no argument (arg length of 0)
+      LETS PASS
+        - Point objects:
+        - Point-Like objects
+      LETS PASS arguments of type:
+        - string
+        - boolean
+        - function
+        - symbol
+        - number (including NaN)
+        - object (including null)
+      LETS PASS objects with properties of type:
+        - undefined
+          - (unassigned properties of an object
+            are undefined (and not null))
+        - string
+        - boolean
+        - function
+        - symbol
+        - number (including NaN)
+        - object (including null)
     */
     //////////////////////
 
 
     //////////////////////
-    // if thing is what we want, then PASS
+    // check for an ACTUAL Point object
+    // RETURNS true if:
+    //    if thing is exactly what we want
+//DEBUG: switch the first two checks. What's the diff?
     if (thing instanceof Point){
       return true;
     }
     /*
-    // 3. hey, if a thing exists AND if the thing is a point, then we're good
-    if (arguments.length === 1 && arguments[0] instanceof Point) {
-      return true;
-    }
+      FILTERS OUT
+        - Point objects
+      LETS PASS
+        - Point-Like objects
+      LETS PASS remaining arguments of type:
+        - string
+        - boolean
+        - function
+        - symbol
+        - number (including NaN)
+        - object (including null)
+      LETS PASS objects with properties of type:
+        - undefined
+          - (unassigned properties of an object
+            are undefined (and not null))
+        - string
+        - boolean
+        - function
+        - symbol
+        - number (including NaN, AND valid x,y)
+        - object (including null)
     */
     //////////////////////
 
 
     //////////////////////
-    /* check if thing's properties are of type 'number'
-        typeof obj.x === 'number'
-        stops objects whose x property is:
-          - undefined
-            (Unassigned properties of an object are undefined (and not null))
-          - null (which are of the type object)
-          - objects
-          - booleans
-          - strings
-          - symbols
-          - functions
-        passes objects whose x property is:
-          - number
-      but NaN is of type number,
-        so typeof check needs to be ammended
-        with && !isNaN()
-    */
-    // check for unassigned properties
-        // - Unassigned properties of an object are undefined (and not null).
+    // check for Point-Like
+    // RETURNS true if:
+    //    if thing has properties x,y
+    //    and if x,y are of type 'number'
+    //    and if x,y are ACTUALLY numbers (not NaN)
     if  ((typeof thing.x === 'number' && !isNaN(thing.x))
       && (typeof thing.y === 'number' && !isNaN(thing.y))) {
           return true;
     }
+    /*
+      FILTERS OUT
+        - Point-Like objects with valid x y cordinates
+      LETS PASS remaining arguments of type:
+        - string
+        - boolean
+        - function
+        - symbol
+        - number (including NaN)
+        - object (including null)
+      LETS PASS remaining objects with properties of type:
+        - undefined
+          - (unassigned properties of an object
+            are undefined (and not null))
+        - string
+        - boolean
+        - function
+        - symbol
+        - number (if and only if NaN)
+        - object (including null)
+    */
+    //////////////////////
 
-    // if you make it this far, you're not what we want
+
+
+    //////////////////////
+    // cleanup the garbage
+    // RETURNS false if:
+    //    - thing is defined
+    //    - but is niether a point nor point-like
+    //
     return false;
     /*
-    // hey thing-that's-not-a-point, are you point-like with valid xy?
-    else if (((typeof thing.x === 'number' )  // let all numbers pass (including NaN)
-          && (typeof thing.y === 'number' ))
-          && ((thing.x === thing.x)           // filter out NaN numbers
-          && (thing.y === thing.y))){
-      return true;
-    }
-    // sorry thing
-    else {
-      return false;
-    }
+      ACCOUNTS FOR remaining arguments of type:
+        - string
+        - boolean
+        - function
+        - symbol
+        - number (including NaN)
+        - object (w/o valid parameters including null)
+        - Point-Like objects
+      ACCOUNTS FOR remaining objects with properties of type:
+        - undefined
+          - (unassigned properties of an object
+            are undefined (and not null))
+        - string
+        - boolean
+        - function
+        - symbol
+        - number (if and only if NaN)
+        - object (including null)
     */
-
   }
 
   //////////////////////////////
