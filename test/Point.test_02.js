@@ -19,7 +19,7 @@ describe('Point', () => {
   test_left();
   test_top();
   test_isOrigin();
-  
+
   //test_style();
   test_equals();
 
@@ -40,7 +40,14 @@ describe('Point', () => {
 });
 
 function test_isPointLike () {
-  let point,
+  let testTypeStr,
+      testTypeBool,
+      testTypeFun,
+      testTypeSym,
+      testTypeNum,
+      testTypeNumIsNaN,
+      testTypeObjIsNull,
+      point,
       point1,
       point2,
       pointThingObject,
@@ -70,6 +77,24 @@ function test_isPointLike () {
 
   describe('\n--------\n#isPointLike\n', () => {
 
+    describe('returns false if given...', () => {
+
+      it('no argument', () => {
+        (Point.isPointLike()).should.equal(false);
+      });
+
+      it('an undefined argument\n', () => {
+        let boom;
+        (Point.isPointLike(boom)).should.equal(false);
+      });
+
+      /*
+      it('a null argument', () => {
+        (Point.isPointLike(null)).should.equal(false);
+      });
+      */
+    });
+
     describe('returns true if given...', () => {
       it('an instance of Point class', () => {
         point = new Point(100, 150);
@@ -79,6 +104,14 @@ function test_isPointLike () {
       it('a Point-like object with valid x AND y coordinates\n', () => {
         pointThing = { x: 5, y: 500 };
         (Point.isPointLike(pointThing)).should.equal(true);
+      });
+    });
+
+    describe('returns false if passed a ...', () => {
+
+      it('string', () => {
+        testTypeStr = 'testArgumentAsString';
+        (Point.isPointLike(testTypeStr)).should.equal(false);
       });
     });
 
@@ -157,23 +190,6 @@ function test_isPointLike () {
       });
     });
 
-    describe('returns false if given...', () => {
-
-      it('no argument', () => {
-        (Point.isPointLike()).should.equal(false);
-      });
-
-      it('an undefined argument', () => {
-        let boom;
-        (Point.isPointLike(boom)).should.equal(false);
-      });
-
-      /*
-      it('a null argument', () => {
-        (Point.isPointLike(null)).should.equal(false);
-      });
-      */
-    });
   });
 }
 
