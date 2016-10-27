@@ -13,21 +13,30 @@ let MAX_X = 200,
 import Point from '../src/oak-roots/Point';
 
 describe('Point', () => {
+  /*
   testConstructor();
   test_clone();
   test_left();
   test_top();
   test_isOrigin();
+  */
   //test_style();
   test_equals();
+
+  /*
   test_integerize();
   test_delta();
+  */
+
   //test_add();
   //test_subtract();
+  /*
   test_invert();
   test_size();
-  test_isPointLike();
   test_toString();
+  */
+
+  test_isPointLike();
 });
 
 function test_isPointLike () {
@@ -87,6 +96,16 @@ function test_isPointLike () {
         (Point.isPointLike(pointThingOtherString)).should.equal(false);
       });
 
+      it('NaN for the x coordinate', () => {
+        pointThingNaN = { x: NaN, y: 21 };
+        (Point.isPointLike(pointThingNaN)).should.equal(false);
+      });
+
+      it('NaN for the y coordinate', () => {
+        pointThingNaN = { x: 21, y: NaN };
+        (Point.isPointLike(pointThingNaN)).should.equal(false);
+      });
+
       it('NaN for both x AND y coordinates', () => {
         pointThingNaN = { x: NaN, y: NaN };
         (Point.isPointLike(pointThingNaN)).should.equal(false);
@@ -97,6 +116,16 @@ function test_isPointLike () {
         (Point.isPointLike(pointThingOneNaN)).should.equal(false);
         pointThingOtherNaN = { x: 127, y: NaN };
         (Point.isPointLike(pointThingOtherNaN)).should.equal(false);
+      });
+
+      it('Undefined for the x coordinate', () => {
+        pointThingOneUndefined = { x: undefined, y: 301 };
+        (Point.isPointLike(pointThingOneUndefined)).should.equal(false);
+      });
+
+      it('Undefined for the y coordinates', () => {
+        pointThingOtherUndefined = { x: 287, y: undefined };
+        (Point.isPointLike(pointThingOtherUndefined)).should.equal(false);
       });
 
       it('Undefined for both x AND y coordinates', () => {

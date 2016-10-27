@@ -137,18 +137,25 @@ export default class Point {
   // Return true if the thing looks, tastes, and acts like a point
   static isPointLike(thing) {
     //////////////////////
-    // if a thing is not a thing, then get lost
+    // check for thing-ness.
+    // if a thing is not a thing, then NO GO
+    /* catches: no argument, an undefined arugment
+        - no argument
+        - an undefined argument (not to be confused with
+            a valid argument whose parameters are undefined)
+       passes:  an object with undefined parameters
+    */
     if (!thing) {
       return false;
     }
 
     /*
-    // return false if nobody's home
+    // 1. return false if nobody's home
     if (arguments.length === 0){
       return false;
     }
 
-    // return false if you're something undefined, return false
+    // 2. return false if you're something undefined, return false
     // previously isPointLike caused an error when passed an undefined object
     if (typeof thing === 'undefined'){
       return false;
@@ -158,17 +165,47 @@ export default class Point {
 
 
     //////////////////////
+    // if thing is what we want, then PASS
     if (thing instanceof Point){
       return true;
     }
     /*
-    // hey, if a thing exists AND if the thing is a point, then we're good
+    // 3. hey, if a thing exists AND if the thing is a point, then we're good
     if (arguments.length === 1 && arguments[0] instanceof Point) {
       return true;
     }
     */
     //////////////////////
 
+
+    //////////////////////
+    /* check if thing's properties are of type 'number'
+        typeof obj.x === 'number'
+        stops objects whose x property is:
+          - undefined
+            (Unassigned properties of an object are undefined (and not null))
+          - null (which are of the type object)
+          - objects
+          - booleans
+          - strings
+          - symbols
+          - functions
+        passes objects whose x property is:
+          - number
+      but NaN is of type number,
+        so typeof check needs to be ammended
+        with && !isNaN()
+    */
+    // check for unassigned properties
+        // - Unassigned properties of an object are undefined (and not null).
+    if  ((typeof thing.x === 'number' && !isNaN(thing.x))
+      && (typeof thing.y === 'number' && !isNaN(thing.y))) {
+          return true;
+    }
+
+    // if you make it this far, you're not what we want
+    return false;
+    /*
     // hey thing-that's-not-a-point, are you point-like with valid xy?
     else if (((typeof thing.x === 'number' )  // let all numbers pass (including NaN)
           && (typeof thing.y === 'number' ))
@@ -180,6 +217,8 @@ export default class Point {
     else {
       return false;
     }
+    */
+
   }
 
   //////////////////////////////
