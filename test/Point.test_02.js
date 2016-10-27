@@ -96,22 +96,29 @@ function test_isPointLike () {
     });
 
     describe('returns true if given...', () => {
-      it('an instance of Point class', () => {
+      it('an instance of Point class\n', () => {
         point = new Point(100, 150);
         (Point.isPointLike(point)).should.equal(true);
       });
+    });
 
+    describe('returns true if given...', () => {
       it('a Point-like object with valid x AND y coordinates\n', () => {
         pointThing = { x: 5, y: 500 };
         (Point.isPointLike(pointThing)).should.equal(true);
       });
     });
 
-    describe('returns false if passed a ...', () => {
+    describe('returns false if passed an argument of type...', () => {
 
       it('string', () => {
         testTypeStr = 'testArgumentAsString';
         (Point.isPointLike(testTypeStr)).should.equal(false);
+      });
+
+      it('boolean\n', () => {
+        testTypeBool = true;
+        (Point.isPointLike(testTypeBool)).should.equal(false);
       });
     });
 
