@@ -23,12 +23,14 @@ _________________
 `npm install` or `npm run setup` again.
 
 2. Invoke the test script:
-`npm test` or `npm t`
+`npm test` or `npm t`  
+run a specific test  
+`npm run test -- test/Point.test_02.js`
 
 3. Tests are located here:
 `test/*.js`
 
-4. Invole test coverage script
+4. Involve test coverage script
 `./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --compilers js:babel/register`  
 or  
 `npm run coverage`  
@@ -46,4 +48,4 @@ Potential Tools | Purpose | Install
 -----|------|----------------
 istanbul | test coverage tool | $ npm install --save-dev istanbul
 isparta | helps istanbul understand ES6 | $ npm install --save-dev isparta
-sinon | Standalone test spies, stubs and mocks for js. No dependencies, works with any unit testing framework. | [sinonjs.org][5] 
+sinon | Standalone test spies, stubs and mocks for js. No dependencies, works with any unit testing framework. | [sinonjs.org][5]
