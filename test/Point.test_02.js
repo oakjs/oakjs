@@ -13,13 +13,13 @@ let MAX_X = 200,
 import Point from '../src/oak-roots/Point';
 
 describe('Point', () => {
-  /*
+
   testConstructor();
   test_clone();
   test_left();
   test_top();
   test_isOrigin();
-  */
+  
   //test_style();
   test_equals();
 
