@@ -148,11 +148,10 @@ export default class Point {
     // check for an ACTUAL Point object
     // RETURNS true if:
     //    if thing is exactly what we want
-//DEBUG: switch the first two checks. What's the diff?
     if (thing instanceof Point){
       return true;
     }
-  
+
     //////////////////////
     // check for Point-Like
     // RETURNS true if:
