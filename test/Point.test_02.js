@@ -23,12 +23,11 @@ describe('Point', () => {
   //test_style();
   test_equals();
 
-  /*
-  test_integerize();
+  //test_integerize();
   test_delta();
-  */
 
-  //test_add();
+  test_add();
+
   //test_subtract();
   /*
   test_invert();
@@ -38,6 +37,36 @@ describe('Point', () => {
 
   test_isPointLike();
 });
+
+function test_add () {
+  describe('#add', () => {
+    let point1;
+    let point2;
+    let point3;
+
+    beforeEach(() => {
+      point1 = new Point (30,40);
+      point2 = new Point (60,80);
+      point3 = point1.add(point2);
+    });
+
+    it('returns a new point', () => {
+      (Point.isPointLike(point3)).should.equal(true);
+    });
+
+    it('returns a new point whose x-cordinate is the sum of the x-cordinates of both input points', () => {
+      (point3.x).should.equal(point1.x + point2.x);
+    });
+
+    it('returns a new point whose y-cordinate is the sum of the y-cordinates of both input points', () => {
+      (point3.y).should.equal(point1.y + point2.y);
+    });
+
+
+      //(0).should.equal(1);
+    //});
+  });
+}
 
 function test_isPointLike () {
   let testTypeStr,
@@ -215,8 +244,6 @@ function test_isPointLike () {
   });
 }
 
-
-
 function test_style () {
   describe('#style', () => {
     it('no tests exist', () => {
@@ -267,14 +294,6 @@ function test_delta () {
   });
 }
 
-
-function test_add () {
-  describe('#add', () => {
-    it('no tests exist', () => {
-      (0).should.equal(1);
-    });
-  });
-}
 
 function test_subtract () {
   describe('#subtract', () => {

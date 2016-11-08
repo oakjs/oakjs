@@ -44,26 +44,12 @@ export default class Point {
   //  Math-y stuff
   //////////////////////////////
 
-
-
-  // return false if no arguments are passed
-  // return false if pointlike AND coordinates do not match
-  // return true if pointlike AND coordinates match
+  // Return true if isPointLike AND coordinates match
   equals(point) {
-
-    // return false if nobody home
-    if (arguments.length === 0){
-      return false;
-    }
-
-    // return true if:
-    //1. you pass the isPointLike validator
-    //2. AND your coordinates match
     if (Point.isPointLike(point)) {
       return this.x === point.x
           && this.y === point.y;
       }
-
     else {
       return false;
     }
@@ -85,7 +71,9 @@ export default class Point {
 
   // Add another point to us.
   add(point) {
-    return Point.add(this, point);
+    if ((Point.isPointLike(this)) && (Point.isPointLike(point))){
+      return new Point(this.x + point.x, this.y + point.y);
+    }
   }
 
   // Subtract another point from us.
@@ -113,9 +101,9 @@ export default class Point {
   }
 
   // Return a new point which adds the two points together.
-  static add(point1 = new Point(), point2 = new Point()) {
-    return new Point(point1.x + point2.x, point1.y + point2.y);
-  }
+  //static add(point1 = new Point(), point2 = new Point()) {
+  //  return new Point(point1.x + point2.x, point1.y + point2.y);
+  //}
 
   // Return a new point which subtracts the second point from the first.
   static subtract(point1 = new Point(), point2 = new Point()) {
