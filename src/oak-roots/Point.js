@@ -3,7 +3,7 @@
 //  `Rect` class for geometry manipulation.
 //
 //  NOTE: if you pass a `NaN` value on construction, it will be silently converted to `0`.
-//
+//  TODO: consider adding a units parameter for xy location, (vs pixel). rms and ems
 //////////////////////////////
 
 
