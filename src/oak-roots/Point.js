@@ -100,11 +100,6 @@ export default class Point {
     return new Point(point1.x - point2.x, point1.y - point2.y);
   }
 
-  // Return a new point which adds the two points together.
-  //static add(point1 = new Point(), point2 = new Point()) {
-  //  return new Point(point1.x + point2.x, point1.y + point2.y);
-  //}
-
   // Return a new point which subtracts the second point from the first.
   static subtract(point1 = new Point(), point2 = new Point()) {
     return new Point(point1.x - point2.x, point1.y - point2.y);
