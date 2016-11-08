@@ -43,14 +43,25 @@ function test_add () {
     let point1;
     let point2;
     let point3;
+    let pointNull;
 
     beforeEach(() => {
       point1 = new Point (30,40);
       point2 = new Point (60,80);
       point3 = point1.add(point2);
+      pointNull = point1.add(null);
+      //console.log(pointNull);
     });
 
-    it('returns a new point', () => {
+    it('returns undefined when passed object is not pointLike', () => {
+      //(point1.add(pointNull)).should.equal('undefined');
+      //(point1.add(pointNull)).should.be.undefined;
+      //expect(undefined).to.be.undefined;
+      (pointNull).should.be('undefined');
+      //(Point.isPointLike(point3)).should.equal(true);
+    });
+
+    it('returns a new point when given a pointLike object', () => {
       (Point.isPointLike(point3)).should.equal(true);
     });
 
@@ -62,9 +73,6 @@ function test_add () {
       (point3.y).should.equal(point1.y + point2.y);
     });
 
-
-      //(0).should.equal(1);
-    //});
   });
 }
 

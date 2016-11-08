@@ -71,6 +71,9 @@ export default class Point {
 
   // Add another point to us.
   add(point) {
+    if (!Point.isPointLike(point)) {
+       return undefined;
+     }
     if ((Point.isPointLike(this)) && (Point.isPointLike(point))){
       return new Point(this.x + point.x, this.y + point.y);
     }
