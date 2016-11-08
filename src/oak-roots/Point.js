@@ -143,35 +143,6 @@ export default class Point {
     if (!thing) {
       return false;
     }
-    /*
-      FILTERS OUT arguments of type:
-        - undefined
-            (not to be confused with a valid argument
-            whose parameters are undefined)
-        - no argument (arg length of 0)
-      LETS PASS
-        - Point objects:
-        - Point-Like objects
-      LETS PASS arguments of type:
-        - string
-        - boolean
-        - function
-        - symbol
-        - number (including NaN)
-        - object (including null)
-      LETS PASS objects with properties of type:
-        - undefined
-          - (unassigned properties of an object
-            are undefined (and not null))
-        - string
-        - boolean
-        - function
-        - symbol
-        - number (including NaN)
-        - object (including null)
-    */
-    //////////////////////
-
 
     //////////////////////
     // check for an ACTUAL Point object
@@ -181,32 +152,7 @@ export default class Point {
     if (thing instanceof Point){
       return true;
     }
-    /*
-      FILTERS OUT
-        - Point objects
-      LETS PASS
-        - Point-Like objects
-      LETS PASS remaining arguments of type:
-        - string
-        - boolean
-        - function
-        - symbol
-        - number (including NaN)
-        - object (including null)
-      LETS PASS objects with properties of type:
-        - undefined
-          - (unassigned properties of an object
-            are undefined (and not null))
-        - string
-        - boolean
-        - function
-        - symbol
-        - number (including NaN, AND valid x,y)
-        - object (including null)
-    */
-    //////////////////////
-
-
+  
     //////////////////////
     // check for Point-Like
     // RETURNS true if:
@@ -217,57 +163,13 @@ export default class Point {
       && (typeof thing.y === 'number' && !isNaN(thing.y))) {
           return true;
     }
-    /*
-      FILTERS OUT
-        - Point-Like objects with valid x y cordinates
-      LETS PASS remaining arguments of type:
-        - string
-        - boolean
-        - function
-        - symbol
-        - number (including NaN)
-        - object (including null)
-      LETS PASS remaining objects with properties of type:
-        - undefined
-          - (unassigned properties of an object
-            are undefined (and not null))
-        - string
-        - boolean
-        - function
-        - symbol
-        - number (if and only if NaN)
-        - object (including null)
-    */
-    //////////////////////
-
-
 
     //////////////////////
     // cleanup the garbage
     // RETURNS false if:
     //    - thing is defined
     //    - but is niether a point nor point-like
-    //
     return false;
-    /*
-      ACCOUNTS FOR remaining arguments of type:
-        - string
-        - boolean
-        - function
-        - symbol
-        - number (including NaN)
-        - object (w/o valid parameters including null)
-      ACCOUNTS FOR remaining objects with properties of type:
-        - undefined
-          - (unassigned properties of an object
-            are undefined (and not null))
-        - string
-        - boolean
-        - function
-        - symbol
-        - number (if and only if NaN)
-        - object (including null)
-    */
   }
 
   //////////////////////////////
