@@ -257,7 +257,6 @@ export default class Point {
         - symbol
         - number (including NaN)
         - object (w/o valid parameters including null)
-        - Point-Like objects
       ACCOUNTS FOR remaining objects with properties of type:
         - undefined
           - (unassigned properties of an object

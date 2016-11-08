@@ -87,12 +87,6 @@ function test_isPointLike () {
         let boom;
         (Point.isPointLike(boom)).should.equal(false);
       });
-
-      /*
-      it('a null argument', () => {
-        (Point.isPointLike(null)).should.equal(false);
-      });
-      */
     });
 
     describe('returns true if given...', () => {
@@ -116,10 +110,31 @@ function test_isPointLike () {
         (Point.isPointLike(testTypeStr)).should.equal(false);
       });
 
-      it('boolean\n', () => {
+      it('boolean', () => {
         testTypeBool = true;
         (Point.isPointLike(testTypeBool)).should.equal(false);
       });
+
+      it('function', () => {
+        testTypeFun = function(){};
+        (Point.isPointLike(testTypeFun)).should.equal(false);
+      });
+
+      it('number', () => {
+        testTypeNum = 10;
+        (Point.isPointLike(testTypeNum)).should.equal(false);
+      });
+
+      it('number is NaN', () => {
+        testTypeNumIsNaN = NaN;
+        (Point.isPointLike(testTypeNum)).should.equal(false);
+      });
+
+      it('Object is NULL\n', () => {
+        testTypeObjIsNull = null;
+        (Point.isPointLike(testTypeObjIsNull)).should.equal(false);
+      });
+
     });
 
     describe('returns false if given a Point-like object with...', () => {
