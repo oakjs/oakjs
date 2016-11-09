@@ -50,18 +50,17 @@ function test_add () {
       point2 = new Point (60,80);
       point3 = point1.add(point2);
       pointNull = point1.add(null);
-      //console.log(pointNull);
     });
 
-    it('returns undefined when passed object is not pointLike', () => {
-      //(point1.add(pointNull)).should.equal('undefined');
-      //(point1.add(pointNull)).should.be.undefined;
-      //expect(undefined).to.be.undefined;
-      (pointNull).should.be('undefined');
-      //(Point.isPointLike(point3)).should.equal(true);
+    it('returns undefined when passed an object that is null', () => {
+      (typeof pointNull).should.equal('undefined');
     });
 
-    it('returns a new point when given a pointLike object', () => {
+    it('returns undefined when passed an number', () => {
+      (typeof point1.add(10)).should.equal('undefined');
+    });
+
+    it('returns a new point-like object when given a point-Like object', () => {
       (Point.isPointLike(point3)).should.equal(true);
     });
 

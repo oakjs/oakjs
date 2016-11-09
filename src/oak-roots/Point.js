@@ -74,9 +74,7 @@ export default class Point {
     if (!Point.isPointLike(point)) {
        return undefined;
      }
-    if ((Point.isPointLike(this)) && (Point.isPointLike(point))){
-      return new Point(this.x + point.x, this.y + point.y);
-    }
+    return new Point(this.x + point.x, this.y + point.y);
   }
 
   // Subtract another point from us.
