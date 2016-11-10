@@ -107,43 +107,19 @@ export default class Point {
   }
 
   //////////////////////////////
-  //  Validate
+  //  Validate point & point-like objects
   //////////////////////////////
-  //  Checks for:
-  //    point objects
-  //    AND
-  //    point-like objects with valid x,y cordinates
   static isPointLike(thing) {
-    //////////////////////
-    // check for something defined
-    // RETURNS false if:
-    //    if NO-THING or
-    //    if thing === undefined
+    // RETURNS false if no argument or thing === undefined
     if (!thing) return false;
 
-    //////////////////////
-    // check for an ACTUAL Point object
-    // RETURNS true if:
-    //    if thing is exactly what we want
+    // RETURNS true if exactly what we want
     if (thing instanceof Point) return true;
 
     //////////////////////
-    // check for Point-Like
-    // RETURNS true if:
-    //    if thing has properties x,y
-    //    and if x,y are of type 'number'
-    //    and if x,y are ACTUALLY numbers (not NaN)
-    // RETURNS false if:
-    //    - thing is defined
-    //    - but is niether a point nor point-like
-    /*
-    return  thing
-      && typeof thing.x === 'number'
-      && !isNaN(thing.x)
-      && typeof thing.y === 'number'
-      && !isNaN(thing.y);
-    */
-
+    // RETURNS true if its kinda-like what we want, that is:
+    //    has properties x,y oftype 'number' but not NaN numbers
+    // RETURNS false if thing is defined but is neither a point nor point-like
     return typeof thing.x === 'number'
       && !isNaN(thing.x)
       && typeof thing.y === 'number'
