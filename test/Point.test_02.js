@@ -31,13 +31,21 @@ describe('Point', () => {
   test_subtract();
 
 
-  //test_size();
+  test_size();
   test_invert();
-  //test_toString();
+  test_toString();
 
 
   test_isPointLike();
 });
+
+function test_style () {
+  describe('#style', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
 
 
 function test_subtract () {
@@ -301,16 +309,6 @@ function test_isPointLike () {
   });
 }
 
-function test_style () {
-  describe('#style', () => {
-    it('no tests exist', () => {
-      (0).should.equal(1);
-    });
-  });
-}
-
-
-
 function test_delta () {
   /* static delta between 2 inputs 1 string 1 number,
   the return can be undefined
@@ -350,7 +348,6 @@ function test_delta () {
     */
   });
 }
-
 
 function testConstructor () {
   describe('#constructor()', () => {
