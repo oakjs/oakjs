@@ -29,11 +29,12 @@ describe('Point', () => {
   test_add();
 
   test_subtract();
-  /*
+
+
+  //test_size();
   test_invert();
-  test_size();
-  test_toString();
-  */
+  //test_toString();
+
 
   test_isPointLike();
 });

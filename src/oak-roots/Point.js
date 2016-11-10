@@ -40,6 +40,11 @@ export default class Point {
     return { left: this.x, top: this.y };
   }
 
+  // Size of this point if treated as a vector.
+  get size() {
+    return Math.max( Math.abs(this.x), Math.abs(this.y) );
+  }
+
   //////////////////////////////
   //  Math-y stuff
   //////////////////////////////
@@ -81,11 +86,6 @@ export default class Point {
   // Return the inverse of this point
   invert() {
     return Point.invert(this);
-  }
-
-  // Size of this point if treated as a vector.
-  get size() {
-    return Math.max( Math.abs(this.x), Math.abs(this.y) );
   }
 
   //////////////////////////////
