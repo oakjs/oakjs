@@ -89,17 +89,6 @@ export default class Point {
   }
 
   //////////////////////////////
-  //  Static Math-y stuff
-  //////////////////////////////
-
-/*
-  // Return a new point which represents the delta between two points.
-  static delta(point1 = new Point(), point2 = new Point()) {
-    return new Point(point1.x - point2.x, point1.y - point2.y);
-  }
-*/
-
-  //////////////////////////////
   //  Validate point & point-like objects
   //////////////////////////////
   static isPointLike(thing) {
