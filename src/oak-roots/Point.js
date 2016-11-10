@@ -44,15 +44,12 @@ export default class Point {
   //  Math-y stuff
   //////////////////////////////
 
+  // Weed out invalid input
   // Return true if isPointLike AND coordinates match
+  // Return false if coordinates do not match
   equals(point) {
-    if (Point.isPointLike(point)) {
-      return this.x === point.x
-          && this.y === point.y;
-    }
-    else {
-      return false;
-    }
+    if (!Point.isPointLike(point)) return false;
+    return this.x === point.x && this.y === point.y;
   }
 
 
