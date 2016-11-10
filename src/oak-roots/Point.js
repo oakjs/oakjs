@@ -97,14 +97,6 @@ export default class Point {
     return new Point(point1.x - point2.x, point1.y - point2.y);
   }
 
-  /*
-  // LEAVE THIS HERE UNTIL subtract TESTS are added to Point.test_02.js
-  // Return a new point which subtracts the second point from the first.
-  static subtract(point1 = new Point(), point2 = new Point()) {
-    return new Point(point1.x - point2.x, point1.y - point2.y);
-  }
-  */
-
   // Return the inverse of this point
   static invert(point = new Point()) {
     return new Point( -point.x, -point.y);
