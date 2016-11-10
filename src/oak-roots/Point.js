@@ -71,9 +71,7 @@ export default class Point {
 
   // Add another point to us.
   add(point) {
-    if (!Point.isPointLike(point)) {
-       return undefined;
-    }
+    if (!Point.isPointLike(point)) return undefined;
     return new Point(this.x + point.x, this.y + point.y);
   }
 
@@ -149,7 +147,7 @@ export default class Point {
       && !isNaN(thing.y);
     */
 
-    return  typeof thing.x === 'number'
+    return typeof thing.x === 'number'
       && !isNaN(thing.x)
       && typeof thing.y === 'number'
       && !isNaN(thing.y);
