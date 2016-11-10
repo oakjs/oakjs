@@ -28,7 +28,7 @@ describe('Point', () => {
 
   test_add();
 
-  //test_subtract();
+  test_subtract();
   /*
   test_invert();
   test_size();
@@ -41,9 +41,49 @@ describe('Point', () => {
 
 function test_subtract () {
   describe('#subtract', () => {
-    it('no tests exist', () => {
-      (0).should.equal(1);
+    let point1,
+        point2,
+        point3,
+        pointNull      = 1,
+        emptyObj       = {},
+        emptyReturnObj = 1;
+
+    beforeEach(() => {
+      point1 = new Point (30,40);
+      point2 = new Point (60,80);
+      point3 = point1.subtract(point2);
     });
+
+    it('returns undefined when passed an object that is null', () => {
+      pointNull = point1.subtract(null);
+      (typeof pointNull).should.equal('undefined');
+    });
+
+    it('returns undefined when passed an object containing invalid properties', () => {
+      emptyReturnObj = point2.subtract(emptyObj);
+      (typeof emptyReturnObj).should.equal('undefined');
+    });
+
+    it('returns undefined when passed a string', () => {
+      var returnString = point1.subtract("wussup");
+      (typeof returnString).should.equal('undefined');
+    });
+
+    it('returns a new point object when passed a point obj', () => {
+      var point4 = point1.subtract(point2);
+      (typeof point4).should.equal('object');
+    });
+
+    it('returns a point whose x property is the sum of point1.x & point2.x', () => {
+      var point5 = point1.subtract(point2);
+      (point5.x).should.equal(point1.x - point2.x);
+    });
+
+    it('returns a point whose y property is the sum of point1.y & point2.y', () => {
+      var point6 = point1.subtract(point2);
+      (point6.y).should.equal(point1.y - point2.y);
+    });
+
   });
 }
 
@@ -65,7 +105,7 @@ function test_add () {
       (typeof pointNull).should.equal('undefined');
     });
 
-    it('returns undefined when passed an number', () => {
+    it('returns undefined when passed a number', () => {
       (typeof point1.add(10)).should.equal('undefined');
     });
 
