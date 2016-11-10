@@ -38,6 +38,15 @@ describe('Point', () => {
   test_isPointLike();
 });
 
+
+function test_subtract () {
+  describe('#subtract', () => {
+    it('no tests exist', () => {
+      (0).should.equal(1);
+    });
+  });
+}
+
 function test_add () {
   describe('#add', () => {
     let point1;
@@ -300,16 +309,6 @@ function test_delta () {
     */
   });
 }
-
-
-function test_subtract () {
-  describe('#subtract', () => {
-    it('no tests exist', () => {
-      (0).should.equal(1);
-    });
-  });
-}
-
 
 
 function testConstructor () {
