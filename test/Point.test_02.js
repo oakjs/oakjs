@@ -47,6 +47,57 @@ function test_style () {
   });
 }
 
+function test_integerize () {
+  describe('#integerize', () => {
+    let point;
+    let integerizedPoint;
+    let cordinate = [];
+
+    beforeEach(() => {
+      cordinate = [(Math.random()*MAX_X*2)-MIN_X, (Math.random()*MAX_Y*2)-MIN_Y];
+      point = new Point(cordinate[0],cordinate[1]);
+      integerizedPoint = point.integerize();
+    });
+
+    it("returns a NEW 'Point' converted to integers", () => {
+      (integerizedPoint.left).should.equal(Math.floor(point.left));
+    });
+
+    it("removes decimals from the objects x,y cordinates", () => {
+      (integerizedPoint.top).should.not.equal(point.top);
+    });
+  });
+}
+
+
+function test_invert () {
+  describe('#invert', () => {
+    let point;
+    let point2;
+    let pointNaN;
+    let pointNaN2;
+    let not_a_point;
+
+    beforeEach(() => {
+      point = new Point(50,100);
+      point2 = point.invert();
+      pointNaN = new Point(NaN, NaN);
+      pointNaN2 = pointNaN.invert();
+    });
+
+    it('returns the inverse of an x,y point location', () => {
+      (point.x).should.equal(point2.x*-1);
+      (point.y).should.equal(point2.y*-1);
+    });
+
+    it('returns the inverse of null point location', () => {
+      (pointNaN.x).should.equal(pointNaN2.x*-1);
+      (pointNaN.y).should.equal(pointNaN2.y*-1);
+    });
+  });
+}
+
+
 
 function test_subtract () {
   describe('#subtract', () => {
@@ -497,29 +548,6 @@ function test_equals () {
   });
 }
 
-function test_integerize () {
-  describe('#integerize', () => {
-    let point;
-    let integerizedPoint;
-    let cordinate = [];
-
-    beforeEach(() => {
-      cordinate = [(Math.random()*MAX_X*2)-MIN_X, (Math.random()*MAX_Y*2)-MIN_Y];
-      point = new Point(cordinate[0],cordinate[1]);
-      integerizedPoint = point.integerize();
-    });
-
-    it("returns a NEW 'Point' converted to integers", () => {
-      (integerizedPoint.left).should.equal(Math.floor(point.left));
-    });
-
-    it("removes decimals from the objects x,y cordinates", () => {
-      (integerizedPoint.top).should.not.equal(point.top);
-    });
-  });
-
-}
-
 
 
 function test_size () {
@@ -537,32 +565,6 @@ function test_size () {
     });
     it('returns a positive integer', () => {
       (mag).should.be.at.least(0);
-    });
-  });
-}
-
-function test_invert () {
-  describe('#invert', () => {
-    let point;
-    let point2;
-    let pointNaN;
-    let pointNaN2;
-
-    beforeEach(() => {
-      point = new Point(50,100);
-      point2 = point.invert();
-      pointNaN = new Point(NaN, NaN);
-      pointNaN2 = pointNaN.invert();
-    });
-
-    it('returns the inverse of an x,y point location', () => {
-      (point.x).should.equal(point2.x*-1);
-      (point.y).should.equal(point2.y*-1);
-    });
-
-    it('returns the inverse of null point location', () => {
-      (pointNaN.x).should.equal(pointNaN2.x*-1);
-      (pointNaN.y).should.equal(pointNaN2.y*-1);
     });
   });
 }
