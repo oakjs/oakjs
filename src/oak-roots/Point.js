@@ -124,17 +124,13 @@ export default class Point {
     // RETURNS false if:
     //    if NO-THING or
     //    if thing === undefined
-    if (!thing) {
-      return false;
-    }
+    if (!thing) return false;
 
     //////////////////////
     // check for an ACTUAL Point object
     // RETURNS true if:
     //    if thing is exactly what we want
-    if (thing instanceof Point){
-      return true;
-    }
+    if (thing instanceof Point) return true;
 
     //////////////////////
     // check for Point-Like
