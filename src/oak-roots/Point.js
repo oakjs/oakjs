@@ -68,7 +68,7 @@ export default class Point {
 
   // Delta between this point and another point as a new Point.
   delta(point) {
-    return Point.delta(this, point);
+    return this.subtract(point);
   }
 
   // Add another point to us.
@@ -92,17 +92,12 @@ export default class Point {
   //  Static Math-y stuff
   //////////////////////////////
 
+/*
   // Return a new point which represents the delta between two points.
   static delta(point1 = new Point(), point2 = new Point()) {
     return new Point(point1.x - point2.x, point1.y - point2.y);
   }
-
-  /*
-  // Return the inverse of this point
-  static invert(point = new Point()) {
-    return new Point( -point.x, -point.y);
-  }
-  */
+*/
 
   //////////////////////////////
   //  Validate point & point-like objects

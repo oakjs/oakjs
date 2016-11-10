@@ -98,7 +98,6 @@ function test_invert () {
 }
 
 
-
 function test_subtract () {
   describe('#subtract', () => {
     let point1,
@@ -361,22 +360,35 @@ function test_isPointLike () {
 }
 
 function test_delta () {
-  /* static delta between 2 inputs 1 string 1 number,
-  the return can be undefined
-  the person calling should check for
-  undefined rather than have the lower level mathy stuff throw an owenisms
-  either return an UNDEFEFINED or correct */
   describe('#delta', () => {
     let thisPoint,
         otherPoint,
         samePoint,
-        newPoint;
+        newPoint,
+        pointNull,
+        emptyObj       = {},
+        emptyReturnObj = 1;
 
     beforeEach(() => {
       thisPoint  = new Point(100, 150);
       otherPoint = new Point(200, 250);
       samePoint  = new Point(100, 150);
       newPoint   = thisPoint.delta(otherPoint);
+    });
+
+    it('returns undefined when passed an object that is null', () => {
+      pointNull = thisPoint.delta(null);
+      (typeof pointNull).should.equal('undefined');
+    });
+
+    it('returns undefined when passed an object containing invalid properties', () => {
+      emptyReturnObj = otherPoint.delta(emptyObj);
+      (typeof emptyReturnObj).should.equal('undefined');
+    });
+
+    it('returns undefined when passed a string', () => {
+      var returnString = samePoint.delta("wussup");
+      (typeof returnString).should.equal('undefined');
     });
 
     // test correct inputs
@@ -391,12 +403,6 @@ function test_delta () {
     it('returns a point whose x cordinate is the delta between the 2 points ', () => {
       (newPoint.x).should.equal(thisPoint.x - otherPoint.x);
     });
-
-    /*// test malformed inputs
-    it('fails how? when no value is passed?', () => {
-      (thisPoint.delta()).should.equal({ x: 100, y: 150 });
-    });
-    */
   });
 }
 
