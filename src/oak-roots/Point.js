@@ -145,8 +145,10 @@ export default class Point {
     // RETURNS false if:
     //    - thing is defined
     //    - but is niether a point nor point-like
-    return  ((typeof thing.x === 'number' && !isNaN(thing.x))
-      && (typeof thing.y === 'number' && !isNaN(thing.y)));
+    return  ((typeof thing.x === 'number'
+      && !isNaN(thing.x))
+      && (typeof thing.y === 'number'
+      && !isNaN(thing.y)));
   }
 
   //////////////////////////////
