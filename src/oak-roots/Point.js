@@ -49,7 +49,7 @@ export default class Point {
     if (Point.isPointLike(point)) {
       return this.x === point.x
           && this.y === point.y;
-      }
+    }
     else {
       return false;
     }
@@ -73,7 +73,7 @@ export default class Point {
   add(point) {
     if (!Point.isPointLike(point)) {
        return undefined;
-     }
+    }
     return new Point(this.x + point.x, this.y + point.y);
   }
 
@@ -114,7 +114,7 @@ export default class Point {
   //////////////////////////////
   //  Validate
   //////////////////////////////
-  // Allows:
+  //  Checks for:
   //    point objects
   //    AND
   //    point-like objects with valid x,y cordinates
@@ -142,17 +142,11 @@ export default class Point {
     //    if thing has properties x,y
     //    and if x,y are of type 'number'
     //    and if x,y are ACTUALLY numbers (not NaN)
-    if  ((typeof thing.x === 'number' && !isNaN(thing.x))
-      && (typeof thing.y === 'number' && !isNaN(thing.y))) {
-          return true;
-    }
-
-    //////////////////////
-    // cleanup the garbage
     // RETURNS false if:
     //    - thing is defined
     //    - but is niether a point nor point-like
-    return false;
+    return  ((typeof thing.x === 'number' && !isNaN(thing.x))
+      && (typeof thing.y === 'number' && !isNaN(thing.y)));
   }
 
   //////////////////////////////
