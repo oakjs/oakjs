@@ -194,7 +194,14 @@ export default class Rect {
     return new Rect(rect.left + point.x, rect.top + point.y, rect.width, rect.height);
   }
 
+  //////////////////////////////
+  //  Validate
+  //////////////////////////////
 
+  static isRectLike(rect) {
+    return true;
+  }
+  
   //////////////////////////////
   //  Debug
   //////////////////////////////
