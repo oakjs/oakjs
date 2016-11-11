@@ -89,8 +89,6 @@ export default class Point {
   //  Validate point & point-like objects
   //////////////////////////////
   static isPointLike(thing) {
-    // RETURNS false if no argument or thing === undefined
-    if (!thing) return false;
 
     // RETURNS true if exactly what we want
     if (thing instanceof Point) return true;
@@ -98,8 +96,10 @@ export default class Point {
     //////////////////////
     // RETURNS true if its kinda-like what we want, that is:
     //    has properties x,y oftype 'number' but not NaN numbers
-    // RETURNS false if thing is defined but is neither a point nor point-like
-    return typeof thing.x === "number"
+    // RETURNS false if thing is neither a point nor point-like,
+    //    or is empty string, undefined, NaN, null
+    return !!thing
+      && typeof thing.x === "number"
       && !isNaN(thing.x)
       && typeof thing.y === "number"
       && !isNaN(thing.y);
