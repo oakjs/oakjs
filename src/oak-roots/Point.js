@@ -49,19 +49,23 @@ export default class Point {
   //  Math-y stuff
   //////////////////////////////
 
-
-  // Return true if coordinates match
-  equals(point) {
-    if (!Point.isPointLike(point)) return false;
-    return this.x === point.x && this.y === point.y;
-  }
-
   // Return a NEW `Point` converted to integers.
   integerize() {
     return new Point(
       Math.floor(this.x),
       Math.floor(this.y)
     );
+  }
+
+  // Return the inverse of this point
+  invert() {
+    return new Point(-this.x, -this.y);
+  }
+
+  // Return true if coordinates match
+  equals(point) {
+    if (!Point.isPointLike(point)) return false;
+    return this.x === point.x && this.y === point.y;
   }
 
   // Delta between this point and another point as a new Point.
@@ -79,11 +83,6 @@ export default class Point {
   subtract(point) {
     if (!Point.isPointLike(point)) return undefined;
     return new Point(this.x - point.x, this.y - point.y);
-  }
-
-  // Return the inverse of this point
-  invert() {
-    return new Point(-this.x, -this.y);
   }
 
   //////////////////////////////
