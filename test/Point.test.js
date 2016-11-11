@@ -1,5 +1,6 @@
 /* eslint-env node, mocha */
 import "babel-core/external-helpers";
+
 let chai  = require('chai');
 
 chai.should();
