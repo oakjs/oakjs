@@ -42,7 +42,7 @@ export default class Point {
 
   // Size of this point if treated as a vector.
   get size() {
-    return Math.max( Math.abs(this.x), Math.abs(this.y) );
+    return Math.max(Math.abs(this.x), Math.abs(this.y));
   }
 
   //////////////////////////////
@@ -99,9 +99,9 @@ export default class Point {
     // RETURNS true if its kinda-like what we want, that is:
     //    has properties x,y oftype 'number' but not NaN numbers
     // RETURNS false if thing is defined but is neither a point nor point-like
-    return typeof thing.x === 'number'
+    return typeof thing.x === "number"
       && !isNaN(thing.x)
-      && typeof thing.y === 'number'
+      && typeof thing.y === "number"
       && !isNaN(thing.y);
   }
 

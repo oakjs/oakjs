@@ -1,3 +1,4 @@
+/* eslint-env node, mocha */
 import "babel-core/external-helpers";
 let chai  = require('chai');
 
@@ -477,9 +478,8 @@ function test_left () {
     });
 
     it('can not be changed', () => {
-      () => {
-        point.left = 1000;
-      }.should.throw(Error);
+      (1).should.equal(1);
+      (() => {point.left = 1000}).should.throw(Error);
     });
   });
 }
@@ -497,9 +497,7 @@ function test_top () {
     });
 
     it('can not be changed', () => {
-      () => {
-        point.top = 1000;
-      }.should.throw(Error);
+      (() => {point.top = 1000}).should.throw(Error);
     });
   });
 }
