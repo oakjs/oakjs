@@ -20,7 +20,7 @@ describe('Point', () => {
   test_top();
   test_isOrigin();
 
-  //test_style();
+  test_style();
   test_equals();
 
   //test_integerize();
@@ -41,8 +41,26 @@ describe('Point', () => {
 
 function test_style () {
   describe('#style', () => {
-    it('no tests exist', () => {
-      (0).should.equal(1);
+    let point1,
+        point1Style,
+        point2,
+        point2Style;
+
+    beforeEach(() =>  {
+      point1 = new Point(50,100);
+      point1Style = point1.style;
+      point2 = new Point(-500,-700);
+      point2Style = point2.style;
+    });
+
+    it("returns a point's cordinates as key/value pairs for CSS style 'left' and 'right'", () => {
+      (point1Style.left).should.equal(50);
+      (point1Style).should.have.all.keys('left', 'top');
+    });
+
+    it("returns a point's exact cordinates as 'left' and 'right' values", () => {
+      (point2Style.left).should.equal(-500);
+      (point2Style.top).should.equal(-700);
     });
   });
 }
