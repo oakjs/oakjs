@@ -4,37 +4,28 @@ let chai  = require('chai');
 chai.should();
 chai.expect();
 
- // max and mins for cordinate system
-let MAX_X = 200,
-    MIN_X = 200,  // absolute value
-    MAX_Y = 200,
-    MIN_Y = 200;  // absolute value
-
 import Point from '../src/oak-roots/Point';
 
 describe('Point', () => {
 
   testConstructor();
   test_clone();
+
   test_left();
   test_top();
   test_isOrigin();
-
   test_style();
+  test_size();
+
+  test_integerize();
+  test_invert();
+
   test_equals();
-
-  //test_integerize();
   test_delta();
-
   test_add();
-
   test_subtract();
 
-
-  test_size();
-  test_invert();
   test_toString();
-
 
   test_isPointLike();
 });
@@ -67,9 +58,14 @@ function test_style () {
 
 function test_integerize () {
   describe('#integerize', () => {
-    let point;
-    let integerizedPoint;
-    let cordinate = [];
+    // max and mins for cordinate system
+   let MAX_X = 200,
+       MIN_X = 200,  // absolute value
+       MAX_Y = 200,
+       MIN_Y = 200,  // absolute value
+       point,
+       integerizedPoint,
+       cordinate = [];
 
     beforeEach(() => {
       cordinate = [(Math.random()*MAX_X*2)-MIN_X, (Math.random()*MAX_Y*2)-MIN_Y];
@@ -86,7 +82,6 @@ function test_integerize () {
     });
   });
 }
-
 
 function test_invert () {
   describe('#invert', () => {
@@ -114,7 +109,6 @@ function test_invert () {
     });
   });
 }
-
 
 function test_subtract () {
   describe('#subtract', () => {
@@ -443,9 +437,14 @@ function testConstructor () {
 
 function test_clone () {
   describe('#clone', () => {
-    let point;
-    let clonedPoint;
-    let cordinate = [];
+    // max and mins for cordinate system
+   let MAX_X = 200,
+       MIN_X = 200,  // absolute value
+       MAX_Y = 200,
+       MIN_Y = 200,  // absolute value
+       point,
+       clonedPoint,
+       cordinate = [];
 
     beforeEach(() => {
       cordinate = [(Math.random()*MAX_X*2)-MIN_X, (Math.random()*MAX_Y*2)-MIN_Y];
@@ -571,8 +570,6 @@ function test_equals () {
 
   });
 }
-
-
 
 function test_size () {
   describe('#size', () => {
