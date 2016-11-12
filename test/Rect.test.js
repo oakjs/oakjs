@@ -8,7 +8,7 @@ chai.expect();
 
 import Rect from '../src/oak-roots/Rect';
 
-describe('Rect', () => {
+describe('\n---------------------------------\nTesting Rect.js', () => {
 
   /*
   test_constructor();
@@ -59,6 +59,8 @@ function test_isRectLike () {
       rect,
       rectLike,
       rectLikeWithNanProperty,
+      rectLikeWithNanTop,
+      rectLikeWithUndefTop,
       rect1,
       rect2,
       rectThingObject,
@@ -81,11 +83,14 @@ function test_isRectLike () {
     rect = new Rect(0,0,100,50);
     rectLike = {left: 0, top: 50, width: 100, height: 50};
     rectLikeWithNanProperty = {left: NaN, top: 50, width: 100, height: 50};
+
+    rectLikeWithNanTop = {left: 0, top: NaN, width: 100, height: 50};
+    rectLikeWithUndefTop = {left: 0, top: undefined, width: 100, height: 50};
   });
 
-  describe('\n--------\n#isRectLike\n', () => {
+  describe('\n--------\n--#isRectLike validator\n', () => {
 
-    describe('RECT.js isRectLike -- returns true if ...', () => {
+    describe('-- returns true if ...', () => {
 
       it('if given a rect object', () => {
         (Rect.isRectLike(rect)).should.equal(true);
@@ -96,15 +101,67 @@ function test_isRectLike () {
       });
     });
 
-    describe('RECT.js isRectLike -- returns false if ...', () => {
+    describe('-- returns false if given ...', () => {
+
+      it('if given a string', () => {
+        var testThisString = "hello validator";
+        (Rect.isRectLike(testThisString)).should.equal(false);
+      });
+
+      it('if given an empty string', () => {
+        var testThisEmptyString = "";
+        (Rect.isRectLike(testThisEmptyString)).should.equal(false);
+      });
+
+      it('if given a number (eg an integer)', () => {
+        var testThisNum = 10;
+        (Rect.isRectLike(testThisNum)).should.equal(false);
+      });
+
+      it('if given a number NaN', () => {
+        var testThisNumNaN = NaN;
+        (Rect.isRectLike(testThisNumNaN)).should.equal(false);
+      });
 
       it('if given anything other than a rect object', () => {
         testTypeNum = 1;
         (Rect.isRectLike(testTypeNum)).should.equal(false);
       });
 
-      it('if given an object with a NaN property', () => {
+      it("if given an object where 'left' property is NaN", () => {
         (Rect.isRectLike(rectLikeWithNanProperty)).should.equal(false);
+      });
+
+      it("if given an object where 'left' property is oftype string", () => {
+        var rectLikeObjString = {left: "hello world", top: 50, width: 100, height: 50};
+        (Rect.isRectLike(rectLikeObjString)).should.equal(false);
+      });
+
+      it("if given an object where 'top' property is NaN", () => {
+        (Rect.isRectLike(rectLikeWithNanTop)).should.equal(false);
+      });
+
+      it("if given an object where 'top' property is oftype undefined", () => {
+        (Rect.isRectLike(rectLikeWithUndefTop)).should.equal(false);
+      });
+
+      it("if given an object where 'width' property is oftype NaN", () => {
+        var rectLikeWithNanWidth = {left: 0, top: 50, width: NaN, height: 50};
+        (Rect.isRectLike(rectLikeWithNanWidth)).should.equal(false);
+      });
+
+      it("if given an object where 'width' property is oftype string", () => {
+        var rectLikeWithStringWidth = {left: 0, top: 50, width: "IceT", height: 50};
+        (Rect.isRectLike(rectLikeWithStringWidth)).should.equal(false);
+      });
+
+      it("if given an object where 'height' property is oftype NaN", () => {
+        var rectLikeWithStringHeight = {left: 0, top: 50, width: 100, height: NaN};
+        (Rect.isRectLike(rectLikeWithStringHeight)).should.equal(false);
+      });
+      it("if given an object where 'height' property is oftype string", () => {
+        var rectLikeWithStringHeight = {left: 0, top: 50, width: 100, height: "yo dawg"};
+        (Rect.isRectLike(rectLikeWithStringHeight)).should.equal(false);
       });
     });
 

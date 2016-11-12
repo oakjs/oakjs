@@ -204,7 +204,13 @@ export default class Rect {
 
     return !!rect
       && typeof rect.left === 'number'
-      && !isNaN(rect.left);
+      && !isNaN(rect.left)
+      && typeof rect.top === 'number'
+      && !isNaN(rect.top)
+      && typeof rect.width === 'number'
+      && !isNaN(rect.width)
+      && typeof rect.height === 'number'
+      && !isNaN(rect.height);
   }
 
   //////////////////////////////
