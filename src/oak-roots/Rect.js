@@ -199,9 +199,14 @@ export default class Rect {
   //////////////////////////////
 
   static isRectLike(rect) {
-    return true;
+
+    if (rect instanceof Rect) return true;
+
+    return !!rect
+      && typeof rect.left === 'number'
+      && !isNaN(rect.left);
   }
-  
+
   //////////////////////////////
   //  Debug
   //////////////////////////////

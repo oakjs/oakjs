@@ -57,6 +57,8 @@ function test_isRectLike () {
       testTypeNumIsNaN,
       testTypeObjIsNull,
       rect,
+      rectLike,
+      rectLikeWithNanProperty,
       rect1,
       rect2,
       rectThingObject,
@@ -77,16 +79,32 @@ function test_isRectLike () {
 
   beforeEach(() => {
     rect = new Rect(0,0,100,50);
+    rectLike = {left: 0, top: 50, width: 100, height: 50};
+    rectLikeWithNanProperty = {left: NaN, top: 50, width: 100, height: 50};
   });
 
   describe('\n--------\n#isRectLike\n', () => {
 
-    describe('TEST RECT.test -- returns true if ...', () => {
+    describe('RECT.js isRectLike -- returns true if ...', () => {
 
-      it('if given anything', () => {
+      it('if given a rect object', () => {
+        (Rect.isRectLike(rect)).should.equal(true);
+      });
+
+      it('if given a rect-like object', () => {
+        (Rect.isRectLike(rectLike)).should.equal(true);
+      });
+    });
+
+    describe('RECT.js isRectLike -- returns false if ...', () => {
+
+      it('if given anything other than a rect object', () => {
         testTypeNum = 1;
-        (Rect.isRectLike(testTypeNum)).should.equal(true);
-        (1).should.equal(1);
+        (Rect.isRectLike(testTypeNum)).should.equal(false);
+      });
+
+      it('if given an object with a NaN property', () => {
+        (Rect.isRectLike(rectLikeWithNanProperty)).should.equal(false);
       });
     });
 
