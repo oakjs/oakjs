@@ -8,12 +8,25 @@
 
 
 export default class Point {
-  // Initialize with `x`, `y`
+  // Initialize with `x` and `y`.
+  // If `x` or `y` is not a valid number, it will be set to `0`.
   constructor(x, y) {
-    this.x = x || 0;
-    this.y = y || 0;
+    if (typeof x === "number" && !isNaN(x)) {
+      this.x = x;
+    } else {
+      console.warn(`new Point(${x},${y}): invalid x value, setting to 0`);
+      this.x = 0;
+    }
+
+    if (typeof y === "number" && !isNaN(y)) {
+      this.y = y;
+    } else {
+      console.warn(`new Point(${x},${y}): invalid y value, setting to 0`);
+      this.y = 0;
+    }
   }
 
+  // Return a clone of this point.
   clone() {
     return new Point(this.x, this.y);
   }
@@ -35,7 +48,7 @@ export default class Point {
     return this.x === 0 && this.y === 0;
   }
 
-  // Return this point as a `{ top, left }`, eg for use as CSS `style` values.
+  // Return this point as `{ top, left }`, eg for use as CSS `style` values.
   get style() {
     return { left: this.x, top: this.y };
   }
@@ -49,7 +62,7 @@ export default class Point {
   //  Math-y stuff
   //////////////////////////////
 
-  // Return a NEW `Point` converted to integers.
+  // Return a NEW `Point` converted to integers via `Math.floor()`.
   integerize() {
     return new Point(
       Math.floor(this.x),
@@ -89,7 +102,6 @@ export default class Point {
   //  Validate point & point-like objects
   //////////////////////////////
   static isPointLike(thing) {
-
     // RETURNS true if exactly what we want
     if (thing instanceof Point) return true;
 
@@ -110,6 +122,6 @@ export default class Point {
   //////////////////////////////
 
   toString() {
-    return `${this.x},${this.y}`;
+    return `<Point ${this.x},${this.y}>`;
   }
 }
