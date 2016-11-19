@@ -20,8 +20,8 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
 
   // syntatic sugar
   test_topLeft();
-  /*
   test_right();
+  /*
   test_bottom();
   test_isEmpty();
   test_style();
@@ -66,26 +66,20 @@ function test_topLeft() {
   });
 }
 
-/*
-function test_left () {
-  describe('#left', () => {
-    let point;
+function test_right() {
+  describe("#right", () => {
+    let rect_get_right;
 
     beforeEach(() => {
-      point = new Point(10,20);
+      rect_get_right = new Rect(6, 16, 160, 166);
     });
 
-    it('returns the x-cordinate', () => {
-      point.left.should.equal(10);
-    });
-
-    it('can not be changed', () => {
-      (1).should.equal(1);
-      (() => {point.left = 1000}).should.throw(Error);
+    it("returns the rect's top right coordinate as sum of left coordinate and rect's width", () => {
+      rect_get_right.right.should.equal(rect_get_right.left + rect_get_right.width);
     });
   });
 }
-*/
+
 
 function test_clone() {
   let rect_to_clone,
