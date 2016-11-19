@@ -23,8 +23,9 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
   test_right();
   test_bottom();
   test_isEmpty();
-  /*
   test_style();
+  /*
+
   test_styleString();
   test_size();
 
@@ -112,6 +113,27 @@ function test_isEmpty() {
 
     it("returns false if rect has either height or width > 0", () => {
       rect_isFull.isEmpty.should.equal(false);
+    });
+  });
+}
+
+
+function test_style() {
+  describe("#style", () => {
+    let rect_style_output,
+        rect_style_object;
+
+    beforeEach(() => {
+      rect_style_output = new Rect(9, 19, 190, 199);
+      rect_style_object  = rect_style_output.style;
+    });
+
+    it("returns CSS compatible object", () => {
+      (typeof rect_style_object).should.equal("object");
+    });
+
+    it("returns CSS compatible object", () => {
+      (rect_style_object.left).should.equal("9px");
     });
   });
 }
