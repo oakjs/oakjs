@@ -604,7 +604,7 @@ function test_toString () {
     });
 
     it("returns string equivelant of Point's x,y cordinates.", () =>  {
-      (cordinateString).should.equal('50,100');
+      (cordinateString).should.equal('<Point 50,100>');
     });
   });
 }
