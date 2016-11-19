@@ -33,6 +33,26 @@ export default class Rect {
   //  - set `right` first before setting `width`, if you want to change the `left`
   set(props) {
     for (let key in props) {
+      let value = props[key];
+      if (typeof value !== "number" || isNaN(value)) {
+        console.warn("\tRect.js -> set(props) received invalid argument: '" + value + "' , --> for key: " + key);
+        continue;
+      }
+      switch(key) {
+        case "left": this.left = value; break;
+        case "top": this.top = value; break;
+        case "width": this.width = value; break;
+        case "height": this.height = value; break;
+        case "right": this.width = value - this.left; break;
+        case "bottom": this.height = value - this.top; break;
+      }
+    }
+    return this;
+  }
+
+  /*
+  set(props) {
+    for (let key in props) {
       const value = (typeof props[key] === "number" ? props[key] : null) || 0;
       switch(key) {
         case "left": this.left = value; break;
@@ -45,6 +65,7 @@ export default class Rect {
     }
     return this;
   }
+  */
 
   //////////////////////////////
   // Syntactic sugar

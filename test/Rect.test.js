@@ -10,12 +10,13 @@ import Rect from '../src/oak-roots/Rect';
 
 describe('\n---------------------------------\nTesting Rect.js', () => {
 
-  /*
-  test_constructor();
 
-  test_clone();
+  //test_constructor();
+
+  //test_clone();
   test_set();
 
+  /*
   // syntatic sugar
   test_topLeft();
   test_right();
@@ -47,6 +48,42 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
   test_isRectLike();
 });
 
+function test_set() {
+  let testRect,
+      setRectTo,
+      updatedRect,
+
+      testRect2,
+      setRectToWarn,
+      updatedRectWarn;
+
+  beforeEach(() => {
+    testRect      = new Rect(0, 20, 100, 25);
+    setRectTo     = {left: 20, top: 40, width: 120, height: 45};
+    updatedRect   = testRect.set(setRectTo);
+
+
+  });
+
+  describe('#set', () => {
+
+    it('changes one or more parameters of a rectangle ', () => {
+      (updatedRect.left).should.equal(20);
+    });
+
+    it('warns console, then makes no change if passed an invalide parameter', () => {
+      testRect2     = new Rect(100, 125, 300, 325);
+      setRectToWarn = {left: 'top left string', top: 50, width: 100, height: 50};
+      updatedRectWarn = testRect2.set(setRectToWarn);
+      (updatedRectWarn.left).should.equal(100);
+    });
+    /*
+    it('if given a rect-like object', () => {
+      (Rect.isRectLike(rectLike)).should.equal(true);
+    });
+    */
+  });
+}
 
 function test_isRectLike () {
   let testTypeStr,
@@ -164,6 +201,8 @@ function test_isRectLike () {
         (Rect.isRectLike(rectLikeWithStringHeight)).should.equal(false);
       });
     });
+
+
 
 /*
     describe('returns false if given...', () => {
