@@ -77,11 +77,27 @@ function test_set() {
       updatedRectWarn = testRect2.set(setRectToWarn);
       (updatedRectWarn.left).should.equal(100);
     });
-    /*
-    it('if given a rect-like object', () => {
-      (Rect.isRectLike(rectLike)).should.equal(true);
+
+    it('sets left, top, width, and height', () => {
+      console.log('\tassertions needed here');
+      (1).should.equal(1);
     });
-    */
+
+    it('sets right parameter as width - left', () => {
+      console.log('\tassertions needed here');
+      (1).should.equal(1);
+    });
+
+    it('sets bottom parameter as height - top', () => {
+      console.log('\tassertions needed here');
+      (1).should.equal(1);
+    });
+
+    it('requires parameter order of: left before right, right before width', () => {
+      console.log('\tassertions needed here');
+      (1).should.equal(1);
+    });
+
   });
 }
 
