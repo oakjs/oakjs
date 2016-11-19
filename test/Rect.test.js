@@ -21,8 +21,8 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
   // syntatic sugar
   test_topLeft();
   test_right();
-  /*
   test_bottom();
+  /*
   test_isEmpty();
   test_style();
   test_styleString();
@@ -76,6 +76,21 @@ function test_right() {
 
     it("returns the rect's top right coordinate as sum of left coordinate and rect's width", () => {
       rect_get_right.right.should.equal(rect_get_right.left + rect_get_right.width);
+    });
+  });
+}
+
+
+function test_bottom() {
+  describe("#bottom", () => {
+    let rect_get_bottom;
+
+    beforeEach(() => {
+      rect_get_bottom = new Rect(7, 17, 170, 177);
+    });
+
+    it("returns the rect's top right coordinate as sum of left coordinate and rect's width", () => {
+      rect_get_bottom.bottom.should.equal(rect_get_bottom.top + rect_get_bottom.height);
     });
   });
 }
