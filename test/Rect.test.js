@@ -14,7 +14,7 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
 
   //test_constructor();
 
-  //test_clone();
+  test_clone();
   test_set();
 
   /*
@@ -46,29 +46,58 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
 
   // debug
   test_toString();
-*/
+  */
   // validate
   test_isRectLike();
 });
 
+function test_clone() {
+  let rect_to_clone,
+      cloned_rect,
+
+      rect_to_set_and_clone,
+      set_left,
+      set_and_cloned_rect;
+
+  beforeEach(() => {
+    rect_to_clone = new Rect(30, 40, 300, 400);
+    cloned_rect   = rect_to_clone.clone();
+
+    rect_to_set_and_clone = new Rect(200, 200, 500, 500);
+    set_left = {left: 1};
+    set_and_cloned_rect = rect_to_set_and_clone.clone(set_left);
+
+  });
+
+  describe("#clone", () => {
+
+    it("returns a clone of this rect", () => {
+      (cloned_rect.left).should.equal(rect_to_clone.left);
+    });
+
+    it("updates rect parameteers and returns a clone of the updated rect", () => {
+      (set_and_cloned_rect.left).should.equal(set_left.left);
+    });
+  });
+}
+
 function test_offset() {
-    let rect_to_offset,
-        offset_by_point,
-        offset_rect;
+  let rect_to_offset,
+      offset_by_point,
+      offset_rect;
 
-    beforeEach(() => {
-      rect_to_offset  = new Rect(10, 40, 100, 10);
-      offset_by_point = new Point(5, 9);
-      offset_rect     = rect_to_offset.offset(offset_by_point);
+  beforeEach(() => {
+    rect_to_offset  = new Rect(10, 40, 100, 10);
+    offset_by_point = new Point(5, 9);
+    offset_rect     = rect_to_offset.offset(offset_by_point);
+  });
+
+  describe('#offset', () => {
+
+    it("adds a point's cordinates to the top left parameter of a rectangle", () => {
+      (offset_rect.left).should.equal(rect_to_offset.left + offset_by_point.x);
     });
-
-    describe('#offset', () => {
-
-      it("adds a point's cordinates to the top left parameter of a rectangle", () => {
-        (offset_rect.left).should.equal(rect_to_offset.left + offset_by_point.x);
-      });
-
-    });
+  });
 }
 
 function test_set() {
