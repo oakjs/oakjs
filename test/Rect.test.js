@@ -59,13 +59,13 @@ function test_offset() {
     beforeEach(() => {
       rect_to_offset  = new Rect(10, 40, 100, 10);
       offset_by_point = new Point(5, 9);
+      offset_rect     = rect_to_offset.offset(offset_by_point);
     });
 
     describe('#offset', () => {
 
       it("adds a point's cordinates to the top left parameter of a rectangle", () => {
-        console.log("\tadd assertion here");
-        (1).should.equal(1);
+        (offset_rect.left).should.equal(rect_to_offset.left + offset_by_point.x);
       });
 
     });
