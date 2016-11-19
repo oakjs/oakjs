@@ -17,9 +17,10 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
   test_clone();
   test_set();
 
-  /*
+
   // syntatic sugar
   test_topLeft();
+  /*
   test_right();
   test_bottom();
   test_isEmpty();
@@ -50,6 +51,41 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
   // validate
   test_isRectLike();
 });
+
+function test_topLeft() {
+  describe("#topLeft", () => {
+    let rect_get;
+
+    beforeEach(() => {
+      rect_get = new Rect(5, 15, 150, 155);
+    });
+
+    it('returns the top left coordinate as a point object', () => {
+      rect_get.topLeft.x.should.equal(5);
+    });
+  });
+}
+
+/*
+function test_left () {
+  describe('#left', () => {
+    let point;
+
+    beforeEach(() => {
+      point = new Point(10,20);
+    });
+
+    it('returns the x-cordinate', () => {
+      point.left.should.equal(10);
+    });
+
+    it('can not be changed', () => {
+      (1).should.equal(1);
+      (() => {point.left = 1000}).should.throw(Error);
+    });
+  });
+}
+*/
 
 function test_clone() {
   let rect_to_clone,
