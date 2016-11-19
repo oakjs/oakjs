@@ -22,8 +22,8 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
   test_topLeft();
   test_right();
   test_bottom();
-  /*
   test_isEmpty();
+  /*
   test_style();
   test_styleString();
   test_size();
@@ -91,6 +91,27 @@ function test_bottom() {
 
     it("returns the rect's top right coordinate as sum of left coordinate and rect's width", () => {
       rect_get_bottom.bottom.should.equal(rect_get_bottom.top + rect_get_bottom.height);
+    });
+  });
+}
+
+
+function test_isEmpty() {
+  describe("#isEmpty", () => {
+    let rect_isEmpty,
+        rect_isFull;
+
+    beforeEach(() => {
+      rect_isEmpty = new Rect(0,0,0,0);
+      rect_isFull  = new Rect(8, 18, 180, 188);
+    });
+
+    it("returns true if rect has neither height nor width", () => {
+      rect_isEmpty.isEmpty.should.equal(true);
+    });
+
+    it("returns false if rect has either height or width > 0", () => {
+      rect_isFull.isEmpty.should.equal(false);
     });
   });
 }
