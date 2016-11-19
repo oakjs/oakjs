@@ -7,6 +7,7 @@ chai.should();
 chai.expect();
 
 import Rect from '../src/oak-roots/Rect';
+import Point from '../src/oak-roots/Point';
 
 describe('\n---------------------------------\nTesting Rect.js', () => {
 
@@ -32,10 +33,12 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
   test_containsPoint();
   test_contains();
   test_intersects();
+  */
   test_offset();
-  test_inset();
-  test_outset();
+  //test_inset();
+  //test_outset();
 
+  /*
   // static
   test_static_containingRect();
   test_static_rectFromPoints();
@@ -47,6 +50,26 @@ describe('\n---------------------------------\nTesting Rect.js', () => {
   // validate
   test_isRectLike();
 });
+
+function test_offset() {
+    let rect_to_offset,
+        offset_by_point,
+        offset_rect;
+
+    beforeEach(() => {
+      rect_to_offset  = new Rect(10, 40, 100, 10);
+      offset_by_point = new Point(5, 9);
+    });
+
+    describe('#offset', () => {
+
+      it("adds a point's cordinates to the top left parameter of a rectangle", () => {
+        console.log("\tadd assertion here");
+        (1).should.equal(1);
+      });
+
+    });
+}
 
 function test_set() {
   let testRect,
@@ -61,8 +84,6 @@ function test_set() {
     testRect      = new Rect(0, 20, 100, 25);
     setRectTo     = {left: 20, top: 40, width: 120, height: 45};
     updatedRect   = testRect.set(setRectTo);
-
-
   });
 
   describe('#set', () => {
