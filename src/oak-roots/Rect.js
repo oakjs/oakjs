@@ -138,7 +138,7 @@ export default class Rect {
 
   // Offset this rect by some `point`.
   offset(point) {
-    return Rect.offset(this, point);
+    return new Rect(this.left + point.x, this.top + point.y, this.width, this.height);
   }
 
   // Return a new rect inset a rect by a certain `delta` on all sides.
@@ -191,11 +191,6 @@ export default class Rect {
     const top = Math.min(point1.y, point2.y);
     const bottom = Math.max(point1.y, point2.y);
     return new Rect(left, top, right-left, bottom-top);
-  }
-
-  // Offset a rect by some `point`.
-  static offset(rect, point) {
-    return new Rect(rect.left + point.x, rect.top + point.y, rect.width, rect.height);
   }
 
   //////////////////////////////
