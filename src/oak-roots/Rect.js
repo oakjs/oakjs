@@ -50,23 +50,6 @@ export default class Rect {
     return this;
   }
 
-  /*
-  set(props) {
-    for (let key in props) {
-      const value = (typeof props[key] === "number" ? props[key] : null) || 0;
-      switch(key) {
-        case "left": this.left = value; break;
-        case "top": this.top = value; break;
-        case "width": this.width = value; break;
-        case "height": this.height = value; break;
-        case "right": this.width = value - this.left; break;
-        case "bottom": this.height = value - this.top; break;
-      }
-    }
-    return this;
-  }
-  */
-
   //////////////////////////////
   // Syntactic sugar
   //////////////////////////////
