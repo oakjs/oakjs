@@ -23,6 +23,7 @@ import utils from "./utils";
 export function _navigateToRouteTransaction(options = {}) {
   const {
     route,
+    force = false,
     replace = false,
     actionName = "Show Page",
     autoExecute
@@ -30,7 +31,7 @@ export function _navigateToRouteTransaction(options = {}) {
   if (!route) throw new TypeError(`oak.actions.navigateTo(): route not provided`);
 
   const currentRoute = oak.page && oak.page.route;
-  if (route === currentRoute) return;
+  if (route === currentRoute && !force) return;
 
   function undo(){ return utils.navigateToRoute(currentRoute, replace) }
   function redo(){ return utils.navigateToRoute(route, replace) }

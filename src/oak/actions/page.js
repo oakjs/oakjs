@@ -22,7 +22,8 @@ const DEBUG = true;
 export function showPage(options = {}) {
   let {
     page = oak.page,            // Page or page path, defaults to current page
-    replace,
+    force,                      // Force transition, even if we think we're on that page already.
+    replace,                    // Replace in history (no back button)
     actionName = "Show Page",
     autoExecute
   } = options;
@@ -41,6 +42,7 @@ export function showPage(options = {}) {
 
   return navigation._navigateToRouteTransaction({
     route: oak.account.getPageRoute(projectId, sectionId, pageId),
+    force,
     replace,
     actionName,
     autoExecute

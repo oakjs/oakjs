@@ -106,7 +106,7 @@ export class PageThumb extends RenderWhenVisible(OakComponent) {
         <div className="body">
           {children}
         </div>
-        <div className="mask" onClick={ () => oak.actions.showPage({ page: component }) } />
+        <div className="mask" onClick={ () => oak.actions.showPage({ page: component, force: true }) } />
       </SUI.Segment>
     )
   }
