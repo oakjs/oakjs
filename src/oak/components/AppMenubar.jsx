@@ -49,6 +49,7 @@ export default class AppMenubar extends OakComponent {
           <Oak.ActionItem id="oak.saveProject" hidden={!oak.project}/>
           <Oak.ActionItem id="oak.toggleProjectSelection"/>
           <SUI.Divider hidden={!oak.project}/>
+          <Oak.ActionItem id="oak.navigateTo" props={{ route: "/", title:"Open Project..." }}/>
           <Oak.ActionItem id="oak.createProject"/>
           <Oak.ActionItem id="oak.deleteProject"/>
           <Oak.ActionItem id="oak.renameProject"/>
