@@ -9,7 +9,7 @@ import webpackMiddleware from "webpack-dev-middleware";
 
 const isDeveloping = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
-const port = isDeveloping ? 3000 : process.env.PORT;
+const port = isDeveloping ? 4000 : process.env.PORT;
 const app = express();
 
 
