@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "he": "^1.1.0",
-    "jquery": "^2.2.4",
+    "jquery": "^3.5.0",
     "lodash": "^4.5.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
