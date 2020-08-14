@@ -3,17 +3,30 @@
 //  `Rect` class for geometry manipulation.
 //
 //  NOTE: if you pass a `NaN` value on construction, it will be silently converted to `0`.
-//
+//  TODO: consider adding a units parameter for xy location, (vs pixel). rms and ems
 //////////////////////////////
 
 
 export default class Point {
-  // Initialize with `x`, `y`
+  // Initialize with `x` and `y`.
+  // If `x` or `y` is not a valid number, it will be set to `0`.
   constructor(x, y) {
-    this.x = x || 0;
-    this.y = y || 0;
+    if (typeof x === "number" && !isNaN(x)) {
+      this.x = x;
+    } else {
+      console.warn(`new Point(${x},${y}): invalid x value, setting to 0`);
+      this.x = 0;
+    }
+
+    if (typeof y === "number" && !isNaN(y)) {
+      this.y = y;
+    } else {
+      console.warn(`new Point(${x},${y}): invalid y value, setting to 0`);
+      this.y = 0;
+    }
   }
 
+  // Return a clone of this point.
   clone() {
     return new Point(this.x, this.y);
   }
@@ -35,42 +48,21 @@ export default class Point {
     return this.x === 0 && this.y === 0;
   }
 
-  // Return this point as a `{ top, left }`, eg for use as CSS `style` values.
+  // Return this point as `{ top, left }`, eg for use as CSS `style` values.
   get style() {
     return { left: this.x, top: this.y };
+  }
+
+  // Size of this point if treated as a vector.
+  get size() {
+    return Math.max(Math.abs(this.x), Math.abs(this.y));
   }
 
   //////////////////////////////
   //  Math-y stuff
   //////////////////////////////
 
-
-
-  // return false if no arguments are passed
-  // return false if pointlike AND coordinates do not match
-  // return true if pointlike AND coordinates match
-  equals(point) {
-
-    // return false if nobody home
-    if (arguments.length === 0){
-      return false;
-    }
-
-    // return true if:
-    //1. you pass the isPointLike validator
-    //2. AND your coordinates match
-    if (Point.isPointLike(point)) {
-      return this.x === point.x
-          && this.y === point.y;
-      }
-
-    else {
-      return false;
-    }
-  }
-
-
-  // Return a NEW `Point` converted to integers.
+  // Return a NEW `Point` converted to integers via `Math.floor()`.
   integerize() {
     return new Point(
       Math.floor(this.x),
@@ -78,90 +70,51 @@ export default class Point {
     );
   }
 
+  // Return the inverse of this point
+  invert() {
+    return new Point(-this.x, -this.y);
+  }
+
+  // Return true if coordinates match
+  equals(point) {
+    if (!Point.isPointLike(point)) return false;
+    return this.x === point.x && this.y === point.y;
+  }
+
   // Delta between this point and another point as a new Point.
   delta(point) {
-    return Point.delta(this, point);
+    return this.subtract(point);
   }
 
   // Add another point to us.
   add(point) {
-    return Point.add(this, point);
+    if (!Point.isPointLike(point)) return undefined;
+    return new Point(this.x + point.x, this.y + point.y);
   }
 
   // Subtract another point from us.
   subtract(point) {
-    return Point.subtract(this, point);
-  }
-
-  // Return the inverse of this point
-  invert() {
-    return Point.invert(this);
-  }
-
-  // Size of this point if treated as a vector.
-  get size() {
-    return Math.max( Math.abs(this.x), Math.abs(this.y) );
+    if (!Point.isPointLike(point)) return undefined;
+    return new Point(this.x - point.x, this.y - point.y);
   }
 
   //////////////////////////////
-  //  Static Math-y stuff
+  //  Validate point & point-like objects
   //////////////////////////////
-
-  // Return a new point which represents the delta between two points.
-  static delta(point1 = new Point(), point2 = new Point()) {
-    return new Point(point1.x - point2.x, point1.y - point2.y);
-  }
-
-  // Return a new point which adds the two points together.
-  static add(point1 = new Point(), point2 = new Point()) {
-    return new Point(point1.x + point2.x, point1.y + point2.y);
-  }
-
-  // Return a new point which subtracts the second point from the first.
-  static subtract(point1 = new Point(), point2 = new Point()) {
-    return new Point(point1.x - point2.x, point1.y - point2.y);
-  }
-
-  // Return the inverse of this point
-  static invert(point = new Point()) {
-    return new Point( -point.x, -point.y);
-  }
-
-  //////////////////////////////
-  //  Validate
-  //////////////////////////////
-
-  //if argument is null, return false".
-  // Return true if the thing looks, tastes, and acts like a point
   static isPointLike(thing) {
-    // return false if noone is home
-    if (arguments.length === 0){
-      return false;
-    }
+    // RETURNS true if exactly what we want
+    if (thing instanceof Point) return true;
 
-    // return false if your something undefined, return false
-    // previously isPointLike caused an error when passed an undefined object
-    if (typeof thing === 'undefined'){
-      return false;
-    }
-
-    // hey, if a thing exists AND if the thing is a point, then we're good
-    if (arguments.length === 1 && arguments[0] instanceof Point) {
-    //if (thing instanceof Point) {
-      return true;
-    }
-
-    // hey thing-that's-not-a-point, are you point-like with valid xy?
-    else if (((typeof thing.x === 'number' )  // let all numbers pass (including NaN)
-          && (typeof thing.y === 'number' ))
-          && ((thing.x === thing.x)           // filter out NaN numbers
-          && (thing.y === thing.y))){
-      return true;
-    }
-    // sorry thing
-    else {
-      return false;
-    }
+    //////////////////////
+    // RETURNS true if its kinda-like what we want, that is:
+    //    has properties x,y oftype 'number' but not NaN numbers
+    // RETURNS false if thing is neither a point nor point-like,
+    //    or is empty string, undefined, NaN, null
+    return !!thing
+      && typeof thing.x === "number"
+      && !isNaN(thing.x)
+      && typeof thing.y === "number"
+      && !isNaN(thing.y);
   }
 
   //////////////////////////////
@@ -169,6 +122,6 @@ export default class Point {
   //////////////////////////////
 
   toString() {
-    return `${this.x},${this.y}`;
+    return `<Point ${this.x},${this.y}>`;
   }
 }

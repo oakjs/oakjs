@@ -1,167 +1,610 @@
-/*
+/* eslint-env node, mocha */
 import "babel-core/external-helpers";
 
-var chai   = require('chai');
-var expect = chai.expect;
+let chai  = require('chai');
+
+chai.should();
+chai.expect();
 
 import Point from '../src/oak-roots/Point';
 
-// max and mins for cordinate system
-var MAX_X = 200;
-var MIN_X = 200;  // absolute value
-var MAX_Y = 200;
-var MIN_Y = 200;  // absolute value
+describe('Point', () => {
 
-var pointInstance;
-var clonedPoint;
-var cordinate = [];
-var getCordinate = [];
-var askIsOrigin;
+  testConstructor();
+  test_clone();
 
-describe('The Point.js module', function(){
-  it('will return no error if it is successfully imported', function(){
-    expect(1).to.be.deep.equal(1);
-  });
+  test_left();
+  test_top();
+  test_isOrigin();
+  test_style();
+  test_size();
+
+  test_integerize();
+  test_invert();
+
+  test_equals();
+  test_delta();
+  test_add();
+  test_subtract();
+
+  test_toString();
+
+  test_isPointLike();
 });
 
-describe("The Point.js class", function(){
-  pointInstance = new Point(0,0);
-  it('will return no error if an instance is generated', function(){
-    expect(pointInstance.x).to.be.deep.equal(0);
-  });
-});
+function test_style () {
+  describe('#style', () => {
+    let point1,
+        point1Style,
+        point2,
+        point2Style;
 
-describe("An instance of the Point class", function(){
-  var nextPointInstance;
-  var randX;
-  var randY;
+    beforeEach(() =>  {
+      point1 = new Point(50,100);
+      point1Style = point1.style;
+      point2 = new Point(-500,-700);
+      point2Style = point2.style;
+    });
+
+    it("returns a point's cordinates as key/value pairs for CSS style 'left' and 'right'", () => {
+      (point1Style.left).should.equal(50);
+      (point1Style).should.have.all.keys('left', 'top');
+    });
+
+    it("returns a point's exact cordinates as 'left' and 'right' values", () => {
+      (point2Style.left).should.equal(-500);
+      (point2Style.top).should.equal(-700);
+    });
+  });
+}
+
+function test_integerize () {
+  describe('#integerize', () => {
+    // max and mins for cordinate system
+   let MAX_X = 200,
+       MIN_X = 200,  // absolute value
+       MAX_Y = 200,
+       MIN_Y = 200,  // absolute value
+       point,
+       integerizedPoint,
+       cordinate = [];
+
+    beforeEach(() => {
+      cordinate = [(Math.random()*MAX_X*2)-MIN_X, (Math.random()*MAX_Y*2)-MIN_Y];
+      point = new Point(cordinate[0],cordinate[1]);
+      integerizedPoint = point.integerize();
+    });
+
+    it("returns a NEW 'Point' converted to integers", () => {
+      (integerizedPoint.left).should.equal(Math.floor(point.left));
+    });
+
+    it("removes decimals from the objects x,y cordinates", () => {
+      (integerizedPoint.top).should.not.equal(point.top);
+    });
+  });
+}
+
+function test_invert () {
+  describe('#invert', () => {
+    let point;
+    let point2;
+    let pointNaN;
+    let pointNaN2;
+    let not_a_point;
+
+    beforeEach(() => {
+      point = new Point(50,100);
+      point2 = point.invert();
+      pointNaN = new Point(NaN, NaN);
+      pointNaN2 = pointNaN.invert();
+    });
+
+    it('returns the inverse of an x,y point location', () => {
+      (point.x).should.equal(point2.x*-1);
+      (point.y).should.equal(point2.y*-1);
+    });
+
+    it('returns the inverse of null point location', () => {
+      (pointNaN.x).should.equal(pointNaN2.x*-1);
+      (pointNaN.y).should.equal(pointNaN2.y*-1);
+    });
+  });
+}
+
+function test_subtract () {
+  describe('#subtract', () => {
+    let point1,
+        point2,
+        point3,
+        pointNull      = 1,
+        emptyObj       = {},
+        emptyReturnObj = 1;
+
+    beforeEach(() => {
+      point1 = new Point (30,40);
+      point2 = new Point (60,80);
+      point3 = point1.subtract(point2);
+    });
+
+    it('returns undefined when passed an object that is null', () => {
+      pointNull = point1.subtract(null);
+      (typeof pointNull).should.equal('undefined');
+    });
+
+    it('returns undefined when passed an object containing invalid properties', () => {
+      emptyReturnObj = point2.subtract(emptyObj);
+      (typeof emptyReturnObj).should.equal('undefined');
+    });
+
+    it('returns undefined when passed a string', () => {
+      var returnString = point1.subtract("wussup");
+      (typeof returnString).should.equal('undefined');
+    });
+
+    it('returns a new point object when passed a point obj', () => {
+      var point4 = point1.subtract(point2);
+      (typeof point4).should.equal('object');
+    });
+
+    it('returns a point whose x property is the sum of point1.x & point2.x', () => {
+      var point5 = point1.subtract(point2);
+      (point5.x).should.equal(point1.x - point2.x);
+    });
+
+    it('returns a point whose y property is the sum of point1.y & point2.y', () => {
+      var point6 = point1.subtract(point2);
+      (point6.y).should.equal(point1.y - point2.y);
+    });
+
+  });
+}
+
+function test_add () {
+  describe('#add', () => {
+    let point1;
+    let point2;
+    let point3;
+    let pointNull;
+
+    beforeEach(() => {
+      point1 = new Point (30,40);
+      point2 = new Point (60,80);
+      point3 = point1.add(point2);
+      pointNull = point1.add(null);
+    });
+
+    it('returns undefined when passed an object that is null', () => {
+      (typeof pointNull).should.equal('undefined');
+    });
+
+    it('returns undefined when passed a number', () => {
+      (typeof point1.add(10)).should.equal('undefined');
+    });
+
+    it('returns a new point-like object when given a point-Like object', () => {
+      (Point.isPointLike(point3)).should.equal(true);
+    });
+
+    it('returns a new point whose x-cordinate is the sum of the x-cordinates of both input points', () => {
+      (point3.x).should.equal(point1.x + point2.x);
+    });
+
+    it('returns a new point whose y-cordinate is the sum of the y-cordinates of both input points', () => {
+      (point3.y).should.equal(point1.y + point2.y);
+    });
+
+  });
+}
+
+function test_isPointLike () {
+  let testTypeStr,
+      testTypeBool,
+      testTypeFun,
+      testTypeSym,
+      testTypeNum,
+      testTypeNumIsNaN,
+      testTypeObjIsNull,
+      point,
+      point1,
+      point2,
+      pointThingObject,
+      pointThingOneObject,
+      pointThingOtherObject,
+      pointThing,
+      pointThingString,
+      pointThingOneString,
+      pointThingOtherString,
+      pointThingNaN,
+      pointThingOneNaN,
+      pointThingOtherNaN,
+      pointThingUndefined,
+      pointThingOneUndefined,
+      pointThingOtherUndefined,
+      x,
+      y;
+
   beforeEach(() => {
-      randX = (Math.random()*MAX_X*2)-MIN_X;      // generates x-cordinate between MIN_X and MAX_X
-      randY = (Math.random()*MAX_Y*2)-MIN_Y;      // generates y-cordinate between MIN_Y and MAX_Y
-      nextPointInstance = new Point(randX,randY);
-   });
-   it("has valid x cordinate within max range of x", function(){
-     expect(nextPointInstance.x).to.be.a('number');
-     expect(nextPointInstance.x).to.be.deep.equal(randX);
-     expect(nextPointInstance.x).to.be.below(MAX_X);
-   });
-   it("has valid y cordinate within max range y", function(){
-     expect(nextPointInstance.y).to.be.a('number');
-     expect(nextPointInstance.y).to.be.deep.equal(randY);
-     expect(nextPointInstance.y).to.be.below(MAX_Y);
-   });
-});
-
-describe("An instance of the Point class created with 1 or more NaNs as an argument", function(){
-  var nanPointInstance;
-  beforeEach(() => {
-    nanPointInstance = new Point(0/0,NaN);
+    //console.log('\t',);
+    //point      = new Point(100, 150);
+    //pointThing = { x: 5, y: 500 };
+    //pointThingString = { x: 'timeX', y: 'forY' };
+    //pointThingNaN = { x: NaN, y: NaN };
+    //pointThingUndefined = { x: undefined, y: undefined };
   });
-   it("has NaN in x parameter replaced by zero", function(){
-     expect(nanPointInstance.x).to.be.a('number');
-     expect(nanPointInstance.x).to.be.deep.equal(0);
-     expect(nanPointInstance.x).to.be.below(1);
-   });
-   it("has NaN in y parameter replaced by zero", function(){
-     expect(nanPointInstance.y).to.be.a('number');
-     expect(nanPointInstance.y).to.be.deep.equal(0);
-     expect(nanPointInstance.y).to.be.below(1);
-   });
-});
 
-describe("An instance of the Point class created with 1 or more strings as arugments", function(){
-  var nanPointInstance;
-  beforeEach(() => {
-    nanPointInstance = new Point('stringX','stringY');
+  describe('\n--------\n#isPointLike\n', () => {
+
+    describe('returns false if given...', () => {
+
+      it('no argument', () => {
+        (Point.isPointLike()).should.equal(false);
+      });
+
+      it('an undefined argument\n', () => {
+        let boom;
+        (Point.isPointLike(boom)).should.equal(false);
+      });
+    });
+
+    describe('returns true if given...', () => {
+      it('an instance of Point class\n', () => {
+        point = new Point(100, 150);
+        (Point.isPointLike(point)).should.equal(true);
+      });
+    });
+
+    describe('returns true if given...', () => {
+      it('a Point-like object with valid x AND y coordinates\n', () => {
+        pointThing = { x: 5, y: 500 };
+        (Point.isPointLike(pointThing)).should.equal(true);
+      });
+    });
+
+    describe('returns false if passed an argument of type...', () => {
+
+      it('string', () => {
+        testTypeStr = 'testArgumentAsString';
+        (Point.isPointLike(testTypeStr)).should.equal(false);
+      });
+
+      it('boolean', () => {
+        testTypeBool = true;
+        (Point.isPointLike(testTypeBool)).should.equal(false);
+      });
+
+      it('function', () => {
+        testTypeFun = function(){};
+        (Point.isPointLike(testTypeFun)).should.equal(false);
+      });
+
+      it('number', () => {
+        testTypeNum = 10;
+        (Point.isPointLike(testTypeNum)).should.equal(false);
+      });
+
+      it('number is NaN', () => {
+        testTypeNumIsNaN = NaN;
+        (Point.isPointLike(testTypeNum)).should.equal(false);
+      });
+
+      it('Object is NULL\n', () => {
+        testTypeObjIsNull = null;
+        (Point.isPointLike(testTypeObjIsNull)).should.equal(false);
+      });
+
+    });
+
+    describe('returns false if given a Point-like object with...', () => {
+
+      it('strings for both x AND y coordinates', () => {
+        pointThingString = { x: 'timeX', y: 'forY' };
+        (Point.isPointLike(pointThingString)).should.equal(false);
+      });
+
+      it('strings for either x OR y coordinates', () => {
+        pointThingOneString = { x: 'timeXOnly', y: 10 };
+        (Point.isPointLike(pointThingOneString)).should.equal(false);
+        pointThingOtherString = { x: 10, y: 'forYOnly' };
+        (Point.isPointLike(pointThingOtherString)).should.equal(false);
+      });
+
+      it('NaN for the x coordinate', () => {
+        pointThingNaN = { x: NaN, y: 21 };
+        (Point.isPointLike(pointThingNaN)).should.equal(false);
+      });
+
+      it('NaN for the y coordinate', () => {
+        pointThingNaN = { x: 21, y: NaN };
+        (Point.isPointLike(pointThingNaN)).should.equal(false);
+      });
+
+      it('NaN for both x AND y coordinates', () => {
+        pointThingNaN = { x: NaN, y: NaN };
+        (Point.isPointLike(pointThingNaN)).should.equal(false);
+      });
+
+      it('NaN for either x OR y coordinates', () => {
+        pointThingOneNaN = { x: NaN, y: 200 };
+        (Point.isPointLike(pointThingOneNaN)).should.equal(false);
+        pointThingOtherNaN = { x: 127, y: NaN };
+        (Point.isPointLike(pointThingOtherNaN)).should.equal(false);
+      });
+
+      it('Undefined for the x coordinate', () => {
+        pointThingOneUndefined = { x: undefined, y: 301 };
+        (Point.isPointLike(pointThingOneUndefined)).should.equal(false);
+      });
+
+      it('Undefined for the y coordinates', () => {
+        pointThingOtherUndefined = { x: 287, y: undefined };
+        (Point.isPointLike(pointThingOtherUndefined)).should.equal(false);
+      });
+
+      it('Undefined for both x AND y coordinates', () => {
+        pointThingUndefined = { x: undefined, y: undefined };
+        (Point.isPointLike(pointThingUndefined)).should.equal(false);
+      });
+
+      it('Undefined for either x OR y coordinates', () => {
+        pointThingOneUndefined = { x: undefined, y: 301 };
+        (Point.isPointLike(pointThingOneUndefined)).should.equal(false);
+        pointThingOtherUndefined = { x: 287, y: undefined };
+        (Point.isPointLike(pointThingOtherUndefined)).should.equal(false);
+      });
+
+      it('point objects for both x AND y coordinates', () => {
+        point1 = new Point(99, 79);
+        point2 = new Point(79, 99);
+        pointThingObject = { x: point1, y: point2 };
+        (Point.isPointLike(pointThingObject)).should.equal(false);
+      });
+
+      it('point objects for either x OR y coordinates\n', () => {
+        point1 = new Point(99, 79);
+        point2 = new Point(79, 99);
+        pointThingOneObject = { x: point1, y: 10 };
+        (Point.isPointLike(pointThingOneObject)).should.equal(false);
+        pointThingOtherObject = { x: 45, y: point2 };
+        (Point.isPointLike(pointThingOtherObject)).should.equal(false);
+      });
+    });
+
   });
-   it("returns an error if x-cordinate is a string", function(){
-     expect(nanPointInstance.x).to.not.be.a('number');
-     expect(nanPointInstance.x).to.not.be.deep.equal(0);
-     expect(nanPointInstance.x).to.not.be.below(1);
-     expect(nanPointInstance.x).to.be.a('string');
-   });
-   it("returns an error if y-cordinate is a string", function(){
-     expect(nanPointInstance.y).to.not.be.a('number');
-     expect(nanPointInstance.y).to.not.be.deep.equal(0);
-     expect(nanPointInstance.y).to.not.be.below(1);
-     expect(nanPointInstance.y).to.be.a('string');
-   });
-});
+}
 
+function test_delta () {
+  describe('#delta', () => {
+    let thisPoint,
+        otherPoint,
+        samePoint,
+        newPoint,
+        pointNull,
+        emptyObj       = {},
+        emptyReturnObj = 1;
 
-describe("The clone() method of a Point object", function(){
-  beforeEach(() => {
-    cordinate = [(Math.random()*MAX_X*2)-MIN_X, (Math.random()*MAX_Y*2)-MIN_Y];
-    pointInstance = new Point(cordinate[0],cordinate[1]);
-    clonedPoint = pointInstance.clone();
+    beforeEach(() => {
+      thisPoint  = new Point(100, 150);
+      otherPoint = new Point(200, 250);
+      samePoint  = new Point(100, 150);
+      newPoint   = thisPoint.delta(otherPoint);
+    });
+
+    it('returns undefined when passed an object that is null', () => {
+      pointNull = thisPoint.delta(null);
+      (typeof pointNull).should.equal('undefined');
+    });
+
+    it('returns undefined when passed an object containing invalid properties', () => {
+      emptyReturnObj = otherPoint.delta(emptyObj);
+      (typeof emptyReturnObj).should.equal('undefined');
+    });
+
+    it('returns undefined when passed a string', () => {
+      var returnString = samePoint.delta("wussup");
+      (typeof returnString).should.equal('undefined');
+    });
+
+    // test correct inputs
+    it('returns a new object', () => {
+      (typeof thisPoint.delta(otherPoint)).should.equal('object');
+    });
+
+    it('returns a new instance of Point class', () => {
+      (thisPoint.delta(otherPoint) instanceof Point).should.equal(true);
+    });
+
+    it('returns a point whose x cordinate is the delta between the 2 points ', () => {
+      (newPoint.x).should.equal(thisPoint.x - otherPoint.x);
+    });
   });
-   it("creates and returns a new point object at the same x-cordinate", function(){
-     expect(clonedPoint.x).to.be.a('number');
-     expect(clonedPoint.x).to.be.deep.equal(pointInstance.x);
-     expect(clonedPoint.x).to.not.be.below(cordinate[0]);
-     console.log("\n\twhen point.x = " + pointInstance.x + ", clonedPoint.x = " + clonedPoint.x);
-   });
-   it("creates and returns a new point object at the same y-cordinate ", function(){
-     expect(clonedPoint.y).to.be.a('number');
-     expect(clonedPoint.y).to.be.deep.equal(pointInstance.y);
-     expect(clonedPoint.y).to.not.be.below(cordinate[1]);
-     expect(clonedPoint.y).to.be.below(MAX_Y);
-     console.log("\n\twhen point.y = " + pointInstance.y + ", clonedPoint.y = " + clonedPoint.y);
-   });
-});
+}
 
+function testConstructor () {
+  describe('#constructor()', () => {
+    it('executes with two numerical arguments', () => {
+        let point = new Point(30,40);
+        chai.expect(point.left);
+      });
+    it('executes when either argument is NaN', () => {
+        let point = new Point(NaN,40);
+        chai.expect(point.left);
+      });
+    it('executes when invoked with neither x nor y parameter', () => {
+        let point = new Point();
+        (point.left).should.equal(0);
+      });
+    });
+}
 
-describe("The left() getter of a Point object", function(){
-  beforeEach(() => {
-    cordinate = [(Math.random()*MAX_X*2)-MIN_X, (Math.random()*MAX_Y*2)-MIN_Y];
-    pointInstance = new Point(cordinate[0],cordinate[1]);
-    getCordinate[0] = pointInstance.left;
+function test_clone () {
+  describe('#clone', () => {
+    // max and mins for cordinate system
+   let MAX_X = 200,
+       MIN_X = 200,  // absolute value
+       MAX_Y = 200,
+       MIN_Y = 200,  // absolute value
+       point,
+       clonedPoint,
+       cordinate = [];
+
+    beforeEach(() => {
+      cordinate = [(Math.random()*MAX_X*2)-MIN_X, (Math.random()*MAX_Y*2)-MIN_Y];
+      point = new Point(cordinate[0],cordinate[1]);
+      //point = new Point(100,200);
+      clonedPoint = point.clone();
+    });
+
+    it('returns a new Point object', () => {
+      (typeof clonedPoint).should.equal('object');
+    });
+
+    it('creates new object at same x,y location', () => {
+      (point.left).should.equal(clonedPoint.left);
+      (clonedPoint.top).should.equal(cordinate[1]);
+    });
   });
-   it("returns the Point's x-cordinate property ", function(){
-     expect(getCordinate[0]).to.be.a('number');
-     expect(getCordinate[0]).to.be.deep.equal(pointInstance.x);
-     expect(getCordinate[0]).to.be.below(MAX_X);
-   });
-});
+}
 
+function test_left () {
+  describe('#left', () => {
+    let point;
 
-describe("The top() getter of a Point object", function(){
-  beforeEach(() => {
-    cordinate = [(Math.random()*MAX_X*2)-MIN_X, (Math.random()*MAX_Y*2)-MIN_Y];
-    pointInstance = new Point(cordinate[0],cordinate[1]);
-    getCordinate[1] = pointInstance.top;
+    beforeEach(() => {
+      point = new Point(10,20);
+    });
+
+    it('returns the x-cordinate', () => {
+      point.left.should.equal(10);
+    });
+
+    it('can not be changed', () => {
+      (1).should.equal(1);
+      (() => {point.left = 1000}).should.throw(Error);
+    });
   });
-   it("returns the Point's y-cordinate ", function(){
-     expect(getCordinate[1]).to.be.a('number');
-     expect(getCordinate[1]).to.be.deep.equal(pointInstance.y);
-     expect(getCordinate[1]).to.be.below(MAX_Y);
-   });
-});
+}
 
-describe("The isOrigin() getter of a Point object", function(){
-  var checkArrayLength = [];
-  beforeEach(() => {
-    pointInstance = new Point(0,0);
-    askIsOrigin = pointInstance.isOrigin;
-  });
-   it("returns true if the Point's x,y cordinates are 0,0 ", function(){
-     expect(askIsOrigin).to.be.equal(true);
-     expect(askIsOrigin).to.be.a('boolean');
-     expect(pointInstance.top).to.be.deep.equal(0);
-     expect(pointInstance.left).to.be.deep.equal(0);
-   });
-});
+function test_top () {
+  describe('#top', () => {
+    let point;
 
-describe("The isOrigin() getter of a Point object", function(){
-  var checkArrayLength = [];
-  beforeEach(() => {
-    pointInstance = new Point(-10,10);
-    askIsOrigin = pointInstance.isOrigin;
+    beforeEach(() => {
+      point = new Point(10,20);
+    });
+
+    it('returns the y-cordinate', () => {
+      point.top.should.equal(20);
+    });
+
+    it('can not be changed', () => {
+      (() => {point.top = 1000}).should.throw(Error);
+    });
   });
-   it("returns false if the Point is outside of the origin (0,0)) ", function(){
-     expect(askIsOrigin).to.not.be.equal(true);
-     expect(askIsOrigin).to.be.a('boolean');
-     expect(pointInstance.top).to.be.a('number');
-   });
-});
-*/
+}
+
+function test_isOrigin () {
+  describe('#isOrigin', () => {
+    let point;
+    let point1;
+    let point2;
+
+    beforeEach(() => {
+      point = new Point(0,0);
+      point1 = new Point(NaN);
+      point2 = new Point(10,'this');
+    });
+
+    it("returns true if Point's location is 0,0", () => {
+      point.isOrigin.should.equal(true);
+    });
+
+    it("returns true if 'NaN' is passed on contruction ", () => {
+      point1.isOrigin.should.equal(true);
+    });
+
+    it("returns false if Point's location is other than 0,0", () => {
+      point2.isOrigin.should.equal(false);
+    });
+  });
+}
+
+function test_equals () {
+  describe('#equals', () => {
+    let thisPoint,
+        otherPoint,
+        samePoint;
+
+    beforeEach(() => {
+      thisPoint  = new Point(100, 150);
+      otherPoint = new Point(200, 250);
+      samePoint  = new Point(100, 150);
+    });
+
+    // test correct inputs
+    it("returns true when point1 and this.point share the same xy coordinates  ", () => {
+      (thisPoint.equals(samePoint)).should.equal(true);
+    });
+
+    it("returns false when point1's and this.point's xy coordinates do NOT match ", () => {
+      (thisPoint.equals(otherPoint)).should.equal(false);
+    });
+
+    // test malformed inputs
+    it("returns false when no input is given ", () => {
+      (thisPoint.equals()).should.equal(false);
+    });
+
+    it("returns false when passing a NaN ", () => {
+      (thisPoint.equals(NaN)).should.equal(false);
+    });
+
+    it("returns false when passing a string ", () => {
+      (thisPoint.equals('Hello, I am not a point')).should.equal(false);
+    });
+
+    it("returns false when passing a number", () => {
+      (otherPoint.equals(10)).should.equal(false);
+    });
+
+  });
+}
+
+function test_size () {
+  describe('#size', () => {
+    let point;
+    let mag;
+
+    beforeEach(() => {
+      point = new Point(50, 100);
+      mag = point.size;
+    });
+
+    it('converts point cordinates into a vector and returns its magnitude.', () => {
+      (mag).should.be.a('number');
+    });
+    it('returns a positive integer', () => {
+      (mag).should.be.at.least(0);
+    });
+  });
+}
+
+function test_toString () {
+  describe('\n#toString', () => {
+    let point;
+    let cordinateString;
+
+    beforeEach(() => {
+      point = new Point(50, 100);
+      cordinateString = point.toString();
+    });
+
+    it('converts cordinates as strings.', () => {
+      (cordinateString).should.be.a('string');
+    });
+
+    it("returns string equivelant of Point's x,y cordinates.", () =>  {
+      (cordinateString).should.equal('<Point 50,100>');
+    });
+  });
+}
